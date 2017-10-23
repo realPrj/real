@@ -54,7 +54,7 @@ public class StudentManagement extends TransactionExe {
 		case 6:	// 나의 정보 수정
 			mav = lnformationChange(((MemberBean)object));
 			break;
-			
+
 		case 7:	// 비밀번호 수정
 			mav = studentInfoPWDUpdate(((MemberBean)object));
 			break;
@@ -74,7 +74,7 @@ public class StudentManagement extends TransactionExe {
 	}
 
 	private ModelAndView login(MemberBean member) {	// 로그인
-		
+
 		boolean transaction = false;
 
 		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
@@ -143,7 +143,7 @@ public class StudentManagement extends TransactionExe {
 				member.setStateCode("1");
 
 				if(dao.stCodeCheck(member) == 0) {	// 학생코드 유무
-					
+
 					if(dao.stJoin(member) != 0) {	// 인설트
 
 						page ="login";
@@ -162,7 +162,7 @@ public class StudentManagement extends TransactionExe {
 						mav.addObject("message", "alert('회원가입 실패 하셨습니다.')");
 
 					}
-					
+
 				}else {	// 학생코드 있음
 					page ="login";
 					mav.addObject("identity", "2");
@@ -294,7 +294,7 @@ public class StudentManagement extends TransactionExe {
 		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
 
 		try {
-			
+
 			member.setStudentCode(((String)session.getAttribute("stCode")));
 
 			if(dao.stInformationChange(member) != 0) {
@@ -307,10 +307,10 @@ public class StudentManagement extends TransactionExe {
 				mav.addObject("message","alert('나의정보 실패되셨습니다.')");
 				transaction = true;
 			}
-			
+
 
 		}catch(Exception ex) {
-			
+
 		}finally {
 
 			setTransactionResult(transaction);
@@ -361,7 +361,7 @@ public class StudentManagement extends TransactionExe {
 
 		return mav;
 	}
-	
+
 	private ModelAndView studentInfoPWDUpdate(MemberBean member) {	// 비밀번호 수정
 
 		boolean transaction = false;
@@ -369,7 +369,7 @@ public class StudentManagement extends TransactionExe {
 		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
 
 		try {
-			
+
 			member.setStudentCode((String)session.getAttribute("stCode"));
 			member.setPwd(enc.encode(member.getPwd()));
 
@@ -382,9 +382,9 @@ public class StudentManagement extends TransactionExe {
 				mav.addObject("message","alert('비밀번호 수정 실패되셨습니다.')");
 				transaction = true;
 			}
-			
+
 		}catch(Exception ex) {
-			
+
 		}finally {
 
 			setTransactionResult(transaction);
@@ -392,13 +392,10 @@ public class StudentManagement extends TransactionExe {
 
 		return mav;
 	}
-	
+
 	private ModelAndView learningJoin(LearningRoomBean room) {	// 학습방 참여 및 조회
 
-		mav = new ModelAndView();
-
 		boolean transaction = false;
-		String page = null;
 		ArrayList<LearningRoomBean> al = new ArrayList<LearningRoomBean>();
 		StringBuffer sb = new StringBuffer();
 
@@ -409,6 +406,8 @@ public class StudentManagement extends TransactionExe {
 			if(room.getRoomCode() == null) {	// 조회
 
 				if(dao.tclearningRoomCheck(room) != 0) {
+					mav = new ModelAndView();
+
 					al = dao.learningGet(room);
 
 					for(int i=0; i < al.size(); i++) {
@@ -418,10 +417,11 @@ public class StudentManagement extends TransactionExe {
 
 					mav.addObject("id", room.getId());
 					mav.addObject("content", sb.toString());
-					page = "";
+					mav.setViewName("studentLearningJoin");
 				}else {
+					mav = new ModelAndView();
 					mav.addObject("message", "alert('선생님의 학습방이 없거나 잘못된 아이디 입니다..')");
-					page = "";
+					mav.setViewName("studentLearningJoin");
 				}
 
 			}else {	// 인설트
@@ -429,14 +429,14 @@ public class StudentManagement extends TransactionExe {
 				room.setStudentCode((String)session.getAttribute("stCode"));
 
 				if(dao.stLearningJoin(room) != 0) {
-					page = "studentMain";
+					mav = pm.entrance(2, null);
 					mav.addObject("message", "alert('학습방에 참여 되셨습니다.')");
 					transaction = true;
 
 					// 동적으로 과목 보여줘야함
 
 				}else {
-					page = "studentMain";
+					mav = pm.entrance(2, null);
 					mav.addObject("message", "alert('학습방에 참여 하실 수 없습니다.')");
 					transaction = true;
 				}
@@ -446,7 +446,6 @@ public class StudentManagement extends TransactionExe {
 		}catch(Exception ex) {
 
 		}finally {
-			mav.setViewName(page);
 			setTransactionResult(transaction);
 		}
 

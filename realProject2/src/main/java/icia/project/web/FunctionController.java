@@ -208,9 +208,9 @@ public class FunctionController {
 	public ModelAndView  learningJoin(LearningRoomBean room) {
 
 		if(room.getRoomCode() == null) {	// 학습방 조회
-			mav = sm.entrance(8, room);
+			mav = sm.entrance(9, room);
 		}else {	// 학습방 인설트
-			mav = sm.entrance(8, room);
+			mav = sm.entrance(9, room);
 		}
 
 		return mav;

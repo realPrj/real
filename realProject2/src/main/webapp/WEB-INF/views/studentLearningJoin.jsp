@@ -53,7 +53,7 @@ function learningJoin(ivalue){
 
 	createForm("learningJoinform","learningJoin","post");
 	
-	var form = document.getElementsByName(formname)[0];
+	var form = document.getElementsByName("learningJoinform")[0];
 	
 	form.appendChild(roomCode);
 	
