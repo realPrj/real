@@ -114,7 +114,7 @@
 	<update id="tcInformationChange" parameterType="member">
 		UPDATE TEACHER
 		SET
-		TC_PWD=#{pwd},TC_NAME=#{name},TC_EMAIL=#{email},TC_PHONE=#{phone}
+		TC_NAME=#{name},TC_EMAIL=#{email},TC_PHONE=#{phone}
 		WHERE TC_ID=#{id}
 	</update>
 

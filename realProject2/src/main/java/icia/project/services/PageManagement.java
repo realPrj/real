@@ -153,7 +153,7 @@ public class PageManagement extends TransactionExe {
 				sb.append("아이디");
 				sb.append("</td>");
 				sb.append("<td>");
-				sb.append("<input type=\"text\" value='"+member.getId()+"' readonly>");
+				sb.append("<input type=\"text\" name='id' value='"+member.getId()+"' readonly>");
 				sb.append("</td>");
 				sb.append("</tr>");
 				sb.append("<tr>");

@@ -23,6 +23,7 @@ function createForm(formname,formaction,formmethod){
 
 function eventClick(formname,formaction,formmethod){	
 
+	var id = document.getElementsByName("id")[0];
 	var name = document.getElementsByName("name")[0];
 	var email = document.getElementsByName("email")[0];
 	var phone = document.getElementsByName("phone")[0];
@@ -31,6 +32,7 @@ function eventClick(formname,formaction,formmethod){
 	
 	var form = document.getElementsByName(formname)[0];
 	
+	form.appendChild(id);
 	form.appendChild(name);
 	form.appendChild(email);
 	form.appendChild(phone);
@@ -39,12 +41,26 @@ function eventClick(formname,formaction,formmethod){
 	
 }
 
+function pwdUP(formname,formaction,formmethod){	
+	
+	var id = document.getElementsByName("id")[0];
+
+	createForm(formname,formaction,formmethod);
+	
+	var form = document.getElementsByName(formname)[0];
+	
+	form.appendChild(id);
+	
+	form.submit();
+	
+}
+
 </script>
-<body>
+<body onLoad="${message}">
 <input type="button" value="로그아웃" onClick="" />
 <input type="button" value="메인으로" onClick="" />
 ${content }
-<input type="button" value="비밀번호 수정" onClick="" />
+<input type="button" value="비밀번호 수정" onClick="pwdUP('teacherInfoPWDUpdatePageform','teacherInfoPWDUpdatePage','post')" />
 <input type="button" value="나의정보 수정" onClick="eventClick('teacherInfoUpdatePageform','teacherInfoUpdatePage','post')" />
 <input type="button" value="회원탈퇴" onClick="" />
 </body>

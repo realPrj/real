@@ -23,6 +23,7 @@ function createForm(formname,formaction,formmethod){
 
 function eventClick(formname,formaction,formmethod){	
 
+	var id = document.getElementsByName("id")[0];
 	var name = document.getElementsByName("name")[0];
 	var email = document.getElementsByName("email")[0];
 	var phone = document.getElementsByName("phone")[0];
@@ -31,6 +32,7 @@ function eventClick(formname,formaction,formmethod){
 	
 	var form = document.getElementsByName(formname)[0];
 	
+	form.appendChild(id);
 	form.appendChild(name);
 	form.appendChild(email);
 	form.appendChild(phone);
@@ -56,5 +58,6 @@ function eventClick(formname,formaction,formmethod){
 </table>
 <input type="button" value="나의정보 수정" onClick="eventClick('teacherInfoUpdateform','teacherInfoUpdate','post')" />
 <input type="button" value="취소" onClick="" />
+<input type="hidden" name="id" value="${id }" />
 </body>
 </html>

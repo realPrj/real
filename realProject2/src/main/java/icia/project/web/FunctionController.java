@@ -189,11 +189,7 @@ public class FunctionController {
 	@RequestMapping(value = "/memberDelete", method = RequestMethod.POST)
 	public ModelAndView  memberDelete(MemberBean member) throws Exception {
 
-		String identity = null;
-		
-		identity = (String)session.getAttribute("identity");	// 신분	
-
-		switch(Integer.parseInt(identity)) {
+		switch((int)session.getAttribute("identity")) {
 
 		case 1:	// 선생님
 			mav = tm.entrance(7, null);
@@ -215,9 +211,9 @@ public class FunctionController {
 	
 	// 선생님 나의정보 수정
 	@RequestMapping(value = "/teacherInfoUpdate", method = RequestMethod.POST)
-	public ModelAndView  teacherInfoUpdate(LearningRoomBean room) {
+	public ModelAndView  teacherInfoUpdate(MemberBean member) {
 
-		mav = tm.entrance(8, room);
+		mav = tm.entrance(9, member);
 
 		return mav;
 	}

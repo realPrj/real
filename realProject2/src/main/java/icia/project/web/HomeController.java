@@ -37,19 +37,9 @@ public class HomeController  {
 		return mav;
 	}
 
-	// ajax 테스트
-	@RequestMapping(value = "/ajaxTest", method = RequestMethod.GET)
-	public String start() {
-
-		return "ajaxTest";
-	}
-
-
 	// 신분 선택(로그인 페이지 이동)
 	@RequestMapping(value = "/IdentificationCheck", method = RequestMethod.POST)
 	public ModelAndView identity(@ModelAttribute MemberBean member) {
-
-		mav = new ModelAndView();
 
 		mav.addObject("identity", member.getIdentity());
 		mav.setViewName("login");
@@ -60,8 +50,6 @@ public class HomeController  {
 	// 회원가입페이지
 	@RequestMapping(value = "/joinPage", method = RequestMethod.POST)
 	public ModelAndView joinPage(@ModelAttribute MemberBean member) {
-
-		mav = new ModelAndView();
 
 		switch(Integer.parseInt(member.getIdentity())) {
 
@@ -89,8 +77,6 @@ public class HomeController  {
 	@RequestMapping(value = "/idFindPage", method = RequestMethod.POST)
 	public ModelAndView idFindPage(@ModelAttribute MemberBean member) {
 
-		mav = new ModelAndView();
-
 		mav.addObject("identity", member.getIdentity());
 		mav.setViewName("findId");
 
@@ -109,12 +95,23 @@ public class HomeController  {
 	// 선생님 나의 정보 수정 페이지
 	@RequestMapping(value = "/teacherInfoUpdatePage", method = RequestMethod.POST)
 	public ModelAndView teacherInfoUpdatePage(@ModelAttribute MemberBean member) {
-		
 		mav = new ModelAndView();
 		
+		mav.addObject("id", member.getId());
 		mav.addObject("name", member.getName());
 		mav.addObject("email", member.getEmail());
 		mav.addObject("phone", member.getPhone());
+		mav.setViewName("teacherInfoUpdate");
+		
+		return mav;
+	}
+	
+	// 선생님 나의 정보 비밀번호 수정 페이지
+	@RequestMapping(value = "/teacherInfoPWDUpdatePage", method = RequestMethod.POST)
+	public ModelAndView teacherInfoPWDUpdatePage(@ModelAttribute MemberBean member) {
+		mav = new ModelAndView();
+		
+		mav.addObject("id", member.getId());
 		mav.setViewName("teacherInfoUpdate");
 		
 		return mav;
@@ -136,8 +133,6 @@ public class HomeController  {
 	// 학생 학습메뉴
 	@RequestMapping(value = "/stmenu", method = RequestMethod.POST)
 	public ModelAndView stMenu(@ModelAttribute MemberBean member) {
-
-		mav = new ModelAndView();
 
 		pm.entrance(Integer.parseInt(member.getCaCode()), member);
 

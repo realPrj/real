@@ -63,6 +63,10 @@ public class teacherManagement extends TransactionExe {
 		case 8:	// 학습방 개설
 			mav = learningOpen(((LearningRoomBean)object));
 			break;
+		
+		case 9:	// 나의정보 수정
+			mav = teacherInfoUpdate(((MemberBean)object));
+			break;
 
 		}
 
@@ -416,6 +420,35 @@ public class teacherManagement extends TransactionExe {
 		}catch(Exception ex) {
 			
 		}finally {
+			setTransactionResult(transaction);
+		}
+
+		return mav;
+	}
+	
+	private ModelAndView teacherInfoUpdate(MemberBean member) {	// 나의정보 수정
+
+		boolean transaction = false;
+
+		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
+
+		try {
+
+			if(dao.tcInformationChange(member) != 0) {
+				mav = pm.entrance(5, null);
+				mav.addObject("message","alert('나의정보 되셨습니다.')");
+				transaction = true;
+			}else {
+				mav = pm.entrance(5, null);
+				mav.addObject("message","alert('나의정보 실패되셨습니다.')");
+				transaction = true;
+			}
+			
+
+		}catch(Exception ex) {
+			
+		}finally {
+
 			setTransactionResult(transaction);
 		}
 
