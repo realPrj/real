@@ -20,7 +20,8 @@
 	<select id="stCodeCheck" resultType="Integer" parameterType="member">
 		SELECT COUNT(*)
 		FROM STUDENT
-		WHERE ST_RFSTUDENTCODE=#{studentCode} AND ST_STATECODE=#{stateCode}
+		WHERE ST_RFSTUDENTCODE=#{studentCode} AND
+		ST_STATECODE=#{stateCode}
 	</select>
 
 	<!-- 선생님 임시비밀번호 추출 -->
@@ -153,15 +154,33 @@
 		LR_TCID=#{id}
 	</select>
 
+	<!-- 학습방 추출 -->
+	<select id="tclearningRoomGet" resultType="room" parameterType="room">
+		SELECT LR_CODE AS roomCode, LR_NAME AS roomName, LR_CONTENT AS
+		roomIntroduction, LR_SBCODE AS roomSB
+		FROM LEARNINGROOM
+		WHERE
+		LR_TCID=#{id} ORDER BY LR_CODE ASC
+	</select>
+
 	<!-- 선생님 학습 개설 -->
 	<insert id="tclearningOpen" parameterType="room">
 		INSERT INTO
-		LEARNINGROOM(LR_TCID,LR_CODE,LR_NAME,LR_CONTENT)
-		VALUES(#{id},#{roomCode},#{roomName},#{roomIntroduction})
+		LEARNINGROOM(LR_TCID,LR_CODE,LR_NAME,LR_CONTENT,LR_SBCODE)
+		VALUES(#{id},#{roomCode},#{roomName},#{roomIntroduction},#{roomSB})
 	</insert>
 
+	<!-- 선생님 학습방 이동 -->
+	<select id="telearningRoomGo" resultType="room" parameterType="room">
+		SELECT LR_CODE AS roomCode, LR_NAME AS roomName, LR_CONTENT AS
+		roomIntroduction, LR_SBCODE AS roomSB
+		FROM LEARNINGROOM
+		WHERE
+		LR_CODE=#{roomCode}
+	</select>
+
 	<!-- 학습방 추출 -->
-	<select id="learningGet" resultType="room" parameterType="room">                     
+	<select id="learningGet" resultType="room" parameterType="room">
 		SELECT
 		LR_CODE AS roomCode, LR_NAME AS roomName
 		FROM LEARNINGROOM

@@ -63,7 +63,10 @@ public interface IMybatis {
 
 	// 선생님 학습코드 유무
 	public int tclearningCodeCheck(LearningRoomBean room);
-
+	
+	// 선생님 학습방 추출
+	public ArrayList<LearningRoomBean> tclearningRoomGet(LearningRoomBean room);
+	
 	// 학습방 유무
 	public int tclearningRoomCheck(LearningRoomBean room);
 
@@ -75,4 +78,7 @@ public interface IMybatis {
 
 	// 학생 학습참여
 	public int stLearningJoin(LearningRoomBean room);
+	
+	// 선생님 학습 페이지 이동
+	public LearningRoomBean telearningRoomGo(LearningRoomBean room);
 }

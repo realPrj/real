@@ -67,7 +67,7 @@ function menu(ivalue){
 </div>
 
 <div id="content">
-
+${content}
 </div>
 
 </body>
