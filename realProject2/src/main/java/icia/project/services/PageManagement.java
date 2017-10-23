@@ -45,18 +45,17 @@ public class PageManagement extends TransactionExe {
 			
 			break;
 
-<<<<<<< HEAD
-		case 5:	//공지사항 페이지
-			mav = learningNoticePage(((BoardBean)object));
-			
-=======
 		case 5:	// 선생님 나의 정보 페이지
 			mav = teacherInfoPage();
->>>>>>> 3989a7431f055c5ad66cfec5d0757caedc7b0853
+
 			break;
 
 		case 6:	// 학생 나의 정보 페이지
 			
+			break;
+			
+		case 7:	//공지사항 페이지
+			mav = learningNoticePage(((BoardBean)object));
 			break;
 
 
@@ -142,7 +141,7 @@ public class PageManagement extends TransactionExe {
 		return mav;
 	}
 	
-<<<<<<< HEAD
+
 	private ModelAndView learningNoticePage(BoardBean board) { // 공지사항 페이지
 		
 		mav = new ModelAndView();
@@ -168,7 +167,7 @@ public class PageManagement extends TransactionExe {
 		}
 		return mav;
 	}
-=======
+
 	private ModelAndView teacherInfoPage() {	// 선생님 나의정보 페이지
 		
 		mav = new ModelAndView();
@@ -231,6 +230,5 @@ public class PageManagement extends TransactionExe {
 		return mav;
 	}	
 	
->>>>>>> 3989a7431f055c5ad66cfec5d0757caedc7b0853
 
 }

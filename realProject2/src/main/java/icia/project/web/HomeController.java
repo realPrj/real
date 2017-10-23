@@ -126,9 +126,7 @@ public class HomeController  {
 	// 선생님 학습메뉴
 	@RequestMapping(value = "/tcmenu", method = RequestMethod.POST)
 	public ModelAndView tcMenu(@ModelAttribute BoardBean board) {
-
-<<<<<<< HEAD
-		mav = new ModelAndView();
+		
 		//System.out.println(board.getCaCode());
 		int code = Integer.parseInt(board.getCaCode());
 		switch(code) {
@@ -142,21 +140,15 @@ public class HomeController  {
 			
 			break;
 		case 4 : 
-			pm.entrance(5, board);
+			mav = pm.entrance(7, board);
 			break;
 		case 5 : 
 			
 			break;
 		}
-		mav = pm.entrance(Integer.parseInt(board.getCaCode()), board);
 		
 		//mav.setViewName("learningNotice");
-=======
-		switch(Integer.parseInt(board.getCaCode())){
-		
-		
-		}
->>>>>>> 3989a7431f055c5ad66cfec5d0757caedc7b0853
+
 
 		return mav;
 	}
