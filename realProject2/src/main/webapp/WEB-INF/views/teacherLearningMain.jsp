@@ -35,7 +35,7 @@ function menu(ivalue){
 	
 	createinput("hidden", "caCode", ivalue);
 	
-	var cacode = document.getElementsByName("caCode")[0];
+	var caCode = document.getElementsByName("caCode")[0];
 	
 	createForm("menuform","tcmenu","post");
 	
