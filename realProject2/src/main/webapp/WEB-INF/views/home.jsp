@@ -50,7 +50,11 @@ function identity(ivalue){
 
 </script>
 <body onLoad="${message}">
+<<<<<<< HEAD
+<h1>공조</h1>
+=======
 <h1>공조 테스트 시발거 짜증나</h1>
+>>>>>>> 4e179641272e9fcc5022e5a8606524343b353724
 <input type="button" value="선생님" onClick="identity('1')" />
 <input type="button" value="학생" onClick="identity('2')" />
 </body>

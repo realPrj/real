@@ -9,6 +9,7 @@ public class LearningRoomBean {	// 학습방 bean
 	private String id;	// 아이디
 	private String roomCode;	// 방코드
 	private String roomName;	// 방이름
+	private String roomSB;	// 방과목코드
 	private String roomIntroduction;	// 방소개
 	
 	public String getStudentCode() {
@@ -35,13 +36,18 @@ public class LearningRoomBean {	// 학습방 bean
 	public void setRoomName(String roomName) {
 		this.roomName = roomName;
 	}
+	public String getRoomSB() {
+		return roomSB;
+	}
+	public void setRoomSB(String roomSB) {
+		this.roomSB = roomSB;
+	}
 	public String getRoomIntroduction() {
 		return roomIntroduction;
 	}
 	public void setRoomIntroduction(String roomIntroduction) {
 		this.roomIntroduction = roomIntroduction;
 	}
-	
 
 
 }

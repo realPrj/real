@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+
+import icia.project.bean.LearningRoomBean;
 import icia.project.bean.MemberBean;
 import icia.project.services.PageManagement;
 
@@ -122,7 +124,7 @@ public class HomeController  {
 	@RequestMapping(value = "/learningOpenPage", method = RequestMethod.POST)
 	public String learningOpenPage(@ModelAttribute MemberBean member) {
 
-		return "learningOpen";
+		return "teacherLearningInsert";
 	}
 
 	// 학생 학습참여 페이지
@@ -131,6 +133,17 @@ public class HomeController  {
 
 		return "learningJoin";
 	}
+	
+	// 선생님 학습방 메인 페이지
+	@RequestMapping(value = "/teacherLearningMainPage", method = RequestMethod.POST)
+	public ModelAndView teacherLearningMainPage(@ModelAttribute LearningRoomBean room) {
+
+		mav = pm.entrance(3, room);
+		
+		return mav;
+	}
+	
+	
 
 
 }

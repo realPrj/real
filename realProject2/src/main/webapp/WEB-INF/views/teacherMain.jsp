@@ -20,11 +20,37 @@ function createForm(formname,formaction,formmethod){
 
 }
 
+//input 생성
+function createinput(itype, iname, ivalue){
+	var input = document.createElement("input");
+	input.type = itype;
+	input.name = iname;
+	input.value = ivalue;
+
+	document.body.appendChild(input);
+}
+
 function eventClick(formname,formaction,formmethod){	
 	
 	createForm(formname,formaction,formmethod);
 	
 	var form = document.getElementsByName(formname)[0];
+	
+	form.submit();
+	
+}
+
+function learningGo(learningCode){	
+	
+	createinput("hidden", "roomCode", learningCode);
+	
+	var roomCode = document.getElementsByName("roomCode")[0];
+	
+	createForm("teacherLearningMainPageform","teacherLearningMainPage","post");
+	
+	var form = document.getElementsByName("teacherLearningMainPageform")[0];
+	
+	form.appendChild(roomCode);
 	
 	form.submit();
 	
