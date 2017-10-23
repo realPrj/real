@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.TransactionDefinition;
 import org.springframework.web.servlet.ModelAndView;
 
+import icia.project.bean.BoardBean;
 import icia.project.bean.LearningRoomBean;
 import icia.project.dao.IMybatis;
 import icia.project.dao.TransactionExe;
@@ -38,13 +39,13 @@ public class PageManagement extends TransactionExe {
 			mav = teacherLearningMainPage(((LearningRoomBean)object));
 			break;
 
-		case 4:	//  공지사항 페이지
+		case 4:	//  학생 학습방 메인 페이지
 			
-			mav = learningNoticePage(((LearningRoomBean)object));
+			
 			break;
 
-		case 5:	//학생 학습방 메인 페이지
-		
+		case 5:	//공지사항 페이지
+			mav = learningNoticePage(((BoardBean)object));
 			
 			break;
 
@@ -138,7 +139,7 @@ public class PageManagement extends TransactionExe {
 		return mav;
 	}
 	
-	private ModelAndView learningNoticePage(LearningRoomBean room) { // 공지사항 페이지
+	private ModelAndView learningNoticePage(BoardBean board) { // 공지사항 페이지
 		
 		mav = new ModelAndView();
 		boolean transaction = false;
@@ -146,11 +147,11 @@ public class PageManagement extends TransactionExe {
 		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
 		
 		try {
-			room = dao.telearningRoomGo(room);
+		
 			
-			session.setAttribute("roomCode", room.getRoomCode());
-			
-			mav.addObject("content",room.getRoomIntroduction());
+			session.getAttribute("roomCode");
+			System.out.println(session.getAttribute("roomCode"));
+			mav.addObject("content",session.getAttribute("roomCode") + "의 공지사항");
 			
 		
 			transaction = true;

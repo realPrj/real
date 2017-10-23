@@ -105,8 +105,26 @@ public class HomeController  {
 	public ModelAndView tcMenu(@ModelAttribute BoardBean board) {
 
 		mav = new ModelAndView();
-		System.out.println(board.getCaCode());
-		//mav = pm.entrance(4, room);
+		//System.out.println(board.getCaCode());
+		int code = Integer.parseInt(board.getCaCode());
+		switch(code) {
+		case 1 : 
+			
+			break;
+		case 2 : 
+			
+			break;
+		case 3 : 
+			
+			break;
+		case 4 : 
+			pm.entrance(5, board);
+			break;
+		case 5 : 
+			
+			break;
+		}
+		mav = pm.entrance(Integer.parseInt(board.getCaCode()), board);
 		
 		//mav.setViewName("learningNotice");
 
