@@ -390,10 +390,11 @@ public class teacherManagement extends TransactionExe {
 				mav.addObject("message", "alert('학습방 개설 되셨습니다.')");
 
 				// 과목 복사해야됨
-
+				transaction = true;
 			}else {
 				page = "teacherMain";
 				mav.addObject("message", "alert('학습방 개설 실패 되셨습니다.')");
+				transaction = true;
 			}
 
 		}catch(Exception ex) {
