@@ -23,6 +23,8 @@ public class teacherManagement extends TransactionExe {
 	private ProjectUtils session;
 	@Autowired
 	private Encryption enc;
+	@Autowired
+	private PageManagement pm;
 
 	private ModelAndView mav;
 
@@ -69,10 +71,7 @@ public class teacherManagement extends TransactionExe {
 
 	private ModelAndView login(MemberBean member) {	// 로그인
 
-		mav = new ModelAndView();
-
 		boolean transaction = false;
-		String page = null;
 
 		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
 
@@ -88,8 +87,9 @@ public class teacherManagement extends TransactionExe {
 						// 동적으로 학습방 쏴주기
 
 						session.setAttribute("tcId", member.getId());
-						session.setAttribute("identity", member.getIdentity());
-						page ="teacherMain";
+						session.setAttribute("identity", member.getIdentity());	
+						mav = pm.entrance(1, null);
+						System.out.println(mav.getViewName());
 						transaction = true;
 				/*	}else {
 						page = "login";
@@ -99,23 +99,24 @@ public class teacherManagement extends TransactionExe {
 					}
 */
 				}else {
-					page = "login";
+					mav = new ModelAndView();
+					mav.setViewName("login");
 					mav.addObject("identity", "1");
 					mav.addObject("message", "alert('비밀번호가 틀렸습니다.')");
 					mav.addObject("id", member.getId());
 				}
 
 			}else {
-				page = "login";
+				mav = new ModelAndView();
+				mav.setViewName("login");
 				mav.addObject("identity", "1");
 				mav.addObject("message", "alert('아이디가 틀렸습니다.')");
 				mav.addObject("id", member.getId());
 			}
 
 		}catch(Exception ex) {
-			System.out.println("여기옴");
+
 		}finally {
-			mav.setViewName(page);
 			setTransactionResult(transaction);
 		}
 
@@ -383,7 +384,7 @@ public class teacherManagement extends TransactionExe {
 			}
 
 			room.setId((String)session.getAttribute("tcId"));
-		
+			System.out.println(room.getId());
 			if(dao.tclearningOpen(room) != 0) {
 				page = "teacherMain";
 				mav.addObject("message", "alert('학습방 개설 되셨습니다.')");
