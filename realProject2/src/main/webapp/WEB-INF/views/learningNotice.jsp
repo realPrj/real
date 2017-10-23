@@ -7,6 +7,7 @@
 <title>공조 || 공지사항</title>
 </head>
 <body>
-
+공지사항 페이지
+${content }
 </body>
 </html>

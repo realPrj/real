@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.TransactionDefinition;
 import org.springframework.web.servlet.ModelAndView;
 
+import icia.project.bean.BoardBean;
 import icia.project.bean.LearningRoomBean;
 import icia.project.bean.MemberBean;
 import icia.project.dao.IMybatis;
@@ -39,12 +40,19 @@ public class PageManagement extends TransactionExe {
 			mav = teacherLearningMainPage(((LearningRoomBean)object));
 			break;
 
-		case 4:	// 학생 학습방 메인 페이지
+		case 4:	//  학생 학습방 메인 페이지
+			
 			
 			break;
 
+<<<<<<< HEAD
+		case 5:	//공지사항 페이지
+			mav = learningNoticePage(((BoardBean)object));
+			
+=======
 		case 5:	// 선생님 나의 정보 페이지
 			mav = teacherInfoPage();
+>>>>>>> 3989a7431f055c5ad66cfec5d0757caedc7b0853
 			break;
 
 		case 6:	// 학생 나의 정보 페이지
@@ -134,6 +142,33 @@ public class PageManagement extends TransactionExe {
 		return mav;
 	}
 	
+<<<<<<< HEAD
+	private ModelAndView learningNoticePage(BoardBean board) { // 공지사항 페이지
+		
+		mav = new ModelAndView();
+		boolean transaction = false;
+		
+		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
+		
+		try {
+		
+			
+			session.getAttribute("roomCode");
+			System.out.println(session.getAttribute("roomCode"));
+			mav.addObject("content",session.getAttribute("roomCode") + "의 공지사항");
+			
+		
+			transaction = true;
+			
+		}catch(Exception ex){
+			
+		}finally {
+			mav.setViewName("learningNotice");
+			setTransactionResult(transaction);
+		}
+		return mav;
+	}
+=======
 	private ModelAndView teacherInfoPage() {	// 선생님 나의정보 페이지
 		
 		mav = new ModelAndView();
@@ -196,5 +231,6 @@ public class PageManagement extends TransactionExe {
 		return mav;
 	}	
 	
+>>>>>>> 3989a7431f055c5ad66cfec5d0757caedc7b0853
 
 }

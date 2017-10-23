@@ -1,6 +1,9 @@
 package icia.project.web;
 
 import java.util.Locale;
+
+import javax.swing.plaf.synth.SynthSeparatorUI;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -121,9 +124,25 @@ public class HomeController  {
 	@RequestMapping(value = "/tcmenu", method = RequestMethod.POST)
 	public ModelAndView tcMenu(@ModelAttribute BoardBean board) {
 
-		switch(Integer.parseInt(board.getCaCode())){
-		
-		
+		mav = new ModelAndView();
+		//System.out.println(board.getCaCode());
+		int code = Integer.parseInt(board.getCaCode());
+		switch(code) {
+		case 1 : 
+			
+			break;
+		case 2 : 
+			
+			break;
+		case 3 : 
+			
+			break;
+		case 4 : 
+			pm.entrance(5, board);
+			break;
+		case 5 : 
+			
+			break;
 		}
 
 		return mav;
@@ -164,6 +183,7 @@ public class HomeController  {
 	}
 	
 
+	
 	
 	
 	
