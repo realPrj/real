@@ -74,11 +74,8 @@ public class StudentManagement extends TransactionExe {
 	}
 
 	private ModelAndView login(MemberBean member) {	// 로그인
-
-		mav = new ModelAndView();
-
+		
 		boolean transaction = false;
-		String page = null;
 
 		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
 
@@ -95,7 +92,7 @@ public class StudentManagement extends TransactionExe {
 
 					session.setAttribute("stCode", member.getStudentCode());
 					session.setAttribute("identity", member.getIdentity());
-					page ="studentMain";
+					mav = pm.entrance(2, null);
 					transaction = true;
 					/*	}else {
 						page = "login";
@@ -105,14 +102,16 @@ public class StudentManagement extends TransactionExe {
 					}*/
 
 				}else {
-					page = "login";
+					mav = new ModelAndView();
+					mav.setViewName("login");
 					mav.addObject("identity", "2");
 					mav.addObject("message", "alert('비밀번호가 틀렸습니다.')");
 					mav.addObject("id", member.getId());
 				}
 
 			}else {
-				page = "login";
+				mav = new ModelAndView();
+				mav.setViewName("login");
 				mav.addObject("identity", "2");
 				mav.addObject("message", "alert('아이디가 틀렸습니다.')");
 				mav.addObject("id", member.getId());
@@ -121,7 +120,7 @@ public class StudentManagement extends TransactionExe {
 		}catch(Exception ex) {
 
 		}finally {
-			mav.setViewName(page);
+
 			setTransactionResult(transaction);
 		}
 
@@ -138,17 +137,17 @@ public class StudentManagement extends TransactionExe {
 		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
 
 		try {
-
-
+			System.out.println(member.getId());
 			if(dao.stIdCheck(member) == 0) {	// 아이디 체크
 				member.setPwd(enc.encode(member.getPwd()));	// 보안비밀번호
 				member.setStateCode("1");
 
-				if(dao.stCodeCheck(member) != 0) {	// 학생코드 유무
+				if(dao.stCodeCheck(member) == 0) {	// 학생코드 유무
 					
 					if(dao.stJoin(member) != 0) {	// 인설트
 
 						page ="login";
+						mav.addObject("message", "alert('회원가입 되셨습니다.')");
 						mav.addObject("identity", "2");
 						transaction = true;
 
@@ -410,7 +409,7 @@ public class StudentManagement extends TransactionExe {
 			if(room.getRoomCode() == null) {	// 조회
 
 				if(dao.tclearningRoomCheck(room) != 0) {
-					al = dao.learningGet(room);	// 이게 맞나? ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ
+					al = dao.learningGet(room);
 
 					for(int i=0; i < al.size(); i++) {
 						sb.append("<input type='button' value='"+al.get(i).getRoomName()+"' "

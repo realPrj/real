@@ -96,7 +96,6 @@ public class teacherManagement extends TransactionExe {
 						session.setAttribute("tcId", member.getId());
 						session.setAttribute("identity", member.getIdentity());	
 						mav = pm.entrance(1, null);
-						System.out.println(mav.getViewName());
 						transaction = true;
 				/*	}else {
 						page = "login";
@@ -243,7 +242,7 @@ public class teacherManagement extends TransactionExe {
 			member = dao.tcIdFind(member);
 
 			if(member.getId() == null) {
-				System.out.println("asdf");
+
 				page = "login";
 				mav.addObject("identity", "1");
 				mav.addObject("message", "alert('아이디가 없습니다.')");

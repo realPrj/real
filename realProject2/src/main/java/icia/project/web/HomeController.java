@@ -205,7 +205,7 @@ public class HomeController  {
 	@RequestMapping(value = "/learningJoinPage", method = RequestMethod.POST)
 	public String learningJoinPage(@ModelAttribute MemberBean member) {
 
-		return "learningJoin";
+		return "studentLearningJoin";
 	}
 	
 	// 선생님 학습방 메인 페이지

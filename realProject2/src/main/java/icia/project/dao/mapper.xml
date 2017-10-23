@@ -20,8 +20,7 @@
 	<select id="stCodeCheck" resultType="Integer" parameterType="member">
 		SELECT COUNT(*)
 		FROM STUDENT
-		WHERE ST_RFSTUDENTCODE=#{studentCode} AND
-		ST_STATECODE=#{stateCode}
+		WHERE ST_RFSTUDENTCODE=#{studentCode}
 	</select>
 
 	<!-- 선생님 임시비밀번호 추출 -->
@@ -124,7 +123,8 @@
 		UPDATE STUDENT
 		SET
 		ST_NAME=#{name},ST_EMAIL=#{email},ST_PHONE=#{phone}
-		WHERE ST_RFSTUDENTCODE=#{studentCode}
+		WHERE
+		ST_RFSTUDENTCODE=#{studentCode}
 	</update>
 
 	<!-- 선생님 비밀번호 수정 -->
@@ -135,7 +135,7 @@
 		WHERE
 		TC_ID=#{id}
 	</update>
-	
+
 	<!-- 학생 비밀번호 수정 -->
 	<update id="stInformationPWDChange" parameterType="member">
 		UPDATE STUDENT
@@ -168,7 +168,7 @@
 		LR_CODE=#{roomCode}
 	</select>
 
-	<!-- 학습방 유무 -->
+	<!-- 선생님 학습방 유무 -->
 	<select id="tclearningRoomCheck" resultType="Integer"
 		parameterType="room">
 		SELECT COUNT(*)
@@ -177,7 +177,16 @@
 		LR_TCID=#{id}
 	</select>
 
-	<!-- 학습방 추출 -->
+	<!-- 학생 학습방 유무 -->
+	<select id="stlearningRoomCheck" resultType="Integer"
+		parameterType="room">
+		SELECT COUNT(*)
+		FROM LEARNINGSTUDENTREGISTER
+		WHERE
+		LSR_STRFSTUDENTCODE=#{studentCode}
+	</select>
+
+	<!-- 선생님 학습방 추출 -->
 	<select id="tclearningRoomGet" resultType="room" parameterType="room">
 		SELECT LR_CODE AS roomCode, LR_NAME AS roomName, LR_CONTENT AS
 		roomIntroduction, LR_SBCODE AS roomSB
@@ -186,6 +195,23 @@
 		LR_TCID=#{id} ORDER BY LR_CODE ASC
 	</select>
 
+	<!-- 학생 학습방 추출1(방습방 코드 추출) -->
+	<select id="stlearningRoomGet1" resultType="room" parameterType="room">
+		SELECT LSR_LRCODE AS roomCode
+		FROM LEARNINGSTUDENTREGISTER
+		WHERE
+		LSR_STRFSTUDENTCODE=#{studentCode} ORDER BY LSR_LRCODE ASC
+	</select>
+
+	<!-- 학생 학습방 추출2(방습방 이름 추출) -->
+	<select id="stlearningRoomGet2" resultType="room" parameterType="room">
+		SELECT LR_CODE AS roomCode, LR_NAME AS roomName, LR_CONTENT AS
+		roomIntroduction, LR_SBCODE AS roomSB
+		FROM LEARNINGROOM
+		WHERE
+		LR_CODE=#{roomCode}
+	</select>
+	
 	<!-- 선생님 학습 개설 -->
 	<insert id="tclearningOpen" parameterType="room">
 		INSERT INTO
