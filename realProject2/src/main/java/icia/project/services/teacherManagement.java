@@ -382,9 +382,9 @@ public class teacherManagement extends TransactionExe {
 				}
 
 			}
-
+			
 			room.setId((String)session.getAttribute("tcId"));
-			System.out.println(room.getId());
+			
 			if(dao.tclearningOpen(room) != 0) {
 				page = "teacherMain";
 				mav.addObject("message", "alert('학습방 개설 되셨습니다.')");
