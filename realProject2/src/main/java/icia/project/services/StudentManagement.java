@@ -137,7 +137,7 @@ public class StudentManagement extends TransactionExe {
 		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
 
 		try {
-			System.out.println(member.getId());
+		
 			if(dao.stIdCheck(member) == 0) {	// 아이디 체크
 				member.setPwd(enc.encode(member.getPwd()));	// 보안비밀번호
 				member.setStateCode("1");
@@ -298,7 +298,7 @@ public class StudentManagement extends TransactionExe {
 			member.setStudentCode(((String)session.getAttribute("stCode")));
 
 			if(dao.stInformationChange(member) != 0) {
-				System.out.println("asdfasdf");
+				
 				mav = pm.entrance(6, null);
 				mav.addObject("message","alert('나의정보 되셨습니다.')");
 				transaction = true;

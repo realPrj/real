@@ -187,8 +187,6 @@ public class FunctionController {
 	@RequestMapping(value = "/studentInfoPWDUpdate", method = RequestMethod.POST)
 	public ModelAndView  studentInfoPWDUpdate(MemberBean member) {
 
-		System.out.println("asdfasdf");
-		System.out.println("adsfgdfgfdsg");
 		mav = sm.entrance(7, member);
 
 		return mav;
