@@ -118,7 +118,7 @@ public class PageManagement extends TransactionExe {
 		try {
 			
 				room = dao.telearningRoomGo(room);
-				
+	
 				session.setAttribute("roomCode", room.getRoomCode());
 				
 				mav.addObject("content",room.getRoomIntroduction());
@@ -127,7 +127,7 @@ public class PageManagement extends TransactionExe {
 				
 			
 		}catch(Exception ex) {
-			
+			System.out.println("hi");
 		}finally {
 			mav.setViewName("teacherLearningMain");
 			setTransactionResult(transaction);

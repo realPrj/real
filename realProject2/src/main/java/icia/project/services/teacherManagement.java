@@ -357,12 +357,9 @@ public class teacherManagement extends TransactionExe {
 	}
 
 	private ModelAndView learningOpen(LearningRoomBean room) {	// 학습방 개설
-
-		mav = new ModelAndView();
-
+		
 		boolean distinction = true;
 		boolean transaction = false;
-		String page = null;
 		int code = 0; 
 
 		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
@@ -384,23 +381,22 @@ public class teacherManagement extends TransactionExe {
 			}
 			
 			room.setId((String)session.getAttribute("tcId"));
-			
+		
 			if(dao.tclearningOpen(room) != 0) {
-				page = "teacherMain";
+				mav = pm.entrance(1, null);
 				mav.addObject("message", "alert('학습방 개설 되셨습니다.')");
-
-				// 과목 복사해야됨
 				transaction = true;
 			}else {
-				page = "teacherMain";
+				mav = pm.entrance(1, null);
 				mav.addObject("message", "alert('학습방 개설 실패 되셨습니다.')");
 				transaction = true;
 			}
+			
+			
 
 		}catch(Exception ex) {
-
+			System.out.println("여기옴");
 		}finally {
-			mav.setViewName(page);
 			setTransactionResult(transaction);
 		}
 
