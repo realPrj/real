@@ -164,12 +164,32 @@ public class FunctionController {
 
 		return mav;
 	}
+	
+	// 학생 나의정보 수정
+	@RequestMapping(value = "/studentInfoUpdate", method = RequestMethod.POST)
+	public ModelAndView  studentInfoUpdate(MemberBean member) {
+
+		mav = sm.entrance(6, member);
+
+		return mav;
+	}
 
 	// 선생님 비밀번호 수정
 	@RequestMapping(value = "/teacherInfoPWDUpdate", method = RequestMethod.POST)
 	public ModelAndView  teacherInfoPWDUpdate(MemberBean member) {
 
 		mav = tm.entrance(7, member);
+
+		return mav;
+	}
+	
+	// 학생 비밀번호 수정
+	@RequestMapping(value = "/studentInfoPWDUpdate", method = RequestMethod.POST)
+	public ModelAndView  studentInfoPWDUpdate(MemberBean member) {
+
+		System.out.println("asdfasdf");
+		System.out.println("adsfgdfgfdsg");
+		mav = sm.entrance(7, member);
 
 		return mav;
 	}

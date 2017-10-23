@@ -104,10 +104,10 @@
 	<!-- 학생 나의정보 추출 -->
 	<select id="stInformationGet" resultType="member" parameterType="member">
 		SELECT
-		TC_ID AS id, TC_NAME AS name,TC_EMAIL AS email, TC_PHONE AS
+		ST_ID AS id, ST_NAME AS name,ST_EMAIL AS email, ST_PHONE AS
 		phone
-		FROM TEACHER
-		WHERE TC_ID=#{id}
+		FROM STUDENT
+		WHERE ST_RFSTUDENTCODE=#{studentCode}
 	</select>
 
 	<!-- 선생님 나의정보 수정 -->
@@ -123,7 +123,7 @@
 	<update id="stInformationChange" parameterType="member">
 		UPDATE STUDENT
 		SET
-		ST_PWD=#{pwd},ST_NAME=#{name},ST_EMAIL=#{email},ST_PHONE=#{phone}
+		ST_NAME=#{name},ST_EMAIL=#{email},ST_PHONE=#{phone}
 		WHERE ST_RFSTUDENTCODE=#{studentCode}
 	</update>
 
@@ -138,11 +138,11 @@
 	
 	<!-- 학생 비밀번호 수정 -->
 	<update id="stInformationPWDChange" parameterType="member">
-		UPDATE TEACHER
+		UPDATE STUDENT
 		SET
-		TC_NAME=#{name},TC_EMAIL=#{email},TC_PHONE=#{phone}
+		ST_PWD=#{pwd}
 		WHERE
-		TC_ID=#{id}
+		ST_RFSTUDENTCODE=#{studentCode}
 	</update>
 
 	<!-- 선생님 회원탈퇴 -->

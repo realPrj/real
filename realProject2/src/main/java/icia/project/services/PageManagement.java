@@ -51,7 +51,7 @@ public class PageManagement extends TransactionExe {
 			break;
 
 		case 6:	// 학생 나의 정보 페이지
-			
+			mav = studentInfoPage();
 			break;
 			
 		case 7:	//공지사항 페이지
@@ -224,6 +224,67 @@ public class PageManagement extends TransactionExe {
 			
 		}finally {
 			mav.setViewName("teacherInfo");
+			setTransactionResult(transaction);
+		}
+		
+		return mav;
+	}	
+	
+	private ModelAndView studentInfoPage() {	// 학생 나의정보 페이지
+		
+		mav = new ModelAndView();
+		boolean transaction = false;
+		StringBuffer sb = new StringBuffer();
+		MemberBean member = new MemberBean();
+		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
+		
+		try {	
+				member.setStudentCode((String)session.getAttribute("stCode"));
+
+				member = dao.stInformationGet(member);
+
+				sb.append("<table>");
+				sb.append("<tr>");
+				sb.append("<td>");
+				sb.append("아이디");
+				sb.append("</td>");
+				sb.append("<td>");
+				sb.append("<input type=\"text\" name='id' value='"+member.getId()+"' readonly>");
+				sb.append("</td>");
+				sb.append("</tr>");
+				sb.append("<tr>");
+				sb.append("<td>");
+				sb.append("이름");
+				sb.append("</td>");
+				sb.append("<td>");
+				sb.append("<input type=\"text\" name='name' value='"+member.getName()+"' readonly>");
+				sb.append("</td>");
+				sb.append("</tr>");
+				sb.append("<tr>");
+				sb.append("<td>");
+				sb.append("이메일");
+				sb.append("</td>");
+				sb.append("<td>");
+				sb.append("<input type=\"text\" name='email' value='"+member.getEmail()+"' readonly>");
+				sb.append("</td>");
+				sb.append("</tr>");
+				sb.append("<tr>");
+				sb.append("<td>");
+				sb.append("핸드폰");
+				sb.append("</td>");
+				sb.append("<td>");
+				sb.append("<input type=\"text\" name='phone' value='"+member.getPhone()+"' readonly>");
+				sb.append("</td>");
+				sb.append("</tr>");
+				sb.append("</table>");
+				
+				mav.addObject("content", sb.toString());
+				transaction = true;		
+			
+		}catch(Exception ex) {
+			
+		}finally {
+			mav.setViewName("studentInfo");
 			setTransactionResult(transaction);
 		}
 		

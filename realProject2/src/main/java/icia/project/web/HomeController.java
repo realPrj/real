@@ -95,6 +95,15 @@ public class HomeController  {
 		return mav;
 	}
 	
+	// 학생 나의 정보 페이지
+	@RequestMapping(value = "/studentInfoPage", method = RequestMethod.POST)
+	public ModelAndView studentInfoPage() {
+
+		mav = pm.entrance(6, null);
+		
+		return mav;
+	}
+	
 	// 선생님 나의 정보 수정 페이지
 	@RequestMapping(value = "/teacherInfoUpdatePage", method = RequestMethod.POST)
 	public ModelAndView teacherInfoUpdatePage(@ModelAttribute MemberBean member) {
@@ -110,6 +119,21 @@ public class HomeController  {
 		return mav;
 	}
 	
+	// 학생 나의 정보 수정 페이지
+	@RequestMapping(value = "/studentInfoUpdatePage", method = RequestMethod.POST)
+	public ModelAndView studentInfoUpdatePage(@ModelAttribute MemberBean member) {
+		
+		mav = new ModelAndView();
+		
+		mav.addObject("id", member.getId());
+		mav.addObject("name", member.getName());
+		mav.addObject("email", member.getEmail());
+		mav.addObject("phone", member.getPhone());
+		mav.setViewName("studentInfoUpdate");
+		
+		return mav;
+	}
+	
 	// 선생님 나의 정보 비밀번호 수정 페이지
 	@RequestMapping(value = "/teacherInfoPWDUpdatePage", method = RequestMethod.POST)
 	public ModelAndView teacherInfoPWDUpdatePage(@ModelAttribute MemberBean member) {
@@ -118,6 +142,17 @@ public class HomeController  {
 		
 		mav.addObject("id", member.getId());
 		mav.setViewName("teacherInfoPWDUpdate");
+		
+		return mav;
+	}
+	
+	// 학생 나의 정보 비밀번호 수정 페이지
+	@RequestMapping(value = "/studentInfoPWDUpdatePage", method = RequestMethod.POST)
+	public ModelAndView studentInfoPWDUpdatePage(@ModelAttribute MemberBean member) {
+		
+		mav = new ModelAndView();
+
+		mav.setViewName("studentInfoPWDUpdate");
 		
 		return mav;
 	}
