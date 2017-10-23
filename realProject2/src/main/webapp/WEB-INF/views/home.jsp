@@ -50,7 +50,7 @@ function identity(ivalue){
 
 </script>
 <body onLoad="${message}">
-<h1>공조</h1>
+<h1>공조 테스트</h1>
 <input type="button" value="선생님" onClick="identity('1')" />
 <input type="button" value="학생" onClick="identity('2')" />
 </body>
