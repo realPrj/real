@@ -124,8 +124,6 @@ public class HomeController  {
 	@RequestMapping(value = "/tcmenu", method = RequestMethod.POST)
 	public ModelAndView tcMenu(@ModelAttribute BoardBean board) {
 
-		mav = new ModelAndView();
-		//System.out.println(board.getCaCode());
 		int code = Integer.parseInt(board.getCaCode());
 		switch(code) {
 		case 1 : 
@@ -138,7 +136,7 @@ public class HomeController  {
 			
 			break;
 		case 4 : 
-			pm.entrance(5, board);
+			mav = pm.entrance(7, board);
 			break;
 		case 5 : 
 			
