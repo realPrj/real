@@ -38,11 +38,13 @@ public class PageManagement extends TransactionExe {
 			mav = teacherLearningMainPage(((LearningRoomBean)object));
 			break;
 
-		case 4:	// 학생 학습방 메인 페이지
+		case 4:	//  공지사항 페이지
 			
+			mav = learningNoticePage(((LearningRoomBean)object));
 			break;
 
-		case 5:	
+		case 5:	//학생 학습방 메인 페이지
+		
 			
 			break;
 
@@ -133,6 +135,32 @@ public class PageManagement extends TransactionExe {
 			setTransactionResult(transaction);
 		}
 		
+		return mav;
+	}
+	
+	private ModelAndView learningNoticePage(LearningRoomBean room) { // 공지사항 페이지
+		
+		mav = new ModelAndView();
+		boolean transaction = false;
+		
+		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
+		
+		try {
+			room = dao.telearningRoomGo(room);
+			
+			session.setAttribute("roomCode", room.getRoomCode());
+			
+			mav.addObject("content",room.getRoomIntroduction());
+			
+		
+			transaction = true;
+			
+		}catch(Exception ex){
+			
+		}finally {
+			mav.setViewName("learningNotice");
+			setTransactionResult(transaction);
+		}
 		return mav;
 	}
 

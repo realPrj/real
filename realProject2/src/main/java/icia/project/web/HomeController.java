@@ -1,6 +1,9 @@
 package icia.project.web;
 
 import java.util.Locale;
+
+import javax.swing.plaf.synth.SynthSeparatorUI;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import icia.project.bean.BoardBean;
 import icia.project.bean.LearningRoomBean;
 import icia.project.bean.MemberBean;
 import icia.project.services.PageManagement;
@@ -98,11 +102,13 @@ public class HomeController  {
 
 	// 선생님 학습메뉴
 	@RequestMapping(value = "/tcmenu", method = RequestMethod.POST)
-	public ModelAndView tcMenu(@ModelAttribute MemberBean member) {
+	public ModelAndView tcMenu(@ModelAttribute BoardBean board) {
 
 		mav = new ModelAndView();
-
-		pm.entrance(Integer.parseInt(member.getCaCode()), member);
+		System.out.println(board.getCaCode());
+		//mav = pm.entrance(4, room);
+		
+		//mav.setViewName("learningNotice");
 
 		return mav;
 	}
@@ -142,6 +148,7 @@ public class HomeController  {
 		
 		return mav;
 	}
+	
 	
 	
 
