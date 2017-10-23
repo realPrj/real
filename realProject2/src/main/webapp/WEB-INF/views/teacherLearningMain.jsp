@@ -33,15 +33,15 @@ function createinput(itype, iname, ivalue){
 //메뉴선택
 function menu(ivalue){
 	
-	createinput("hidden", "cacode", ivalue);
+	createinput("hidden", "caCode", ivalue);
 	
-	var cacode = document.getElementsByName("cacode")[0];
+	var caCode = document.getElementsByName("caCode")[0];
 	
 	createForm("menuform","tcmenu","post");
 	
 
 	var form = document.getElementsByName("menuform")[0];
-	form.appendChild(cacode);
+	form.appendChild(caCode);
 	
 	form.submit();
 	
@@ -63,7 +63,7 @@ function menu(ivalue){
 	<tr><td><input type="button" value="자료실" onClick="menu('11')" /></td></tr>
 	<tr><td><input type="button" value="쪽지" onClick="menu('12')" /></td></tr>
 	<tr><td><input type="button" value="강의계획서" onClick="menu('13')" /></td></tr>
-	<tr><td><input type="button" value="문제코드" onClick="menu('13')" /></td></tr>
+	<tr><td><input type="button" value="문제코드" onClick="menu('14')" /></td></tr>
 </table>
 </div>
 
