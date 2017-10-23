@@ -115,7 +115,8 @@
 		UPDATE TEACHER
 		SET
 		TC_NAME=#{name},TC_EMAIL=#{email},TC_PHONE=#{phone}
-		WHERE TC_ID=#{id}
+		WHERE
+		TC_ID=#{id}
 	</update>
 
 	<!-- 학생 나의정보 수정 -->
@@ -124,6 +125,24 @@
 		SET
 		ST_PWD=#{pwd},ST_NAME=#{name},ST_EMAIL=#{email},ST_PHONE=#{phone}
 		WHERE ST_RFSTUDENTCODE=#{studentCode}
+	</update>
+
+	<!-- 선생님 비밀번호 수정 -->
+	<update id="tcInformationPWDChange" parameterType="member">
+		UPDATE TEACHER
+		SET
+		TC_PWD=#{pwd}
+		WHERE
+		TC_ID=#{id}
+	</update>
+	
+	<!-- 학생 비밀번호 수정 -->
+	<update id="stInformationPWDChange" parameterType="member">
+		UPDATE TEACHER
+		SET
+		TC_NAME=#{name},TC_EMAIL=#{email},TC_PHONE=#{phone}
+		WHERE
+		TC_ID=#{id}
 	</update>
 
 	<!-- 선생님 회원탈퇴 -->

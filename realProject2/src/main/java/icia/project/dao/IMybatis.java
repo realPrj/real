@@ -55,6 +55,12 @@ public interface IMybatis {
 	// 학생 나의정보 수정
 	public int stInformationChange(MemberBean member);
 
+	// 선생님 비밀번호 수정
+	public int tcInformationPWDChange(MemberBean member);
+
+	// 학생 비밀번호 수정
+	public int stInformationPWDChange(MemberBean member);
+
 	// 선생님 회원탈퇴
 	public int tcmemberDelete(MemberBean member);
 

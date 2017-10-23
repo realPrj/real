@@ -153,59 +153,6 @@ public class FunctionController {
 		}
 
 
-
-		return mav;
-	}
-
-	// 나의 정보 수정(개인정보)
-	@RequestMapping(value = "/lnformationChange", method = RequestMethod.POST)
-	public ModelAndView  lnformationChange(MemberBean member) throws Exception {
-
-		String identity = null;
-		
-		identity = (String)session.getAttribute("identity");	// 신분	
-
-		switch(Integer.parseInt(identity)) {
-
-		case 1:	// 선생님
-			mav = tm.entrance(6, member);
-			break;
-
-		case 2:	// 학생
-			mav = sm.entrance(6, member);
-			break;
-
-		default :
-			mav.addObject("message", "alert('신분을 선택해주세요')");
-			mav.setViewName("home");	
-			break;
-
-		}
-
-		return mav;
-	}
-
-	// 회원탈퇴
-	@RequestMapping(value = "/memberDelete", method = RequestMethod.POST)
-	public ModelAndView  memberDelete(MemberBean member) throws Exception {
-
-		switch((int)session.getAttribute("identity")) {
-
-		case 1:	// 선생님
-			mav = tm.entrance(7, null);
-			break;
-
-		case 2:	// 학생
-			mav = sm.entrance(7, null);
-			break;
-
-		default :
-			mav.addObject("message", "alert('신분을 선택해주세요')");
-			mav.setViewName("home");	
-			break;
-
-		}
-
 		return mav;
 	}
 	
@@ -213,7 +160,16 @@ public class FunctionController {
 	@RequestMapping(value = "/teacherInfoUpdate", method = RequestMethod.POST)
 	public ModelAndView  teacherInfoUpdate(MemberBean member) {
 
-		mav = tm.entrance(9, member);
+		mav = tm.entrance(6, member);
+
+		return mav;
+	}
+
+	// 선생님 비밀번호 수정
+	@RequestMapping(value = "/teacherInfoPWDUpdate", method = RequestMethod.POST)
+	public ModelAndView  teacherInfoPWDUpdate(MemberBean member) {
+
+		mav = tm.entrance(7, member);
 
 		return mav;
 	}
@@ -222,7 +178,7 @@ public class FunctionController {
 	@RequestMapping(value = "/learningOpen", method = RequestMethod.POST)
 	public ModelAndView  learningOpen(LearningRoomBean room) {
 
-		mav = tm.entrance(8, room);
+		mav = tm.entrance(9, room);
 
 		return mav;
 	}

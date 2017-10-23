@@ -98,6 +98,7 @@ public class HomeController  {
 	// 선생님 나의 정보 수정 페이지
 	@RequestMapping(value = "/teacherInfoUpdatePage", method = RequestMethod.POST)
 	public ModelAndView teacherInfoUpdatePage(@ModelAttribute MemberBean member) {
+		
 		mav = new ModelAndView();
 		
 		mav.addObject("id", member.getId());
@@ -112,10 +113,11 @@ public class HomeController  {
 	// 선생님 나의 정보 비밀번호 수정 페이지
 	@RequestMapping(value = "/teacherInfoPWDUpdatePage", method = RequestMethod.POST)
 	public ModelAndView teacherInfoPWDUpdatePage(@ModelAttribute MemberBean member) {
+		
 		mav = new ModelAndView();
 		
 		mav.addObject("id", member.getId());
-		mav.setViewName("teacherInfoUpdate");
+		mav.setViewName("teacherInfoPWDUpdate");
 		
 		return mav;
 	}
@@ -179,13 +181,6 @@ public class HomeController  {
 		
 		return mav;
 	}
-	
-
-	
-	
-	
-	
-	
 
 
 }

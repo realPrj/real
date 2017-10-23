@@ -52,21 +52,23 @@ public class teacherManagement extends TransactionExe {
 			mav = logout();
 			break;
 
-		case 6:	// 나의 정보 수정
-			mav = lnformationChange(((MemberBean)object));
+		case 6:	// 나의정보 수정
+			mav = teacherInfoUpdate(((MemberBean)object));
+			break;
+			
+		case 7:	// 나의정보 비밀번호 수정
+			mav = teacherInfoPWDUpdate(((MemberBean)object));
 			break;
 
-		case 7:	// 회원탈퇴
+		case 8:	// 회원탈퇴
 			mav = memberDelete();
 			break;
 
-		case 8:	// 학습방 개설
+		case 9:	// 학습방 개설
 			mav = learningOpen(((LearningRoomBean)object));
 			break;
 		
-		case 9:	// 나의정보 수정
-			mav = teacherInfoUpdate(((MemberBean)object));
-			break;
+		
 
 		}
 
@@ -144,7 +146,6 @@ public class teacherManagement extends TransactionExe {
 				member.setStateCode("1");
 				
 				if(dao.tcJoin(member) != 0) {	// 인설트
-					System.out.println("dfsxcvb");
 					page ="login";
 					mav.addObject("identity", "1");
 					transaction = true;
@@ -305,39 +306,6 @@ public class teacherManagement extends TransactionExe {
 		return mav;
 	}
 
-	private ModelAndView lnformationChange(MemberBean member) {	// 나의 정보 수정
-
-		mav = new ModelAndView();
-
-		boolean transaction = false;
-		String page = null;
-
-		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
-
-		try {
-			member.setId((String)session.getAttribute("tcId"));
-			member.setPwd(enc.encode(member.getPwd()));	// 보안비밀번호
-
-			if(dao.tcInformationChange(member) != 0) {
-				page = null;
-				mav.addObject("message", "alert('나의 정보 수정 되었습니다.')");
-				transaction = true;
-			}else {
-				page = null;
-				mav.addObject("message", "alert('나의 정보 수정 실패 되셨습니다.')");
-			}
-
-
-		}catch(Exception ex) {
-
-		}finally {
-			mav.setViewName(page);
-			setTransactionResult(transaction);
-		}
-
-		return mav;
-	}
-
 	private ModelAndView memberDelete() {	// 회원탈퇴
 
 		mav = new ModelAndView();
@@ -373,6 +341,65 @@ public class teacherManagement extends TransactionExe {
 
 		}finally {
 			mav.setViewName(page);
+			setTransactionResult(transaction);
+		}
+
+		return mav;
+	}
+	
+	private ModelAndView teacherInfoUpdate(MemberBean member) {	// 나의정보 수정
+
+		boolean transaction = false;
+
+		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
+
+		try {
+
+			if(dao.tcInformationChange(member) != 0) {
+				mav = pm.entrance(5, null);
+				mav.addObject("message","alert('나의정보 되셨습니다.')");
+				transaction = true;
+			}else {
+				mav = pm.entrance(5, null);
+				mav.addObject("message","alert('나의정보 실패되셨습니다.')");
+				transaction = true;
+			}
+			
+
+		}catch(Exception ex) {
+			
+		}finally {
+
+			setTransactionResult(transaction);
+		}
+
+		return mav;
+	}
+	
+	private ModelAndView teacherInfoPWDUpdate(MemberBean member) {	// 비밀번호 수정
+
+		boolean transaction = false;
+
+		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
+
+		try {
+			member.setId((String)session.getAttribute("tcId"));
+			member.setPwd(enc.encode(member.getPwd()));
+			
+			if(dao.tcInformationPWDChange(member) != 0) {
+				mav = pm.entrance(5, null);
+				mav.addObject("message","alert('비밀번호 수정 되셨습니다.')");
+				transaction = true;
+			}else {
+				mav = pm.entrance(5, null);
+				mav.addObject("message","alert('비밀번호 수정 실패되셨습니다.')");
+				transaction = true;
+			}
+			
+		}catch(Exception ex) {
+			
+		}finally {
+
 			setTransactionResult(transaction);
 		}
 
@@ -415,8 +442,6 @@ public class teacherManagement extends TransactionExe {
 				transaction = true;
 			}
 			
-			
-
 		}catch(Exception ex) {
 			
 		}finally {
@@ -426,33 +451,5 @@ public class teacherManagement extends TransactionExe {
 		return mav;
 	}
 	
-	private ModelAndView teacherInfoUpdate(MemberBean member) {	// 나의정보 수정
-
-		boolean transaction = false;
-
-		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
-
-		try {
-
-			if(dao.tcInformationChange(member) != 0) {
-				mav = pm.entrance(5, null);
-				mav.addObject("message","alert('나의정보 되셨습니다.')");
-				transaction = true;
-			}else {
-				mav = pm.entrance(5, null);
-				mav.addObject("message","alert('나의정보 실패되셨습니다.')");
-				transaction = true;
-			}
-			
-
-		}catch(Exception ex) {
-			
-		}finally {
-
-			setTransactionResult(transaction);
-		}
-
-		return mav;
-	}
 
 }
