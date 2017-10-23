@@ -46,7 +46,8 @@ public class teacherManagement extends TransactionExe {
 
 		case 4:	// 아이디 찾기	
 			mav = idFind(((MemberBean)object));
-
+			break;
+			
 		case 5:	// 로그아웃
 			mav = logout();
 			break;
@@ -136,13 +137,31 @@ public class teacherManagement extends TransactionExe {
 
 			if(dao.tcIdCheck(member) == 0) {	// 아이디 체크
 				member.setPwd(enc.encode(member.getPwd()));	// 보안비밀번호
-
+				member.setStateCode("1");
+				
 				if(dao.tcJoin(member) != 0) {	// 인설트
-
+					System.out.println("dfsxcvb");
 					page ="login";
 					mav.addObject("identity", "1");
 					transaction = true;
-
+					
+			/*		member.setLogType(1);
+					if(dao.tcLogHistory(member) != 0) {
+						
+						page ="login";
+						mav.addObject("identity", "1");
+						transaction = true;
+						
+					}else {
+						page = "teacherjoin";
+						mav.addObject("id", member.getId());
+						mav.addObject("name", member.getName());
+						mav.addObject("email", member.getEmail());
+						mav.addObject("phone", member.getPhone());
+						mav.addObject("identity", "1");
+						mav.addObject("message", "alert('회원가입 실패 하셨습니다.')");
+					}		*/		
+					
 				}else {
 
 					page = "teacherjoin";
@@ -217,9 +236,9 @@ public class teacherManagement extends TransactionExe {
 		try {
 
 			member = dao.tcIdFind(member);
-			System.out.println("sadfa");
-			System.out.println(member.getId());
+
 			if(member.getId() == null) {
+				System.out.println("asdf");
 				page = "login";
 				mav.addObject("identity", "1");
 				mav.addObject("message", "alert('아이디가 없습니다.')");
@@ -395,7 +414,7 @@ public class teacherManagement extends TransactionExe {
 			
 
 		}catch(Exception ex) {
-			System.out.println("여기옴");
+			
 		}finally {
 			setTransactionResult(transaction);
 		}

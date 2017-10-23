@@ -57,9 +57,7 @@ public class FunctionController {
 	// 회원가입
 	@RequestMapping(value = "/join", method = RequestMethod.POST)
 	public ModelAndView join(@ModelAttribute MemberBean member) {
-
-		mav = new ModelAndView();
-
+		
 		switch(Integer.parseInt(member.getIdentity())) {
 
 		case 1:	// 선생님
@@ -85,8 +83,6 @@ public class FunctionController {
 	@RequestMapping(value = "/idRedundancyCheck", method = RequestMethod.POST)
 	public ModelAndView idRedundancyCheck(@ModelAttribute MemberBean member) {
 
-		mav = new ModelAndView();
-
 		switch(Integer.parseInt(member.getIdentity())) {
 
 		case 1:	// 선생님
@@ -110,8 +106,6 @@ public class FunctionController {
 	// 아이디 찾기
 	@RequestMapping(value = "/idFind", method = RequestMethod.POST)
 	public ModelAndView idFind(@ModelAttribute MemberBean member) {
-
-		mav = new ModelAndView();
 
 		switch(Integer.parseInt(member.getIdentity())) {
 
@@ -138,9 +132,6 @@ public class FunctionController {
 	public ModelAndView logout() throws Exception {
 
 		String identity = null;
-
-		mav = new ModelAndView();		
-
 
 		identity = (String)session.getAttribute("identity");	// 신분	
 
@@ -171,9 +162,7 @@ public class FunctionController {
 	public ModelAndView  lnformationChange(MemberBean member) throws Exception {
 
 		String identity = null;
-
-		mav = new ModelAndView();		
-
+		
 		identity = (String)session.getAttribute("identity");	// 신분	
 
 		switch(Integer.parseInt(identity)) {
@@ -201,9 +190,7 @@ public class FunctionController {
 	public ModelAndView  memberDelete(MemberBean member) throws Exception {
 
 		String identity = null;
-
-		mav = new ModelAndView();		
-
+		
 		identity = (String)session.getAttribute("identity");	// 신분	
 
 		switch(Integer.parseInt(identity)) {
@@ -225,12 +212,19 @@ public class FunctionController {
 
 		return mav;
 	}
+	
+	// 선생님 나의정보 수정
+	@RequestMapping(value = "/teacherInfoUpdate", method = RequestMethod.POST)
+	public ModelAndView  teacherInfoUpdate(LearningRoomBean room) {
+
+		mav = tm.entrance(8, room);
+
+		return mav;
+	}
 
 	// 선생님 학습방 개설
 	@RequestMapping(value = "/learningOpen", method = RequestMethod.POST)
 	public ModelAndView  learningOpen(LearningRoomBean room) {
-
-		mav = new ModelAndView();		
 
 		mav = tm.entrance(8, room);
 
@@ -240,8 +234,6 @@ public class FunctionController {
 	// 학생 학습방 참여 및 조회
 	@RequestMapping(value = "/learningJoin", method = RequestMethod.POST)
 	public ModelAndView  learningJoin(LearningRoomBean room) {
-
-		mav = new ModelAndView();		
 
 		if(room.getRoomCode() == null) {	// 학습방 조회
 			mav = sm.entrance(8, room);

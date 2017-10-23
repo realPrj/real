@@ -259,7 +259,7 @@ public class StudentManagement extends TransactionExe {
 
 			member.setLogType(-1);
 
-			if(dao.stLogout(member) != 0) {
+			if(dao.stLogHistory(member) != 0) {
 				session.removeAttribute("stCode");
 				session.removeAttribute("identity");
 				page = "home";

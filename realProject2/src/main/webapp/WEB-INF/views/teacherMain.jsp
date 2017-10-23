@@ -64,7 +64,7 @@ function learningGo(learningCode){
 		<td><input type="button" value="로그아웃" onClick="eventClick('logoutform','logout','post')"  /></td>
 	</tr>
 	<tr>
-		<td><input type="button" value="나의정보" onClick=""  /></td>
+		<td><input type="button" value="나의정보" onClick="eventClick('teacherInfoPageform','teacherInfoPage','post')"  /></td>
 	</tr>
 </table>
 <div>
