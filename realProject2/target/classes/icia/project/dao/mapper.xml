@@ -48,39 +48,25 @@
 		WHERE ST_ID=#{id}
 	</select>
 
-	<!-- 선생님 로그인 히스토리 -->
+	<!-- 선생님 로그인아웃 히스토리 -->
 	<insert id="tcLogHistory" parameterType="member">
 		INSERT INTO
 		TEACHERLOGOUTHISTORY(TLOH_TCID,TLOH_DATE,TLOH_TYPE)
 		VALUES(#{id},DEFAULT,#{logType})
 	</insert>
 
-	<!-- 학생 로그인 히스토리 -->
+	<!-- 학생 로그인아웃 히스토리 -->
 	<insert id="stLogHistory" parameterType="member">
 		INSERT INTO
 		STUDENTLOGOUTHISTORY(SLOH_STRFSTUDENTCODE,SLOH_DATE,SLOH_TYPE)
 		VALUES(#{studentCode},DEFAULT,#{logType})
 	</insert>
 
-	<!-- 선생님 로그아웃 히스토리 -->
-	<insert id="tcLogout" parameterType="member">
-		INSERT INTO
-		TEACHER(TLOH_TCID,TLOH_DATE,TLOH_TYPE)
-		VALUES(#{id},DEFAULT,#{logType})
-	</insert>
-
-	<!-- 학생 로그아웃 히스토리 -->
-	<insert id="stLogout" parameterType="member">
-		INSERT INTO
-		STUDENT(SLOH_STRFSTUDENTCODE,SLOH_DATE,SLOH_TYPE)
-		VALUES(#{studentCode},DEFAULT,#{logType})
-	</insert>
-
 	<!-- 선생님 회원가입 -->
 	<insert id="tcJoin" parameterType="member">
 		INSERT INTO
-		TEACHER(TC_ID,TC_PWD,TC_NAME,TC_EMAIL,TC_PHON)
-		VALUES(#{id},#{pwd},#{name},#{email},#{phone})
+		TEACHER(TC_ID,TC_PWD,TC_NAME,TC_EMAIL,TC_PHONE,TC_STATECODE)
+		VALUES(#{id},#{pwd},#{name},#{email},#{phone},#{stateCode})
 	</insert>
 
 	<!-- 학생 회원가입 -->
@@ -104,6 +90,24 @@
 		ST_ID AS id
 		FROM STUDENT
 		WHERE ST_EMAIL=#{email}
+	</select>
+
+	<!-- 선생님 나의정보 추출 -->
+	<select id="tcInformationGet" resultType="member" parameterType="member">
+		SELECT
+		TC_ID AS id, TC_NAME AS name,TC_EMAIL AS email, TC_PHONE AS
+		phone
+		FROM TEACHER
+		WHERE TC_ID=#{id}
+	</select>
+
+	<!-- 학생 나의정보 추출 -->
+	<select id="stInformationGet" resultType="member" parameterType="member">
+		SELECT
+		TC_ID AS id, TC_NAME AS name,TC_EMAIL AS email, TC_PHONE AS
+		phone
+		FROM TEACHER
+		WHERE TC_ID=#{id}
 	</select>
 
 	<!-- 선생님 나의정보 수정 -->

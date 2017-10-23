@@ -9,6 +9,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import icia.project.bean.BoardBean;
 import icia.project.bean.LearningRoomBean;
+import icia.project.bean.MemberBean;
 import icia.project.dao.IMybatis;
 import icia.project.dao.TransactionExe;
 
@@ -44,18 +45,20 @@ public class PageManagement extends TransactionExe {
 			
 			break;
 
+<<<<<<< HEAD
 		case 5:	//공지사항 페이지
 			mav = learningNoticePage(((BoardBean)object));
 			
+=======
+		case 5:	// 선생님 나의 정보 페이지
+			mav = teacherInfoPage();
+>>>>>>> 3989a7431f055c5ad66cfec5d0757caedc7b0853
 			break;
 
-		case 6:	
+		case 6:	// 학생 나의 정보 페이지
 			
 			break;
 
-		case 7:
-			
-			break;
 
 		}
 
@@ -130,7 +133,7 @@ public class PageManagement extends TransactionExe {
 				
 			
 		}catch(Exception ex) {
-			System.out.println("hi");
+			
 		}finally {
 			mav.setViewName("teacherLearningMain");
 			setTransactionResult(transaction);
@@ -139,6 +142,7 @@ public class PageManagement extends TransactionExe {
 		return mav;
 	}
 	
+<<<<<<< HEAD
 	private ModelAndView learningNoticePage(BoardBean board) { // 공지사항 페이지
 		
 		mav = new ModelAndView();
@@ -164,5 +168,69 @@ public class PageManagement extends TransactionExe {
 		}
 		return mav;
 	}
+=======
+	private ModelAndView teacherInfoPage() {	// 선생님 나의정보 페이지
+		
+		mav = new ModelAndView();
+		boolean transaction = false;
+		StringBuffer sb = new StringBuffer();
+		MemberBean member = new MemberBean();
+		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
+		
+		try {	
+				member.setId((String)session.getAttribute("tcId"));
+			
+				member = dao.tcInformationGet(member);
+				
+				sb.append("<table>");
+				sb.append("<tr>");
+				sb.append("<td>");
+				sb.append("아이디");
+				sb.append("</td>");
+				sb.append("<td>");
+				sb.append("<input type=\"text\" value='"+member.getId()+"' readonly>");
+				sb.append("</td>");
+				sb.append("</tr>");
+				sb.append("<tr>");
+				sb.append("<td>");
+				sb.append("이름");
+				sb.append("</td>");
+				sb.append("<td>");
+				sb.append("<input type=\"text\" name='name' value='"+member.getName()+"' readonly>");
+				sb.append("</td>");
+				sb.append("</tr>");
+				sb.append("<tr>");
+				sb.append("<td>");
+				sb.append("이메일");
+				sb.append("</td>");
+				sb.append("<td>");
+				sb.append("<input type=\"text\" name='email' value='"+member.getEmail()+"' readonly>");
+				sb.append("</td>");
+				sb.append("</tr>");
+				sb.append("<tr>");
+				sb.append("<td>");
+				sb.append("핸드폰");
+				sb.append("</td>");
+				sb.append("<td>");
+				sb.append("<input type=\"text\" name='phone' value='"+member.getPhone()+"' readonly>");
+				sb.append("</td>");
+				sb.append("</tr>");
+				sb.append("</table>");
+				mav.addObject("content", sb.toString());
+			
+				transaction = true;
+				
+			
+		}catch(Exception ex) {
+			
+		}finally {
+			mav.setViewName("teacherInfo");
+			setTransactionResult(transaction);
+		}
+		
+		return mav;
+	}	
+	
+>>>>>>> 3989a7431f055c5ad66cfec5d0757caedc7b0853
 
 }

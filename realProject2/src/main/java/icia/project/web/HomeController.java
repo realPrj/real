@@ -99,11 +99,35 @@ public class HomeController  {
 
 		return mav;
 	}
+	
+	// 선생님 나의 정보 페이지
+	@RequestMapping(value = "/teacherInfoPage", method = RequestMethod.POST)
+	public ModelAndView teacherInfoPage() {
+
+		mav = pm.entrance(5, null);
+		
+		return mav;
+	}
+	
+	// 선생님 나의 정보 수정 페이지
+	@RequestMapping(value = "/teacherInfoUpdatePage", method = RequestMethod.POST)
+	public ModelAndView teacherInfoUpdatePage(@ModelAttribute MemberBean member) {
+		
+		mav = new ModelAndView();
+		
+		mav.addObject("name", member.getName());
+		mav.addObject("email", member.getEmail());
+		mav.addObject("phone", member.getPhone());
+		mav.setViewName("teacherInfoUpdate");
+		
+		return mav;
+	}
 
 	// 선생님 학습메뉴
 	@RequestMapping(value = "/tcmenu", method = RequestMethod.POST)
 	public ModelAndView tcMenu(@ModelAttribute BoardBean board) {
 
+<<<<<<< HEAD
 		mav = new ModelAndView();
 		//System.out.println(board.getCaCode());
 		int code = Integer.parseInt(board.getCaCode());
@@ -127,6 +151,12 @@ public class HomeController  {
 		mav = pm.entrance(Integer.parseInt(board.getCaCode()), board);
 		
 		//mav.setViewName("learningNotice");
+=======
+		switch(Integer.parseInt(board.getCaCode())){
+		
+		
+		}
+>>>>>>> 3989a7431f055c5ad66cfec5d0757caedc7b0853
 
 		return mav;
 	}
@@ -166,6 +196,10 @@ public class HomeController  {
 		
 		return mav;
 	}
+	
+
+	
+	
 	
 	
 	
