@@ -273,7 +273,7 @@
 	
 	<!-- 선생님 공지사항 리스트 -->
 	<select id="tclearningNoticeList" resultType="board" parameterType="board">
-	SELECT NT_TITLE AS title, NT_DATE AS date, NT_TCID AS tcId FROM NOTICE WHERE NT_LRCODE = #{roomCode};
+		SELECT NT_TITLE AS title, NT_DATE AS "date" FROM NOTICE WHERE NT_LRCODE = #{roomCode}
 	</select>
 	
 

@@ -68,22 +68,21 @@ public class learningTeacherMM extends TransactionExe {
 
 		mav = new ModelAndView();
 		boolean transaction = false;
-
+		ArrayList<BoardBean> ar = null;
 		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
 
 		try {
 			session.getAttribute("roomCode");
 
+			board.setRoomCode((String)session.getAttribute("roomCode"));
+			
 			//mav.addObject("content",session.getAttribute("roomCode") + "의 공지사항");
-
-			//ArrayList<BoardBean> ar = dao.tclearningNoticeList(board);
-			mav.addObject("content", tclearningNoticeList());
+			ar = dao.tclearningNoticeList(board);
+			System.out.println(ar.size());
+			System.out.println(session.getAttribute("roomCode"));
+			mav.addObject("content", tclearningNoticeList(ar));
 			
 			transaction = true;
-			
-			
-			
-			
 
 		}catch(Exception ex){
 
@@ -93,23 +92,23 @@ public class learningTeacherMM extends TransactionExe {
 		}
 		return mav;
 	}
-	private String tclearningNoticeList() { // 공지사항 리스트
+	private String tclearningNoticeList(ArrayList<BoardBean> ar) { // 공지사항 리스트
 		StringBuffer sb = new StringBuffer();
-		
-		/*sb.append("<table>");
+
+		sb.append("<table>");
 		sb.append("<tr>");
 		sb.append("<td>제목</td>");
 		sb.append("<td>날짜</td>");
 		sb.append("<td>작성자</td>");
 		sb.append("</tr>");
-		for(BoardBean bb : ar) {
-		sb.append("<tr>");
-		sb.append("<td>" + bb.getTitle() + "</td>");
-		sb.append("<td>" + bb.getDate() + "</td>");
-		sb.append("</tr>");
+		for(int i=0; i<ar.size(); i++) {
+			sb.append("<tr>");
+			sb.append("<td>" + ar.get(0).getTitle() + "</td>");
+			sb.append("<td>" + ar.get(0).getDate() + "</td>");
+			sb.append("</tr>");
 		}
-		sb.append("</table>");*/
-		sb.append("dddd");
+		sb.append("</table>");
+		
 		return sb.toString();
 	}
 	
