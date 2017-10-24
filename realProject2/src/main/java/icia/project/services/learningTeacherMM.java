@@ -267,6 +267,8 @@ public class learningTeacherMM extends TransactionExe {
 			
 			//mav.addObject("content",session.getAttribute("roomCode") + "의 공지사항");
 			bb = dao.datalist(board);
+			//System.out.println(bb);
+			System.out.println(bb.get(0).getBoardRoute());
 			mav.addObject("content", tclearningNoticeList(bb));
 
 			
