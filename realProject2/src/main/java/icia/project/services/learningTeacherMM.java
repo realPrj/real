@@ -181,7 +181,7 @@ public class learningTeacherMM extends TransactionExe {
 		if(dao.referenceInsert != 0) {
 			
 		}
-
+		System.out.println("test");
 			transaction = true;
 
 		}catch(Exception ex){
