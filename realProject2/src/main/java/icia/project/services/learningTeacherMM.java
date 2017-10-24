@@ -94,9 +94,10 @@ public class learningTeacherMM extends TransactionExe {
 		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
 
 		try {
+						
 			session.getAttribute("roomCode");
 
-			mav.addObject("content",session.getAttribute("roomCode") + "의 공지사항");
+			
 
 			transaction = true;
 
