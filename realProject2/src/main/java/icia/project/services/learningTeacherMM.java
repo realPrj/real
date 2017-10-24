@@ -260,9 +260,6 @@ public class learningTeacherMM extends TransactionExe {
 		return mav;
 	}
 	
-
-	
-	
 	private ModelAndView datahousemain(BoardBean board) { // 자료실 인설트
 		
 		mav = new ModelAndView();
@@ -294,6 +291,7 @@ public class learningTeacherMM extends TransactionExe {
 		}
 		return mav;
 	}
+	
 	private ModelAndView dataview(BoardBean board) { // 공지사항 페이지
 
 		mav = new ModelAndView();
