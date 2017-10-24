@@ -189,6 +189,7 @@ public class learningTeacherMM extends TransactionExe {
 			}
 
 			sb.append("</select>");
+			mav.addObject("size", yearCode.size());
 			mav.addObject("yearSelect", sb.toString());
 			mav.addObject("typeSumb", sum.toString());
 			
