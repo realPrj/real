@@ -54,10 +54,6 @@ public class PageManagement extends TransactionExe {
 			mav = studentInfoPage();
 			break;
 
-		case 7:	//공지사항 페이지
-			mav = learningNoticePage(((BoardBean)object));
-			break;
-
 
 		}
 
@@ -212,59 +208,7 @@ public class PageManagement extends TransactionExe {
 
 		return mav;
 	}
-
-	private ModelAndView teacherLearningMainPage(LearningRoomBean room) {	// 선생님 학습방 메인 페이지
-
-		mav = new ModelAndView();
-		boolean transaction = false;
-
-		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
-
-		try {
-
-			room = dao.telearningRoomGo(room);
-
-			session.setAttribute("roomCode", room.getRoomCode());
-
-			mav.addObject("content",room.getRoomIntroduction());
-
-			transaction = true;
-
-
-		}catch(Exception ex) {
-
-		}finally {
-			mav.setViewName("teacherLearningMain");
-			setTransactionResult(transaction);
-		}
-
-		return mav;
-	}
-
-
-	private ModelAndView learningNoticePage(BoardBean board) { // 공지사항 페이지
-
-		mav = new ModelAndView();
-		boolean transaction = false;
-
-		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
-
-		try {
-			session.getAttribute("roomCode");
-
-			mav.addObject("content",session.getAttribute("roomCode") + "의 공지사항");
-
-			transaction = true;
-
-		}catch(Exception ex){
-
-		}finally {
-			mav.setViewName("learningNotice");
-			setTransactionResult(transaction);
-		}
-		return mav;
-	}
-
+	
 	private ModelAndView teacherInfoPage() {	// 선생님 나의정보 페이지
 
 		mav = new ModelAndView();
@@ -388,5 +332,36 @@ public class PageManagement extends TransactionExe {
 		return mav;
 	}	
 
+	private ModelAndView teacherLearningMainPage(LearningRoomBean room) {	// 선생님 학습방 메인 페이지
+
+		mav = new ModelAndView();
+		boolean transaction = false;
+
+		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
+
+		try {
+
+			room = dao.telearningRoomGo(room);
+
+			session.setAttribute("roomCode", room.getRoomCode());
+
+			mav.addObject("content",room.getRoomIntroduction());
+
+			transaction = true;
+
+
+		}catch(Exception ex) {
+
+		}finally {
+			mav.setViewName("teacherLearningMain");
+			setTransactionResult(transaction);
+		}
+
+		return mav;
+	}
+
+
+
+	
 
 }
