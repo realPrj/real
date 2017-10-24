@@ -178,7 +178,7 @@ public class HomeController  {
 	public ModelAndView dataInsert(@ModelAttribute MemberBean member) {
 		
 		mav = new ModelAndView();
-
+		
 		mav.setViewName("learningDataInsert");
 		
 		return mav;
