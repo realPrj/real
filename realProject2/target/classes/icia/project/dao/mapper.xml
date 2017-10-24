@@ -275,16 +275,16 @@
 	<select id="learningWANListGet" resultType="board"
 		parameterType="board">
 		SELECT
-<<<<<<< HEAD
+
 		LR_CODE AS roomCode, LR_NAME AS roomName
 		FROM
 		WRONGANSWERNOTES
-=======
+
 		WAN_CODE AS boardCode, WAN_LRCODE AS roomCode ,WAN_STUDENTNAME AS
 		studentName,WAN_QTSTYPEYACODE AS yearCode,WAN_QTSTYPECODE AS
 		typeCode,WAN_QTNUMBER AS numberCode,WAN_DATE AS boardDate
 		FROM WRONGANSWERNOTES
->>>>>>> 2584316da0e92f60b7796b4ec46dc54e0b3c49b7
+
 		WHERE
 		WAN_LRCODE=#{roomCode}
 	</select>
