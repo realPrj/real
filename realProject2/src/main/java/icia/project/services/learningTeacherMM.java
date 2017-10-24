@@ -216,7 +216,7 @@ public class learningTeacherMM extends TransactionExe {
 	
 
 	
-	/*
+	
 	private ModelAndView datahousemain(BoardBean board) { // 오답노트 페이지
 
 		mav = new ModelAndView();
@@ -229,7 +229,9 @@ public class learningTeacherMM extends TransactionExe {
 						
 			session.getAttribute("roomCode");
 
-		if(dao.referenceInsert != 0) {
+		if(dao.referenceInsert(board) == 1) {
+			
+		}else {
 			
 		}
 
@@ -242,7 +244,7 @@ public class learningTeacherMM extends TransactionExe {
 			setTransactionResult(transaction);
 		}
 		return mav;
-	}*/
+	}
 	
 
 }

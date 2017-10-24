@@ -328,12 +328,12 @@ public class FunctionController {
 		mav = new ModelAndView();	
 		List<MultipartFile> fileList = mtfRequest.getFiles("file");
 		String load = mtfRequest.getParameter("load");
-		String src = mtfRequest.getParameter("src");
-		String subject = mtfRequest.getParameter("subject");
-		String body = mtfRequest.getParameter("body");
+		String boardroute = mtfRequest.getParameter("boardroute");
+		String boardTitle = mtfRequest.getParameter("boardTitle");
+		String boardContent = mtfRequest.getParameter("boardContent");
 		System.out.println(load);
-		System.out.println(subject);
-		System.out.println(body);
+		System.out.println(boardContent);
+		System.out.println(boardTitle);
 		String path = "E:\\RealProject\\realProject2\\src\\main\\webapp\\WEB-INF\\uploadFiles\\"+load+"\\";
 		System.out.println(path);
 		for (MultipartFile mf : fileList) {
@@ -344,7 +344,7 @@ public class FunctionController {
 			System.out.println("fileSize : " + fileSize);
 
 			String safeFile = path + originFileName;
-			
+			board.setBoardroute(safeFile);
 			try {
 				mf.transferTo(new File(safeFile));
 			} catch (IllegalStateException e) {

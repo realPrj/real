@@ -113,7 +113,7 @@ public interface IMybatis {
 
 
 	// 선생님 자료실 등록
-	public BoardBean referenceInsert(BoardBean board);
+	public int referenceInsert(BoardBean board);
 
 	public ArrayList<BoardBean> learningWANListGet(BoardBean board);
 

@@ -66,15 +66,15 @@
 	<!-- 자료실 글쓰기  -->
 	<form name="fileForm" action="requestupload2" method="post"
 		enctype="multipart/form-data">
-		<br> 제목 : <input type="text" name="subject" size=50 maxlength=70>
+		<br> 제목 : <input type="text" name="boardTitle" size=50 maxlength=70>
 		<br> 내용 :
-		<textarea name="body" cols=50 rows=20 maxlength=500></textarea>
+		<textarea name="boardContent" cols=50 rows=20 maxlength=500></textarea>
 
 
 
 
 		<br> <input multiple="multiple" type="file" name="file" /> <input
-			type="hidden" name="src" /> <br> <input type="hidden"
+			type="hidden" name="boardroute" /> <br> <input type="hidden"
 			name="load" value="Notice" />
 		<BUTTON type="submit">보내기</BUTTON>
 	</form>
