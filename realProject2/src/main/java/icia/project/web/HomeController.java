@@ -154,7 +154,28 @@ public class HomeController  {
 		
 		return mav;
 	}
+	
+	// 자료실 메인페이지로 가기
+	@RequestMapping(value = "/Datamain", method = RequestMethod.POST)
+	public ModelAndView daoaMaid(@ModelAttribute MemberBean member) {
+		
+		mav = new ModelAndView();
 
+		mav.setViewName("learningData");
+		
+		return mav;
+	}
+	// 자료실 글쓰러가기
+	@RequestMapping(value = "/DataInsert", method = RequestMethod.POST)
+	public ModelAndView dataInsert(@ModelAttribute MemberBean member) {
+		
+		mav = new ModelAndView();
+
+		mav.setViewName("learningDataInsert");
+		
+		return mav;
+	}
+	
 	// 선생님 학습메뉴
 	@RequestMapping(value = "/tcmenu", method = RequestMethod.POST)
 	public ModelAndView tcMenu(@ModelAttribute BoardBean board) {
