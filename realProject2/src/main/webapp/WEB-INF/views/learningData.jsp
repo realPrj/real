@@ -59,7 +59,7 @@ function eventClick(formname,formaction,formmethod){
 	<input type="button" value="자료실" onClick="eventClick('dataform','Datamain','post')"  />
 	<input type="button" value="자료실 글쓰러가기" onClick="eventClick('dataform','DataInsert','post')"  />
 </div>
-	
+#{datalist }	
 
 </body>
 </html>

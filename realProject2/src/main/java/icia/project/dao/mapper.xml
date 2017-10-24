@@ -80,7 +80,6 @@
 		SELECT
 		TC_ID AS id
 		FROM TEACHER
-		WHERE TC_EMAIL=#{email}
 	</select>
 
 	<!-- 학생 아이디 찾기 -->
@@ -325,10 +324,10 @@
 		VALUES('665',#{boardTitle},#{boardContent},SYSDATE,#{boardRoute},#{id})
 	</insert>
 	<!-- 자료실 리스트 -->
-	<select id="datalist" resultType="String"
+	<select id="datalist" resultType="board"
 		parameterType="board">
 		SELECT
-		RR_TITLE,RR_CONTENT,RR_DATE,RR_ROUTE
+		RR_TITLE AS boardTitle,TO_CHAR(RR_DATE, 'YYYYMMDDHH24MISS') AS boardDate,RR_TCID AS boardId
 		FROM REFERENCE
 		WHERE
 		RR_TCID=#{id}
