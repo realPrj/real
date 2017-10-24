@@ -53,7 +53,7 @@ function learningJoin(ivalue){
 
 	createForm("learningJoinform","learningJoin","post");
 	
-	var form = document.getElementsByName(formname)[0];
+	var form = document.getElementsByName("learningJoinform")[0];
 	
 	form.appendChild(roomCode);
 	
@@ -63,6 +63,8 @@ function learningJoin(ivalue){
 
 </script>
 <body onLoad="${message}">
+<input type="button" value="로그아웃" onClick="" />
+<input type="button" value="메인으로" onClick="" />
 <table>
 <tr>
 <td>방이름</td>

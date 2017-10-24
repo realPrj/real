@@ -20,8 +20,7 @@
 	<select id="stCodeCheck" resultType="Integer" parameterType="member">
 		SELECT COUNT(*)
 		FROM STUDENT
-		WHERE ST_RFSTUDENTCODE=#{studentCode} AND
-		ST_STATECODE=#{stateCode}
+		WHERE ST_RFSTUDENTCODE=#{studentCode}
 	</select>
 
 	<!-- 선생님 임시비밀번호 추출 -->
@@ -48,39 +47,25 @@
 		WHERE ST_ID=#{id}
 	</select>
 
-	<!-- 선생님 로그인 히스토리 -->
+	<!-- 선생님 로그인아웃 히스토리 -->
 	<insert id="tcLogHistory" parameterType="member">
 		INSERT INTO
 		TEACHERLOGOUTHISTORY(TLOH_TCID,TLOH_DATE,TLOH_TYPE)
 		VALUES(#{id},DEFAULT,#{logType})
 	</insert>
 
-	<!-- 학생 로그인 히스토리 -->
+	<!-- 학생 로그인아웃 히스토리 -->
 	<insert id="stLogHistory" parameterType="member">
 		INSERT INTO
 		STUDENTLOGOUTHISTORY(SLOH_STRFSTUDENTCODE,SLOH_DATE,SLOH_TYPE)
 		VALUES(#{studentCode},DEFAULT,#{logType})
 	</insert>
 
-	<!-- 선생님 로그아웃 히스토리 -->
-	<insert id="tcLogout" parameterType="member">
-		INSERT INTO
-		TEACHER(TLOH_TCID,TLOH_DATE,TLOH_TYPE)
-		VALUES(#{id},DEFAULT,#{logType})
-	</insert>
-
-	<!-- 학생 로그아웃 히스토리 -->
-	<insert id="stLogout" parameterType="member">
-		INSERT INTO
-		STUDENT(SLOH_STRFSTUDENTCODE,SLOH_DATE,SLOH_TYPE)
-		VALUES(#{studentCode},DEFAULT,#{logType})
-	</insert>
-
 	<!-- 선생님 회원가입 -->
 	<insert id="tcJoin" parameterType="member">
 		INSERT INTO
-		TEACHER(TC_ID,TC_PWD,TC_NAME,TC_EMAIL,TC_PHON)
-		VALUES(#{id},#{pwd},#{name},#{email},#{phone})
+		TEACHER(TC_ID,TC_PWD,TC_NAME,TC_EMAIL,TC_PHONE,TC_STATECODE)
+		VALUES(#{id},#{pwd},#{name},#{email},#{phone},#{stateCode})
 	</insert>
 
 	<!-- 학생 회원가입 -->
@@ -106,20 +91,58 @@
 		WHERE ST_EMAIL=#{email}
 	</select>
 
+	<!-- 선생님 나의정보 추출 -->
+	<select id="tcInformationGet" resultType="member" parameterType="member">
+		SELECT
+		TC_ID AS id, TC_NAME AS name,TC_EMAIL AS email, TC_PHONE AS
+		phone
+		FROM TEACHER
+		WHERE TC_ID=#{id}
+	</select>
+
+	<!-- 학생 나의정보 추출 -->
+	<select id="stInformationGet" resultType="member" parameterType="member">
+		SELECT
+		ST_ID AS id, ST_NAME AS name,ST_EMAIL AS email, ST_PHONE AS
+		phone
+		FROM STUDENT
+		WHERE ST_RFSTUDENTCODE=#{studentCode}
+	</select>
+
 	<!-- 선생님 나의정보 수정 -->
 	<update id="tcInformationChange" parameterType="member">
 		UPDATE TEACHER
 		SET
-		TC_PWD=#{pwd},TC_NAME=#{name},TC_EMAIL=#{email},TC_PHONE=#{phone}
-		WHERE TC_ID=#{id}
+		TC_NAME=#{name},TC_EMAIL=#{email},TC_PHONE=#{phone}
+		WHERE
+		TC_ID=#{id}
 	</update>
 
 	<!-- 학생 나의정보 수정 -->
 	<update id="stInformationChange" parameterType="member">
 		UPDATE STUDENT
 		SET
-		ST_PWD=#{pwd},ST_NAME=#{name},ST_EMAIL=#{email},ST_PHONE=#{phone}
-		WHERE ST_RFSTUDENTCODE=#{studentCode}
+		ST_NAME=#{name},ST_EMAIL=#{email},ST_PHONE=#{phone}
+		WHERE
+		ST_RFSTUDENTCODE=#{studentCode}
+	</update>
+
+	<!-- 선생님 비밀번호 수정 -->
+	<update id="tcInformationPWDChange" parameterType="member">
+		UPDATE TEACHER
+		SET
+		TC_PWD=#{pwd}
+		WHERE
+		TC_ID=#{id}
+	</update>
+
+	<!-- 학생 비밀번호 수정 -->
+	<update id="stInformationPWDChange" parameterType="member">
+		UPDATE STUDENT
+		SET
+		ST_PWD=#{pwd}
+		WHERE
+		ST_RFSTUDENTCODE=#{studentCode}
 	</update>
 
 	<!-- 선생님 회원탈퇴 -->
@@ -145,7 +168,7 @@
 		LR_CODE=#{roomCode}
 	</select>
 
-	<!-- 학습방 유무 -->
+	<!-- 선생님 학습방 유무 -->
 	<select id="tclearningRoomCheck" resultType="Integer"
 		parameterType="room">
 		SELECT COUNT(*)
@@ -154,7 +177,16 @@
 		LR_TCID=#{id}
 	</select>
 
-	<!-- 학습방 추출 -->
+	<!-- 학생 학습방 유무 -->
+	<select id="stlearningRoomCheck" resultType="Integer"
+		parameterType="room">
+		SELECT COUNT(*)
+		FROM LEARNINGSTUDENTREGISTER
+		WHERE
+		LSR_STRFSTUDENTCODE=#{studentCode}
+	</select>
+
+	<!-- 선생님 학습방 추출 -->
 	<select id="tclearningRoomGet" resultType="room" parameterType="room">
 		SELECT LR_CODE AS roomCode, LR_NAME AS roomName, LR_CONTENT AS
 		roomIntroduction, LR_SBCODE AS roomSB
@@ -163,6 +195,23 @@
 		LR_TCID=#{id} ORDER BY LR_CODE ASC
 	</select>
 
+	<!-- 학생 학습방 추출1(방습방 코드 추출) -->
+	<select id="stlearningRoomGet1" resultType="room" parameterType="room">
+		SELECT LSR_LRCODE AS roomCode
+		FROM LEARNINGSTUDENTREGISTER
+		WHERE
+		LSR_STRFSTUDENTCODE=#{studentCode} ORDER BY LSR_LRCODE ASC
+	</select>
+
+	<!-- 학생 학습방 추출2(방습방 이름 추출) -->
+	<select id="stlearningRoomGet2" resultType="room" parameterType="room">
+		SELECT LR_CODE AS roomCode, LR_NAME AS roomName, LR_CONTENT AS
+		roomIntroduction, LR_SBCODE AS roomSB
+		FROM LEARNINGROOM
+		WHERE
+		LR_CODE=#{roomCode}
+	</select>
+	
 	<!-- 선생님 학습 개설 -->
 	<insert id="tclearningOpen" parameterType="room">
 		INSERT INTO

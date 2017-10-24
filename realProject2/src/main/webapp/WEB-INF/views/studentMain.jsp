@@ -20,6 +20,16 @@ function createForm(formname,formaction,formmethod){
 
 }
 
+//input 생성
+function createinput(itype, iname, ivalue){
+	var input = document.createElement("input");
+	input.type = itype;
+	input.name = iname;
+	input.value = ivalue;
+
+	document.body.appendChild(input);
+}
+
 function eventClick(formname,formaction,formmethod){	
 
 	createForm(formname,formaction,formmethod);
@@ -29,6 +39,23 @@ function eventClick(formname,formaction,formmethod){
 	form.submit();
 	
 }
+
+function learningGo(learningCode){	
+	
+	createinput("hidden", "roomCode", learningCode);
+	
+	var roomCode = document.getElementsByName("roomCode")[0];
+	
+	createForm("teacherLearningMainPageform","teacherLearningMainPage","post");
+	
+	var form = document.getElementsByName("teacherLearningMainPageform")[0];
+	
+	form.appendChild(roomCode);
+	
+	form.submit();
+	
+}
+
 </script>
 <body onLoad="${message}">
 <h1>공조</h1>
@@ -37,7 +64,7 @@ function eventClick(formname,formaction,formmethod){
 		<td><input type="button" value="로그아웃" onClick="eventClick('logoutform','logout','post')"  /></td>
 	</tr>
 	<tr>
-		<td><input type="button" value="나의정보" onClick=""  /></td>
+		<td><input type="button" value="나의정보" onClick="eventClick('studentInfoPageform','studentInfoPage','post')"  /></td>
 	</tr>
 	<tr>
 		<td><input type="button" value="출결" onClick=""  /></td>
