@@ -107,8 +107,8 @@ public class learningTeacherMM extends TransactionExe {
 		sb.append("</tr>");
 		for(int i=0; i<ar.size(); i++) {
 			sb.append("<tr>");	
-			//sb.append("<input type=\"hidden\" name=\"botitle\" value='" + board.getBoardTitle() + "'/>");
-			sb.append("<td>" + ar.get(i).getBoardTitle() + "</td>");
+			//sb.append("<input type=\"hidden\" name=\"boardTitle\" value='" + board.getBoardTitle() + "'/>");
+			sb.append("<td onClick=\"confirm('"+ ar.get(i).getBoardTitle() +"')\">" + ar.get(i).getBoardTitle() + "</td>");
 			sb.append("<td>" + ar.get(i).getBoardDate() + "</td>");
 			sb.append("<td>" + ar.get(i).getBoardId() + "</td>");
 			sb.append("</tr>");
@@ -127,10 +127,10 @@ public class learningTeacherMM extends TransactionExe {
 			session.getAttribute("roomCode");
 
 			board.setRoomCode((String)session.getAttribute("roomCode"));
-			board = dao.tclearningNoticeConfirm(board);
+			//board = dao.tclearningNoticeConfirm(board);
 			
 			//mav.addObject("content",session.getAttribute("roomCode") + "의 공지사항");
-			mav.addObject("content", getTclearningNoticeCTX(board));
+			mav.addObject("content", "왜안뜨냐");
 
 			
 			transaction = true;
@@ -138,7 +138,7 @@ public class learningTeacherMM extends TransactionExe {
 		}catch(Exception ex){
 
 		}finally {
-			mav.setViewName("learningNoticeCTX");
+			mav.setViewName("learningNoticeCXT");
 			setTransactionResult(transaction);
 		}
 		return mav;
@@ -149,7 +149,8 @@ public class learningTeacherMM extends TransactionExe {
 		
 		sb.append("<table>");
 		sb.append("<tr>");
-		sb.append("<td>" + board.getBoardTitle() + "</td>");
+		sb.append("dddddddddddd");
+		//sb.append("<td>" + board.getBoardTitle() + "</td>");
 		sb.append("</tr>");
 		sb.append("</table>");
 		return sb.toString();

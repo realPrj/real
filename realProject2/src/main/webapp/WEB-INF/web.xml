@@ -65,6 +65,13 @@
     </init-param>
 </filter>
 
+<filter-mapping>
+   <filter-name>encodingFilter</filter-name>
+   <url-pattern>/*</url-pattern>
+  </filter-mapping>
+
+
+
   <display-name>realProject2</display-name>
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>

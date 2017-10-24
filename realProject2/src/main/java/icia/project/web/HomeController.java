@@ -351,6 +351,7 @@ public class HomeController  {
 	@RequestMapping(value = "/NoticeConfirm", method = RequestMethod.POST)
 	public ModelAndView learningNoticeCTX(@ModelAttribute BoardBean board) {
 
+		System.out.println(board.getBoardTitle());
 		mav = ltmm.entrance(8, board);
 
 		return mav;
