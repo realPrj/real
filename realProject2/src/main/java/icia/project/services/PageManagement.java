@@ -117,8 +117,14 @@ public class PageManagement extends TransactionExe {
 		mav = new ModelAndView();
 		LearningRoomBean room;
 		ArrayList<LearningRoomBean> alCode = new ArrayList<LearningRoomBean>();
+		ArrayList<LearningRoomBean> attendanceInCode = new ArrayList<LearningRoomBean>();
+		ArrayList<LearningRoomBean> attendanceOutCode = new ArrayList<LearningRoomBean>();
 		StringBuffer sb = new StringBuffer();
 		boolean transaction = false;
+		int isNotAttendance = 0;
+		String time = null;
+		int tardy = 0; // 지각
+		int early = 0; // 조퇴
 
 		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
 
@@ -126,7 +132,7 @@ public class PageManagement extends TransactionExe {
 			room = new LearningRoomBean();
 			room.setStudentCode((String)session.getAttribute("stCode"));
 			
-			if(dao.stlearningRoomCheck(room) != 0) {
+			if(dao.stlearningRoomCheck(room) != 0) {	// 학습방 추출
 
 				alCode = dao.stlearningRoomGet1(room);
 
@@ -153,7 +159,49 @@ public class PageManagement extends TransactionExe {
 				mav.setViewName("studentMain");
 				transaction = true;
 			}
+			
+			sb = new StringBuffer();
+			room = new LearningRoomBean();
+			room.setStudentCode((String)session.getAttribute("stCode"));		
+			room.setYyyymm(dao.yyyyMMGet());
+			room.setAttendanceType("1");	
+			attendanceInCode = dao.stIOHGet(room);
+			room.setAttendanceType("2");
+			attendanceOutCode = dao.stIOHGet(room);
+			
+			sb.append("<div id='attendance'>");
+			sb.append("<h3>"+room.getYyyymm().substring(4)+"월</h3>");
+			for(int i = 0; i < attendanceInCode.size(); i++) {
+				time = "083000";
+				isNotAttendance = Integer.parseInt(attendanceInCode.get(i).getAttendanceCode().substring(8)) - Integer.parseInt(time);
+				
+				if(isNotAttendance <= 0) {	// 정상출근
+					time = "170000";
+					isNotAttendance = Integer.parseInt(attendanceOutCode.get(i).getAttendanceCode().substring(8)) - Integer.parseInt(time);
+					
+					if(isNotAttendance >= 0) {	// 정상 퇴근	
+						
+						sb.append(attendanceInCode.get(i).getAttendanceCode().substring(0,8)+" : "+" 정상출결 <br>");
 
+					}else {	// 조퇴
+						
+						sb.append(attendanceInCode.get(i).getAttendanceCode().substring(0,8)+" : "+" 조퇴 <br>");						
+						early++;
+					}
+					
+				}else {	// 지각
+					
+					sb.append(attendanceInCode.get(i).getAttendanceCode().substring(0,8)+" : "+" 지각 <br>");					
+					tardy++;
+					
+				}
+				
+			}
+			sb.append("이번달 지각 : "+ tardy+"<br>");
+			sb.append("이번달 조퇴 : "+ early+"<br>");
+			sb.append("</div>");
+			mav.addObject("attendance",sb.toString());
+			
 		}catch(Exception ex) {
 
 		}finally {
@@ -163,7 +211,6 @@ public class PageManagement extends TransactionExe {
 
 		return mav;
 	}
-
 
 	private ModelAndView teacherLearningMainPage(LearningRoomBean room) {	// 선생님 학습방 메인 페이지
 

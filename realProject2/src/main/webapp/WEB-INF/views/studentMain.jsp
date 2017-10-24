@@ -67,9 +67,10 @@ function learningGo(learningCode){
 		<td><input type="button" value="나의정보" onClick="eventClick('studentInfoPageform','studentInfoPage','post')"  /></td>
 	</tr>
 	<tr>
-		<td><input type="button" value="출결" onClick=""  /></td>
+		<td><input type="button" value="출결" id="" onClick=""  /></td>
 	</tr>
 </table>
+${attendance }
 <div>
 	<div>학습 참여<br/><input type="button" value="+" onClick="eventClick('learningjoinform','learningJoinPage','post')" /></div>
 	<div>개설한 과목<br/>${content }</div>

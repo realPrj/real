@@ -11,6 +11,9 @@ public class LearningRoomBean {	// 학습방 bean
 	private String roomName;	// 방이름
 	private String roomSB;	// 방과목코드
 	private String roomIntroduction;	// 방소개
+	private String attendanceType;	// 출결 타입
+	private String attendanceCode;	// 출결 날짜코드
+	private String yyyymm;	// 이번달 코드
 	
 	public String getStudentCode() {
 		return studentCode;
@@ -48,6 +51,28 @@ public class LearningRoomBean {	// 학습방 bean
 	public void setRoomIntroduction(String roomIntroduction) {
 		this.roomIntroduction = roomIntroduction;
 	}
-
+	public String getAttendanceType() {
+		return attendanceType;
+	}
+	public void setAttendanceType(String attendanceType) {
+		this.attendanceType = attendanceType;
+	}
+	public String getAttendanceCode() {
+		return attendanceCode;
+	}
+	public void setAttendanceCode(String attendanceCode) {
+		this.attendanceCode = attendanceCode;
+	}
+	public String getYyyymm() {
+		return yyyymm;
+	}
+	public void setYyyymm(String yyyymm) {
+		this.yyyymm = yyyymm;
+	}
+	
+	
+	
+	
+	
 
 }
