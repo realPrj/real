@@ -55,9 +55,7 @@ public class learningTeacherMM extends TransactionExe {
 		case 7:	// 오답노트
 			mav = learningWANPage();
 			break;
-		case 12:	// 게시글
-			//mav = learningWANPage(((BoardBean)object));
-			break;
+
 
 		}
 
@@ -152,9 +150,7 @@ public class learningTeacherMM extends TransactionExe {
 			board.setRoomCode((String)session.getAttribute("roomCode"));
 
 			boardList = dao.learningWANListGet(board);
-			
-			
-			
+
 			sb.append("<table>");
 			sb.append("<tr>");
 			sb.append("<td>");
@@ -173,6 +169,7 @@ public class learningTeacherMM extends TransactionExe {
 			sb.append("선생님 코멘트");
 			sb.append("</td>");
 			sb.append("</tr>");
+			
 			for(int i = 0; i < boardList.size(); i++ ) {
 				
 				board = new BoardBean();
@@ -182,10 +179,10 @@ public class learningTeacherMM extends TransactionExe {
 				board.setRoomSB(dao.learningSBCodeGet(board));
 				board.setYearName(dao.learningYearNameGet(board));
 				board.setTypeName(dao.learningTypeNameGet(board));
-				
+
 				sb.append("<tr>");
 				sb.append("<td>");
-				sb.append(i);
+				sb.append(i+1);
 				sb.append("</td>");
 				sb.append("<td>");
 				sb.append(board.getYearName());
@@ -194,7 +191,10 @@ public class learningTeacherMM extends TransactionExe {
 				sb.append(board.getTypeName());
 				sb.append("</td>");
 				sb.append("<td>");
-				sb.append(board.getNumberCode());
+				sb.append(boardList.get(i).getNumberCode());
+				sb.append("</td>");
+				sb.append("<td>");
+				sb.append("<input type='button' value='선생님 코멘트' onClick='test("+boardList.get(i).getBoardCode()+")' />");
 				sb.append("</td>");
 				sb.append("</tr>");
 			}
@@ -215,7 +215,7 @@ public class learningTeacherMM extends TransactionExe {
 	
 
 	
-	/*
+	
 	private ModelAndView datahousemain(BoardBean board) { // 오답노트 페이지
 
 		mav = new ModelAndView();
@@ -228,7 +228,9 @@ public class learningTeacherMM extends TransactionExe {
 						
 			session.getAttribute("roomCode");
 
-		if(dao.referenceInsert != 0) {
+		if(dao.referenceInsert(board) == 1) {
+			
+		}else {
 			
 		}
 
@@ -241,7 +243,7 @@ public class learningTeacherMM extends TransactionExe {
 			setTransactionResult(transaction);
 		}
 		return mav;
-	}*/
+	}
 	
 
 }
