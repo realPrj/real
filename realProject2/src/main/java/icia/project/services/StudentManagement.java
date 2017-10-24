@@ -115,7 +115,7 @@ public class StudentManagement extends TransactionExe {
 				mav.addObject("identity", "2");
 				mav.addObject("message", "alert('아이디가 틀렸습니다.')");
 				mav.addObject("id", member.getId());
-			}
+			}		
 
 		}catch(Exception ex) {
 
@@ -137,7 +137,7 @@ public class StudentManagement extends TransactionExe {
 		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
 
 		try {
-		
+
 			if(dao.stIdCheck(member) == 0) {	// 아이디 체크
 				member.setPwd(enc.encode(member.getPwd()));	// 보안비밀번호
 				member.setStateCode("1");
@@ -298,7 +298,7 @@ public class StudentManagement extends TransactionExe {
 			member.setStudentCode(((String)session.getAttribute("stCode")));
 
 			if(dao.stInformationChange(member) != 0) {
-				
+
 				mav = pm.entrance(6, null);
 				mav.addObject("message","alert('나의정보 되셨습니다.')");
 				transaction = true;
@@ -402,7 +402,8 @@ public class StudentManagement extends TransactionExe {
 		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
 
 		try {
-
+			room.setStudentCode((String)session.getAttribute("stCode"));
+			
 			if(room.getRoomCode() == null) {	// 조회
 
 				if(dao.tclearningRoomCheck(room) != 0) {
@@ -424,16 +425,14 @@ public class StudentManagement extends TransactionExe {
 					mav.setViewName("studentLearningJoin");
 				}
 
-			}else {	// 인설트
+			}else if(dao.stlearningRoomJoinCheck(room) == 0) {	// 인설트
 
-				room.setStudentCode((String)session.getAttribute("stCode"));
+
 
 				if(dao.stLearningJoin(room) != 0) {
 					mav = pm.entrance(2, null);
 					mav.addObject("message", "alert('학습방에 참여 되셨습니다.')");
 					transaction = true;
-
-					// 동적으로 과목 보여줘야함
 
 				}else {
 					mav = pm.entrance(2, null);
@@ -441,6 +440,11 @@ public class StudentManagement extends TransactionExe {
 					transaction = true;
 				}
 
+			}else if(dao.stlearningRoomJoinCheck(room) != 0){
+				mav = new ModelAndView();
+				mav.setViewName("studentLearningJoin");
+				mav.addObject("message", "alert('이미 참여하신 학습방 입니다.')");
+				transaction = true;
 			}
 
 		}catch(Exception ex) {

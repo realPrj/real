@@ -6,7 +6,26 @@
 <meta charset="UTF-8">
 <title>공조 || 학생 메인</title>
 </head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script>
+
+$(document).ready(function() {
+	$("#attendance").hide();
+
+	
+ });
+
+function attendance(){
+
+	$("#attendance").show(1000);
+
+}
+
+function fold(){
+	
+	$("#attendance").hide(1000);
+}
+
 //form 생성
 function createForm(formname,formaction,formmethod){
 
@@ -67,9 +86,10 @@ function learningGo(learningCode){
 		<td><input type="button" value="나의정보" onClick="eventClick('studentInfoPageform','studentInfoPage','post')"  /></td>
 	</tr>
 	<tr>
-		<td><input type="button" value="출결" onClick=""  /></td>
+		<td><input type="button" value="출결" onClick="attendance()"  /></td>
 	</tr>
 </table>
+${attendance }
 <div>
 	<div>학습 참여<br/><input type="button" value="+" onClick="eventClick('learningjoinform','learningJoinPage','post')" /></div>
 	<div>개설한 과목<br/>${content }</div>

@@ -91,6 +91,22 @@
 		WHERE ST_EMAIL=#{email}
 	</select>
 
+	<!-- 오늘의 월 추출 -->
+	<select id="yyyyMMGet" resultType="String">
+		SELECT TO_CHAR(SYSDATE,'YYYYMM') FROM DUAL
+	</select>
+
+	<!-- 학생 출결 추출 -->
+	<select id="stIOHGet" resultType="room" parameterType="room">
+		SELECT
+		TO_CHAR(IOH_DATE, 'YYYYMMDDHH24MISS') AS attendanceCode
+		FROM
+		INOUTHISTORY
+		WHERE IOH_RFSTUDENTCODE=#{studentCode} AND
+		IOH_TYPE=#{attendanceType} AND TO_CHAR(IOH_DATE, 'YYYYMM')=#{yyyymm} ORDER BY IOH_DATE
+		DESC
+	</select>
+
 	<!-- 선생님 나의정보 추출 -->
 	<select id="tcInformationGet" resultType="member" parameterType="member">
 		SELECT
@@ -186,6 +202,15 @@
 		LSR_STRFSTUDENTCODE=#{studentCode}
 	</select>
 
+	<!-- 학생 학습방 참여 유무 -->
+	<select id="stlearningRoomJoinCheck" resultType="Integer"
+		parameterType="room">
+		SELECT COUNT(*)
+		FROM LEARNINGSTUDENTREGISTER
+		WHERE
+		LSR_STRFSTUDENTCODE=#{studentCode} AND LSR_LRCODE=#{roomCode}
+	</select>
+
 	<!-- 선생님 학습방 추출 -->
 	<select id="tclearningRoomGet" resultType="room" parameterType="room">
 		SELECT LR_CODE AS roomCode, LR_NAME AS roomName, LR_CONTENT AS
@@ -211,7 +236,7 @@
 		WHERE
 		LR_CODE=#{roomCode}
 	</select>
-	
+
 	<!-- 선생님 학습 개설 -->
 	<insert id="tclearningOpen" parameterType="room">
 		INSERT INTO

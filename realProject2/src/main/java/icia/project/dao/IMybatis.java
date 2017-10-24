@@ -37,6 +37,12 @@ public interface IMybatis {
 	// 학생 아이디 찾기
 	public MemberBean stIdFind(MemberBean member);
 
+	// 오늘의 월 추출
+	public String yyyyMMGet();
+
+	// 학생 출결 추출
+	public ArrayList<LearningRoomBean> stIOHGet(LearningRoomBean room);
+
 	// 선생님 로그인 히스토리
 	public int tcLogHistory(MemberBean member);
 
@@ -72,6 +78,9 @@ public interface IMybatis {
 
 	// 학생 학습코드 유무
 	public int stlearningRoomCheck(LearningRoomBean room);
+
+	// 학생 학습방 참여 유무
+	public int stlearningRoomJoinCheck(LearningRoomBean room);
 
 	// 선생님 학습방 추출
 	public ArrayList<LearningRoomBean> tclearningRoomGet(LearningRoomBean room);
