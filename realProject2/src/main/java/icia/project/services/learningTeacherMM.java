@@ -1,5 +1,7 @@
 package icia.project.services;
 
+import java.util.ArrayList;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.TransactionDefinition;
@@ -49,7 +51,7 @@ public class learningTeacherMM extends TransactionExe {
 			break;
 
 		case 7:	// 오답노트
-			mav = learningWANPage(((BoardBean)object));
+			mav = learningWANPage();
 			break;
 		case 12:	// 자료실
 			mav = datahousemain(((BoardBean)object));
@@ -85,20 +87,72 @@ public class learningTeacherMM extends TransactionExe {
 		return mav;
 	}
 	
-	private ModelAndView learningWANPage(BoardBean board) { // 오답노트 페이지
+	private ModelAndView learningWANPage() { // 오답노트 페이지
 
 		mav = new ModelAndView();
+		BoardBean board;
+		ArrayList<BoardBean> boardList = new ArrayList<BoardBean>();
+		StringBuffer sb = new StringBuffer();
 		boolean transaction = false;
 		String page = null;
-
+		
 		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
 
 		try {
-						
-			session.getAttribute("roomCode");
+			board = new BoardBean();
+			board.setRoomCode((String)session.getAttribute("roomCode"));
 
+			boardList = dao.learningWANListGet(board);
 			
-
+			
+			
+			sb.append("<table>");
+			sb.append("<tr>");
+			sb.append("<td>");
+			sb.append("게시글 번호");
+			sb.append("</td>");
+			sb.append("<td>");
+			sb.append("년도");
+			sb.append("</td>");
+			sb.append("<td>");
+			sb.append("문제유형");
+			sb.append("</td>");
+			sb.append("<td>");
+			sb.append("문제 번호");
+			sb.append("</td>");
+			sb.append("<td>");
+			sb.append("선생님 코멘트");
+			sb.append("</td>");
+			sb.append("</tr>");
+			for(int i = 0; i < boardList.size(); i++ ) {
+				
+				board = new BoardBean();
+				board.setRoomCode(boardList.get(0).getRoomCode());
+				board.setYearCode(boardList.get(i).getYearCode());
+				board.setTypeCode(boardList.get(i).getTypeCode());
+				board.setRoomSB(dao.learningSBCodeGet(board));
+				board.setYearName(dao.learningYearNameGet(board));
+				board.setTypeName(dao.learningTypeNameGet(board));
+				
+				sb.append("<tr>");
+				sb.append("<td>");
+				sb.append(i);
+				sb.append("</td>");
+				sb.append("<td>");
+				sb.append(board.getYearName());
+				sb.append("</td>");
+				sb.append("<td>");
+				sb.append(board.getTypeName());
+				sb.append("</td>");
+				sb.append("<td>");
+				sb.append(board.getNumberCode());
+				sb.append("</td>");
+				sb.append("</tr>");
+			}
+			
+			sb.append("</table>");
+			mav.addObject("content", sb.toString());
+			page = "learningWAN";
 			transaction = true;
 
 		}catch(Exception ex){
