@@ -34,10 +34,45 @@ $(document).ready(function() {
 	
  });
  
- function test(valueCode){
-	 alert(valueCode);
-	 opener.location.reload();
- }
+//form 생성
+function createForm1(formname,formaction,ta){
+
+	var form = document.createElement("form");
+	form.target=ta;
+	form.name = formname;
+	form.action = formaction;
+
+	document.body.appendChild(form);
+
+}
+
+//input 생성
+function createinput1(itype, iname, ivalue){
+	var input = document.createElement("input");
+	input.type = itype;
+	input.name = iname;
+	input.value = ivalue;
+
+	document.body.appendChild(input);
+}
+
+
+function test(valueCode){
+
+	createinput("hidden", "boardCode", valueCode);
+	
+	var boardCode = document.getElementsByName("boardCode")[0];
+	
+	createForm("form","studentPWDUpdatePage","POP");
+	
+
+	var form = document.getElementsByName("form")[0];
+	window.open('', 'POP',"width=570, height=350, resizable = no, scrollbars = no");
+	form.appendChild(boardCode);
+	
+	form.submit();
+
+}
 </script>
 <body>
 <input type="button" value="전체" onClick="" />
