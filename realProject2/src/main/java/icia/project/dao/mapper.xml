@@ -271,16 +271,10 @@
 	</insert>
 
 	<!-- 선생님 공지사항 리스트 -->
-<<<<<<< HEAD
 	<select id="tclearningNoticeList" resultType="board"
 		parameterType="board">
-		SELECT NT_TITLE AS title, NT_DATE AS date, NT_TCID AS
-		tcId FROM NOTICE WHERE
-		NT_LRCODE = #{roomCode};
-=======
-	<select id="tclearningNoticeList" resultType="board" parameterType="board">
-		SELECT NT_TITLE AS boardTitle, NT_DATE AS boardDate, NT_TCID AS boardId FROM NOTICE WHERE NT_LRCODE = #{roomCode}
->>>>>>> d4b3e2c706563b12797c1fc61ee182ed630d83a5
+		SELECT NT_TITLE AS boardTitle, NT_DATE AS boardDate,
+		NT_TCID AS boardId FROM NOTICE WHERE NT_LRCODE = #{roomCode}
 	</select>
 
 
@@ -346,13 +340,13 @@
 		WAN_QTSTYPECODE ASC
 	</select>
 
-<<<<<<< HEAD
 	<!-- 중복 년도 코드 추출 -->
 	<select id="learningWANYearCodeOneGet" resultType="board"
 		parameterType="board">
 		SELECT
 		WAN_QTSTYPEYACODE AS yearCode
-		FROM WRONGANSWERNOTES WHERE
+		FROM WRONGANSWERNOTES
+		WHERE
 		WAN_LRCODE = #{roomCode}
 		GROUP BY WAN_QTSTYPEYACODE ORDER
 		BY
@@ -360,24 +354,20 @@
 
 	</select>
 
-
-
-=======
-<!-- 자료실 글등록 -->
+	<!-- 자료실 글등록 -->
 	<insert id="referenceInsert" parameterType="board">
 		INSERT INTO
 		REFERENCE(RR_LRCODE,RR_TITLE,RR_CONTENT,RR_DATE,RR_ROUTE,RR_TCID)
 		VALUES('665',#{boardTitle},#{boardContent},SYSDATE,#{boardRoute},#{id})
 	</insert>
 	<!-- 자료실 리스트 -->
-	<select id="datalist" resultType="board"
-		parameterType="board">
+	<select id="datalist" resultType="board" parameterType="board">
 		SELECT
-		RR_TITLE AS boardTitle,TO_CHAR(RR_DATE, 'YYYYMMDDHH24MISS') AS boardDate,RR_TCID AS boardId
+		RR_TITLE AS boardTitle,TO_CHAR(RR_DATE, 'YYYYMMDDHH24MISS') AS
+		boardDate,RR_TCID AS boardId
 		FROM REFERENCE
 		WHERE
 		RR_TCID=#{id}
 	</select>
->>>>>>> d4b3e2c706563b12797c1fc61ee182ed630d83a5
 
 </mapper>
