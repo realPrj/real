@@ -154,8 +154,7 @@ public class learningTeacherMM extends TransactionExe {
 			mav.addObject("content", sb.toString());
 			page = "learningWAN";
 			transaction = true;
-			System.out.println("test");
-			System.out.println("test");
+
 		}catch(Exception ex){
 
 		}finally {
