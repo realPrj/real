@@ -162,34 +162,35 @@ public class HomeController  {
 
 		return mav;
 	}
-	
+
 	// 자료실 메인페이지로 가기
 	@RequestMapping(value = "/Datamain", method = RequestMethod.POST)
 	public ModelAndView daoaMaid(@ModelAttribute MemberBean member) {
-		
+
 		mav = new ModelAndView();
 
 		mav.setViewName("learningData");
-		
+
 		return mav;
 	}
 	// 자료실 글쓰러가기
 	@RequestMapping(value = "/DataInsert", method = RequestMethod.POST)
 	public ModelAndView dataInsert(@ModelAttribute MemberBean member) {
-		
+
 		mav = new ModelAndView();
 
 		mav.setViewName("learningDataInsert");
-		
+
 		return mav;
 	}
-	
+
+
 	// 선생님 학습메뉴
 	@RequestMapping(value = "/tcmenu", method = RequestMethod.POST)
 	public ModelAndView tcMenu(@ModelAttribute BoardBean board) {
 
 		int code = Integer.parseInt(board.getCaCode());
-		
+
 		switch(code) {
 		case 1 : 
 
@@ -254,7 +255,7 @@ public class HomeController  {
 	public ModelAndView stMenu(@ModelAttribute  BoardBean board) {
 
 		int code = Integer.parseInt(board.getCaCode());
-		
+
 		switch(code) {
 		case 1 : 
 
@@ -268,7 +269,7 @@ public class HomeController  {
 			break;	
 		case 4 :	
 			break;
-			
+
 		case 5 : 
 
 			break;
@@ -284,11 +285,11 @@ public class HomeController  {
 		case 8 : 	
 
 			break;
-			
+
 		case 9 : 
 
 			break;
-			
+
 		case 10 : 
 
 			break;
@@ -336,7 +337,7 @@ public class HomeController  {
 
 		return mav;
 	}
-	
+
 	// 학생 학습방 메인 페이지
 	@RequestMapping(value = "/studentLearningMainPage", method = RequestMethod.POST)
 	public ModelAndView studentLearningMainPage(@ModelAttribute LearningRoomBean room) {
@@ -346,6 +347,15 @@ public class HomeController  {
 		return mav;
 	}
 
-	
+	// 공지사항 내용 확인
+	@RequestMapping(value = "/NoticeConfirm", method = RequestMethod.POST)
+	public ModelAndView learningNoticeCTX(@ModelAttribute BoardBean board) {
+
+		mav = ltmm.entrance(8, board);
+
+		return mav;
+	}
+
+
 
 }

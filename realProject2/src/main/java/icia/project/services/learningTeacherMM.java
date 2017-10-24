@@ -55,6 +55,10 @@ public class learningTeacherMM extends TransactionExe {
 		case 7:	// 오답노트
 			mav = learningWANPage();
 			break;
+			
+		case 8: // 공지사항 내용확인
+			mav = tclearningNoticeCTX((BoardBean)object);
+			break;
 
 
 		}
@@ -78,7 +82,7 @@ public class learningTeacherMM extends TransactionExe {
 			
 			//mav.addObject("content",session.getAttribute("roomCode") + "의 공지사항");
 			ar = dao.tclearningNoticeList(board);
-			mav.addObject("content", tclearningNoticeList(ar));
+			mav.addObject("content", tclearningNoticeList(board,ar));
 
 			
 			transaction = true;
@@ -91,9 +95,10 @@ public class learningTeacherMM extends TransactionExe {
 		}
 		return mav;
 	}
-	private String tclearningNoticeList(ArrayList<BoardBean> ar) { // 공지사항 리스트
+	private String tclearningNoticeList(BoardBean board, ArrayList<BoardBean> ar) { // 공지사항 리스트
 		StringBuffer sb = new StringBuffer();
 
+		int count = 0;
 		sb.append("<table>");
 		sb.append("<tr>");
 		sb.append("<td>제목</td>");
@@ -101,7 +106,8 @@ public class learningTeacherMM extends TransactionExe {
 		sb.append("<td>작성자</td>");
 		sb.append("</tr>");
 		for(int i=0; i<ar.size(); i++) {
-			sb.append("<tr>");
+			sb.append("<tr>");	
+			//sb.append("<input type=\"hidden\" name=\"botitle\" value='" + board.getBoardTitle() + "'/>");
 			sb.append("<td>" + ar.get(i).getBoardTitle() + "</td>");
 			sb.append("<td>" + ar.get(i).getBoardDate() + "</td>");
 			sb.append("<td>" + ar.get(i).getBoardId() + "</td>");
@@ -111,6 +117,44 @@ public class learningTeacherMM extends TransactionExe {
 		
 		return sb.toString();
 	}
+	
+	
+	private ModelAndView tclearningNoticeCTX(BoardBean board) { // 공지사항 내용확인
+		mav = new ModelAndView();
+		boolean transaction = false;
+		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
+		try {
+			session.getAttribute("roomCode");
+
+			board.setRoomCode((String)session.getAttribute("roomCode"));
+			board = dao.tclearningNoticeConfirm(board);
+			
+			//mav.addObject("content",session.getAttribute("roomCode") + "의 공지사항");
+			mav.addObject("content", getTclearningNoticeCTX(board));
+
+			
+			transaction = true;
+
+		}catch(Exception ex){
+
+		}finally {
+			mav.setViewName("learningNoticeCTX");
+			setTransactionResult(transaction);
+		}
+		return mav;
+	}
+	
+	private String getTclearningNoticeCTX(BoardBean board) { // 공지사항 내용 끌고오기
+		StringBuffer sb = new StringBuffer();
+		
+		sb.append("<table>");
+		sb.append("<tr>");
+		sb.append("<td>" + board.getBoardTitle() + "</td>");
+		sb.append("</tr>");
+		sb.append("</table>");
+		return sb.toString();
+	}
+
 	
 	private ModelAndView learningQuestion(BoardBean board) { // 질문게시판 페이지
 		mav = new ModelAndView();

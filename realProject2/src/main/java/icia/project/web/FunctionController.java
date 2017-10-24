@@ -344,7 +344,7 @@ public class FunctionController {
 			System.out.println("fileSize : " + fileSize);
 
 			String safeFile = path + originFileName;
-			board.setBoardroute(safeFile);
+			board.setBoardRoute(safeFile);
 			try {
 				mf.transferTo(new File(safeFile));
 			} catch (IllegalStateException e) {

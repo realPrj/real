@@ -276,6 +276,11 @@
 		SELECT NT_TITLE AS boardTitle, NT_DATE AS boardDate, NT_TCID AS boardId FROM NOTICE WHERE NT_LRCODE = #{roomCode}
 	</select>
 	
+	<!-- 선생님 공지사항 내용확인 -->
+	<select id="tclearningNoticeConfirm" resultType="board" parameterType="board">
+		SELECT NT_TITLE AS boardTitle, NT_DATE AS boardDate, NT_CONTENT AS boardContent, NT_ROUTE AS boardRoute, NT_TCID AS boardId FROM NOTICE WHERE NT_LRCODE = #{roomCode} AND NT_TITLE = #{boardTitle};
+	</select>
+	
 
 	<!-- 선생님 학습방 오답노트 추출 -->
 	<select id="learningWANListGet" resultType="board" parameterType="board">
