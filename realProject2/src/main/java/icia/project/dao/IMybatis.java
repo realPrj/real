@@ -108,5 +108,16 @@ public interface IMybatis {
 	public LearningRoomBean learningRoomGo(LearningRoomBean room);
 
 	// 선생님 오답노트(전체) 페이지 이동
-	public BoardBean learningWANListGet(BoardBean board);
+	public ArrayList<BoardBean> learningWANListGet(BoardBean board);
+
+	// 학습방 과목코드 추출
+	public String learningSBCodeGet(BoardBean board);
+
+	// 년도 이름 추출
+	public String learningYearNameGet(BoardBean board);
+
+	// 문제유형 이름 추출
+	public String learningTypeNameGet(BoardBean board);
+	
+
 }

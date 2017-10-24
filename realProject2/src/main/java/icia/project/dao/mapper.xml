@@ -272,13 +272,47 @@
 	</insert>
 
 	<!-- 선생님 학습방 오답노트 추출 -->
-	<select id="learningWANListGet" resultType="board" parameterType="board">
+	<select id="learningWANListGet" resultType="board"
+		parameterType="board">
 		SELECT
-		LR_CODE AS roomCode, LR_NAME AS roomName
+		WAN_CODE AS boardCode, WAN_LRCODE AS roomCode ,WAN_STUDENTNAME AS
+		studentName,WAN_QTSTYPEYACODE AS yearCode,WAN_QTSTYPECODE AS
+		typeCode,WAN_QTNUMBER AS numberCode,WAN_DATE AS boardDate
 		FROM WRONGANSWERNOTES
 		WHERE
-		WAN_LRCODE=#{id}
+		WAN_LRCODE=#{roomCode}
 	</select>
+
+	<!-- 학습방 과목 코드 추출 -->
+	<select id="learningSBCodeGet" resultType="String"
+		parameterType="board">
+		SELECT
+		LR_SBCODE AS roomSB
+		FROM LEARNINGROOM
+		WHERE
+		LEARNINGROOM#{roomCode}
+	</select>
+
+	<!-- 년도 이름 추출 -->
+	<select id="learningYearNameGet" resultType="board"
+		parameterType="board">
+		SELECT
+		YA_NAME AS yearName
+		FROM YEAR
+		WHERE
+		YA_SBCODE=#{roomSB} AND YA_CODE=#{yearCode}
+	</select>
+
+	<!-- 문제유형 이름 추출 -->
+	<select id="learningTypeNameGet" resultType="board"
+		parameterType="board">
+		SELECT
+		STYPE_NAME AS typeName
+		FROM SUBJECTTYPE
+		WHERE
+		YA_SBCODE=#{roomSB} AND YA_CODE=#{yearCode} AND STYPE_CODE#{typeCode}
+	</select>
+
 
 
 </mapper>
