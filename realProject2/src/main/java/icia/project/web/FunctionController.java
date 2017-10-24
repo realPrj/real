@@ -1,17 +1,26 @@
 package icia.project.web;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
+
+
 
 import icia.project.bean.MemberBean;
 import icia.project.bean.BoardBean;
 import icia.project.bean.LearningRoomBean;
 import icia.project.services.ProjectUtils;
 import icia.project.services.StudentManagement;
+import icia.project.services.learningTeacherMM;
 import icia.project.services.teacherManagement;
 
 
@@ -26,6 +35,8 @@ public class FunctionController {
 	private teacherManagement tm;
 	@Autowired
 	private ProjectUtils session;
+	@Autowired
+	private learningTeacherMM ltm;
 
 	private ModelAndView mav;
 
@@ -57,7 +68,7 @@ public class FunctionController {
 	// 회원가입
 	@RequestMapping(value = "/join", method = RequestMethod.POST)
 	public ModelAndView join(@ModelAttribute MemberBean member) {
-		
+
 		switch(Integer.parseInt(member.getIdentity())) {
 
 		case 1:	// 선생님
@@ -155,7 +166,7 @@ public class FunctionController {
 
 		return mav;
 	}
-	
+
 	// 선생님 나의정보 수정
 	@RequestMapping(value = "/teacherInfoUpdate", method = RequestMethod.POST)
 	public ModelAndView  teacherInfoUpdate(MemberBean member) {
@@ -164,7 +175,7 @@ public class FunctionController {
 
 		return mav;
 	}
-	
+
 	// 학생 나의정보 수정
 	@RequestMapping(value = "/studentInfoUpdate", method = RequestMethod.POST)
 	public ModelAndView  studentInfoUpdate(MemberBean member) {
@@ -182,7 +193,7 @@ public class FunctionController {
 
 		return mav;
 	}
-	
+
 	// 학생 비밀번호 수정
 	@RequestMapping(value = "/studentInfoPWDUpdate", method = RequestMethod.POST)
 	public ModelAndView  studentInfoPWDUpdate(MemberBean member) {
@@ -213,7 +224,7 @@ public class FunctionController {
 
 		return mav;
 	}
-	
+
 	// 선생님 학습방 공지사항 글 등록
 	@RequestMapping(value = "/learningBoardNoticeInsert", method = RequestMethod.POST)
 	public ModelAndView  learningBoardNoticeInsert(BoardBean board) {
@@ -223,7 +234,7 @@ public class FunctionController {
 
 		return mav;
 	}
-	
+
 	// 선생님 학습방 질문게시판 글 등록
 	@RequestMapping(value = "/learningBoardQueryInsert", method = RequestMethod.POST)
 	public ModelAndView  learningBoardQueryInsert(BoardBean board) {
@@ -234,7 +245,7 @@ public class FunctionController {
 
 		return mav;
 	}
-	
+
 	// 선생님 학습방 자료실 글 등록
 	@RequestMapping(value = "/learningBoardReferenceInsert", method = RequestMethod.POST)
 	public ModelAndView  learningBoardReferenceInsert(BoardBean board) {
@@ -244,8 +255,8 @@ public class FunctionController {
 
 		return mav;
 	}
-	
-	
+
+
 	// 토론 게시판 글 등록
 	@RequestMapping(value = "/learningDebateInsert", method = RequestMethod.POST)
 	public ModelAndView  learningDebateInsert(BoardBean board) {
@@ -256,7 +267,7 @@ public class FunctionController {
 
 		return mav;
 	}
-	
+
 	// 과제 게시판 글 등록
 	@RequestMapping(value = "/learningTaskInsert", method = RequestMethod.POST)
 	public ModelAndView  learningTaskInsert(BoardBean board) {
@@ -267,7 +278,7 @@ public class FunctionController {
 
 		return mav;
 	}
-	
+
 	// 과제제출 게시판 글 등록
 	@RequestMapping(value = "/learningTaskSBInsert", method = RequestMethod.POST)
 	public ModelAndView  learningTaskSBInsert(BoardBean board) {
@@ -278,7 +289,7 @@ public class FunctionController {
 
 		return mav;
 	}
-	
+
 	// 성적 게시판 글 등록
 	@RequestMapping(value = "/learningGradeInsert", method = RequestMethod.POST)
 	public ModelAndView  learningGradeInsert(BoardBean board) {
@@ -289,7 +300,7 @@ public class FunctionController {
 
 		return mav;
 	}
-	
+
 	// 강의계획서  글 등록
 	@RequestMapping(value = "/learningPlanInsert", method = RequestMethod.POST)
 	public ModelAndView  learningPlanInsert(BoardBean board) {
@@ -311,6 +322,45 @@ public class FunctionController {
 
 		return mav;
 	}
+	// 자료실 글쓰기
+	@RequestMapping(value = "requestupload2")
+	public ModelAndView requestupload2(MultipartHttpServletRequest mtfRequest,BoardBean board) throws Exception {
+		mav = new ModelAndView();	
+		List<MultipartFile> fileList = mtfRequest.getFiles("file");
+		String load = mtfRequest.getParameter("load");
+		String src = mtfRequest.getParameter("src");
+		String subject = mtfRequest.getParameter("subject");
+		String body = mtfRequest.getParameter("body");
+		System.out.println(load);
+		System.out.println(subject);
+		System.out.println(body);
+		String path = "E:\\RealProject\\realProject2\\src\\main\\webapp\\WEB-INF\\uploadFiles\\"+load+"\\";
+		System.out.println(path);
+		for (MultipartFile mf : fileList) {
+			String originFileName = mf.getOriginalFilename(); // 원본 파일 명
+			long fileSize = mf.getSize(); // 파일 사이즈
+
+			System.out.println("originFileName : " + originFileName);
+			System.out.println("fileSize : " + fileSize);
+
+			String safeFile = path + originFileName;
+			
+			try {
+				mf.transferTo(new File(safeFile));
+			} catch (IllegalStateException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	
+		mav = ltm.entrance(12, board);
+
+		mav.setViewName("learningData");
+		return mav;
 
 
+	}
 }

@@ -25,8 +25,7 @@ public class HomeController  {
 	private PageManagement pm;
 	@Autowired
 	private learningTeacherMM ltmm;
-	@Autowired
-	private learningStudentMM lsmm;
+	
 
 	private ModelAndView mav;
 

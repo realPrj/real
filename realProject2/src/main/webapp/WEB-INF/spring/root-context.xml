@@ -1,31 +1,49 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
 	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:tx="http://www.springframework.org/schema/tx"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 						http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
-						http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd"
-					
-	>
-		<context:component-scan base-package="icia.project.*" />
-		
-		<bean id="ds" class="org.springframework.jndi.JndiObjectFactoryBean" >	
-			<property name="jndiName" value="java:comp/env/YHDB"></property> 		
-		</bean>
-		
-		<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-			<property name="dataSource" ref="ds"></property>
-		</bean>
-		
-		<bean id="sessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-			<property name="dataSource" ref="ds"></property>
-			<property name="configLocation" value="classpath:icia/project/dao/mybatisConfig.xml"></property>
-		</bean>
-		
-		<bean id="dao" class="org.mybatis.spring.mapper.MapperFactoryBean">
-			<property name="sqlSessionFactory" ref="sessionFactory"></property>
-			<property name="mapperInterface" value="icia.project.dao.IMybatis"></property>
-		</bean>
-		
+						http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+	
+	<context:component-scan base-package="icia.project.*" />
+
+	<bean id="ds" class="org.springframework.jndi.JndiObjectFactoryBean">
+		<property name="jndiName" value="java:comp/env/YHDB"></property>
+	</bean>
+
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="ds"></property>
+	</bean>
+
+	<bean id="sessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="ds"></property>
+		<property name="configLocation" value="classpath:icia/project/dao/mybatisConfig.xml"></property>
+	</bean>
+
+	<bean id="dao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="sqlSessionFactory" ref="sessionFactory"></property>
+		<property name="mapperInterface" value="icia.project.dao.IMybatis"></property>
+	</bean>
+	
+	<!-- file Upload -->
+	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<!-- max upload size in bytes -->
+		<beans:property name="maxUploadSize" value="5242880" /> <!-- 5MB -->
+		<!-- max size of file in memory (in bytes) -->
+		<beans:property name="maxInMemorySize" value="1048576" /> <!-- 1MB -->
+	</beans:bean>
+	<!-- Controller에서 뷰 이름을 리턴하면 뷰 이름에 해당하는 bean이 있는지 확인하고 그 bean을 이용해서 뷰를 만드는 
+		뷰 리졸버 설정 -->
+	<beans:bean class="org.springframework.web.servlet.view.BeanNameViewResolver">
+		<!-- 뷰 이름이 올 때 우선권을 갖도록 설정 value가 낮을수록 우선 -->
+		<beans:property name="order" value="0" />
+	</beans:bean>
+	<!-- download라는 뷰 이름이 왔을 때 출력할 뷰를 설정 -->
+
+	<beans:bean id="downloadFile" class="icia.project.services.DownloadView">
+	</beans:bean>
 </beans>
