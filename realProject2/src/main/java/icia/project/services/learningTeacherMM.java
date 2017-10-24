@@ -56,7 +56,7 @@ public class learningTeacherMM extends TransactionExe {
 			mav = learningWANPage();
 			break;
 
-		case 12:	// 오답노트
+		case 12:	// 자료실
 			mav = datahousemain((BoardBean)object);
 			break;
 
