@@ -142,7 +142,6 @@ public class learningTeacherMM extends TransactionExe {
 		ArrayList<BoardBean> boardList = new ArrayList<BoardBean>();
 		ArrayList<BoardBean> typeSum = new ArrayList<BoardBean>();
 		ArrayList<BoardBean> yearCode = new ArrayList<BoardBean>();
-		ArrayList<BoardBean> al = new ArrayList<BoardBean>();
 		StringBuffer sb;
 		StringBuffer sum;
 		boolean transaction = false;
