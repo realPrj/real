@@ -272,7 +272,6 @@ public class learningTeacherMM extends TransactionExe {
 			session.getAttribute("roomCode");
 
 
-
 			if(dao.referenceInsert(board) != 0) {
 				System.out.println("나 성공햇다 ");
 				page = "learningData";
