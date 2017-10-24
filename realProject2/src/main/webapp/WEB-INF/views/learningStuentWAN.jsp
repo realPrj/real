@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>공조 || 오답노트(전체)</title>
+<title>공조 || 오답노트(학생)</title>
 </head>
 <body>
 <input type="button" value="전체" onClick="" />

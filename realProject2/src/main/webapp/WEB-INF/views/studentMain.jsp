@@ -65,9 +65,9 @@ function learningGo(learningCode){
 	
 	var roomCode = document.getElementsByName("roomCode")[0];
 	
-	createForm("teacherLearningMainPageform","teacherLearningMainPage","post");
+	createForm("studentLearningMainPageform","studentLearningMainPage","post");
 	
-	var form = document.getElementsByName("teacherLearningMainPageform")[0];
+	var form = document.getElementsByName("studentLearningMainPageform")[0];
 	
 	form.appendChild(roomCode);
 	

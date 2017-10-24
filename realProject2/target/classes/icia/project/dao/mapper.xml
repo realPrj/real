@@ -93,7 +93,8 @@
 
 	<!-- 오늘의 월 추출 -->
 	<select id="yyyyMMGet" resultType="String">
-		SELECT TO_CHAR(SYSDATE,'YYYYMM') FROM DUAL
+		SELECT
+		TO_CHAR(SYSDATE,'YYYYMM') FROM DUAL
 	</select>
 
 	<!-- 학생 출결 추출 -->
@@ -103,7 +104,8 @@
 		FROM
 		INOUTHISTORY
 		WHERE IOH_RFSTUDENTCODE=#{studentCode} AND
-		IOH_TYPE=#{attendanceType} AND TO_CHAR(IOH_DATE, 'YYYYMM')=#{yyyymm} ORDER BY IOH_DATE
+		IOH_TYPE=#{attendanceType} AND TO_CHAR(IOH_DATE, 'YYYYMM')=#{yyyymm}
+		ORDER BY IOH_DATE
 		DESC
 	</select>
 
@@ -245,7 +247,7 @@
 	</insert>
 
 	<!-- 선생님 학습방 이동 -->
-	<select id="telearningRoomGo" resultType="room" parameterType="room">
+	<select id="learningRoomGo" resultType="room" parameterType="room">
 		SELECT LR_CODE AS roomCode, LR_NAME AS roomName, LR_CONTENT AS
 		roomIntroduction, LR_SBCODE AS roomSB
 		FROM LEARNINGROOM
@@ -268,6 +270,15 @@
 		LEARNINGSTUDENTREGISTER(LSR_LRCODE,LSR_STRFSTUDENTCODE)
 		VALUES(#{roomCode},#{studentCode})
 	</insert>
+
+	<!-- 선생님 학습방 오답노트 추출 -->
+	<select id="learningWANListGet" resultType="board" parameterType="board">
+		SELECT
+		LR_CODE AS roomCode, LR_NAME AS roomName
+		FROM LEARNINGROOM
+		WHERE
+		LR_TCID=#{id}
+	</select>
 
 
 </mapper>

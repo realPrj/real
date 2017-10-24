@@ -187,6 +187,7 @@ public class HomeController  {
 	public ModelAndView tcMenu(@ModelAttribute BoardBean board) {
 
 		int code = Integer.parseInt(board.getCaCode());
+		
 		switch(code) {
 		case 1 : 
 
@@ -209,7 +210,7 @@ public class HomeController  {
 			break;
 
 		case 7 : // 오답노트
-
+			mav = ltmm.entrance(7, null);
 			break;
 
 		case 8 : 	
@@ -248,6 +249,7 @@ public class HomeController  {
 	public ModelAndView stMenu(@ModelAttribute  BoardBean board) {
 
 		int code = Integer.parseInt(board.getCaCode());
+		
 		switch(code) {
 		case 1 : 
 
@@ -261,6 +263,7 @@ public class HomeController  {
 			break;	
 		case 4 :	
 			break;
+			
 		case 5 : 
 
 			break;
@@ -276,9 +279,11 @@ public class HomeController  {
 		case 8 : 	
 
 			break;
+			
 		case 9 : 
 
 			break;
+			
 		case 10 : 
 
 			break;
@@ -326,6 +331,16 @@ public class HomeController  {
 
 		return mav;
 	}
+	
+	// 학생 학습방 메인 페이지
+	@RequestMapping(value = "/studentLearningMainPage", method = RequestMethod.POST)
+	public ModelAndView studentLearningMainPage(@ModelAttribute LearningRoomBean room) {
 
+		mav = pm.entrance(3, room);
+
+		return mav;
+	}
+
+	
 
 }

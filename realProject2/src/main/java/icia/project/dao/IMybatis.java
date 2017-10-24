@@ -3,6 +3,7 @@ package icia.project.dao;
 import java.util.ArrayList;
 
 import icia.project.bean.MemberBean;
+import icia.project.bean.BoardBean;
 import icia.project.bean.LearningRoomBean;
 
 public interface IMybatis {
@@ -103,6 +104,9 @@ public interface IMybatis {
 	// 학생 학습참여
 	public int stLearningJoin(LearningRoomBean room);
 
-	// 선생님 학습 페이지 이동
-	public LearningRoomBean telearningRoomGo(LearningRoomBean room);
+	// 학습 페이지 이동
+	public LearningRoomBean learningRoomGo(LearningRoomBean room);
+
+	// 선생님 오답노트(전체) 페이지 이동
+	public BoardBean learningWANListGet(BoardBean board);
 }
