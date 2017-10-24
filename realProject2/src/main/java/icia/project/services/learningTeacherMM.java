@@ -80,7 +80,7 @@ public class learningTeacherMM extends TransactionExe {
 			ar = dao.tclearningNoticeList(board);
 			System.out.println(ar.size());
 			System.out.println(session.getAttribute("roomCode"));
-			mav.addObject("content", tclearningNoticeList(ar));
+			mav.addObject("content", tclearningNoticeList(ar).toString());
 			
 			transaction = true;
 
@@ -92,7 +92,7 @@ public class learningTeacherMM extends TransactionExe {
 		}
 		return mav;
 	}
-	private String tclearningNoticeList(ArrayList<BoardBean> ar) { // 공지사항 리스트
+	private StringBuffer tclearningNoticeList(ArrayList<BoardBean> ar) { // 공지사항 리스트
 		StringBuffer sb = new StringBuffer();
 
 		sb.append("<table>");
@@ -109,7 +109,7 @@ public class learningTeacherMM extends TransactionExe {
 		}
 		sb.append("</table>");
 		
-		return sb.toString();
+		return sb;
 	}
 	
 	private ModelAndView learningQuestion(BoardBean board) { // 질문게시판 페이지
