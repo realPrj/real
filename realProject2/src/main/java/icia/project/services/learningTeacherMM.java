@@ -15,14 +15,14 @@ import icia.project.dao.TransactionExe;
 
 @Service
 public class learningTeacherMM extends TransactionExe {
-	
+
 	@Autowired
 	private IMybatis dao;
 	@Autowired
 	private ProjectUtils session;
 
 	private ModelAndView mav;
-	
+
 
 	public ModelAndView entrance(int serviceCode,Object object)  {
 
@@ -62,13 +62,13 @@ public class learningTeacherMM extends TransactionExe {
 		case 13:	// 자료실
 			mav = dataview((BoardBean)object);
 			break;
-			
+
 		}
-		
+
 		return mav;
 
 	}
-	
+
 
 	private ModelAndView learningNoticePage(BoardBean board) { // 공지사항 페이지
 
@@ -81,12 +81,12 @@ public class learningTeacherMM extends TransactionExe {
 			session.getAttribute("roomCode");
 
 			board.setRoomCode((String)session.getAttribute("roomCode"));
-			
+
 			//mav.addObject("content",session.getAttribute("roomCode") + "의 공지사항");
 			ar = dao.tclearningNoticeList(board);
 			mav.addObject("content", tclearningNoticeList(ar));
 
-			
+
 			transaction = true;
 
 		}catch(Exception ex){
@@ -114,10 +114,10 @@ public class learningTeacherMM extends TransactionExe {
 			sb.append("</tr>");
 		}
 		sb.append("</table>");
-		
+
 		return sb.toString();
 	}
-	
+
 	private ModelAndView learningQuestion(BoardBean board) { // 질문게시판 페이지
 		mav = new ModelAndView();
 		boolean transaction = false;
@@ -139,7 +139,7 @@ public class learningTeacherMM extends TransactionExe {
 		}
 		return mav;
 	}
-	
+
 	private ModelAndView learningWANPage() { // 오답노트 페이지
 
 		mav = new ModelAndView();
@@ -151,7 +151,7 @@ public class learningTeacherMM extends TransactionExe {
 		StringBuffer sum;
 		boolean transaction = false;
 		String page = null;
-		
+
 		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
 
 		try {
@@ -216,9 +216,9 @@ public class learningTeacherMM extends TransactionExe {
 			sb.append("선생님 코멘트");
 			sb.append("</td>");
 			sb.append("</tr>");
-			
+
 			for(int i = 0; i < boardList.size(); i++ ) {
-				
+
 				board = new BoardBean();
 				board.setRoomCode(boardList.get(0).getRoomCode());
 				board.setYearCode(boardList.get(i).getYearCode());
@@ -259,29 +259,29 @@ public class learningTeacherMM extends TransactionExe {
 		}
 		return mav;
 	}
-	
+
 	private ModelAndView datahousemain(BoardBean board) { // 자료실 인설트
-		
+
 		mav = new ModelAndView();
 		boolean transaction = false;
 		String page = null;
 
 		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
 		try {
-		
-			session.getAttribute("roomCode");
-		
-			
-			
-		if(dao.referenceInsert(board) != 0) {
-			System.out.println("나 성공햇다 ");
-			page = "learningData";
-			transaction = true;
-		}else {
-			System.out.println("실패");
-		}
 
-			
+			session.getAttribute("roomCode");
+
+
+
+			if(dao.referenceInsert(board) != 0) {
+				System.out.println("나 성공햇다 ");
+				page = "learningData";
+				transaction = true;
+			}else {
+				System.out.println("실패");
+			}
+
+
 
 		}catch(Exception ex){
 			ex.printStackTrace();
@@ -296,31 +296,49 @@ public class learningTeacherMM extends TransactionExe {
 
 		mav = new ModelAndView();
 		boolean transaction = false;
+		StringBuffer sb = new StringBuffer();
 		ArrayList<BoardBean> bb = null;
 		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
 
 		try {
 			session.getAttribute("roomCode");
-
+			board.setId((String)session.getAttribute("tcId"));
 			board.setRoomCode((String)session.getAttribute("roomCode"));
-			
+
 			//mav.addObject("content",session.getAttribute("roomCode") + "의 공지사항");
 			bb = dao.datalist(board);
-			//System.out.println(bb);
-			System.out.println(bb.get(0).getBoardRoute());
-			mav.addObject("content", tclearningNoticeList(bb));
+			sb.append("<table>");
+			sb.append("<tr>");
+			sb.append("<td>제목</td>");
+			sb.append("<td>날짜</td>");
+			sb.append("<td>아이디</td>");
+			sb.append("</tr>");
+			for(int i=0; i<bb.size(); i++) {
+				sb.append("<tr>");
+				sb.append("<td>" + bb.get(i).getBoardTitle() + "</td>");
+				sb.append("<td>" + bb.get(i).getBoardDate() + "</td>");
+				sb.append("<td>" + bb.get(i).getBoardId() + "</td>");
+				sb.append("</tr>");
 
-			
+			}
+			sb.append("</table>");
+
+			mav.addObject("datalist", sb.toString());
+			mav.setViewName("learningData");
+
 			transaction = true;
 
 		}catch(Exception ex){
 
 		}finally {
-			mav.setViewName("learningNotice");
+
 			setTransactionResult(transaction);
 		}
 		return mav;
 	}
-	
+
+
+
+
 
 }

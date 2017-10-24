@@ -168,12 +168,10 @@ public class HomeController  {
 	
 	// 자료실 메인페이지로 가기
 	@RequestMapping(value = "/Datamain", method = RequestMethod.POST)
-	public ModelAndView daoaMaid(@ModelAttribute BoardBean board) throws Exception {
-		
-		mav = new ModelAndView();
-		board.setId((String)session.getAttribute("tcId"));
+	public ModelAndView daoaMaid(@ModelAttribute BoardBean board) {
+
 		mav = ltmm.entrance(13, board);
-		mav.setViewName("learningData");
+	
 		
 		return mav;
 	}
