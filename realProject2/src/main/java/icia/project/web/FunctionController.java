@@ -323,6 +323,7 @@ public class FunctionController {
 
 		return mav;
 	}
+	
 	// 자료실 글쓰기
 	@RequestMapping(value = "dataupload", method = RequestMethod.POST)
 	public ModelAndView requestupload2(MultipartHttpServletRequest mtfRequest)throws Exception{

@@ -104,20 +104,21 @@ public interface IMybatis {
 	// 학생 학습참여
 	public int stLearningJoin(LearningRoomBean room);
 
-
 	// 학습 페이지 이동
 	public LearningRoomBean learningRoomGo(LearningRoomBean room);
 
-	// 선생님 오답노트(전체) 페이지 이동
-
-
-
 	// 선생님 자료실 등록
+<<<<<<< HEAD
+	public BoardBean referenceInsert(BoardBean board);
+	
+	// 선생님 오답노트(전체) 페이지 이동
+=======
 	public int referenceInsert(BoardBean board);
 	
 	// 선생님 공지사항 리스트
 	public ArrayList<BoardBean> datalist(BoardBean board);
 
+>>>>>>> d4b3e2c706563b12797c1fc61ee182ed630d83a5
 	public ArrayList<BoardBean> learningWANListGet(BoardBean board);
 
 	// 학습방 과목코드 추출
@@ -128,13 +129,16 @@ public interface IMybatis {
 
 	// 문제유형 이름 추출
 	public String learningTypeNameGet(BoardBean board);
+
+	// 년도별 문제유형 합
+	public ArrayList<BoardBean> learningWANTypeSum(BoardBean board);
 	
-
-
+	// 중복 년도 코드 추출
+	public ArrayList<BoardBean> learningWANYearCodeOneGet(BoardBean board);
 
 	// 선생님 학습 페이지 이동
 	public LearningRoomBean telearningRoomGo(LearningRoomBean room);
-	
+
 	// 선생님 공지사항 리스트
 	public ArrayList<BoardBean> tclearningNoticeList(BoardBean board);
 

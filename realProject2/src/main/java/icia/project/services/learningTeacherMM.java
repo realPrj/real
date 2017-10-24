@@ -145,7 +145,10 @@ public class learningTeacherMM extends TransactionExe {
 		mav = new ModelAndView();
 		BoardBean board;
 		ArrayList<BoardBean> boardList = new ArrayList<BoardBean>();
-		StringBuffer sb = new StringBuffer();
+		ArrayList<BoardBean> typeSum = new ArrayList<BoardBean>();
+		ArrayList<BoardBean> yearCode = new ArrayList<BoardBean>();
+		StringBuffer sb;
+		StringBuffer sum;
 		boolean transaction = false;
 		String page = null;
 
@@ -156,7 +159,45 @@ public class learningTeacherMM extends TransactionExe {
 			board.setRoomCode((String)session.getAttribute("roomCode"));
 
 			boardList = dao.learningWANListGet(board);
+			
+			yearCode = dao.learningWANYearCodeOneGet(board);
+			
+			sb = new StringBuffer();
+			sum = new StringBuffer();
+			sb.append("<select id = 'yearSelect'>");
+			sb.append("<option></option>");
+			
+			for(int i =0; i < yearCode.size(); i++) {
+				board = new BoardBean();
+				board.setRoomCode(boardList.get(0).getRoomCode());
+				board.setYearCode(yearCode.get(i).getYearCode());
 
+				sb.append("<option>"+yearCode.get(i).getYearCode()+"</option>");
+				
+				typeSum = dao.learningWANTypeSum(board);
+				
+				sum.append("<br><biv id='"+yearCode.get(i).getYearCode().substring(0, 4)+"'>");
+				for(int y = 0; y < typeSum.size(); y++) {
+					board = new BoardBean();
+					board.setRoomCode(boardList.get(0).getRoomCode());
+					board.setYearCode(yearCode.get(i).getYearCode());
+					board.setRoomSB(dao.learningSBCodeGet(board));
+					board.setTypeCode(typeSum.get(y).getTypeCode());
+					board.setTypeName(dao.learningTypeNameGet(board));
+					board.setTypeSum(typeSum.get(y).getTypeSum());	
+					sum.append(board.getTypeName()+" : "+ board.getTypeSum()+"<br>");
+					
+				}
+				sum.append("</biv>");
+				
+			}
+
+			sb.append("</select>");
+			mav.addObject("size", yearCode.size());
+			mav.addObject("yearSelect", sb.toString());
+			mav.addObject("typeSumb", sum.toString());
+			
+			sb = new StringBuffer();
 			sb.append("<table>");
 			sb.append("<tr>");
 			sb.append("<td>");
