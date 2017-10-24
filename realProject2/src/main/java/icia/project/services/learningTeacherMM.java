@@ -187,7 +187,7 @@ public class learningTeacherMM extends TransactionExe {
 				sum.append("</biv>");
 				
 			}
-			System.out.println("Sdf");
+
 			sb.append("</select>");
 			mav.addObject("yearSelect", sb.toString());
 			mav.addObject("typeSumb", sum.toString());
