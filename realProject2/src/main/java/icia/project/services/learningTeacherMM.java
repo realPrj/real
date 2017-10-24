@@ -56,9 +56,13 @@ public class learningTeacherMM extends TransactionExe {
 			mav = learningWANPage();
 			break;
 
+		case 12:	// 오답노트
+			mav = datahousemain((BoardBean)object);
+			break;
 
+			
 		}
-
+		
 		return mav;
 
 	}
@@ -217,27 +221,33 @@ public class learningTeacherMM extends TransactionExe {
 	
 	
 	private ModelAndView datahousemain(BoardBean board) { // 오답노트 페이지
-
+		
 		mav = new ModelAndView();
 		boolean transaction = false;
 		String page = null;
 
 		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
-
+		System.out.println(board.getBoardTitle());
+		System.out.println(board.getBoardContent());
+		System.out.println(board.getBoardroute());
 		try {
-						
+		
 			session.getAttribute("roomCode");
-
-		if(dao.referenceInsert(board) == 1) {
+			System.out.println("teacherMM-board4");
 			
+			
+		if(dao.referenceInsert(board) != 0) {
+			System.out.println("나 성공햇다 ");
+			page = "learningData";
+			transaction = true;
 		}else {
-			
+			System.out.println("실패");
 		}
 
-			transaction = true;
+			
 
 		}catch(Exception ex){
-
+			ex.printStackTrace();
 		}finally {
 			mav.setViewName(page);
 			setTransactionResult(transaction);

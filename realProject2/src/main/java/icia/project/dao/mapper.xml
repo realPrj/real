@@ -322,7 +322,7 @@
 	<insert id="referenceInsert" parameterType="board">
 		INSERT INTO
 		REFERENCE(RR_LRCODE,RR_TITLE,RR_CONTENT,RR_DATE,RR_ROUTE,RR_TCID)
-		VALUES(#{studentCode},DEFAULT,#{logType})
+		VALUES('665',#{boardTitle},#{boardContent},SYSDATE,#{boardroute},#{id})
 	</insert>
 
 </mapper>

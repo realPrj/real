@@ -60,23 +60,23 @@
 			type="button" value="자료실 글쓰러가기"
 			onClick="eventClick('dataform','DataInsert','post')" />
 	</div>
-	
-	
-	
+
+
+
 	<!-- 자료실 글쓰기  -->
-	<form name="fileForm" action="requestupload2" method="post"
+	<form name="fileForm" action="dataupload" method="post"
 		enctype="multipart/form-data">
-		<br> 제목 : <input type="text" name="boardTitle" size=50 maxlength=70>
-		<br> 내용 :
+		<br> 제목 : <input type="text" name="boardTitle" size=50
+			maxlength=70> <br> 내용 :
 		<textarea name="boardContent" cols=50 rows=20 maxlength=500></textarea>
 
 
 
 
 		<br> <input multiple="multiple" type="file" name="file" /> <input
-			type="hidden" name="boardroute" /> <br> <input type="hidden"
+			type="hidden" name="boardroute" /><input type="hidden"
 			name="load" value="Notice" />
-		<BUTTON type="submit">보내기</BUTTON>
+		<BUTTON type="SUBMIT">보내기</BUTTON>
 	</form>
 
 </body>
