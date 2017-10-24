@@ -278,7 +278,7 @@ public class learningTeacherMM extends TransactionExe {
 			transaction = true;
 
 		}catch(Exception ex){
-jnkjk
+
 		}finally {
 			mav.setViewName(page);
 			setTransactionResult(transaction);
