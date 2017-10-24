@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -322,20 +323,22 @@ public class FunctionController {
 
 		return mav;
 	}
+	
 	// 자료실 글쓰기
-	@RequestMapping(value = "requestupload2")
-	public ModelAndView requestupload2(MultipartHttpServletRequest mtfRequest,BoardBean board) throws Exception {
+	@RequestMapping(value = "dataupload", method = RequestMethod.POST)
+	public ModelAndView requestupload2(MultipartHttpServletRequest mtfRequest)throws Exception{
+		BoardBean board = new BoardBean();
 		mav = new ModelAndView();	
+		System.out.println("나여기있는데 시발왜 안들어오노");
 		List<MultipartFile> fileList = mtfRequest.getFiles("file");
 		String load = mtfRequest.getParameter("load");
-		String src = mtfRequest.getParameter("src");
-		String subject = mtfRequest.getParameter("subject");
-		String body = mtfRequest.getParameter("body");
-		System.out.println(load);
-		System.out.println(subject);
-		System.out.println(body);
+		String boardroute = mtfRequest.getParameter("boardroute");
+		String boardTitle = mtfRequest.getParameter("boardTitle");
+		String boardContent = mtfRequest.getParameter("boardContent");
 		String path = "E:\\RealProject\\realProject2\\src\\main\\webapp\\WEB-INF\\uploadFiles\\"+load+"\\";
-		System.out.println(path);
+		
+		board.setId((String)session.getAttribute("tcId"));
+		
 		for (MultipartFile mf : fileList) {
 			String originFileName = mf.getOriginalFilename(); // 원본 파일 명
 			long fileSize = mf.getSize(); // 파일 사이즈
@@ -344,19 +347,24 @@ public class FunctionController {
 			System.out.println("fileSize : " + fileSize);
 
 			String safeFile = path + originFileName;
-			
+			board.setBoardContent(boardContent);
+			board.setBoardTitle(boardTitle);
+			board.setBoardRoute(safeFile);
 			try {
 				mf.transferTo(new File(safeFile));
 			} catch (IllegalStateException e) {
-				// TODO Auto-generated catch block
+		
 				e.printStackTrace();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
+
 				e.printStackTrace();
 			}
 		}
+		
+		
+		mav = ltm.entrance(12,board);
+		
 	
-		mav = ltm.entrance(12, board);
 
 		mav.setViewName("learningData");
 		return mav;

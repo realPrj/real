@@ -14,6 +14,7 @@ import icia.project.bean.BoardBean;
 import icia.project.bean.LearningRoomBean;
 import icia.project.bean.MemberBean;
 import icia.project.services.PageManagement;
+import icia.project.services.ProjectUtils;
 import icia.project.services.learningStudentMM;
 import icia.project.services.learningTeacherMM;
 
@@ -25,6 +26,8 @@ public class HomeController  {
 	private PageManagement pm;
 	@Autowired
 	private learningTeacherMM ltmm;
+	@Autowired
+	private ProjectUtils session;
 
 	//@Autowired
 	//private learningStudentMM lsmm;
@@ -165,20 +168,21 @@ public class HomeController  {
 	
 	// 자료실 메인페이지로 가기
 	@RequestMapping(value = "/Datamain", method = RequestMethod.POST)
-	public ModelAndView daoaMaid(@ModelAttribute MemberBean member) {
+	public ModelAndView daoaMaid(@ModelAttribute BoardBean board) throws Exception {
 		
 		mav = new ModelAndView();
-
+		board.setId((String)session.getAttribute("tcId"));
+		mav = ltmm.entrance(13, board);
 		mav.setViewName("learningData");
 		
 		return mav;
 	}
 	// 자료실 글쓰러가기
 	@RequestMapping(value = "/DataInsert", method = RequestMethod.POST)
-	public ModelAndView dataInsert(@ModelAttribute MemberBean member) {
+	public ModelAndView dataInsert(@ModelAttribute BoardBean board) {
 		
 		mav = new ModelAndView();
-
+		
 		mav.setViewName("learningDataInsert");
 		
 		return mav;
