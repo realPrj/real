@@ -71,7 +71,6 @@ function test(valueCode){
 	form.appendChild(boardCode);
 	
 	form.submit();
-
 }
 </script>
 <body>
