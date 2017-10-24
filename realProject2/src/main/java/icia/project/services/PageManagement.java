@@ -199,6 +199,7 @@ public class PageManagement extends TransactionExe {
 			}
 			sb.append("이번달 지각 : "+ tardy+"<br>");
 			sb.append("이번달 조퇴 : "+ early+"<br>");
+			sb.append("<input type='button' value='접어두기' onClick='fold()' >");
 			sb.append("</div>");
 			mav.addObject("attendance",sb.toString());
 			
