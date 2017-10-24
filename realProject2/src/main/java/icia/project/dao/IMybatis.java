@@ -114,6 +114,9 @@ public interface IMybatis {
 
 	// 선생님 자료실 등록
 	public int referenceInsert(BoardBean board);
+	
+	// 선생님 공지사항 리스트
+	public ArrayList<BoardBean> datalist(BoardBean board);
 
 	public ArrayList<BoardBean> learningWANListGet(BoardBean board);
 

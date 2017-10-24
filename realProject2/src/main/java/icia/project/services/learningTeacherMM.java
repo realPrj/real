@@ -59,7 +59,9 @@ public class learningTeacherMM extends TransactionExe {
 		case 12:	// 자료실
 			mav = datahousemain((BoardBean)object);
 			break;
-
+		case 13:	// 자료실
+			mav = dataview((BoardBean)object);
+			break;
 			
 		}
 		
@@ -220,20 +222,17 @@ public class learningTeacherMM extends TransactionExe {
 
 	
 	
-	private ModelAndView datahousemain(BoardBean board) { // 오답노트 페이지
+	private ModelAndView datahousemain(BoardBean board) { // 자료실 인설트
 		
 		mav = new ModelAndView();
 		boolean transaction = false;
 		String page = null;
 
 		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
-		System.out.println(board.getBoardTitle());
-		System.out.println(board.getBoardContent());
-		System.out.println(board.getBoardRoute());
 		try {
 		
 			session.getAttribute("roomCode");
-			System.out.println("teacherMM-board4");
+		
 			
 			
 		if(dao.referenceInsert(board) != 0) {
@@ -250,6 +249,33 @@ public class learningTeacherMM extends TransactionExe {
 			ex.printStackTrace();
 		}finally {
 			mav.setViewName(page);
+			setTransactionResult(transaction);
+		}
+		return mav;
+	}
+	private ModelAndView dataview(BoardBean board) { // 공지사항 페이지
+
+		mav = new ModelAndView();
+		boolean transaction = false;
+		ArrayList<BoardBean> bb = null;
+		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
+
+		try {
+			session.getAttribute("roomCode");
+
+			board.setRoomCode((String)session.getAttribute("roomCode"));
+			
+			//mav.addObject("content",session.getAttribute("roomCode") + "의 공지사항");
+			bb = dao.datalist(board);
+			mav.addObject("content", tclearningNoticeList(bb));
+
+			
+			transaction = true;
+
+		}catch(Exception ex){
+
+		}finally {
+			mav.setViewName("learningNotice");
 			setTransactionResult(transaction);
 		}
 		return mav;

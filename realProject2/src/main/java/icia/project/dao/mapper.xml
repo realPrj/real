@@ -324,5 +324,14 @@
 		REFERENCE(RR_LRCODE,RR_TITLE,RR_CONTENT,RR_DATE,RR_ROUTE,RR_TCID)
 		VALUES('665',#{boardTitle},#{boardContent},SYSDATE,#{boardRoute},#{id})
 	</insert>
+	<!-- 자료실 리스트 -->
+	<select id="datalist" resultType="String"
+		parameterType="board">
+		SELECT
+		RR_TITLE,RR_CONTENT,RR_DATE,RR_ROUTE
+		FROM REFERENCE
+		WHERE
+		RR_TCID=#{id}
+	</select>
 
 </mapper>
