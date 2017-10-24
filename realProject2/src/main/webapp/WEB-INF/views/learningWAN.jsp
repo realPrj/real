@@ -33,6 +33,11 @@ $(document).ready(function() {
 	
 	
  });
+ 
+ function test(valueCode){
+	 alert(valueCode);
+	 opener.location.reload();
+ }
 </script>
 <body>
 <input type="button" value="전체" onClick="" />
