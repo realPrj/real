@@ -109,4 +109,8 @@ public interface IMybatis {
 
 	// 선생님 오답노트(전체) 페이지 이동
 	public BoardBean learningWANListGet(BoardBean board);
+
+
+	// 선생님 자료실 등록
+	public BoardBean referenceInsert(BoardBean board);
 }
