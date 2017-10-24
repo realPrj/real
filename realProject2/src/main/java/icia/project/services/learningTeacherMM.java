@@ -178,7 +178,9 @@ public class learningTeacherMM extends TransactionExe {
 						
 			session.getAttribute("roomCode");
 
-		//	if(dao.referenceInsert =1)
+		if(dao.referenceInsert != 0) {
+			
+		}
 
 			transaction = true;
 

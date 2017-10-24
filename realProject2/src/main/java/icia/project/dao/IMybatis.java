@@ -108,13 +108,13 @@ public interface IMybatis {
 	public LearningRoomBean learningRoomGo(LearningRoomBean room);
 
 	// 선생님 오답노트(전체) 페이지 이동
-<<<<<<< HEAD
+
 	public BoardBean learningWANListGet(BoardBean board);
 
 
 	// 선생님 자료실 등록
 	public BoardBean referenceInsert(BoardBean board);
-=======
+
 	public ArrayList<BoardBean> learningWANListGet(BoardBean board);
 
 	// 학습방 과목코드 추출
@@ -127,5 +127,5 @@ public interface IMybatis {
 	public String learningTypeNameGet(BoardBean board);
 	
 
->>>>>>> 2584316da0e92f60b7796b4ec46dc54e0b3c49b7
+
 }
