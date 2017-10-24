@@ -9,6 +9,8 @@
 <body>
 <input type="button" value="전체" onClick="" />
 <input type="button" value="학생별" onClick="" />
+년도 선택${yearSelect }
+${typeSumb }
 ${content }
 </body>
 </html>

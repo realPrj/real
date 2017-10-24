@@ -125,13 +125,17 @@ public interface IMybatis {
 
 	// 문제유형 이름 추출
 	public String learningTypeNameGet(BoardBean board);
-	
 
+	// 년도별 문제유형 합
+	public ArrayList<BoardBean> learningWANTypeSum(BoardBean board);
+	
+	// 중복 년도 코드 추출
+	public ArrayList<BoardBean> learningWANYearCodeOneGet(BoardBean board);
 
 
 	// 선생님 학습 페이지 이동
 	public LearningRoomBean telearningRoomGo(LearningRoomBean room);
-	
+
 	// 선생님 공지사항 리스트
 	public ArrayList<BoardBean> tclearningNoticeList(BoardBean board);
 

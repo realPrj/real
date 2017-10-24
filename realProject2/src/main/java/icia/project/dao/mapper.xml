@@ -274,7 +274,8 @@
 	<!-- 선생님 공지사항 리스트 -->
 	<select id="tclearningNoticeList" resultType="board"
 		parameterType="board">
-		SELECT NT_TITLE AS title, NT_DATE AS date, NT_TCID AS tcId FROM NOTICE WHERE
+		SELECT NT_TITLE AS title, NT_DATE AS date, NT_TCID AS
+		tcId FROM NOTICE WHERE
 		NT_LRCODE = #{roomCode};
 	</select>
 
@@ -333,11 +334,28 @@
 		,COUNT(WAN_QTSTYPECODE) AS
 		typeSum
 		FROM WRONGANSWERNOTES WHERE
-		WAN_QTSTYPEYACODE=#{yearCode}
+		WAN_QTSTYPEYACODE=#{yearCode} AND WAN_LRCODE=#{roomCode}
 		GROUP
-		BY WAN_QTSTYPECODE ORDER
 		BY
-		WAN_QTSTYPECODE ASC;
+		WAN_QTSTYPECODE ORDER
+		BY
+		WAN_QTSTYPECODE ASC
 	</select>
+
+	<!-- 중복 년도 코드 추출 -->
+	<select id="learningWANYearCodeOneGet" resultType="board"
+		parameterType="board">
+		SELECT
+		WAN_QTSTYPEYACODE AS yearCode
+		FROM WRONGANSWERNOTES WHERE
+		WAN_LRCODE = #{roomCode}
+		GROUP BY WAN_QTSTYPEYACODE ORDER
+		BY
+		WAN_QTSTYPEYACODE ASC
+
+	</select>
+
+
+
 
 </mapper>
