@@ -270,19 +270,25 @@
 		LEARNINGSTUDENTREGISTER(LSR_LRCODE,LSR_STRFSTUDENTCODE)
 		VALUES(#{roomCode},#{studentCode})
 	</insert>
-	
+
 	<!-- 선생님 공지사항 리스트 -->
-	<select id="tclearningNoticeList" resultType="board" parameterType="board">
-	SELECT NT_TITLE AS title, NT_DATE AS date, NT_TCID AS tcId FROM NOTICE WHERE NT_LRCODE = #{roomCode};
+	<select id="tclearningNoticeList" resultType="board"
+		parameterType="board">
+		SELECT NT_TITLE AS title, NT_DATE AS date, NT_TCID AS tcId FROM NOTICE WHERE
+		NT_LRCODE = #{roomCode};
 	</select>
-	
+
 
 	<!-- 선생님 학습방 오답노트 추출 -->
-	<select id="learningWANListGet" resultType="board" parameterType="board">
+	<select id="learningWANListGet" resultType="board"
+		parameterType="board">
 		SELECT
-		WAN_CODE AS boardCode, WAN_LRCODE AS roomCode ,WAN_STUDENTNAME AS
-		studentName,WAN_QTSTYPEYACODE AS yearCode,WAN_QTSTYPECODE AS
-		typeCode,WAN_QTNUMBER AS numberCode,WAN_DATE AS boardDate
+		WAN_CODE AS boardCode, WAN_LRCODE AS roomCode
+		,WAN_STUDENTNAME AS
+		studentName,WAN_QTSTYPEYACODE AS
+		yearCode,WAN_QTSTYPECODE AS
+		typeCode,WAN_QTNUMBER AS
+		numberCode,WAN_DATE AS boardDate
 		FROM WRONGANSWERNOTES
 		WHERE
 		WAN_LRCODE=#{roomCode}
@@ -315,8 +321,23 @@
 		STYPE_NAME AS typeName
 		FROM SUBJECTTYPE
 		WHERE
-		STYPE_YASBCODE=#{roomSB} AND STYPE_YACODE=#{yearCode} AND STYPE_CODE=#{typeCode}
+		STYPE_YASBCODE=#{roomSB} AND STYPE_YACODE=#{yearCode} AND
+		STYPE_CODE=#{typeCode}
 	</select>
 
+	<!-- 년도별 문제유형별 합 -->
+	<select id="learningWANTypeSum" resultType="board"
+		parameterType="board">
+		SELECT
+		WAN_QTSTYPECODE AS typeCode
+		,COUNT(WAN_QTSTYPECODE) AS
+		typeSum
+		FROM WRONGANSWERNOTES WHERE
+		WAN_QTSTYPEYACODE=#{yearCode}
+		GROUP
+		BY WAN_QTSTYPECODE ORDER
+		BY
+		WAN_QTSTYPECODE ASC;
+	</select>
 
 </mapper>

@@ -152,6 +152,12 @@ public class learningTeacherMM extends TransactionExe {
 
 			boardList = dao.learningWANListGet(board);
 
+			for(int i =0; i < boardList.size(); i++) {
+				
+				
+				
+			}
+			
 			sb.append("<table>");
 			sb.append("<tr>");
 			sb.append("<td>");

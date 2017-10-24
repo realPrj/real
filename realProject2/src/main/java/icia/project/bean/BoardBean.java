@@ -29,6 +29,8 @@ public class BoardBean {	// 게시판 bean
 	private String yearName;	// 년도 이름
 	private String typeName;	// 문제유형 이름
 	
+	private String typeSum;	// 타입별 합
+	
 	private String boardCode;	// 게시글 번호
 	private String boardTitle;	// 게시글 제목
 	private String boardContent;	// 게시글 내용
@@ -42,7 +44,13 @@ public class BoardBean {	// 게시판 bean
 	private Date date; // 날짜
 
 	
-	
+	public String getTypeSum() {
+		return typeSum;
+	}
+
+	public void setTypeSum(String typeSum) {
+		this.typeSum = typeSum;
+	}
 
 	public String getTitle() {
 		return title;
