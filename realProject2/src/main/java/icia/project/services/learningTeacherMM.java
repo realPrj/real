@@ -178,12 +178,9 @@ public class learningTeacherMM extends TransactionExe {
 				board.setYearCode(boardList.get(i).getYearCode());
 				board.setTypeCode(boardList.get(i).getTypeCode());
 				board.setRoomSB(dao.learningSBCodeGet(board));
-				System.out.println(boardList.get(i).getYearCode());
-				System.out.println(boardList.get(i).getTypeCode());
-				System.out.println(board.getRoomSB());
 				board.setYearName(dao.learningYearNameGet(board));
 				board.setTypeName(dao.learningTypeNameGet(board));
-				System.out.println(board.getTypeName());
+
 				sb.append("<tr>");
 				sb.append("<td>");
 				sb.append(i+1);
@@ -196,6 +193,9 @@ public class learningTeacherMM extends TransactionExe {
 				sb.append("</td>");
 				sb.append("<td>");
 				sb.append(boardList.get(i).getNumberCode());
+				sb.append("</td>");
+				sb.append("<td>");
+				sb.append("<input type='button' value='선생님 코멘트' onClick='test("+boardList.get(i).getBoardCode()+")' />");
 				sb.append("</td>");
 				sb.append("</tr>");
 			}
