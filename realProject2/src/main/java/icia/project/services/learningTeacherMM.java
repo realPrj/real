@@ -240,7 +240,7 @@ public class learningTeacherMM extends TransactionExe {
 				sb.append("</td>");
 				sb.append("</tr>");
 			}
-			System.out.println("adsf");
+
 			sb.append("</table>");
 			mav.addObject("content", sb.toString());
 			page = "learningWAN";
