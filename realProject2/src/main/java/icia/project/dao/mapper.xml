@@ -275,9 +275,9 @@
 	<select id="learningWANListGet" resultType="board" parameterType="board">
 		SELECT
 		LR_CODE AS roomCode, LR_NAME AS roomName
-		FROM LEARNINGROOM
+		FROM WRONGANSWERNOTES
 		WHERE
-		LR_TCID=#{id}
+		WAN_LRCODE=#{id}
 	</select>
 
 
