@@ -26,8 +26,9 @@ $(document).ready(function() {
 		$("#"+dateCode).hide();
 		dateCode = parseInt(dateCode) - 1;
 	};
-	
-		$("#"+selectValue).show();	
+		$("#"+selectValue).show();
+		var divbox = $("#divbox");
+		divbox.append($("#"+selectValue));
 	});
 	
 	
@@ -38,6 +39,7 @@ $(document).ready(function() {
 <input type="button" value="학생별" onClick="" /><br>
 년도 선택${yearSelect }
 ${typeSumb }
+<div id="divbox"></div>
 ${content }
 </body>
 </html>
