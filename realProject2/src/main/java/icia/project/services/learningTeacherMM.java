@@ -82,9 +82,8 @@ public class learningTeacherMM extends TransactionExe {
 			
 			//mav.addObject("content",session.getAttribute("roomCode") + "의 공지사항");
 			ar = dao.tclearningNoticeList(board);
-			System.out.println(ar.size());
-			System.out.println(session.getAttribute("roomCode"));
 			mav.addObject("content", tclearningNoticeList(ar));
+
 			
 			transaction = true;
 
@@ -107,8 +106,9 @@ public class learningTeacherMM extends TransactionExe {
 		sb.append("</tr>");
 		for(int i=0; i<ar.size(); i++) {
 			sb.append("<tr>");
-			sb.append("<td>" + ar.get(0).getTitle() + "</td>");
-			sb.append("<td>" + ar.get(0).getDate() + "</td>");
+			sb.append("<td>" + ar.get(i).getBoardTitle() + "</td>");
+			sb.append("<td>" + ar.get(i).getBoardDate() + "</td>");
+			sb.append("<td>" + ar.get(i).getBoardId() + "</td>");
 			sb.append("</tr>");
 		}
 		sb.append("</table>");
@@ -229,7 +229,7 @@ public class learningTeacherMM extends TransactionExe {
 		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
 		System.out.println(board.getBoardTitle());
 		System.out.println(board.getBoardContent());
-		System.out.println(board.getBoardroute());
+		System.out.println(board.getBoardRoute());
 		try {
 		
 			session.getAttribute("roomCode");

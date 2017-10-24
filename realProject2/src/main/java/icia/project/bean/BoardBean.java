@@ -32,50 +32,30 @@ public class BoardBean {	// 게시판 bean
 	private String boardCode;	// 게시글 번호
 	private String boardTitle;	// 게시글 제목
 	private String boardContent;	// 게시글 내용
-	private String boardroute;	// 게시글 파일첨부 경로
+	private String boardRoute;	// 게시글 파일첨부 경로
+	private String boardId; // 게시글 작성자
 	private String boardDate;	// 게시글 날짜
 	
+	
 
-	private String title; // 제목
-	private String content; // 내용
-	private String file; // 파일
-	private Date date; // 날짜
 
 	
 	
 
-	public String getTitle() {
-		return title;
-	}
+	
 
-	public void setTitle(String title) {
-		this.title = title;
+	public String getBoardRoute() {
+		return boardRoute;
 	}
-
-	public String getContent() {
-		return content;
+	public void setBoardRoute(String boardRoute) {
+		this.boardRoute = boardRoute;
 	}
-
-	public void setContent(String content) {
-		this.content = content;
+	public String getBoardId() {
+		return boardId;
 	}
-
-	public String getFile() {
-		return file;
+	public void setBoardId(String boardId) {
+		this.boardId = boardId;
 	}
-
-	public void setFile(String file) {
-		this.file = file;
-	}
-
-	public Date getDate() {
-		return date;
-	}
-
-	public void setDate(Date date) {
-		this.date = date;
-	}
-
 	public String getCaCode() {
 		return caCode;
 	}
@@ -178,12 +158,7 @@ public class BoardBean {	// 게시판 bean
 	public void setBoardContent(String boardContent) {
 		this.boardContent = boardContent;
 	}
-	public String getBoardroute() {
-		return boardroute;
-	}
-	public void setBoardroute(String boardroute) {
-		this.boardroute = boardroute;
-	}
+
 	public String getBoardDate() {
 		return boardDate;
 	}
