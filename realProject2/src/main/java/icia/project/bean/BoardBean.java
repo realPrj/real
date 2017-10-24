@@ -32,7 +32,7 @@ public class BoardBean {	// 게시판 bean
 	private String boardCode;	// 게시글 번호
 	private String boardTitle;	// 게시글 제목
 	private String boardContent;	// 게시글 내용
-	private String boardroute;	// 게시글 파일첨부 경로
+	private String boardRoute;	// 게시글 파일첨부 경로
 	private String boardId; // 게시글 작성자
 	private String boardDate;	// 게시글 날짜
 	
@@ -44,6 +44,12 @@ public class BoardBean {	// 게시판 bean
 
 	
 
+	public String getBoardRoute() {
+		return boardRoute;
+	}
+	public void setBoardRoute(String boardRoute) {
+		this.boardRoute = boardRoute;
+	}
 	public String getBoardId() {
 		return boardId;
 	}
@@ -152,12 +158,7 @@ public class BoardBean {	// 게시판 bean
 	public void setBoardContent(String boardContent) {
 		this.boardContent = boardContent;
 	}
-	public String getBoardroute() {
-		return boardroute;
-	}
-	public void setBoardroute(String boardroute) {
-		this.boardroute = boardroute;
-	}
+
 	public String getBoardDate() {
 		return boardDate;
 	}
