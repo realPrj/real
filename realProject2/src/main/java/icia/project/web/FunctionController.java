@@ -348,7 +348,7 @@ public class FunctionController {
 			String safeFile = path + originFileName;
 			board.setBoardContent(boardContent);
 			board.setBoardTitle(boardTitle);
-			board.setBoardroute(safeFile);
+			board.setBoardRoute(safeFile);
 			try {
 				mf.transferTo(new File(safeFile));
 			} catch (IllegalStateException e) {
