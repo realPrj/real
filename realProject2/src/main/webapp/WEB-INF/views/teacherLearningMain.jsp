@@ -50,23 +50,22 @@ function menu(ivalue){
 <body>
 <div id="menu">
 <table>
-	<tr><td><input type="button" value="로그아웃" onClick="menu('1')" /></td></tr>
-	<tr><td><input type="button" value="내 메인으로" onClick="menu('2')" /></td></tr>
-	<tr><td><input type="button" value="홈" onClick="menu('3')" /></td></tr>
-	<tr><td><input type="button" value="공지사항" onClick="menu('4')" /></td></tr>
-	<tr><td><input type="button" value="질문게시판" onClick="menu('5')" /></td></tr>
-	<tr><td><input type="button" value="토론게시판" onClick="menu('6')" /></td></tr>
-	<tr><td><input type="button" value="과제" onClick="menu('7')" /></td></tr>
-	<tr><td><input type="button" value="오답노트" onClick="menu('8')" /></td></tr>
-	<tr><td><input type="button" value="성적" onClick="menu('9')" /></td></tr>
-	<tr><td><input type="button" value="학생관리" onClick="menu('10')" /></td></tr>
-	<tr><td><input type="button" value="자료실" onClick="menu('11')" /></td></tr>
-	<tr><td><input type="button" value="쪽지" onClick="menu('12')" /></td></tr>
-	<tr><td><input type="button" value="강의계획서" onClick="menu('13')" /></td></tr>
-	<tr><td><input type="button" value="문제코드" onClick="menu('14')" /></td></tr>
+	<tr><td><input type="button" value="로그아웃" onClick="" /></td></tr>
+	<tr><td><input type="button" value="내 메인으로" onClick="menu('1')" /></td></tr>
+	<tr><td><input type="button" value="홈" onClick="menu('2')" /></td></tr>
+	<tr><td><input type="button" value="공지사항" onClick="menu('3')" /></td></tr>
+	<tr><td><input type="button" value="질문게시판" onClick="menu('4')" /></td></tr>
+	<tr><td><input type="button" value="토론게시판" onClick="menu('5')" /></td></tr>
+	<tr><td><input type="button" value="과제" onClick="menu('6')" /></td></tr>
+	<tr><td><input type="button" value="오답노트" onClick="menu('7')" /></td></tr>
+	<tr><td><input type="button" value="성적" onClick="menu('8')" /></td></tr>
+	<tr><td><input type="button" value="학생관리" onClick="menu('9')" /></td></tr>
+	<tr><td><input type="button" value="자료실" onClick="menu('10')" /></td></tr>
+	<tr><td><input type="button" value="쪽지" onClick="menu('11')" /></td></tr>
+	<tr><td><input type="button" value="강의계획서" onClick="menu('12')" /></td></tr>
+	<tr><td><input type="button" value="문제코드" onClick="menu('13')" /></td></tr>
 </table>
 </div>
-
 <div id="content">
 ${content}
 </div>
