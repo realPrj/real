@@ -25,7 +25,10 @@ public class HomeController  {
 	private PageManagement pm;
 	@Autowired
 	private learningTeacherMM ltmm;
-	
+
+	//@Autowired
+	//private learningStudentMM lsmm;
+
 
 	private ModelAndView mav;
 
@@ -196,9 +199,12 @@ public class HomeController  {
 			break;
 		case 3 : 
 			// 공지사항
+			System.out.println(Integer.parseInt(board.getCaCode()));
 			mav = ltmm.entrance(3, board);
 			break;	
 		case 4 :	
+			System.out.println(Integer.parseInt(board.getCaCode()));
+			mav = ltmm.entrance(4, board);
 			break;
 		case 5 : 
 

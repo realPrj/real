@@ -104,12 +104,12 @@ public interface IMybatis {
 	// 학생 학습참여
 	public int stLearningJoin(LearningRoomBean room);
 
+
 	// 학습 페이지 이동
 	public LearningRoomBean learningRoomGo(LearningRoomBean room);
 
 	// 선생님 오답노트(전체) 페이지 이동
 
-	public BoardBean learningWANListGet(BoardBean board);
 
 
 	// 선생님 자료실 등록
@@ -127,5 +127,12 @@ public interface IMybatis {
 	public String learningTypeNameGet(BoardBean board);
 	
 
+
+
+	// 선생님 학습 페이지 이동
+	public LearningRoomBean telearningRoomGo(LearningRoomBean room);
+	
+	// 선생님 공지사항 리스트
+	public ArrayList<BoardBean> tclearningNoticeList(BoardBean board);
 
 }

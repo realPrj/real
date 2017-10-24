@@ -270,21 +270,20 @@
 		LEARNINGSTUDENTREGISTER(LSR_LRCODE,LSR_STRFSTUDENTCODE)
 		VALUES(#{roomCode},#{studentCode})
 	</insert>
+	
+	<!-- 선생님 공지사항 리스트 -->
+	<select id="tclearningNoticeList" resultType="board" parameterType="board">
+	SELECT NT_TITLE AS title, NT_DATE AS date, NT_TCID AS tcId FROM NOTICE WHERE NT_LRCODE = #{roomCode};
+	</select>
+	
 
 	<!-- 선생님 학습방 오답노트 추출 -->
-	<select id="learningWANListGet" resultType="board"
-		parameterType="board">
+	<select id="learningWANListGet" resultType="board" parameterType="board">
 		SELECT
-
-		LR_CODE AS roomCode, LR_NAME AS roomName
-		FROM
-		WRONGANSWERNOTES
-
 		WAN_CODE AS boardCode, WAN_LRCODE AS roomCode ,WAN_STUDENTNAME AS
 		studentName,WAN_QTSTYPEYACODE AS yearCode,WAN_QTSTYPECODE AS
 		typeCode,WAN_QTNUMBER AS numberCode,WAN_DATE AS boardDate
 		FROM WRONGANSWERNOTES
-
 		WHERE
 		WAN_LRCODE=#{roomCode}
 	</select>
@@ -298,13 +297,6 @@
 		WHERE
 		LEARNINGROOM#{roomCode}
 	</select>
-	<!-- 자료실 -->
-	<!-- 자료실 글 등록 -->
-	<insert id="referenceInsert" parameterType="room">
-		INSERT INTO
-		REFERENCE(RR_LRCODE,RR_TITLE,RR_CONTENT,RR_DATE,RR_ROUTE,RR_TCID)
-		VALUES(#{roomCode},#{studentCode})
-	</insert>
 
 	<!-- 년도 이름 추출 -->
 	<select id="learningYearNameGet" resultType="board"
