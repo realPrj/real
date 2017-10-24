@@ -270,10 +270,15 @@
 		LEARNINGSTUDENTREGISTER(LSR_LRCODE,LSR_STRFSTUDENTCODE)
 		VALUES(#{roomCode},#{studentCode})
 	</insert>
+	
+	<!-- 선생님 공지사항 리스트 -->
+	<select id="tclearningNoticeList" resultType="board" parameterType="board">
+	SELECT NT_TITLE AS title, NT_DATE AS date, NT_TCID AS tcId FROM NOTICE WHERE NT_LRCODE = #{roomCode};
+	</select>
+	
 
 	<!-- 선생님 학습방 오답노트 추출 -->
-	<select id="learningWANListGet" resultType="board"
-		parameterType="board">
+	<select id="learningWANListGet" resultType="board" parameterType="board">
 		SELECT
 		WAN_CODE AS boardCode, WAN_LRCODE AS roomCode ,WAN_STUDENTNAME AS
 		studentName,WAN_QTSTYPEYACODE AS yearCode,WAN_QTSTYPECODE AS

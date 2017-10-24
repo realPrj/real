@@ -1,11 +1,18 @@
 package icia.project.bean;
 
+
+import org.apache.ibatis.type.Alias;
+
+
+import java.util.Date;
+
 import org.apache.ibatis.type.Alias;
 
 @Alias("board")
 public class BoardBean {	// 게시판 bean
 	
 	private String caCode;	// 카테고리 코드
+
 	private String studentCode; // 학생학년반번호
 	private String studentName; // 학생이름
 	private String id;	// 아이디
@@ -28,6 +35,47 @@ public class BoardBean {	// 게시판 bean
 	private String boardroute;	// 게시글 파일첨부 경로
 	private String boardDate;	// 게시글 날짜
 	
+
+	private String title; // 제목
+	private String content; // 내용
+	private String file; // 파일
+	private Date date; // 날짜
+
+	
+	
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public String getContent() {
+		return content;
+	}
+
+	public void setContent(String content) {
+		this.content = content;
+	}
+
+	public String getFile() {
+		return file;
+	}
+
+	public void setFile(String file) {
+		this.file = file;
+	}
+
+	public Date getDate() {
+		return date;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
+	}
+
 	public String getCaCode() {
 		return caCode;
 	}
