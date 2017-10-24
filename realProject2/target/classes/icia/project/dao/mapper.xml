@@ -290,11 +290,11 @@
 		LR_SBCODE AS roomSB
 		FROM LEARNINGROOM
 		WHERE
-		LEARNINGROOM#{roomCode}
+		LR_CODE=#{roomCode}
 	</select>
 
 	<!-- 년도 이름 추출 -->
-	<select id="learningYearNameGet" resultType="board"
+	<select id="learningYearNameGet" resultType="String"
 		parameterType="board">
 		SELECT
 		YA_NAME AS yearName
@@ -304,15 +304,14 @@
 	</select>
 
 	<!-- 문제유형 이름 추출 -->
-	<select id="learningTypeNameGet" resultType="board"
+	<select id="learningTypeNameGet" resultType="String"
 		parameterType="board">
 		SELECT
 		STYPE_NAME AS typeName
 		FROM SUBJECTTYPE
 		WHERE
-		YA_SBCODE=#{roomSB} AND YA_CODE=#{yearCode} AND STYPE_CODE#{typeCode}
+		STYPE_YASBCODE=#{roomSB} AND STYPE_YACODE=#{yearCode} AND STYPE_CODE=#{typeCode}
 	</select>
-
 
 
 </mapper>
