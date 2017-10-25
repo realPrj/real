@@ -141,4 +141,9 @@ public interface IMybatis {
 	// 선생님 오답노트 코멘트 유무 확인
 	public int learningWANCommentCheck(BoardBean board);
 
+	// 오답노트 코멘트 추출
+	public BoardBean learningWANCommentGet(BoardBean board);
+
+	// 오답노트 코멘트 등록 
+	public int learningWANCommentInsert(BoardBean board);
 }

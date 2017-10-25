@@ -59,23 +59,28 @@ public class learningTeacherMM extends TransactionExe {
 		case 10:	// 자료실
 			mav = datahousemain((BoardBean)object);
 			break;
-			
+
 		case 13:	// 자료실
 			mav = dataview((BoardBean)object);
 			break;
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
+
+
+
+
+
+
+
+
+
+
 		case 17:	// 오답노트 코멘트 페이지
 			mav = learningWANCXTPage((BoardBean)object);
 			break;
+
+		case 18:	// 오답노트 코멘트 등록 페이지
+			mav = learningWANCommentInsert((BoardBean)object);
+			break;
+
 
 		}
 
@@ -173,23 +178,23 @@ public class learningTeacherMM extends TransactionExe {
 			board.setRoomCode((String)session.getAttribute("roomCode"));
 
 			boardList = dao.learningWANListGet(board);
-			
+
 			yearCode = dao.learningWANYearCodeOneGet(board);
-			
+
 			sb = new StringBuffer();
 			sum = new StringBuffer();
 			sb.append("<select id = 'yearSelect'>");
 			sb.append("<option></option>");
-			
+
 			for(int i =0; i < yearCode.size(); i++) {
 				board = new BoardBean();
 				board.setRoomCode(boardList.get(0).getRoomCode());
 				board.setYearCode(yearCode.get(i).getYearCode());
 
 				sb.append("<option>"+yearCode.get(i).getYearCode()+"</option>");
-				
+
 				typeSum = dao.learningWANTypeSum(board);
-				
+
 				sum.append("<br><biv id='"+yearCode.get(i).getYearCode().substring(0, 4)+"'>");
 				for(int y = 0; y < typeSum.size(); y++) {
 					board = new BoardBean();
@@ -200,17 +205,17 @@ public class learningTeacherMM extends TransactionExe {
 					board.setTypeName(dao.learningTypeNameGet(board));
 					board.setTypeSum(typeSum.get(y).getTypeSum());	
 					sum.append(board.getTypeName()+" : "+ board.getTypeSum()+"<br>");
-					
+
 				}
 				sum.append("</biv>");
-				
+
 			}
 
 			sb.append("</select>");
 			mav.addObject("size", yearCode.size());
 			mav.addObject("yearSelect", sb.toString());
 			mav.addObject("typeSumb", sum.toString());
-			
+
 			sb = new StringBuffer();
 			sb.append("<table>");
 			sb.append("<tr>");
@@ -304,7 +309,7 @@ public class learningTeacherMM extends TransactionExe {
 		}
 		return mav;
 	}
-	
+
 	private ModelAndView dataview(BoardBean board) { // 공지사항 페이지
 
 		mav = new ModelAndView();
@@ -356,24 +361,63 @@ public class learningTeacherMM extends TransactionExe {
 		boolean transaction = false;
 		String page = null;
 		StringBuffer sb = new StringBuffer();
-		ArrayList<BoardBean> bb = null;
 		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
 
 		try {
-			
+
 			board.setRoomCode((String)session.getAttribute("roomCode"));
-			
+
 			if(dao.learningWANCommentCheck(board) != 0) {	// 코멘트 있음
-				
-				
+
+				board = dao.learningWANCommentGet(board);
+
+				sb.append("<table>");
+				sb.append("<tr>");
+				sb.append("<td>");
+				sb.append("내용");
+				sb.append("</td>");
+				sb.append("</tr>");
+				sb.append("<tr>");
+				sb.append("<td>");
+				sb.append(board.getBoardContent());
+				sb.append("</td>");
+				sb.append("</tr>");
+				sb.append("<tr>");
+				sb.append("<td>");
+				sb.append("파일첨부");
+				sb.append("</td>");
+				sb.append("<td>");
+				sb.append(board.getBoardRoute());
+				sb.append("</td>");
+				sb.append("</tr>");
+				sb.append("<tr>");
+				sb.append("<td>");
+				sb.append("날짜 : "+board.getBoardDate());
+				sb.append("</td>");
+				sb.append("</tr>");
+				sb.append("<tr>");
+				sb.append("<td>");
+				sb.append("아이디 : "+board.getBoardId());
+				sb.append("</td>");
+				sb.append("</tr>");
+				sb.append("<tr>");
+				sb.append("<td>");
+				sb.append("<input type='button' value='수정' onClick=''  />    "+"<input type='button' value='삭제' onClick=''  />");
+				sb.append("</td>");
+				sb.append("</tr>");
+				sb.append("</table>");
+
+				page="learningWANCXT";
+				transaction = true;
+
 			}else {	// 코멘트 없음
-				
-				sb.append("<input type='button' value='코멘트 등록' onClick='commentInsert'  />");
+
+				sb.append("<input type='button' value='코멘트 등록' onClick='commentInsertPage("+board.getBoardCode()+")' />");
 				page = "learningWANCXT";
+				transaction = true;
 			}
-			
+
 			mav.addObject("content", sb.toString());
-			transaction = true;
 
 		}catch(Exception ex){
 
@@ -384,6 +428,84 @@ public class learningTeacherMM extends TransactionExe {
 		return mav;
 	}
 
+
+	private ModelAndView learningWANCommentInsert(BoardBean board) { // 오답노트 코멘트 페이지 이동
+		
+		mav = new ModelAndView();
+		boolean transaction = false;
+		String page = null;
+		StringBuffer sb = new StringBuffer();
+		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
+
+		try {
+
+			board.setRoomCode((String)session.getAttribute("roomCode"));
+			board.setId((String)session.getAttribute("tcId"));
+
+			if(dao.learningWANCommentInsert(board) != 0) {	// 코멘트 등록 완료
+				board = dao.learningWANCommentGet(board);
+
+				sb.append("<table>");
+				sb.append("<tr>");
+				sb.append("<td>");
+				sb.append("내용");
+				sb.append("</td>");
+				sb.append("</tr>");
+				sb.append("<tr>");
+				sb.append("<td>");
+				sb.append(board.getBoardContent());
+				sb.append("</td>");
+				sb.append("</tr>");
+				sb.append("<tr>");
+				sb.append("<td>");
+				sb.append("파일첨부");
+				sb.append("</td>");
+				sb.append("<td>");
+				sb.append(board.getBoardRoute());
+				sb.append("</td>");
+				sb.append("</tr>");
+				sb.append("<tr>");
+				sb.append("<td>");
+				sb.append("날짜 : "+board.getBoardDate());
+				sb.append("</td>");
+				sb.append("</tr>");
+				sb.append("<tr>");
+				sb.append("<td>");
+				sb.append("아이디 : "+board.getBoardId());
+				sb.append("</td>");
+				sb.append("</tr>");
+				sb.append("<tr>");
+				sb.append("<td>");
+				sb.append("<input type='button' value='수정' onClick=''  />    "+"<input type='button' value='삭제' onClick=''  />");
+				sb.append("</td>");
+				sb.append("</tr>");
+				sb.append("</table>");
+
+				page="learningWANCXT";
+				mav.addObject("message", "alert('코멘트 등록 되셨습니다')");
+
+			}else {	// 코멘트 등록 실패
+				mav.addObject("message", "alert('코멘트 등록을 실패 하셨습니다')");
+				mav.addObject("windowclose", "window.close()");
+				page="learningWANCXT";
+
+			}	
+
+			mav.addObject("content", sb.toString());
+			transaction = true;
+
+		}catch(Exception ex){
+			
+			mav.addObject("message", "alert('코멘트 등록을 실패 하셨습니다')");
+			mav.addObject("windowclose", "window.close()");
+			page="learningWANCXT";
+			
+		}finally {
+			mav.setViewName(page);
+			setTransactionResult(transaction);
+		}
+		return mav;
+	}
 
 
 

@@ -387,7 +387,22 @@
 		WTAG_WANLRCODE=#{roomCode} AND WTAG_WANCODE=#{boardCode}
 	</select>
 
+	<!-- 오답노트 코멘트 추출 -->
+	<select id="learningWANCommentGet" resultType="board"
+		parameterType="board">
+		SELECT
+		WTAG_WANCODE AS boardCode, WTAG_CONTENT AS boardContent, WTAG_DATE AS boardDate, WTAG_ROUTE AS boardRoute, WTAG_TCID AS boardId
+		FROM WRONGANSWERNOTESTAG
+		WHERE
+		WTAG_WANLRCODE=#{roomCode} AND WTAG_WANCODE=#{boardCode}
+	</select>
 
+	<!-- 오답노트 코멘트 등록 -->
+	<insert id="learningWANCommentInsert" parameterType="board">
+		INSERT INTO
+		WRONGANSWERNOTESTAG(WTAG_WANLRCODE,WTAG_WANCODE,WTAG_CONTENT,WTAG_DATE,WTAG_ROUTE,WTAG_TCID)
+		VALUES(${roomCode},#{boardCode},#{boardContent},SYSDATE,#{boardRoute},#{id})
+	</insert>
 
 
 
