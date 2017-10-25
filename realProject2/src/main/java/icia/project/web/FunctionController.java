@@ -342,11 +342,10 @@ public class FunctionController {
 	   @RequestMapping(value = "/learningDataInsert", method = RequestMethod.POST)
 	   public ModelAndView requestupload2(@ModelAttribute BoardBean board,MultipartHttpServletRequest mtfRequest)throws Exception{      
 	      board.setId((String)session.getAttribute("tcId"));
-
+	    
 	      mav = ltm.entrance(12, board, mtfRequest);
+	      
 	   return mav;
-
-
 	   }
 	   
 	   
