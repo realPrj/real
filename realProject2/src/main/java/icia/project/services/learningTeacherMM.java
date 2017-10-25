@@ -1,12 +1,17 @@
 package icia.project.services;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import java.util.HashMap;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.TransactionDefinition;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import icia.project.bean.BoardBean;
@@ -23,7 +28,10 @@ public class learningTeacherMM extends TransactionExe {
 
 	private ModelAndView mav;
 
-	public ModelAndView entrance(int serviceCode,Object object)  {
+
+	private MultipartHttpServletRequest mtfRequest = null;
+
+	public ModelAndView entrance(int serviceCode,Object ...object)  {
 
 		switch(serviceCode) {
 
@@ -36,11 +44,11 @@ public class learningTeacherMM extends TransactionExe {
 			break;
 
 		case 3:	//공지사항 페이지
-			mav = learningNoticePage((BoardBean)object);
+			mav = learningNoticePage((BoardBean)object[0]);
 			break;
 
 		case 4:	//질문게시판 페이지
-			mav = learningQuestion((BoardBean)object);
+			mav = learningQuestion((BoardBean)object[0]);
 			break;
 
 		case 5:
@@ -55,35 +63,41 @@ public class learningTeacherMM extends TransactionExe {
 			mav = learningWANPage();
 			break;
 
-		case 10:	// 자료실
-			mav = datahousemain((BoardBean)object);
+		case 8: // 공지사항 내용확인
+			mav = tclearningNoticeCTX((BoardBean)object[0]);
+			break;
+
+		case 9: // 공지사항 글쓰기
+			mav = tclearningNoticeInsert((BoardBean)object[0]);
+			break;
+
+		case 12:	// 자료실 그
+			mtfRequest = ((MultipartHttpServletRequest)object[1]);
+			mav = datahousemain((BoardBean)object[0]);
 			break;
 
 		case 13:	// 자료실
-			mav = dataview((BoardBean)object);
+			mav = dataview((BoardBean)object[0]);
 			break;
-
-
-
-
-
-
 
 
 
 
 		case 17:	// 오답노트 코멘트 페이지
-			mav = learningWANCXTPage((BoardBean)object);
+			mav = learningWANCXTPage((BoardBean)object[0]);
 			break;
-		case 18:	// 오답노트 코멘트 등록
-			mav = learningWANCommentInsert((BoardBean)object);
+
+		case 18:	// 오답노트 코멘트 등록 페이지
+			mav = learningWANCommentInsert((BoardBean)object[0]);
+
 			break;
 		case 19:	// 오답노트 코멘트 수정 페이지
-			mav = learningWANCMUpdatePage((BoardBean)object);
+			mav = learningWANCMUpdatePage((BoardBean)object[0]);
 			break;
 		case 20:	// 오답노트 코멘트 수정
-			mav = learningWANCMUpdate((BoardBean)object);
+			mav = learningWANCMUpdate((BoardBean)object[0]);
 			break;
+
 
 
 
@@ -108,7 +122,7 @@ public class learningTeacherMM extends TransactionExe {
 
 			//mav.addObject("content",session.getAttribute("roomCode") + "의 공지사항");
 			ar = dao.tclearningNoticeList(board);
-			mav.addObject("content", tclearningNoticeList(ar));
+			mav.addObject("content", tclearningNoticeList(board,ar));
 
 
 			transaction = true;
@@ -121,9 +135,11 @@ public class learningTeacherMM extends TransactionExe {
 		}
 		return mav;
 	}
-	private String tclearningNoticeList(ArrayList<BoardBean> ar) { // 공지사항 리스트
+
+	private String tclearningNoticeList(BoardBean board, ArrayList<BoardBean> ar) { // 공지사항 리스트
 		StringBuffer sb = new StringBuffer();
 
+		int count = 0;
 		sb.append("<table>");
 		sb.append("<tr>");
 		sb.append("<td>제목</td>");
@@ -131,15 +147,92 @@ public class learningTeacherMM extends TransactionExe {
 		sb.append("<td>작성자</td>");
 		sb.append("</tr>");
 		for(int i=0; i<ar.size(); i++) {
-			sb.append("<tr>");
-			sb.append("<td>" + ar.get(i).getBoardTitle() + "</td>");
+			sb.append("<tr>");	
+			//sb.append("<input type=\"hidden\" name=\"boardTitle\" value='" + board.getBoardTitle() + "'/>");
+			sb.append("<td onClick=\"confirm('"+ ar.get(i).getBoardTitle() +"','" + ar.get(i).getBoardDate() + "')\">" + ar.get(i).getBoardTitle() + "</td>");
 			sb.append("<td>" + ar.get(i).getBoardDate() + "</td>");
 			sb.append("<td>" + ar.get(i).getBoardId() + "</td>");
 			sb.append("</tr>");
 		}
 		sb.append("</table>");
+		sb.append("<input type=\"button\" value=\"글쓰기\" onClick=\"noticeInsert()\"/>");
 
 		return sb.toString();
+	}
+
+
+	private ModelAndView tclearningNoticeCTX(BoardBean board) { // 공지사항 내용확인
+
+		mav = new ModelAndView();
+		boolean transaction = false;
+		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
+
+		try {
+			session.getAttribute("roomCode");
+
+			board.setRoomCode((String)session.getAttribute("roomCode"));
+
+			board = dao.tclearningNoticeConfirm(board);
+
+			System.out.println("공지사항 내용확인 메서드 진입"+board.getBoardTitle()+board.getRoomCode());
+			mav.addObject("content", getTclearningNoticeCTX(board));
+
+
+			transaction = true;
+
+		}catch(Exception ex){
+
+		}finally {
+			mav.setViewName("learningNoticeCXT");
+			setTransactionResult(transaction);
+		}
+		return mav;
+	}
+
+	private String getTclearningNoticeCTX(BoardBean board) { // 공지사항 내용 끌고오기
+
+		StringBuffer sb = new StringBuffer();
+		sb.append("<table>");
+		sb.append("<tr>");
+		sb.append("<td>" + board.getBoardTitle() + "</td>");
+		sb.append("</tr>");
+		sb.append("<tr>");
+		sb.append("<td>" + board.getBoardDate() + "</td>");
+		sb.append("</tr>");
+		sb.append("<tr>");
+		sb.append("<td>" + board.getBoardId() + "</td>");
+		sb.append("</tr>");
+		sb.append("<tr>");
+		sb.append("<td>" + board.getBoardContent() + "</td>");
+		sb.append("</tr>");
+		sb.append("<tr>");
+		sb.append("<td>" + board.getBoardRoute() + "</td>");
+		sb.append("</tr>");
+		sb.append("</table>");
+		sb.append("<input type=\"button\" value=\"목록\" onClick=\"menu('3')\"/>");
+		return sb.toString();
+	}
+
+
+	private ModelAndView tclearningNoticeInsert(BoardBean board) { // 공지사항 글쓰기 페이지		
+		mav = new ModelAndView();
+		boolean transaction = false;
+		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
+
+		try {
+			session.getAttribute("roomCode");
+
+
+			transaction = true;
+
+		}catch(Exception ex){
+
+		}finally {
+			mav.setViewName("learningNoticeInsert");
+			setTransactionResult(transaction);
+		}
+		return mav;
+		
 	}
 
 	private ModelAndView learningQuestion(BoardBean board) { // 질문게시판 페이지
@@ -285,33 +378,26 @@ public class learningTeacherMM extends TransactionExe {
 	}
 
 	private ModelAndView datahousemain(BoardBean board) { // 자료실 인설트
-
 		mav = new ModelAndView();
 		boolean transaction = false;
-		String page = null;
+		fileupload(board,mtfRequest);
+		System.out.println(board.getBoardRoute());
 
 		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
 		try {
-
 			session.getAttribute("roomCode");
-
-
 			if(dao.referenceInsert(board) != 0) {
 				System.out.println("나 성공햇다 ");
-				page = "learningData";
 				transaction = true;
 			}else {
 				System.out.println("실패");
 			}
-
-
-
 		}catch(Exception ex){
 			ex.printStackTrace();
 		}finally {
-			mav.setViewName(page);
 			setTransactionResult(transaction);
 		}
+		mav.setViewName("learningData");
 		return mav;
 	}
 
@@ -343,7 +429,7 @@ public class learningTeacherMM extends TransactionExe {
 			sb.append("</tr>");
 			for(int i=0; i<bb.size(); i++) {
 				sb.append("<tr>");
-				sb.append("<td>" + "<input type='button' value='"+bb.get(i).getBoardTitle()+"/>" + "</td>");
+				sb.append("<td>" + "<input type='button' value='"+bb.get(i).getBoardTitle()+"' onClick=viewData('"+bb.get(i).getBoardTitle()+"') />" + "</td>");
 				sb.append("<td>" + bb.get(i).getBoardDate() + "</td>");
 				sb.append("<td>" + bb.get(i).getBoardId() + "</td>");
 				sb.append("</tr>");
@@ -439,8 +525,38 @@ public class learningTeacherMM extends TransactionExe {
 		}
 		return mav;
 	}
+	private ModelAndView fileupload(BoardBean board,MultipartHttpServletRequest mtfRequest) {
 
-	private ModelAndView learningWANCommentInsert(BoardBean board) { // 오답노트 코멘트 등록 이동
+		mav = new ModelAndView();
+		System.out.println("fileupload");
+		List<MultipartFile> fileList = mtfRequest.getFiles("file");
+		String load = mtfRequest.getParameter("load");
+		String path = "E:\\RealProject\\realProject2\\src\\main\\webapp\\WEB-INF\\uploadFiles\\"+load+"\\";
+		System.out.println(path);
+		board.setBoardRoute(path);
+		System.out.println(board.getBoardRoute());
+		for (MultipartFile mf : fileList) {
+			String originFileName = mf.getOriginalFilename(); // 원본 파일 명
+			long fileSize = mf.getSize(); // 파일 사이즈
+			System.out.println("originFileName : " + originFileName);
+			System.out.println("fileSize : " + fileSize);
+			String safeFile = path + originFileName;
+			try {
+				mf.transferTo(new File(safeFile));
+			} catch (IllegalStateException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+
+		return mav;
+
+
+
+	}
+
+	private ModelAndView learningWANCommentInsert(BoardBean board) { // 오답노트 코멘트 페이지 이동
 
 		mav = new ModelAndView();
 		boolean transaction = false;
@@ -486,12 +602,19 @@ public class learningTeacherMM extends TransactionExe {
 
 		}catch(Exception ex){
 
+
+			mav.addObject("message", "alert('코멘트 등록을 실패 하셨습니다')");
+			mav.addObject("windowclose", "window.close()");
+			page="learningWANCXT";
+
+
 		}finally {
 			mav.setViewName(page);
 			setTransactionResult(transaction);
 		}
 		return mav;
 	}
+
 	
 	private ModelAndView learningWANCMUpdate(BoardBean board) { // 오답노트 코멘트 페이지 이동
 
@@ -515,5 +638,4 @@ public class learningTeacherMM extends TransactionExe {
 	}
 
 
-	
 }

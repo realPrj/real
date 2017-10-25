@@ -39,6 +39,9 @@
 		form.submit();
 
 	}
+	function viewData(valueCode){
+		createinput("hidden","referCode",valueCode);
+	}
 
 	// 자료실 form
 </script>
