@@ -108,12 +108,13 @@ public class learningTeacherMM extends TransactionExe {
 		for(int i=0; i<ar.size(); i++) {
 			sb.append("<tr>");	
 			//sb.append("<input type=\"hidden\" name=\"boardTitle\" value='" + board.getBoardTitle() + "'/>");
-			sb.append("<td onClick=\"confirm('"+ ar.get(i).getBoardTitle() +"')\">" + ar.get(i).getBoardTitle() + "</td>");
+			sb.append("<td onClick=\"confirm('"+ ar.get(i).getBoardTitle() +"','" + ar.get(i).getBoardDate() + "')\">" + ar.get(i).getBoardTitle() + "</td>");
 			sb.append("<td>" + ar.get(i).getBoardDate() + "</td>");
 			sb.append("<td>" + ar.get(i).getBoardId() + "</td>");
 			sb.append("</tr>");
 		}
 		sb.append("</table>");
+		sb.append("<input type=\"button\" value=\"글쓰기\" onClick=\"noticeInsert()\"/>");
 		
 		return sb.toString();
 	}
@@ -129,6 +130,7 @@ public class learningTeacherMM extends TransactionExe {
 			session.getAttribute("roomCode");
 
 			board.setRoomCode((String)session.getAttribute("roomCode"));
+			
 			board = dao.tclearningNoticeConfirm(board);
 		
 			System.out.println("공지사항 내용확인 메서드 진입"+board.getBoardTitle()+board.getRoomCode());
@@ -162,7 +164,11 @@ public class learningTeacherMM extends TransactionExe {
 		sb.append("<tr>");
 		sb.append("<td>" + board.getBoardContent() + "</td>");
 		sb.append("</tr>");
+		sb.append("<tr>");
+		sb.append("<td>" + board.getBoardRoute() + "</td>");
+		sb.append("</tr>");
 		sb.append("</table>");
+		sb.append("<input type=\"button\" value=\"목록\" onClick=\"menu('3')\"/>");
 		return sb.toString();
 	}
 

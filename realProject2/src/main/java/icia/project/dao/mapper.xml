@@ -278,7 +278,8 @@
 	
 	<!-- 선생님 공지사항 내용확인 -->
 	<select id="tclearningNoticeConfirm" resultType="board" parameterType="board">
-		SELECT NT_TITLE AS boardTitle, NT_DATE AS boardDate, NT_CONTENT AS boardContent, NT_ROUTE AS boardRoute, NT_TCID AS boardId FROM NOTICE WHERE NT_LRCODE = #{roomCode} AND NT_TITLE = #{boardTitle}
+		SELECT NT_LRCODE AS roomCode, NT_TITLE AS boardTitle, NT_DATE AS boardDate, NT_CONTENT AS boardContent, NT_ROUTE AS boardRoute, NT_TCID AS boardId 
+		FROM NOTICE WHERE NT_LRCODE = #{roomCode} AND NT_TITLE = #{boardTitle} AND NT_DATE = TO_DATE(#{boardDate},'YYYY-MM-DD HH24:MI:SS')
 	</select>
 	
 
