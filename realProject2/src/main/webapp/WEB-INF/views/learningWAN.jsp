@@ -35,7 +35,7 @@ $(document).ready(function() {
  });
  
 //form 생성
-function createForm1(formname,formaction,ta){
+function createForm(formname,formaction,ta){
 
 	var form = document.createElement("form");
 	form.target=ta;
@@ -47,7 +47,7 @@ function createForm1(formname,formaction,ta){
 }
 
 //input 생성
-function createinput1(itype, iname, ivalue){
+function createinput(itype, iname, ivalue){
 	var input = document.createElement("input");
 	input.type = itype;
 	input.name = iname;
@@ -57,21 +57,21 @@ function createinput1(itype, iname, ivalue){
 }
 
 
-function test(valueCode){
+function commentCheck(valueCode){
 
 	createinput("hidden", "boardCode", valueCode);
 	
 	var boardCode = document.getElementsByName("boardCode")[0];
 	
-	createForm("form","studentPWDUpdatePage","POP");
+	createForm("learningWANCXTPageform","learningWANCXTPage","POP");
 	
-
-	var form = document.getElementsByName("form")[0];
+	var form = document.getElementsByName("learningWANCXTPageform")[0];
 	window.open('', 'POP',"width=570, height=350, resizable = no, scrollbars = no");
 	form.appendChild(boardCode);
 	
 	form.submit();
 }
+
 </script>
 <body>
 <input type="button" value="전체" onClick="" />

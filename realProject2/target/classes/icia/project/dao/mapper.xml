@@ -271,6 +271,7 @@
 	</insert>
 
 	<!-- 선생님 공지사항 리스트 -->
+<<<<<<< HEAD
 		<select id="tclearningNoticeList" resultType="board"
 			parameterType="board">
 			SELECT NT_TITLE AS boardTitle, NT_DATE AS boardDate,
@@ -371,4 +372,131 @@
 			VALUES('665',#{boardTitle},#{boardContent},SYSDATE,#{boardRoute},#{id})
 		</insert>
 		
+=======
+	<select id="tclearningNoticeList" resultType="board"
+		parameterType="board">
+		SELECT NT_TITLE AS boardTitle, NT_DATE AS boardDate,
+		NT_TCID AS boardId FROM NOTICE WHERE NT_LRCODE = #{roomCode}
+	</select>
+
+
+	<!-- 선생님 학습방 오답노트 추출 -->
+	<select id="learningWANListGet" resultType="board"
+		parameterType="board">
+		SELECT
+		WAN_CODE AS boardCode, WAN_LRCODE AS roomCode
+		,WAN_STUDENTNAME AS
+		studentName,WAN_QTSTYPEYACODE AS
+		yearCode,WAN_QTSTYPECODE AS
+		typeCode,WAN_QTNUMBER AS
+		numberCode,WAN_DATE AS boardDate
+		FROM WRONGANSWERNOTES
+		WHERE
+		WAN_LRCODE=#{roomCode}
+	</select>
+
+	<!-- 학습방 과목 코드 추출 -->
+	<select id="learningSBCodeGet" resultType="String"
+		parameterType="board">
+		SELECT
+		LR_SBCODE AS roomSB
+		FROM LEARNINGROOM
+		WHERE
+		LR_CODE=#{roomCode}
+	</select>
+
+	<!-- 년도 이름 추출 -->
+	<select id="learningYearNameGet" resultType="String"
+		parameterType="board">
+		SELECT
+		YA_NAME AS yearName
+		FROM YEAR
+		WHERE
+		YA_SBCODE=#{roomSB} AND YA_CODE=#{yearCode}
+	</select>
+
+	<!-- 문제유형 이름 추출 -->
+	<select id="learningTypeNameGet" resultType="String"
+		parameterType="board">
+		SELECT
+		STYPE_NAME AS typeName
+		FROM SUBJECTTYPE
+		WHERE
+		STYPE_YASBCODE=#{roomSB} AND STYPE_YACODE=#{yearCode} AND
+		STYPE_CODE=#{typeCode}
+	</select>
+
+	<!-- 년도별 문제유형별 합 -->
+	<select id="learningWANTypeSum" resultType="board"
+		parameterType="board">
+		SELECT
+		WAN_QTSTYPECODE AS typeCode
+		,COUNT(WAN_QTSTYPECODE) AS
+		typeSum
+		FROM WRONGANSWERNOTES WHERE
+		WAN_QTSTYPEYACODE=#{yearCode} AND WAN_LRCODE=#{roomCode}
+		GROUP
+		BY
+		WAN_QTSTYPECODE ORDER
+		BY
+		WAN_QTSTYPECODE ASC
+	</select>
+
+	<!-- 중복 년도 코드 추출 -->
+	<select id="learningWANYearCodeOneGet" resultType="board"
+		parameterType="board">
+		SELECT
+		WAN_QTSTYPEYACODE AS yearCode
+		FROM WRONGANSWERNOTES
+		WHERE
+		WAN_LRCODE = #{roomCode}
+		GROUP BY WAN_QTSTYPEYACODE ORDER
+		BY
+		WAN_QTSTYPEYACODE ASC
+
+	</select>
+
+	<!-- 자료실 글등록 -->
+	<insert id="referenceInsert" parameterType="board">
+		INSERT INTO
+		REFERENCE(RR_LRCODE,RR_TITLE,RR_CONTENT,RR_DATE,RR_ROUTE,RR_TCID)
+		VALUES('665',#{boardTitle},#{boardContent},SYSDATE,#{boardRoute},#{id})
+	</insert>
+	<!-- 자료실 리스트 -->
+	<select id="datalist" resultType="board" parameterType="board">
+		SELECT
+		RR_TITLE AS boardTitle,TO_CHAR(RR_DATE, 'YYYYMMDDHH24MISS') AS
+		boardDate,RR_TCID AS boardId
+		FROM REFERENCE
+		WHERE
+		RR_TCID=#{id}
+	</select>
+
+
+
+
+
+
+
+
+	<!-- 오답노트 코멘트 확인 유무 -->
+	<select id="learningWANCommentCheck" resultType="Integer"
+		parameterType="board">
+		SELECT
+		COUNT(*)
+		FROM WRONGANSWERNOTESTAG
+		WHERE
+		WTAG_WANLRCODE=#{roomCode} AND WTAG_WANCODE=#{boardCode}
+	</select>
+
+
+
+
+
+
+
+
+
+
+>>>>>>> 64f76267c18d2152c9388951027debdc90e5505e
 </mapper>

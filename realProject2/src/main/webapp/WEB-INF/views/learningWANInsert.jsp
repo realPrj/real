@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>공조 || 오답노트 선생님 코멘트</title>
+<title>Insert title here</title>
 </head>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script>
@@ -57,27 +57,23 @@ function createinput(itype, iname, ivalue){
 }
 
 
-function commentCheck(valueCode){
+function commentInsert(valueCode){
 
 	createinput("hidden", "boardCode", valueCode);
 	
 	var boardCode = document.getElementsByName("boardCode")[0];
 	
-	createForm("learningWANCXTPageform","learningWANCXTPage","POP");
+	createForm("learningWANInsertPageform","learningWANInsertPage","POP");
 	
-	var form = document.getElementsByName("learningWANCXTPageform")[0];
+	var form = document.getElementsByName("learningWANInsertPageform")[0];
 	window.open('', 'POP',"width=570, height=350, resizable = no, scrollbars = no");
 	form.appendChild(boardCode);
 	
 	form.submit();
 }
 
-function openerReload(){
-	opener.location.reload(true); 
-}
-
 </script>
-<body onLoad="openerReload()">
-${content }
+<body>
+<h1>안녕</h1>
 </body>
 </html>
