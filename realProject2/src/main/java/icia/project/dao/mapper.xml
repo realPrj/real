@@ -404,11 +404,90 @@
 		VALUES(${roomCode},#{boardCode},#{boardContent},SYSDATE,#{boardRoute},#{id})
 	</insert>
 
+	<!-- 선생님 학습방 이동 -->
+	<select id="learningRoomGo" resultType="room" parameterType="room">
+		SELECT LR_CODE AS roomCode, LR_NAME AS roomName, LR_CONTENT AS
+		roomIntroduction, LR_SBCODE AS roomSB
+		FROM LEARNINGROOM
+		WHERE
+		LR_CODE=#{roomCode}
+	</select>
 
+	<!-- 학습방 추출 -->
+	<select id="learningGet" resultType="room" parameterType="room">
+		SELECT
+		LR_CODE AS roomCode, LR_NAME AS roomName
+		FROM LEARNINGROOM
+		WHERE
+		LR_TCID=#{id}
+	</select>
 
+	<!-- 학생 학습참여 -->
+	<insert id="stLearningJoin" parameterType="room">
+		INSERT INTO
+		LEARNINGSTUDENTREGISTER(LSR_LRCODE,LSR_STRFSTUDENTCODE)
+		VALUES(#{roomCode},#{studentCode})
+	</insert>
+	
+	<!-- 선생님 공지사항 리스트 -->
+	<select id="tclearningNoticeList" resultType="board" parameterType="board">
+		SELECT NT_TITLE AS boardTitle, NT_DATE AS boardDate, NT_TCID AS boardId FROM NOTICE WHERE NT_LRCODE = #{roomCode}
+	</select>
+	
+	<!-- 선생님 공지사항 내용확인 -->
+	<select id="tclearningNoticeConfirm" resultType="board" parameterType="board">
+		SELECT NT_LRCODE AS roomCode, NT_TITLE AS boardTitle, NT_DATE AS boardDate, NT_CONTENT AS boardContent, NT_ROUTE AS boardRoute, NT_TCID AS boardId 
+		FROM NOTICE WHERE NT_LRCODE = #{roomCode} AND NT_TITLE = #{boardTitle} AND NT_DATE = TO_DATE(#{boardDate},'YYYY-MM-DD HH24:MI:SS')
+	</select>
+	
 
+	<!-- 선생님 학습방 오답노트 추출 -->
+	<select id="learningWANListGet" resultType="board" parameterType="board">
+		SELECT
+		WAN_CODE AS boardCode, WAN_LRCODE AS roomCode ,WAN_STUDENTNAME AS
+		studentName,WAN_QTSTYPEYACODE AS yearCode,WAN_QTSTYPECODE AS
+		typeCode,WAN_QTNUMBER AS numberCode,WAN_DATE AS boardDate
+		FROM WRONGANSWERNOTES
+		WHERE
+		WAN_LRCODE=#{roomCode}
+	</select>
 
+	<!-- 학습방 과목 코드 추출 -->
+	<select id="learningSBCodeGet" resultType="String"
+		parameterType="board">
+		SELECT
+		LR_SBCODE AS roomSB
+		FROM LEARNINGROOM
+		WHERE
+		LR_CODE=#{roomCode}
+	</select>
 
+	<!-- 년도 이름 추출 -->
+	<select id="learningYearNameGet" resultType="String"
+		parameterType="board">
+		SELECT
+		YA_NAME AS yearName
+		FROM YEAR
+		WHERE
+		YA_SBCODE=#{roomSB} AND YA_CODE=#{yearCode}
+	</select>
+
+	<!-- 문제유형 이름 추출 -->
+	<select id="learningTypeNameGet" resultType="String"
+		parameterType="board">
+		SELECT
+		STYPE_NAME AS typeName
+		FROM SUBJECTTYPE
+		WHERE
+		STYPE_YASBCODE=#{roomSB} AND STYPE_YACODE=#{yearCode} AND STYPE_CODE=#{typeCode}
+	</select>
+
+<!-- 자료실 글등록 -->
+	<insert id="referenceInsert" parameterType="board">
+		INSERT INTO
+		REFERENCE(RR_LRCODE,RR_TITLE,RR_CONTENT,RR_DATE,RR_ROUTE,RR_TCID)
+		VALUES(#{studentCode},DEFAULT,#{logType})
+	</insert>
 
 
 </mapper>
