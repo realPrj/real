@@ -136,7 +136,7 @@ public interface IMybatis {
 
 	// 선생님 공지사항 리스트
 	public ArrayList<BoardBean> tclearningNoticeList(BoardBean board);
-	
+
 	// 선생님 공지사항 내용확인
 	public BoardBean tclearningNoticeConfirm(BoardBean board);
 
@@ -152,5 +152,5 @@ public interface IMybatis {
 	// 오답노트 코멘트 수정
 	public int learningWANCMUpdate(BoardBean board);
 
-	
+
 }
