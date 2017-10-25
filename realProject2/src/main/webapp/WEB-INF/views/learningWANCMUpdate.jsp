@@ -6,9 +6,43 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>공조 || 코멘트 수정</title>
 </head>
+<script>
+ 
+//form 생성
+function createForm(formname,formaction,formmethod){
+
+	var form = document.createElement("form");
+
+	form.name = formname;
+	form.action = formaction;
+	form.method = formmethod;
+
+	document.body.appendChild(form);
+
+}
+
+function learningWANCMUpdate(){
+	
+	var boardCode = document.getElementsByName("boardCode")[0];
+	var boardDate = document.getElementsByName("boardDate")[0];
+	var boardContent = document.getElementsByName("boardContent")[0];
+	var boardRoute = document.getElementsByName("boardRoute")[0];
+	
+	createForm("learningWANCMUpdateform","learningWANCMUpdate","POST");
+	
+	var form = document.getElementsByName("learningWANCMUpdateform")[0];
+	
+	form.appendChild(boardCode);
+	form.appendChild(boardDate);
+	form.appendChild(boardContent);
+	form.appendChild(boardRoute);
+	
+	form.submit();
+	
+}
 
 
-
+</script>
 <body>
 <input type="hidden" value="${boardCode }" name="boardCode" />
 <input type="hidden" value="${boardDate }" name="boardDate" />
