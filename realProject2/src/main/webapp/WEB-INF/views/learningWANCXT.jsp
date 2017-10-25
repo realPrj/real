@@ -47,6 +47,37 @@ function commentInsertPage(valueCode){
 	form.submit();
 }
 
+function commentInsertPage(valueCode){
+
+	createinput("hidden", "boardCode", valueCode);
+	
+	var boardCode = document.getElementsByName("boardCode")[0];
+	
+	createForm("learningWANInsertPageform","learningWANInsertPage","POST");
+	
+	var form = document.getElementsByName("learningWANInsertPageform")[0];
+	
+	form.appendChild(boardCode);
+	
+	form.submit();
+}
+
+function learningWANCMUpdatePage(valueCode){
+
+	createinput("hidden", "boardCode", valueCode);
+	
+	var boardCode = document.getElementsByName("boardCode")[0];
+	
+	createForm("learningWANCMUpdatePageform","learningWANCMUpdatePage","POST");
+	
+	var form = document.getElementsByName("learningWANCMUpdatePageform")[0];
+	
+	form.appendChild(boardCode);
+	
+	form.submit();
+	
+}
+
 function openerReload(){
 	opener.location.reload(true); 
 	${message};

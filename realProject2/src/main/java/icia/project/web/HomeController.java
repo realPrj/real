@@ -358,7 +358,16 @@ public class HomeController  {
 		mav = new ModelAndView();
 		
 		mav.addObject("boardCode", board.getBoardCode());
-		mav.setViewName("learningWANInsert");
+		mav.setViewName("learningWANCMInsert");
+
+		return mav;
+	}
+	
+	// 선생님 오답노트 코멘트 수정 페이지
+	@RequestMapping(value = "/learningWANCMUpdatePage", method = RequestMethod.POST)
+	public ModelAndView learningWANCMUpdatePage(@ModelAttribute BoardBean board) {
+
+		mav = ltmm.entrance(19, board);
 
 		return mav;
 	}

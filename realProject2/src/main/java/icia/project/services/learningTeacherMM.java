@@ -80,6 +80,10 @@ public class learningTeacherMM extends TransactionExe {
 		case 18:	// 오답노트 코멘트 등록 페이지
 			mav = learningWANCommentInsert((BoardBean)object);
 			break;
+		case 19:	// 오답노트 코멘트 수정 페이지
+			mav = learningWANCMUpdatePage((BoardBean)object);
+			break;
+
 
 
 		}
@@ -318,7 +322,7 @@ public class learningTeacherMM extends TransactionExe {
 		ArrayList<BoardBean> bb = null;
 		String message = "";
 		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
-		
+
 		try {
 			session.getAttribute("roomCode");
 			board.setId((String)session.getAttribute("tcId"));
@@ -345,7 +349,7 @@ public class learningTeacherMM extends TransactionExe {
 
 			}
 			sb.append("</table>");
-			
+
 			mav.addObject("message", message);
 			mav.addObject("datalist", sb.toString());
 			mav.setViewName("learningData");
@@ -408,7 +412,7 @@ public class learningTeacherMM extends TransactionExe {
 				sb.append("</tr>");
 				sb.append("<tr>");
 				sb.append("<td>");
-				sb.append("<input type='button' value='수정' onClick=''  />    "+"<input type='button' value='삭제' onClick=''  />");
+				sb.append("<input type='button' value='수정' onClick='learningWANCMUpdatePage("+board.getBoardCode()+")'/>" + "<input type='button' value='삭제' onClick='' />");
 				sb.append("</td>");
 				sb.append("</tr>");
 				sb.append("</table>");
@@ -436,7 +440,7 @@ public class learningTeacherMM extends TransactionExe {
 
 
 	private ModelAndView learningWANCommentInsert(BoardBean board) { // 오답노트 코멘트 페이지 이동
-		
+
 		mav = new ModelAndView();
 		boolean transaction = false;
 		String page = null;
@@ -482,7 +486,7 @@ public class learningTeacherMM extends TransactionExe {
 				sb.append("</tr>");
 				sb.append("<tr>");
 				sb.append("<td>");
-				sb.append("<input type='button' value='수정' onClick=''  />    "+"<input type='button' value='삭제' onClick=''  />");
+				sb.append("<input type='button' value='수정' onClick='learningWANCMUpdatePage("+board.getBoardCode()+")'/>" + "<input type='button' value='삭제' onClick='' />");
 				sb.append("</td>");
 				sb.append("</tr>");
 				sb.append("</table>");
@@ -501,17 +505,48 @@ public class learningTeacherMM extends TransactionExe {
 			transaction = true;
 
 		}catch(Exception ex){
-			
+
 			mav.addObject("message", "alert('코멘트 등록을 실패 하셨습니다')");
 			mav.addObject("windowclose", "window.close()");
 			page="learningWANCXT";
-			
+
 		}finally {
 			mav.setViewName(page);
 			setTransactionResult(transaction);
 		}
 		return mav;
 	}
+
+	private ModelAndView learningWANCMUpdatePage(BoardBean board) { // 오답노트 코멘트 페이지 이동
+
+		mav = new ModelAndView();
+		boolean transaction = false;
+		String page = null;
+		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
+
+		try {
+
+			board.setRoomCode((String)session.getAttribute("roomCode"));
+			board.setId((String)session.getAttribute("tcId"));
+
+			board = dao.learningWANCommentGet(board);
+
+			page="learningWANCMUpdate";
+			mav.addObject("boardContent", board.getBoardContent());
+			mav.addObject("boardRoute", board.getBoardRoute());
+			mav.addObject("boardDate", board.getBoardDate());
+			mav.addObject("boardCode", board.getBoardCode());
+			transaction = true;
+
+		}catch(Exception ex){
+
+		}finally {
+			mav.setViewName(page);
+			setTransactionResult(transaction);
+		}
+		return mav;
+	}
+
 
 
 
