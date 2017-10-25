@@ -95,6 +95,7 @@ public class learningTeacherMM extends TransactionExe {
 		}
 		return mav;
 	}
+	
 	private String tclearningNoticeList(BoardBean board, ArrayList<BoardBean> ar) { // 공지사항 리스트
 		StringBuffer sb = new StringBuffer();
 
