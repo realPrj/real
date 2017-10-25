@@ -44,6 +44,13 @@ function confirm(boardTitle, boardDate, caCode) {
 } 
 
 function noticeInsert(){
+	var ff = document.createElement("form");
+	ff.name = "noticeInsert";
+	ff.method = "post";
+	ff.action = "NoticeInsert";
+	document.body.appendChild(ff);
+	
+	document.noticeInsert.submit();
 	
 }
 

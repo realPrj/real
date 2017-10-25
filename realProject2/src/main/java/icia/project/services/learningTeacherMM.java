@@ -91,6 +91,10 @@ public class learningTeacherMM extends TransactionExe {
 		case 18:	// 오답노트 코멘트 등록 페이지
 			mav = learningWANCommentInsert((BoardBean)object[0]);
 			break;
+		
+		case 9: // 공지사항 내용확인
+			mav = tclearningNoticeCTX((BoardBean)object[0]);
+			break;
 
 
 		}

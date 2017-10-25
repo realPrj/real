@@ -6,12 +6,7 @@
 <meta charset="UTF-8">
 <title>공조 || 공지사항 등록</title>
 <script>
-function noticeInsert(){
-	var form = document.getElementsByName("noticeInsert");
-	
-	form.submit();
-	
-}
+
 </script>
 </head>
 <body>

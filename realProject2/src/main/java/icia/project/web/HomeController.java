@@ -14,7 +14,6 @@ import icia.project.bean.BoardBean;
 import icia.project.bean.LearningRoomBean;
 import icia.project.bean.MemberBean;
 import icia.project.services.PageManagement;
-import icia.project.services.ProjectUtils;
 import icia.project.services.learningStudentMM;
 import icia.project.services.learningTeacherMM;
 
@@ -26,8 +25,9 @@ public class HomeController  {
 	private PageManagement pm;
 	@Autowired
 	private learningTeacherMM ltmm;
-	@Autowired
-	private learningStudentMM lsmm;
+
+	//@Autowired
+	//private learningStudentMM lsmm;
 
 
 	private ModelAndView mav;
@@ -165,20 +165,20 @@ public class HomeController  {
 
 	// 자료실 메인페이지로 가기
 	@RequestMapping(value = "/Datamain", method = RequestMethod.POST)
+	public ModelAndView daoaMaid(@ModelAttribute MemberBean member) {
 
-	public ModelAndView daoaMaid(@ModelAttribute BoardBean board) {
+		mav = new ModelAndView();
 
-		mav = ltmm.entrance(13, board);
-	
+		mav.setViewName("learningData");
+
 		return mav;
 	}
 	// 자료실 글쓰러가기
 	@RequestMapping(value = "/DataInsert", method = RequestMethod.POST)
-	public ModelAndView dataInsert(@ModelAttribute BoardBean board) {
-		
+	public ModelAndView dataInsert(@ModelAttribute MemberBean member) {
 
 		mav = new ModelAndView();
-		
+
 		mav.setViewName("learningDataInsert");
 
 		return mav;
@@ -198,10 +198,13 @@ public class HomeController  {
 		case 2 : 
 
 			break;
-		case 3 : 	// 공지사항
+		case 3 : 
+			// 공지사항
+			System.out.println(Integer.parseInt(board.getCaCode()));
 			mav = ltmm.entrance(3, board);
 			break;	
-		case 4 :	// 질문게시판
+		case 4 :	
+			System.out.println(Integer.parseInt(board.getCaCode()));
 			mav = ltmm.entrance(4, board);
 			break;
 		case 5 : 
@@ -212,7 +215,7 @@ public class HomeController  {
 
 			break;
 
-		case 7 : 	// 오답노트
+		case 7 : // 오답노트
 			mav = ltmm.entrance(7, null);
 			break;
 
@@ -343,30 +346,6 @@ public class HomeController  {
 
 		return mav;
 	}
-	
-	// 선생님 오답노트 코멘트 페이지
-	@RequestMapping(value = "/learningWANCXTPage", method = RequestMethod.GET)
-	public ModelAndView learningWANCXTPage(@ModelAttribute BoardBean board) {
-
-		mav = ltmm.entrance(17, board);
-
-		return mav;
-	}
-	
-	// 선생님 오답노트 코멘트 등록 페이지
-	@RequestMapping(value = "/learningWANInsertPage", method = RequestMethod.POST)
-	public ModelAndView learningWANInsertPage(@ModelAttribute BoardBean board) {
-
-		mav = new ModelAndView();
-		
-		mav.addObject("boardCode", board.getBoardCode());
-		mav.setViewName("learningWANInsert");
-
-		return mav;
-	}
-	
-	
-	
 
 	// 공지사항 내용 확인
 	@RequestMapping(value = "/NoticeConfirm", method = RequestMethod.POST)
@@ -378,6 +357,15 @@ public class HomeController  {
 		return mav;
 	}
 
+	// 공지사항 글쓰기
+	@RequestMapping(value = "/NoticeInsert", method = RequestMethod.POST)
+	public ModelAndView learningNoticeInsert(@ModelAttribute BoardBean board) {
 
+		mav = ltmm.entrance(9, board);
+
+		return mav;
+	}
+
+	
 
 }
