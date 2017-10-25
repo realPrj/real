@@ -73,8 +73,8 @@ public class learningTeacherMM extends TransactionExe {
 			
 			
 			
-		case 17:	// 오답노트 인설트 페이지
-			mav = learningWANInsertPage((BoardBean)object);
+		case 17:	// 오답노트 코멘트 페이지
+			mav = learningWANCXTPage((BoardBean)object);
 			break;
 
 		}
@@ -350,7 +350,7 @@ public class learningTeacherMM extends TransactionExe {
 		return mav;
 	}
 
-	private ModelAndView learningWANInsertPage(BoardBean board) { // 오답노트 코멘트 페이지 이동
+	private ModelAndView learningWANCXTPage(BoardBean board) { // 오답노트 코멘트 페이지 이동
 
 		mav = new ModelAndView();
 		boolean transaction = false;
