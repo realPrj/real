@@ -39,7 +39,7 @@ public class HomeController  {
 	public ModelAndView home(Locale locale, Model model) {
 
 		mav = new ModelAndView();
-
+System.out.println("sadf");
 		mav.setViewName("home");
 
 		return mav;
