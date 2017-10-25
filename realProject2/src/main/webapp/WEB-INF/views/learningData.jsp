@@ -39,6 +39,22 @@
 		form.submit();
 
 	}
+	//메뉴선택
+	function menu(ivalue){
+		
+		createinput("hidden", "caCode", ivalue);
+		
+		var caCode = document.getElementsByName("caCode")[0];
+		
+		createForm("menuform","tcmenu","post");
+		
+
+		var form = document.getElementsByName("menuform")[0];
+		form.appendChild(caCode);
+		
+		form.submit();
+		
+	}
 	
 	function viewData(referCode,referDate,referTitle){
 	       alert(referCode,referTitle,referDate);
@@ -74,7 +90,7 @@
 	</table>
 	<div>
 		<input type="button" value="자료실"
-			onClick="eventClick('dataform','Datamain','post')" /> <input
+			onClick="menu('10')" /> <input
 			type="button" value="자료실 글쓰러가기"
 			onClick="eventClick('dataform','DataInsert','post')" />
 	</div>

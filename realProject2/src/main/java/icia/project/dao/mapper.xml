@@ -358,7 +358,7 @@
 	<insert id="referenceInsert" parameterType="board">
 		INSERT INTO
 		REFERENCE(RR_LRCODE,RR_TITLE,RR_CONTENT,RR_DATE,RR_ROUTE,RR_TCID)
-		VALUES('665',#{boardTitle},#{boardContent},SYSDATE,#{boardRoute},#{id})
+		VALUES(#{roomCode},#{boardTitle},#{boardContent},SYSDATE,#{boardRoute},#{id})
 	</insert>
 	<!-- 자료실 리스트 -->
 	<select id="datalist" resultType="board" parameterType="board">
@@ -367,7 +367,7 @@
 		boardDate,RR_TCID AS boardId
 		FROM REFERENCE
 		WHERE
-		RR_TCID=#{id}
+		RR_TCID=#{id} AND RR_LRCODE=#{roomCode}
 	</select>
 
 

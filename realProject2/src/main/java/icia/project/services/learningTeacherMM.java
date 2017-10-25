@@ -396,7 +396,9 @@ public class learningTeacherMM extends TransactionExe {
 		System.out.println(board.getBoardRoute());
 
 		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
-		try {
+		try {			
+			board.setRoomCode((String)session.getAttribute("roomCode"));
+			board.setId((String)session.getAttribute("tcId"));
 			session.getAttribute("roomCode");
 			if(dao.referenceInsert(board) != 0) {
 				System.out.println("나 성공햇다 ");
@@ -409,6 +411,7 @@ public class learningTeacherMM extends TransactionExe {
 		}finally {
 			setTransactionResult(transaction);
 		}
+		dataview(board);
 		mav.setViewName("learningData");
 		return mav;
 	}
@@ -461,6 +464,7 @@ public class learningTeacherMM extends TransactionExe {
 
 			setTransactionResult(transaction);
 		}
+		  mav.setViewName("learningData");
 		return mav;
 	}
 
@@ -544,7 +548,7 @@ public class learningTeacherMM extends TransactionExe {
 		System.out.println("fileupload");
 		List<MultipartFile> fileList = mtfRequest.getFiles("file");
 		String load = mtfRequest.getParameter("load");
-		String path = "E:\\RealProject\\realProject2\\src\\main\\webapp\\WEB-INF\\uploadFiles\\"+load+"\\";
+		String path = "E:\\realTest\\realProject2\\src\\main\\webapp\\WEB-INF\\uploadFiles\\"+load+"\\";
 		System.out.println(path);
 		board.setBoardRoute(path);
 		System.out.println(board.getBoardRoute());
