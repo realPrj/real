@@ -108,17 +108,17 @@ public interface IMybatis {
 	public LearningRoomBean learningRoomGo(LearningRoomBean room);
 
 	// 선생님 자료실 등록
-<<<<<<< HEAD
-	public BoardBean referenceInsert(BoardBean board);
+
+
 	
 	// 선생님 오답노트(전체) 페이지 이동
-=======
+
 	public int referenceInsert(BoardBean board);
 	
 	// 선생님 공지사항 리스트
 	public ArrayList<BoardBean> datalist(BoardBean board);
 
->>>>>>> d4b3e2c706563b12797c1fc61ee182ed630d83a5
+
 	public ArrayList<BoardBean> learningWANListGet(BoardBean board);
 
 	// 학습방 과목코드 추출

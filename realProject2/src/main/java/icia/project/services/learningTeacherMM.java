@@ -300,8 +300,9 @@ public class learningTeacherMM extends TransactionExe {
 		boolean transaction = false;
 		StringBuffer sb = new StringBuffer();
 		ArrayList<BoardBean> bb = null;
+		String message = "";
 		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
-
+		
 		try {
 			session.getAttribute("roomCode");
 			board.setId((String)session.getAttribute("tcId"));
@@ -309,6 +310,10 @@ public class learningTeacherMM extends TransactionExe {
 
 			//mav.addObject("content",session.getAttribute("roomCode") + "의 공지사항");
 			bb = dao.datalist(board);
+			System.out.println(bb.get(0).getBoardTitle());
+			System.out.println(bb.get(0).getBoardDate());
+			System.out.println(bb.get(0).getBoardId());
+			System.out.println(bb.size());
 			sb.append("<table>");
 			sb.append("<tr>");
 			sb.append("<td>제목</td>");
@@ -324,7 +329,8 @@ public class learningTeacherMM extends TransactionExe {
 
 			}
 			sb.append("</table>");
-
+			
+			mav.addObject("message", message);
 			mav.addObject("datalist", sb.toString());
 			mav.setViewName("learningData");
 
