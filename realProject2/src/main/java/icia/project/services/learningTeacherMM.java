@@ -333,7 +333,7 @@ public class learningTeacherMM extends TransactionExe {
 			sb.append("</tr>");
 			for(int i=0; i<bb.size(); i++) {
 				sb.append("<tr>");
-				sb.append("<td>" + bb.get(i).getBoardTitle() + "</td>");
+				sb.append("<td>" + "<input type='button' value='"+bb.get(i).getBoardTitle()+"/>" + "</td>");
 				sb.append("<td>" + bb.get(i).getBoardDate() + "</td>");
 				sb.append("<td>" + bb.get(i).getBoardId() + "</td>");
 				sb.append("</tr>");

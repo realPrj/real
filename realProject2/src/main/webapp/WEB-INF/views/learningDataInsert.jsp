@@ -32,6 +32,7 @@
 
 	function eventClick(formname, formaction, formmethod) {
 
+
 		createForm(formname, formaction, formmethod);
 
 		var form = document.getElementsByName(formname)[0];
