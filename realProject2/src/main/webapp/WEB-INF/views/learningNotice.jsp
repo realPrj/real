@@ -44,6 +44,10 @@ function confirm(boardTitle, boardDate, caCode) {
 } 
 
 function noticeInsert(){
+	alert("공지사항글쓰기");
+	var form = document.getElementsByName("noticeInsert");
+	
+	form.submit();
 	
 }
 

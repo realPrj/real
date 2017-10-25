@@ -59,6 +59,10 @@ public class learningTeacherMM extends TransactionExe {
 		case 8: // 공지사항 내용확인
 			mav = tclearningNoticeCTX((BoardBean)object);
 			break;
+		
+		case 9: // 공지사항 내용확인
+			mav = tclearningNoticeCTX((BoardBean)object);
+			break;
 
 
 		}
