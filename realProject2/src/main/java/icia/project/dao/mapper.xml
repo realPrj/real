@@ -391,7 +391,7 @@
 	<select id="learningWANCommentGet" resultType="board"
 		parameterType="board">
 		SELECT
-		WTAG_WANCODE AS boardCode, WTAG_CONTENT AS boardContent, WTAG_DATE AS boardDate,
+		WTAG_WANLRCODE AS roomCode, WTAG_WANCODE AS boardCode, WTAG_CONTENT AS boardContent, WTAG_DATE AS boardDate,
 		WTAG_ROUTE AS boardRoute, WTAG_TCID AS boardId
 		FROM WRONGANSWERNOTESTAG
 		WHERE

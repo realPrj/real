@@ -414,7 +414,7 @@ public class learningTeacherMM extends TransactionExe {
 				sb.append("<tr>");
 				sb.append("<td>");
 				sb.append("<input type='button' value='수정' onClick='learningWANCMUpdatePage("+board.getBoardCode()+")'/>" 
-				+ "<input type='button' value='삭제' onClick=test('"+board.getBoardTitle()+","+board.getBoardId()+"') />");
+				+ "<input type='button' value='삭제' onClick=learningWANCMDelete('"+board.getBoardCode()+","+board.getRoomCode()+"') />");
 				sb.append("</td>");
 				sb.append("</tr>");
 				sb.append("</table>");

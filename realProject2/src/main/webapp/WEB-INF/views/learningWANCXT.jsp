@@ -63,8 +63,21 @@ function learningWANCMUpdatePage(valueCode){
 	
 }
 
-function test(a,b){
-	alert(a,b);
+function learningWANCMDelete(boardcode,roomcode){
+
+	createinput("hidden", "boardCode", boardcode);
+	createinput("hidden", "roomCode", roomcode);
+	
+	var boardCode = document.getElementsByName("boardCode")[0];
+	
+	createForm("learningWANCMUpdatePageform","learningWANCMUpdatePage","POST");
+	
+	var form = document.getElementsByName("learningWANCMUpdatePageform")[0];
+	
+	form.appendChild(boardCode);
+	
+	form.submit();
+	
 }
 
 function openerReload(){
