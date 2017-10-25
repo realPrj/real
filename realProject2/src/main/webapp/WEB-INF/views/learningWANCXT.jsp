@@ -63,6 +63,10 @@ function learningWANCMUpdatePage(valueCode){
 	
 }
 
+function test(a,b){
+	alert(a,b);
+}
+
 function openerReload(){
 	opener.location.reload(true); 
 	${message};
