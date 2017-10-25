@@ -4,76 +4,55 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>공조 || 오답노트 코멘트 등록</title>
 </head>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script>
-$(document).ready(function() {
-	
-	var sizee = ${size};
-	var dateCode = 2017;
-
-	for(var i = 0; i < parseInt(sizee) ; i++){
-		$("#"+dateCode).hide();
-		dateCode = parseInt(dateCode) - 1;
-	};
-	
-	
-	$("#yearSelect").click(function() {
-	var selectValue = $("#yearSelect").val();
-	var dateCode = 2017;
-	for(var i = 0; i < parseInt(sizee); i++){
-		$("#"+dateCode).hide();
-		dateCode = parseInt(dateCode) - 1;
-	};
-		$("#"+selectValue).show();
-		var divbox = $("#divbox");
-		divbox.append($("#"+selectValue));
-	});
-	
-	
- });
  
 //form 생성
-function createForm(formname,formaction,ta){
+function createForm(formname,formaction,formmethod){
 
 	var form = document.createElement("form");
-	form.target=ta;
+
 	form.name = formname;
 	form.action = formaction;
+	form.method = formmethod;
 
 	document.body.appendChild(form);
 
 }
 
-//input 생성
-function createinput(itype, iname, ivalue){
-	var input = document.createElement("input");
-	input.type = itype;
-	input.name = iname;
-	input.value = ivalue;
+function commentInsert(){
 
-	document.body.appendChild(input);
-}
-
-
-function commentInsert(valueCode){
-
-	createinput("hidden", "boardCode", valueCode);
-	
 	var boardCode = document.getElementsByName("boardCode")[0];
+	var boardContent = document.getElementsByName("boardContent")[0];
+	var boardRoute = document.getElementsByName("boardRoute")[0];
 	
-	createForm("learningWANInsertPageform","learningWANInsertPage","POP");
+	createForm("learningWANCommentInsertform","learningWANCommentInsert","POST");
 	
-	var form = document.getElementsByName("learningWANInsertPageform")[0];
-	window.open('', 'POP',"width=570, height=350, resizable = no, scrollbars = no");
+	var form = document.getElementsByName("learningWANCommentInsertform")[0];
+	
 	form.appendChild(boardCode);
+	form.appendChild(boardContent);
+	form.appendChild(boardRoute);
 	
 	form.submit();
 }
 
 </script>
 <body>
-<h1>안녕</h1>
+<input type="hidden" value="${boardCode }" name="boardCode" />
+<table>
+	<tr>
+		<td>내용</td>
+		<td><input type="text" name="boardContent" /></td>
+	</tr>
+	<tr>
+		<td>파일첨부</td>
+		<td><input type="text" name="boardRoute" /></td>
+	</tr>
+	<tr>
+		<td><input type="button" value="등록" onClick="commentInsert()" /></td>
+	</tr>
+</table>
 </body>
 </html>
