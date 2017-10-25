@@ -120,18 +120,20 @@ public class learningTeacherMM extends TransactionExe {
 	
 	
 	private ModelAndView tclearningNoticeCTX(BoardBean board) { // 공지사항 내용확인
+	    
 		mav = new ModelAndView();
 		boolean transaction = false;
 		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
+		 
 		try {
 			session.getAttribute("roomCode");
 
 			board.setRoomCode((String)session.getAttribute("roomCode"));
-			//board = dao.tclearningNoticeConfirm(board);
-			
-			//mav.addObject("content",session.getAttribute("roomCode") + "의 공지사항");
-			mav.addObject("content", "왜안뜨냐");
-
+			board = dao.tclearningNoticeConfirm(board);
+		
+			System.out.println("공지사항 내용확인 메서드 진입"+board.getBoardTitle()+board.getRoomCode());
+		    mav.addObject("content", getTclearningNoticeCTX(board));
+		   
 			
 			transaction = true;
 
@@ -145,12 +147,20 @@ public class learningTeacherMM extends TransactionExe {
 	}
 	
 	private String getTclearningNoticeCTX(BoardBean board) { // 공지사항 내용 끌고오기
-		StringBuffer sb = new StringBuffer();
 		
+		StringBuffer sb = new StringBuffer();
 		sb.append("<table>");
 		sb.append("<tr>");
-		sb.append("dddddddddddd");
-		//sb.append("<td>" + board.getBoardTitle() + "</td>");
+		sb.append("<td>" + board.getBoardTitle() + "</td>");
+		sb.append("</tr>");
+		sb.append("<tr>");
+		sb.append("<td>" + board.getBoardDate() + "</td>");
+		sb.append("</tr>");
+		sb.append("<tr>");
+		sb.append("<td>" + board.getBoardId() + "</td>");
+		sb.append("</tr>");
+		sb.append("<tr>");
+		sb.append("<td>" + board.getBoardContent() + "</td>");
 		sb.append("</tr>");
 		sb.append("</table>");
 		return sb.toString();
