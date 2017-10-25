@@ -354,6 +354,7 @@ public class learningTeacherMM extends TransactionExe {
 
 		mav = new ModelAndView();
 		boolean transaction = false;
+		String page = null;
 		StringBuffer sb = new StringBuffer();
 		ArrayList<BoardBean> bb = null;
 		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
@@ -368,15 +369,16 @@ public class learningTeacherMM extends TransactionExe {
 			}else {	// 코멘트 없음
 				
 				sb.append("<input type='button' value='코멘트 등록' onClick='commentInsert'  />");
-				
+				page = "learningWANCXT";
 			}
 			
+			mav.addObject("content", sb.toString());
 			transaction = true;
 
 		}catch(Exception ex){
 
 		}finally {
-
+			mav.setViewName(page);
 			setTransactionResult(transaction);
 		}
 		return mav;
