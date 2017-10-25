@@ -317,7 +317,18 @@ public class FunctionController {
 	@RequestMapping(value = "/learningWANCommentInsert", method = RequestMethod.POST)
 	public ModelAndView  learningWANCommentInsert(BoardBean board) {
 		
-		mav = ltm.entrance(18, board);
+		ltm.entrance(18, board);
+		mav = ltm.entrance(17, board);
+
+		return mav;
+	}
+	
+	// 오답노트 코멘트(선생님) 글 수정
+	@RequestMapping(value = "/learningWANCMUpdate", method = RequestMethod.POST)
+	public ModelAndView  learningWANCMUpdate(BoardBean board) {
+		
+		ltm.entrance(20, board);
+		mav = ltm.entrance(17, board);
 
 		return mav;
 	}

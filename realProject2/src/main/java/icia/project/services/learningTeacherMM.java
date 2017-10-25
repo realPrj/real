@@ -23,7 +23,6 @@ public class learningTeacherMM extends TransactionExe {
 
 	private ModelAndView mav;
 
-
 	public ModelAndView entrance(int serviceCode,Object object)  {
 
 		switch(serviceCode) {
@@ -76,12 +75,14 @@ public class learningTeacherMM extends TransactionExe {
 		case 17:	// 오답노트 코멘트 페이지
 			mav = learningWANCXTPage((BoardBean)object);
 			break;
-
-		case 18:	// 오답노트 코멘트 등록 페이지
+		case 18:	// 오답노트 코멘트 등록
 			mav = learningWANCommentInsert((BoardBean)object);
 			break;
 		case 19:	// 오답노트 코멘트 수정 페이지
 			mav = learningWANCMUpdatePage((BoardBean)object);
+			break;
+		case 20:	// 오답노트 코멘트 수정
+			mav = learningWANCMUpdate((BoardBean)object);
 			break;
 
 
@@ -438,13 +439,10 @@ public class learningTeacherMM extends TransactionExe {
 		return mav;
 	}
 
-
-	private ModelAndView learningWANCommentInsert(BoardBean board) { // 오답노트 코멘트 페이지 이동
+	private ModelAndView learningWANCommentInsert(BoardBean board) { // 오답노트 코멘트 등록 이동
 
 		mav = new ModelAndView();
 		boolean transaction = false;
-		String page = null;
-		StringBuffer sb = new StringBuffer();
 		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
 
 		try {
@@ -452,72 +450,20 @@ public class learningTeacherMM extends TransactionExe {
 			board.setRoomCode((String)session.getAttribute("roomCode"));
 			board.setId((String)session.getAttribute("tcId"));
 
-			if(dao.learningWANCommentInsert(board) != 0) {	// 코멘트 등록 완료
-				board = dao.learningWANCommentGet(board);
-
-				sb.append("<table>");
-				sb.append("<tr>");
-				sb.append("<td>");
-				sb.append("내용");
-				sb.append("</td>");
-				sb.append("</tr>");
-				sb.append("<tr>");
-				sb.append("<td>");
-				sb.append(board.getBoardContent());
-				sb.append("</td>");
-				sb.append("</tr>");
-				sb.append("<tr>");
-				sb.append("<td>");
-				sb.append("파일첨부");
-				sb.append("</td>");
-				sb.append("<td>");
-				sb.append(board.getBoardRoute());
-				sb.append("</td>");
-				sb.append("</tr>");
-				sb.append("<tr>");
-				sb.append("<td>");
-				sb.append("날짜 : "+board.getBoardDate());
-				sb.append("</td>");
-				sb.append("</tr>");
-				sb.append("<tr>");
-				sb.append("<td>");
-				sb.append("아이디 : "+board.getBoardId());
-				sb.append("</td>");
-				sb.append("</tr>");
-				sb.append("<tr>");
-				sb.append("<td>");
-				sb.append("<input type='button' value='수정' onClick='learningWANCMUpdatePage("+board.getBoardCode()+")'/>" + "<input type='button' value='삭제' onClick='' />");
-				sb.append("</td>");
-				sb.append("</tr>");
-				sb.append("</table>");
-
-				page="learningWANCXT";
-				mav.addObject("message", "alert('코멘트 등록 되셨습니다')");
-
-			}else {	// 코멘트 등록 실패
-				mav.addObject("message", "alert('코멘트 등록을 실패 하셨습니다')");
-				mav.addObject("windowclose", "window.close()");
-				page="learningWANCXT";
-
-			}	
-
-			mav.addObject("content", sb.toString());
+			dao.learningWANCommentInsert(board);
+	
 			transaction = true;
 
 		}catch(Exception ex){
 
-			mav.addObject("message", "alert('코멘트 등록을 실패 하셨습니다')");
-			mav.addObject("windowclose", "window.close()");
-			page="learningWANCXT";
-
 		}finally {
-			mav.setViewName(page);
+		
 			setTransactionResult(transaction);
 		}
 		return mav;
 	}
 
-	private ModelAndView learningWANCMUpdatePage(BoardBean board) { // 오답노트 코멘트 페이지 이동
+	private ModelAndView learningWANCMUpdatePage(BoardBean board) { // 오답노트 코멘트 수정 페이지 이동
 
 		mav = new ModelAndView();
 		boolean transaction = false;
@@ -534,7 +480,6 @@ public class learningTeacherMM extends TransactionExe {
 			page="learningWANCMUpdate";
 			mav.addObject("boardContent", board.getBoardContent());
 			mav.addObject("boardRoute", board.getBoardRoute());
-			mav.addObject("boardDate", board.getBoardDate());
 			mav.addObject("boardCode", board.getBoardCode());
 			transaction = true;
 
@@ -546,8 +491,28 @@ public class learningTeacherMM extends TransactionExe {
 		}
 		return mav;
 	}
+	
+	private ModelAndView learningWANCMUpdate(BoardBean board) { // 오답노트 코멘트 페이지 이동
+
+		boolean transaction = false;
+		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
+
+		try {
+
+			board.setRoomCode((String)session.getAttribute("roomCode"));
+
+			dao.learningWANCMUpdate(board);
+				
+			transaction = true;
+
+		}catch(Exception ex){
+
+		}finally {
+			setTransactionResult(transaction);
+		}
+		return mav;
+	}
 
 
-
-
+	
 }
