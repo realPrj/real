@@ -28,7 +28,6 @@ public class learningTeacherMM extends TransactionExe {
 
 	private ModelAndView mav;
 
-
 	private MultipartHttpServletRequest mtfRequest = null;
 
 	public ModelAndView entrance(int serviceCode,Object ...object)  {
@@ -120,7 +119,6 @@ public class learningTeacherMM extends TransactionExe {
 		return mav;
 
 	}
-
 
 	private ModelAndView learningNoticePage(BoardBean board) { // 공지사항 페이지
 
@@ -672,7 +670,6 @@ public class learningTeacherMM extends TransactionExe {
 		return mav;
 	}
 
-
 	private ModelAndView tclearningNoticeInsertOk(BoardBean board) { // 공지사항 글쓰기
 		mav = new ModelAndView();
 		boolean transaction = false;
@@ -688,8 +685,6 @@ public class learningTeacherMM extends TransactionExe {
 				System.out.println("글좀쓰자제발");
 				transaction = true;
 			}
-
-
 
 		}catch(Exception ex){
 
