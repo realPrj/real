@@ -69,12 +69,14 @@ function learningWANCMDelete(boardcode,roomcode){
 	createinput("hidden", "roomCode", roomcode);
 	
 	var boardCode = document.getElementsByName("boardCode")[0];
+	var roomCode = document.getElementsByName("roomCode")[0];
 	
-	createForm("learningWANCMUpdatePageform","learningWANCMUpdatePage","POST");
+	createForm("learningWANCMDeleteform","learningWANCMDelete","POST");
 	
-	var form = document.getElementsByName("learningWANCMUpdatePageform")[0];
+	var form = document.getElementsByName("learningWANCMDeleteform")[0];
 	
 	form.appendChild(boardCode);
+	form.appendChild(roomCode);
 	
 	form.submit();
 	

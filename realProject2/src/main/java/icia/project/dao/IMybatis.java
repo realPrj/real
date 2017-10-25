@@ -152,6 +152,9 @@ public interface IMybatis {
 	// 오답노트 코멘트 수정
 	public int learningWANCMUpdate(BoardBean board);
 
+	// 오답노트 코멘트 삭제
+	public int learningWANCMDelete(BoardBean board);
+
 	// 선생님 공지사항 글쓰기
 	public int tclearningNoticeInsert(BoardBean board);
 

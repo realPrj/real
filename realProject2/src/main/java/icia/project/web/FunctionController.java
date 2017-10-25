@@ -1,16 +1,10 @@
 package icia.project.web;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -309,8 +303,6 @@ public class FunctionController {
 
 		mav = new ModelAndView();		
 
-
-
 		return mav;
 	}
 
@@ -320,7 +312,7 @@ public class FunctionController {
 		
 		ltm.entrance(18, board);
 		mav = ltm.entrance(17, board);
-
+		mav.addObject("message", "alert('글 등록 되셨습니다.');");
 		return mav;
 	}
 	
@@ -330,9 +322,20 @@ public class FunctionController {
 		
 		ltm.entrance(20, board);
 		mav = ltm.entrance(17, board);
-
+		mav.addObject("message", "alert('수정 되셨습니다.');");
 		return mav;
 	}
+	
+	// 오답노트 코멘트(선생님) 글 삭제
+	@RequestMapping(value = "/learningWANCMDelete", method = RequestMethod.POST)
+	public ModelAndView  learningWANCMDelete(BoardBean board) {
+		
+		ltm.entrance(21, board);
+		mav = ltm.entrance(17, board);
+		mav.addObject("message", "alert('삭제 되셨습니다.');");
+		return mav;
+	}
+
 
 
 	// 자료실 글쓰기

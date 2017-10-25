@@ -416,20 +416,31 @@
 		WTAG_WANLRCODE=#{roomCode} AND WTAG_WANCODE=#{boardCode}
 	</update>
 
+	<!-- 오답노트 코멘트 삭제 -->
+	<delete id="learningWANCMDelete" parameterType="board">
+		DELETE
+		FROM WRONGANSWERNOTESTAG
+		WHERE WTAG_WANLRCODE=#{roomCode} AND WTAG_WANCODE=#{boardCode}
+	</delete>
+
 	<!-- 선생님 공지사항 내용확인 -->
 	<select id="tclearningNoticeConfirm" resultType="board"
 		parameterType="board">
 		SELECT NT_LRCODE AS roomCode, NT_TITLE AS boardTitle,
 		NT_DATE AS boardDate, NT_CONTENT AS boardContent, NT_ROUTE AS
 		boardRoute, NT_TCID AS boardId
-		FROM NOTICE WHERE NT_LRCODE = #{roomCode} AND NT_TITLE = #{boardTitle} AND
-		NT_DATE = TO_DATE(#{boardDate},'YYYY-MM-DD HH24:MI:SS')
+		FROM NOTICE WHERE NT_LRCODE =
+		#{roomCode} AND NT_TITLE = #{boardTitle} AND
+		NT_DATE =
+		TO_DATE(#{boardDate},'YYYY-MM-DD HH24:MI:SS')
 	</select>
 
 	<!-- 선생님 공지사항 글쓰기 -->
 	<insert id="tclearningNoticeInsert" parameterType="board">
-		INSERT INTO NOTICE
-		VALUES(#{roomCode}, #{boardTitle}, #{boardContent}, SYSDATE, #{boardRoute}, #{boardId})
+		INSERT INTO
+		NOTICE
+		VALUES(#{roomCode}, #{boardTitle}, #{boardContent}, SYSDATE,
+		#{boardRoute}, #{boardId})
 	</insert>
 
 
