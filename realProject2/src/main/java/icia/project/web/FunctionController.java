@@ -227,14 +227,15 @@ public class FunctionController {
 	}
 
 	// 선생님 학습방 공지사항 글 등록
-	@RequestMapping(value = "/learningBoardNoticeInsert", method = RequestMethod.POST)
-	public ModelAndView  learningBoardNoticeInsert(BoardBean board) {
+	   @RequestMapping(value = "/learningBoardNoticeInsert", method = RequestMethod.POST)
+	   public ModelAndView  learningBoardNoticeInsert(BoardBean board) {
 
-		mav = new ModelAndView();		
+	      ltm.entrance(10, board);
+	      
+	      mav = ltm.entrance(3, board);
 
-
-		return mav;
-	}
+	      return mav;
+	   }
 
 	// 선생님 학습방 질문게시판 글 등록
 	@RequestMapping(value = "/learningBoardQueryInsert", method = RequestMethod.POST)
@@ -333,47 +334,22 @@ public class FunctionController {
 		return mav;
 	}
 
+
 	// 자료실 글쓰기
-	@RequestMapping(value = "requestupload2")
-	public ModelAndView requestupload2(MultipartHttpServletRequest mtfRequest,BoardBean board) throws Exception {
-		mav = new ModelAndView();	
-		List<MultipartFile> fileList = mtfRequest.getFiles("file");
-		String load = mtfRequest.getParameter("load");
-		String boardroute = mtfRequest.getParameter("boardroute");
-		String boardTitle = mtfRequest.getParameter("boardTitle");
-		String boardContent = mtfRequest.getParameter("boardContent");
-		System.out.println(load);
-		System.out.println(boardContent);
-		System.out.println(boardTitle);
-		String path = "E:\\RealProject\\realProject2\\src\\main\\webapp\\WEB-INF\\uploadFiles\\"+load+"\\";
-		System.out.println(path);
-		for (MultipartFile mf : fileList) {
-			String originFileName = mf.getOriginalFilename(); // 원본 파일 명
-			long fileSize = mf.getSize(); // 파일 사이즈
+	   @RequestMapping(value = "/learningDataInsert", method = RequestMethod.POST)
+	   public ModelAndView requestupload2(@ModelAttribute BoardBean board,MultipartHttpServletRequest mtfRequest)throws Exception{      
+	      board.setId((String)session.getAttribute("tcId"));
 
-			System.out.println("originFileName : " + originFileName);
-			System.out.println("fileSize : " + fileSize);
-
-			String safeFile = path + originFileName;
-			board.setBoardRoute(safeFile);
-			try {
-				mf.transferTo(new File(safeFile));
-			} catch (IllegalStateException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-		return mav;
-	}
-	
-	// 자료실 글쓰기
-	@RequestMapping(value = "/learningDataInsert", method = RequestMethod.POST)
-	public ModelAndView requestupload2(@ModelAttribute BoardBean board,MultipartHttpServletRequest mtfRequest)throws Exception{		
-		board.setId((String)session.getAttribute("tcId"));
-
-		mav = ltm.entrance(12, board, mtfRequest);
-	return mav;
+	      mav = ltm.entrance(12, board, mtfRequest);
+	   return mav;
 
 
-	}
+	   }
+	   
+	   
+	   
+	   
+	   
+	   
+	   
 }

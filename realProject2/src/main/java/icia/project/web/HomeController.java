@@ -163,26 +163,26 @@ public class HomeController  {
 	}
 
 	// 자료실 메인페이지로 가기
-	@RequestMapping(value = "/Datamain", method = RequestMethod.POST)
-	public ModelAndView daoaMaid(@ModelAttribute MemberBean member) {
+	   @RequestMapping(value = "/Datamain", method = RequestMethod.POST)
+	   public ModelAndView daoaMaid(@ModelAttribute BoardBean board) {
 
-		mav = new ModelAndView();
+	      mav = new ModelAndView();
+	      mav = ltmm.entrance(13, board);
+	      mav.setViewName("learningData");
 
-		mav.setViewName("learningData");
+	      return mav;
+	   }
+	
+	   // 자료실 글쓰러가기
+	   @RequestMapping(value = "/DataInsert", method = RequestMethod.POST)
+	   public ModelAndView dataInsert(@ModelAttribute MemberBean member) {
 
-		return mav;
-	}
-	// 자료실 글쓰러가기
-	@RequestMapping(value = "/DataInsert", method = RequestMethod.POST)
-	public ModelAndView dataInsert(@ModelAttribute MemberBean member) {
+	      mav = new ModelAndView();
 
-		mav = new ModelAndView();
+	      mav.setViewName("learningDataInsert");
 
-		mav.setViewName("learningDataInsert");
-
-		return mav;
-	}
-
+	      return mav;
+	   } 
 
 	// 선생님 학습메뉴
 	@RequestMapping(value = "/tcmenu", method = RequestMethod.POST)
@@ -356,6 +356,25 @@ public class HomeController  {
 		return mav;
 	}
 	
+	// 선생님 오답노트 코멘트 페이지
+	@RequestMapping(value = "/learningWANCXTPage", method = RequestMethod.GET)
+	public ModelAndView learningWANCXTPage(@ModelAttribute BoardBean board) {
+
+		mav = ltmm.entrance(17, board);
+		return mav;
+	}
+	
+	// 선생님 오답노트 코멘트 등록 페이지
+	@RequestMapping(value = "/learningWANInsertPage", method = RequestMethod.POST)
+	public ModelAndView learningWANInsertPage(@ModelAttribute BoardBean board) {
+
+		mav = new ModelAndView();
+		mav.addObject("boardCode", board.getBoardCode());
+		mav.setViewName("learningWANCMInsert");
+
+		return mav;
+	}
+	
 	// 선생님 오답노트 코멘트 수정 페이지
 	@RequestMapping(value = "/learningWANCMUpdatePage", method = RequestMethod.POST)
 	public ModelAndView learningWANCMUpdatePage(@ModelAttribute BoardBean board) {
@@ -363,6 +382,11 @@ public class HomeController  {
 		mav = ltmm.entrance(19, board);
 		return mav;
 	}
+	
+	
+	
+	
+	
 	// 공지사항 글쓰기
 	@RequestMapping(value = "/NoticeInsert", method = RequestMethod.POST)
 	public ModelAndView learningNoticeInsert(@ModelAttribute BoardBean board) {

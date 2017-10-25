@@ -67,11 +67,15 @@ public class learningTeacherMM extends TransactionExe {
 			mav = tclearningNoticeCTX((BoardBean)object[0]);
 			break;
 
-		case 9: // 공지사항 글쓰기
+		case 9: // 공지사항 글쓰기 페이지 이동
 			mav = tclearningNoticeInsert((BoardBean)object[0]);
 			break;
+			
+		case 10: // 공지사항 글쓰기
+	         mav = tclearningNoticeInsertOk((BoardBean)object[0]);
+	         break;
 
-		case 12:	// 자료실 그
+		case 12:	// 자료실 글쓰기
 			mtfRequest = ((MultipartHttpServletRequest)object[1]);
 			mav = datahousemain((BoardBean)object[0]);
 			break;
@@ -378,79 +382,79 @@ public class learningTeacherMM extends TransactionExe {
 	}
 
 	private ModelAndView datahousemain(BoardBean board) { // 자료실 인설트
-		mav = new ModelAndView();
-		boolean transaction = false;
-		fileupload(board,mtfRequest);
-		System.out.println(board.getBoardRoute());
+	      mav = new ModelAndView();
+	      boolean transaction = false;
+	      fileupload(board,mtfRequest);
+	      System.out.println(board.getBoardRoute());
 
-		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
-		try {
-			session.getAttribute("roomCode");
-			if(dao.referenceInsert(board) != 0) {
-				System.out.println("나 성공햇다 ");
-				transaction = true;
-			}else {
-				System.out.println("실패");
-			}
-		}catch(Exception ex){
-			ex.printStackTrace();
-		}finally {
-			setTransactionResult(transaction);
-		}
-		mav.setViewName("learningData");
-		return mav;
-	}
+	      setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
+	      try {
+	         session.getAttribute("roomCode");
+	         if(dao.referenceInsert(board) != 0) {
+	            System.out.println("나 성공햇다 ");
+	            transaction = true;
+	         }else {
+	            System.out.println("실패");
+	         }
+	      }catch(Exception ex){
+	         ex.printStackTrace();
+	      }finally {
+	         setTransactionResult(transaction);
+	      }
+	      mav.setViewName("learningData");
+	      return mav;
+	   }
+	
+	  private ModelAndView dataview(BoardBean board) { // 자료실 페이지
 
-	private ModelAndView dataview(BoardBean board) { // 공지사항 페이지
+	      mav = new ModelAndView();
+	      boolean transaction = false;
+	      StringBuffer sb = new StringBuffer();
+	      ArrayList<BoardBean> bb = null;
+	      String message = "";
+	      setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
 
-		mav = new ModelAndView();
-		boolean transaction = false;
-		StringBuffer sb = new StringBuffer();
-		ArrayList<BoardBean> bb = null;
-		String message = "";
-		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
+	      try {
+	         session.getAttribute("roomCode");
+	         board.setId((String)session.getAttribute("tcId"));
+	         board.setRoomCode((String)session.getAttribute("roomCode"));
 
-		try {
-			session.getAttribute("roomCode");
-			board.setId((String)session.getAttribute("tcId"));
-			board.setRoomCode((String)session.getAttribute("roomCode"));
+	         //mav.addObject("content",session.getAttribute("roomCode") + "의 공지사항");
+	         bb = dao.datalist(board);
+	         System.out.println(bb.get(0).getBoardTitle());
+	         System.out.println(bb.get(0).getBoardDate());
+	         System.out.println(bb.get(0).getBoardId());
+	         System.out.println(bb.size());
+	         sb.append("<table>");
+	         sb.append("<tr>");
+	         sb.append("<td>제목</td>");
+	         sb.append("<td>날짜</td>");
+	         sb.append("<td>아이디</td>");
+	         sb.append("</tr>");
+	         for(int i=0; i<bb.size(); i++) {
+	            sb.append("<tr>");
+	            sb.append("<td>" + "<input type='button' value='"+bb.get(i).getBoardTitle()+"' onClick=viewData('"+bb.get(i).getBoardTitle()+","+bb.get(i).getBoardCode()+","+bb.get(i).getBoardDate()+"') />" + "</td>");
+	            sb.append("<td>" + bb.get(i).getBoardDate() + "</td>");
+	            sb.append("<td>" + bb.get(i).getBoardId() + "</td>");
+	            sb.append("</tr>");
 
-			//mav.addObject("content",session.getAttribute("roomCode") + "의 공지사항");
-			bb = dao.datalist(board);
-			System.out.println(bb.get(0).getBoardTitle());
-			System.out.println(bb.get(0).getBoardDate());
-			System.out.println(bb.get(0).getBoardId());
-			System.out.println(bb.size());
-			sb.append("<table>");
-			sb.append("<tr>");
-			sb.append("<td>제목</td>");
-			sb.append("<td>날짜</td>");
-			sb.append("<td>아이디</td>");
-			sb.append("</tr>");
-			for(int i=0; i<bb.size(); i++) {
-				sb.append("<tr>");
-				sb.append("<td>" + "<input type='button' value='"+bb.get(i).getBoardTitle()+"' onClick=viewData('"+bb.get(i).getBoardTitle()+"') />" + "</td>");
-				sb.append("<td>" + bb.get(i).getBoardDate() + "</td>");
-				sb.append("<td>" + bb.get(i).getBoardId() + "</td>");
-				sb.append("</tr>");
+	         }
+	         sb.append("</table>");
 
-			}
-			sb.append("</table>");
+	         mav.addObject("message", message);
+	         mav.addObject("datalist", sb.toString());
+	         mav.setViewName("learningData");
 
-			mav.addObject("message", message);
-			mav.addObject("datalist", sb.toString());
-			mav.setViewName("learningData");
+	         transaction = true;
 
-			transaction = true;
+	      }catch(Exception ex){
 
-		}catch(Exception ex){
+	      }finally {
 
-		}finally {
-
-			setTransactionResult(transaction);
-		}
-		return mav;
-	}
+	         setTransactionResult(transaction);
+	      }
+	      return mav;
+	  }
 
 	private ModelAndView learningWANCXTPage(BoardBean board) { // 오답노트 코멘트 페이지 이동
 
@@ -525,36 +529,34 @@ public class learningTeacherMM extends TransactionExe {
 		}
 		return mav;
 	}
+	
 	private ModelAndView fileupload(BoardBean board,MultipartHttpServletRequest mtfRequest) {
 
-		mav = new ModelAndView();
-		System.out.println("fileupload");
-		List<MultipartFile> fileList = mtfRequest.getFiles("file");
-		String load = mtfRequest.getParameter("load");
-		String path = "E:\\RealProject\\realProject2\\src\\main\\webapp\\WEB-INF\\uploadFiles\\"+load+"\\";
-		System.out.println(path);
-		board.setBoardRoute(path);
-		System.out.println(board.getBoardRoute());
-		for (MultipartFile mf : fileList) {
-			String originFileName = mf.getOriginalFilename(); // 원본 파일 명
-			long fileSize = mf.getSize(); // 파일 사이즈
-			System.out.println("originFileName : " + originFileName);
-			System.out.println("fileSize : " + fileSize);
-			String safeFile = path + originFileName;
-			try {
-				mf.transferTo(new File(safeFile));
-			} catch (IllegalStateException e) {
-				e.printStackTrace();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
+	      mav = new ModelAndView();
+	      System.out.println("fileupload");
+	      List<MultipartFile> fileList = mtfRequest.getFiles("file");
+	      String load = mtfRequest.getParameter("load");
+	      String path = "E:\\RealProject\\realProject2\\src\\main\\webapp\\WEB-INF\\uploadFiles\\"+load+"\\";
+	      System.out.println(path);
+	      board.setBoardRoute(path);
+	      System.out.println(board.getBoardRoute());
+	      for (MultipartFile mf : fileList) {
+	         String originFileName = mf.getOriginalFilename(); // 원본 파일 명
+	         long fileSize = mf.getSize(); // 파일 사이즈
+	         System.out.println("originFileName : " + originFileName);
+	         System.out.println("fileSize : " + fileSize);
+	         String safeFile = path + originFileName;
+	         try {
+	            mf.transferTo(new File(safeFile));
+	         } catch (IllegalStateException e) {
+	            e.printStackTrace();
+	         } catch (IOException e) {
+	            e.printStackTrace();
+	         }
+	      }
 
-		return mav;
-
-
-
-	}
+	      return mav;
+	   }
 
 	private ModelAndView learningWANCommentInsert(BoardBean board) { // 오답노트 코멘트 페이지 이동
 
@@ -636,6 +638,32 @@ public class learningTeacherMM extends TransactionExe {
 		}
 		return mav;
 	}
+	
+	private ModelAndView tclearningNoticeInsertOk(BoardBean board) { // 공지사항 글쓰기
+	      mav = new ModelAndView();
+	      boolean transaction = false;
 
+	      setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
+	      
+	      try {
+	         board.setRoomCode((String)session.getAttribute("roomCode"));
+	         board.setBoardId((String)session.getAttribute("tcId"));
+	         System.out.println(session.getAttribute("tcId"));
+	         
+	         if(dao.tclearningNoticeInsert(board) != 0) {
+	            System.out.println("글좀쓰자제발");
+	            transaction = true;
+	         }
+
+	         
+
+	      }catch(Exception ex){
+
+	      }finally {
+	         setTransactionResult(transaction);
+	      }
+	      
+	      return mav;
+	   }
 
 }

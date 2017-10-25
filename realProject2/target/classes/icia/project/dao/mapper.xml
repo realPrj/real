@@ -391,7 +391,8 @@
 	<select id="learningWANCommentGet" resultType="board"
 		parameterType="board">
 		SELECT
-		WTAG_WANLRCODE AS roomCode, WTAG_WANCODE AS boardCode, WTAG_CONTENT AS boardContent, WTAG_DATE AS boardDate,
+		WTAG_WANLRCODE AS roomCode, WTAG_WANCODE AS
+		boardCode, WTAG_CONTENT AS boardContent, WTAG_DATE AS boardDate,
 		WTAG_ROUTE AS boardRoute, WTAG_TCID AS boardId
 		FROM WRONGANSWERNOTESTAG
 		WHERE
@@ -407,18 +408,29 @@
 
 	<!-- 오답노트 코멘트 수정 -->
 	<update id="learningWANCMUpdate" parameterType="board">
-		UPDATE WRONGANSWERNOTESTAG
+		UPDATE
+		WRONGANSWERNOTESTAG
 		SET
 		WTAG_CONTENT=#{boardContent},WTAG_ROUTE=#{boardRoute}
 		WHERE
 		WTAG_WANLRCODE=#{roomCode} AND WTAG_WANCODE=#{boardCode}
 	</update>
-	
+
 	<!-- 선생님 공지사항 내용확인 -->
-	<select id="tclearningNoticeConfirm" resultType="board" parameterType="board">
-		SELECT NT_LRCODE AS roomCode, NT_TITLE AS boardTitle, NT_DATE AS boardDate, NT_CONTENT AS boardContent, NT_ROUTE AS boardRoute, NT_TCID AS boardId 
-		FROM NOTICE WHERE NT_LRCODE = #{roomCode} AND NT_TITLE = #{boardTitle} AND NT_DATE = TO_DATE(#{boardDate},'YYYY-MM-DD HH24:MI:SS')
+	<select id="tclearningNoticeConfirm" resultType="board"
+		parameterType="board">
+		SELECT NT_LRCODE AS roomCode, NT_TITLE AS boardTitle,
+		NT_DATE AS boardDate, NT_CONTENT AS boardContent, NT_ROUTE AS
+		boardRoute, NT_TCID AS boardId
+		FROM NOTICE WHERE NT_LRCODE = #{roomCode} AND NT_TITLE = #{boardTitle} AND
+		NT_DATE = TO_DATE(#{boardDate},'YYYY-MM-DD HH24:MI:SS')
 	</select>
-	
+
+	<!-- 선생님 공지사항 글쓰기 -->
+	<insert id="tclearningNoticeInsert" parameterType="board">
+		INSERT INTO NOTICE
+		VALUES(#{roomCode}, #{boardTitle}, #{boardContent}, SYSDATE, #{boardRoute}, #{boardId})
+	</insert>
+
 
 </mapper>

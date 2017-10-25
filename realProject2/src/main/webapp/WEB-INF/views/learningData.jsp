@@ -39,11 +39,26 @@
 		form.submit();
 
 	}
-	function viewData(valueCode){
-		createinput("hidden","referCode",valueCode);
-	}
-
-	// 자료실 form
+	
+	function viewData(referCode,referDate,referTitle){
+	       alert(referCode,referTitle,referDate);
+	      createinput("hidden","boardTitle",referTitle);
+	      
+	      var referenceTitle = document.getElementsByName("boardTitle")[0];
+	      var referenceDate = document.getElementsByName("boardDate")[0];
+	      var referenceCode = document.getElementsByName("boardCode")[0];
+	      
+	      createForm("learningDataCXTform","learningDataCXT","post");
+	      
+	      var form = document.getElementsByName("learningDataCXTform")[0];
+	      
+	      form.appenChild(referenceTitle);
+	      form.appenChild(referenceDate);
+	      form.appenChild(referenceCode);
+	      
+	      form.submit
+	   }
+	
 </script>
 <body onLoad="${message}">
 	<h1>공조</h1>
