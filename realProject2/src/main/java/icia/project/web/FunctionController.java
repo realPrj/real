@@ -327,7 +327,6 @@ public class FunctionController {
 	public ModelAndView requestupload2(MultipartHttpServletRequest mtfRequest)throws Exception{
 		BoardBean board = new BoardBean();
 		mav = new ModelAndView();	
-		System.out.println("나여기있는데 시발왜 안들어오노");
 		List<MultipartFile> fileList = mtfRequest.getFiles("file");
 		String load = mtfRequest.getParameter("load");
 		String boardroute = mtfRequest.getParameter("boardroute");
