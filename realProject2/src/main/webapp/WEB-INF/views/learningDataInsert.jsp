@@ -65,7 +65,7 @@
 
 
 	<!-- 자료실 글쓰기  -->
-	<form name="fileForm" action="dataupload" method="post"
+	<form name="fileForm" action="learningDataInsert" method="post"
 		enctype="multipart/form-data">
 		<br> 제목 : <input type="text" name="boardTitle" size=50
 			maxlength=70> <br> 내용 :

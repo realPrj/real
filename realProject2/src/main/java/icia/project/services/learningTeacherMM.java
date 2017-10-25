@@ -1,12 +1,17 @@
 package icia.project.services;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import java.util.HashMap;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.TransactionDefinition;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import icia.project.bean.BoardBean;
@@ -23,8 +28,9 @@ public class learningTeacherMM extends TransactionExe {
 
 	private ModelAndView mav;
 
-
-	public ModelAndView entrance(int serviceCode,Object object)  {
+	private MultipartHttpServletRequest mtfRequest = null;
+	
+	public ModelAndView entrance(int serviceCode,Object ...object)  {
 
 		switch(serviceCode) {
 
@@ -37,11 +43,11 @@ public class learningTeacherMM extends TransactionExe {
 			break;
 
 		case 3:	//공지사항 페이지
-			mav = learningNoticePage((BoardBean)object);
+			mav = learningNoticePage((BoardBean)object[0]);
 			break;
 
 		case 4:	//질문게시판 페이지
-			mav = learningQuestion((BoardBean)object);
+			mav = learningQuestion((BoardBean)object[0]);
 			break;
 
 		case 5:
@@ -56,12 +62,13 @@ public class learningTeacherMM extends TransactionExe {
 			mav = learningWANPage();
 			break;
 
-		case 10:	// 자료실
-			mav = datahousemain((BoardBean)object);
+		case 12:	// 자료실 그
+			mtfRequest = ((MultipartHttpServletRequest)object[1]);
+			mav = datahousemain((BoardBean)object[0]);
 			break;
 			
 		case 13:	// 자료실
-			mav = dataview((BoardBean)object);
+			mav = dataview((BoardBean)object[0]);
 			break;
 			
 			
@@ -74,7 +81,7 @@ public class learningTeacherMM extends TransactionExe {
 			
 			
 		case 17:	// 오답노트 코멘트 페이지
-			mav = learningWANCXTPage((BoardBean)object);
+			mav = learningWANCXTPage((BoardBean)object[0]);
 			break;
 
 		}
@@ -275,33 +282,26 @@ public class learningTeacherMM extends TransactionExe {
 	}
 
 	private ModelAndView datahousemain(BoardBean board) { // 자료실 인설트
-
 		mav = new ModelAndView();
 		boolean transaction = false;
-		String page = null;
-
+		fileupload(board,mtfRequest);
+		System.out.println(board.getBoardRoute());
+		
 		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
 		try {
-
 			session.getAttribute("roomCode");
-
-
 			if(dao.referenceInsert(board) != 0) {
 				System.out.println("나 성공햇다 ");
-				page = "learningData";
 				transaction = true;
 			}else {
 				System.out.println("실패");
 			}
-
-
-
 		}catch(Exception ex){
 			ex.printStackTrace();
 		}finally {
-			mav.setViewName(page);
 			setTransactionResult(transaction);
 		}
+		mav.setViewName("learningData");
 		return mav;
 	}
 	
@@ -333,7 +333,7 @@ public class learningTeacherMM extends TransactionExe {
 			sb.append("</tr>");
 			for(int i=0; i<bb.size(); i++) {
 				sb.append("<tr>");
-				sb.append("<td>" + "<input type='button' value='"+bb.get(i).getBoardTitle()+"/>" + "</td>");
+				sb.append("<td>" + "<input type='button' value='"+bb.get(i).getBoardTitle()+"onClick='commentCheck(\"+boardList.get(i).getBoardCode()+\")'/>" + "</td>");
 				sb.append("<td>" + bb.get(i).getBoardDate() + "</td>");
 				sb.append("<td>" + bb.get(i).getBoardId() + "</td>");
 				sb.append("</tr>");
@@ -389,8 +389,33 @@ public class learningTeacherMM extends TransactionExe {
 		}
 		return mav;
 	}
+	private ModelAndView fileupload(BoardBean board,MultipartHttpServletRequest mtfRequest) {
+		
+		mav = new ModelAndView();
+		System.out.println("fileupload");
+		List<MultipartFile> fileList = mtfRequest.getFiles("file");
+		String load = mtfRequest.getParameter("load");
+		String path = "E:\\RealProject\\realProject2\\src\\main\\webapp\\WEB-INF\\uploadFiles\\"+load+"\\";
+		System.out.println(path);
+		board.setBoardRoute(path);
+		System.out.println(board.getBoardRoute());
+		for (MultipartFile mf : fileList) {
+			String originFileName = mf.getOriginalFilename(); // 원본 파일 명
+			long fileSize = mf.getSize(); // 파일 사이즈
+			System.out.println("originFileName : " + originFileName);
+			System.out.println("fileSize : " + fileSize);
+			String safeFile = path + originFileName;
+			try {
+				mf.transferTo(new File(safeFile));
+			} catch (IllegalStateException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+	}
+		
+		return mav;
 
 
-
-
+	}
 }
