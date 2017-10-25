@@ -24,7 +24,6 @@ function createForm(formname,formaction,formmethod){
 function learningWANCMUpdate(){
 	
 	var boardCode = document.getElementsByName("boardCode")[0];
-	var boardDate = document.getElementsByName("boardDate")[0];
 	var boardContent = document.getElementsByName("boardContent")[0];
 	var boardRoute = document.getElementsByName("boardRoute")[0];
 	
@@ -33,7 +32,6 @@ function learningWANCMUpdate(){
 	var form = document.getElementsByName("learningWANCMUpdateform")[0];
 	
 	form.appendChild(boardCode);
-	form.appendChild(boardDate);
 	form.appendChild(boardContent);
 	form.appendChild(boardRoute);
 	
@@ -45,7 +43,6 @@ function learningWANCMUpdate(){
 </script>
 <body>
 <input type="hidden" value="${boardCode }" name="boardCode" />
-<input type="hidden" value="${boardDate }" name="boardDate" />
 <table>
 	<tr>
 		<td>내용</td>
@@ -56,7 +53,7 @@ function learningWANCMUpdate(){
 		<td><input type="text"  value="${boardRoute }" name="boardRoute" /></td>
 	</tr>
 	<tr>
-		<td><input type="button" value="수정" onClick="commentInsert()" /></td>
+		<td><input type="button" value="수정" onClick="learningWANCMUpdate()" /></td>
 	</tr>
 </table>
 </body>

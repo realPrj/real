@@ -2,400 +2,401 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="icia.project.dao.IMybatis">
 
-   <!-- 선생님 아이디 체크 -->
-   <select id="tcIdCheck" resultType="Integer" parameterType="member">
-      SELECT COUNT(*)
-      FROM TEACHER
-      WHERE TC_ID=#{id}
-   </select>
+	<!-- 선생님 아이디 체크 -->
+	<select id="tcIdCheck" resultType="Integer" parameterType="member">
+		SELECT COUNT(*)
+		FROM TEACHER
+		WHERE TC_ID=#{id}
+	</select>
 
-   <!-- 학생 아이디 체크 -->
-   <select id="stIdCheck" resultType="Integer" parameterType="member">
-      SELECT COUNT(*)
-      FROM STUDENT
-      WHERE ST_ID=#{id}
-   </select>
+	<!-- 학생 아이디 체크 -->
+	<select id="stIdCheck" resultType="Integer" parameterType="member">
+		SELECT COUNT(*)
+		FROM STUDENT
+		WHERE ST_ID=#{id}
+	</select>
 
-   <!-- 학생코드 체크 -->
-   <select id="stCodeCheck" resultType="Integer" parameterType="member">
-      SELECT COUNT(*)
-      FROM STUDENT
-      WHERE ST_RFSTUDENTCODE=#{studentCode}
-   </select>
+	<!-- 학생코드 체크 -->
+	<select id="stCodeCheck" resultType="Integer" parameterType="member">
+		SELECT COUNT(*)
+		FROM STUDENT
+		WHERE ST_RFSTUDENTCODE=#{studentCode}
+	</select>
 
-   <!-- 선생님 임시비밀번호 추출 -->
-   <select id="tcPwdGet" resultType="member" parameterType="member">
-      SELECT
-      TC_PWD AS pwd
-      FROM TEACHER
-      WHERE TC_ID=#{id}
-   </select>
+	<!-- 선생님 임시비밀번호 추출 -->
+	<select id="tcPwdGet" resultType="member" parameterType="member">
+		SELECT
+		TC_PWD AS pwd
+		FROM TEACHER
+		WHERE TC_ID=#{id}
+	</select>
 
-   <!-- 학생 임시비밀번호 추출 -->
-   <select id="stPwdGet" resultType="member" parameterType="member">
-      SELECT
-      ST_PWD AS pwd
-      FROM STUDENT
-      WHERE ST_ID=#{id}
-   </select>
+	<!-- 학생 임시비밀번호 추출 -->
+	<select id="stPwdGet" resultType="member" parameterType="member">
+		SELECT
+		ST_PWD AS pwd
+		FROM STUDENT
+		WHERE ST_ID=#{id}
+	</select>
 
-   <!-- 학생코드 추출 -->
-   <select id="stCodeGet" resultType="member" parameterType="member">
-      SELECT
-      ST_RFSTUDENTCODE AS studentCode
-      FROM STUDENT
-      WHERE ST_ID=#{id}
-   </select>
+	<!-- 학생코드 추출 -->
+	<select id="stCodeGet" resultType="member" parameterType="member">
+		SELECT
+		ST_RFSTUDENTCODE AS studentCode
+		FROM STUDENT
+		WHERE ST_ID=#{id}
+	</select>
 
-   <!-- 선생님 로그인아웃 히스토리 -->
-   <insert id="tcLogHistory" parameterType="member">
-      INSERT INTO
-      TEACHERLOGOUTHISTORY(TLOH_TCID,TLOH_DATE,TLOH_TYPE)
-      VALUES(#{id},DEFAULT,#{logType})
-   </insert>
+	<!-- 선생님 로그인아웃 히스토리 -->
+	<insert id="tcLogHistory" parameterType="member">
+		INSERT INTO
+		TEACHERLOGOUTHISTORY(TLOH_TCID,TLOH_DATE,TLOH_TYPE)
+		VALUES(#{id},DEFAULT,#{logType})
+	</insert>
 
-   <!-- 학생 로그인아웃 히스토리 -->
-   <insert id="stLogHistory" parameterType="member">
-      INSERT INTO
-      STUDENTLOGOUTHISTORY(SLOH_STRFSTUDENTCODE,SLOH_DATE,SLOH_TYPE)
-      VALUES(#{studentCode},DEFAULT,#{logType})
-   </insert>
+	<!-- 학생 로그인아웃 히스토리 -->
+	<insert id="stLogHistory" parameterType="member">
+		INSERT INTO
+		STUDENTLOGOUTHISTORY(SLOH_STRFSTUDENTCODE,SLOH_DATE,SLOH_TYPE)
+		VALUES(#{studentCode},DEFAULT,#{logType})
+	</insert>
 
-   <!-- 선생님 회원가입 -->
-   <insert id="tcJoin" parameterType="member">
-      INSERT INTO
-      TEACHER(TC_ID,TC_PWD,TC_NAME,TC_EMAIL,TC_PHONE,TC_STATECODE)
-      VALUES(#{id},#{pwd},#{name},#{email},#{phone},#{stateCode})
-   </insert>
+	<!-- 선생님 회원가입 -->
+	<insert id="tcJoin" parameterType="member">
+		INSERT INTO
+		TEACHER(TC_ID,TC_PWD,TC_NAME,TC_EMAIL,TC_PHONE,TC_STATECODE)
+		VALUES(#{id},#{pwd},#{name},#{email},#{phone},#{stateCode})
+	</insert>
 
-   <!-- 학생 회원가입 -->
-   <insert id="stJoin" parameterType="member">
-      INSERT INTO
-      STUDENT(ST_RFSTUDENTCODE,ST_ID,ST_PWD,ST_NAME,ST_EMAIL,ST_PHONE,ST_STATECODE)
-      VALUES(#{studentCode},#{id},#{pwd},#{name},#{email},#{phone},#{stateCode})
-   </insert>
+	<!-- 학생 회원가입 -->
+	<insert id="stJoin" parameterType="member">
+		INSERT INTO
+		STUDENT(ST_RFSTUDENTCODE,ST_ID,ST_PWD,ST_NAME,ST_EMAIL,ST_PHONE,ST_STATECODE)
+		VALUES(#{studentCode},#{id},#{pwd},#{name},#{email},#{phone},#{stateCode})
+	</insert>
 
-   <!-- 선생님 아이디 찾기 -->
-   <select id="tcIdFind" resultType="member" parameterType="member">
-      SELECT
-      TC_ID AS id
-      FROM TEACHER
-   </select>
+	<!-- 선생님 아이디 찾기 -->
+	<select id="tcIdFind" resultType="member" parameterType="member">
+		SELECT
+		TC_ID AS id
+		FROM TEACHER
+	</select>
 
-   <!-- 학생 아이디 찾기 -->
-   <select id="stIdFind" resultType="member" parameterType="member">
-      SELECT
-      ST_ID AS id
-      FROM STUDENT
-      WHERE ST_EMAIL=#{email}
-   </select>
+	<!-- 학생 아이디 찾기 -->
+	<select id="stIdFind" resultType="member" parameterType="member">
+		SELECT
+		ST_ID AS id
+		FROM STUDENT
+		WHERE ST_EMAIL=#{email}
+	</select>
 
-   <!-- 오늘의 월 추출 -->
-   <select id="yyyyMMGet" resultType="String">
-      SELECT
-      TO_CHAR(SYSDATE,'YYYYMM') FROM DUAL
-   </select>
+	<!-- 오늘의 월 추출 -->
+	<select id="yyyyMMGet" resultType="String">
+		SELECT
+		TO_CHAR(SYSDATE,'YYYYMM') FROM DUAL
+	</select>
 
-   <!-- 학생 출결 추출 -->
-   <select id="stIOHGet" resultType="room" parameterType="room">
-      SELECT
-      TO_CHAR(IOH_DATE, 'YYYYMMDDHH24MISS') AS attendanceCode
-      FROM
-      INOUTHISTORY
-      WHERE IOH_RFSTUDENTCODE=#{studentCode} AND
-      IOH_TYPE=#{attendanceType} AND TO_CHAR(IOH_DATE, 'YYYYMM')=#{yyyymm}
-      ORDER BY IOH_DATE
-      DESC
-   </select>
+	<!-- 학생 출결 추출 -->
+	<select id="stIOHGet" resultType="room" parameterType="room">
+		SELECT
+		TO_CHAR(IOH_DATE, 'YYYYMMDDHH24MISS') AS attendanceCode
+		FROM
+		INOUTHISTORY
+		WHERE IOH_RFSTUDENTCODE=#{studentCode} AND
+		IOH_TYPE=#{attendanceType} AND TO_CHAR(IOH_DATE, 'YYYYMM')=#{yyyymm}
+		ORDER BY IOH_DATE
+		DESC
+	</select>
 
-   <!-- 선생님 나의정보 추출 -->
-   <select id="tcInformationGet" resultType="member" parameterType="member">
-      SELECT
-      TC_ID AS id, TC_NAME AS name,TC_EMAIL AS email, TC_PHONE AS
-      phone
-      FROM TEACHER
-      WHERE TC_ID=#{id}
-   </select>
+	<!-- 선생님 나의정보 추출 -->
+	<select id="tcInformationGet" resultType="member" parameterType="member">
+		SELECT
+		TC_ID AS id, TC_NAME AS name,TC_EMAIL AS email, TC_PHONE AS
+		phone
+		FROM TEACHER
+		WHERE TC_ID=#{id}
+	</select>
 
-   <!-- 학생 나의정보 추출 -->
-   <select id="stInformationGet" resultType="member" parameterType="member">
-      SELECT
-      ST_ID AS id, ST_NAME AS name,ST_EMAIL AS email, ST_PHONE AS
-      phone
-      FROM STUDENT
-      WHERE ST_RFSTUDENTCODE=#{studentCode}
-   </select>
+	<!-- 학생 나의정보 추출 -->
+	<select id="stInformationGet" resultType="member" parameterType="member">
+		SELECT
+		ST_ID AS id, ST_NAME AS name,ST_EMAIL AS email, ST_PHONE AS
+		phone
+		FROM STUDENT
+		WHERE ST_RFSTUDENTCODE=#{studentCode}
+	</select>
 
-   <!-- 선생님 나의정보 수정 -->
-   <update id="tcInformationChange" parameterType="member">
-      UPDATE TEACHER
-      SET
-      TC_NAME=#{name},TC_EMAIL=#{email},TC_PHONE=#{phone}
-      WHERE
-      TC_ID=#{id}
-   </update>
+	<!-- 선생님 나의정보 수정 -->
+	<update id="tcInformationChange" parameterType="member">
+		UPDATE TEACHER
+		SET
+		TC_NAME=#{name},TC_EMAIL=#{email},TC_PHONE=#{phone}
+		WHERE
+		TC_ID=#{id}
+	</update>
 
-   <!-- 학생 나의정보 수정 -->
-   <update id="stInformationChange" parameterType="member">
-      UPDATE STUDENT
-      SET
-      ST_NAME=#{name},ST_EMAIL=#{email},ST_PHONE=#{phone}
-      WHERE
-      ST_RFSTUDENTCODE=#{studentCode}
-   </update>
+	<!-- 학생 나의정보 수정 -->
+	<update id="stInformationChange" parameterType="member">
+		UPDATE STUDENT
+		SET
+		ST_NAME=#{name},ST_EMAIL=#{email},ST_PHONE=#{phone}
+		WHERE
+		ST_RFSTUDENTCODE=#{studentCode}
+	</update>
 
-   <!-- 선생님 비밀번호 수정 -->
-   <update id="tcInformationPWDChange" parameterType="member">
-      UPDATE TEACHER
-      SET
-      TC_PWD=#{pwd}
-      WHERE
-      TC_ID=#{id}
-   </update>
+	<!-- 선생님 비밀번호 수정 -->
+	<update id="tcInformationPWDChange" parameterType="member">
+		UPDATE TEACHER
+		SET
+		TC_PWD=#{pwd}
+		WHERE
+		TC_ID=#{id}
+	</update>
 
-   <!-- 학생 비밀번호 수정 -->
-   <update id="stInformationPWDChange" parameterType="member">
-      UPDATE STUDENT
-      SET
-      ST_PWD=#{pwd}
-      WHERE
-      ST_RFSTUDENTCODE=#{studentCode}
-   </update>
+	<!-- 학생 비밀번호 수정 -->
+	<update id="stInformationPWDChange" parameterType="member">
+		UPDATE STUDENT
+		SET
+		ST_PWD=#{pwd}
+		WHERE
+		ST_RFSTUDENTCODE=#{studentCode}
+	</update>
 
-   <!-- 선생님 회원탈퇴 -->
-   <delete id="tcmemberDelete" parameterType="member">
-      DELETE
-      FROM TEACHER
-      WHERE TC_ID=#{id}
-   </delete>
+	<!-- 선생님 회원탈퇴 -->
+	<delete id="tcmemberDelete" parameterType="member">
+		DELETE
+		FROM TEACHER
+		WHERE TC_ID=#{id}
+	</delete>
 
-   <!-- 학생 회원탈퇴 -->
-   <delete id="stmemberDelete" parameterType="member">
-      DELETE
-      FROM STUDENT
-      WHERE ST_RFSTUDENTCODE=#{studentCode}
-   </delete>
+	<!-- 학생 회원탈퇴 -->
+	<delete id="stmemberDelete" parameterType="member">
+		DELETE
+		FROM STUDENT
+		WHERE ST_RFSTUDENTCODE=#{studentCode}
+	</delete>
 
-   <!-- 선생님 학습코드 유무 -->
-   <select id="tclearningCodeCheck" resultType="Integer"
-      parameterType="room">
-      SELECT COUNT(*)
-      FROM LEARNINGROOM
-      WHERE
-      LR_CODE=#{roomCode}
-   </select>
+	<!-- 선생님 학습코드 유무 -->
+	<select id="tclearningCodeCheck" resultType="Integer"
+		parameterType="room">
+		SELECT COUNT(*)
+		FROM LEARNINGROOM
+		WHERE
+		LR_CODE=#{roomCode}
+	</select>
 
-   <!-- 선생님 학습방 유무 -->
-   <select id="tclearningRoomCheck" resultType="Integer"
-      parameterType="room">
-      SELECT COUNT(*)
-      FROM LEARNINGROOM
-      WHERE
-      LR_TCID=#{id}
-   </select>
+	<!-- 선생님 학습방 유무 -->
+	<select id="tclearningRoomCheck" resultType="Integer"
+		parameterType="room">
+		SELECT COUNT(*)
+		FROM LEARNINGROOM
+		WHERE
+		LR_TCID=#{id}
+	</select>
 
-   <!-- 학생 학습방 유무 -->
-   <select id="stlearningRoomCheck" resultType="Integer"
-      parameterType="room">
-      SELECT COUNT(*)
-      FROM LEARNINGSTUDENTREGISTER
-      WHERE
-      LSR_STRFSTUDENTCODE=#{studentCode}
-   </select>
+	<!-- 학생 학습방 유무 -->
+	<select id="stlearningRoomCheck" resultType="Integer"
+		parameterType="room">
+		SELECT COUNT(*)
+		FROM LEARNINGSTUDENTREGISTER
+		WHERE
+		LSR_STRFSTUDENTCODE=#{studentCode}
+	</select>
 
-   <!-- 학생 학습방 참여 유무 -->
-   <select id="stlearningRoomJoinCheck" resultType="Integer"
-      parameterType="room">
-      SELECT COUNT(*)
-      FROM LEARNINGSTUDENTREGISTER
-      WHERE
-      LSR_STRFSTUDENTCODE=#{studentCode} AND LSR_LRCODE=#{roomCode}
-   </select>
+	<!-- 학생 학습방 참여 유무 -->
+	<select id="stlearningRoomJoinCheck" resultType="Integer"
+		parameterType="room">
+		SELECT COUNT(*)
+		FROM LEARNINGSTUDENTREGISTER
+		WHERE
+		LSR_STRFSTUDENTCODE=#{studentCode} AND LSR_LRCODE=#{roomCode}
+	</select>
 
-   <!-- 선생님 학습방 추출 -->
-   <select id="tclearningRoomGet" resultType="room" parameterType="room">
-      SELECT LR_CODE AS roomCode, LR_NAME AS roomName, LR_CONTENT AS
-      roomIntroduction, LR_SBCODE AS roomSB
-      FROM LEARNINGROOM
-      WHERE
-      LR_TCID=#{id} ORDER BY LR_CODE ASC
-   </select>
+	<!-- 선생님 학습방 추출 -->
+	<select id="tclearningRoomGet" resultType="room" parameterType="room">
+		SELECT LR_CODE AS roomCode, LR_NAME AS roomName, LR_CONTENT AS
+		roomIntroduction, LR_SBCODE AS roomSB
+		FROM LEARNINGROOM
+		WHERE
+		LR_TCID=#{id} ORDER BY LR_CODE ASC
+	</select>
 
-   <!-- 학생 학습방 추출1(방습방 코드 추출) -->
-   <select id="stlearningRoomGet1" resultType="room" parameterType="room">
-      SELECT LSR_LRCODE AS roomCode
-      FROM LEARNINGSTUDENTREGISTER
-      WHERE
-      LSR_STRFSTUDENTCODE=#{studentCode} ORDER BY LSR_LRCODE ASC
-   </select>
+	<!-- 학생 학습방 추출1(방습방 코드 추출) -->
+	<select id="stlearningRoomGet1" resultType="room" parameterType="room">
+		SELECT LSR_LRCODE AS roomCode
+		FROM LEARNINGSTUDENTREGISTER
+		WHERE
+		LSR_STRFSTUDENTCODE=#{studentCode} ORDER BY LSR_LRCODE ASC
+	</select>
 
-   <!-- 학생 학습방 추출2(방습방 이름 추출) -->
-   <select id="stlearningRoomGet2" resultType="room" parameterType="room">
-      SELECT LR_CODE AS roomCode, LR_NAME AS roomName, LR_CONTENT AS
-      roomIntroduction, LR_SBCODE AS roomSB
-      FROM LEARNINGROOM
-      WHERE
-      LR_CODE=#{roomCode}
-   </select>
+	<!-- 학생 학습방 추출2(방습방 이름 추출) -->
+	<select id="stlearningRoomGet2" resultType="room" parameterType="room">
+		SELECT LR_CODE AS roomCode, LR_NAME AS roomName, LR_CONTENT AS
+		roomIntroduction, LR_SBCODE AS roomSB
+		FROM LEARNINGROOM
+		WHERE
+		LR_CODE=#{roomCode}
+	</select>
 
-   <!-- 선생님 학습 개설 -->
-   <insert id="tclearningOpen" parameterType="room">
-      INSERT INTO
-      LEARNINGROOM(LR_TCID,LR_CODE,LR_NAME,LR_CONTENT,LR_SBCODE)
-      VALUES(#{id},#{roomCode},#{roomName},#{roomIntroduction},#{roomSB})
-   </insert>
+	<!-- 선생님 학습 개설 -->
+	<insert id="tclearningOpen" parameterType="room">
+		INSERT INTO
+		LEARNINGROOM(LR_TCID,LR_CODE,LR_NAME,LR_CONTENT,LR_SBCODE)
+		VALUES(#{id},#{roomCode},#{roomName},#{roomIntroduction},#{roomSB})
+	</insert>
 
-   <!-- 선생님 학습방 이동 -->
-   <select id="learningRoomGo" resultType="room" parameterType="room">
-      SELECT LR_CODE AS roomCode, LR_NAME AS roomName, LR_CONTENT AS
-      roomIntroduction, LR_SBCODE AS roomSB
-      FROM LEARNINGROOM
-      WHERE
-      LR_CODE=#{roomCode}
-   </select>
+	<!-- 선생님 학습방 이동 -->
+	<select id="learningRoomGo" resultType="room" parameterType="room">
+		SELECT LR_CODE AS roomCode, LR_NAME AS roomName, LR_CONTENT AS
+		roomIntroduction, LR_SBCODE AS roomSB
+		FROM LEARNINGROOM
+		WHERE
+		LR_CODE=#{roomCode}
+	</select>
 
-   <!-- 학습방 추출 -->
-   <select id="learningGet" resultType="room" parameterType="room">
-      SELECT
-      LR_CODE AS roomCode, LR_NAME AS roomName
-      FROM LEARNINGROOM
-      WHERE
-      LR_TCID=#{id}
-   </select>
+	<!-- 학습방 추출 -->
+	<select id="learningGet" resultType="room" parameterType="room">
+		SELECT
+		LR_CODE AS roomCode, LR_NAME AS roomName
+		FROM LEARNINGROOM
+		WHERE
+		LR_TCID=#{id}
+	</select>
 
-   <!-- 학생 학습참여 -->
-   <insert id="stLearningJoin" parameterType="room">
-      INSERT INTO
-      LEARNINGSTUDENTREGISTER(LSR_LRCODE,LSR_STRFSTUDENTCODE)
-      VALUES(#{roomCode},#{studentCode})
-   </insert>
+	<!-- 학생 학습참여 -->
+	<insert id="stLearningJoin" parameterType="room">
+		INSERT INTO
+		LEARNINGSTUDENTREGISTER(LSR_LRCODE,LSR_STRFSTUDENTCODE)
+		VALUES(#{roomCode},#{studentCode})
+	</insert>
 
-   <!-- 선생님 공지사항 리스트 -->
-   <select id="tclearningNoticeList" resultType="board"
-      parameterType="board">
-      SELECT NT_TITLE AS boardTitle, NT_DATE AS boardDate,
-      NT_TCID AS boardId FROM NOTICE WHERE NT_LRCODE = #{roomCode}
-   </select>
-
-
-   <!-- 선생님 학습방 오답노트 추출 -->
-   <select id="learningWANListGet" resultType="board"
-      parameterType="board">
-      SELECT
-      WAN_CODE AS boardCode, WAN_LRCODE AS roomCode
-      ,WAN_STUDENTNAME AS
-      studentName,WAN_QTSTYPEYACODE AS
-      yearCode,WAN_QTSTYPECODE AS
-      typeCode,WAN_QTNUMBER AS
-      numberCode,WAN_DATE AS boardDate
-      FROM WRONGANSWERNOTES
-      WHERE
-      WAN_LRCODE=#{roomCode}
-   </select>
-
-   <!-- 학습방 과목 코드 추출 -->
-   <select id="learningSBCodeGet" resultType="String"
-      parameterType="board">
-      SELECT
-      LR_SBCODE AS roomSB
-      FROM LEARNINGROOM
-      WHERE
-      LR_CODE=#{roomCode}
-   </select>
-
-   <!-- 년도 이름 추출 -->
-   <select id="learningYearNameGet" resultType="String"
-      parameterType="board">
-      SELECT
-      YA_NAME AS yearName
-      FROM YEAR
-      WHERE
-      YA_SBCODE=#{roomSB} AND YA_CODE=#{yearCode}
-   </select>
-
-   <!-- 문제유형 이름 추출 -->
-   <select id="learningTypeNameGet" resultType="String"
-      parameterType="board">
-      SELECT
-      STYPE_NAME AS typeName
-      FROM SUBJECTTYPE
-      WHERE
-      STYPE_YASBCODE=#{roomSB} AND STYPE_YACODE=#{yearCode} AND
-      STYPE_CODE=#{typeCode}
-   </select>
-
-   <!-- 년도별 문제유형별 합 -->
-   <select id="learningWANTypeSum" resultType="board"
-      parameterType="board">
-      SELECT
-      WAN_QTSTYPECODE AS typeCode
-      ,COUNT(WAN_QTSTYPECODE) AS
-      typeSum
-      FROM WRONGANSWERNOTES WHERE
-      WAN_QTSTYPEYACODE=#{yearCode} AND WAN_LRCODE=#{roomCode}
-      GROUP
-      BY
-      WAN_QTSTYPECODE ORDER
-      BY
-      WAN_QTSTYPECODE ASC
-   </select>
-
-   <!-- 중복 년도 코드 추출 -->
-   <select id="learningWANYearCodeOneGet" resultType="board"
-      parameterType="board">
-      SELECT
-      WAN_QTSTYPEYACODE AS yearCode
-      FROM WRONGANSWERNOTES
-      WHERE
-      WAN_LRCODE = #{roomCode}
-      GROUP BY WAN_QTSTYPEYACODE ORDER
-      BY
-      WAN_QTSTYPEYACODE ASC
-
-   </select>
-
-   <!-- 자료실 글등록 -->
-   <insert id="referenceInsert" parameterType="board">
-      INSERT INTO
-      REFERENCE(RR_LRCODE,RR_TITLE,RR_CONTENT,RR_DATE,RR_ROUTE,RR_TCID)
-      VALUES('665',#{boardTitle},#{boardContent},SYSDATE,#{boardRoute},#{id})
-   </insert>
-   <!-- 자료실 리스트 -->
-   <select id="datalist" resultType="board" parameterType="board">
-      SELECT
-      RR_TITLE AS boardTitle,TO_CHAR(RR_DATE, 'YYYYMMDDHH24MISS') AS
-      boardDate,RR_TCID AS boardId
-      FROM REFERENCE
-      WHERE
-      RR_TCID=#{id}
-   </select>
+	<!-- 선생님 공지사항 리스트 -->
+	<select id="tclearningNoticeList" resultType="board"
+		parameterType="board">
+		SELECT NT_TITLE AS boardTitle, NT_DATE AS boardDate,
+		NT_TCID AS boardId FROM NOTICE WHERE NT_LRCODE = #{roomCode}
+	</select>
 
 
+	<!-- 선생님 학습방 오답노트 추출 -->
+	<select id="learningWANListGet" resultType="board"
+		parameterType="board">
+		SELECT
+		WAN_CODE AS boardCode, WAN_LRCODE AS roomCode
+		,WAN_STUDENTNAME AS
+		studentName,WAN_QTSTYPEYACODE AS
+		yearCode,WAN_QTSTYPECODE AS
+		typeCode,WAN_QTNUMBER AS
+		numberCode,WAN_DATE AS boardDate
+		FROM WRONGANSWERNOTES
+		WHERE
+		WAN_LRCODE=#{roomCode}
+	</select>
+
+	<!-- 학습방 과목 코드 추출 -->
+	<select id="learningSBCodeGet" resultType="String"
+		parameterType="board">
+		SELECT
+		LR_SBCODE AS roomSB
+		FROM LEARNINGROOM
+		WHERE
+		LR_CODE=#{roomCode}
+	</select>
+
+	<!-- 년도 이름 추출 -->
+	<select id="learningYearNameGet" resultType="String"
+		parameterType="board">
+		SELECT
+		YA_NAME AS yearName
+		FROM YEAR
+		WHERE
+		YA_SBCODE=#{roomSB} AND YA_CODE=#{yearCode}
+	</select>
+
+	<!-- 문제유형 이름 추출 -->
+	<select id="learningTypeNameGet" resultType="String"
+		parameterType="board">
+		SELECT
+		STYPE_NAME AS typeName
+		FROM SUBJECTTYPE
+		WHERE
+		STYPE_YASBCODE=#{roomSB} AND STYPE_YACODE=#{yearCode} AND
+		STYPE_CODE=#{typeCode}
+	</select>
+
+	<!-- 년도별 문제유형별 합 -->
+	<select id="learningWANTypeSum" resultType="board"
+		parameterType="board">
+		SELECT
+		WAN_QTSTYPECODE AS typeCode
+		,COUNT(WAN_QTSTYPECODE) AS
+		typeSum
+		FROM WRONGANSWERNOTES WHERE
+		WAN_QTSTYPEYACODE=#{yearCode} AND WAN_LRCODE=#{roomCode}
+		GROUP
+		BY
+		WAN_QTSTYPECODE ORDER
+		BY
+		WAN_QTSTYPECODE ASC
+	</select>
+
+	<!-- 중복 년도 코드 추출 -->
+	<select id="learningWANYearCodeOneGet" resultType="board"
+		parameterType="board">
+		SELECT
+		WAN_QTSTYPEYACODE AS yearCode
+		FROM WRONGANSWERNOTES
+		WHERE
+		WAN_LRCODE = #{roomCode}
+		GROUP BY WAN_QTSTYPEYACODE ORDER
+		BY
+		WAN_QTSTYPEYACODE ASC
+
+	</select>
+
+	<!-- 자료실 글등록 -->
+	<insert id="referenceInsert" parameterType="board">
+		INSERT INTO
+		REFERENCE(RR_LRCODE,RR_TITLE,RR_CONTENT,RR_DATE,RR_ROUTE,RR_TCID)
+		VALUES('665',#{boardTitle},#{boardContent},SYSDATE,#{boardRoute},#{id})
+	</insert>
+	<!-- 자료실 리스트 -->
+	<select id="datalist" resultType="board" parameterType="board">
+		SELECT
+		RR_TITLE AS boardTitle,TO_CHAR(RR_DATE, 'YYYYMMDDHH24MISS') AS
+		boardDate,RR_TCID AS boardId
+		FROM REFERENCE
+		WHERE
+		RR_TCID=#{id}
+	</select>
 
 
 
 
 
 
-   <!-- 오답노트 코멘트 확인 유무 -->
-   <select id="learningWANCommentCheck" resultType="Integer"
-      parameterType="board">
-      SELECT
-      COUNT(*)
-      FROM WRONGANSWERNOTESTAG
-      WHERE
-      WTAG_WANLRCODE=#{roomCode} AND WTAG_WANCODE=#{boardCode}
-   </select>
 
-   <!-- 오답노트 코멘트 추출 -->
-   <select id="learningWANCommentGet" resultType="board"
-      parameterType="board">
-      SELECT
-      WTAG_WANCODE AS boardCode, WTAG_CONTENT AS boardContent, WTAG_DATE AS boardDate, WTAG_ROUTE AS boardRoute, WTAG_TCID AS boardId
-      FROM WRONGANSWERNOTESTAG
-      WHERE
-      WTAG_WANLRCODE=#{roomCode} AND WTAG_WANCODE=#{boardCode}
-   </select>
+
+	<!-- 오답노트 코멘트 확인 유무 -->
+	<select id="learningWANCommentCheck" resultType="Integer"
+		parameterType="board">
+		SELECT
+		COUNT(*)
+		FROM WRONGANSWERNOTESTAG
+		WHERE
+		WTAG_WANLRCODE=#{roomCode} AND WTAG_WANCODE=#{boardCode}
+	</select>
+
+	<!-- 오답노트 코멘트 추출 -->
+	<select id="learningWANCommentGet" resultType="board"
+		parameterType="board">
+		SELECT
+		WTAG_WANCODE AS boardCode, WTAG_CONTENT AS boardContent, WTAG_DATE AS boardDate,
+		WTAG_ROUTE AS boardRoute, WTAG_TCID AS boardId
+		FROM WRONGANSWERNOTESTAG
+		WHERE
+		WTAG_WANLRCODE=#{roomCode} AND WTAG_WANCODE=#{boardCode}
+	</select>
 
 	<!-- 오답노트 코멘트 등록 -->
 	<insert id="learningWANCommentInsert" parameterType="board">
@@ -404,6 +405,14 @@
 		VALUES(${roomCode},#{boardCode},#{boardContent},SYSDATE,#{boardRoute},#{id})
 	</insert>
 
+	<!-- 오답노트 코멘트 수정 -->
+	<update id="learningWANCMUpdate" parameterType="board">
+		UPDATE WRONGANSWERNOTESTAG
+		SET
+		WTAG_CONTENT=#{boardContent},WTAG_ROUTE=#{boardRoute}
+		WHERE
+		WTAG_WANLRCODE=#{roomCode} AND WTAG_WANCODE=#{boardCode}
+	</update>
 
 
 
