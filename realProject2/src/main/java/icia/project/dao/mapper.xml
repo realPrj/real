@@ -370,4 +370,30 @@
 		RR_TCID=#{id}
 	</select>
 
+
+
+
+
+
+
+
+	<!-- 오답노트 코멘트 확인 유무 -->
+	<select id="learningWANCommentCheck" resultType="Integer"
+		parameterType="board">
+		SELECT
+		COUNT(*)
+		FROM WRONGANSWERNOTESTAG
+		WHERE
+		WTAG_WANLRCODE=#{roomCode} AND WTAG_WANCODE=#{boardCode}
+	</select>
+
+
+
+
+
+
+
+
+
+
 </mapper>

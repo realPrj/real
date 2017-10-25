@@ -27,10 +27,7 @@ public class HomeController  {
 	@Autowired
 	private learningTeacherMM ltmm;
 	@Autowired
-	private ProjectUtils session;
-
-	//@Autowired
-	//private learningStudentMM lsmm;
+	private learningStudentMM lsmm;
 
 
 	private ModelAndView mav;
@@ -199,13 +196,10 @@ public class HomeController  {
 		case 2 : 
 
 			break;
-		case 3 : 
-			// 공지사항
-			System.out.println(Integer.parseInt(board.getCaCode()));
+		case 3 : 	// 공지사항
 			mav = ltmm.entrance(3, board);
 			break;	
-		case 4 :	
-			System.out.println(Integer.parseInt(board.getCaCode()));
+		case 4 :	// 질문게시판
 			mav = ltmm.entrance(4, board);
 			break;
 		case 5 : 
@@ -216,7 +210,7 @@ public class HomeController  {
 
 			break;
 
-		case 7 : // 오답노트
+		case 7 : 	// 오답노트
 			mav = ltmm.entrance(7, null);
 			break;
 
@@ -347,6 +341,17 @@ public class HomeController  {
 
 		return mav;
 	}
+	
+	// 선생님 오답노트 코멘트 페이지
+	@RequestMapping(value = "/learningWANCXTPage", method = RequestMethod.GET)
+	public ModelAndView learningWANCXTPage(@ModelAttribute BoardBean board) {
+
+		mav = ltmm.entrance(17, board);
+
+		return mav;
+	}
+	
+	
 
 	
 

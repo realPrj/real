@@ -109,11 +109,11 @@ public interface IMybatis {
 
 	// 선생님 자료실 등록
 	public int referenceInsert(BoardBean board);
-	
+
 	// 선생님 오답노트(전체) 페이지 이동
 
 	public ArrayList<BoardBean> learningWANListGet(BoardBean board);
-	
+
 	// 선생님 공지사항 리스트
 	public ArrayList<BoardBean> datalist(BoardBean board);
 
@@ -128,7 +128,7 @@ public interface IMybatis {
 
 	// 년도별 문제유형 합
 	public ArrayList<BoardBean> learningWANTypeSum(BoardBean board);
-	
+
 	// 중복 년도 코드 추출
 	public ArrayList<BoardBean> learningWANYearCodeOneGet(BoardBean board);
 
@@ -137,5 +137,8 @@ public interface IMybatis {
 
 	// 선생님 공지사항 리스트
 	public ArrayList<BoardBean> tclearningNoticeList(BoardBean board);
+
+	// 선생님 오답노트 코멘트 유무 확인
+	public int learningWANCommentCheck(BoardBean board);
 
 }

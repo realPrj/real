@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>공조 || 오답노트(전체)</title>
+<title>Insert title here</title>
 </head>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script>
@@ -57,15 +57,15 @@ function createinput(itype, iname, ivalue){
 }
 
 
-function commentCheck(valueCode){
+function commentInsert(valueCode){
 
 	createinput("hidden", "boardCode", valueCode);
 	
 	var boardCode = document.getElementsByName("boardCode")[0];
 	
-	createForm("learningWANCXTPageform","learningWANCXTPage","POP");
+	createForm("learningWANInsertPageform","learningWANInsertPage","POP");
 	
-	var form = document.getElementsByName("learningWANCXTPageform")[0];
+	var form = document.getElementsByName("learningWANInsertPageform")[0];
 	window.open('', 'POP',"width=570, height=350, resizable = no, scrollbars = no");
 	form.appendChild(boardCode);
 	
@@ -74,11 +74,6 @@ function commentCheck(valueCode){
 
 </script>
 <body>
-<input type="button" value="전체" onClick="" />
-<input type="button" value="학생별" onClick="" /><br>
-년도 선택${yearSelect }
-${typeSumb }
-<div id="divbox"></div>
-${content }
+<h1>안녕</h1>
 </body>
 </html>

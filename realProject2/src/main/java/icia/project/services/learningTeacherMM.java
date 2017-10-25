@@ -56,11 +56,25 @@ public class learningTeacherMM extends TransactionExe {
 			mav = learningWANPage();
 			break;
 
-		case 12:	// 자료실
+		case 10:	// 자료실
 			mav = datahousemain((BoardBean)object);
 			break;
+			
 		case 13:	// 자료실
 			mav = dataview((BoardBean)object);
+			break;
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+		case 17:	// 오답노트 인설트 페이지
+			mav = learningWANInsertPage((BoardBean)object);
 			break;
 
 		}
@@ -144,9 +158,9 @@ public class learningTeacherMM extends TransactionExe {
 
 		mav = new ModelAndView();
 		BoardBean board;
-		ArrayList<BoardBean> boardList = new ArrayList<BoardBean>();
-		ArrayList<BoardBean> typeSum = new ArrayList<BoardBean>();
-		ArrayList<BoardBean> yearCode = new ArrayList<BoardBean>();
+		ArrayList<BoardBean> boardList = null;
+		ArrayList<BoardBean> typeSum = null;
+		ArrayList<BoardBean> yearCode = null;
 		StringBuffer sb;
 		StringBuffer sum;
 		boolean transaction = false;
@@ -241,7 +255,7 @@ public class learningTeacherMM extends TransactionExe {
 				sb.append(boardList.get(i).getNumberCode());
 				sb.append("</td>");
 				sb.append("<td>");
-				sb.append("<input type='button' value='선생님 코멘트' onClick='test("+boardList.get(i).getBoardCode()+")' />");
+				sb.append("<input type='button' value='선생님 코멘트' onClick='commentCheck("+boardList.get(i).getBoardCode()+")' />");
 				sb.append("</td>");
 				sb.append("</tr>");
 			}
@@ -336,6 +350,37 @@ public class learningTeacherMM extends TransactionExe {
 		return mav;
 	}
 
+	private ModelAndView learningWANInsertPage(BoardBean board) { // 오답노트 코멘트 페이지 이동
+
+		mav = new ModelAndView();
+		boolean transaction = false;
+		StringBuffer sb = new StringBuffer();
+		ArrayList<BoardBean> bb = null;
+		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
+
+		try {
+			
+			board.setRoomCode((String)session.getAttribute("roomCode"));
+			
+			if(dao.learningWANCommentCheck(board) != 0) {	// 코멘트 있음
+				
+				
+			}else {	// 코멘트 없음
+				
+				sb.append("<input type='button' value='코멘트 등록' onClick='commentInsert'  />");
+				
+			}
+			
+			transaction = true;
+
+		}catch(Exception ex){
+
+		}finally {
+
+			setTransactionResult(transaction);
+		}
+		return mav;
+	}
 
 
 
