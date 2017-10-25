@@ -245,14 +245,6 @@
       VALUES(#{id},#{roomCode},#{roomName},#{roomIntroduction},#{roomSB})
    </insert>
 
-   <!-- 선생님 학습방 이동 -->
-   <select id="learningRoomGo" resultType="room" parameterType="room">
-      SELECT LR_CODE AS roomCode, LR_NAME AS roomName, LR_CONTENT AS
-      roomIntroduction, LR_SBCODE AS roomSB
-      FROM LEARNINGROOM
-      WHERE
-      LR_CODE=#{roomCode}
-   </select>
 
    <!-- 학습방 추출 -->
    <select id="learningGet" resultType="room" parameterType="room">
@@ -270,13 +262,6 @@
       VALUES(#{roomCode},#{studentCode})
    </insert>
 
-   <!-- 선생님 공지사항 리스트 -->
-   <select id="tclearningNoticeList" resultType="board"
-      parameterType="board">
-      SELECT NT_TITLE AS boardTitle, NT_DATE AS boardDate,
-      NT_TCID AS boardId FROM NOTICE WHERE NT_LRCODE = #{roomCode}
-   </select>
-
 
    <!-- 선생님 학습방 오답노트 추출 -->
    <select id="learningWANListGet" resultType="board"
@@ -293,15 +278,7 @@
       WAN_LRCODE=#{roomCode}
    </select>
 
-   <!-- 학습방 과목 코드 추출 -->
-   <select id="learningSBCodeGet" resultType="String"
-      parameterType="board">
-      SELECT
-      LR_SBCODE AS roomSB
-      FROM LEARNINGROOM
-      WHERE
-      LR_CODE=#{roomCode}
-   </select>
+
 
    <!-- 년도 이름 추출 -->
    <select id="learningYearNameGet" resultType="String"
@@ -354,12 +331,7 @@
 
    </select>
 
-   <!-- 자료실 글등록 -->
-   <insert id="referenceInsert" parameterType="board">
-      INSERT INTO
-      REFERENCE(RR_LRCODE,RR_TITLE,RR_CONTENT,RR_DATE,RR_ROUTE,RR_TCID)
-      VALUES('665',#{boardTitle},#{boardContent},SYSDATE,#{boardRoute},#{id})
-   </insert>
+
    <!-- 자료실 리스트 -->
    <select id="datalist" resultType="board" parameterType="board">
       SELECT
@@ -404,11 +376,51 @@
 		VALUES(${roomCode},#{boardCode},#{boardContent},SYSDATE,#{boardRoute},#{id})
 	</insert>
 
+	<!-- 선생님 학습방 이동 -->
+	<select id="learningRoomGo" resultType="room" parameterType="room">
+		SELECT LR_CODE AS roomCode, LR_NAME AS roomName, LR_CONTENT AS
+		roomIntroduction, LR_SBCODE AS roomSB
+		FROM LEARNINGROOM
+		WHERE
+		LR_CODE=#{roomCode}
+	</select>
+
+
+
+	
+	<!-- 선생님 공지사항 리스트 -->
+	<select id="tclearningNoticeList" resultType="board" parameterType="board">
+		SELECT NT_TITLE AS boardTitle, NT_DATE AS boardDate, NT_TCID AS boardId FROM NOTICE WHERE NT_LRCODE = #{roomCode}
+	</select>
+	
+	<!-- 선생님 공지사항 내용확인 -->
+	<select id="tclearningNoticeConfirm" resultType="board" parameterType="board">
+		SELECT NT_LRCODE AS roomCode, NT_TITLE AS boardTitle, NT_DATE AS boardDate, NT_CONTENT AS boardContent, NT_ROUTE AS boardRoute, NT_TCID AS boardId 
+		FROM NOTICE WHERE NT_LRCODE = #{roomCode} AND NT_TITLE = #{boardTitle} AND NT_DATE = TO_DATE(#{boardDate},'YYYY-MM-DD HH24:MI:SS')
+	</select>
+	
+
+
+
+	<!-- 학습방 과목 코드 추출 -->
+	<select id="learningSBCodeGet" resultType="String"
+		parameterType="board">
+		SELECT
+		LR_SBCODE AS roomSB
+		FROM LEARNINGROOM
+		WHERE
+		LR_CODE=#{roomCode}
+	</select>
 
 
 
 
-
+<!-- 자료실 글등록 -->
+	<insert id="referenceInsert" parameterType="board">
+		INSERT INTO
+		REFERENCE(RR_LRCODE,RR_TITLE,RR_CONTENT,RR_DATE,RR_ROUTE,RR_TCID)
+		VALUES(#{studentCode},DEFAULT,#{logType})
+	</insert>
 
 
 </mapper>
