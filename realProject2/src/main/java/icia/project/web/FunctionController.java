@@ -314,12 +314,10 @@ public class FunctionController {
 	}
 
 	// 오답노트 코멘트(선생님) 글 등록
-	@RequestMapping(value = "/learningCommentInsert", method = RequestMethod.POST)
-	public ModelAndView  learningCommentInsert(BoardBean board) {
-
-		mav = new ModelAndView();		
-
-
+	@RequestMapping(value = "/learningWANCommentInsert", method = RequestMethod.POST)
+	public ModelAndView  learningWANCommentInsert(BoardBean board) {
+		
+		mav = ltm.entrance(18, board);
 
 		return mav;
 	}
@@ -328,6 +326,7 @@ public class FunctionController {
 	@RequestMapping(value = "/learningDataInsert", method = RequestMethod.POST)
 	public ModelAndView requestupload2(@ModelAttribute BoardBean board,MultipartHttpServletRequest mtfRequest)throws Exception{		
 		board.setId((String)session.getAttribute("tcId"));
+
 		mav = ltm.entrance(12, board, mtfRequest);
 	return mav;
 

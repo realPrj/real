@@ -397,7 +397,12 @@
       WTAG_WANLRCODE=#{roomCode} AND WTAG_WANCODE=#{boardCode}
    </select>
 
-
+	<!-- 오답노트 코멘트 등록 -->
+	<insert id="learningWANCommentInsert" parameterType="board">
+		INSERT INTO
+		WRONGANSWERNOTESTAG(WTAG_WANLRCODE,WTAG_WANCODE,WTAG_CONTENT,WTAG_DATE,WTAG_ROUTE,WTAG_TCID)
+		VALUES(${roomCode},#{boardCode},#{boardContent},SYSDATE,#{boardRoute},#{id})
+	</insert>
 
 
 

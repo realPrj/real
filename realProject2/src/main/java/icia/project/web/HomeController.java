@@ -351,6 +351,19 @@ public class HomeController  {
 		return mav;
 	}
 	
+	// 선생님 오답노트 코멘트 등록 페이지
+	@RequestMapping(value = "/learningWANInsertPage", method = RequestMethod.POST)
+	public ModelAndView learningWANInsertPage(@ModelAttribute BoardBean board) {
+
+		mav = new ModelAndView();
+		
+		mav.addObject("boardCode", board.getBoardCode());
+		mav.setViewName("learningWANInsert");
+
+		return mav;
+	}
+	
+	
 	
 
 	
