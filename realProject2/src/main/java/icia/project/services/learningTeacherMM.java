@@ -311,7 +311,7 @@ public class learningTeacherMM extends TransactionExe {
 
 				typeSum = dao.learningWANTypeSum(board);
 
-				sum.append("<br><biv id='"+yearCode.get(i).getYearCode().substring(0, 4)+"'>");
+				sum.append("<br><biv id='"+yearCode.get(i).getYearCode().substring(0, 4)+"' >");
 				for(int y = 0; y < typeSum.size(); y++) {
 					board = new BoardBean();
 					board.setRoomCode(boardList.get(0).getRoomCode());
