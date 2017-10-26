@@ -793,6 +793,7 @@ public class learningTeacherMM extends TransactionExe {
 
 	private ModelAndView tclearningNoticeUpdatePage(BoardBean board) { // 공지사항 수정 페이지
 		mav = new ModelAndView();
+		StringBuffer sb = new StringBuffer();
 		boolean transaction = false;
 		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
 
@@ -801,16 +802,14 @@ public class learningTeacherMM extends TransactionExe {
 
 			mav.addObject("boardTitle", board.getBoardTitle());
 			mav.addObject("boardContent", board.getBoardContent());
-			System.out.println("공지사항 수정:" + board.getBoardDate());
-
-
+			
+			sb.append("<input type=\"hidden\" name=\"boardDate\" value='"+ board.getBoardDate() +"'/>");
+			mav.addObject("boardDate", sb.toString());
 			transaction = true;
 
 		}catch(Exception ex){
 
 		}finally {
-
-
 			mav.setViewName("learningNoticeUpdate");
 			setTransactionResult(transaction);
 		}
@@ -825,22 +824,16 @@ public class learningTeacherMM extends TransactionExe {
 
 		try {
 			session.getAttribute("roomCode");
-
-			
-
-
-			transaction = true;
-
+			board.setRoomCode((String)session.getAttribute("roomCode"));
+			if(dao.tclearningNoticeUpdate(board) != 0) {
+				System.out.println("수정완료");
+				transaction = true;
+			}
 		}catch(Exception ex){
 
 		}finally {
-
-
-			mav.setViewName("learningNoticeUpdate");
 			setTransactionResult(transaction);
 		}
 		return mav;
 	}
-
-
 }

@@ -360,9 +360,12 @@ public class FunctionController {
 	
 	// 공지사항 수정 완료
 	@RequestMapping(value = "/NoticeUpdate", method = RequestMethod.POST)
-	public ModelAndView tclearningNoticeUpdateOk(@ModelAttribute BoardBean board,MultipartHttpServletRequest mtfRequest)throws Exception{      
+	public ModelAndView tclearningNoticeUpdateOk(@ModelAttribute BoardBean board){      
 
-		mav = ltm.entrance(30, board);
+		System.out.println("공지사항 수정 컨트롤러 :" + board.getBoardTitle());
+		ltm.entrance(30, board);
+		
+		mav = ltm.entrance(3, board);
 
 		return mav;
 	}
