@@ -462,6 +462,12 @@
 		UPDATE NOTICE SET NT_TITLE = #{boardTitle}, NT_CONTENT = #{boardContent}, NT_ROUTE = #{boardRoute} 
 		WHERE NT_LRCODE = #{roomCode} AND NT_DATE = TO_DATE(#{boardDate},'YYYY-MM-DD HH24:MI:SS')
 	</update>
+	
+	<!-- 선생님 공지사항 삭제 -->
+	<delete id="tclearningNoticeDelete" parameterType="board">
+		DELETE FROM NOTICE WHERE NT_LRCODE = #{roomCode} AND NT_DATE = TO_DATE(#{boardDate},'YYYY-MM-DD HH24:MI:SS')
+	</delete>
+
 
 
 </mapper>

@@ -50,7 +50,29 @@ function update(boardTitle, boardContent, boardDate){
 	f.appendChild(date);
 	
 	document.noticeUpdate.submit();
+}
+
+function boardDelete(roomCode, boardDate){
+	var ff = document.createElement("form");
+	ff.name = "noticeDelete";
+	ff.method = "post";
+	ff.action = "NoticeDelete";
+	document.body.appendChild(ff);
+
+	var code = document.createElement("input");
+	code.type = "hidden";
+	code.name = "roomCode";
+	code.value = roomCode;
+	ff.appendChild(code);
+	alert(code.value);
 	
+	var date = document.createElement("input");
+	date.type = "hidden";
+	date.name = "boardDate";
+	date.value = boardDate;
+	ff.appendChild(date);
+	
+	document.noticeDelete.submit();
 }
 </script>
 </head>
