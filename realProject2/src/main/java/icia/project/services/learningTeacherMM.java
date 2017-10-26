@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -160,7 +159,6 @@ public class learningTeacherMM extends TransactionExe {
 	private String tclearningNoticeList(BoardBean board, ArrayList<BoardBean> ar) { // 공지사항 리스트
 		StringBuffer sb = new StringBuffer();
 
-		int count = 0;
 		sb.append("<table>");
 		sb.append("<tr>");
 		sb.append("<td>제목</td>");

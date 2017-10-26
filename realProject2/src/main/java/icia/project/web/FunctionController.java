@@ -348,7 +348,7 @@ public class FunctionController {
 		return mav;
 	}
 
-	// 자료실 자세히보 기
+	// 자료실 자세히보기
 	@RequestMapping(value = "/learningDataCXT", method = RequestMethod.POST)
 	public ModelAndView learningDataCXT(@ModelAttribute BoardBean board)throws Exception{      
 		board.setId((String)session.getAttribute("tcId"));		 
