@@ -33,15 +33,15 @@ function createinput(itype, iname, ivalue){
 //메뉴선택
 function menu(ivalue){
 	
-	createinput("hidden", "cacode", ivalue);
+	createinput("hidden", "caCode", ivalue);
 	
-	var cacode = document.getElementsByName("cacode")[0];
+	var caCode = document.getElementsByName("caCode")[0];
 	
 	createForm("menuform","stmenu","post");
 	
 
 	var form = document.getElementsByName("menuform")[0];
-	form.appendChild(cacode);
+	form.appendChild(caCode);
 	
 	form.submit();
 	

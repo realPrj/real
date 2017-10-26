@@ -26,7 +26,7 @@ public class BoardBean {	// 게시판 bean
 	private String typeName;	// 문제유형 이름
 	
 	private String typeSum;	// 타입별 합
-	private String allSum;	// 총 합
+	private int allSum;	// 총 합
 	
 	private String boardCode;	// 게시글 번호
 	private String boardTitle;	// 게시글 제목
@@ -40,11 +40,13 @@ public class BoardBean {	// 게시판 bean
 
 
 	
-	public String getAllSum() {
+
+
+	public int getAllSum() {
 		return allSum;
 	}
 
-	public void setAllSum(String allSum) {
+	public void setAllSum(int allSum) {
 		this.allSum = allSum;
 	}
 

@@ -7,21 +7,10 @@
 <title>공조 || 학생별 정보</title>
 </head>
 <body>
+<input type="button" value="전체" onClick="" />
+<input type="button" value="학생별" onClick="" />
 
-<table id="stInformation">
-	<tr>
-		<td>이름</td>
-		<td>반</td>
-		<td>번호</td>
-		<td>총 물어본 문제수</td>
-	</tr>
-	<tr>
-		<td>${studentName }</td>
-		<td>${stHalf }</td>
-		<td>${stNumber }</td>
-		<td>${allSum }</td>
-	</tr>
-</table>
+
 
 <!-- 여기는 유형별 총합 -->
 

@@ -123,18 +123,73 @@ public class learningStudentMM extends TransactionExe {
 		mav = new ModelAndView();
 		BoardBean board;
 		ArrayList<BoardBean> boardList = null;
+		ArrayList<BoardBean> typeSum = null;
+		ArrayList<BoardBean> yearCode = null;
 		StringBuffer sb;
+		StringBuffer sum;
 		boolean transaction = false;
 		String page = null;
 
 		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
 
 		try {
+			
 			board = new BoardBean();
 			board.setRoomCode((String)session.getAttribute("roomCode"));
-			board.setId((String)session.getAttribute("tcId"));
+			board.setStudentCode((String)session.getAttribute("stCode"));
+			board.setStudentName(dao.stNameGet(board));	// 학생 이름 추출
+			board.setAllSum(dao.allWANSum(board));		// 학생이 물어본 총 문제 수
+
+			mav.addObject("studentName", board.getStudentName());
+			mav.addObject("stHalf", board.getStudentCode().substring(2, 4));
+			mav.addObject("stNumber", board.getStudentCode().substring(4, 6));
+			mav.addObject("allSum", board.getAllSum());
 			
+			/////////////////////////////////////////////////////////////////////////
 			
+			boardList = dao.learningWANstListGet(board);
+
+			yearCode = dao.learningWANstYearCodeOneGet(board);
+	
+			sb = new StringBuffer();
+			sum = new StringBuffer();
+			sb.append("<select id = 'yearSelect'>");
+			sb.append("<option></option>");
+
+			for(int i =0; i < yearCode.size(); i++) {
+				board = new BoardBean();
+				board.setRoomCode(boardList.get(0).getRoomCode());
+				board.setYearCode(yearCode.get(i).getYearCode());
+				System.out.println(yearCode.get(i).getYearCode());
+				System.out.println(boardList.get(0).getRoomCode());
+				sb.append("<option>"+yearCode.get(i).getYearCode()+"</option>");
+
+				typeSum = dao.learningWANstTypeSum(board);
+				
+				sum.append("<br><biv id='"+yearCode.get(i).getYearCode().substring(0, 4)+"' >");
+				for(int y = 0; y < typeSum.size(); y++) {
+					board = new BoardBean();
+					board.setRoomCode(boardList.get(0).getRoomCode());
+					board.setYearCode(yearCode.get(i).getYearCode());
+					board.setRoomSB(dao.learningSBCodeGet(board));
+					board.setTypeCode(typeSum.get(y).getTypeCode());
+					board.setTypeName(dao.learningTypeNameGet(board));
+					board.setTypeSum(typeSum.get(y).getTypeSum());	
+					sum.append(board.getTypeName()+" : "+ board.getTypeSum()+"<br>");
+
+				}
+				sum.append("</biv>");
+
+			}
+
+			sb.append("</select>");
+			mav.addObject("size", yearCode.size());
+			mav.addObject("yearSelect", sb.toString());
+			mav.addObject("typeSumb", sum.toString());
+			
+			/////////////////////////////////////////////////////////////////////////
+			
+			mav.addObject("content", "");
 			
 			page = "learningStuentWAN";
 			transaction = true;
