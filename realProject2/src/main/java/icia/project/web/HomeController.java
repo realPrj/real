@@ -30,9 +30,8 @@ public class HomeController  {
 	private PageManagement pm;
 	@Autowired
 	private learningTeacherMM ltmm;
-
-	//@Autowired
-	//private learningStudentMM lsmm;
+	@Autowired
+	private learningStudentMM lsmm;
 
 	private ModelAndView mav;
 
@@ -44,7 +43,6 @@ public class HomeController  {
 	public ModelAndView home(Locale locale, Model model) {
 
 		mav = new ModelAndView();
-
 		mav.setViewName("home");
 
 		return mav;
@@ -275,7 +273,7 @@ public class HomeController  {
 			break;
 
 		case 7 : // 오답노트
-
+			mav = lsmm.entrance(7, null);
 			break;
 
 		case 8 : 	
@@ -338,7 +336,7 @@ public class HomeController  {
 	@RequestMapping(value = "/studentLearningMainPage", method = RequestMethod.POST)
 	public ModelAndView studentLearningMainPage(@ModelAttribute LearningRoomBean room) {
 
-		mav = pm.entrance(3, room);
+		mav = pm.entrance(4, room);
 
 		return mav;
 	}
@@ -380,10 +378,6 @@ public class HomeController  {
 		return mav;
 	}
 
-
-
-
-
 	// 공지사항 글쓰기
 	@RequestMapping(value = "/NoticeInsert", method = RequestMethod.POST)
 	public ModelAndView learningNoticeInsert(@ModelAttribute BoardBean board) {
@@ -395,7 +389,7 @@ public class HomeController  {
 	
 	// 공지사항 수정 페이지
 	@RequestMapping(value = "/NoticeUpdatePage", method = RequestMethod.POST)
-	public ModelAndView learningNoticeUpdate(@ModelAttribute BoardBean board) {
+	public ModelAndView learningNoticeUpdatePage(@ModelAttribute BoardBean board) {
 
 		mav = ltmm.entrance(11, board);
 		

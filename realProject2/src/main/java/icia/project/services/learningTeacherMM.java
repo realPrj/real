@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -126,6 +125,11 @@ public class learningTeacherMM extends TransactionExe {
 		case 30:	// 선생님 공지사항 수정
 			mav = tclearningNoticeUpdate((BoardBean)object[0]);
 			break;
+			
+		case 31:	// 선생님 공지사항 삭제
+			mav = tclearningNoticeDelete((BoardBean)object[0]);
+			break;
+
 
 
 		}
@@ -164,8 +168,6 @@ public class learningTeacherMM extends TransactionExe {
 
 	private String tclearningNoticeList(BoardBean board, ArrayList<BoardBean> ar) { // 공지사항 리스트
 		StringBuffer sb = new StringBuffer();
-
-		int count = 0;
 		sb.append("<table>");
 		sb.append("<tr>");
 		sb.append("<td>제목</td>");
@@ -182,7 +184,7 @@ public class learningTeacherMM extends TransactionExe {
 		}
 		sb.append("</table>");
 		sb.append("<input type=\"button\" value=\"글쓰기\" onClick=\"noticeInsert()\"/>");
-
+		
 		return sb.toString();
 	}
 
@@ -237,7 +239,7 @@ public class learningTeacherMM extends TransactionExe {
 		sb.append("</table>");
 		sb.append("<input type=\"button\" value=\"목록\" onClick=\"menu('3')\"/>");
 		sb.append("<input type=\"button\" value=\"수정\" onClick=\"update('"+ board.getBoardTitle() +"','"+ board.getBoardContent() +"','"+ board.getBoardDate() +"')\"/>");
-		sb.append("<input type=\"button\" value=\"삭제\" onClick=\"menu('3')\"/>");
+		sb.append("<input type=\"button\" value=\"삭제\" onClick=\"boardDelete('"+ board.getRoomCode() +"','"+ board.getBoardDate() +"')\"/>");
 		return sb.toString();
 	}
 
@@ -321,7 +323,7 @@ public class learningTeacherMM extends TransactionExe {
 
 				typeSum = dao.learningWANTypeSum(board);
 
-				sum.append("<br><biv id='"+yearCode.get(i).getYearCode().substring(0, 4)+"' >");
+				sum.append("<div id='"+yearCode.get(i).getYearCode().substring(0, 4)+"' >");
 				for(int y = 0; y < typeSum.size(); y++) {
 					board = new BoardBean();
 					board.setRoomCode(boardList.get(0).getRoomCode());
@@ -333,7 +335,11 @@ public class learningTeacherMM extends TransactionExe {
 					sum.append(board.getTypeName()+" : "+ board.getTypeSum()+"<br>");
 
 				}
-				sum.append("</biv>");
+				sum.append("</div>");
+				
+				if(i == 0) {
+					mav.addObject("lowest", yearCode.get(i).getYearCode());
+				}
 
 			}
 
@@ -817,6 +823,7 @@ public class learningTeacherMM extends TransactionExe {
 
 	private ModelAndView tclearningNoticeUpdatePage(BoardBean board) { // 공지사항 수정 페이지
 		mav = new ModelAndView();
+		StringBuffer sb = new StringBuffer();
 		boolean transaction = false;
 		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
 
@@ -825,16 +832,14 @@ public class learningTeacherMM extends TransactionExe {
 
 			mav.addObject("boardTitle", board.getBoardTitle());
 			mav.addObject("boardContent", board.getBoardContent());
-			System.out.println("공지사항 수정:" + board.getBoardDate());
-
-
+			
+			sb.append("<input type=\"hidden\" name=\"boardDate\" value='"+ board.getBoardDate() +"'/>");
+			mav.addObject("boardDate", sb.toString());
 			transaction = true;
 
 		}catch(Exception ex){
 
 		}finally {
-
-
 			mav.setViewName("learningNoticeUpdate");
 			setTransactionResult(transaction);
 		}
@@ -849,22 +854,34 @@ public class learningTeacherMM extends TransactionExe {
 
 		try {
 			session.getAttribute("roomCode");
-
-			
-
-
-			transaction = true;
-
+			board.setRoomCode((String)session.getAttribute("roomCode"));
+			if(dao.tclearningNoticeUpdate(board) != 0) {
+				transaction = true;
+			}
 		}catch(Exception ex){
 
 		}finally {
-
-
-			mav.setViewName("learningNoticeUpdate");
 			setTransactionResult(transaction);
 		}
 		return mav;
 	}
+	
+	private ModelAndView tclearningNoticeDelete(BoardBean board) { // 선생님 공지사항 삭제
+		mav = new ModelAndView();
+		boolean transaction = false;
+		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
 
+		try {
+			session.getAttribute("roomCode");
+			board.setRoomCode((String)session.getAttribute("roomCode"));
+			if(dao.tclearningNoticeDelete(board) != 0) {
+				transaction = true;
+			}
+		}catch(Exception ex){
 
+		}finally {
+			setTransactionResult(transaction);
+		}
+		return mav;
+	}
 }
