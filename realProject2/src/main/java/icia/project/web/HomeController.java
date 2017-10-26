@@ -44,7 +44,7 @@ public class HomeController  {
 
 		mav = new ModelAndView();
 		mav.setViewName("home");
-
+		
 		return mav;
 	}
 

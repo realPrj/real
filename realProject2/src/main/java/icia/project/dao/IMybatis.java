@@ -164,7 +164,7 @@ public interface IMybatis {
 
 	// 선생님 공지사항 글 수정하기
 	public int tclearningNoticeUpdate(BoardBean board);
-	
+
 	// 선생님 공지사항 글 삭제
 	public int tclearningNoticeDelete(BoardBean board);
 
@@ -176,12 +176,29 @@ public interface IMybatis {
 
 	// 학생 오답노트(전체) 페이지 이동
 	public ArrayList<BoardBean> learningWANstListGet(BoardBean board);
-	
+
 	// 학생 중복 년도 코드 추출
 	public ArrayList<BoardBean> learningWANstYearCodeOneGet(BoardBean board);
-	
+
 	// 학생 년도별 문제유형 합
 	public ArrayList<BoardBean> learningWANstTypeSum(BoardBean board);
+
+	// 학습방 오답문제 총 평균 구하기1 (학년 총 질문수)
+	public int learningWANstAverage1(BoardBean board);
+
+	// 학습방 오답문제 총 평균 구하기2 (학년 총 인원수) 
+	public int learningWANstAverage2(BoardBean board);
+
+	// 학습방 오답문제 총 평균 구하기3 ( 방 학년 총 질문수)
+	public int learningWANstAverage3(BoardBean board);
+
+	// 학습방 오답문제 총 평균 구하기4 ( 방 학년 총 인원수)
+	public int learningWANstAverage4(BoardBean board);
+
+	// 학습방 오답문제 총 평균 구하기5 학생(본인) 오답노트 추출 (중복제외)
+	public ArrayList<BoardBean> learningWANstListGetOverlap(BoardBean board);
+	
+	
 
 
 }

@@ -448,19 +448,21 @@
 
 	<!-- 자료실 전체보기 view -->
 	<select id="learningDataCXT" resultType="dbBoard" parameterType="board">
- 		SELECT
+		SELECT
 		RR_TITLE AS boardTitle,
 		RR_DATE AS boardDate,
-		RR_CONTENT AS boardContent,
+		RR_CONTENT AS
+		boardContent,
 		RR_ROUTE AS boardRoute,
 		RR_TCID AS boardId
 		FROM REFERENCE
 		WHERE
-	    RR_LRCODE=#{roomCode}
+		RR_LRCODE=#{roomCode}
 		AND RR_DATE=TO_DATE(#{boardDate},'YYYY-MM-DD HH24:MI:SS')
-		AND RR_TITLE=#{boardTitle}
-	</select> 
-	
+		AND
+		RR_TITLE=#{boardTitle}
+	</select>
+
 	<!-- 선생님 공지사항 글 수정하기 -->
 	<update id="tclearningNoticeUpdate" parameterType="board">
 		UPDATE NOTICE
@@ -469,10 +471,12 @@
 		WHERE NT_LRCODE = #{roomCode} AND NT_DATE =
 		TO_DATE(#{boardDate},'YYYY-MM-DD HH24:MI:SS')
 	</update>
-	
+
 	<!-- 선생님 공지사항 삭제 -->
 	<delete id="tclearningNoticeDelete" parameterType="board">
-		DELETE FROM NOTICE WHERE NT_LRCODE = #{roomCode} AND NT_DATE = TO_DATE(#{boardDate},'YYYY-MM-DD HH24:MI:SS')
+		DELETE FROM
+		NOTICE WHERE NT_LRCODE = #{roomCode} AND NT_DATE =
+		TO_DATE(#{boardDate},'YYYY-MM-DD HH24:MI:SS')
 	</delete>
 
 
@@ -497,10 +501,28 @@
 
 
 
+	<!-- 학생(본인) 오답노트 추출 -->
+	<select id="learningWANstListGet" resultType="board"
+		parameterType="board">
+		SELECT
+		WAN_CODE AS boardCode,
+		WAN_LRCODE AS roomCode,
+		WAN_STRFSTUDENTCODE AS studentCode,
+		WAN_STUDENTNAME AS studentName,
+		WAN_QTSTYPEYASBCODE AS roomSB,
+		WAN_QTSTYPEYACODE AS yearCode,
+		WAN_QTSTYPECODE AS typeCode,
+		WAN_QTNUMBER AS numberCode,
+		WAN_DATE AS boardDate
+		FROM WRONGANSWERNOTES
+		WHERE WAN_LRCODE=#{roomCode} AND WAN_STRFSTUDENTCODE=#{studentCode}
+		ORDER
+		BY
+		WAN_DATE DESC
+	</select>
 
 
-
-	<!-- 학생 학습방 오답노트 추출 -->
+	<!-- 학생 학습방 오답노트 추출 
 	<select id="learningWANstListGet" resultType="board"
 		parameterType="board">
 		SELECT
@@ -513,7 +535,7 @@
 		FROM WRONGANSWERNOTES
 		WHERE
 		WAN_LRCODE=#{roomCode} AND WAN_STRFSTUDENTCODE=#{studentCode}
-	</select>
+	</select>-->
 
 	<!-- 학생 중복 년도 코드 추출 -->
 	<select id="learningWANstYearCodeOneGet" resultType="board"
@@ -532,19 +554,79 @@
 	<!-- 학생 년도별 문제유형별 합 -->
 	<select id="learningWANstTypeSum" resultType="board"
 		parameterType="board">
-			SELECT
+		SELECT
 		WAN_QTSTYPECODE AS typeCode
 		,COUNT(WAN_QTSTYPECODE) AS
 		typeSum
-		FROM WRONGANSWERNOTES WHERE
-		WAN_QTSTYPEYACODE=#{yearCode} AND WAN_LRCODE=#{roomCode} AND WAN_STRFSTUDENTCODE=#{studentCode}
+		FROM
+		WRONGANSWERNOTES WHERE
+		WAN_QTSTYPEYACODE=#{yearCode} AND
+		WAN_LRCODE=#{roomCode} AND WAN_STRFSTUDENTCODE=#{studentCode}
 		GROUP
 		BY
-		WAN_QTSTYPECODE ORDER
+		WAN_QTSTYPECODE,WAN_QTSTYPEYACODE ORDER
 		BY
 		WAN_QTSTYPECODE ASC
 	</select>
 
+	<!-- 학습방 오답문제 총 평균 구하기1 (학년 총 질문수) -->
+	<select id="learningWANstAverage1" resultType="Integer"
+		parameterType="board">
+		SELECT
+		COUNT(*)
+		FROM WRONGANSWERNOTES
+		WHERE SUBSTR(WAN_STRFSTUDENTCODE, 1,2) LIKE #{studentCode} AND WAN_QTSTYPEYACODE=#{yearCode} AND WAN_QTSTYPECODE=#{typeCode} AND WAN_QTNUMBER=#{numberCode}
+	</select>
 
+	<!-- 학습방 오답문제 총 평균 구하기2 (학년 총 인원수) -->
+	<select id="learningWANstAverage2" resultType="Integer"
+		parameterType="board">
+		SELECT
+		COUNT(*)
+		FROM STUDENT
+		WHERE SUBSTR(ST_RFSTUDENTCODE, 1,2) LIKE #{studentCode}
+	</select>
+
+	<!-- 학습방 오답문제 총 평균 구하기3 ( 방 학년 총 질문수) -->
+	<select id="learningWANstAverage3" resultType="Integer"
+		parameterType="board">
+		SELECT
+		COUNT(*)
+		FROM WRONGANSWERNOTES
+		WHERE WAN_LRCODE=#{roomCode} AND SUBSTR(WAN_STRFSTUDENTCODE, 1,2) LIKE #{studentCode} AND WAN_QTSTYPEYACODE=#{yearCode} AND WAN_QTSTYPECODE=#{typeCode} AND WAN_QTNUMBER=#{numberCode}
+	</select>
+	
+	<!-- 학습방 오답문제 총 평균 구하기4 ( 방 학년 총 인원수) -->
+	<select id="learningWANstAverage4" resultType="Integer"
+		parameterType="board">
+		SELECT
+		COUNT(*)
+		FROM LEARNINGSTUDENTREGISTER
+		WHERE SUBSTR(LSR_STRFSTUDENTCODE, 1,2) LIKE #{studentCode} AND LSR_LRCODE=#{roomCode}
+	</select>
+	
+	<!-- 학습방 오답문제 총 평균 구하기5 학생(본인) 오답노트 추출 (중복제외) -->
+	<select id="learningWANstListGetOverlap" resultType="board"
+		parameterType="board">
+		 SELECT
+		WAN_CODE AS boardCode,
+		WAN_LRCODE AS roomCode,
+		WAN_STRFSTUDENTCODE AS studentCode,
+		WAN_STUDENTNAME AS studentName,
+		WAN_QTSTYPEYASBCODE AS roomSB,
+		WAN_QTSTYPEYACODE AS yearCode,
+		WAN_QTSTYPECODE AS typeCode,
+		WAN_QTNUMBER AS numberCode,
+		WAN_DATE AS boardDate
+		FROM WRONGANSWERNOTES
+		WHERE WAN_LRCODE=#{roomCode} AND WAN_STRFSTUDENTCODE=#{studentCode}
+		GROUP
+		BY
+		WAN_DATE,WAN_QTSTYPEYASBCODE,WAN_QTNUMBER,WAN_QTSTYPEYACODE,WAN_QTSTYPECODE,WAN_STRFSTUDENTCODE,WAN_LRCODE,WAN_QTSTYPEYASBCODE,WAN_CODE,WAN_STUDENTNAME
+		ORDER
+		BY
+		WAN_QTSTYPEYACODE DESC
+	</select>
+	
 
 </mapper>
