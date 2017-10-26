@@ -348,7 +348,6 @@ public class FunctionController {
 		return mav;
 	}
 
-
 	// 자료실 자세히보 기
 	@RequestMapping(value = "/learningDataCXT", method = RequestMethod.POST)
 	public ModelAndView learningDataCXT(@ModelAttribute BoardBean board)throws Exception{      
@@ -357,9 +356,16 @@ public class FunctionController {
 
 		return mav;
 	}
+	
+	// 공지사항 수정 완료
+	@RequestMapping(value = "/NoticeUpdate", method = RequestMethod.POST)
+	public ModelAndView tclearningNoticeUpdateOk(@ModelAttribute BoardBean board,MultipartHttpServletRequest mtfRequest)throws Exception{      
 
+		mav = ltm.entrance(12, board, mtfRequest);
 
-
+		return mav;
+	}
+	
 
 
 

@@ -28,7 +28,6 @@ public class learningTeacherMM extends TransactionExe {
 
 	private ModelAndView mav;
 
-
 	private MultipartHttpServletRequest mtfRequest = null;
 
 	public ModelAndView entrance(int serviceCode,Object ...object)  {
@@ -73,6 +72,10 @@ public class learningTeacherMM extends TransactionExe {
 
 		case 10: // 공지사항 글쓰기
 			mav = tclearningNoticeInsertOk((BoardBean)object[0]);
+			break;
+
+		case 11: // 공지사항 수정 페이지
+			mav = tclearningNoticeUpdatePage((BoardBean)object[0]);
 			break;
 
 		case 12:	// 자료실 글쓰기
@@ -121,7 +124,6 @@ public class learningTeacherMM extends TransactionExe {
 		return mav;
 
 	}
-
 
 	private ModelAndView learningNoticePage(BoardBean board) { // 공지사항 페이지
 
@@ -225,6 +227,8 @@ public class learningTeacherMM extends TransactionExe {
 		sb.append("</tr>");
 		sb.append("</table>");
 		sb.append("<input type=\"button\" value=\"목록\" onClick=\"menu('3')\"/>");
+		sb.append("<input type=\"button\" value=\"수정\" onClick=\"update('"+ board.getBoardTitle() +"','"+ board.getBoardContent() +"','"+ board.getBoardRoute() +"')\"/>");
+		sb.append("<input type=\"button\" value=\"삭제\" onClick=\"menu('3')\"/>");
 		return sb.toString();
 	}
 
@@ -308,7 +312,7 @@ public class learningTeacherMM extends TransactionExe {
 
 				typeSum = dao.learningWANTypeSum(board);
 
-				sum.append("<br><biv id='"+yearCode.get(i).getYearCode().substring(0, 4)+"'>");
+				sum.append("<br><biv id='"+yearCode.get(i).getYearCode().substring(0, 4)+"' >");
 				for(int y = 0; y < typeSum.size(); y++) {
 					board = new BoardBean();
 					board.setRoomCode(boardList.get(0).getRoomCode());
@@ -675,7 +679,6 @@ public class learningTeacherMM extends TransactionExe {
 		return mav;
 	}
 
-
 	private ModelAndView tclearningNoticeInsertOk(BoardBean board) { // 공지사항 글쓰기
 		mav = new ModelAndView();
 		boolean transaction = false;
@@ -691,8 +694,6 @@ public class learningTeacherMM extends TransactionExe {
 				System.out.println("글좀쓰자제발");
 				transaction = true;
 			}
-
-
 
 		}catch(Exception ex){
 
@@ -717,12 +718,11 @@ public class learningTeacherMM extends TransactionExe {
 			System.out.println(board.getBoardTitle());
 			System.out.println(board.getBoardContent());
 			System.out.println(board.getBoardId());
-			
+
 			session.getAttribute("roomCode");
 			mav.addObject("content",session.getAttribute("roomCode") + "자료실");
 			board.setId((String)session.getAttribute("tcId"));
 			board.setRoomCode((String)session.getAttribute("roomCode"));
-			
 
 			//mav.addObject("content",session.getAttribute("roomCode") + "의 공지사항");
 			bb = dao.learningDataCXT(board);
@@ -777,6 +777,29 @@ public class learningTeacherMM extends TransactionExe {
 			mav.addObject("message", message);
 			mav.addObject("dataViewList", sb.toString());
 			mav.setViewName("learningDataCXT");
+			transaction = true;
+
+
+		}catch(Exception ex){
+
+		}finally {
+			setTransactionResult(transaction);
+		}
+
+		return mav;
+	}
+
+	private ModelAndView tclearningNoticeUpdatePage(BoardBean board) { // 공지사항 수정 페이지
+		mav = new ModelAndView();
+		boolean transaction = false;
+		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
+
+		try {
+			session.getAttribute("roomCode");
+
+			mav.addObject("boardTitle", board.getBoardTitle());
+			mav.addObject("boardContent", board.getBoardContent());
+
 
 			transaction = true;
 
@@ -784,10 +807,12 @@ public class learningTeacherMM extends TransactionExe {
 
 		}finally {
 
+
+			mav.setViewName("learningNoticeUpdate");
 			setTransactionResult(transaction);
 		}
-		mav.setViewName("learningData");
 		return mav;
+
 	}
 
 

@@ -31,7 +31,6 @@ function confirm(boardTitle, boardDate, caCode) {
 	caCode.name = "caCode";
 	caCode.value = caCode;
 	f.appendChild(caCode); 
-	alert(caCode.value);
 	//var bonum = document.getElementsByName("botitle");
 	/* var bopsid = document.getElementsByName("bopsid");
 	var psid = document.getElementsByName("psid"); */

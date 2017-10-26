@@ -274,7 +274,7 @@
 	<select id="tclearningNoticeList" resultType="board"
 		parameterType="board">
 		SELECT NT_TITLE AS boardTitle, NT_DATE AS boardDate,
-		NT_TCID AS boardId FROM NOTICE WHERE NT_LRCODE = #{roomCode}
+		NT_TCID AS boardId FROM NOTICE WHERE NT_LRCODE = #{roomCode} ORDER BY NT_DATE DESC
 	</select>
 
 
@@ -442,6 +442,7 @@
 		VALUES(#{roomCode}, #{boardTitle}, #{boardContent}, SYSDATE,
 		#{boardRoute}, #{boardId})
 	</insert>
+
 	<!-- 자료실 전체보기 view -->
 	<select id="learningDataCXT" resultType="board" parameterType="board">
 		SELECT
@@ -455,6 +456,12 @@
 		AND RR_DATE=TO_DATE(#{boardDate},'YYYY-MM-DD HH24:MI:SS')
 		AND RR_TITLE=#{boardTitle}
 	</select> 
+
+	<!-- 선생님 공지사항 글 수정하기 -->
+	<update id="tclearningNoticeUpdate" parameterType="board">
+		UPDATE NOTICE SET NT_TITLE = #{boardTitle}, NT_CONTENT = #{boardContent}, NT_ROUTE = #{boardRoute} 
+		WHERE NT_LRCODE = #{roomCode} AND NT_TITLE = #{boardTitle} AND NT_DATE = #{boardDate}
+	</update>
 
 
 </mapper>
