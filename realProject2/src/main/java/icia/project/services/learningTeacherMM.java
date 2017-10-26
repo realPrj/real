@@ -892,7 +892,7 @@ public class learningTeacherMM extends TransactionExe {
 		}
 		return mav;
 	}
-	private ModelAndView learningDataDelete(BoardBean board) { // 선생님 공지사항 삭제
+	private ModelAndView learningDataDelete(BoardBean board) { // 선생님 자료실 삭제
 		mav = new ModelAndView();
 		boolean transaction = false;
 		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
