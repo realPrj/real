@@ -216,7 +216,7 @@ public class HomeController  {
 
 			break;
 		case 10 : // 자료실
-			System.out.println(Integer.parseInt(board.getCaCode()));
+			
 			mav = ltmm.entrance(13, board);
 			break;
 
