@@ -163,13 +163,13 @@ public class learningStudentMM extends TransactionExe {
 				board = new BoardBean();
 				board.setRoomCode(boardList.get(0).getRoomCode());
 				board.setYearCode(yearCode.get(i).getYearCode());
-				System.out.println(yearCode.get(i).getYearCode());
-				System.out.println(boardList.get(0).getRoomCode());
+				board.setStudentCode((String)session.getAttribute("stCode"));
 				sb.append("<option>"+yearCode.get(i).getYearCode()+"</option>");
-
+				
 				typeSum = dao.learningWANstTypeSum(board);
 				
 				sum.append("<br><biv id='"+yearCode.get(i).getYearCode().substring(0, 4)+"' >");
+
 				for(int y = 0; y < typeSum.size(); y++) {
 					board = new BoardBean();
 					board.setRoomCode(boardList.get(0).getRoomCode());
@@ -182,7 +182,10 @@ public class learningStudentMM extends TransactionExe {
 
 				}
 				sum.append("</biv>");
-
+				
+				if(i == 0) {
+					mav.addObject("lowest", yearCode.get(i).getYearCode());
+				}
 			}
 
 			sb.append("</select>");
@@ -191,6 +194,10 @@ public class learningStudentMM extends TransactionExe {
 			mav.addObject("typeSumb", sum.toString());
 			
 			/////////////////////////////////////////////////////////////////////////
+			
+			
+			
+			////////////////////////////////////////////////////////////////////////
 			
 			mav.addObject("content", "");
 			

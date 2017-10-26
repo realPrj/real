@@ -534,7 +534,7 @@
 	<!-- 학생 년도별 문제유형별 합 -->
 	<select id="learningWANstTypeSum" resultType="board"
 		parameterType="board">
-		SELECT
+			SELECT
 		WAN_QTSTYPECODE AS typeCode
 		,COUNT(WAN_QTSTYPECODE) AS
 		typeSum
