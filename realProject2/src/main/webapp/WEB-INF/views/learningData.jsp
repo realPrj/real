@@ -40,40 +40,42 @@
 
 	}
 	//메뉴선택
-	function menu(ivalue){
-		
+	function menu(ivalue) {
+
 		createinput("hidden", "caCode", ivalue);
-		
+
 		var caCode = document.getElementsByName("caCode")[0];
-		
-		createForm("menuform","tcmenu","post");
-		
+
+		createForm("menuform", "tcmenu", "post");
 
 		var form = document.getElementsByName("menuform")[0];
 		form.appendChild(caCode);
 		
 		form.submit();
+
+	}
+
+	function viewData(referCode, referDate, referTitle) {
+		
+		createinput("hidden", "boardTitle", boardTitle);
+		createinput("hidden", "boardDate", boardDate);
+		createinput("hidden", "roomCode", roomCode);
+
+		var boardTitle = document.getElementsByName("boardTitle")[0];
+		var boardDate = document.getElementsByName("boardDate")[0];
+		var roomCode = document.getElementsByName("roomCode")[0];
+		
+		createForm("learningDataCXTform", "learningDataCXT", "post");
+
+		var form = document.getElementsByName("learningDataCXTform")[0];
+		
+		form.appendChild(boardTitle);
+		form.appendChild(boardDate);
+		form.appendChild(roomCode);
+
+		form.submit();
 		
 	}
-	
-	function viewData(referCode,referDate,referTitle){
-	       alert(referCode,referTitle,referDate);
-	      createinput("hidden","boardTitle",referTitle);
-	      
-	      var referenceTitle = document.getElementsByName("boardTitle")[0];
-	      var referenceDate = document.getElementsByName("boardDate")[0];
-	      var referenceCode = document.getElementsByName("boardCode")[0];
-	      
-	      createForm("learningDataCXTform","learningDataCXT","post");
-	      
-	      var form = document.getElementsByName("learningDataCXTform")[0];
-	      
-	      form.appenChild(referenceTitle);
-	      form.appenChild(referenceDate);
-	      form.appenChild(referenceCode);
-	      
-	      form.submit
-	   }
 	
 </script>
 <body onLoad="${message}">
@@ -89,12 +91,11 @@
 		</tr>
 	</table>
 	<div>
-		<input type="button" value="자료실"
-			onClick="menu('10')" /> <input
+		<input type="button" value="자료실" onClick="menu('10')" /> <input
 			type="button" value="자료실 글쓰러가기"
 			onClick="eventClick('dataform','DataInsert','post')" />
 	</div>
-
+	<div>${content}</div>
 	${datalist }
 
 </body>

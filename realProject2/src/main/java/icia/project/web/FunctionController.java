@@ -340,10 +340,20 @@ public class FunctionController {
 
 	// 자료실 글쓰기
 	@RequestMapping(value = "/learningDataInsert", method = RequestMethod.POST)
-	public ModelAndView requestupload2(@ModelAttribute BoardBean board,MultipartHttpServletRequest mtfRequest)throws Exception{      
+	public ModelAndView learningDataInsert(@ModelAttribute BoardBean board,MultipartHttpServletRequest mtfRequest)throws Exception{      
 		board.setId((String)session.getAttribute("tcId"));
 
 		mav = ltm.entrance(12, board, mtfRequest);
+
+		return mav;
+	}
+
+	// 자료실 자세히보 기
+	@RequestMapping(value = "/learningDataCXT", method = RequestMethod.POST)
+	public ModelAndView learningDataCXT(@ModelAttribute BoardBean board)throws Exception{      
+		board.setId((String)session.getAttribute("tcId"));		 
+		System.out.println(board.getBoardTitle());
+		mav = ltm.entrance(14, board);
 
 		return mav;
 	}
@@ -353,15 +363,11 @@ public class FunctionController {
 	public ModelAndView tclearningNoticeUpdateOk(@ModelAttribute BoardBean board,MultipartHttpServletRequest mtfRequest)throws Exception{      
 
 		mav = ltm.entrance(12, board, mtfRequest);
+		System.out.println("ddd");
 
 		return mav;
 	}
 	
-
-
-
-
-
 
 
 
