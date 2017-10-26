@@ -163,7 +163,6 @@ public class learningTeacherMM extends TransactionExe {
 
 	private String tclearningNoticeList(BoardBean board, ArrayList<BoardBean> ar) { // 공지사항 리스트
 		StringBuffer sb = new StringBuffer();
-
 		sb.append("<table>");
 		sb.append("<tr>");
 		sb.append("<td>제목</td>");
@@ -180,7 +179,7 @@ public class learningTeacherMM extends TransactionExe {
 		}
 		sb.append("</table>");
 		sb.append("<input type=\"button\" value=\"글쓰기\" onClick=\"noticeInsert()\"/>");
-
+		
 		return sb.toString();
 	}
 
