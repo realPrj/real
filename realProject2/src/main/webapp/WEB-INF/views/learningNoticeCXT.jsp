@@ -23,7 +23,7 @@ function menu(ivalue){
 	document.menuform.submit();
 	
 }
-function update(boardTitle, boardContent, boardRoute){
+function update(boardTitle, boardContent, boardDate){
 	var f = document.createElement("form");
 	f.name = "noticeUpdate";
 	f.method = "post";
@@ -42,6 +42,12 @@ function update(boardTitle, boardContent, boardRoute){
 	content.name = "boardContent";
 	content.value = boardContent;
 	f.appendChild(content);
+	
+	var date = document.createElement("input");
+	date.type = "hidden";
+	date.name = "boardDate";
+	date.value = boardDate;
+	f.appendChild(date);
 	
 	document.noticeUpdate.submit();
 	
