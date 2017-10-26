@@ -1,6 +1,9 @@
 package icia.project.web;
 
+import java.io.File;
 import java.util.Locale;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -8,9 +11,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import icia.project.bean.BoardBean;
+import icia.project.bean.DbBoardBean;
 import icia.project.bean.LearningRoomBean;
 import icia.project.bean.MemberBean;
 import icia.project.services.PageManagement;
@@ -398,5 +403,18 @@ public class HomeController  {
 	}
 
 
-
+	    @RequestMapping(value = "/download", method = RequestMethod.GET)
+	    public ModelAndView download(@RequestParam("name") String name){
+	    	System.out.println(name);
+	        ModelAndView mav = new ModelAndView();
+	        //파라미터를 이용하여 file객체 생성
+	        /*File f = new File("c:\\"+name);*/
+	        //file 객체를 저장
+	        /*mav.addObject("download",f);*/
+	        //출력할 뷰이름 설정
+	        mav.setViewName("download");
+	        return mav;
+	        
+	    }
+	
 }

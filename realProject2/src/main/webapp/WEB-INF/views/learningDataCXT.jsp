@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<!DOCTYPE html>
+	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta charset="UTF-8">
@@ -53,28 +55,6 @@
 		
 		form.submit();
 
-	}
-
-	function viewData(referCode, referDate, referTitle) {
-		
-		createinput("hidden", "boardTitle", boardTitle);
-		createinput("hidden", "boardDate", boardDate);
-		createinput("hidden", "roomCode", roomCode);
-
-		var boardTitle = document.getElementsByName("boardTitle")[0];
-		var boardDate = document.getElementsByName("boardDate")[0];
-		var roomCode = document.getElementsByName("roomCode")[0];
-		
-		createForm("learningDataCXTform", "learningDataCXT", "post");
-
-		var form = document.getElementsByName("learningDataCXTform")[0];
-		
-		form.appendChild(boardTitle);
-		form.appendChild(boardDate);
-		form.appendChild(roomCode);
-
-		form.submit();
-		
 	}
 	
 </script>
