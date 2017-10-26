@@ -28,6 +28,8 @@
 		input.value = ivalue;
 
 		document.body.appendChild(input);
+		
+		return input;
 	}
 
 	function eventClick(formname, formaction, formmethod) {
@@ -55,20 +57,23 @@
 
 	}
 
-	function viewData(referCode, referDate, referTitle) {
-		
-		createinput("hidden", "boardTitle", boardTitle);
-		createinput("hidden", "boardDate", boardDate);
-		createinput("hidden", "roomCode", roomCode);
-
-		var boardTitle = document.getElementsByName("boardTitle")[0];
-		var boardDate = document.getElementsByName("boardDate")[0];
-		var roomCode = document.getElementsByName("roomCode")[0];
+	function viewData(referCode, referTitle, referDate) {
+		alert(referCode);
+		alert(referTitle);
+		alert(referDate);
+		createinput("hidden", "boardTitle", referTitle);
+		createinput("hidden", "boardDate", referDate);
+		createinput("hidden", "roomCode", referCode);
 		
 		createForm("learningDataCXTform", "learningDataCXT", "post");
 
 		var form = document.getElementsByName("learningDataCXTform")[0];
 		
+		var boardTitle = document.getElementsByName("boardTitle")[0];
+		var boardDate = document.getElementsByName("boardDate")[0];
+		var roomCode = document.getElementsByName("roomCode")[0];
+		
+	
 		form.appendChild(boardTitle);
 		form.appendChild(boardDate);
 		form.appendChild(roomCode);

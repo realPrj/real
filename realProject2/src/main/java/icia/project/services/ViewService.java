@@ -5,23 +5,30 @@ import java.util.ArrayList;
 import java.util.List;
  
 import org.springframework.stereotype.Service;
+
+import icia.project.bean.BoardBean;
+import icia.project.bean.DbBoardBean;
  
 @Service
 public class ViewService{
  
-    public List<String> getList() {
+    public List<String> getList(DbBoardBean bb) {
+    	
         List<String> list = new ArrayList<String>();
-        File f = new File("E:\\eclipse\\test123456\\WebContent\\WEB-INF\\uploadFiles");
-        //f에 모든 하위 디렉토리 및 파일이름 가져오기
+        
+        File f = new File(bb.getRoomIntroduction());    	// 루트경로만
+     
         String[] names = f.list();
-        //이름 들 중에서 . 이있는 이름만 list에 추가하기
-        for(String sub : names){
-            if(sub.indexOf(".") != -1){
-                list.add(sub);
+
+        String fileName = bb.getBoardContent();	// 파일이름만
+
+        for(int i = 0; i < names.length; i++){
+            if(names[i].lastIndexOf(fileName) == 0){	//	파일이름 추출
+                list.add(names[i]);						// 파일담기
+                
             }
         }
-    
-        System.out.println(list);
+
         return list;
     }
  
