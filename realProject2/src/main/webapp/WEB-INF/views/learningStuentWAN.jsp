@@ -54,7 +54,7 @@ $(document).ready(function() {
 년도 선택${yearSelect }
 ${typeSumb }
 <div id="divbox"></div>
-
 ${content }
+${average }
 </body>
 </html>

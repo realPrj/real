@@ -186,5 +186,20 @@ public interface IMybatis {
 	// 자료실 글삭제
 	public int learningDataDelete(BoardBean board);
 
+	// 학습방 오답문제 총 평균 구하기1 (학년 총 질문수)
+	public int learningWANstAverage1(BoardBean board);
+
+	// 학습방 오답문제 총 평균 구하기2 (학년 총 인원수) 
+	public int learningWANstAverage2(BoardBean board);
+
+	// 학습방 오답문제 총 평균 구하기3 ( 방 학년 총 질문수)
+	public int learningWANstAverage3(BoardBean board);
+
+	// 학습방 오답문제 총 평균 구하기4 ( 방 학년 총 인원수)
+	public int learningWANstAverage4(BoardBean board);
+
+	// 학습방 오답문제 총 평균 구하기5 학생(본인) 오답노트 추출 (중복제외)
+	public ArrayList<BoardBean> learningWANstListGetOverlap(BoardBean board);
+
 
 }
