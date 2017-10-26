@@ -363,6 +363,7 @@ public class FunctionController {
 	public ModelAndView tclearningNoticeUpdateOk(@ModelAttribute BoardBean board,MultipartHttpServletRequest mtfRequest)throws Exception{      
 
 		mav = ltm.entrance(12, board, mtfRequest);
+		System.out.println("ddd");
 
 		return mav;
 	}
