@@ -38,10 +38,27 @@ public class DbBoardBean {	// 게시판 bean
 	private String boardId; // 게시글 작성자
 	private String boardDate;	// 게시글 날짜
 	
-	
+	private String cutRoute;
+	private String cutContent;
 
 
 	
+	public String getCutRoute() {
+		return cutRoute;
+	}
+
+	public void setCutRoute(String cutRoute) {
+		this.cutRoute = cutRoute;
+	}
+
+	public String getCutContent() {
+		return cutContent;
+	}
+
+	public void setCutContent(String cutContent) {
+		this.cutContent = cutContent;
+	}
+
 	public String getTypeSum() {
 		return typeSum;
 	}

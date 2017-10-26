@@ -398,13 +398,13 @@ public class HomeController  {
 
 
 	    @RequestMapping(value = "/download", method = RequestMethod.GET)
-	    public ModelAndView download(@RequestParam("name") String name){
-	    	System.out.println(name);
+	    public ModelAndView download(@RequestParam("name") String file){
+	    	System.out.println(file);
 	        ModelAndView mav = new ModelAndView();
 	        //파라미터를 이용하여 file객체 생성
-	        /*File f = new File("c:\\"+name);*/
+	        File f = new File("E:\\realTest\\realProject2\\src\\main\\webapp\\WEB-INF\\uploadFiles\\Notice\\"+file);
 	        //file 객체를 저장
-	        /*mav.addObject("download",f);*/
+	        mav.addObject("download",f);
 	        //출력할 뷰이름 설정
 	        mav.setViewName("download");
 	        return mav;
