@@ -364,7 +364,7 @@
 	<select id="datalist" resultType="board" parameterType="board">
 		SELECT
 		RR_TITLE AS boardTitle,TO_CHAR(RR_DATE, 'YYYYMMDDHH24MISS') AS
-		boardDate,RR_TCID AS boardId
+		boardDate,RR_TCID AS boardId,RR_LRCODE AS roomCode
 		FROM REFERENCE
 		WHERE
 		RR_TCID=#{id} AND RR_LRCODE=#{roomCode}
@@ -442,6 +442,19 @@
 		VALUES(#{roomCode}, #{boardTitle}, #{boardContent}, SYSDATE,
 		#{boardRoute}, #{boardId})
 	</insert>
+	<!-- 자료실 전체보기 view -->
+	<select id="learningDataCXT" resultType="board" parameterType="board">
+		SELECT
+		RR_TITLE AS boardTitle,RR_DATE AS boardDate,
+		RR_CONTENCT AS boardContent,RR_ROUTE AS boardRoute,
+		RR_TCID AS boardId
+		FROM REFERENCE
+		WHERE
+		RR_TCID=#{id} 
+		AND RR_LRCODE=#{roomCode} 
+		AND RR_DATE=TO_DATE(#{boardDate},'YYYY-MM-DD HH24:MI:SS')
+		AND RR_TITLE=#{boardTitle}
+	</select> 
 
 
 </mapper>
