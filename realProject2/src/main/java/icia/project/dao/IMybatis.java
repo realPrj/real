@@ -164,4 +164,20 @@ public interface IMybatis {
 	// 선생님 공지사항 글 수정하기
 	public int tclearningNoticeUpdate(BoardBean board);
 
+	// 학생 이름 추출
+	public String stNameGet(BoardBean board);
+
+	// 학생이 물어본 문제수
+	public int allWANSum(BoardBean board);
+
+	// 학생 오답노트(전체) 페이지 이동
+	public ArrayList<BoardBean> learningWANstListGet(BoardBean board);
+	
+	// 학생 중복 년도 코드 추출
+	public ArrayList<BoardBean> learningWANstYearCodeOneGet(BoardBean board);
+	
+	// 학생 년도별 문제유형 합
+	public ArrayList<BoardBean> learningWANstTypeSum(BoardBean board);
+
+
 }

@@ -331,7 +331,7 @@ public class HomeController  {
 	@RequestMapping(value = "/studentLearningMainPage", method = RequestMethod.POST)
 	public ModelAndView studentLearningMainPage(@ModelAttribute LearningRoomBean room) {
 
-		mav = pm.entrance(3, room);
+		mav = pm.entrance(4, room);
 
 		return mav;
 	}
