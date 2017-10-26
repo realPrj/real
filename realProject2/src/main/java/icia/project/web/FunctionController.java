@@ -370,7 +370,17 @@ public class FunctionController {
 		return mav;
 	}
 	
+	// 공지사항 삭제
+	@RequestMapping(value = "/NoticeDelete", method = RequestMethod.POST)
+	public ModelAndView tclearningNoticeDelete(@ModelAttribute BoardBean board){      
 
+		System.out.println("공지사항 삭제 컨트롤러 :" + board.getRoomCode());
+		ltm.entrance(31, board);
+		
+		mav = ltm.entrance(3, board);
+
+		return mav;
+	}
 
 
 

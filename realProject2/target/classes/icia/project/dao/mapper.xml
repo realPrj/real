@@ -471,6 +471,12 @@
 		WHERE NT_LRCODE = #{roomCode} AND NT_DATE =
 		TO_DATE(#{boardDate},'YYYY-MM-DD HH24:MI:SS')
 	</update>
+	
+	<!-- 선생님 공지사항 삭제 -->
+	<delete id="tclearningNoticeDelete" parameterType="board">
+		DELETE FROM NOTICE WHERE NT_LRCODE = #{roomCode} AND NT_DATE = TO_DATE(#{boardDate},'YYYY-MM-DD HH24:MI:SS')
+	</delete>
+
 
 	<!-- 학생 이름 추출 -->
 	<select id="stNameGet" resultType="String" parameterType="board">
