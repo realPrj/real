@@ -109,9 +109,6 @@ public class learningStudentMM extends TransactionExe {
 
 			break;
 			
-		case 30:	// 선생님 공지사항 수정
-
-			break;
 
 
 		}
