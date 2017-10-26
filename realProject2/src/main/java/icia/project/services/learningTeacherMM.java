@@ -117,6 +117,10 @@ public class learningTeacherMM extends TransactionExe {
 		case 21:	// 오답노트 코멘트 삭제
 			mav = learningWANCMDelete((BoardBean)object[0]);
 			break;
+			
+		case 30:	// 선생님 공지사항 수정
+			mav = tclearningNoticeUpdate((BoardBean)object[0]);
+			break;
 
 
 		}
@@ -227,7 +231,7 @@ public class learningTeacherMM extends TransactionExe {
 		sb.append("</tr>");
 		sb.append("</table>");
 		sb.append("<input type=\"button\" value=\"목록\" onClick=\"menu('3')\"/>");
-		sb.append("<input type=\"button\" value=\"수정\" onClick=\"update('"+ board.getBoardTitle() +"','"+ board.getBoardContent() +"','"+ board.getBoardRoute() +"')\"/>");
+		sb.append("<input type=\"button\" value=\"수정\" onClick=\"update('"+ board.getBoardTitle() +"','"+ board.getBoardContent() +"','"+ board.getBoardDate() +"')\"/>");
 		sb.append("<input type=\"button\" value=\"삭제\" onClick=\"menu('3')\"/>");
 		return sb.toString();
 	}
@@ -799,6 +803,7 @@ public class learningTeacherMM extends TransactionExe {
 
 			mav.addObject("boardTitle", board.getBoardTitle());
 			mav.addObject("boardContent", board.getBoardContent());
+			System.out.println("공지사항 수정:" + board.getBoardDate());
 
 
 			transaction = true;
@@ -813,6 +818,30 @@ public class learningTeacherMM extends TransactionExe {
 		}
 		return mav;
 
+	}
+	
+	private ModelAndView tclearningNoticeUpdate(BoardBean board) {	// 선생님 공지사항 수정
+		mav = new ModelAndView();
+		boolean transaction = false;
+		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
+
+		try {
+			session.getAttribute("roomCode");
+
+			
+
+
+			transaction = true;
+
+		}catch(Exception ex){
+
+		}finally {
+
+
+			mav.setViewName("learningNoticeUpdate");
+			setTransactionResult(transaction);
+		}
+		return mav;
 	}
 
 

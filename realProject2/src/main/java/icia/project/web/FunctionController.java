@@ -362,8 +362,7 @@ public class FunctionController {
 	@RequestMapping(value = "/NoticeUpdate", method = RequestMethod.POST)
 	public ModelAndView tclearningNoticeUpdateOk(@ModelAttribute BoardBean board,MultipartHttpServletRequest mtfRequest)throws Exception{      
 
-		mav = ltm.entrance(12, board, mtfRequest);
-		System.out.println("ddd");
+		mav = ltm.entrance(30, board);
 
 		return mav;
 	}
