@@ -15,7 +15,7 @@ import org.springframework.web.servlet.view.AbstractView;
 public class DownloadView extends AbstractView {
 
 	// 생성자
-	public DownloadView() {
+	public DownloadView () {
 		// 뷰의 출력 형식을 설정
 		setContentType("application/download; charset=utf-8");
 	}
@@ -24,7 +24,7 @@ public class DownloadView extends AbstractView {
 	protected void renderMergedOutputModel(Map<String, Object> model, HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		// 저장된 데이터를 불러오기 ㅣ- Controller에서 동일한 이름으로 저장
-		File file = (File) model.get("downloadFile");
+		File file = (File) model.get("download");
 
 		// 응답 화면의 타입과 크기 설정
 		response.setContentLength((int) file.length());

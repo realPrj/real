@@ -58,9 +58,6 @@
 	}
 
 	function viewData(referCode, referTitle, referDate) {
-		alert(referCode);
-		alert(referTitle);
-		alert(referDate);
 		createinput("hidden", "boardTitle", referTitle);
 		createinput("hidden", "boardDate", referDate);
 		createinput("hidden", "roomCode", referCode);

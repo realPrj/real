@@ -569,6 +569,16 @@
 		WAN_QTSTYPECODE ASC
 	</select>
 
+	<!-- 자료실 글삭제 -->
+	<delete id="learningDataDelete" parameterType="board">
+		DELETE
+		REFERENCE
+		WHERE RR_LRCODE=#{roomCode} 
+		AND RR_TITLE = #{boardTitle} 
+		AND RR_TCID = #{boardId}
+		AND RR_DATE = TO_DATE(#{boardDate},'YYYY-MM-DD HH24:MI:SS')
+	</delete>
+
 	<!-- 학습방 오답문제 총 평균 구하기1 (학년 총 질문수) -->
 	<select id="learningWANstAverage1" resultType="Integer"
 		parameterType="board">

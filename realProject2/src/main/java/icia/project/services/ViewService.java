@@ -16,11 +16,11 @@ public class ViewService{
     	
         List<String> list = new ArrayList<String>();
         
-        File f = new File(bb.getRoomIntroduction());    	// 루트경로만
+        File f = new File(bb.getCutRoute());    	// 루트경로만
      
         String[] names = f.list();
 
-        String fileName = bb.getBoardContent();	// 파일이름만
+        String fileName = bb.getCutContent();	// 파일이름만
 
         for(int i = 0; i < names.length; i++){
             if(names[i].lastIndexOf(fileName) == 0){	//	파일이름 추출

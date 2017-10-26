@@ -381,6 +381,17 @@ public class FunctionController {
 
 		return mav;
 	}
+	// 자료실 삭제
+		@RequestMapping(value = "/learningDataDelete", method = RequestMethod.POST)
+		public ModelAndView learningDataDelete(@ModelAttribute BoardBean board){      
+
+			System.out.println("자료실  삭제 컨트롤러 :" + board.getRoomCode());
+			ltm.entrance(15, board);
+			
+			mav = ltm.entrance(13, board);
+
+			return mav;
+		}
 
 
 

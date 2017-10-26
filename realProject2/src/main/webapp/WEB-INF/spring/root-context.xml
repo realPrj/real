@@ -44,6 +44,6 @@
 	</beans:bean>
 	<!-- download라는 뷰 이름이 왔을 때 출력할 뷰를 설정 -->
 
-	<beans:bean id="downloadFile" class="icia.project.services.DownloadView">
+	<beans:bean id="download" class="icia.project.services.DownloadView">
 	</beans:bean>
 </beans>

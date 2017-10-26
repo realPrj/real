@@ -96,8 +96,8 @@ public class learningTeacherMM extends TransactionExe {
 			break;
 
 
-		case 15:	
-
+		case 15:	//자료실 글삭제하기
+			mav = learningDataDelete((BoardBean)object[0]);
 			break;
 
 		case 16:	
@@ -121,11 +121,11 @@ public class learningTeacherMM extends TransactionExe {
 		case 21:	// 오답노트 코멘트 삭제
 			mav = learningWANCMDelete((BoardBean)object[0]);
 			break;
-			
+
 		case 30:	// 선생님 공지사항 수정
 			mav = tclearningNoticeUpdate((BoardBean)object[0]);
 			break;
-			
+
 		case 31:	// 선생님 공지사항 삭제
 			mav = tclearningNoticeDelete((BoardBean)object[0]);
 			break;
@@ -184,7 +184,7 @@ public class learningTeacherMM extends TransactionExe {
 		}
 		sb.append("</table>");
 		sb.append("<input type=\"button\" value=\"글쓰기\" onClick=\"noticeInsert()\"/>");
-		
+
 		return sb.toString();
 	}
 
@@ -336,7 +336,7 @@ public class learningTeacherMM extends TransactionExe {
 
 				}
 				sum.append("</div>");
-				
+
 				if(i == 0) {
 					mav.addObject("lowest", yearCode.get(i).getYearCode());
 				}
@@ -415,12 +415,14 @@ public class learningTeacherMM extends TransactionExe {
 		mav = new ModelAndView();
 		boolean transaction = false;
 		fileupload(board,mtfRequest);
-		System.out.println(board.getBoardRoute());
+
 
 		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
 		try {			
 			board.setRoomCode((String)session.getAttribute("roomCode"));
 			board.setId((String)session.getAttribute("tcId"));
+			System.out.println("방코드는 시발 어디감?");
+			System.out.println(board.getRoomCode());
 			session.getAttribute("roomCode");
 			if(dao.referenceInsert(board) != 0) {
 				System.out.println("나 성공햇다 ");
@@ -428,7 +430,8 @@ public class learningTeacherMM extends TransactionExe {
 			}else {
 				System.out.println("실패");
 			}
-		}catch(Exception ex){
+		}
+		catch(Exception ex){
 			ex.printStackTrace();
 		}finally {
 			setTransactionResult(transaction);
@@ -569,7 +572,7 @@ public class learningTeacherMM extends TransactionExe {
 		List<MultipartFile> fileList = mtfRequest.getFiles("file");
 		String load = mtfRequest.getParameter("load");
 		String path = "E:\\realTest\\realProject2\\src\\main\\webapp\\WEB-INF\\uploadFiles\\"+load+"\\";
-		
+
 		System.out.println(board.getBoardRoute());
 		for (MultipartFile mf : fileList) {
 			String originFileName = mf.getOriginalFilename(); // 원본 파일 명
@@ -720,7 +723,7 @@ public class learningTeacherMM extends TransactionExe {
 	}
 
 	private ModelAndView learningDataCXT(BoardBean board) { // 자료실 페이지 자세히 보기
-		
+
 		ViewService view = new ViewService(); 
 		mav = new ModelAndView();
 		boolean transaction = false;
@@ -736,24 +739,30 @@ public class learningTeacherMM extends TransactionExe {
 			board.setRoomCode((String)session.getAttribute("roomCode"));
 
 			//mav.addObject("content",session.getAttribute("roomCode") + "의 공지사항");
-			System.out.println(board.getBoardDate());
-			System.out.println(board.getBoardTitle());
-			System.out.println((String)session.getAttribute("roomCode"));
-			
-			
-			
-			DbBoardBean bb = dao.learningDataCXT(board);	// 전체 루트(파일이름까지)
-			
-			bb.setRoomIntroduction(bb.getBoardRoute().substring(0,68));	// 루트만
-			String route = bb.getBoardRoute();
 
-			bb.setBoardContent(bb.getBoardRoute().substring(68));	// 파일이름
+			System.out.println((String)session.getAttribute("roomCode"));
+
+
+
+			DbBoardBean bb = dao.learningDataCXT(board);	// 전체 루트(파일이름까지)
+
+			bb.setCutRoute(bb.getBoardRoute().substring(0,68));	// 루트만
+			String route = bb.getCutRoute();
+
+			bb.setCutContent(bb.getBoardRoute().substring(68));	// 파일이름
 
 			List<String> list = view.getList(bb);
 			mav.addObject("list",list);
 			mav.addObject("theme",bb.getBoardTitle());
-			System.out.println("저장");
-		/*	sb.append("<table>");
+			mav.addObject("content",bb.getBoardContent());
+			mav.addObject("date",bb.getBoardDate());
+			mav.addObject("writeId",bb.getBoardId());
+			mav.addObject("route",route);
+			mav.addObject("file",bb.getCutContent());
+			System.out.println((String)session.getAttribute("roomCode"));
+			mav.addObject("roomcode",session.getAttribute("roomCode"));
+
+			/*	sb.append("<table>");
 			sb.append("<tr>");
 			sb.append("<td>");
 			sb.append("제목");
@@ -769,7 +778,7 @@ public class learningTeacherMM extends TransactionExe {
 			sb.append("내용");
 			sb.append("</td>");
 			sb.append("<td>");
-			
+
 			sb.append(bb.getBoardContent());
 			sb.append("</td>");
 			sb.append("</tr>");
@@ -801,10 +810,9 @@ public class learningTeacherMM extends TransactionExe {
 			sb.append("</td>");
 			sb.append("</tr>");
 			sb.append("</table>");
-		  */
+			 */
 
-			mav.addObject("message", message);
-			mav.addObject("dataViewList");
+
 			mav.setViewName("learningDataCXT");
 			transaction = true;
 
@@ -832,7 +840,7 @@ public class learningTeacherMM extends TransactionExe {
 
 			mav.addObject("boardTitle", board.getBoardTitle());
 			mav.addObject("boardContent", board.getBoardContent());
-			
+
 			sb.append("<input type=\"hidden\" name=\"boardDate\" value='"+ board.getBoardDate() +"'/>");
 			mav.addObject("boardDate", sb.toString());
 			transaction = true;
@@ -846,7 +854,7 @@ public class learningTeacherMM extends TransactionExe {
 		return mav;
 
 	}
-	
+
 	private ModelAndView tclearningNoticeUpdate(BoardBean board) {	// 선생님 공지사항 수정
 		mav = new ModelAndView();
 		boolean transaction = false;
@@ -865,7 +873,7 @@ public class learningTeacherMM extends TransactionExe {
 		}
 		return mav;
 	}
-	
+
 	private ModelAndView tclearningNoticeDelete(BoardBean board) { // 선생님 공지사항 삭제
 		mav = new ModelAndView();
 		boolean transaction = false;
@@ -882,6 +890,29 @@ public class learningTeacherMM extends TransactionExe {
 		}finally {
 			setTransactionResult(transaction);
 		}
+		return mav;
+	}
+	private ModelAndView learningDataDelete(BoardBean board) { // 선생님 자료실 삭제
+		mav = new ModelAndView();
+		boolean transaction = false;
+		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
+	
+		try {	
+			
+			System.out.println("자료실  코드삭제 서비스 :" + board.getRoomCode());
+			System.out.println("자료실  날짜삭제 서비스 :" + board.getBoardDate());
+			System.out.println("자료실  제목 삭제 서비스 :" + board.getBoardTitle());
+			System.out.println("자료실  글쓴이 아이디 삭제 서비스 :" + board.getBoardId());
+			if(dao.learningDataDelete(board) != 0) {
+				transaction = true;
+				System.out.println("나 삭제햇어 진짜");
+			}
+		}catch(Exception ex){
+			ex.printStackTrace();
+		}finally {
+			setTransactionResult(transaction);
+		}
+		
 		return mav;
 	}
 }
