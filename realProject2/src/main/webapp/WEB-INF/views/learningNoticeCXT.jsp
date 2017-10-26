@@ -23,6 +23,29 @@ function menu(ivalue){
 	document.menuform.submit();
 	
 }
+function update(boardTitle, boardContent, boardRoute){
+	var f = document.createElement("form");
+	f.name = "noticeUpdate";
+	f.method = "post";
+	f.action = "NoticeUpdatePage";
+	document.body.appendChild(f);
+	
+	
+	var title = document.createElement("input");
+	title.type = "hidden";
+	title.name = "boardTitle";
+	title.value = boardTitle;
+	f.appendChild(title);
+	
+	var content = document.createElement("input");
+	content.type = "hidden";
+	content.name = "boardContent";
+	content.value = boardContent;
+	f.appendChild(content);
+	
+	document.noticeUpdate.submit();
+	
+}
 </script>
 </head>
 <body>

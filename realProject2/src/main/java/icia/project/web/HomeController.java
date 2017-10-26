@@ -191,7 +191,6 @@ public class HomeController  {
 		case 3 : 
 			// 공지사항
 			System.out.println(Integer.parseInt(board.getCaCode()));
-			System.out.println(board.getRoomCode());
 			mav = ltmm.entrance(3, board);
 			break;	
 		case 4 :	
@@ -386,6 +385,15 @@ public class HomeController  {
 
 		mav = ltmm.entrance(9, board);
 
+		return mav;
+	}
+	
+	// 공지사항 수정 페이지
+	@RequestMapping(value = "/NoticeUpdatePage", method = RequestMethod.POST)
+	public ModelAndView learningNoticeUpdate(@ModelAttribute BoardBean board) {
+
+		mav = ltmm.entrance(11, board);
+		
 		return mav;
 	}
 

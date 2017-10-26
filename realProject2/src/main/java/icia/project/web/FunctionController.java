@@ -221,15 +221,15 @@ public class FunctionController {
 	}
 
 	// 선생님 학습방 공지사항 글 등록
-	   @RequestMapping(value = "/learningBoardNoticeInsert", method = RequestMethod.POST)
-	   public ModelAndView  learningBoardNoticeInsert(BoardBean board) {
+	@RequestMapping(value = "/learningBoardNoticeInsert", method = RequestMethod.POST)
+	public ModelAndView  learningBoardNoticeInsert(BoardBean board) {
 
-	      ltm.entrance(10, board);
-	      
-	      mav = ltm.entrance(3, board);
+		ltm.entrance(10, board);
 
-	      return mav;
-	   }
+		mav = ltm.entrance(3, board);
+
+		return mav;
+	}
 
 	// 선생님 학습방 질문게시판 글 등록
 	@RequestMapping(value = "/learningBoardQueryInsert", method = RequestMethod.POST)
@@ -309,27 +309,27 @@ public class FunctionController {
 	// 오답노트 코멘트(선생님) 글 등록
 	@RequestMapping(value = "/learningWANCommentInsert", method = RequestMethod.POST)
 	public ModelAndView  learningWANCommentInsert(BoardBean board) {
-		
+
 		ltm.entrance(18, board);
 		mav = ltm.entrance(17, board);
 		mav.addObject("message", "alert('글 등록 되셨습니다.');");
 		return mav;
 	}
-	
+
 	// 오답노트 코멘트(선생님) 글 수정
 	@RequestMapping(value = "/learningWANCMUpdate", method = RequestMethod.POST)
 	public ModelAndView  learningWANCMUpdate(BoardBean board) {
-		
+
 		ltm.entrance(20, board);
 		mav = ltm.entrance(17, board);
 		mav.addObject("message", "alert('수정 되셨습니다.');");
 		return mav;
 	}
-	
+
 	// 오답노트 코멘트(선생님) 글 삭제
 	@RequestMapping(value = "/learningWANCMDelete", method = RequestMethod.POST)
 	public ModelAndView  learningWANCMDelete(BoardBean board) {
-		
+
 		ltm.entrance(21, board);
 		mav = ltm.entrance(17, board);
 		mav.addObject("message", "alert('삭제 되셨습니다.');");
@@ -339,19 +339,31 @@ public class FunctionController {
 
 
 	// 자료실 글쓰기
-	   @RequestMapping(value = "/learningDataInsert", method = RequestMethod.POST)
-	   public ModelAndView requestupload2(@ModelAttribute BoardBean board,MultipartHttpServletRequest mtfRequest)throws Exception{      
-	      board.setId((String)session.getAttribute("tcId"));
-	    
-	      mav = ltm.entrance(12, board, mtfRequest);
-	      
-	   return mav;
-	   }
-	   
-	   
-	   
-	   
-	   
-	   
-	   
+	@RequestMapping(value = "/learningDataInsert", method = RequestMethod.POST)
+	public ModelAndView requestupload2(@ModelAttribute BoardBean board,MultipartHttpServletRequest mtfRequest)throws Exception{      
+		board.setId((String)session.getAttribute("tcId"));
+
+		mav = ltm.entrance(12, board, mtfRequest);
+
+		return mav;
+	}
+	
+	// 공지사항 수정 완료
+	@RequestMapping(value = "/NoticeUpdate", method = RequestMethod.POST)
+	public ModelAndView tclearningNoticeUpdateOk(@ModelAttribute BoardBean board,MultipartHttpServletRequest mtfRequest)throws Exception{      
+
+		mav = ltm.entrance(12, board, mtfRequest);
+
+		return mav;
+	}
+	
+
+
+
+
+
+
+
+
+
 }

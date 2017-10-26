@@ -73,6 +73,10 @@ public class learningTeacherMM extends TransactionExe {
 		case 10: // 공지사항 글쓰기
 			mav = tclearningNoticeInsertOk((BoardBean)object[0]);
 			break;
+		
+		case 11: // 공지사항 수정 페이지
+			mav = tclearningNoticeUpdatePage((BoardBean)object[0]);
+			break;
 
 		case 12:	// 자료실 글쓰기
 			mtfRequest = ((MultipartHttpServletRequest)object[1]);
@@ -222,6 +226,8 @@ public class learningTeacherMM extends TransactionExe {
 		sb.append("</tr>");
 		sb.append("</table>");
 		sb.append("<input type=\"button\" value=\"목록\" onClick=\"menu('3')\"/>");
+		sb.append("<input type=\"button\" value=\"수정\" onClick=\"update('"+ board.getBoardTitle() +"','"+ board.getBoardContent() +"','"+ board.getBoardRoute() +"')\"/>");
+		sb.append("<input type=\"button\" value=\"삭제\" onClick=\"menu('3')\"/>");
 		return sb.toString();
 	}
 
@@ -700,6 +706,28 @@ public class learningTeacherMM extends TransactionExe {
 	}
 
 
+	private ModelAndView tclearningNoticeUpdatePage(BoardBean board) { // 공지사항 수정 페이지
+		mav = new ModelAndView();
+		boolean transaction = false;
+		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
+
+		try {
+			session.getAttribute("roomCode");
+
+			mav.addObject("boardTitle", board.getBoardTitle());
+			mav.addObject("boardContent", board.getBoardContent());
+
+			transaction = true;
+
+		}catch(Exception ex){
+
+		}finally {
+			mav.setViewName("learningNoticeUpdate");
+			setTransactionResult(transaction);
+		}
+		return mav;
+		
+	}
 
 
 }

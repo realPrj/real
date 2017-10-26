@@ -158,5 +158,7 @@ public interface IMybatis {
 	// 선생님 공지사항 글쓰기
 	public int tclearningNoticeInsert(BoardBean board);
 
+	// 선생님 공지사항 글 수정하기
+	public int tclearningNoticeUpdate(BoardBean board);
 
 }
