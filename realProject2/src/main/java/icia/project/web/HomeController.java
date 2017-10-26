@@ -39,7 +39,6 @@ public class HomeController  {
 	public ModelAndView home(Locale locale, Model model) {
 
 		mav = new ModelAndView();
-
 		mav.setViewName("home");
 
 		return mav;

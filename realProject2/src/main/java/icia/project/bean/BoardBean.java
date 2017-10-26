@@ -4,10 +4,6 @@ package icia.project.bean;
 import org.apache.ibatis.type.Alias;
 
 
-import java.util.Date;
-
-import org.apache.ibatis.type.Alias;
-
 @Alias("board")
 public class BoardBean {	// 게시판 bean
 	
@@ -38,10 +34,27 @@ public class BoardBean {	// 게시판 bean
 	private String boardId; // 게시글 작성자
 	private String boardDate;	// 게시글 날짜
 	
-	
+	private String stHalf;	// 학생 반
+	private String stNumber;	// 학생 번호
 
 
 	
+	public String getStHalf() {
+		return stHalf;
+	}
+
+	public void setStHalf(String stHalf) {
+		this.stHalf = stHalf;
+	}
+
+	public String getStNumber() {
+		return stNumber;
+	}
+
+	public void setStNumber(String stNumber) {
+		this.stNumber = stNumber;
+	}
+
 	public String getTypeSum() {
 		return typeSum;
 	}
