@@ -25,9 +25,8 @@ public class HomeController  {
 	private PageManagement pm;
 	@Autowired
 	private learningTeacherMM ltmm;
-
-	//@Autowired
-	//private learningStudentMM lsmm;
+	@Autowired
+	private learningStudentMM lsmm;
 
 	private ModelAndView mav;
 
@@ -269,7 +268,7 @@ public class HomeController  {
 			break;
 
 		case 7 : // 오답노트
-
+			mav = lsmm.entrance(7, null);
 			break;
 
 		case 8 : 	
@@ -373,10 +372,6 @@ public class HomeController  {
 		mav = ltmm.entrance(19, board);
 		return mav;
 	}
-
-
-
-
 
 	// 공지사항 글쓰기
 	@RequestMapping(value = "/NoticeInsert", method = RequestMethod.POST)
