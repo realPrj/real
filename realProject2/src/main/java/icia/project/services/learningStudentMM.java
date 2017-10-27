@@ -129,8 +129,8 @@ public class learningStudentMM extends TransactionExe {
 		StringBuffer sum;
 		boolean transaction = false;
 		String page = null;
-		int questionCount = 0;
-		int peopleCount = 0;
+		double questionCount = 0;
+		double peopleCount = 0;
 		double value1 = 0;
 		double value2 = 0;
 
@@ -294,13 +294,13 @@ public class learningStudentMM extends TransactionExe {
 				questionCount = dao.learningWANstAverage1(board);	// 학년 총 질문수				
 				peopleCount = dao.learningWANstAverage2(board);	// 학년 총 인원수
 
-				value1 = peopleCount / questionCount;
+				value1 = (questionCount / peopleCount) * 100;
 
 				questionCount = dao.learningWANstAverage3(board);	// 학습방 학년 총 질문수
 				peopleCount = dao.learningWANstAverage4(board);	// 학습방 학년 총 인원수
 				
-				value2 = peopleCount / questionCount;
-				
+				value2 = (questionCount / peopleCount) * 100;
+			
 				sb.append("<tr>");
 				
 				sb.append("<td>");
