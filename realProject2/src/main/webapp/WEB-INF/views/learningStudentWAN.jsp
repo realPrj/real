@@ -95,7 +95,7 @@ function commentCheck(valueCode){
 ${typeSumb }
 <div id="divbox"></div>
 
-<%@include file="test.jsp"%>
+<%@include file="learningWANgraph.jsp"%>
 
 ${content }
 ${average }
