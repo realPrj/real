@@ -420,8 +420,7 @@
 	</delete>
 
 	<!-- 선생님 공지사항 내용확인 -->
-	<select id="tclearningNoticeConfirm" resultType="board"
-		parameterType="board">
+	<select id="tclearningNoticeConfirm" resultType="dbBoard" parameterType="board">
 		SELECT NT_LRCODE AS roomCode, NT_TITLE AS boardTitle,
 		NT_DATE AS boardDate, NT_CONTENT AS boardContent, NT_ROUTE AS
 		boardRoute, NT_TCID AS boardId
@@ -682,19 +681,20 @@
 		COUNT(WAN_QTSTYPECODE) DESC
 		]]>
 	</select>
-	
+
 	<!-- 자료실 글수정 -->
 	<update id="learningDataUpdate" parameterType="board">
 		UPDATE REFERENCE
 		SET
 		RR_TITLE=#{boardTitle},RR_CONTENT=#{boardContent}
 		WHERE
-		RR_TCID = #{boardId}
+		RR_TCID =
+		#{boardId}
 		AND
 		RR_LRCODE =#{roomCode}
-		AND 
-		RR_DATE= TO_DATE(#{boardDate},'YYYY-MM-DD HH24:MI:SS')
-		
+		AND
+		RR_DATE=
+		TO_DATE(#{boardDate},'YYYY-MM-DD HH24:MI:SS')
 	</update>
 	<!-- 자료실 학생 리스트 -->
 	<select id="datalistStudent" resultType="board" parameterType="board">
@@ -705,6 +705,20 @@
 		WHERE
 		RR_LRCODE=#{roomCode}
 	</select>
+
+	<!-- 선생님 -> 학습방 학생코드 추출 -->
+	<select id="learningWANAllStudentCode" resultType="board"
+		parameterType="board">
+		SELECT
+		LSR_STRFSTUDENTCODE AS studentCode
+		FROM LEARNINGSTUDENTREGISTER
+		WHERE
+		LSR_LRCODE=#{roomCode}
+		ORDER
+		BY
+		LSR_STRFSTUDENTCODE ASC
+	</select>
+
 
 
 </mapper>
