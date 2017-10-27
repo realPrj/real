@@ -255,12 +255,11 @@ public class FunctionController {
 
 	// 토론 게시판 글 등록
 	@RequestMapping(value = "/learningDebateInsert", method = RequestMethod.POST)
-	public ModelAndView  learningDebateInsert(BoardBean board) {
+	public ModelAndView tclearningDebateInsert(@ModelAttribute BoardBean board) {
 
-		mav = new ModelAndView();		
-
-
-
+		System.out.println("토론게시판 내용삭제 컨트롤러" + board.getBoardDate());
+		ltm.entrance(36, board);
+		mav = ltm.entrance(32, board);
 		return mav;
 	}
 
@@ -385,7 +384,7 @@ public class FunctionController {
 	@RequestMapping(value = "/learningDataDelete", method = RequestMethod.POST)
 	public ModelAndView learningDataDelete(@ModelAttribute BoardBean board){      
 
-		
+
 
 		ltm.entrance(15, board);
 
@@ -398,20 +397,42 @@ public class FunctionController {
 	public ModelAndView learningDataUpdate(@ModelAttribute BoardBean board){     
 		ltm.entrance(16, board);
 
-	mav = ltm.entrance(13, board); // 다시 메뉴로 가기
+		mav = ltm.entrance(13, board); // 다시 메뉴로 가기
 
 		return mav;
 	}
 	// 자료실 자세히보기
-		@RequestMapping(value = "/learningDataCXTStudent", method = RequestMethod.POST)
-		public ModelAndView learningDataCXTStudent(@ModelAttribute BoardBean board)throws Exception{      
+	@RequestMapping(value = "/learningDataCXTStudent", method = RequestMethod.POST)
+	public ModelAndView learningDataCXTStudent(@ModelAttribute BoardBean board)throws Exception{      
 
 
-			mav = ltm.entrance(6, board);
+		mav = ltm.entrance(6, board);
 
-			return mav;
-		}
+		return mav;
+	}
 
+	// 선생님 토론게시판 내용수정 페이지
+	@RequestMapping(value = "/DebateUpdatePage", method = RequestMethod.POST)
+	public ModelAndView tclearningDebateUpdatePage(@ModelAttribute BoardBean board) {
+
+		mav = ltm.entrance(34, board);
+
+		return mav;
+	}
+
+	// 선생님 토론게시판 내용수정
+	@RequestMapping(value = "/DebateUpdate", method = RequestMethod.POST)
+	public ModelAndView tclearningDebateUpdate(@ModelAttribute BoardBean board) {
+
+		System.out.println("토론게시판 내용수정 컨트롤러" + board.getBoardDate());
+		ltm.entrance(35, board);
+
+		mav = ltm.entrance(32, board);
+		return mav;
+	}
+	
+	
+	
 
 
 

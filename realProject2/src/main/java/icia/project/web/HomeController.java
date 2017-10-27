@@ -280,7 +280,7 @@ public class HomeController  {
 			break;
 
 		case 8 : 	
-			
+
 			break;
 
 		case 9 : 
@@ -474,12 +474,35 @@ public class HomeController  {
 		}else {
 			System.out.println("asdf");
 			mav = ltmm.entrance(23, board);
-			
+
 		}
 
 
 		return mav;
 	}
+
+	// 선생님 토론게시판 내용확인
+	@RequestMapping(value = "/tcDebateConfirm", method = RequestMethod.POST)
+	public ModelAndView tclearningDebateCTX(@ModelAttribute BoardBean board) {
+
+		System.out.println("토론게시판 내용확인 컨트롤러" + board.getBoardDate());
+		mav = ltmm.entrance(33, board);
+
+		return mav;
+	}
+	
+	// 선생님 토론게시판 글등록 페이지
+	@RequestMapping(value = "/DebateInsert", method = RequestMethod.POST)
+	public ModelAndView tclearningDebateInsert(@ModelAttribute BoardBean board) {
+
+		System.out.println("토론게시판 내용확인 컨트롤러" + board.getBoardDate());
+		mav = ltmm.entrance(37, board);
+
+		return mav;
+	}
+	
+
+	
 
 
 

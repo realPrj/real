@@ -6,6 +6,8 @@ import java.util.ArrayList;
 
 import java.util.List;
 
+import javax.swing.plaf.synth.SynthSeparatorUI;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.TransactionDefinition;
@@ -151,8 +153,26 @@ public class learningTeacherMM extends TransactionExe {
 		case 32 : // 선생님 토론게시판 페이지
 			mav = tclearningDebatePage((BoardBean)object[0]);
 			break;
-
-
+			
+		case 33 : // 선생님 토론게시판 내용확인
+			mav = tclearningDebateCTX((BoardBean)object[0]);
+			break;
+			
+		case 34 : // 선생님 토론게시판 내용수정 페이지
+			mav = tclearningDebateUpdatePage((BoardBean)object[0]);
+			break;
+			
+		case 35 : // 선생님 토론게시판 내용수정
+			mav = tclearningDebateUpdate((BoardBean)object[0]);
+			break;
+			
+		case 36 : // 선생님 토론게시판 등록
+			mav = tclearningDebateInsert((BoardBean)object[0]);
+			break;
+			
+		case 37 : // 선생님 토론게시판 등록 페이지
+			mav = tclearningDebateInsertPage((BoardBean)object[0]);
+			break;
 
 		}
 
@@ -1048,30 +1068,8 @@ public class learningTeacherMM extends TransactionExe {
 	
 
 	
-	private ModelAndView tclearningDebatePage(BoardBean board) { // 선생님 토론 페이지
-		mav = new ModelAndView();
-		boolean transaction = false;
-
-		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
-
-		try {
-			session.getAttribute("roomCode");
-
-			mav.addObject("content",session.getAttribute("roomCode") + "의 토론게시판");
-
-			transaction = true;
-
-		}catch(Exception ex){
-
-		}finally {
-
-			mav.setViewName("learningDebate");
-			setTransactionResult(transaction);
-		}
-		return mav;
 	
-
-}
+	
 	private ModelAndView learningDataCXTStudent(BoardBean board) { // 자료실 페이지 자세히 보기
 
 		ViewService view = new ViewService(); 
@@ -1121,5 +1119,199 @@ public class learningTeacherMM extends TransactionExe {
 
 		return mav;
 	}
+	
+	private ModelAndView tclearningDebatePage(BoardBean board) { // 선생님 토론 페이지
+		mav = new ModelAndView();
+		boolean transaction = false;
+		ArrayList<BoardBean> ar = null;
+		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
 
+		try {
+			session.getAttribute("roomCode");
+			board.setRoomCode((String)session.getAttribute("roomCode"));
+			board.setId((String)session.getAttribute("identity"));
+			
+			ar = dao.tclearningDebateList(board);
+			
+			mav.addObject("content", tclearningDebateList(board,ar));
+
+			transaction = true;
+
+		}catch(Exception ex){
+
+		}finally {
+
+			mav.setViewName("learningDebate");
+			setTransactionResult(transaction);
+		}
+		return mav;
+	}
+	
+	private String tclearningDebateList(BoardBean board, ArrayList<BoardBean> ar) { // 토론게시판 리스트 출력
+		StringBuffer sb = new StringBuffer();
+		sb.append("<table>");
+		sb.append("<tr>");
+		sb.append("<td>제목</td>");
+		sb.append("<td>날짜</td>");
+		sb.append("<td>작성자</td>");
+		sb.append("</tr>");
+		for(int i=0; i<ar.size(); i++) {
+			sb.append("<tr>");	
+			//sb.append("<input type=\"hidden\" name=\"boardTitle\" value='" + board.getBoardTitle() + "'/>");
+			sb.append("<td onClick=\"confirm('"+ ar.get(i).getBoardTitle() +"','" + ar.get(i).getBoardDate() + "','"+ board.getId() +"')\">" + ar.get(i).getBoardTitle() + "</td>");
+			sb.append("<td>" + ar.get(i).getBoardDate() + "</td>");
+			sb.append("<td>" + ar.get(i).getBoardId() + "</td>");
+			sb.append("</tr>");
+		}
+		sb.append("</table>");
+		sb.append("<input type=\"button\" value=\"글쓰기\" onClick=\"debateInsert()\"/>");
+
+		return sb.toString();
+	}
+	
+	private ModelAndView tclearningDebateCTX(BoardBean board) { // 선생님 토론게시판 내용확인
+		mav = new ModelAndView();
+		boolean transaction = false;
+		
+		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
+		
+		try {
+			
+			session.getAttribute("roomCode");
+
+			board.setRoomCode((String)session.getAttribute("roomCode"));
+			
+			System.out.println("토론게시판 신분:"+session.getAttribute("identity"));
+			board = dao.tclearningDebateCTX(board);
+			board.setBoardCode((String)session.getAttribute("identity"));
+			System.out.println("보드한번더더더더더:"+board.getBoardCode());
+			
+			mav.addObject("content", getTclearningDebateCTX(board));
+			
+			transaction = true;
+
+		}catch(Exception ex){
+
+		}finally {
+			mav.setViewName("learningDebateCTX");
+			setTransactionResult(transaction);
+		}
+		return mav;
+	}
+	
+	private String getTclearningDebateCTX(BoardBean board) { // 토론게시판 내용 끌고오기
+		StringBuffer sb = new StringBuffer();
+		System.out.println("신분한번터 : " + board.getBoardCode());
+		sb.append("<table>");
+		sb.append("<tr>");
+		sb.append("<td>제목 : " + board.getBoardTitle() + "</td>");
+		sb.append("</tr>");
+		sb.append("<tr>");
+		sb.append("<td>작성일 : " + board.getBoardDate() + "</td>");
+		sb.append("</tr>");
+		sb.append("<tr>");
+		sb.append("<td>작성자 : " + board.getBoardId() + "</td>");
+		sb.append("</tr>");
+		sb.append("<tr>");
+		sb.append("<td>내용 : " + board.getBoardContent() + "</td>");
+		sb.append("</tr>");
+		sb.append("</table>");
+		sb.append("<input type=\"button\" value=\"목록\" onClick=\"menu('5','"+ board.getBoardCode() +"')\"/>");
+		sb.append("<input type=\"button\" value=\"수정\" onClick=\"update('"+ board.getBoardTitle() +"','"+ board.getBoardContent() +"','"+ board.getBoardDate() +"')\"/>");
+		sb.append("<input type=\"button\" value=\"삭제\" onClick=\"boardDelete('"+ board.getRoomCode() +"','"+ board.getBoardDate() +"')\"/>");
+		return sb.toString();
+	}
+	
+	private ModelAndView tclearningDebateUpdatePage(BoardBean board) { // 선생님 토론게시판 수정 페이지
+		mav = new ModelAndView();
+		StringBuffer sb = new StringBuffer();
+		boolean transaction = false;
+		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
+
+		try {
+			session.getAttribute("roomCode");
+
+			mav.addObject("boardTitle", board.getBoardTitle());
+			mav.addObject("boardContent", board.getBoardContent());
+
+			sb.append("<input type=\"hidden\" name=\"boardDate\" value='"+ board.getBoardDate() +"'/>");
+			mav.addObject("boardDate", sb.toString());
+			transaction = true;
+
+		}catch(Exception ex){
+
+		}finally {
+			mav.setViewName("learningDebateUpdate");
+			setTransactionResult(transaction);
+		}
+		return mav;
+	}
+	
+	private ModelAndView tclearningDebateUpdate(BoardBean board) { // 선생님 토론게시판 수정
+		mav = new ModelAndView();
+		boolean transaction = false;
+		
+		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
+
+		try {
+			session.getAttribute("roomCode");
+			board.setRoomCode((String)session.getAttribute("roomCode"));
+			if(dao.tclearningDebateUpdate(board) != 0) {
+				System.out.println("토론게시판 업데이트 완료");
+				transaction = true;
+			}
+		}catch(Exception ex){
+
+		}finally {
+			setTransactionResult(transaction);
+		}
+		return mav;
+	}
+	
+	private ModelAndView tclearningDebateInsert(BoardBean board) { // 선생님 토론게시판 글등록 
+		mav = new ModelAndView();
+		boolean transaction = false;
+		fileupload(board,mtfRequest);
+		
+		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
+
+		try {
+			board.setRoomCode((String)session.getAttribute("roomCode"));
+			board.setBoardId((String)session.getAttribute("tcId"));
+
+			if(dao.tclearningNoticeInsert(board) != 0) {
+				System.out.println("토론게시판 글쓰기 성공");
+				transaction = true;
+			}
+		}catch(Exception ex){
+
+		}finally {
+			setTransactionResult(transaction);
+		}
+
+		return mav;
+	}
+	
+	private ModelAndView tclearningDebateInsertPage(BoardBean board) { // 토론게시판 등록 페이지 이동
+		mav = new ModelAndView();
+		boolean transaction = false;
+		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
+
+		try {
+			session.getAttribute("roomCode");
+			
+			board.setRoomCode((String)session.getAttribute("roomCode"));
+			board.setId((String)session.getAttribute("identity"));
+			//mav.addObject("content",session.getAttribute("roomCode") + "의 공지사항");
+			
+			transaction = true;
+
+		}catch(Exception ex){
+			
+		}finally {
+			mav.setViewName("learningDebateInsert");
+			setTransactionResult(transaction);
+		}
+		return mav;
+	}
 	}
