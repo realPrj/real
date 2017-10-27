@@ -88,6 +88,11 @@ function openerReload(){
 	${windowclose};
 }
 
+function windowcloseClick(){
+	opener.location.reload(true); 
+	${windowcloseClick};
+}
+
 </script>
 <body onLoad="openerReload()">
 ${content }

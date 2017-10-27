@@ -352,46 +352,56 @@ public class FunctionController {
 	@RequestMapping(value = "/learningDataCXT", method = RequestMethod.POST)
 	public ModelAndView learningDataCXT(@ModelAttribute BoardBean board)throws Exception{      
 
-		
+
 		mav = ltm.entrance(14, board);
 
 		return mav;
 	}
-	
+
 	// 공지사항 수정 완료
 	@RequestMapping(value = "/NoticeUpdate", method = RequestMethod.POST)
 	public ModelAndView tclearningNoticeUpdateOk(@ModelAttribute BoardBean board){      
 
 		System.out.println("공지사항 수정 컨트롤러 :" + board.getBoardTitle());
 		ltm.entrance(30, board);
-		
+
 		mav = ltm.entrance(3, board);
 
 		return mav;
 	}
-	
+
 	// 공지사항 삭제
 	@RequestMapping(value = "/NoticeDelete", method = RequestMethod.POST)
 	public ModelAndView tclearningNoticeDelete(@ModelAttribute BoardBean board){      
 
 		System.out.println("공지사항 삭제 컨트롤러 :" + board.getRoomCode());
 		ltm.entrance(31, board);
-		
+
 		mav = ltm.entrance(3, board);
 
 		return mav;
 	}
 	// 자료실 삭제
-		@RequestMapping(value = "/learningDataDelete", method = RequestMethod.POST)
-		public ModelAndView learningDataDelete(@ModelAttribute BoardBean board){      
+	@RequestMapping(value = "/learningDataDelete", method = RequestMethod.POST)
+	public ModelAndView learningDataDelete(@ModelAttribute BoardBean board){      
 
-			System.out.println("자료실  삭제 컨트롤러 :" + board.getRoomCode());
-			ltm.entrance(15, board);
-			
-			mav = ltm.entrance(13, board);
+		
 
-			return mav;
-		}
+		ltm.entrance(15, board);
+
+		mav = ltm.entrance(13, board);
+
+		return mav;
+	}
+	// 자료실 업데이트
+	@RequestMapping(value = "/learningDataUpdate", method = RequestMethod.POST)
+	public ModelAndView learningDataUpdate(@ModelAttribute BoardBean board){     
+		ltm.entrance(16, board);
+
+	mav = ltm.entrance(13, board); // 다시 메뉴로 가기
+
+		return mav;
+	}
 
 
 

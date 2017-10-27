@@ -58,10 +58,6 @@
 
 	}
 	function deleteData(boardTitle,boardData,roomCode,boardId) {
-		alert(boardTitle);
-		alert(boardData);
-		alert(roomCode);
-		alert(boardId);
 		createinput("hidden", "boardTitle", boardTitle);
 		createinput("hidden", "boardDate", boardData);
 		createinput("hidden", "roomCode", roomCode);
@@ -81,6 +77,32 @@
 		form.appendChild(boardDate);
 		form.appendChild(roomCode);
 		form.appendChild(boardId);
+
+		form.submit();
+	}
+	function dataUpdate(boardTitle,boardData,roomCode,boardId,boardContent) {
+		createinput("hidden", "boardTitle", boardTitle);
+		createinput("hidden", "boardDate", boardData);
+		createinput("hidden", "roomCode", roomCode);
+		createinput("hidden", "boardId", boardId);
+		createinput("hidden", "boardContent", boardContent);
+		
+		createForm("learningDataUpdateform", "learningDataUpdatePage", "post");
+
+		var form = document.getElementsByName("learningDataUpdateform")[0];
+		
+		var boardTitle = document.getElementsByName("boardTitle")[0];
+		var boardDate = document.getElementsByName("boardDate")[0];
+		var roomCode = document.getElementsByName("roomCode")[0];
+		var boardId = document.getElementsByName("boardId")[0];
+		var boardContent = document.getElementsByName("boardContent")[0];
+		
+	
+		form.appendChild(boardTitle);
+		form.appendChild(boardDate);
+		form.appendChild(roomCode);
+		form.appendChild(boardId);
+		form.appendChild(boardContent);
 
 		form.submit();
 	}
@@ -134,13 +156,13 @@
 				<td>경로:${route }</td>
 			</tr>
 			<tr>
-				<td><input type="button" name="update" value="삭제"
+				<td><input type="button" name="delete" value="삭제"
 					onClick="deleteData('${theme }','${date }','${roomcode}','${writeId }')"></td>
 			</tr>
 			
 			
 			<tr>
-				<td><input type="button" name="delete" value="수정" onClick=""></td>
+				<td><input type="button" name="update" value="수정" onClick="dataUpdate('${theme }','${date }','${roomcode}','${writeId }','${content }')"></td>
 			</tr>
 		</table>
 		

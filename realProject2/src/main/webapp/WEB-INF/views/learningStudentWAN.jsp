@@ -33,8 +33,49 @@ $(document).ready(function() {
 	
 	
  });
+ 
+//form 생성
+function createForm(formname,formaction,ta){
+
+	var form = document.createElement("form");
+	form.target=ta;
+	form.name = formname;
+	form.action = formaction;
+
+	document.body.appendChild(form);
+
+}
+
+//input 생성
+function createinput(itype, iname, ivalue){
+	var input = document.createElement("input");
+	input.type = itype;
+	input.name = iname;
+	input.value = ivalue;
+
+	document.body.appendChild(input);
+}
+
+
+function commentCheck(valueCode){
+
+	createinput("hidden", "boardCode", valueCode);
+	
+	var boardCode = document.getElementsByName("boardCode")[0];
+	
+	createForm("learningWANCMCXTPageform","learningWANCMCXTPage","POP");
+	
+	var form = document.getElementsByName("learningWANCMCXTPageform")[0];
+	window.open('', 'POP',"width=570, height=350, resizable = no, scrollbars = no");
+	form.appendChild(boardCode);
+	
+	form.submit();
+}
+ 
 </script>
 <body>
+
+<div id="studentInformation">
 
 <table id="stInformation">
 	<tr>
@@ -50,11 +91,16 @@ $(document).ready(function() {
 		<td>${allSum }</td>
 	</tr>
 </table>
-
 년도 선택${yearSelect }
 ${typeSumb }
 <div id="divbox"></div>
+
+<%@include file="test.jsp"%>
+
 ${content }
 ${average }
+
+</div>
+
 </body>
 </html>
