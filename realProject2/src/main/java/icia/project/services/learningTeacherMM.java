@@ -124,6 +124,7 @@ public class learningTeacherMM extends TransactionExe {
 			break;
 
 		case 30:	// 선생님 공지사항 수정
+			mtfRequest = ((MultipartHttpServletRequest)object[1]);
 			mav = tclearningNoticeUpdate((BoardBean)object[0]);
 			break;
 
@@ -818,6 +819,7 @@ public class learningTeacherMM extends TransactionExe {
 
 			mav.addObject("boardTitle", board.getBoardTitle());
 			mav.addObject("boardContent", board.getBoardContent());
+			mav.addObject("boardRoute", "Ggg");
 
 			sb.append("<input type=\"hidden\" name=\"boardDate\" value='"+ board.getBoardDate() +"'/>");
 			mav.addObject("boardDate", sb.toString());
@@ -836,6 +838,8 @@ public class learningTeacherMM extends TransactionExe {
 	private ModelAndView tclearningNoticeUpdate(BoardBean board) {	// 선생님 공지사항 수정
 		mav = new ModelAndView();
 		boolean transaction = false;
+		fileupload(board,mtfRequest);
+		
 		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
 
 		try {
