@@ -191,23 +191,39 @@ public class learningTeacherMM extends TransactionExe {
 
 
 	private ModelAndView tclearningNoticeCTX(BoardBean board) { // 공지사항 내용확인
-
 		mav = new ModelAndView();
 		boolean transaction = false;
-		DbBoardBean bb = new DbBoardBean();
+		DbBoardBean bb;
+		ViewService view = new ViewService(); 
+		
 		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
-
+		
 		try {
+			
 			session.getAttribute("roomCode");
 
-			bb.setRoomCode((String)session.getAttribute("roomCode"));
+			board.setRoomCode((String)session.getAttribute("roomCode"));
 			
-			board = dao.tclearningNoticeConfirm(board);
+			bb = dao.tclearningNoticeConfirm(board);
+			
+			bb.setBoardCode((String)session.getAttribute("identity"));
+			
+			bb.setCutRoute(bb.getBoardRoute().substring(0,68));	// 루트만
 
-			System.out.println("공지사항 내용확인 메서드 진입"+board.getBoardTitle()+board.getRoomCode());
-			mav.addObject("content", getTclearningNoticeCTX(board));
+			bb.setCutContent(bb.getBoardRoute().substring(68));	// 파일이름
+			
+			System.out.println("디비보드빈 : " + bb.getBoardTitle());
+			System.out.println("공지사항 내용확인 메서드 진입"+bb.getBoardTitle()+bb.getRoomCode());
+			List<String> list = view.getList(bb);
+			mav.addObject("list",list);
+			mav.addObject("boardTitle",bb.getBoardTitle());
+			mav.addObject("boardContent",bb.getBoardContent());
+			mav.addObject("boardDate",bb.getBoardDate());
+			mav.addObject("boardId",bb.getBoardId());
+			mav.addObject("file",bb.getCutContent());
+			mav.addObject("content", getTclearningNoticeCTX(bb));
 
-
+			
 			transaction = true;
 
 		}catch(Exception ex){
@@ -219,15 +235,8 @@ public class learningTeacherMM extends TransactionExe {
 		return mav;
 	}
 
-	private String getTclearningNoticeCTX(BoardBean board) { // 공지사항 내용 끌고오기
-		/*ViewService view = new ViewService(); 
-
-		bb.setCutRoute(bb.getBoardRoute().substring(0,68));	// 루트만
-		String route = bb.getCutRoute();
-
-		bb.setCutContent(bb.getBoardRoute().substring(68));	// 파일이름
-
-		List<String> list = view.getList(bb);*/
+	private String getTclearningNoticeCTX(DbBoardBean bb) { // 공지사항 내용 끌고오기
+		
 		/*mav.addObject("list",list);
 		mav.addObject("theme",bb.getBoardTitle());
 		mav.addObject("content",bb.getBoardContent());
@@ -237,37 +246,26 @@ public class learningTeacherMM extends TransactionExe {
 		mav.addObject("file",bb.getCutContent());*/
 
 		StringBuffer sb = new StringBuffer();
-		/*sb.append("<c:forEach var=\"file\" items='"+ list +"'>");
+		/*sb.append("<table>");
 		sb.append("<tr>");
-		sb.append("<td><a href=\"download.action?name='"+ bb.getCutContent() +"'\">'"+ bb.getCutContent() +"'</a></td>");
-		sb.append("</tr>");
-		sb.append("</c:forEach>");*/
-		sb.append("<table>");
-		/*sb.append("<tr>");
-		sb.append("<td>" + route + "</td>");
-		sb.append("</tr>");*/
-/*		sb.append("<tr>");
-		sb.append("<td>" + board.getCutContent() + "</td>");
-		sb.append("</tr>");*/
-		sb.append("<tr>");
-		sb.append("<td>" + board.getBoardTitle() + "</td>");
+		sb.append("<td>" + bb.getBoardTitle() + "</td>");
 		sb.append("</tr>");
 		sb.append("<tr>");
-		sb.append("<td>" + board.getBoardDate() + "</td>");
+		sb.append("<td>" + bb.getBoardDate() + "</td>");
 		sb.append("</tr>");
 		sb.append("<tr>");
-		sb.append("<td>" + board.getBoardId() + "</td>");
+		sb.append("<td>" + bb.getBoardId() + "</td>");
 		sb.append("</tr>");
 		sb.append("<tr>");
-		sb.append("<td>" + board.getBoardContent() + "</td>");
+		sb.append("<td>" + bb.getBoardContent() + "</td>");
 		sb.append("</tr>");
 		sb.append("<tr>");
-		sb.append("<td>" + board.getBoardRoute() + "</td>");
+		sb.append("<td>" + bb.getBoardRoute() + "</td>");
 		sb.append("</tr>");
-		sb.append("</table>");
-		sb.append("<input type=\"button\" value=\"목록\" onClick=\"menu('3')\"/>");
-		sb.append("<input type=\"button\" value=\"수정\" onClick=\"update('"+ board.getBoardTitle() +"','"+ board.getBoardContent() +"','"+ board.getBoardDate() +"')\"/>");
-		sb.append("<input type=\"button\" value=\"삭제\" onClick=\"boardDelete('"+ board.getRoomCode() +"','"+ board.getBoardDate() +"')\"/>");
+		sb.append("</table>");*/
+		sb.append("<input type=\"button\" value=\"목록\" onClick=\"menu('3','"+ bb.getBoardCode() +"')\"/>");
+		sb.append("<input type=\"button\" value=\"수정\" onClick=\"update('"+ bb.getBoardTitle() +"','"+ bb.getBoardContent() +"','"+ bb.getBoardDate() +"')\"/>");
+		sb.append("<input type=\"button\" value=\"삭제\" onClick=\"boardDelete('"+ bb.getRoomCode() +"','"+ bb.getBoardDate() +"')\"/>");
 		return sb.toString();
 	}
 

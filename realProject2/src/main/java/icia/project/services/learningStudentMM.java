@@ -1,6 +1,7 @@
 package icia.project.services;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -367,14 +368,14 @@ public class learningStudentMM extends TransactionExe {
 			}
 
 			mav.addObject("allgraph", sb.toString());
-			
-			
+
+
 			sb = new StringBuffer();
 			board = new BoardBean();
 			board.setRoomSB(boardList.get(0).getRoomSB());
 			board.setRoomCode(boardList.get(0).getRoomCode());
 			allGraph = dao.learningWANRommGraph(board);
-			
+
 			for(int i =0; i < allGraph.size(); i++) {
 				board = new BoardBean();
 				board.setRoomSB(boardList.get(0).getRoomSB());
@@ -410,7 +411,7 @@ public class learningStudentMM extends TransactionExe {
 		}
 		return mav;
 	}
-	
+
 	private ModelAndView stlearningNoticeList(BoardBean board) { // 공지사항 리스트
 		mav = new ModelAndView();
 		boolean transaction = false;
@@ -437,7 +438,7 @@ public class learningStudentMM extends TransactionExe {
 		}
 		return mav;
 	}
-	
+
 	private String stlearningNoticeList(BoardBean board, ArrayList<BoardBean> ar) { // 공지사항 리스트
 		StringBuffer sb = new StringBuffer();
 		sb.append("<table>");
@@ -458,23 +459,39 @@ public class learningStudentMM extends TransactionExe {
 
 		return sb.toString();
 	}
-	
+
 	private ModelAndView stlearningNoticeCTX(BoardBean board) { // 공지사항 내용확인
 
 		mav = new ModelAndView();
 		boolean transaction = false;
-		DbBoardBean bb = new DbBoardBean();
+		DbBoardBean bb;
+		ViewService view = new ViewService(); 
+
 		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
 
 		try {
+
 			session.getAttribute("roomCode");
 
 			board.setRoomCode((String)session.getAttribute("roomCode"));
-			board.setId((String)session.getAttribute("identity"));
-			board = dao.tclearningNoticeConfirm(board);
 
-			System.out.println("공지사항 내용확인 메서드 진입"+board.getBoardTitle()+board.getRoomCode());
-			mav.addObject("content", getStlearningNoticeCTX(board));
+			bb = dao.tclearningNoticeConfirm(board);
+			bb.setBoardCode((String)session.getAttribute("identity"));
+
+			bb.setCutRoute(bb.getBoardRoute().substring(0,68));	// 루트만
+
+			bb.setCutContent(bb.getBoardRoute().substring(68));	// 파일이름
+			List<String> list = view.getList(bb);
+			System.out.println("디비보드빈 : " + bb.getBoardTitle());
+			System.out.println("공지사항 내용확인 메서드 진입"+bb.getBoardTitle()+bb.getRoomCode());
+
+			mav.addObject("list",list);
+			mav.addObject("boardTitle",bb.getBoardTitle());
+			mav.addObject("boardContent",bb.getBoardContent());
+			mav.addObject("boardDate",bb.getBoardDate());
+			mav.addObject("boardId",bb.getBoardId());
+			mav.addObject("file",bb.getCutContent());
+			mav.addObject("content", getTclearningNoticeCTX(bb));
 
 
 			transaction = true;
@@ -488,27 +505,35 @@ public class learningStudentMM extends TransactionExe {
 		return mav;
 	}
 
-	private String getStlearningNoticeCTX(BoardBean board) { // 공지사항 내용 끌고오기
+	private String getTclearningNoticeCTX(DbBoardBean bb) { // 공지사항 내용 끌고오기
+
+		/*mav.addObject("list",list);
+		mav.addObject("theme",bb.getBoardTitle());
+		mav.addObject("content",bb.getBoardContent());
+		mav.addObject("date",bb.getBoardDate());
+		mav.addObject("writeId",bb.getBoardId());
+		mav.addObject("route",route);
+		mav.addObject("file",bb.getCutContent());*/
 
 		StringBuffer sb = new StringBuffer();
-		sb.append("<table>");
+		/*sb.append("<table>");
 		sb.append("<tr>");
-		sb.append("<td>" + board.getBoardTitle() + "</td>");
+		sb.append("<td>" + bb.getBoardTitle() + "</td>");
 		sb.append("</tr>");
 		sb.append("<tr>");
-		sb.append("<td>" + board.getBoardDate() + "</td>");
+		sb.append("<td>" + bb.getBoardDate() + "</td>");
 		sb.append("</tr>");
 		sb.append("<tr>");
-		sb.append("<td>" + board.getBoardId() + "</td>");
+		sb.append("<td>" + bb.getBoardId() + "</td>");
 		sb.append("</tr>");
 		sb.append("<tr>");
-		sb.append("<td>" + board.getBoardContent() + "</td>");
+		sb.append("<td>" + bb.getBoardContent() + "</td>");
 		sb.append("</tr>");
 		sb.append("<tr>");
-		sb.append("<td>" + board.getBoardRoute() + "</td>");
+		sb.append("<td>" + bb.getBoardRoute() + "</td>");
 		sb.append("</tr>");
-		sb.append("</table>");
-		sb.append("<input type=\"button\" value=\"목록\" onClick=\"menu('3','"+ board.getId() +"')\"/>");
+		sb.append("</table>");*/
+		sb.append("<input type=\"button\" value=\"목록\" onClick=\"menu('3','"+ bb.getBoardCode() +"')\"/>");
 		return sb.toString();
 	}
 
