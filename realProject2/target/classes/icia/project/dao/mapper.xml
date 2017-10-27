@@ -580,7 +580,7 @@
 	</delete>
 
 	<!-- 학습방 오답문제 총 평균 구하기1 (학년 총 질문수) -->
-	<select id="learningWANstAverage1" resultType="Integer"
+	<select id="learningWANstAverage1" resultType="Double"
 		parameterType="board">
 		SELECT
 		COUNT(*)
@@ -589,7 +589,7 @@
 	</select>
 
 	<!-- 학습방 오답문제 총 평균 구하기2 (학년 총 인원수) -->
-	<select id="learningWANstAverage2" resultType="Integer"
+	<select id="learningWANstAverage2" resultType="Double"
 		parameterType="board">
 		SELECT
 		COUNT(*)
@@ -598,7 +598,7 @@
 	</select>
 
 	<!-- 학습방 오답문제 총 평균 구하기3 ( 방 학년 총 질문수) -->
-	<select id="learningWANstAverage3" resultType="Integer"
+	<select id="learningWANstAverage3" resultType="Double"
 		parameterType="board">
 		SELECT
 		COUNT(*)
@@ -607,7 +607,7 @@
 	</select>
 	
 	<!-- 학습방 오답문제 총 평균 구하기4 ( 방 학년 총 인원수) -->
-	<select id="learningWANstAverage4" resultType="Integer"
+	<select id="learningWANstAverage4" resultType="Double"
 		parameterType="board">
 		SELECT
 		COUNT(*)

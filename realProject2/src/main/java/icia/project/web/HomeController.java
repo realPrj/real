@@ -259,7 +259,7 @@ public class HomeController  {
 			break;
 		case 3 : 
 			// 공지사항
-
+			mav = lsmm.entrance(3, board);
 			break;	
 		case 4 :	
 			break;
@@ -341,12 +341,21 @@ public class HomeController  {
 		return mav;
 	}
 
-	// 공지사항 내용 확인
-	@RequestMapping(value = "/NoticeConfirm", method = RequestMethod.POST)
-	public ModelAndView learningNoticeCTX(@ModelAttribute BoardBean board) {
+	// 선생님 공지사항 내용 확인
+	@RequestMapping(value = "/tcNoticeConfirm", method = RequestMethod.POST)
+	public ModelAndView tclearningNoticeCTX(@ModelAttribute BoardBean board) {
 
 		System.out.println("공지사항 내용확인 컨트롤러" + board.getBoardDate());
 		mav = ltmm.entrance(8, board);
+
+		return mav;
+	}
+
+	// 학생 공지사항 내용 확인
+	@RequestMapping(value = "/stNoticeConfirm", method = RequestMethod.POST)
+	public ModelAndView stlearningNoticeCTX(@ModelAttribute BoardBean board) {
+
+		mav = lsmm.entrance(8, board);
 
 		return mav;
 	}

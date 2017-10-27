@@ -147,9 +147,9 @@ public class learningTeacherMM extends TransactionExe {
 
 		try {
 			session.getAttribute("roomCode");
-
+			
 			board.setRoomCode((String)session.getAttribute("roomCode"));
-
+			board.setId((String)session.getAttribute("identity"));
 			//mav.addObject("content",session.getAttribute("roomCode") + "의 공지사항");
 			ar = dao.tclearningNoticeList(board);
 			mav.addObject("content", tclearningNoticeList(board,ar));
@@ -177,7 +177,8 @@ public class learningTeacherMM extends TransactionExe {
 		for(int i=0; i<ar.size(); i++) {
 			sb.append("<tr>");	
 			//sb.append("<input type=\"hidden\" name=\"boardTitle\" value='" + board.getBoardTitle() + "'/>");
-			sb.append("<td onClick=\"confirm('"+ ar.get(i).getBoardTitle() +"','" + ar.get(i).getBoardDate() + "')\">" + ar.get(i).getBoardTitle() + "</td>");
+			
+			sb.append("<td onClick=\"confirm('"+ ar.get(i).getBoardTitle() +"','" + ar.get(i).getBoardDate() + "','"+ board.getId() +"')\">" + ar.get(i).getBoardTitle() + "</td>");
 			sb.append("<td>" + ar.get(i).getBoardDate() + "</td>");
 			sb.append("<td>" + ar.get(i).getBoardId() + "</td>");
 			sb.append("</tr>");

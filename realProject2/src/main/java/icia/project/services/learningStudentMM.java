@@ -35,7 +35,7 @@ public class learningStudentMM extends TransactionExe {
 			break;
 
 		case 3:	//공지사항 페이지
-
+			mav = stlearningNoticeList((BoardBean)object[0]);
 			break;
 
 		case 4:	//질문게시판 페이지
@@ -55,7 +55,7 @@ public class learningStudentMM extends TransactionExe {
 			break;
 
 		case 8: // 공지사항 내용확인
-
+			mav = stlearningNoticeCTX((BoardBean)object[0]);
 			break;
 
 		case 9: // 공지사항 글쓰기 페이지 이동
@@ -129,8 +129,8 @@ public class learningStudentMM extends TransactionExe {
 		StringBuffer sum;
 		boolean transaction = false;
 		String page = null;
-		int questionCount = 0;
-		int peopleCount = 0;
+		double questionCount = 0;
+		double peopleCount = 0;
 		double value1 = 0;
 		double value2 = 0;
 
@@ -294,13 +294,13 @@ public class learningStudentMM extends TransactionExe {
 				questionCount = dao.learningWANstAverage1(board);	// 학년 총 질문수				
 				peopleCount = dao.learningWANstAverage2(board);	// 학년 총 인원수
 
-				value1 = peopleCount / questionCount;
+				value1 = (questionCount / peopleCount) * 100;
 
 				questionCount = dao.learningWANstAverage3(board);	// 학습방 학년 총 질문수
 				peopleCount = dao.learningWANstAverage4(board);	// 학습방 학년 총 인원수
 				
-				value2 = peopleCount / questionCount;
-				
+				value2 = (questionCount / peopleCount) * 100;
+			
 				sb.append("<tr>");
 				
 				sb.append("<td>");
@@ -339,6 +339,106 @@ public class learningStudentMM extends TransactionExe {
 			setTransactionResult(transaction);
 		}
 		return mav;
+	}
+	
+	private ModelAndView stlearningNoticeList(BoardBean board) { // 공지사항 리스트
+		mav = new ModelAndView();
+		boolean transaction = false;
+		ArrayList<BoardBean> ar = null;
+		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
+
+		try {
+			session.getAttribute("roomCode");
+
+			board.setRoomCode((String)session.getAttribute("roomCode"));
+
+			//mav.addObject("content",session.getAttribute("roomCode") + "의 공지사항");
+			ar = dao.tclearningNoticeList(board);
+			mav.addObject("content", stlearningNoticeList(board,ar));
+
+
+			transaction = true;
+
+		}catch(Exception ex){
+
+		}finally {
+			mav.setViewName("learningNotice");
+			setTransactionResult(transaction);
+		}
+		return mav;
+	}
+	
+	private String stlearningNoticeList(BoardBean board, ArrayList<BoardBean> ar) { // 공지사항 리스트
+		StringBuffer sb = new StringBuffer();
+		sb.append("<table>");
+		sb.append("<tr>");
+		sb.append("<td>제목</td>");
+		sb.append("<td>날짜</td>");
+		sb.append("<td>작성자</td>");
+		sb.append("</tr>");
+		for(int i=0; i<ar.size(); i++) {
+			sb.append("<tr>");	
+			//sb.append("<input type=\"hidden\" name=\"boardTitle\" value='" + board.getBoardTitle() + "'/>");
+			sb.append("<td onClick=\"confirm('"+ ar.get(i).getBoardTitle() +"','" + ar.get(i).getBoardDate() + "')\">" + ar.get(i).getBoardTitle() + "</td>");
+			sb.append("<td>" + ar.get(i).getBoardDate() + "</td>");
+			sb.append("<td>" + ar.get(i).getBoardId() + "</td>");
+			sb.append("</tr>");
+		}
+		sb.append("</table>");
+
+		return sb.toString();
+	}
+	
+	private ModelAndView stlearningNoticeCTX(BoardBean board) { // 공지사항 내용확인
+
+		mav = new ModelAndView();
+		boolean transaction = false;
+		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
+
+		try {
+			session.getAttribute("roomCode");
+
+			board.setRoomCode((String)session.getAttribute("roomCode"));
+			board.setId((String)session.getAttribute("identity"));
+			board = dao.tclearningNoticeConfirm(board);
+
+			System.out.println("공지사항 내용확인 메서드 진입"+board.getBoardTitle()+board.getRoomCode());
+			mav.addObject("content", getStlearningNoticeCTX(board));
+
+
+			transaction = true;
+
+		}catch(Exception ex){
+
+		}finally {
+			mav.setViewName("learningNoticeCXT");
+			setTransactionResult(transaction);
+		}
+		return mav;
+	}
+
+	private String getStlearningNoticeCTX(BoardBean board) { // 공지사항 내용 끌고오기
+
+		StringBuffer sb = new StringBuffer();
+		sb.append("<table>");
+		sb.append("<tr>");
+		sb.append("<td>" + board.getBoardTitle() + "</td>");
+		sb.append("</tr>");
+		sb.append("<tr>");
+		sb.append("<td>" + board.getBoardDate() + "</td>");
+		sb.append("</tr>");
+		sb.append("<tr>");
+		sb.append("<td>" + board.getBoardId() + "</td>");
+		sb.append("</tr>");
+		sb.append("<tr>");
+		sb.append("<td>" + board.getBoardContent() + "</td>");
+		sb.append("</tr>");
+		sb.append("<tr>");
+		sb.append("<td>" + board.getBoardRoute() + "</td>");
+		sb.append("</tr>");
+		sb.append("</table>");
+		sb.append("<input type=\"button\" value=\"목록\" onClick=\"menu('3','"+ board.getId() +"')\"/>");
+		return sb.toString();
 	}
 
 
