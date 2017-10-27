@@ -44,7 +44,7 @@ public class HomeController  {
 
 		mav = new ModelAndView();
 		mav.setViewName("home");
-		
+
 		return mav;
 	}
 
@@ -392,6 +392,20 @@ public class HomeController  {
 	public ModelAndView learningNoticeUpdatePage(@ModelAttribute BoardBean board) {
 
 		mav = ltmm.entrance(11, board);
+
+		return mav;
+	}
+	// 자료실 수정 페이지
+	@RequestMapping(value = "/learningDataUpdatePage", method = RequestMethod.POST)
+	public ModelAndView learningDataUpdatePage(@ModelAttribute BoardBean board) {
+
+		mav.addObject("boardTitle",board.getBoardTitle());
+		mav.addObject("boardDate",board.getBoardDate());
+		mav.addObject("boardId",board.getBoardId());
+		mav.addObject("boardContent",board.getBoardContent());
+		mav.addObject("roomCode",board.getRoomCode());
+
+		mav.setViewName("learningDataUpdate");
 
 		return mav;
 	}

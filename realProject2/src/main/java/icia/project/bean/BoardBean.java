@@ -39,6 +39,7 @@ public class BoardBean {	// 게시판 bean
 	private String stNumber;	// 학생 번호
 
 
+
 	
 
 

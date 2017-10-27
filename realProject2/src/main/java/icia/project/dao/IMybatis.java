@@ -201,5 +201,8 @@ public interface IMybatis {
 	// 학습방 오답문제 총 평균 구하기5 학생(본인) 오답노트 추출 (중복제외)
 	public ArrayList<BoardBean> learningWANstListGetOverlap(BoardBean board);
 
+	// 자료실 글삭제
+	public int learningDataUpdate(BoardBean board);
+
 
 }
