@@ -58,10 +58,6 @@
 
 	}
 	function deleteData(boardTitle,boardData,roomCode,boardId) {
-		alert(boardTitle);
-		alert(boardData);
-		alert(roomCode);
-		alert(boardId);
 		createinput("hidden", "boardTitle", boardTitle);
 		createinput("hidden", "boardDate", boardData);
 		createinput("hidden", "roomCode", roomCode);

@@ -82,7 +82,7 @@
 	<!-- 자료실 글쓰기  -->
 	<form name="updateForm" action="learningDataUpdate" method="post">
 		<br> 제목 :<input type="text" name="boardTitle"
-			value="${boardTitle }"> <br> 내용 :${ boardContent}
+			value="${boardTitle }"> <br> 내용
 		<textarea name="boardContent" cols=50 rows=20 maxlength=500>${ boardContent}</textarea>
 		<input type="hidden" name="roomCode" value="${roomCode }"> <input
 			type="hidden" name="boardDate" value="${boardDate }"> <input

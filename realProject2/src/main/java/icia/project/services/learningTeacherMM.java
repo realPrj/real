@@ -422,7 +422,7 @@ public class learningTeacherMM extends TransactionExe {
 			board.setRoomCode((String)session.getAttribute("roomCode"));
 			board.setId((String)session.getAttribute("tcId"));
 			
-			System.out.println(board.getRoomCode());
+			
 			session.getAttribute("roomCode");
 			if(dao.referenceInsert(board) != 0) {
 				System.out.println("나 성공햇다 ");
@@ -455,7 +455,7 @@ public class learningTeacherMM extends TransactionExe {
 			mav.addObject("content",session.getAttribute("roomCode") + "자료실");
 			board.setId((String)session.getAttribute("tcId"));
 			board.setRoomCode((String)session.getAttribute("roomCode"));
-			System.out.println(board.getRoomCode());
+	
 
 			//mav.addObject("content",session.getAttribute("roomCode") + "의 공지사항");
 			bb = dao.datalist(board);
@@ -568,12 +568,11 @@ public class learningTeacherMM extends TransactionExe {
 	private ModelAndView fileupload(BoardBean board,MultipartHttpServletRequest mtfRequest) {
 
 		mav = new ModelAndView();
-		System.out.println("fileupload");
+		
 		List<MultipartFile> fileList = mtfRequest.getFiles("file");
 		String load = mtfRequest.getParameter("load");
 		String path = "E:\\realTest\\realProject2\\src\\main\\webapp\\WEB-INF\\uploadFiles\\"+load+"\\";
 
-		System.out.println(board.getBoardRoute());
 		for (MultipartFile mf : fileList) {
 			String originFileName = mf.getOriginalFilename(); // 원본 파일 명
 			long fileSize = mf.getSize(); // 파일 사이즈
@@ -740,7 +739,7 @@ public class learningTeacherMM extends TransactionExe {
 
 			//mav.addObject("content",session.getAttribute("roomCode") + "의 공지사항");
 
-			System.out.println((String)session.getAttribute("roomCode"));
+			
 
 
 
@@ -759,7 +758,7 @@ public class learningTeacherMM extends TransactionExe {
 			mav.addObject("writeId",bb.getBoardId());
 			mav.addObject("route",route);
 			mav.addObject("file",bb.getCutContent());
-			System.out.println((String)session.getAttribute("roomCode"));
+		
 			mav.addObject("roomcode",session.getAttribute("roomCode"));
 
 			
@@ -852,7 +851,7 @@ public class learningTeacherMM extends TransactionExe {
 		try {	
 		if(dao.learningDataDelete(board) != 0) {
 				transaction = true;
-				System.out.println("나 삭제햇어 진짜");
+		
 			}
 		}catch(Exception ex){
 			ex.printStackTrace();
@@ -870,7 +869,7 @@ public class learningTeacherMM extends TransactionExe {
 		try {	
 			if(dao.learningDataUpdate(board) != 0) {
 				transaction = true;
-				System.out.println("나 업데이트 됬다");
+			
 			}
 		}catch(Exception ex){
 			ex.printStackTrace();
