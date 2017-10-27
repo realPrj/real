@@ -210,7 +210,8 @@ public interface IMybatis {
 	// (학습방)학생 오답노트 그래프
 	public ArrayList<BoardBean> learningWANRommGraph(BoardBean board);
 
-
+	// 자료실 글삭제
+	public int learningDataUpdate(BoardBean board);
 
 
 

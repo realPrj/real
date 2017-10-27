@@ -7,11 +7,15 @@
 <title>공조 || 공지사항 내용</title>
 <script>
 //메뉴선택
-function menu(ivalue){
+function menu(ivalue, identity){
  	var ff = document.createElement("form");
 	ff.name = "menuform";
 	ff.method = "post";
-	ff.action = "tcmenu";
+	if(identity == '1'){
+		ff.action = "tcmenu";
+	}else{
+		ff.action = "stmenu";
+	}
 	document.body.appendChild(ff);
 	
 	var i = document.createElement("input");
@@ -71,8 +75,10 @@ function boardDelete(roomCode, boardDate){
 	date.name = "boardDate";
 	date.value = boardDate;
 	ff.appendChild(date);
-	
+
 	document.noticeDelete.submit();
+	
+	alert("삭제되었습니다");
 }
 </script>
 </head>

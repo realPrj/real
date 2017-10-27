@@ -6,11 +6,15 @@
 <meta charset="UTF-8">
 <title>공조 || 공지사항</title>
 <script>
-function confirm(boardTitle, boardDate, caCode) {
+function confirm(boardTitle, boardDate, caCode, identity) {
 	var f = document.createElement("form");
 	f.name = "boardConfirm";
 	f.method = "post";
-	f.action = "NoticeConfirm";
+	if(identity == '1'){
+		f.action = "tcNoticeConfirm";
+	}else{
+		f.action = "stNoticeConfirm"
+	}
 	document.body.appendChild(f);
 
 	var title = document.createElement("input");
