@@ -143,7 +143,7 @@ public class PageManagement extends TransactionExe {
 					sb.append("<input type='button' value='"+room.getRoomName()+"' onClick=learningGo('"+room.getRoomCode()+"') />");
 					sb.append("</td>");
 					sb.append("</tr>");
-
+					
 				}
 				sb.append("</table>");
 				mav.addObject("content", sb.toString());
@@ -362,16 +362,23 @@ public class PageManagement extends TransactionExe {
 	private ModelAndView studentLearningMainPage(LearningRoomBean room) {	// 학생 학습방 메인 페이지
 
 		mav = new ModelAndView();
+		BoardBean board=new BoardBean();
 		boolean transaction = false;
 
 		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
 
 		try {
-
+		
+			mav.addObject("code",room.getRoomCode());
+			
+			
+		
+			
 			room = dao.learningRoomGo(room);
-
+			
 			session.setAttribute("roomCode", room.getRoomCode());
-
+			board.setRoomCode(room.getRoomCode());
+			
 			mav.addObject("content",room.getRoomIntroduction());
 
 			transaction = true;

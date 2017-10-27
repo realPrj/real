@@ -40,7 +40,7 @@ public class learningStudentMM extends TransactionExe {
 			break;
 
 		case 4:	//질문게시판 페이지
-
+			mav = questionBoardPage((BoardBean)object[0]);
 			break;
 
 		case 5:
@@ -578,6 +578,35 @@ public class learningStudentMM extends TransactionExe {
 			mav.setViewName(page);
 			setTransactionResult(transaction);
 		}
+		return mav;
+	}
+	
+	
+	private ModelAndView questionBoardPage(BoardBean board) { // 공지사항 리스트
+		mav = new ModelAndView();
+	/*	boolean transaction = false;
+		ArrayList<BoardBean> ar = null;
+		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
+
+		try {
+			session.getAttribute("roomCode");
+
+			board.setRoomCode((String)session.getAttribute("roomCode"));
+
+			//mav.addObject("content",session.getAttribute("roomCode") + "의 공지사항");
+			ar = dao.tclearningNoticeList(board);
+			mav.addObject("content", stlearningNoticeList(board,ar));
+
+
+			transaction = true;
+
+		}catch(Exception ex){
+
+		}finally {
+			
+			setTransactionResult(transaction);
+		}
+*/		mav.setViewName("learningQuestion");
 		return mav;
 	}
 

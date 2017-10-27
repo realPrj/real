@@ -696,6 +696,15 @@
 		RR_DATE= TO_DATE(#{boardDate},'YYYY-MM-DD HH24:MI:SS')
 		
 	</update>
+	<!-- 자료실 학생 리스트 -->
+	<select id="datalistStudent" resultType="board" parameterType="board">
+		SELECT
+		RR_TITLE AS boardTitle,TO_CHAR(RR_DATE, 'YYYYMMDDHH24MISS') AS
+		boardDate,RR_TCID AS boardId,RR_LRCODE AS roomCode
+		FROM REFERENCE
+		WHERE
+		RR_LRCODE=#{roomCode}
+	</select>
 
 
 </mapper>

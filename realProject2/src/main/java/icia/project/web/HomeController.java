@@ -247,7 +247,7 @@ public class HomeController  {
 
 	// 학생 학습메뉴
 	@RequestMapping(value = "/stmenu", method = RequestMethod.POST)
-	public ModelAndView stMenu(@ModelAttribute  BoardBean board) {
+	public ModelAndView stMenu(@ModelAttribute  BoardBean board, MemberBean member,LearningRoomBean room) {
 
 		int code = Integer.parseInt(board.getCaCode());
 
@@ -262,7 +262,8 @@ public class HomeController  {
 			// 공지사항
 			mav = lsmm.entrance(3, board);
 			break;	
-		case 4 :	
+		case 4 :	// 질문사항
+			mav = lsmm.entrance(4, board);
 			break;
 
 		case 5 : 
@@ -278,15 +279,16 @@ public class HomeController  {
 			break;
 
 		case 8 : 	
-
+			
 			break;
 
 		case 9 : 
 
 			break;
 
-		case 10 : 
-
+		case 10 :  // 자료실
+			System.out.println("자료실10");
+			mav = ltmm.entrance(5, board);
 			break;
 
 		case 11 : 

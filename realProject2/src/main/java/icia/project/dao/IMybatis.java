@@ -212,6 +212,8 @@ public interface IMybatis {
 
 	// 자료실 글삭제
 	public int learningDataUpdate(BoardBean board);
+	// 학생 자료실 리스트
+	public ArrayList<BoardBean> datalistStudent(BoardBean board);
 
 
 

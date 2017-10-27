@@ -402,6 +402,16 @@ public class FunctionController {
 
 		return mav;
 	}
+	// 자료실 자세히보기
+		@RequestMapping(value = "/learningDataCXTStudent", method = RequestMethod.POST)
+		public ModelAndView learningDataCXTStudent(@ModelAttribute BoardBean board)throws Exception{      
+
+
+			mav = ltm.entrance(6, board);
+
+			return mav;
+		}
+
 
 
 

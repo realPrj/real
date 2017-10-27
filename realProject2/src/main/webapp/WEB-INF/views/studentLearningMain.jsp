@@ -50,6 +50,8 @@ function menu(ivalue){
 <body>
 <div id="menu">
 <table>
+${roomCode }의 자료실 
+ 	${code }의 자료실
 	<tr><td><input type="button" value="로그아웃" onClick="" /></td></tr>
 	<tr><td><input type="button" value="내 메인으로" onClick="menu('1')" /></td></tr>
 	<tr><td><input type="button" value="홈" onClick="menu('2')" /></td></tr>
