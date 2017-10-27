@@ -36,6 +36,8 @@ $(document).ready(function() {
 </script>
 <body>
 
+<div>
+
 <table id="stInformation">
 	<tr>
 		<td>이름</td>
@@ -56,5 +58,8 @@ ${typeSumb }
 <div id="divbox"></div>
 ${content }
 ${average }
+
+</div>
+
 </body>
 </html>

@@ -329,7 +329,7 @@ public class learningStudentMM extends TransactionExe {
 
 			////////////////////////////////////////////////////////////////////////
 
-			page = "learningStuentWAN";
+			page = "learningStudentWAN";
 			transaction = true;
 
 		}catch(Exception ex){
