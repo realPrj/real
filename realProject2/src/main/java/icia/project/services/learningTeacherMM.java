@@ -147,6 +147,10 @@ public class learningTeacherMM extends TransactionExe {
 		case 31:	// 선생님 공지사항 삭제
 			mav = tclearningNoticeDelete((BoardBean)object[0]);
 			break;
+			
+		case 32 : // 선생님 토론게시판 페이지
+			mav = tclearningDebatePage((BoardBean)object[0]);
+			break;
 
 
 
@@ -995,28 +999,28 @@ public class learningTeacherMM extends TransactionExe {
 		return mav;
 	}
 	
+
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	private ModelAndView tclearningDebatePage(BoardBean board) { // 선생님 토론 페이지
+		mav = new ModelAndView();
+		boolean transaction = false;
+
+		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
+
+		try {
+			session.getAttribute("roomCode");
+
+			mav.addObject("content",session.getAttribute("roomCode") + "의 토론게시판");
+
+			transaction = true;
+
+		}catch(Exception ex){
+
+		}finally {
+			mav.setViewName("learningDebate");
+			setTransactionResult(transaction);
+		}
+		return mav;
+	}
+
 }

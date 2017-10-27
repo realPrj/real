@@ -197,11 +197,13 @@ public class HomeController  {
 			mav = ltmm.entrance(3, board);
 			break;	
 		case 4 :	
+			// 질문게시판
 			System.out.println(Integer.parseInt(board.getCaCode()));
 			mav = ltmm.entrance(4, board);
 			break;
 		case 5 : 
-
+			// 토론게시판
+			mav = ltmm.entrance(32, board);
 			break;
 
 		case 6 : 
