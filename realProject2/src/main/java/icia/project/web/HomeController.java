@@ -1,6 +1,9 @@
 package icia.project.web;
 
+import java.io.File;
 import java.util.Locale;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -8,9 +11,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import icia.project.bean.BoardBean;
+import icia.project.bean.DbBoardBean;
 import icia.project.bean.LearningRoomBean;
 import icia.project.bean.MemberBean;
 import icia.project.services.PageManagement;
@@ -39,7 +44,7 @@ public class HomeController  {
 
 		mav = new ModelAndView();
 		mav.setViewName("home");
-
+		
 		return mav;
 	}
 
@@ -214,7 +219,7 @@ public class HomeController  {
 
 			break;
 		case 10 : // 자료실
-			
+
 			mav = ltmm.entrance(13, board);
 			break;
 
@@ -381,16 +386,29 @@ public class HomeController  {
 
 		return mav;
 	}
-	
+
 	// 공지사항 수정 페이지
 	@RequestMapping(value = "/NoticeUpdatePage", method = RequestMethod.POST)
 	public ModelAndView learningNoticeUpdatePage(@ModelAttribute BoardBean board) {
 
 		mav = ltmm.entrance(11, board);
-		
+
 		return mav;
 	}
 
+	// 다운로드 메소드
+	@RequestMapping(value = "/download", method = RequestMethod.GET)
+	public ModelAndView download(@RequestParam("name") String file){
+		System.out.println(file);
+		ModelAndView mav = new ModelAndView();
+		//파라미터를 이용하여 file객체 생성
+		File f = new File("E:\\realTest\\realProject2\\src\\main\\webapp\\WEB-INF\\uploadFiles\\Notice\\"+file);
+		//file 객체를 저장
+		mav.addObject("download",f);
+		//출력할 뷰이름 설정
+		mav.setViewName("download");
+		return mav;
 
+	}
 
 }

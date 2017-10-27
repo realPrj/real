@@ -11,20 +11,20 @@
 $(document).ready(function() {
 	
 	var sizee = ${size};
-	var dateCode = 2017;
+	var dateCode = ${lowest};
 
 	for(var i = 0; i < parseInt(sizee) ; i++){
 		$("#"+dateCode).hide();
-		dateCode = parseInt(dateCode) - 1;
+		dateCode = parseInt(dateCode) + 1;
 	};
 	
 	
 	$("#yearSelect").click(function() {
 	var selectValue = $("#yearSelect").val();
-	var dateCode = 2017;
+	var dateCode = ${lowest};
 	for(var i = 0; i < parseInt(sizee); i++){
 		$("#"+dateCode).hide();
-		dateCode = parseInt(dateCode) - 1;
+		dateCode = parseInt(dateCode) + 1;
 	};
 		$("#"+selectValue).show();
 		var divbox = $("#divbox");
@@ -54,7 +54,7 @@ $(document).ready(function() {
 년도 선택${yearSelect }
 ${typeSumb }
 <div id="divbox"></div>
-
 ${content }
+${average }
 </body>
 </html>

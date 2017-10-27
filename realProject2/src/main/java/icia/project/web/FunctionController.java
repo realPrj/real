@@ -351,8 +351,8 @@ public class FunctionController {
 	// 자료실 자세히보기
 	@RequestMapping(value = "/learningDataCXT", method = RequestMethod.POST)
 	public ModelAndView learningDataCXT(@ModelAttribute BoardBean board)throws Exception{      
-		board.setId((String)session.getAttribute("tcId"));		 
-		System.out.println(board.getBoardTitle());
+
+		
 		mav = ltm.entrance(14, board);
 
 		return mav;
@@ -381,6 +381,17 @@ public class FunctionController {
 
 		return mav;
 	}
+	// 자료실 삭제
+		@RequestMapping(value = "/learningDataDelete", method = RequestMethod.POST)
+		public ModelAndView learningDataDelete(@ModelAttribute BoardBean board){      
+
+			System.out.println("자료실  삭제 컨트롤러 :" + board.getRoomCode());
+			ltm.entrance(15, board);
+			
+			mav = ltm.entrance(13, board);
+
+			return mav;
+		}
 
 
 

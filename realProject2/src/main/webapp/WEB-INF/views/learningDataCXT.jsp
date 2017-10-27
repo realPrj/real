@@ -1,9 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<!DOCTYPE html>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta charset="UTF-8">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
 <title>공조 || 자료실</title>
 </head>
 <script>
@@ -50,33 +53,37 @@
 
 		var form = document.getElementsByName("menuform")[0];
 		form.appendChild(caCode);
-		
+
 		form.submit();
 
 	}
-
-	function viewData(referCode, referDate, referTitle) {
-		
+	function deleteData(boardTitle,boardData,roomCode,boardId) {
+		alert(boardTitle);
+		alert(boardData);
+		alert(roomCode);
+		alert(boardId);
 		createinput("hidden", "boardTitle", boardTitle);
-		createinput("hidden", "boardDate", boardDate);
+		createinput("hidden", "boardDate", boardData);
 		createinput("hidden", "roomCode", roomCode);
+		createinput("hidden", "boardId", boardId);
+		
+		createForm("learningDataDeleteform", "learningDataDelete", "post");
 
+		var form = document.getElementsByName("learningDataDeleteform")[0];
+		
 		var boardTitle = document.getElementsByName("boardTitle")[0];
 		var boardDate = document.getElementsByName("boardDate")[0];
 		var roomCode = document.getElementsByName("roomCode")[0];
+		var boardId = document.getElementsByName("boardId")[0];
 		
-		createForm("learningDataCXTform", "learningDataCXT", "post");
-
-		var form = document.getElementsByName("learningDataCXTform")[0];
-		
+	
 		form.appendChild(boardTitle);
 		form.appendChild(boardDate);
 		form.appendChild(roomCode);
+		form.appendChild(boardId);
 
 		form.submit();
-		
 	}
-	
 </script>
 <body onLoad="${message}">
 	<h1>공조</h1>
@@ -96,7 +103,53 @@
 			onClick="eventClick('dataform','DataInsert','post')" />
 	</div>
 	<div>${content}</div>
-	${dataViewList }
+	
+	
+	
+	
+	<form name="datactx">
+		<table>
+			<tr>
+				<td><input type="hidden" name="boardTitle" value=${theme }>제목:${theme }</td>
+			</tr>
+			<tr>
+				<td><input type="hidden" name="boardContent" value=${content }>내용:${content }</td>
+			</tr>
+			<c:forEach var="file" items="${list }">
+				<tr>
+					<td><a href="download.action?name=${file}">${file}</a></td>
+				</tr>
+			</c:forEach>
+
+			<tr>
+				<td><input type="hidden" name="boardData" value=${date }>날짜:${date }</td>
+			</tr>
+			<tr>
+				<td><input type="hidden" name="boardData" value= ${roomcode}></td>
+			</tr>
+			<tr>
+				<td><input type="hidden" name="boardData" value=${writeId }>글쓴이:${writeId }</td>
+			</tr>
+			<tr>
+				<td>경로:${route }</td>
+			</tr>
+			<tr>
+				<td><input type="button" name="update" value="삭제"
+					onClick="deleteData('${theme }','${date }','${roomcode}','${writeId }')"></td>
+			</tr>
+			
+			
+			<tr>
+				<td><input type="button" name="delete" value="수정" onClick=""></td>
+			</tr>
+		</table>
+		
+	</form>
+
+
+
+
+
 
 </body>
 </html>
