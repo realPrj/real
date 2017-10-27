@@ -92,20 +92,14 @@ public class learningStudentMM extends TransactionExe {
 			break;
 
 		case 17:	// 오답노트 코멘트 페이지
+			mav = learningWANCMCXTPage((BoardBean)object[0]);
+			break;
+
+		case 18:	// 오답노트 등록
 
 			break;
 
-		case 18:	// 오답노트 코멘트 등록 페이지
-
-
-			break;
-		case 19:	// 오답노트 코멘트 수정 페이지
-
-			break;
-		case 20:	// 오답노트 코멘트 수정
-
-			break;
-		case 21:	// 오답노트 코멘트 삭제
+		case 21:	// 오답노트 삭제
 
 			break;
 
@@ -122,15 +116,19 @@ public class learningStudentMM extends TransactionExe {
 
 		mav = new ModelAndView();
 		BoardBean board;
+		BoardBean board2;
 		ArrayList<BoardBean> boardList = null;
 		ArrayList<BoardBean> typeSum = null;
 		ArrayList<BoardBean> yearCode = null;
+		ArrayList<BoardBean> allRoomCode = null;
+		ArrayList<BoardBean> allGraph = null;
 		StringBuffer sb;
 		StringBuffer sum;
 		boolean transaction = false;
 		String page = null;
 		double questionCount = 0;
 		double peopleCount = 0;
+		double peopleCount2 = 0;
 		double value1 = 0;
 		double value2 = 0;
 
@@ -249,17 +247,17 @@ public class learningStudentMM extends TransactionExe {
 			mav.addObject("content", sb.toString());
 
 			////////////////////////////////////////////////////////////////////////
-			
+
 			board = new BoardBean();
 
 			board.setRoomCode((String)session.getAttribute("roomCode"));
 			board.setStudentCode((String)session.getAttribute("stCode"));
-			
+
 			boardList = dao.learningWANstListGetOverlap(board);
 			yearCode = dao.learningWANstYearCodeOneGet(board);
-			
+
 			sb = new StringBuffer();
-			
+
 			sb.append("<table>");
 			sb.append("<tr>");
 			sb.append("<td>");
@@ -290,19 +288,33 @@ public class learningStudentMM extends TransactionExe {
 				board.setStudentCode(board.getStudentCode().substring(0, 2)+"%");
 				board.setTypeName(dao.learningTypeNameGet(board));
 				board.setYearName(dao.learningYearNameGet(board));
-				
-				questionCount = dao.learningWANstAverage1(board);	// 학년 총 질문수				
-				peopleCount = dao.learningWANstAverage2(board);	// 학년 총 인원수
+
+				questionCount = dao.learningWANstAverage1(board);	// 학년 총 질문수	
+
+				allRoomCode = dao.learningWANstAverage2(board);	// 과목이 같은 학습방 코드
+
+				for(int y = 0; y < allRoomCode.size(); y++) {
+					board2 = new BoardBean();
+					board2.setStudentCode(board.getStudentCode());
+					board2.setRoomCode(allRoomCode.get(y).getRoomCode());
+					peopleCount2 = dao.learningWANstAverage22(board2);
+
+					peopleCount += peopleCount2;
+
+				}
 
 				value1 = (questionCount / peopleCount) * 100;
+				String num1 = String.format("%.1f" , value1);
 
 				questionCount = dao.learningWANstAverage3(board);	// 학습방 학년 총 질문수
+
 				peopleCount = dao.learningWANstAverage4(board);	// 학습방 학년 총 인원수
-				
+
 				value2 = (questionCount / peopleCount) * 100;
-			
+				String num2 = String.format("%.1f" , value2);
+
 				sb.append("<tr>");
-				
+
 				sb.append("<td>");
 				sb.append(board.getYearName());
 				sb.append("</td>");
@@ -313,21 +325,78 @@ public class learningStudentMM extends TransactionExe {
 				sb.append(board.getNumberCode());
 				sb.append("</td>");
 				sb.append("<td>");
-				sb.append(value1+"%");
+				sb.append(num1+"%");
 				sb.append("</td>");
 				sb.append("<td>");
-				sb.append(value2+"%");
+				sb.append(num2+"%");
 				sb.append("</td>");	
 				sb.append("</tr>");
-				
+
 			}
-			
+
 			sb.append("</table>");
 
 			mav.addObject("average", sb.toString());
 
 
 			////////////////////////////////////////////////////////////////////////
+			sb = new StringBuffer();
+			board = new BoardBean();
+			board.setRoomSB(boardList.get(0).getRoomSB());
+
+			allGraph = dao.learningWANAllRoomGraph(board);
+			for(int i =0; i < allGraph.size(); i++) {
+				board = new BoardBean();
+				board.setRoomSB(boardList.get(0).getRoomSB());
+				board.setYearCode(allGraph.get(i).getYearCode());
+				board.setTypeCode(allGraph.get(i).getTypeCode());
+
+				board.setYearName(dao.learningYearNameGet(board));
+				board.setTypeName(dao.learningTypeNameGet(board));
+				board.setTypeSum(allGraph.get(i).getTypeSum());
+
+				if(i == allGraph.size()) {
+					sb.append("['"+board.getYearName()+board.getTypeName()+"',"+board.getTypeSum()+"]");
+					break;
+				}
+
+				sb.append("['"+board.getYearName()+board.getTypeName()+"',"+board.getTypeSum()+"],");
+
+
+			}
+
+			mav.addObject("allgraph", sb.toString());
+			
+			
+			sb = new StringBuffer();
+			board = new BoardBean();
+			board.setRoomSB(boardList.get(0).getRoomSB());
+			board.setRoomCode(boardList.get(0).getRoomCode());
+			allGraph = dao.learningWANRommGraph(board);
+			
+			for(int i =0; i < allGraph.size(); i++) {
+				board = new BoardBean();
+				board.setRoomSB(boardList.get(0).getRoomSB());
+				board.setYearCode(allGraph.get(i).getYearCode());
+				board.setTypeCode(allGraph.get(i).getTypeCode());
+
+				board.setYearName(dao.learningYearNameGet(board));
+				board.setTypeName(dao.learningTypeNameGet(board));
+				board.setTypeSum(allGraph.get(i).getTypeSum());
+
+				if(i == allGraph.size()) {
+					sb.append("['"+board.getYearName()+board.getTypeName()+"',"+board.getTypeSum()+"]");
+					break;
+				}
+
+				sb.append("['"+board.getYearName()+board.getTypeName()+"',"+board.getTypeSum()+"],");
+
+
+			}
+
+			mav.addObject("roomgraph", sb.toString());
+
+			///////////////////////////////////////////////////////////////////////
 
 			page = "learningStudentWAN";
 			transaction = true;
@@ -341,6 +410,73 @@ public class learningStudentMM extends TransactionExe {
 		return mav;
 	}
 
+	private ModelAndView learningWANCMCXTPage(BoardBean board) { // 오답노트 코멘트 페이지 이동
 
+		mav = new ModelAndView();
+		boolean transaction = false;
+		String page = null;
+		StringBuffer sb = new StringBuffer();
+		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
+
+		try {
+
+			board.setRoomCode((String)session.getAttribute("roomCode"));
+
+			if(dao.learningWANCommentCheck(board) != 0) {	// 코멘트 있음
+
+				board = dao.learningWANCommentGet(board);
+
+				sb.append("<table>");
+				sb.append("<tr>");
+				sb.append("<td>");
+				sb.append("내용");
+				sb.append("</td>");
+				sb.append("</tr>");
+				sb.append("<tr>");
+				sb.append("<td>");
+				sb.append(board.getBoardContent());
+				sb.append("</td>");
+				sb.append("</tr>");
+				sb.append("<tr>");
+				sb.append("<td>");
+				sb.append("파일첨부");
+				sb.append("</td>");
+				sb.append("<td>");
+				sb.append(board.getBoardRoute());
+				sb.append("</td>");
+				sb.append("</tr>");
+				sb.append("<tr>");
+				sb.append("<td>");
+				sb.append("날짜 : "+board.getBoardDate());
+				sb.append("</td>");
+				sb.append("</tr>");
+				sb.append("<tr>");
+				sb.append("<td>");
+				sb.append("아이디 : "+board.getBoardId());
+				sb.append("</td>");
+				sb.append("</tr>");
+				sb.append("</table>");
+
+				page="learningWANCXT";
+				transaction = true;
+
+			}else {	// 코멘트 없음
+
+				sb.append("<input type='button' value='코멘트가 없습니다.' onClick='windowcloseClick()' />");
+				mav.addObject("windowcloseClick", "window.close()");
+				page = "learningWANCXT";
+				transaction = true;
+			}
+
+			mav.addObject("content", sb.toString());
+
+		}catch(Exception ex){
+
+		}finally {
+			mav.setViewName(page);
+			setTransactionResult(transaction);
+		}
+		return mav;
+	}
 
 }

@@ -190,7 +190,10 @@ public interface IMybatis {
 	public double learningWANstAverage1(BoardBean board);
 
 	// 학습방 오답문제 총 평균 구하기2 (학년 총 인원수) 
-	public double learningWANstAverage2(BoardBean board);
+	public ArrayList<BoardBean> learningWANstAverage2(BoardBean board);
+
+	// 학습방 오답문제 총 평균 구하기22 (학년 총 인원수) 
+	public double learningWANstAverage22(BoardBean board);
 
 	// 학습방 오답문제 총 평균 구하기3 ( 방 학년 총 질문수)
 	public double learningWANstAverage3(BoardBean board);
@@ -200,6 +203,15 @@ public interface IMybatis {
 
 	// 학습방 오답문제 총 평균 구하기5 학생(본인) 오답노트 추출 (중복제외)
 	public ArrayList<BoardBean> learningWANstListGetOverlap(BoardBean board);
+
+	// (학습방 전체)학생 오답노트 그래프
+	public ArrayList<BoardBean> learningWANAllRoomGraph(BoardBean board);
+
+	// (학습방)학생 오답노트 그래프
+	public ArrayList<BoardBean> learningWANRommGraph(BoardBean board);
+
+
+
 
 
 }

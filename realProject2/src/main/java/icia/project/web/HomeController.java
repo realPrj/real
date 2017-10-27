@@ -359,6 +359,14 @@ public class HomeController  {
 		mav = ltmm.entrance(17, board);
 		return mav;
 	}
+	
+	// 학생 오답노트 코멘트 페이지
+	@RequestMapping(value = "/learningWANCMCXTPage", method = RequestMethod.GET)
+	public ModelAndView learningWANCMCXTPage(@ModelAttribute BoardBean board) {
+
+		mav = lsmm.entrance(17, board);
+		return mav;
+	}
 
 	// 선생님 오답노트 코멘트 등록 페이지
 	@RequestMapping(value = "/learningWANInsertPage", method = RequestMethod.POST)
