@@ -139,7 +139,7 @@ public interface IMybatis {
 	public ArrayList<BoardBean> tclearningNoticeList(BoardBean board);
 
 	// 선생님 공지사항 내용확인
-	public BoardBean tclearningNoticeConfirm(BoardBean board);
+	public DbBoardBean tclearningNoticeConfirm(BoardBean board);
 
 	// 선생님 오답노트 코멘트 유무 확인
 	public int learningWANCommentCheck(BoardBean board);

@@ -21,7 +21,7 @@ public class ViewService{
         String[] names = f.list();
 
         String fileName = bb.getCutContent();	// 파일이름만
-
+        
         for(int i = 0; i < names.length; i++){
             if(names[i].lastIndexOf(fileName) == 0){	//	파일이름 추출
                 list.add(names[i]);						// 파일담기

@@ -420,8 +420,7 @@
 	</delete>
 
 	<!-- 선생님 공지사항 내용확인 -->
-	<select id="tclearningNoticeConfirm" resultType="board"
-		parameterType="board">
+	<select id="tclearningNoticeConfirm" resultType="dbBoard" parameterType="board">
 		SELECT NT_LRCODE AS roomCode, NT_TITLE AS boardTitle,
 		NT_DATE AS boardDate, NT_CONTENT AS boardContent, NT_ROUTE AS
 		boardRoute, NT_TCID AS boardId

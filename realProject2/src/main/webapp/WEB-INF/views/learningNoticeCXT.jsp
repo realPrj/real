@@ -1,9 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<!DOCTYPE html>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta charset="UTF-8">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>공조 || 공지사항 내용</title>
 <script>
 //메뉴선택
@@ -84,10 +85,20 @@ function boardDelete(roomCode, boardDate){
 </head>
 <body>
 공지사항 내용
-${content }
-	<%-- <c:forEach var="file" items="${list }">
-			<a href="download.action?name=${file}">${file}</a>
-	</c:forEach> --%>
+
+<table>
+	<tr><td>제목 : ${boardTitle }</td></tr>
+	<tr><td>작성일 : ${boardDate }</td></tr>
+	<tr><td>작성자 : ${boardId }</td></tr>
+	<tr><td>내용 : ${boardContent }</td></tr>
+	<c:forEach var="file" items="${list }">
+		<tr>
+			<td><a href="download.action?name=${file}">${file}</a></td>
+		</tr>
+	</c:forEach>
+</table>
+	
+		${content }
 
 </body>
 </html>

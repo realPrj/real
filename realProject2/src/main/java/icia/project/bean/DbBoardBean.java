@@ -24,6 +24,7 @@ public class DbBoardBean {	// dbboard bean
 	
 	private String cutRoute;
 	private String cutContent;
+	
 	public String getRoomCode() {
 		return roomCode;
 	}
