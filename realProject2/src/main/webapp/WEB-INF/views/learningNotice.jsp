@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <title>공조 || 공지사항</title>
 <script>
-function confirm(boardTitle, boardDate, caCode, identity) {
+function confirm(boardTitle, boardDate, identity) {
 	var f = document.createElement("form");
 	f.name = "boardConfirm";
 	f.method = "post";
@@ -30,11 +30,11 @@ function confirm(boardTitle, boardDate, caCode, identity) {
 	date.value = boardDate;
 	f.appendChild(date); 
 	
-	var caCode = document.createElement("input");
+	/* var caCode = document.createElement("input");
 	caCode.type = "hidden";
 	caCode.name = "caCode";
 	caCode.value = caCode;
-	f.appendChild(caCode); 
+	f.appendChild(caCode); */  
 	//var bonum = document.getElementsByName("botitle");
 	/* var bopsid = document.getElementsByName("bopsid");
 	var psid = document.getElementsByName("psid"); */

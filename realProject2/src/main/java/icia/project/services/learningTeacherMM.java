@@ -75,6 +75,7 @@ public class learningTeacherMM extends TransactionExe {
 			break;
 
 		case 10: // 공지사항 글쓰기
+			mtfRequest = ((MultipartHttpServletRequest)object[1]);
 			mav = tclearningNoticeInsertOk((BoardBean)object[0]);
 			break;
 
@@ -177,7 +178,6 @@ public class learningTeacherMM extends TransactionExe {
 		for(int i=0; i<ar.size(); i++) {
 			sb.append("<tr>");	
 			//sb.append("<input type=\"hidden\" name=\"boardTitle\" value='" + board.getBoardTitle() + "'/>");
-			
 			sb.append("<td onClick=\"confirm('"+ ar.get(i).getBoardTitle() +"','" + ar.get(i).getBoardDate() + "','"+ board.getId() +"')\">" + ar.get(i).getBoardTitle() + "</td>");
 			sb.append("<td>" + ar.get(i).getBoardDate() + "</td>");
 			sb.append("<td>" + ar.get(i).getBoardId() + "</td>");
@@ -194,13 +194,14 @@ public class learningTeacherMM extends TransactionExe {
 
 		mav = new ModelAndView();
 		boolean transaction = false;
+		DbBoardBean bb = new DbBoardBean();
 		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
 
 		try {
 			session.getAttribute("roomCode");
 
-			board.setRoomCode((String)session.getAttribute("roomCode"));
-
+			bb.setRoomCode((String)session.getAttribute("roomCode"));
+			
 			board = dao.tclearningNoticeConfirm(board);
 
 			System.out.println("공지사항 내용확인 메서드 진입"+board.getBoardTitle()+board.getRoomCode());
@@ -219,9 +220,35 @@ public class learningTeacherMM extends TransactionExe {
 	}
 
 	private String getTclearningNoticeCTX(BoardBean board) { // 공지사항 내용 끌고오기
+		/*ViewService view = new ViewService(); 
+
+		bb.setCutRoute(bb.getBoardRoute().substring(0,68));	// 루트만
+		String route = bb.getCutRoute();
+
+		bb.setCutContent(bb.getBoardRoute().substring(68));	// 파일이름
+
+		List<String> list = view.getList(bb);*/
+		/*mav.addObject("list",list);
+		mav.addObject("theme",bb.getBoardTitle());
+		mav.addObject("content",bb.getBoardContent());
+		mav.addObject("date",bb.getBoardDate());
+		mav.addObject("writeId",bb.getBoardId());
+		mav.addObject("route",route);
+		mav.addObject("file",bb.getCutContent());*/
 
 		StringBuffer sb = new StringBuffer();
+		/*sb.append("<c:forEach var=\"file\" items='"+ list +"'>");
+		sb.append("<tr>");
+		sb.append("<td><a href=\"download.action?name='"+ bb.getCutContent() +"'\">'"+ bb.getCutContent() +"'</a></td>");
+		sb.append("</tr>");
+		sb.append("</c:forEach>");*/
 		sb.append("<table>");
+		/*sb.append("<tr>");
+		sb.append("<td>" + route + "</td>");
+		sb.append("</tr>");*/
+/*		sb.append("<tr>");
+		sb.append("<td>" + board.getCutContent() + "</td>");
+		sb.append("</tr>");*/
 		sb.append("<tr>");
 		sb.append("<td>" + board.getBoardTitle() + "</td>");
 		sb.append("</tr>");
@@ -701,7 +728,8 @@ public class learningTeacherMM extends TransactionExe {
 	private ModelAndView tclearningNoticeInsertOk(BoardBean board) { // 공지사항 글쓰기
 		mav = new ModelAndView();
 		boolean transaction = false;
-
+		fileupload(board,mtfRequest);
+		
 		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
 
 		try {

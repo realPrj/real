@@ -85,5 +85,9 @@ function boardDelete(roomCode, boardDate){
 <body>
 공지사항 내용
 ${content }
+	<%-- <c:forEach var="file" items="${list }">
+			<a href="download.action?name=${file}">${file}</a>
+	</c:forEach> --%>
+
 </body>
 </html>

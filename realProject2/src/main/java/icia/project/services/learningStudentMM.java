@@ -8,6 +8,7 @@ import org.springframework.transaction.TransactionDefinition;
 import org.springframework.web.servlet.ModelAndView;
 
 import icia.project.bean.BoardBean;
+import icia.project.bean.DbBoardBean;
 import icia.project.dao.IMybatis;
 import icia.project.dao.TransactionExe;
 
@@ -393,6 +394,7 @@ public class learningStudentMM extends TransactionExe {
 
 		mav = new ModelAndView();
 		boolean transaction = false;
+		DbBoardBean bb = new DbBoardBean();
 		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
 
 		try {

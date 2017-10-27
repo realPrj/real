@@ -1,0 +1,7 @@
+<Resource auth="Container" driverClassName="oracle.jdbc.driver.OracleDriver" factory="org.apache.tomcat.dbcp.dbcp2.BasicDataSourceFactory" initialSize="10" maxIddle="50" maxTotal="50" maxWaitMillis="3000" minIdle="10" name="YHDB" password="1234" removeAbandonedOnBorrow="true" removeAbandonedOnMaintenance="true" removeAbandonedTimeout="100" type="javax.sql.DataSource" url="jdbc:oracle:thin:@192.168.0.245:1521:xe" username="REALUSERTEST"/>
+
+
+<ResourceLink global="YHDB" name="YHDB" type="javax.sql.DataSource" /> 
+
+
+https://skadud7686@github.com/realPrj/real.git
