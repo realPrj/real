@@ -35,7 +35,6 @@ public class HomeController  {
 
 	private ModelAndView mav;
 
-
 	///////////////////////////////////////// 페이지  /////////////////////////////////////////	
 
 	// 홈(처음 시작)
@@ -368,7 +367,7 @@ public class HomeController  {
 		mav = ltmm.entrance(17, board);
 		return mav;
 	}
-	
+
 	// 학생 오답노트 코멘트 페이지
 	@RequestMapping(value = "/learningWANCMCXTPage", method = RequestMethod.GET)
 	public ModelAndView learningWANCMCXTPage(@ModelAttribute BoardBean board) {
@@ -442,5 +441,44 @@ public class HomeController  {
 		return mav;
 
 	}
+
+	// 선생님 학생별 정보 보기
+	@RequestMapping(value = "/learningWANSTInformationPage", method = RequestMethod.POST)
+	public ModelAndView learningWANSTInformationPage(){
+
+		mav = ltmm.entrance(22, null);
+
+		mav.setViewName("learningWANSTInformation");
+
+		return mav;
+
+	}
+
+	// 선생님 학생별 정보 보기
+	@RequestMapping(value="/learningSTInformationPage", method = RequestMethod.GET, produces = "application/text; charset=utf8")
+	private ModelAndView learningSTInformation(@ModelAttribute BoardBean board) {
+
+
+		if(board.getStudentCode().equals("학생이름")) {
+
+			mav = new ModelAndView();
+
+			System.out.println(board.getStudentCode());
+
+			mav.setViewName("learningWANajax");
+
+		}else {
+			System.out.println("asdf");
+			mav = ltmm.entrance(23, board);
+			
+		}
+
+
+		return mav;
+	}
+
+
+
+
 
 }

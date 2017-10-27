@@ -213,6 +213,7 @@ public interface IMybatis {
 	// 자료실 글삭제
 	public int learningDataUpdate(BoardBean board);
 
-
+	// 선생님 -> 학습방 학생코드 추출
+	public ArrayList<BoardBean> learningWANAllStudentCode(BoardBean board);
 
 }

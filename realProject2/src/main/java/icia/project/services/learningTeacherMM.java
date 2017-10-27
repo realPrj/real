@@ -29,6 +29,8 @@ public class learningTeacherMM extends TransactionExe {
 	private IMybatis dao;
 	@Autowired
 	private ProjectUtils session;
+	@Autowired
+	private learningStudentMM lmm;
 
 	private ModelAndView mav;
 
@@ -122,6 +124,20 @@ public class learningTeacherMM extends TransactionExe {
 		case 21:	// 오답노트 코멘트 삭제
 			mav = learningWANCMDelete((BoardBean)object[0]);
 			break;
+			
+		case 22:	// 오답노트 학습방 명단 쏘기
+			mav = learningWANStudentList();
+			break;
+			
+		case 23:	// 오답노트 학생별 정보 페이지
+			mav = learningSTInformationPage((BoardBean)object[0]);
+			break;
+			
+			
+			
+			
+			
+			
 
 		case 30:	// 선생님 공지사항 수정
 			mav = tclearningNoticeUpdate((BoardBean)object[0]);
@@ -908,4 +924,97 @@ public class learningTeacherMM extends TransactionExe {
 
 		return mav;
 	}
+	
+	private ModelAndView learningWANStudentList() { // 오답노트 학생명단 쏘기
+		
+		mav = new ModelAndView();
+		BoardBean board;
+		boolean transaction = false;
+		ArrayList<BoardBean> allSTCode = null;
+		ArrayList<BoardBean> allSTName = new ArrayList<BoardBean>();
+		StringBuffer sb = new StringBuffer();
+		
+		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
+
+		try {	
+			board = new BoardBean();
+			
+			board.setRoomCode((String)session.getAttribute("roomCode"));
+			
+			allSTCode = dao.learningWANAllStudentCode(board);
+			
+			sb.append("<select id='stClick' >");
+			sb.append("<option>");
+			sb.append("학생이름");
+			sb.append("</option>");
+			
+			for(int i = 0; i < allSTCode.size(); i++) {
+				board = new BoardBean();
+				board.setStudentCode(allSTCode.get(i).getStudentCode());
+				
+				board.setStudentName(dao.stNameGet(board));
+				allSTName.add(board);
+				
+				sb.append("<option value='"+allSTCode.get(i).getStudentCode()+"'>");
+				sb.append(allSTName.get(i).getStudentName());
+				sb.append("</option>");
+			}
+			
+			sb.append("</select>");
+
+			mav.addObject("studentList", sb.toString());
+			
+			
+		}catch(Exception ex){
+			
+		}finally {
+			setTransactionResult(transaction);
+		}
+
+		return mav;
+	}
+	
+	private ModelAndView learningSTInformationPage(BoardBean board) { // 오답노트 학생별 정보 페이지
+
+		boolean transaction = false;
+		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
+
+		try {	
+
+			mav = lmm.entrance(7, board);
+			transaction = true;
+			
+		}catch(Exception ex){
+			
+		}finally {
+			setTransactionResult(transaction);
+		}
+
+		return mav;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

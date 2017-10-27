@@ -52,7 +52,7 @@ public class learningStudentMM extends TransactionExe {
 			break;
 
 		case 7:	// 오답노트
-			mav = learningWANPage();
+			mav = learningWANPage(null);
 			break;
 
 		case 8: // 공지사항 내용확인
@@ -113,10 +113,10 @@ public class learningStudentMM extends TransactionExe {
 	}
 
 
-	private ModelAndView learningWANPage() { // 오답노트 페이지
+	private ModelAndView learningWANPage(BoardBean board) { // 오답노트 페이지
 
 		mav = new ModelAndView();
-		BoardBean board;
+
 		BoardBean board2;
 		ArrayList<BoardBean> boardList = null;
 		ArrayList<BoardBean> typeSum = null;
@@ -136,10 +136,21 @@ public class learningStudentMM extends TransactionExe {
 		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
 
 		try {
+			if(session.getAttribute("stCode") == null) {
+				System.out.println(board.getStudentCode());
 
-			board = new BoardBean();
+			}else {
+				
+				board = new BoardBean();
+				
+				board.setStudentCode((String)session.getAttribute("stCode"));
+
+			}
+
 			board.setRoomCode((String)session.getAttribute("roomCode"));
-			board.setStudentCode((String)session.getAttribute("stCode"));
+
+
+
 			board.setStudentName(dao.stNameGet(board));	// 학생 이름 추출
 			board.setAllSum(dao.allWANSum(board));		// 학생이 물어본 총 문제 수
 
@@ -367,14 +378,14 @@ public class learningStudentMM extends TransactionExe {
 			}
 
 			mav.addObject("allgraph", sb.toString());
-			
-			
+
+
 			sb = new StringBuffer();
 			board = new BoardBean();
 			board.setRoomSB(boardList.get(0).getRoomSB());
 			board.setRoomCode(boardList.get(0).getRoomCode());
 			allGraph = dao.learningWANRommGraph(board);
-			
+
 			for(int i =0; i < allGraph.size(); i++) {
 				board = new BoardBean();
 				board.setRoomSB(boardList.get(0).getRoomSB());
@@ -410,7 +421,7 @@ public class learningStudentMM extends TransactionExe {
 		}
 		return mav;
 	}
-	
+
 	private ModelAndView stlearningNoticeList(BoardBean board) { // 공지사항 리스트
 		mav = new ModelAndView();
 		boolean transaction = false;
@@ -437,7 +448,7 @@ public class learningStudentMM extends TransactionExe {
 		}
 		return mav;
 	}
-	
+
 	private String stlearningNoticeList(BoardBean board, ArrayList<BoardBean> ar) { // 공지사항 리스트
 		StringBuffer sb = new StringBuffer();
 		sb.append("<table>");
@@ -458,7 +469,7 @@ public class learningStudentMM extends TransactionExe {
 
 		return sb.toString();
 	}
-	
+
 	private ModelAndView stlearningNoticeCTX(BoardBean board) { // 공지사항 내용확인
 
 		mav = new ModelAndView();
