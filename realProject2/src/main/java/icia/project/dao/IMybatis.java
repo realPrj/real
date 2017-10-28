@@ -204,18 +204,26 @@ public interface IMybatis {
 	// 학습방 오답문제 총 평균 구하기5 학생(본인) 오답노트 추출 (중복제외)
 	public ArrayList<BoardBean> learningWANstListGetOverlap(BoardBean board);
 
-	// (학습방 전체)학생 오답노트 그래프
+	// (학습방 전체) 오답노트 그래프
 	public ArrayList<BoardBean> learningWANAllRoomGraph(BoardBean board);
 
-	// (학습방)학생 오답노트 그래프
+	// 학생(본인) 최근 문제유형 5개 추출(중복제외)
+	public ArrayList<BoardBean> learningWANAllRoomGraph2(BoardBean board);
+
+	// (학습방) 오답노트 그래프
 	public ArrayList<BoardBean> learningWANRommGraph(BoardBean board);
 
 	// 자료실 글삭제
 	public int learningDataUpdate(BoardBean board);
+
 	// 학생 자료실 리스트
 	public ArrayList<BoardBean> datalistStudent(BoardBean board);
 
 	// 선생님 -> 학습방 학생코드 추출
 	public ArrayList<BoardBean> learningWANAllStudentCode(BoardBean board);
+
+	// 학습방 오답노트 게시글 유무
+	public int learningWANCheck(BoardBean board);
+
 
 }

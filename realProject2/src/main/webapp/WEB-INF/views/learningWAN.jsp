@@ -9,43 +9,31 @@
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script>
-	$(document).ready(function() {
+$(document).ready(function() {
+	
+	var sizee = ${size};
+	var dateCode = ${lowest};
 
-		var sizee = $
-		{
-			size
-		}
-		;
-		var dateCode = $
-		{
-			lowest
-		}
-		;
-
-		for (var i = 0; i < parseInt(sizee); i++) {
-			$("#" + dateCode).hide();
-			dateCode = parseInt(dateCode) + 1;
-		}
-		;
-
-		$("#yearSelect").click(function() {
-			var selectValue = $("#yearSelect").val();
-			var dateCode = $
-			{
-				lowest
-			}
-			;
-			for (var i = 0; i < parseInt(sizee); i++) {
-				$("#" + dateCode).hide();
-				dateCode = parseInt(dateCode) + 1;
-			}
-			;
-			$("#" + selectValue).show();
-			var divbox = $("#divbox");
-			divbox.append($("#" + selectValue));
-		});
-
+	for(var i = 0; i < parseInt(sizee) ; i++){
+		$("#"+dateCode).hide();
+		dateCode = parseInt(dateCode) + 1;
+	};
+	
+	
+	$("#yearSelect").click(function() {
+	var selectValue = $("#yearSelect").val();
+	var dateCode = ${lowest};
+	for(var i = 0; i < parseInt(sizee); i++){
+		$("#"+dateCode).hide();
+		dateCode = parseInt(dateCode) + 1;
+	};
+		$("#"+selectValue).show();
+		var divbox = $("#divbox");
+		divbox.append($("#"+selectValue));
 	});
+	
+	
+ });
 
 	//form 생성
 	function createForm(formname, formaction, ta) {
@@ -111,6 +99,9 @@
 <body>
 	<input type="button" value="전체" onClick="" />
 	<input type="button" value="학생별" onClick="studentInformation()" />
+	
+<%@include file="learningWANgraph.jsp"%>
+
 	<br> 년도 선택${yearSelect } ${typeSumb }
 	<div id="divbox"></div>
 	${content }
