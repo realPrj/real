@@ -10,6 +10,8 @@
 <script>
 $(document).ready(function() {
 	
+	$("#chart_div2").hide();
+	
 	var sizee = ${size};
 	var dateCode = ${lowest};
 

@@ -28,7 +28,7 @@
 	// 첫번째 컬럼 주제? 두번째 컬럼 명 수
 
         // Set chart options
-        var options = {'title':'전국 학생 모르는 문제 질문 비중',
+        var options = {'title':"${title1}",
                        'width':400,
                        'height':300};
 
@@ -66,7 +66,7 @@
 	// 첫번째 컬럼 주제? 두번째 컬럼 명 수
 
         // Set chart options
-        var options = {'title':'학습방 학생 모르는 문제 질문 비중',
+        var options = {'title':"${title2}",
                        'width':400,
                        'height':300};
 

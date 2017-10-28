@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>공조 || 자료실</title>
+<title>공조 || 질문게시판</title>
 </head>
 <script>
 	//form 생성
@@ -48,7 +48,7 @@
 
 		var caCode = document.getElementsByName("caCode")[0];
 
-		createForm("menuform", "tcmenu", "post");
+		createForm("menuform", "stmenu", "post");
 
 		var form = document.getElementsByName("menuform")[0];
 		form.appendChild(caCode);
@@ -62,9 +62,9 @@
 		createinput("hidden", "boardDate", referDate);
 		createinput("hidden", "roomCode", referCode);
 		
-		createForm("learningDataCXTform", "learningDataCXTPage", "post");
+		createForm("questionBoardCXTForm", "questionBoardCXT", "post");
 
-		var form = document.getElementsByName("learningDataCXTform")[0];
+		var form = document.getElementsByName("questionBoardCXTForm")[0];
 		
 		var boardTitle = document.getElementsByName("boardTitle")[0];
 		var boardDate = document.getElementsByName("boardDate")[0];
@@ -82,7 +82,6 @@
 </script>
 <body onLoad="${message}">
 	<h1>공조</h1>
-	${content}~
 	<table>
 		<tr>
 			<td><input type="button" value="로그아웃"
@@ -96,8 +95,13 @@
 	<div>
 		<input type="button" value="질문게시판" onClick="menu('4')" /> 
 	</div>
-	${datalist}
+	<div>
+		<input type="button" value="질문하기" onClick="eventClick('dataform','questionInsert','post')" /> 
+	</div>
+		${roomCode}
+		${stCode }
+		${datalist }
 	
-	
+
 </body>
 </html>

@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>공조 || 자료실</title>
+<title>공조 || 질문 게시판  글 등록</title>
 </head>
 <script>
 	//form 생성
@@ -28,11 +28,10 @@
 		input.value = ivalue;
 
 		document.body.appendChild(input);
-		
-		return input;
 	}
 
 	function eventClick(formname, formaction, formmethod) {
+
 
 		createForm(formname, formaction, formmethod);
 
@@ -42,47 +41,26 @@
 
 	}
 	//메뉴선택
-	function menu(ivalue) {
-
+	function menu(ivalue){
+		
 		createinput("hidden", "caCode", ivalue);
-
+		
 		var caCode = document.getElementsByName("caCode")[0];
-
-		createForm("menuform", "tcmenu", "post");
+		
+		createForm("menuform","stmenu","post");
+		
 
 		var form = document.getElementsByName("menuform")[0];
 		form.appendChild(caCode);
 		
 		form.submit();
-
-	}
-
-	function viewData(referCode, referTitle, referDate) {
-		createinput("hidden", "boardTitle", referTitle);
-		createinput("hidden", "boardDate", referDate);
-		createinput("hidden", "roomCode", referCode);
-		
-		createForm("learningDataCXTform", "learningDataCXTPage", "post");
-
-		var form = document.getElementsByName("learningDataCXTform")[0];
-		
-		var boardTitle = document.getElementsByName("boardTitle")[0];
-		var boardDate = document.getElementsByName("boardDate")[0];
-		var roomCode = document.getElementsByName("roomCode")[0];
-		
-	
-		form.appendChild(boardTitle);
-		form.appendChild(boardDate);
-		form.appendChild(roomCode);
-
-		form.submit();
 		
 	}
-	
+
+	// 자료실 form
 </script>
 <body onLoad="${message}">
 	<h1>공조</h1>
-	${content}~
 	<table>
 		<tr>
 			<td><input type="button" value="로그아웃"
@@ -94,10 +72,25 @@
 		</tr>
 	</table>
 	<div>
+		<div>
 		<input type="button" value="질문게시판" onClick="menu('4')" /> 
 	</div>
-	${datalist}
-	
-	
+	</div>
+
+
+
+	<!-- 자료실 글쓰기  -->
+	<form name="learningQuestionInsertForm" action="learningQuestionInsert" method="post"
+		enctype="multipart/form-data">
+		<br> 제목 : <input type="text" name="boardTitle" size=50
+			maxlength=70> <br> 내용 :
+		<textarea name="boardContent" cols=50 rows=20 maxlength=500></textarea>
+		
+		<br> <input multiple="multiple" type="file" name="file" /><input type="hidden"
+			name="load" value="Notice" />
+		<BUTTON type="SUBMIT">보내기</BUTTON>
+		
+	</form>
+
 </body>
 </html>

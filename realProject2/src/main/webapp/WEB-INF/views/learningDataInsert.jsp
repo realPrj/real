@@ -90,8 +90,7 @@
 
 
 
-		<br> <input multiple="multiple" type="file" name="file" /> <input
-			type="hidden" name="boardroute" /><input type="hidden"
+		<br> <input multiple="multiple" type="file" name="file" /><input type="hidden"
 			name="load" value="Notice" />
 		<BUTTON type="SUBMIT">보내기</BUTTON>
 	</form>

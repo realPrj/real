@@ -11,61 +11,18 @@
 
 $(document).ready(function() {
 	
-	
-	$("#stClick").click(function() {
-	
-		var selectValue = $("#stClick").val();
-	    $.ajax({
-	        type: "get",
-	        url: "learningSTInformationPage",
-	        data: {studentCode : selectValue},             // 전달 값
-	        dataType: "html",                              // json, xml, html(text): 안쓰면 html
-	        timeout : "5000",                              // 타임아웃
-	        success : function(data) {                     // 성공
-	           console.log(data);
-	           $("#ajax_div").append(data);
-	        },
-	        error : function( error ) {                     // 실패
-	           alert( "error" );
-	           console.log(error);
-	        }
-	     });
-
-	});
-
-	
-
-/* 	var sizee = ${size};
-	var dateCode = ${lowest};
-
-	for(var i = 0; i < parseInt(sizee) ; i++){
-		$("#"+dateCode).hide();
-		dateCode = parseInt(dateCode) + 1;
-	};
-	
-	
-	$("#yearSelect").click(function() {
-	var selectValue = $("#yearSelect").val();
-	var dateCode = ${lowest};
-	for(var i = 0; i < parseInt(sizee); i++){
-		$("#"+dateCode).hide();
-		dateCode = parseInt(dateCode) + 1;
-	};
-		$("#"+selectValue).show();
-		var divbox = $("#divbox");
-		divbox.append($("#"+selectValue));
-	}); */
-	
+	$("#chart_div2").hide();
 	
  });
- 
+
 //form 생성
-function createForm(formname,formaction,ta){
+function createForm(formname,formaction,formmethod){
 
 	var form = document.createElement("form");
-	form.target=ta;
+
 	form.name = formname;
 	form.action = formaction;
+	form.method = formmethod;
 
 	document.body.appendChild(form);
 
@@ -96,15 +53,89 @@ function eventClick(valueCode){
 	
 	form.submit();
 }
- 
+
+
+function stSearch(){
+	
+	var selectValue = $("#stClick").val();
+
+	createinput("hidden", "studentCode", selectValue);
+	
+	var studentCode = document.getElementsByName("studentCode")[0];
+	
+	createForm("learningSTInformationform","learningSTInformation","post");
+	
+	var form = document.getElementsByName("learningSTInformationform")[0];
+
+	form.appendChild(studentCode);
+	
+	form.submit();
+	
+	$("#studentInformation").show();
+	$("#chart_div").show();
+	$("#chart_div2").show();
+
+}
+
+//form 생성
+function createForm1(formname, formaction, ta) {
+
+	var form = document.createElement("form");
+	form.target = ta;
+	form.name = formname;
+	form.action = formaction;
+
+	document.body.appendChild(form);
+
+}
+
+function commentCheck(valueCode) {
+
+	createinput("hidden", "boardCode", valueCode);
+
+	var boardCode = document.getElementsByName("boardCode")[0];
+
+	createForm1("learningWANCXTPageform", "learningWANCXTPage", "POP");
+
+	var form = document.getElementsByName("learningWANCXTPageform")[0];
+	window.open('', 'POP',
+			"width=570, height=350, resizable = no, scrollbars = no");
+	form.appendChild(boardCode);
+
+	form.submit();
+}
+
+
 </script>
 <body>
 <input type="button" value="전체" onClick="" />
 <input type="button" value="학생별" onClick="" />
-<div id="graph">
-<%@include file="learningWANgraph.jsp"%>
-</div>
 ${studentList }
-<div id="ajax_div"></div>
+<input type="button" value="검색" onClick="stSearch()" />
+
+<div id="studentInformation">
+
+<table id="stInformation">
+	<tr>
+		<td>이름</td>
+		<td>반</td>
+		<td>번호</td>
+		<td>총 물어본 문제수</td>
+	</tr>
+	<tr>
+		<td>${studentName }</td>
+		<td>${stHalf }</td>
+		<td>${stNumber }</td>
+		<td>${allSum }</td>
+	</tr>
+</table>
+
+<%@include file="learningWANgraph.jsp"%>
+
+${content }
+${average }
+
+</div>
+
 </body>
 </html>
