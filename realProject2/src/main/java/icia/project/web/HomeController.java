@@ -172,7 +172,7 @@ public class HomeController  {
 	public ModelAndView dataInsert(@ModelAttribute BoardBean board) {
 
 		mav = new ModelAndView();
-		System.out.println(board.getRoomCode());
+
 		mav.setViewName("learningDataInsert");
 
 		return mav;
@@ -193,12 +193,10 @@ public class HomeController  {
 			break;
 		case 3 : 
 			// 공지사항
-			System.out.println(Integer.parseInt(board.getCaCode()));
 			mav = ltmm.entrance(3, board);
 			break;	
 		case 4 :	
 			// 질문게시판
-			System.out.println(Integer.parseInt(board.getCaCode()));
 			mav = ltmm.entrance(4, board);
 			break;
 		case 5 : 
@@ -221,7 +219,6 @@ public class HomeController  {
 
 			break;
 		case 10 : // 자료실
-
 			mav = ltmm.entrance(13, board);
 			break;
 
@@ -244,7 +241,6 @@ public class HomeController  {
 
 		return mav;
 	}
-
 
 	// 학생 학습메뉴
 	@RequestMapping(value = "/stmenu", method = RequestMethod.POST)
@@ -276,7 +272,7 @@ public class HomeController  {
 			break;
 
 		case 7 : // 오답노트
-			mav = lsmm.entrance(7, null);
+			mav = lsmm.entrance(7, board);
 			break;
 
 		case 8 : 	
@@ -288,7 +284,6 @@ public class HomeController  {
 			break;
 
 		case 10 :  // 자료실
-			System.out.println("자료실10");
 			mav = ltmm.entrance(5, board);
 			break;
 
@@ -349,7 +344,6 @@ public class HomeController  {
 	@RequestMapping(value = "/tcNoticeConfirm", method = RequestMethod.POST)
 	public ModelAndView tclearningNoticeCTX(@ModelAttribute BoardBean board) {
 
-		System.out.println("공지사항 내용확인 컨트롤러" + board.getBoardDate());
 		mav = ltmm.entrance(8, board);
 
 		return mav;
@@ -434,7 +428,7 @@ public class HomeController  {
 	// 다운로드 메소드
 	@RequestMapping(value = "/download", method = RequestMethod.GET)
 	public ModelAndView download(@RequestParam("name") String file){
-		System.out.println(file);
+
 		ModelAndView mav = new ModelAndView();
 		//파라미터를 이용하여 file객체 생성
 		File f = new File("E:\\realTest\\realProject2\\src\\main\\webapp\\WEB-INF\\uploadFiles\\Notice\\"+file);
@@ -452,31 +446,40 @@ public class HomeController  {
 
 		mav = ltmm.entrance(22, null);
 
-		mav.setViewName("learningWANSTInformation");
-
 		return mav;
 
 	}
 
 	// 선생님 학생별 정보 보기
-	@RequestMapping(value="/learningSTInformationPage", method = RequestMethod.GET, produces = "application/text; charset=utf8")
+	@RequestMapping(value="/learningSTInformation", method = RequestMethod.POST)
 	private ModelAndView learningSTInformation(@ModelAttribute BoardBean board) {
 
+		mav = ltmm.entrance(23, board);
 
-		if(board.getStudentCode().equals("학생이름")) {
+		return mav;
+	}
 
-			mav = new ModelAndView();
+	// 질문게시판 글 페이지 보내기
+	@RequestMapping(value = "/questionInsert", method = RequestMethod.POST)
+	public ModelAndView questionInsertPage(@ModelAttribute BoardBean board) {
 
-			System.out.println(board.getStudentCode());
+		mav = new ModelAndView();
+		mav.setViewName("learningQuestionInsert");
 
-			mav.setViewName("learningWANajax");
+		return mav;
+	} 
+	// 질문게시판 글 수정 하기
+	@RequestMapping(value = "/learningQuestionUpdatePage", method = RequestMethod.POST)
+	public ModelAndView learningQuestionUpdatePage(@ModelAttribute BoardBean board) {
 
-		}else {
-			System.out.println("asdf");
-			mav = ltmm.entrance(23, board);
 
-		}
+		mav.addObject("boardTitle",board.getBoardTitle());
+		mav.addObject("boardDate",board.getBoardDate());
+		mav.addObject("boardId",board.getBoardId());
+		mav.addObject("boardContent",board.getBoardContent());
+		mav.addObject("roomCode",board.getRoomCode());
 
+		mav.setViewName("learningQuestionUpdate");
 
 		return mav;
 	}
@@ -508,4 +511,4 @@ public class HomeController  {
 
 
 
-}
+	}

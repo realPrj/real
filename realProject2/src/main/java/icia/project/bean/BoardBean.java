@@ -6,7 +6,7 @@ import org.apache.ibatis.type.Alias;
 
 @Alias("board")
 public class BoardBean {	// 게시판 bean
-	
+
 	private String caCode;	// 카테고리 코드
 
 	private String studentCode; // 학생학년반번호
@@ -15,33 +15,59 @@ public class BoardBean {	// 게시판 bean
 	private String roomCode;	// 방코드
 	private String roomName;	// 방이름
 	private String roomIntroduction;	// 방소개
-	
+
 	private String roomSB;	// 방과목 코드
 	private String yearCode;	// 년도코드
 	private String typeCode;	// 문제유형코드
 	private String numberCode;	// 문제코드
-	
+
 	private String subjectName;	// 과목 이름
 	private String yearName;	// 년도 이름
 	private String typeName;	// 문제유형 이름
-	
+
 	private String typeSum;	// 타입별 합
 	private int allSum;	// 총 합
-	
+
 	private String boardCode;	// 게시글 번호
 	private String boardTitle;	// 게시글 제목
 	private String boardContent;	// 게시글 내용
 	private String boardRoute;	// 게시글 파일첨부 경로
 	private String boardId; // 게시글 작성자
 	private String boardDate;	// 게시글 날짜
-	
+
 	private String stHalf;	// 학생 반
 	private String stNumber;	// 학생 번호
 
+	private String tagId;	// 댓글 아이디
+	private String tagDate;	// 댓글 날짜
+	private String tagContent;	// 댓글 내용
 
 
-	
 
+
+	public String getTagId() {
+		return tagId;
+	}
+
+	public void setTagId(String tagId) {
+		this.tagId = tagId;
+	}
+
+	public String getTagDate() {
+		return tagDate;
+	}
+
+	public void setTagDate(String tagDate) {
+		this.tagDate = tagDate;
+	}
+
+	public String getTagContent() {
+		return tagContent;
+	}
+
+	public void setTagContent(String tagContent) {
+		this.tagContent = tagContent;
+	}
 
 	public int getAllSum() {
 		return allSum;
@@ -75,7 +101,7 @@ public class BoardBean {	// 게시판 bean
 		this.typeSum = typeSum;
 	}
 
-	
+
 
 	public String getBoardRoute() {
 		return boardRoute;
@@ -198,6 +224,7 @@ public class BoardBean {	// 게시판 bean
 	public void setBoardDate(String boardDate) {
 		this.boardDate = boardDate;
 	}
-	
+
 
 }
+

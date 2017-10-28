@@ -36,7 +36,7 @@ public class Encryption implements PasswordEncoder{
 
 	private String key(String hint) {
 		char[] compareValue = ("k1cj4w3ib@9lhvsd!7x0aqtm#rg2y$6epu5zn8fo").toCharArray();
-		char[] addRootKey = ("hoonzzang701106iciaicica").toCharArray();
+		char[] addRootKey = ("younghwan910827iciaicica").toCharArray();
 
 
 		String keyValue = "";

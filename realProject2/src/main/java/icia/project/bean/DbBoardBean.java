@@ -12,9 +12,6 @@ import org.apache.ibatis.type.Alias;
 public class DbBoardBean {	// dbboard bean
 	
 	private String roomCode;	// 방코드
-	
-
-
 	private String boardCode;	// 게시글 번호
 	private String boardTitle;	// 게시글 제목
 	private String boardContent;	// 게시글 내용
@@ -86,3 +83,4 @@ public class DbBoardBean {	// dbboard bean
 	
 
 }
+

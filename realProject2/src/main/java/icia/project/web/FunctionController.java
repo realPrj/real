@@ -15,6 +15,7 @@ import icia.project.bean.BoardBean;
 import icia.project.bean.LearningRoomBean;
 import icia.project.services.ProjectUtils;
 import icia.project.services.StudentManagement;
+import icia.project.services.learningStudentMM;
 import icia.project.services.learningTeacherMM;
 import icia.project.services.teacherManagement;
 
@@ -32,6 +33,8 @@ public class FunctionController {
 	private ProjectUtils session;
 	@Autowired
 	private learningTeacherMM ltm;
+	@Autowired
+	private learningStudentMM stm;
 
 	private ModelAndView mav;
 
@@ -231,28 +234,6 @@ public class FunctionController {
 		return mav;
 	}
 
-	// 선생님 학습방 질문게시판 글 등록
-	@RequestMapping(value = "/learningBoardQueryInsert", method = RequestMethod.POST)
-	public ModelAndView  learningBoardQueryInsert(BoardBean board) {
-
-		mav = new ModelAndView();		
-
-
-
-		return mav;
-	}
-
-	// 선생님 학습방 자료실 글 등록
-	@RequestMapping(value = "/learningBoardReferenceInsert", method = RequestMethod.POST)
-	public ModelAndView  learningBoardReferenceInsert(BoardBean board) {
-
-		mav = new ModelAndView();		
-
-
-		return mav;
-	}
-
-
 	// 토론 게시판 글 등록
 	@RequestMapping(value = "/learningDebateInsert", method = RequestMethod.POST)
 	public ModelAndView tclearningDebateInsert(@ModelAttribute BoardBean board) {
@@ -380,11 +361,10 @@ public class FunctionController {
 
 		return mav;
 	}
+
 	// 자료실 삭제
 	@RequestMapping(value = "/learningDataDelete", method = RequestMethod.POST)
 	public ModelAndView learningDataDelete(@ModelAttribute BoardBean board){      
-
-
 
 		ltm.entrance(15, board);
 
@@ -392,15 +372,18 @@ public class FunctionController {
 
 		return mav;
 	}
+
 	// 자료실 업데이트
 	@RequestMapping(value = "/learningDataUpdate", method = RequestMethod.POST)
 	public ModelAndView learningDataUpdate(@ModelAttribute BoardBean board){     
+
 		ltm.entrance(16, board);
 
 		mav = ltm.entrance(13, board); // 다시 메뉴로 가기
 
 		return mav;
 	}
+
 	// 자료실 자세히보기
 	@RequestMapping(value = "/learningDataCXTStudent", method = RequestMethod.POST)
 	public ModelAndView learningDataCXTStudent(@ModelAttribute BoardBean board)throws Exception{      
@@ -411,6 +394,7 @@ public class FunctionController {
 		return mav;
 	}
 
+
 	// 선생님 토론게시판 내용수정 페이지
 	@RequestMapping(value = "/DebateUpdatePage", method = RequestMethod.POST)
 	public ModelAndView tclearningDebateUpdatePage(@ModelAttribute BoardBean board) {
@@ -419,6 +403,67 @@ public class FunctionController {
 
 		return mav;
 	}
+
+	// 학생 질문게시판 글쓰기
+	@RequestMapping(value = "/learningQuestionInsert", method = RequestMethod.POST)
+	public ModelAndView learningQuestionInsert(@ModelAttribute BoardBean board,MultipartHttpServletRequest mtfRequest)throws Exception{      
+
+		board.setId((String)session.getAttribute("id"));
+
+		mav = stm.entrance(5, board, mtfRequest);
+
+		return mav;
+	}
+	
+	// 질문게시판 자세히보기
+	@RequestMapping(value = "/questionBoardCXT", method = RequestMethod.POST)
+	public ModelAndView questionBoardCXT(@ModelAttribute BoardBean board)throws Exception{      
+
+		mav = stm.entrance(6, board);
+
+		return mav;
+	}
+	
+	//질문게시판 삭제
+	@RequestMapping(value = "/learningQuestionDelete", method = RequestMethod.POST)
+	public ModelAndView learningQuestionDelete(@ModelAttribute BoardBean board){      
+
+		stm.entrance(12, board);
+
+		mav = stm.entrance(4, board);
+
+		return mav;
+	}
+	
+	// 질문게시판 업데이트
+	@RequestMapping(value = "/learningQuUpdate", method = RequestMethod.POST)
+	public ModelAndView learningQuUpdate(@ModelAttribute BoardBean board){     
+		stm.entrance(13, board);
+
+		mav = stm.entrance(4, board); // 다시 메뉴로 가기
+
+		return mav;
+	}
+	
+	// 질문게시판 자세히보기
+	@RequestMapping(value = "/learningDataCXTPage", method = RequestMethod.POST)
+	public ModelAndView learningDataCXTPage(@ModelAttribute BoardBean board)throws Exception{      
+
+		mav = ltm.entrance(2, board);
+
+		return mav;
+	}
+	
+	// 질문게시판 댓글 쓰기
+	@RequestMapping(value = "/learningQuestionTag", method = RequestMethod.POST)
+	public ModelAndView learningQuestionTag(@ModelAttribute BoardBean board)throws Exception{      
+
+		ltm.entrance(1, board);
+
+		mav = ltm.entrance(2, board);
+		return mav;
+	}
+
 
 	// 선생님 토론게시판 내용수정
 	@RequestMapping(value = "/DebateUpdate", method = RequestMethod.POST)

@@ -108,7 +108,7 @@ public class PageManagement extends TransactionExe {
 	}
 
 	private ModelAndView studentMainPage() {	// 학생 메인 페이지
-
+		
 		mav = new ModelAndView();
 		LearningRoomBean room;
 		ArrayList<LearningRoomBean> alCode = new ArrayList<LearningRoomBean>();
@@ -204,7 +204,7 @@ public class PageManagement extends TransactionExe {
 
 			setTransactionResult(transaction);
 		}
-
+		
 		return mav;
 	}
 	

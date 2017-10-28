@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+   pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -7,112 +7,103 @@
 <title>공조 || 오답노트(전체)</title>
 </head>
 <script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+   src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script>
-	$(document).ready(function() {
+$(document).ready(function() {
+   
+   var sizee = ${size};
+   var dateCode = ${lowest};
 
-		var sizee = $
-		{
-			size
-		}
-		;
-		var dateCode = $
-		{
-			lowest
-		}
-		;
+   for(var i = 0; i < parseInt(sizee) ; i++){
+      $("#"+dateCode).hide();
+      dateCode = parseInt(dateCode) + 1;
+   };
+   
+   
+   $("#yearSelect").click(function() {
+   var selectValue = $("#yearSelect").val();
+   var dateCode = ${lowest};
+   for(var i = 0; i < parseInt(sizee); i++){
+      $("#"+dateCode).hide();
+      dateCode = parseInt(dateCode) + 1;
+   };
+      $("#"+selectValue).show();
+      var divbox = $("#divbox");
+      divbox.append($("#"+selectValue));
+   });
+   
+   
+ });
 
-		for (var i = 0; i < parseInt(sizee); i++) {
-			$("#" + dateCode).hide();
-			dateCode = parseInt(dateCode) + 1;
-		}
-		;
+   //form 생성
+   function createForm(formname, formaction, ta) {
 
-		$("#yearSelect").click(function() {
-			var selectValue = $("#yearSelect").val();
-			var dateCode = $
-			{
-				lowest
-			}
-			;
-			for (var i = 0; i < parseInt(sizee); i++) {
-				$("#" + dateCode).hide();
-				dateCode = parseInt(dateCode) + 1;
-			}
-			;
-			$("#" + selectValue).show();
-			var divbox = $("#divbox");
-			divbox.append($("#" + selectValue));
-		});
+      var form = document.createElement("form");
+      form.target = ta;
+      form.name = formname;
+      form.action = formaction;
 
-	});
+      document.body.appendChild(form);
 
-	//form 생성
-	function createForm(formname, formaction, ta) {
+   }
+   
+   //form 생성
+   function createForm1(formname,formaction,formmethod){
 
-		var form = document.createElement("form");
-		form.target = ta;
-		form.name = formname;
-		form.action = formaction;
+      var form = document.createElement("form");
 
-		document.body.appendChild(form);
+      form.name = formname;
+      form.action = formaction;
+      form.method = formmethod;
 
-	}
-	
-	//form 생성
-	function createForm1(formname,formaction,formmethod){
+      document.body.appendChild(form);
 
-		var form = document.createElement("form");
+   }
 
-		form.name = formname;
-		form.action = formaction;
-		form.method = formmethod;
+   //input 생성
+   function createinput(itype, iname, ivalue) {
+      var input = document.createElement("input");
+      input.type = itype;
+      input.name = iname;
+      input.value = ivalue;
 
-		document.body.appendChild(form);
+      document.body.appendChild(input);
+   }
 
-	}
+   function commentCheck(valueCode) {
 
-	//input 생성
-	function createinput(itype, iname, ivalue) {
-		var input = document.createElement("input");
-		input.type = itype;
-		input.name = iname;
-		input.value = ivalue;
+      createinput("hidden", "boardCode", valueCode);
 
-		document.body.appendChild(input);
-	}
+      var boardCode = document.getElementsByName("boardCode")[0];
 
-	function commentCheck(valueCode) {
+      createForm("learningWANCXTPageform", "learningWANCXTPage", "POP");
 
-		createinput("hidden", "boardCode", valueCode);
+      var form = document.getElementsByName("learningWANCXTPageform")[0];
+      window.open('', 'POP',
+            "width=570, height=350, resizable = no, scrollbars = no");
+      form.appendChild(boardCode);
 
-		var boardCode = document.getElementsByName("boardCode")[0];
+      form.submit();
+   }
 
-		createForm("learningWANCXTPageform", "learningWANCXTPage", "POP");
+   function studentInformation() {
 
-		var form = document.getElementsByName("learningWANCXTPageform")[0];
-		window.open('', 'POP',
-				"width=570, height=350, resizable = no, scrollbars = no");
-		form.appendChild(boardCode);
+      createForm1("learningWANSTInformationPageform", "learningWANSTInformationPage", "POST");
 
-		form.submit();
-	}
+      var form = document.getElementsByName("learningWANSTInformationPageform")[0];
 
-	function studentInformation() {
+      form.submit();
 
-		createForm1("learningWANSTInformationPageform", "learningWANSTInformationPage", "POST");
-
-		var form = document.getElementsByName("learningWANSTInformationPageform")[0];
-
-		form.submit();
-
-	}
+   }
 </script>
 <body>
-	<input type="button" value="전체" onClick="" />
-	<input type="button" value="학생별" onClick="studentInformation()" />
-	<br> 년도 선택${yearSelect } ${typeSumb }
-	<div id="divbox"></div>
-	${content }
+   <input type="button" value="전체" onClick="" />
+   <input type="button" value="학생별" onClick="studentInformation()" />
+   
+<%@include file="learningWANgraph.jsp"%>
+
+   <br> 년도 선택${yearSelect } ${typeSumb }
+   <div id="divbox"></div>
+   ${content }
 </body>
 </html>
