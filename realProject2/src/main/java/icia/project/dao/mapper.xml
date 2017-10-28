@@ -1,0 +1,847 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="icia.project.dao.IMybatis">
+
+	<!-- 선생님 아이디 체크 -->
+	<select id="tcIdCheck" resultType="Integer" parameterType="member">
+		SELECT COUNT(*)
+		FROM TEACHER
+		WHERE TC_ID=#{id}
+	</select>
+
+	<!-- 학생 아이디 체크 -->
+	<select id="stIdCheck" resultType="Integer" parameterType="member">
+		SELECT COUNT(*)
+		FROM STUDENT
+		WHERE ST_ID=#{id}
+	</select>
+
+	<!-- 학생코드 체크 -->
+	<select id="stCodeCheck" resultType="Integer" parameterType="member">
+		SELECT COUNT(*)
+		FROM STUDENT
+		WHERE ST_RFSTUDENTCODE=#{studentCode}
+	</select>
+
+	<!-- 선생님 임시비밀번호 추출 -->
+	<select id="tcPwdGet" resultType="member" parameterType="member">
+		SELECT
+		TC_PWD AS pwd
+		FROM TEACHER
+		WHERE TC_ID=#{id}
+	</select>
+
+	<!-- 학생 임시비밀번호 추출 -->
+	<select id="stPwdGet" resultType="member" parameterType="member">
+		SELECT
+		ST_PWD AS pwd
+		FROM STUDENT
+		WHERE ST_ID=#{id}
+	</select>
+
+	<!-- 학생코드 추출 -->
+	<select id="stCodeGet" resultType="member" parameterType="member">
+		SELECT
+		ST_RFSTUDENTCODE AS studentCode
+		FROM STUDENT
+		WHERE ST_ID=#{id}
+	</select>
+
+	<!-- 선생님 로그인아웃 히스토리 -->
+	<insert id="tcLogHistory" parameterType="member">
+		INSERT INTO
+		TEACHERLOGOUTHISTORY(TLOH_TCID,TLOH_DATE,TLOH_TYPE)
+		VALUES(#{id},DEFAULT,#{logType})
+	</insert>
+
+	<!-- 학생 로그인아웃 히스토리 -->
+	<insert id="stLogHistory" parameterType="member">
+		INSERT INTO
+		STUDENTLOGOUTHISTORY(SLOH_STRFSTUDENTCODE,SLOH_DATE,SLOH_TYPE)
+		VALUES(#{studentCode},DEFAULT,#{logType})
+	</insert>
+
+	<!-- 선생님 회원가입 -->
+	<insert id="tcJoin" parameterType="member">
+		INSERT INTO
+		TEACHER(TC_ID,TC_PWD,TC_NAME,TC_EMAIL,TC_PHONE,TC_STATECODE)
+		VALUES(#{id},#{pwd},#{name},#{email},#{phone},#{stateCode})
+	</insert>
+
+	<!-- 학생 회원가입 -->
+	<insert id="stJoin" parameterType="member">
+		INSERT INTO
+		STUDENT(ST_RFSTUDENTCODE,ST_ID,ST_PWD,ST_NAME,ST_EMAIL,ST_PHONE,ST_STATECODE)
+		VALUES(#{studentCode},#{id},#{pwd},#{name},#{email},#{phone},#{stateCode})
+	</insert>
+
+	<!-- 선생님 아이디 찾기 -->
+	<select id="tcIdFind" resultType="member" parameterType="member">
+		SELECT
+		TC_ID AS id
+		FROM TEACHER
+	</select>
+
+	<!-- 학생 아이디 찾기 -->
+	<select id="stIdFind" resultType="member" parameterType="member">
+		SELECT
+		ST_ID AS id
+		FROM STUDENT
+		WHERE ST_EMAIL=#{email}
+	</select>
+
+	<!-- 오늘의 월 추출 -->
+	<select id="yyyyMMGet" resultType="String">
+		SELECT
+		TO_CHAR(SYSDATE,'YYYYMM') FROM DUAL
+	</select>
+
+	<!-- 학생 출결 추출 -->
+	<select id="stIOHGet" resultType="room" parameterType="room">
+		SELECT
+		TO_CHAR(IOH_DATE, 'YYYYMMDDHH24MISS') AS attendanceCode
+		FROM
+		INOUTHISTORY
+		WHERE IOH_RFSTUDENTCODE=#{studentCode} AND
+		IOH_TYPE=#{attendanceType} AND TO_CHAR(IOH_DATE, 'YYYYMM')=#{yyyymm}
+		ORDER BY IOH_DATE
+		DESC
+	</select>
+
+	<!-- 선생님 나의정보 추출 -->
+	<select id="tcInformationGet" resultType="member" parameterType="member">
+		SELECT
+		TC_ID AS id, TC_NAME AS name,TC_EMAIL AS email, TC_PHONE AS
+		phone
+		FROM TEACHER
+		WHERE TC_ID=#{id}
+	</select>
+
+	<!-- 학생 나의정보 추출 -->
+	<select id="stInformationGet" resultType="member" parameterType="member">
+		SELECT
+		ST_ID AS id, ST_NAME AS name,ST_EMAIL AS email, ST_PHONE AS
+		phone
+		FROM STUDENT
+		WHERE ST_RFSTUDENTCODE=#{studentCode}
+	</select>
+
+	<!-- 선생님 나의정보 수정 -->
+	<update id="tcInformationChange" parameterType="member">
+		UPDATE TEACHER
+		SET
+		TC_NAME=#{name},TC_EMAIL=#{email},TC_PHONE=#{phone}
+		WHERE
+		TC_ID=#{id}
+	</update>
+
+	<!-- 학생 나의정보 수정 -->
+	<update id="stInformationChange" parameterType="member">
+		UPDATE STUDENT
+		SET
+		ST_NAME=#{name},ST_EMAIL=#{email},ST_PHONE=#{phone}
+		WHERE
+		ST_RFSTUDENTCODE=#{studentCode}
+	</update>
+
+	<!-- 선생님 비밀번호 수정 -->
+	<update id="tcInformationPWDChange" parameterType="member">
+		UPDATE TEACHER
+		SET
+		TC_PWD=#{pwd}
+		WHERE
+		TC_ID=#{id}
+	</update>
+
+	<!-- 학생 비밀번호 수정 -->
+	<update id="stInformationPWDChange" parameterType="member">
+		UPDATE STUDENT
+		SET
+		ST_PWD=#{pwd}
+		WHERE
+		ST_RFSTUDENTCODE=#{studentCode}
+	</update>
+
+	<!-- 선생님 회원탈퇴 -->
+	<delete id="tcmemberDelete" parameterType="member">
+		DELETE
+		FROM TEACHER
+		WHERE TC_ID=#{id}
+	</delete>
+
+	<!-- 학생 회원탈퇴 -->
+	<delete id="stmemberDelete" parameterType="member">
+		DELETE
+		FROM STUDENT
+		WHERE ST_RFSTUDENTCODE=#{studentCode}
+	</delete>
+
+	<!-- 선생님 학습코드 유무 -->
+	<select id="tclearningCodeCheck" resultType="Integer"
+		parameterType="room">
+		SELECT COUNT(*)
+		FROM LEARNINGROOM
+		WHERE
+		LR_CODE=#{roomCode}
+	</select>
+
+	<!-- 선생님 학습방 유무 -->
+	<select id="tclearningRoomCheck" resultType="Integer"
+		parameterType="room">
+		SELECT COUNT(*)
+		FROM LEARNINGROOM
+		WHERE
+		LR_TCID=#{id}
+	</select>
+
+	<!-- 학생 학습방 유무 -->
+	<select id="stlearningRoomCheck" resultType="Integer"
+		parameterType="room">
+		SELECT COUNT(*)
+		FROM LEARNINGSTUDENTREGISTER
+		WHERE
+		LSR_STRFSTUDENTCODE=#{studentCode}
+	</select>
+
+	<!-- 학생 학습방 참여 유무 -->
+	<select id="stlearningRoomJoinCheck" resultType="Integer"
+		parameterType="room">
+		SELECT COUNT(*)
+		FROM LEARNINGSTUDENTREGISTER
+		WHERE
+		LSR_STRFSTUDENTCODE=#{studentCode} AND LSR_LRCODE=#{roomCode}
+	</select>
+
+	<!-- 선생님 학습방 추출 -->
+	<select id="tclearningRoomGet" resultType="room" parameterType="room">
+		SELECT LR_CODE AS roomCode, LR_NAME AS roomName, LR_CONTENT AS
+		roomIntroduction, LR_SBCODE AS roomSB
+		FROM LEARNINGROOM
+		WHERE
+		LR_TCID=#{id} ORDER BY LR_CODE ASC
+	</select>
+
+	<!-- 학생 학습방 추출1(방습방 코드 추출) -->
+	<select id="stlearningRoomGet1" resultType="room" parameterType="room">
+		SELECT LSR_LRCODE AS roomCode
+		FROM LEARNINGSTUDENTREGISTER
+		WHERE
+		LSR_STRFSTUDENTCODE=#{studentCode} ORDER BY LSR_LRCODE ASC
+	</select>
+
+	<!-- 학생 학습방 추출2(방습방 이름 추출) -->
+	<select id="stlearningRoomGet2" resultType="room" parameterType="room">
+		SELECT LR_CODE AS roomCode, LR_NAME AS roomName, LR_CONTENT AS
+		roomIntroduction, LR_SBCODE AS roomSB
+		FROM LEARNINGROOM
+		WHERE
+		LR_CODE=#{roomCode}
+	</select>
+
+	<!-- 선생님 학습 개설 -->
+	<insert id="tclearningOpen" parameterType="room">
+		INSERT INTO
+		LEARNINGROOM(LR_TCID,LR_CODE,LR_NAME,LR_CONTENT,LR_SBCODE)
+		VALUES(#{id},#{roomCode},#{roomName},#{roomIntroduction},#{roomSB})
+	</insert>
+
+	<!-- 선생님 학습방 이동 -->
+	<select id="learningRoomGo" resultType="room" parameterType="room">
+		SELECT LR_CODE AS roomCode, LR_NAME AS roomName, LR_CONTENT AS
+		roomIntroduction, LR_SBCODE AS roomSB
+		FROM LEARNINGROOM
+		WHERE
+		LR_CODE=#{roomCode}
+	</select>
+
+	<!-- 학습방 추출 -->
+	<select id="learningGet" resultType="room" parameterType="room">
+		SELECT
+		LR_CODE AS roomCode, LR_NAME AS roomName
+		FROM LEARNINGROOM
+		WHERE
+		LR_TCID=#{id}
+	</select>
+
+	<!-- 학생 학습참여 -->
+	<insert id="stLearningJoin" parameterType="room">
+		INSERT INTO
+		LEARNINGSTUDENTREGISTER(LSR_LRCODE,LSR_STRFSTUDENTCODE)
+		VALUES(#{roomCode},#{studentCode})
+	</insert>
+
+	<!-- 선생님 공지사항 리스트 -->
+	<select id="tclearningNoticeList" resultType="board"
+		parameterType="board">
+		SELECT NT_TITLE AS boardTitle, NT_DATE AS boardDate,
+		NT_TCID AS boardId FROM NOTICE WHERE NT_LRCODE = #{roomCode} ORDER BY
+		NT_DATE DESC
+	</select>
+
+
+	<!-- 선생님 학습방 오답노트 추출 -->
+	<select id="learningWANListGet" resultType="board"
+		parameterType="board">
+		SELECT
+		WAN_CODE AS boardCode, WAN_LRCODE AS roomCode
+		,WAN_STUDENTNAME AS
+		studentName,WAN_QTSTYPEYACODE AS
+		yearCode,WAN_QTSTYPECODE AS
+		typeCode,WAN_QTNUMBER AS
+		numberCode,WAN_DATE AS boardDate,
+		WAN_QTSTYPEYASBCODE AS roomSB
+		FROM
+		WRONGANSWERNOTES
+		WHERE
+		WAN_LRCODE=#{roomCode}
+	</select>
+
+	<!-- 학습방 과목 코드 추출 -->
+	<select id="learningSBCodeGet" resultType="String"
+		parameterType="board">
+		SELECT
+		LR_SBCODE AS roomSB
+		FROM LEARNINGROOM
+		WHERE
+		LR_CODE=#{roomCode}
+	</select>
+
+	<!-- 년도 이름 추출 -->
+	<select id="learningYearNameGet" resultType="String"
+		parameterType="board">
+		SELECT
+		YA_NAME AS yearName
+		FROM YEAR
+		WHERE
+		YA_SBCODE=#{roomSB} AND YA_CODE=#{yearCode}
+	</select>
+
+	<!-- 문제유형 이름 추출 -->
+	<select id="learningTypeNameGet" resultType="String"
+		parameterType="board">
+		SELECT
+		STYPE_NAME AS typeName
+		FROM SUBJECTTYPE
+		WHERE
+		STYPE_YASBCODE=#{roomSB} AND STYPE_YACODE=#{yearCode} AND
+		STYPE_CODE=#{typeCode}
+	</select>
+
+	<!-- 년도별 문제유형별 합 -->
+	<select id="learningWANTypeSum" resultType="board"
+		parameterType="board">
+		SELECT
+		WAN_QTSTYPECODE AS typeCode
+		,COUNT(WAN_QTSTYPECODE) AS
+		typeSum
+		FROM WRONGANSWERNOTES WHERE
+		WAN_QTSTYPEYACODE=#{yearCode} AND WAN_LRCODE=#{roomCode}
+		GROUP
+		BY
+		WAN_QTSTYPECODE ORDER
+		BY
+		WAN_QTSTYPECODE ASC
+	</select>
+
+	<!-- 중복 년도 코드 추출 -->
+	<select id="learningWANYearCodeOneGet" resultType="board"
+		parameterType="board">
+		SELECT
+		WAN_QTSTYPEYACODE AS yearCode
+		FROM WRONGANSWERNOTES
+		WHERE
+		WAN_LRCODE = #{roomCode}
+		GROUP BY WAN_QTSTYPEYACODE ORDER
+		BY
+		WAN_QTSTYPEYACODE ASC
+
+	</select>
+
+	<!-- 자료실 글등록 -->
+	<insert id="referenceInsert" parameterType="board">
+		INSERT INTO
+		REFERENCE(RR_LRCODE,RR_TITLE,RR_CONTENT,RR_DATE,RR_ROUTE,RR_TCID)
+		VALUES(#{roomCode},#{boardTitle},#{boardContent},SYSDATE,#{boardRoute},#{id})
+	</insert>
+	<!-- 자료실 리스트 -->
+	<select id="datalist" resultType="board" parameterType="board">
+		SELECT
+		RR_TITLE AS boardTitle,TO_CHAR(RR_DATE, 'YYYYMMDDHH24MISS') AS
+		boardDate,RR_TCID AS boardId,RR_LRCODE AS roomCode
+		FROM REFERENCE
+		WHERE
+		RR_TCID=#{id} AND RR_LRCODE=#{roomCode}
+	</select>
+
+	<!-- 오답노트 코멘트 확인 유무 -->
+	<select id="learningWANCommentCheck" resultType="Integer"
+		parameterType="board">
+		SELECT
+		COUNT(*)
+		FROM WRONGANSWERNOTESTAG
+		WHERE
+		WTAG_WANLRCODE=#{roomCode} AND WTAG_WANCODE=#{boardCode}
+	</select>
+
+	<!-- 오답노트 코멘트 추출 -->
+	<select id="learningWANCommentGet" resultType="board"
+		parameterType="board">
+		SELECT
+		WTAG_WANLRCODE AS roomCode, WTAG_WANCODE AS
+		boardCode, WTAG_CONTENT AS boardContent, WTAG_DATE AS boardDate,
+		WTAG_ROUTE AS boardRoute, WTAG_TCID AS boardId
+		FROM WRONGANSWERNOTESTAG
+		WHERE
+		WTAG_WANLRCODE=#{roomCode} AND WTAG_WANCODE=#{boardCode}
+	</select>
+
+	<!-- 오답노트 코멘트 등록 -->
+	<insert id="learningWANCommentInsert" parameterType="board">
+		INSERT INTO
+		WRONGANSWERNOTESTAG(WTAG_WANLRCODE,WTAG_WANCODE,WTAG_CONTENT,WTAG_DATE,WTAG_ROUTE,WTAG_TCID)
+		VALUES(${roomCode},#{boardCode},#{boardContent},SYSDATE,#{boardRoute},#{id})
+	</insert>
+
+	<!-- 오답노트 코멘트 수정 -->
+	<update id="learningWANCMUpdate" parameterType="board">
+		UPDATE
+		WRONGANSWERNOTESTAG
+		SET
+		WTAG_CONTENT=#{boardContent},WTAG_ROUTE=#{boardRoute}
+		WHERE
+		WTAG_WANLRCODE=#{roomCode} AND WTAG_WANCODE=#{boardCode}
+	</update>
+
+	<!-- 오답노트 코멘트 삭제 -->
+	<delete id="learningWANCMDelete" parameterType="board">
+		DELETE
+		FROM
+		WRONGANSWERNOTESTAG
+		WHERE WTAG_WANLRCODE=#{roomCode} AND
+		WTAG_WANCODE=#{boardCode}
+	</delete>
+
+	<!-- 선생님 공지사항 내용확인 -->
+	<select id="tclearningNoticeConfirm" resultType="dbBoard"
+		parameterType="board">
+		SELECT NT_LRCODE AS roomCode, NT_TITLE AS boardTitle,
+		NT_DATE AS boardDate, NT_CONTENT AS boardContent, NT_ROUTE AS
+		boardRoute, NT_TCID AS boardId
+		FROM NOTICE WHERE NT_LRCODE =
+		#{roomCode} AND NT_TITLE = #{boardTitle} AND
+		NT_DATE =
+		TO_DATE(#{boardDate},'YYYY-MM-DD HH24:MI:SS')
+	</select>
+
+	<!-- 선생님 공지사항 글쓰기 -->
+	<insert id="tclearningNoticeInsert" parameterType="board">
+		INSERT INTO
+		NOTICE
+		VALUES(#{roomCode}, #{boardTitle}, #{boardContent}, SYSDATE,
+		#{boardRoute}, #{boardId})
+	</insert>
+
+	<!-- 자료실 전체보기 view -->
+	<select id="learningDataCXT" resultType="dbBoard" parameterType="board">
+		SELECT
+		RR_TITLE AS boardTitle,
+		RR_DATE AS boardDate,
+		RR_CONTENT AS
+		boardContent,
+		RR_ROUTE AS boardRoute,
+		RR_TCID AS boardId
+		FROM REFERENCE
+		WHERE
+		RR_LRCODE=#{roomCode}
+		AND RR_DATE=TO_DATE(#{boardDate},'YYYY-MM-DD
+		HH24:MI:SS')
+		AND
+		RR_TITLE=#{boardTitle}
+	</select>
+
+	<!-- 선생님 공지사항 글 수정하기 -->
+	<update id="tclearningNoticeUpdate" parameterType="board">
+		UPDATE NOTICE
+		SET NT_TITLE = #{boardTitle}, NT_CONTENT = #{boardContent}, NT_ROUTE =
+		#{boardRoute}
+		WHERE NT_LRCODE = #{roomCode} AND NT_DATE =
+		TO_DATE(#{boardDate},'YYYY-MM-DD HH24:MI:SS')
+	</update>
+
+	<!-- 선생님 공지사항 삭제 -->
+	<delete id="tclearningNoticeDelete" parameterType="board">
+		DELETE FROM
+		NOTICE WHERE NT_LRCODE = #{roomCode} AND NT_DATE =
+		TO_DATE(#{boardDate},'YYYY-MM-DD HH24:MI:SS')
+	</delete>
+
+
+	<!-- 학생 이름 추출 -->
+	<select id="stNameGet" resultType="String" parameterType="board">
+		SELECT
+		ST_NAME AS studentName
+		FROM STUDENT
+		WHERE
+		ST_RFSTUDENTCODE=#{studentCode}
+	</select>
+
+	<!-- 학생이 물어본 문제수 -->
+	<select id="allWANSum" resultType="Integer" parameterType="board">
+		SELECT
+		COUNT(*)
+		FROM WRONGANSWERNOTES
+		WHERE
+		WAN_STRFSTUDENTCODE=#{studentCode} AND WAN_LRCODE=#{roomCode}
+	</select>
+
+	<!-- 학생(본인) 오답노트 추출 -->
+	<select id="learningWANstListGet" resultType="board"
+		parameterType="board">
+		SELECT
+		WAN_CODE AS boardCode,
+		WAN_LRCODE AS roomCode,
+		WAN_STRFSTUDENTCODE AS studentCode,
+		WAN_STUDENTNAME AS studentName,
+		WAN_QTSTYPEYASBCODE AS roomSB,
+		WAN_QTSTYPEYACODE AS yearCode,
+		WAN_QTSTYPECODE AS typeCode,
+		WAN_QTNUMBER AS numberCode,
+		WAN_DATE AS
+		boardDate
+		FROM WRONGANSWERNOTES
+		WHERE WAN_LRCODE=#{roomCode} AND
+		WAN_STRFSTUDENTCODE=#{studentCode}
+		ORDER
+		BY
+		WAN_DATE DESC
+	</select>
+
+	<!-- 학생 중복 년도 코드 추출 -->
+	<select id="learningWANstYearCodeOneGet" resultType="board"
+		parameterType="board">
+		SELECT
+		WAN_QTSTYPEYACODE AS yearCode
+		FROM WRONGANSWERNOTES
+		WHERE
+		WAN_LRCODE = #{roomCode} AND WAN_STRFSTUDENTCODE=#{studentCode}
+		GROUP BY WAN_QTSTYPEYACODE ORDER
+		BY
+		WAN_QTSTYPEYACODE ASC
+
+	</select>
+
+	<!-- 학생 년도별 문제유형별 합 -->
+	<select id="learningWANstTypeSum" resultType="board"
+		parameterType="board">
+		SELECT
+		WAN_QTSTYPECODE AS typeCode
+		,COUNT(WAN_QTSTYPECODE) AS
+		typeSum
+		FROM
+		WRONGANSWERNOTES WHERE
+		WAN_QTSTYPEYACODE=#{yearCode} AND
+		WAN_LRCODE=#{roomCode} AND
+		WAN_STRFSTUDENTCODE=#{studentCode}
+		GROUP
+		BY
+		WAN_QTSTYPECODE,WAN_QTSTYPEYACODE ORDER
+		BY
+		WAN_QTSTYPECODE ASC
+	</select>
+
+	<!-- 자료실 글삭제 -->
+	<delete id="learningDataDelete" parameterType="board">
+		DELETE
+		REFERENCE
+		WHERE RR_LRCODE=#{roomCode}
+		AND RR_TITLE = #{boardTitle}
+		AND RR_TCID =
+		#{boardId}
+		AND RR_DATE = TO_DATE(#{boardDate},'YYYY-MM-DD
+		HH24:MI:SS')
+	</delete>
+
+	<!-- 학습방 오답문제 총 평균 구하기1 (학년 총 질문수) -->
+	<select id="learningWANstAverage1" resultType="Double"
+		parameterType="board">
+		SELECT
+		COUNT(*)
+		FROM WRONGANSWERNOTES
+		WHERE
+		SUBSTR(WAN_STRFSTUDENTCODE, 1,2) LIKE #{studentCode} AND
+		WAN_QTSTYPEYACODE=#{yearCode} AND WAN_QTSTYPECODE=#{typeCode} AND
+		WAN_QTNUMBER=#{numberCode}
+	</select>
+
+
+
+	<!-- 학습방 오답문제 총 평균 구하기2 (학년 총 인원수) -->
+	<select id="learningWANstAverage2" resultType="board"
+		parameterType="board">
+		SELECT
+		LR_CODE AS roomCode
+		FROM LEARNINGROOM
+		WHERE
+		LR_SBCODE=#{roomSB}
+	</select>
+
+
+	<!-- 학습방 오답문제 총 평균 구하기22 (학년 총 인원수) -->
+	<select id="learningWANstAverage22" resultType="Double"
+		parameterType="board">
+		SELECT
+		COUNT(LSR_STRFSTUDENTCODE)
+		FROM
+		LEARNINGSTUDENTREGISTER
+		WHERE LSR_LRCODE=#{roomCode} AND
+		SUBSTR(LSR_STRFSTUDENTCODE, 1,2) LIKE #{studentCode}
+	</select>
+
+	<!-- 학습방 오답문제 총 평균 구하기3 ( 방 학년 총 질문수) -->
+	<select id="learningWANstAverage3" resultType="Double"
+		parameterType="board">
+		SELECT
+		COUNT(*)
+		FROM WRONGANSWERNOTES
+		WHERE
+		WAN_LRCODE=#{roomCode} AND SUBSTR(WAN_STRFSTUDENTCODE, 1,2) LIKE
+		#{studentCode} AND WAN_QTSTYPEYACODE=#{yearCode} AND
+		WAN_QTSTYPECODE=#{typeCode} AND WAN_QTNUMBER=#{numberCode}
+	</select>
+
+	<!-- 학습방 오답문제 총 평균 구하기4 ( 방 학년 총 인원수) -->
+	<select id="learningWANstAverage4" resultType="Double"
+		parameterType="board">
+		SELECT
+		COUNT(*)
+		FROM LEARNINGSTUDENTREGISTER
+		WHERE
+		SUBSTR(LSR_STRFSTUDENTCODE, 1,2) LIKE #{studentCode} AND
+		LSR_LRCODE=#{roomCode}
+	</select>
+
+	<!-- 학습방 오답문제 총 평균 구하기5 학생(본인) 오답노트 추출 (중복제외) -->
+	<select id="learningWANstListGetOverlap" resultType="board"
+		parameterType="board">
+		SELECT
+		WAN_CODE AS boardCode,
+		WAN_LRCODE AS roomCode,
+		WAN_STRFSTUDENTCODE AS
+		studentCode,
+		WAN_STUDENTNAME AS studentName,
+		WAN_QTSTYPEYASBCODE AS
+		roomSB,
+		WAN_QTSTYPEYACODE AS yearCode,
+		WAN_QTSTYPECODE AS typeCode,
+		WAN_QTNUMBER AS numberCode,
+		WAN_DATE AS
+		boardDate
+		FROM WRONGANSWERNOTES
+		WHERE WAN_LRCODE=#{roomCode} AND
+		WAN_STRFSTUDENTCODE=#{studentCode}
+		GROUP
+		BY
+		WAN_DATE,WAN_QTSTYPEYASBCODE,WAN_QTNUMBER,WAN_QTSTYPEYACODE,WAN_QTSTYPECODE,WAN_STRFSTUDENTCODE,WAN_LRCODE,WAN_QTSTYPEYASBCODE,WAN_CODE,WAN_STUDENTNAME
+		ORDER
+		BY
+		WAN_QTSTYPEYACODE DESC
+	</select>
+
+	<!-- (학습방 전체) 오답노트 그래프 -->
+	<select id="learningWANAllRoomGraph" resultType="board"
+		parameterType="board">
+		<![CDATA[
+		SELECT
+		WAN_QTSTYPEYACODE AS yearCode,
+        WAN_QTSTYPECODE AS typeCode,
+		COUNT(WAN_QTSTYPECODE) AS typeSum
+		FROM WRONGANSWERNOTES
+		WHERE ROWNUM <= 5 AND WAN_QTSTYPEYASBCODE=#{roomSB}
+		GROUP
+		BY
+		WAN_QTSTYPEYACODE,WAN_QTSTYPECODE
+		ORDER
+		BY
+		COUNT(WAN_QTSTYPECODE) DESC
+		]]>
+	</select>
+
+	<!-- 학생(본인) 최근 문제유형 5개 추출(중복제외) -->
+	<select id="learningWANAllRoomGraph2" resultType="board"
+		parameterType="board">
+		<![CDATA[
+		  SELECT
+		WAN_QTSTYPEYACODE AS yearCode,
+        WAN_QTSTYPECODE AS typeCode,
+		COUNT(WAN_QTSTYPECODE) AS typeSum
+		FROM WRONGANSWERNOTES
+		WHERE ROWNUM <= 5 AND WAN_LRCODE=#{roomCode} AND WAN_STRFSTUDENTCODE=#{studentCode}
+		GROUP
+		BY
+		WAN_QTSTYPEYACODE,WAN_QTSTYPECODE
+		ORDER
+		BY
+        COUNT(WAN_QTSTYPECODE) DESC
+		]]>
+	</select>
+
+	<!-- (학습방) 오답노트 그래프 -->
+	<select id="learningWANRommGraph" resultType="board"
+		parameterType="board">
+		<![CDATA[
+		SELECT
+		WAN_QTSTYPEYACODE AS yearCode,
+        WAN_QTSTYPECODE AS typeCode,
+		COUNT(WAN_QTSTYPECODE) AS typeSum
+		FROM WRONGANSWERNOTES
+		WHERE ROWNUM <= 5 AND WAN_QTSTYPEYASBCODE=#{roomSB} AND WAN_LRCODE=#{roomCode}
+		GROUP
+		BY
+		WAN_QTSTYPEYACODE,WAN_QTSTYPECODE
+		ORDER
+		BY
+		COUNT(WAN_QTSTYPECODE) DESC
+		]]>
+	</select>
+
+	<!-- 자료실 글수정 -->
+	<update id="learningDataUpdate" parameterType="board">
+		UPDATE REFERENCE
+		SET
+		RR_TITLE=#{boardTitle},RR_CONTENT=#{boardContent}
+		WHERE
+		RR_TCID =
+		#{boardId}
+		AND
+		RR_LRCODE =#{roomCode}
+		AND
+		RR_DATE=
+		TO_DATE(#{boardDate},'YYYY-MM-DD HH24:MI:SS')
+	</update>
+	<!-- 자료실 학생 리스트 -->
+	<select id="datalistStudent" resultType="board" parameterType="board">
+		SELECT
+		RR_TITLE AS boardTitle,TO_CHAR(RR_DATE, 'YYYYMMDDHH24MISS') AS
+		boardDate,RR_TCID AS boardId,RR_LRCODE AS roomCode
+		FROM REFERENCE
+		WHERE
+		RR_LRCODE=#{roomCode}
+	</select>
+
+	<!-- 선생님 -> 학습방 학생코드 추출 -->
+	<select id="learningWANAllStudentCode" resultType="board"
+		parameterType="board">
+		SELECT
+		LSR_STRFSTUDENTCODE AS studentCode
+		FROM
+		LEARNINGSTUDENTREGISTER
+		WHERE
+		LSR_LRCODE=#{roomCode}
+		ORDER
+		BY
+		LSR_STRFSTUDENTCODE ASC
+	</select>
+
+	<!-- 학습방 오답노트 게시글 유무 -->
+	<select id="learningWANCheck" resultType="Integer"
+		parameterType="board">
+		SELECT COUNT(*) FROM WRONGANSWERNOTES WHERE
+		WAN_LRCODE=#{roomCode}
+	</select>
+	
+	
+   <!-- 학생 질문게시판 등록 -->
+   <insert id="learningQuestionInsert" parameterType="board">
+      INSERT INTO
+      QUERY(QU_LRCODE,QU_STRFSTUDENTCODE,QU_TITLE,QU_DATE,QU_CONTENT,QU_ROUTE)
+      VALUES(#{roomCode},#{studentCode},#{boardTitle},SYSDATE,#{boardContent},#{boardRoute})
+   </insert>
+
+   <!-- 질문게시판 학생 리스트 -->
+   <select id="learningQuestionlist" resultType="board"
+      parameterType="board">
+      SELECT
+      QU_TITLE AS boardTitle,TO_CHAR(QU_DATE,
+      'YYYYMMDDHH24MISS') AS
+      boardDate,QU_STRFSTUDENTCODE AS
+      boardId,QU_LRCODE AS roomCode
+      FROM QUERY
+      WHERE
+      QU_LRCODE=#{roomCode}
+   </select>
+
+   <!-- 질문자세히보기 -->
+   <select id="questionBoardCXT" resultType="dbBoard"
+      parameterType="board">
+      SELECT
+      QU_TITLE AS boardTitle,
+      QU_DATE AS boardDate,
+      QU_CONTENT AS
+      boardContent,
+      QU_ROUTE AS boardRoute,
+      QU_STRFSTUDENTCODE AS
+      boardId,
+      QU_LRCODE AS roomCode
+      FROM QUERY
+      WHERE
+      QU_LRCODE=#{roomCode}
+      AND
+      QU_DATE=TO_DATE(#{boardDate},'YYYY-MM-DD
+      HH24:MI:SS')
+      AND
+      QU_TITLE=#{boardTitle}
+   </select>
+
+   <!-- 질문 삭제 -->
+   <delete id="deleteQuestion" parameterType="board">
+      DELETE FROM
+      QUERY WHERE
+      QU_LRCODE = #{roomCode}
+      AND QU_DATE =
+      TO_DATE(#{boardDate},'YYYY-MM-DD HH24:MI:SS')
+      AND
+      QU_STRFSTUDENTCODE = #{boardId}
+      AND QU_TITLE = #{boardTitle}
+   </delete>
+
+   <!-- 게시판 -->
+   <update id="learningQuUpdate" parameterType="board">
+      UPDATE QUERY
+      SET
+      QU_TITLE=#{boardTitle},QU_CONTENT=#{boardContent}
+      WHERE
+      QU_STRFSTUDENTCODE =
+      #{boardId}
+      AND
+      QU_LRCODE =#{roomCode}
+      AND
+      QU_DATE=
+      TO_DATE(#{boardDate},'YYYY-MM-DD HH24:MI:SS')
+   </update>
+
+   <!-- 선생님 질문게시판 댓글등록 -->
+   <insert id="learningQuestionTag" parameterType="board">
+      INSERT INTO
+      QUERYTAG(QTAG_QULRCODE,QTAG_QUSTRFSTUDENTCODE,QTAG_QUTITLE,QTAG_QUDATE,QTAG_CONTENT,QTAG_DATE,QTAG_TCID)
+      VALUES(#{roomCode},#{boardId},#{boardTitle},TO_DATE(#{boardDate},'YYYY-MM-DD
+      HH24:MI:SS'),#{tagContent},SYSDATE,#{tagId})
+   </insert>
+
+   <!-- 선생님 ->질문 게시판 등록 -->
+   <select id="learningQuestionTagCXT" resultType="board"
+      parameterType="board">
+      SELECT
+      QTAG_CONTENT AS tagContent,
+      QTAG_DATE AS tagDate,
+      QTAG_TCID AS tagId
+      FROM QUERYTAG
+      WHERE
+      QTAG_QULRCODE=#{roomCode}
+      AND
+      QTAG_QUTITLE = #{boardTitle}
+      ORDER BY QTAG_DATE
+      DESC
+   </select>
+
+
+</mapper>
