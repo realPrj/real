@@ -1619,7 +1619,6 @@ public class learningTeacherMM extends TransactionExe {
 	private ModelAndView tclearningDebateInsert(BoardBean board) { // 선생님 토론게시판 글등록 
 		mav = new ModelAndView();
 		boolean transaction = false;
-		fileupload(board,mtfRequest);
 		
 		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
 
@@ -1627,7 +1626,7 @@ public class learningTeacherMM extends TransactionExe {
 			board.setRoomCode((String)session.getAttribute("roomCode"));
 			board.setBoardId((String)session.getAttribute("tcId"));
 
-			if(dao.tclearningNoticeInsert(board) != 0) {
+			if(dao.tclearningDebateInsert(board) != 0) {
 				System.out.println("토론게시판 글쓰기 성공");
 				transaction = true;
 			}

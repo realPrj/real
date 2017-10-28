@@ -47,7 +47,6 @@ function confirm(boardTitle, boardDate, identity) {
 } 
 
 function debateInsert(){
-	alert("ddd");
 	var ff = document.createElement("form");
 	ff.name = "debateInsert";
 	ff.method = "post";

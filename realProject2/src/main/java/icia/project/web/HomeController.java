@@ -498,7 +498,6 @@ public class HomeController  {
 	@RequestMapping(value = "/DebateInsert", method = RequestMethod.POST)
 	public ModelAndView tclearningDebateInsert(@ModelAttribute BoardBean board) {
 
-		System.out.println("토론게시판 내용확인 컨트롤러" + board.getBoardDate());
 		mav = ltmm.entrance(37, board);
 
 		return mav;

@@ -238,7 +238,6 @@ public class FunctionController {
 	@RequestMapping(value = "/learningDebateInsert", method = RequestMethod.POST)
 	public ModelAndView tclearningDebateInsert(@ModelAttribute BoardBean board) {
 
-		System.out.println("토론게시판 내용삭제 컨트롤러" + board.getBoardDate());
 		ltm.entrance(36, board);
 		mav = ltm.entrance(32, board);
 		return mav;
