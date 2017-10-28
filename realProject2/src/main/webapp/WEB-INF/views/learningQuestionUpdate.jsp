@@ -1,13 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
    pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-
-<title>공조 || 자료실 글보기</title>
+<meta charset="UTF-8">
+<title>공조 || 자료실 글 수정하기</title>
 </head>
 <script>
    //form 생성
@@ -57,7 +54,8 @@
       form.submit();
 
    }
-   
+
+   // 자료실 form
 </script>
 <body onLoad="${message}">
    <h1>공조</h1>
@@ -72,48 +70,23 @@
       </tr>
    </table>
    <div>
-      <input type="button" value="자료실" onClick="menu('10')" /> 
+      <input type="button" value="질문게시판" onClick="menu('4')" />
    </div>
-   
-   
-   
-   
-   
-   <form name="datactx">
-      <table>
-         <tr>
-            <td><input type="hidden" name="boardTitle" value=${theme }>제목:${theme }</td>
-         </tr>
-         <tr>
-            <td><input type="hidden" name="boardContent" value=${content }>내용:${content }</td>
-         </tr>
-         <c:forEach var="file" items="${list }">
-            <tr>
-               <td><a href="download.action?name=${file}">${file}</a></td>
-            </tr>
-         </c:forEach>
 
-         <tr>
-            <td><input type="hidden" name="boardData" value=${date }>날짜:${date }</td>
-         </tr>
-         <tr>
-            <td><input type="hidden" name="boardData" value= ${roomcode}></td>
-         </tr>
-         <tr>
-            <td><input type="hidden" name="boardData" value=${writeId }>글쓴이:${writeId }</td>
-         </tr>
-         <tr>
-            <td>경로:${route }</td>
-         </tr>
-      
-      </table>
-      
+
+
+   <!-- 자료실 글쓰기  -->
+   <form name="updateForm" action="learningQuUpdate" method="post">
+      <br> 제목 :<input type="text" name="boardTitle"
+         value="${boardTitle }"> <br> 내용
+      <textarea name="boardContent" cols=50 rows=20 maxlength=500>${ boardContent}</textarea>
+      <input type="hidden" name="roomCode" value="${roomCode }"> <input
+         type="hidden" name="boardDate" value="${boardDate }"> <input
+         type="hidden" name="boardId" value="${boardId }">
+
+
+      <BUTTON type="SUBMIT">보내기</BUTTON>
    </form>
-
-
-
-
-
 
 </body>
 </html>

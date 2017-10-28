@@ -748,6 +748,100 @@
 		SELECT COUNT(*) FROM WRONGANSWERNOTES WHERE
 		WAN_LRCODE=#{roomCode}
 	</select>
+	
+	
+   <!-- 학생 질문게시판 등록 -->
+   <insert id="learningQuestionInsert" parameterType="board">
+      INSERT INTO
+      QUERY(QU_LRCODE,QU_STRFSTUDENTCODE,QU_TITLE,QU_DATE,QU_CONTENT,QU_ROUTE)
+      VALUES(#{roomCode},#{studentCode},#{boardTitle},SYSDATE,#{boardContent},#{boardRoute})
+   </insert>
+
+   <!-- 질문게시판 학생 리스트 -->
+   <select id="learningQuestionlist" resultType="board"
+      parameterType="board">
+      SELECT
+      QU_TITLE AS boardTitle,TO_CHAR(QU_DATE,
+      'YYYYMMDDHH24MISS') AS
+      boardDate,QU_STRFSTUDENTCODE AS
+      boardId,QU_LRCODE AS roomCode
+      FROM QUERY
+      WHERE
+      QU_LRCODE=#{roomCode}
+   </select>
+
+   <!-- 질문자세히보기 -->
+   <select id="questionBoardCXT" resultType="dbBoard"
+      parameterType="board">
+      SELECT
+      QU_TITLE AS boardTitle,
+      QU_DATE AS boardDate,
+      QU_CONTENT AS
+      boardContent,
+      QU_ROUTE AS boardRoute,
+      QU_STRFSTUDENTCODE AS
+      boardId,
+      QU_LRCODE AS roomCode
+      FROM QUERY
+      WHERE
+      QU_LRCODE=#{roomCode}
+      AND
+      QU_DATE=TO_DATE(#{boardDate},'YYYY-MM-DD
+      HH24:MI:SS')
+      AND
+      QU_TITLE=#{boardTitle}
+   </select>
+
+   <!-- 질문 삭제 -->
+   <delete id="deleteQuestion" parameterType="board">
+      DELETE FROM
+      QUERY WHERE
+      QU_LRCODE = #{roomCode}
+      AND QU_DATE =
+      TO_DATE(#{boardDate},'YYYY-MM-DD HH24:MI:SS')
+      AND
+      QU_STRFSTUDENTCODE = #{boardId}
+      AND QU_TITLE = #{boardTitle}
+   </delete>
+
+   <!-- 게시판 -->
+   <update id="learningQuUpdate" parameterType="board">
+      UPDATE QUERY
+      SET
+      QU_TITLE=#{boardTitle},QU_CONTENT=#{boardContent}
+      WHERE
+      QU_STRFSTUDENTCODE =
+      #{boardId}
+      AND
+      QU_LRCODE =#{roomCode}
+      AND
+      QU_DATE=
+      TO_DATE(#{boardDate},'YYYY-MM-DD HH24:MI:SS')
+   </update>
+
+   <!-- 선생님 질문게시판 댓글등록 -->
+   <insert id="learningQuestionTag" parameterType="board">
+      INSERT INTO
+      QUERYTAG(QTAG_QULRCODE,QTAG_QUSTRFSTUDENTCODE,QTAG_QUTITLE,QTAG_QUDATE,QTAG_CONTENT,QTAG_DATE,QTAG_TCID)
+      VALUES(#{roomCode},#{boardId},#{boardTitle},TO_DATE(#{boardDate},'YYYY-MM-DD
+      HH24:MI:SS'),#{tagContent},SYSDATE,#{tagId})
+   </insert>
+
+   <!-- 선생님 ->질문 게시판 등록 -->
+   <select id="learningQuestionTagCXT" resultType="board"
+      parameterType="board">
+      SELECT
+      QTAG_CONTENT AS tagContent,
+      QTAG_DATE AS tagDate,
+      QTAG_TCID AS tagId
+      FROM QUERYTAG
+      WHERE
+      QTAG_QULRCODE=#{roomCode}
+      AND
+      QTAG_QUTITLE = #{boardTitle}
+      ORDER BY QTAG_DATE
+      DESC
+   </select>
 
 
 </mapper>

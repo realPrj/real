@@ -38,13 +38,13 @@ public class learningTeacherMM extends TransactionExe {
 
 		switch(serviceCode) {
 
-		case 1:	
+		case 1:   // 선생님뎃글 달기
+	         mav = learningQuestionTag((BoardBean)object[0]);
+	         break;
 
-			break;
-
-		case 2:
-
-			break;
+	      case 2: //선생님 질문게시판 자세히보기
+	         mav = learningDataCXTPage((BoardBean)object[0]);
+	         break;
 
 		case 3:	//공지사항 페이지
 			mav = learningNoticePage((BoardBean)object[0]);
@@ -311,26 +311,50 @@ public class learningTeacherMM extends TransactionExe {
 	}
 
 	private ModelAndView learningQuestion(BoardBean board) { // 질문게시판 페이지
-		mav = new ModelAndView();
-		boolean transaction = false;
+	      mav = new ModelAndView();
+	      boolean transaction = false;
+	      StringBuffer sb = new StringBuffer();
+	      ArrayList<BoardBean> bb = null;
+	      String message = "";
+	      setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
 
-		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
+	      try {
+	         System.out.println(board.getRoomCode());
+	         session.getAttribute("roomCode");
+	         mav.addObject("content",session.getAttribute("roomCode") + "자료실");
+	         board.setRoomCode((String)session.getAttribute("roomCode"));
 
-		try {
-			session.getAttribute("roomCode");
 
-			mav.addObject("content",session.getAttribute("roomCode") + "의 질문게시판");
+	         //mav.addObject("content",session.getAttribute("roomCode") + "의 공지사항");
+	         bb = dao.learningQuestionlist(board);
+	         sb.append("<table>");
+	         sb.append("<tr>");
+	         sb.append("<td>제목</td>");
+	         sb.append("<td>날짜</td>");
+	         sb.append("<td>아이디</td>");
+	         sb.append("</tr>");
+	         for(int i=0; i<bb.size(); i++) {
+	            sb.append("<tr>");
+	            sb.append("<td>" + "<input type='button' value='"+bb.get(i).getBoardTitle()+"' onClick=viewData(\'"+bb.get(i).getRoomCode()+"\',"+"\'"+bb.get(i).getBoardTitle()+"\',"+"\'"+bb.get(i).getBoardDate()+"\') />" + "</td>");
+	            sb.append("<td>" + bb.get(i).getBoardDate() + "</td>");
+	            sb.append("<td>" + bb.get(i).getBoardId() + "</td>");
+	            sb.append("</tr>");
 
-			transaction = true;
+	         }
+	         sb.append("</table>");
 
-		}catch(Exception ex){
-
-		}finally {
-			mav.setViewName("learningQuestion");
-			setTransactionResult(transaction);
-		}
-		return mav;
-	}
+	         mav.addObject("message", message);
+	         mav.addObject("datalist", sb.toString());
+	         mav.setViewName("learningData");
+	      }
+	      catch(Exception ex){
+	         ex.printStackTrace();
+	      }finally {
+	         setTransactionResult(transaction);
+	      }
+	      mav.setViewName("learningQuestion");
+	      return mav;
+	   }
 
 	private ModelAndView learningWANPage() { // 오답노트 페이지
 
@@ -536,7 +560,6 @@ public class learningTeacherMM extends TransactionExe {
 		mav = new ModelAndView();
 		boolean transaction = false;
 		fileupload(board,mtfRequest);
-
 
 		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
 		try {			
@@ -848,8 +871,7 @@ public class learningTeacherMM extends TransactionExe {
 		ViewService view = new ViewService(); 
 		mav = new ModelAndView();
 		boolean transaction = false;
-		StringBuffer sb = new StringBuffer();
-		String message = "";
+
 		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
 
 		try {
@@ -861,18 +883,14 @@ public class learningTeacherMM extends TransactionExe {
 
 			//mav.addObject("content",session.getAttribute("roomCode") + "의 공지사항");
 
-			
-
-
-
 			DbBoardBean bb = dao.learningDataCXT(board);	// 전체 루트(파일이름까지)
 
 			bb.setCutRoute(bb.getBoardRoute().substring(0,68));	// 루트만
 			String route = bb.getCutRoute();
-
 			bb.setCutContent(bb.getBoardRoute().substring(68));	// 파일이름
 
 			List<String> list = view.getList(bb);
+			
 			mav.addObject("list",list);
 			mav.addObject("theme",bb.getBoardTitle());
 			mav.addObject("content",bb.getBoardContent());
@@ -881,10 +899,7 @@ public class learningTeacherMM extends TransactionExe {
 			mav.addObject("route",route);
 			mav.addObject("file",bb.getCutContent());
 		
-			mav.addObject("roomcode",session.getAttribute("roomCode"));
-
-			
-
+			mav.addObject("roomcode",session.getAttribute("roomCode"));	
 
 			mav.setViewName("learningDataCXT");
 			transaction = true;
@@ -898,9 +913,6 @@ public class learningTeacherMM extends TransactionExe {
 
 		return mav;
 	}
-
-
-
 
 	private ModelAndView tclearningNoticeUpdatePage(BoardBean board) { // 공지사항 수정 페이지
 		mav = new ModelAndView();
@@ -986,7 +998,7 @@ public class learningTeacherMM extends TransactionExe {
 
 		return mav;
 	}
-	private ModelAndView learningDataUpdate(BoardBean board) { // 선생님 자료실 삭제
+	private ModelAndView learningDataUpdate(BoardBean board) { // 선생님 자료실 수정
 		mav = new ModelAndView();
 		boolean transaction = false;
 		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
@@ -1417,8 +1429,6 @@ public class learningTeacherMM extends TransactionExe {
 		ViewService view = new ViewService(); 
 		mav = new ModelAndView();
 		boolean transaction = false;
-		StringBuffer sb = new StringBuffer();
-		String message = "";
 		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
 
 		try {
@@ -1462,4 +1472,115 @@ public class learningTeacherMM extends TransactionExe {
 		return mav;
 	}
 
-	}
+	
+	private ModelAndView learningDataCXTPage(BoardBean board) { // 질문 페이지 자세히 보기
+
+	      ViewService view = new ViewService(); 
+	      mav = new ModelAndView();
+	      boolean transaction = false;
+	      StringBuffer sb = new StringBuffer();
+	      ArrayList<BoardBean> taglist = null;
+	      String message = "";
+	      setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
+
+	      try {
+	         board.setId((String)session.getAttribute("tcId"));
+
+	         board.setTagId(board.getId());
+
+	         session.getAttribute("roomCode");
+	         mav.addObject("content",session.getAttribute("roomCode") + "자료실");
+	         board.setRoomCode((String)session.getAttribute("roomCode"));
+
+	         board.setStudentCode((String)session.getAttribute("stCode"));
+
+	         //mav.addObject("content",session.getAttribute("roomCode") + "의 공지사항");
+
+
+	         DbBoardBean bb = dao.questionBoardCXT(board);   // 전체 루트(파일이름까지)
+
+	         bb.setCutRoute(bb.getBoardRoute().substring(0,68));   // 루트만
+	         String route = bb.getCutRoute();
+	         bb.setCutContent(bb.getBoardRoute().substring(68));   // 파일이름
+
+	         List<String> list = view.getList(bb);
+	         mav.addObject("list",list);
+	         mav.addObject("theme",bb.getBoardTitle());
+	         mav.addObject("content",bb.getBoardContent());
+	         mav.addObject("date",bb.getBoardDate());
+	         mav.addObject("writeId",bb.getBoardId());
+	         mav.addObject("roomCode",bb.getRoomCode());
+	         mav.addObject("route",route);
+	         mav.addObject("file",bb.getCutContent());
+
+	         taglist = dao.learningQuestionTagCXT(board);
+
+	         sb.append("<table>");
+	         sb.append("<tr>");
+	         sb.append("<td>내용</td>");
+	         sb.append("<td>날짜</td>");
+	         sb.append("<td>아이디</td>");
+	         sb.append("</tr>");
+	         for(int i=0; i<taglist.size(); i++) {
+	            sb.append("<tr>");
+	            sb.append("<td>" + taglist.get(i).getTagContent() + "</td>");
+	            sb.append("<td>" + taglist.get(i).getTagDate() + "</td>");
+	            sb.append("<td>" + taglist.get(i).getTagId() + "</td>");
+	            sb.append("</tr>");
+
+	         }
+	         sb.append("</table>");
+	         
+	         mav.addObject("message", message);
+	         mav.addObject("taglists", sb.toString());
+	      
+	         mav.addObject("roomcode",session.getAttribute("roomCode"));
+
+	         mav.setViewName("learningQuestionCXT");
+	         transaction = true;
+
+
+	      }catch(Exception ex){
+	         ex.printStackTrace();
+	      }finally {
+	         setTransactionResult(transaction);
+	      }
+
+	      return mav;
+	   }
+	   private ModelAndView learningQuestionTag(BoardBean board) { // 질문 페이지 자세히 보기
+  
+	      mav = new ModelAndView();
+	      boolean transaction = false;
+
+	      setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
+
+	      try {
+	         board.setId((String)session.getAttribute("tcId"));
+	         System.out.println(board.getId());
+	         board.setTagId(board.getId());
+	         System.out.println(board.getTagId());
+
+	         board.setRoomCode((String)session.getAttribute("roomCode"));
+
+	      
+	         if(dao.learningQuestionTag(board) !=0) {
+	            System.out.println("성공은햇어");
+	         }else {
+	            System.out.println("실패");
+	         }
+	         mav.setViewName("learningQuestionCXT");
+	         transaction = true;
+
+
+	      }catch(Exception ex){
+	         ex.printStackTrace();
+	      }finally {
+	         setTransactionResult(transaction);
+	      }
+
+	      return mav;
+	   }
+	
+	
+}

@@ -1,13 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
    pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-
-<title>공조 || 자료실 글보기</title>
+<meta charset="UTF-8">
+<title>공조 || 질문 게시판  글 등록</title>
 </head>
 <script>
    //form 생성
@@ -35,6 +32,7 @@
 
    function eventClick(formname, formaction, formmethod) {
 
+
       createForm(formname, formaction, formmethod);
 
       var form = document.getElementsByName(formname)[0];
@@ -43,21 +41,23 @@
 
    }
    //메뉴선택
-   function menu(ivalue) {
-
+   function menu(ivalue){
+      
       createinput("hidden", "caCode", ivalue);
-
+      
       var caCode = document.getElementsByName("caCode")[0];
-
-      createForm("menuform", "tcmenu", "post");
+      
+      createForm("menuform","stmenu","post");
+      
 
       var form = document.getElementsByName("menuform")[0];
       form.appendChild(caCode);
-
+      
       form.submit();
-
+      
    }
-   
+
+   // 자료실 form
 </script>
 <body onLoad="${message}">
    <h1>공조</h1>
@@ -72,48 +72,25 @@
       </tr>
    </table>
    <div>
-      <input type="button" value="자료실" onClick="menu('10')" /> 
+      <div>
+      <input type="button" value="질문게시판" onClick="menu('4')" /> 
    </div>
-   
-   
-   
-   
-   
-   <form name="datactx">
-      <table>
-         <tr>
-            <td><input type="hidden" name="boardTitle" value=${theme }>제목:${theme }</td>
-         </tr>
-         <tr>
-            <td><input type="hidden" name="boardContent" value=${content }>내용:${content }</td>
-         </tr>
-         <c:forEach var="file" items="${list }">
-            <tr>
-               <td><a href="download.action?name=${file}">${file}</a></td>
-            </tr>
-         </c:forEach>
+   </div>
 
-         <tr>
-            <td><input type="hidden" name="boardData" value=${date }>날짜:${date }</td>
-         </tr>
-         <tr>
-            <td><input type="hidden" name="boardData" value= ${roomcode}></td>
-         </tr>
-         <tr>
-            <td><input type="hidden" name="boardData" value=${writeId }>글쓴이:${writeId }</td>
-         </tr>
-         <tr>
-            <td>경로:${route }</td>
-         </tr>
+
+
+   <!-- 자료실 글쓰기  -->
+   <form name="learningQuestionInsertForm" action="learningQuestionInsert" method="post"
+      enctype="multipart/form-data">
+      <br> 제목 : <input type="text" name="boardTitle" size=50
+         maxlength=70> <br> 내용 :
+      <textarea name="boardContent" cols=50 rows=20 maxlength=500></textarea>
       
-      </table>
+      <br> <input multiple="multiple" type="file" name="file" /><input type="hidden"
+         name="load" value="Notice" />
+      <BUTTON type="SUBMIT">보내기</BUTTON>
       
    </form>
-
-
-
-
-
 
 </body>
 </html>

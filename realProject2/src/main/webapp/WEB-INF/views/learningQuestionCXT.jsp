@@ -7,7 +7,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
-<title>공조 || 자료실</title>
+<title>공조 ||질문게시판</title>
 </head>
 <script>
    //form 생성
@@ -57,47 +57,47 @@
       form.submit();
 
    }
-   function deleteData(boardTitle,boardData,roomCode,boardId) {
+   function deleteQuestion(boardTitle, boardData, roomCode, boardId) {
+   
+      
       createinput("hidden", "boardTitle", boardTitle);
       createinput("hidden", "boardDate", boardData);
       createinput("hidden", "roomCode", roomCode);
       createinput("hidden", "boardId", boardId);
-      
-      createForm("learningDataDeleteform", "learningDataDelete", "post");
 
-      var form = document.getElementsByName("learningDataDeleteform")[0];
-      
+      createForm("learningQuestionDeleteform", "learningQuestionDelete", "post");
+
+      var form = document.getElementsByName("learningQuestionDeleteform")[0];
+
       var boardTitle = document.getElementsByName("boardTitle")[0];
       var boardDate = document.getElementsByName("boardDate")[0];
       var roomCode = document.getElementsByName("roomCode")[0];
       var boardId = document.getElementsByName("boardId")[0];
-      
-   
+
       form.appendChild(boardTitle);
       form.appendChild(boardDate);
       form.appendChild(roomCode);
       form.appendChild(boardId);
 
-      form.submit();
+      form.submit(); 
    }
-   function dataUpdate(boardTitle,boardData,roomCode,boardId,boardContent) {
+   function updateQuestion(boardTitle, boardData, roomCode, boardId, boardContent) {
       createinput("hidden", "boardTitle", boardTitle);
       createinput("hidden", "boardDate", boardData);
       createinput("hidden", "roomCode", roomCode);
       createinput("hidden", "boardId", boardId);
       createinput("hidden", "boardContent", boardContent);
-      
-      createForm("learningDataUpdateform", "learningDataUpdatePage", "post");
 
-      var form = document.getElementsByName("learningDataUpdateform")[0];
-      
+      createForm("learningQuestionUpdateform", "learningQuestionUpdatePage", "post");
+
+      var form = document.getElementsByName("learningQuestionUpdateform")[0];
+
       var boardTitle = document.getElementsByName("boardTitle")[0];
       var boardDate = document.getElementsByName("boardDate")[0];
       var roomCode = document.getElementsByName("roomCode")[0];
       var boardId = document.getElementsByName("boardId")[0];
       var boardContent = document.getElementsByName("boardContent")[0];
-      
-   
+
       form.appendChild(boardTitle);
       form.appendChild(boardDate);
       form.appendChild(roomCode);
@@ -106,9 +106,57 @@
 
       form.submit();
    }
+   function tag(boardTitle, boardData, roomCode, boardId) {
+      createinput("hidden", "boardTitle", boardTitle);
+      createinput("hidden", "boardDate", boardData);
+      createinput("hidden", "roomCode", roomCode);
+      createinput("hidden", "boardId", boardId);
+      createinput("hidden", "tagContent", tagContent);
+      
+      createForm("learningQuestionTagForm", "learningQuestionTag", "post");
+
+      var form = document.getElementsByName("learningQuestionTagForm")[0];
+
+      var boardTitle = document.getElementsByName("boardTitle")[0];
+      var boardDate = document.getElementsByName("boardDate")[0];
+      var roomCode = document.getElementsByName("roomCode")[0];
+      var boardId = document.getElementsByName("boardId")[0];
+      var tagContent = document.getElementsByName("tagContent")[0];
+      
+
+      form.appendChild(boardTitle);
+      form.appendChild(boardDate);
+      form.appendChild(roomCode);
+      form.appendChild(boardId);
+      form.appendChild(tagContent);
+      
+
+      form.submit(); 
+   }
+   
+   function init() {
+
+      var accessForm = document.getElementById("accessForm");
+   
+      var write = "${writeId }"; // 값을 던질떄 문자 0 or 1로준다
+      var user = "${stCode }";
+      if (write == user) {
+
+         accessForm.style.display = "block";
+         
+
+      } else {
+         accessForm.style.display = "none";
+      
+      }
+      
+      // 화면을 동적으로 만들어 준다
+   }
+
 </script>
-<body onLoad="${message}">
+<body onLoad="init()">
    <h1>공조</h1>
+   ${stCode }
    <table>
       <tr>
          <td><input type="button" value="로그아웃"
@@ -120,17 +168,22 @@
       </tr>
    </table>
    <div>
-      <input type="button" value="자료실" onClick="menu('10')" /> <input
-         type="button" value="자료실 글쓰러가기"
-         onClick="eventClick('dataform','DataInsert','post')" />
+      <input type="button" value="질문게시판" onClick="menu('4')" /> 
    </div>
 
-   
-   
-   
-   
+
+
+
+
    <form name="datactx">
       <table>
+         <tr id=accessForm>
+            <td><input type="button" name="delete" value="삭제"
+               onClick="deleteQuestion('${theme }','${date }','${roomcode}','${writeId }')">
+
+               <input type="button" name="update" value="수정"
+               onClick="updateQuestion('${theme }','${date }','${roomcode}','${writeId }','${content }')"></td>
+         </tr>
          <tr>
             <td><input type="hidden" name="boardTitle" value=${theme }>제목:${theme }</td>
          </tr>
@@ -147,27 +200,27 @@
             <td><input type="hidden" name="boardData" value=${date }>날짜:${date }</td>
          </tr>
          <tr>
-            <td><input type="hidden" name="boardData" value= ${roomcode}></td>
-         </tr>
-         <tr>
             <td><input type="hidden" name="boardData" value=${writeId }>글쓴이:${writeId }</td>
          </tr>
          <tr>
-            <td>경로:${route }</td>
+            <td><input type="hidden" name="boardData" value=${roomCode }></td>
          </tr>
+
+
+      </table>
+   </form>
+   <form>
+      <table>
          <tr>
-            <td><input type="button" name="delete" value="삭제"
-               onClick="deleteData('${theme }','${date }','${roomcode}','${writeId }')"></td>
-         </tr>
-         
-         
-         <tr>
-            <td><input type="button" name="update" value="수정" onClick="dataUpdate('${theme }','${date }','${roomcode}','${writeId }','${content }')"></td>
+            <td>댓글 <br> <input type="text" name="tagContent"
+               placeholder="댓글 입력해주세여" size=50 maxlength=70> <input
+               type="button" value="입력" onClick="tag('${theme }','${date }','${roomcode}','${writeId }')" size=50
+               maxlength=70>
+            </td>
          </tr>
       </table>
-      
    </form>
-
+   ${taglists }
 
 
 

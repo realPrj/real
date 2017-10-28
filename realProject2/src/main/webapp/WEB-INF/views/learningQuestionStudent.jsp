@@ -1,13 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
    pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-
-<title>공조 || 자료실 글보기</title>
+<meta charset="UTF-8">
+<title>공조 || 질문게시판</title>
 </head>
 <script>
    //form 생성
@@ -31,6 +28,8 @@
       input.value = ivalue;
 
       document.body.appendChild(input);
+      
+      return input;
    }
 
    function eventClick(formname, formaction, formmethod) {
@@ -49,13 +48,35 @@
 
       var caCode = document.getElementsByName("caCode")[0];
 
-      createForm("menuform", "tcmenu", "post");
+      createForm("menuform", "stmenu", "post");
 
       var form = document.getElementsByName("menuform")[0];
       form.appendChild(caCode);
-
+      
       form.submit();
 
+   }
+
+   function viewData(referCode, referTitle, referDate) {
+      createinput("hidden", "boardTitle", referTitle);
+      createinput("hidden", "boardDate", referDate);
+      createinput("hidden", "roomCode", referCode);
+      
+      createForm("questionBoardCXTForm", "questionBoardCXT", "post");
+
+      var form = document.getElementsByName("questionBoardCXTForm")[0];
+      
+      var boardTitle = document.getElementsByName("boardTitle")[0];
+      var boardDate = document.getElementsByName("boardDate")[0];
+      var roomCode = document.getElementsByName("roomCode")[0];
+      
+   
+      form.appendChild(boardTitle);
+      form.appendChild(boardDate);
+      form.appendChild(roomCode);
+
+      form.submit();
+      
    }
    
 </script>
@@ -72,48 +93,15 @@
       </tr>
    </table>
    <div>
-      <input type="button" value="자료실" onClick="menu('10')" /> 
+      <input type="button" value="질문게시판" onClick="menu('4')" /> 
    </div>
+   <div>
+      <input type="button" value="질문하기" onClick="eventClick('dataform','questionInsert','post')" /> 
+   </div>
+      ${roomCode}
+      ${stCode }
+      ${datalist }
    
-   
-   
-   
-   
-   <form name="datactx">
-      <table>
-         <tr>
-            <td><input type="hidden" name="boardTitle" value=${theme }>제목:${theme }</td>
-         </tr>
-         <tr>
-            <td><input type="hidden" name="boardContent" value=${content }>내용:${content }</td>
-         </tr>
-         <c:forEach var="file" items="${list }">
-            <tr>
-               <td><a href="download.action?name=${file}">${file}</a></td>
-            </tr>
-         </c:forEach>
-
-         <tr>
-            <td><input type="hidden" name="boardData" value=${date }>날짜:${date }</td>
-         </tr>
-         <tr>
-            <td><input type="hidden" name="boardData" value= ${roomcode}></td>
-         </tr>
-         <tr>
-            <td><input type="hidden" name="boardData" value=${writeId }>글쓴이:${writeId }</td>
-         </tr>
-         <tr>
-            <td>경로:${route }</td>
-         </tr>
-      
-      </table>
-      
-   </form>
-
-
-
-
-
 
 </body>
 </html>

@@ -213,17 +213,39 @@ public interface IMybatis {
 	// (학습방) 오답노트 그래프
 	public ArrayList<BoardBean> learningWANRommGraph(BoardBean board);
 
-	// 자료실 글삭제
-	public int learningDataUpdate(BoardBean board);
-
-	// 학생 자료실 리스트
-	public ArrayList<BoardBean> datalistStudent(BoardBean board);
-
 	// 선생님 -> 학습방 학생코드 추출
 	public ArrayList<BoardBean> learningWANAllStudentCode(BoardBean board);
 
 	// 학습방 오답노트 게시글 유무
 	public int learningWANCheck(BoardBean board);
+
+	// 자료실 글 수정
+	public int learningDataUpdate(BoardBean board);
+
+	// 학생 자료실 리스트
+	public ArrayList<BoardBean> datalistStudent(BoardBean board);
+
+	// 학생 질문게시판 등록
+	public int learningQuestionInsert(BoardBean board);
+
+	// 학생 질문게시판 리스트
+	public ArrayList<BoardBean> learningQuestionlist(BoardBean board);
+
+	//  질문게시판 자세히보기
+	public DbBoardBean questionBoardCXT(BoardBean board);
+
+	// 질문 게시판 삭제
+	public int deleteQuestion(BoardBean board);
+
+	// 학생 질문게시판 글 수정
+	public int learningQuUpdate(BoardBean board);
+
+	// 학생 질문게시판 댓글   
+	public int learningQuestionTag(BoardBean board);
+
+	// 질문게시판 내용 보기   
+	public ArrayList<BoardBean> learningQuestionTagCXT(BoardBean board);
+
 
 
 }
