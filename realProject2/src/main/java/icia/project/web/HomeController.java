@@ -264,7 +264,8 @@ public class HomeController  {
 			break;
 
 		case 5 : 
-
+			// 토론게시판
+			mav = lsmm.entrance(32, board);
 			break;
 
 		case 6 : 
@@ -493,7 +494,7 @@ public class HomeController  {
 
 		return mav;
 	}
-	
+
 	// 선생님 토론게시판 글등록 페이지
 	@RequestMapping(value = "/DebateInsert", method = RequestMethod.POST)
 	public ModelAndView tclearningDebateInsert(@ModelAttribute BoardBean board) {
@@ -502,12 +503,19 @@ public class HomeController  {
 
 		return mav;
 	}
-	
+	// 학생 토론게시판 내용확인
+	@RequestMapping(value = "/stDebateConfirm", method = RequestMethod.POST)
+	public ModelAndView stlearningDebateCTX(@ModelAttribute BoardBean board) {
 
-	
+		mav = lsmm.entrance(33, board);
 
-
-
-
-
+		return mav;
 	}
+
+
+
+
+
+
+
+}
