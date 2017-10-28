@@ -869,6 +869,11 @@
       ORDER BY QTAG_DATE
       DESC
    </select>
+   
+   <!-- 선생님 토론게시판 삭제 -->
+   <delete id="tclearningDebateDelete" parameterType="member">
+   		DELETE FROM DEBATE WHERE DE_LRCODE = #{roomCode} AND DE_DATE = TO_DATE(#{boardDate},'YYYY-MM-DDHH24:MI:SS')
+   </delete>
 
 
 </mapper>

@@ -68,7 +68,6 @@ function boardDelete(roomCode, boardDate){
 	code.name = "roomCode";
 	code.value = roomCode;
 	ff.appendChild(code);
-	alert(code.value);
 	
 	var date = document.createElement("input");
 	date.type = "hidden";

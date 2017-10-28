@@ -259,5 +259,8 @@ public interface IMybatis {
 	
 	// 선생님 토론게시판 등록
 	public int tclearningDebateInsert(BoardBean board);
+	
+	// 선생님 토론게시판 삭제
+	public int tclearningDebateDelete(BoardBean board);
 }
 
