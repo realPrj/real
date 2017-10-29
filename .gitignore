@@ -11,6 +11,7 @@ realProject2/target/m2e-wtp/web-resources/META-INF/MANIFEST.MF
 .recommenders/index/http___download_eclipse_org_recommenders_models_oxygen_/_d.tii
 .recommenders/index/http___download_eclipse_org_recommenders_models_oxygen_/_d.prx
 .recommenders/index/http___download_eclipse_org_recommenders_models_oxygen_/_d.nrm
+<<<<<<< HEAD
 Servers/Tomcat v9.0 Server at localhost-config/web.xml
 Servers/Tomcat v9.0 Server at localhost-config/tomcat-users.xml
 Servers/Tomcat v9.0 Server at localhost-config/server.xml
@@ -1076,3 +1077,5 @@ RemoteSystemsTempFiles/.project
 .metadata/.plugins/org.eclipse.core.resources/.history/78/204cbd163fba0017127de54a50420ef1
 /.metadata/
 /.recommenders/
+=======
+>>>>>>> c5994ca580426b5ecf797b0bbcfd779d70e5f797
