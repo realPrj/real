@@ -264,7 +264,8 @@ public class HomeController  {
 			break;
 
 		case 5 : 
-
+			// 토론게시판
+			mav = lsmm.entrance(32, board);
 			break;
 
 		case 6 : 
@@ -472,6 +473,7 @@ public class HomeController  {
 	@RequestMapping(value = "/learningQuestionUpdatePage", method = RequestMethod.POST)
 	public ModelAndView learningQuestionUpdatePage(@ModelAttribute BoardBean board) {
 
+
 		mav.addObject("boardTitle",board.getBoardTitle());
 		mav.addObject("boardDate",board.getBoardDate());
 		mav.addObject("boardId",board.getBoardId());
@@ -482,6 +484,35 @@ public class HomeController  {
 
 		return mav;
 	}
+
+	// 선생님 토론게시판 내용확인
+	@RequestMapping(value = "/tcDebateConfirm", method = RequestMethod.POST)
+	public ModelAndView tclearningDebateCTX(@ModelAttribute BoardBean board) {
+
+		System.out.println("토론게시판 내용확인 컨트롤러" + board.getBoardDate());
+		mav = ltmm.entrance(33, board);
+
+		return mav;
+	}
+
+	// 선생님 토론게시판 글등록 페이지
+	@RequestMapping(value = "/DebateInsert", method = RequestMethod.POST)
+	public ModelAndView tclearningDebateInsert(@ModelAttribute BoardBean board) {
+
+		mav = ltmm.entrance(37, board);
+
+		return mav;
+	}
+	// 학생 토론게시판 내용확인
+	@RequestMapping(value = "/stDebateConfirm", method = RequestMethod.POST)
+	public ModelAndView stlearningDebateCTX(@ModelAttribute BoardBean board) {
+
+		mav = lsmm.entrance(33, board);
+
+		return mav;
+	}
+
+
 
 
 

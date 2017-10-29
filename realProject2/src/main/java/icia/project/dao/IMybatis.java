@@ -248,4 +248,19 @@ public interface IMybatis {
 
 
 
+	// 선생님 토론게시판 리스트
+	public ArrayList<BoardBean> tclearningDebateList(BoardBean board);
+	
+	// 선생님 토론게시판 내용확인
+	public BoardBean tclearningDebateCTX(BoardBean board);
+	
+	// 선생님 토론게시판 수정
+	public int tclearningDebateUpdate(BoardBean board);
+	
+	// 선생님 토론게시판 등록
+	public int tclearningDebateInsert(BoardBean board);
+	
+	// 선생님 토론게시판 삭제
+	public int tclearningDebateDelete(BoardBean board);
 }
+

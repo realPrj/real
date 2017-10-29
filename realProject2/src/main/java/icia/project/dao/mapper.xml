@@ -742,6 +742,33 @@
 		LSR_STRFSTUDENTCODE ASC
 	</select>
 
+	
+	<!-- 선생님 토론게시판 리스트 -->
+	<select id="tclearningDebateList" resultType="board" parameterType="board">
+		SELECT DE_LRCODE AS roomCode, DE_TCID AS boardId, DE_TITLE AS boardTitle, DE_DATE AS boardDate, DE_CONTENT AS boardContent
+		FROM DEBATE WHERE DE_LRCODE = #{roomCode} ORDER BY DE_DATE DESC
+	</select>
+	
+	<!--  선생님 토론게시판 내용확인 -->
+	<select id="tclearningDebateCTX" resultType="board" parameterType="board">
+		SELECT DE_LRCODE AS roomCode, DE_TCID AS boardId, DE_TITLE AS boardTitle, DE_DATE AS boardDate, DE_CONTENT AS boardContent 
+		FROM DEBATE WHERE DE_LRCODE = #{roomCode} AND DE_DATE = TO_DATE(#{boardDate},'YYYY-MM-DD HH24:MI:SS')
+	</select>
+	
+	<!-- 선생님 토론게시판 수정 -->
+	<update id="tclearningDebateUpdate" parameterType="board">
+		UPDATE DEBATE SET DE_TITLE = #{boardTitle}, DE_CONTENT = #{boardContent} 
+		WHERE DE_LRCODE = #{roomCode} AND DE_DATE = TO_DATE(#{boardDate},'YYYY-MM-DD HH24:MI:SS')
+	</update>
+	
+	<!-- 선생님 토론게시판 글등록 -->
+	<insert id="tclearningDebateInsert" parameterType="board">
+		INSERT INTO DEBATE 
+		VALUES(#{roomCode}, #{boardId}, #{boardTitle}, SYSDATE, #{boardContent})
+	</insert>
+
+
+
 	<!-- 학습방 오답노트 게시글 유무 -->
 	<select id="learningWANCheck" resultType="Integer"
 		parameterType="board">
@@ -842,6 +869,12 @@
       ORDER BY QTAG_DATE
       DESC
    </select>
+   
+   <!-- 선생님 토론게시판 삭제 -->
+   <delete id="tclearningDebateDelete" parameterType="member">
+   		DELETE FROM DEBATE WHERE DE_LRCODE = #{roomCode} AND DE_DATE = TO_DATE(#{boardDate},'YYYY-MM-DDHH24:MI:SS')
+   </delete>
 
 
 </mapper>
+

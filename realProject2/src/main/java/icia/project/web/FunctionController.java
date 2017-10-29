@@ -236,12 +236,10 @@ public class FunctionController {
 
 	// 토론 게시판 글 등록
 	@RequestMapping(value = "/learningDebateInsert", method = RequestMethod.POST)
-	public ModelAndView  learningDebateInsert(BoardBean board) {
+	public ModelAndView tclearningDebateInsert(@ModelAttribute BoardBean board) {
 
-		mav = new ModelAndView();		
-
-
-
+		ltm.entrance(36, board);
+		mav = ltm.entrance(32, board);
 		return mav;
 	}
 
@@ -389,7 +387,18 @@ public class FunctionController {
 	@RequestMapping(value = "/learningDataCXTStudent", method = RequestMethod.POST)
 	public ModelAndView learningDataCXTStudent(@ModelAttribute BoardBean board)throws Exception{      
 
+
 		mav = ltm.entrance(6, board);
+
+		return mav;
+	}
+
+
+	// 선생님 토론게시판 내용수정 페이지
+	@RequestMapping(value = "/DebateUpdatePage", method = RequestMethod.POST)
+	public ModelAndView tclearningDebateUpdatePage(@ModelAttribute BoardBean board) {
+
+		mav = ltm.entrance(34, board);
 
 		return mav;
 	}
@@ -404,7 +413,7 @@ public class FunctionController {
 
 		return mav;
 	}
-	
+
 	// 질문게시판 자세히보기
 	@RequestMapping(value = "/questionBoardCXT", method = RequestMethod.POST)
 	public ModelAndView questionBoardCXT(@ModelAttribute BoardBean board)throws Exception{      
@@ -413,7 +422,7 @@ public class FunctionController {
 
 		return mav;
 	}
-	
+
 	//질문게시판 삭제
 	@RequestMapping(value = "/learningQuestionDelete", method = RequestMethod.POST)
 	public ModelAndView learningQuestionDelete(@ModelAttribute BoardBean board){      
@@ -424,7 +433,7 @@ public class FunctionController {
 
 		return mav;
 	}
-	
+
 	// 질문게시판 업데이트
 	@RequestMapping(value = "/learningQuUpdate", method = RequestMethod.POST)
 	public ModelAndView learningQuUpdate(@ModelAttribute BoardBean board){     
@@ -434,7 +443,7 @@ public class FunctionController {
 
 		return mav;
 	}
-	
+
 	// 질문게시판 자세히보기
 	@RequestMapping(value = "/learningDataCXTPage", method = RequestMethod.POST)
 	public ModelAndView learningDataCXTPage(@ModelAttribute BoardBean board)throws Exception{      
@@ -443,7 +452,7 @@ public class FunctionController {
 
 		return mav;
 	}
-	
+
 	// 질문게시판 댓글 쓰기
 	@RequestMapping(value = "/learningQuestionTag", method = RequestMethod.POST)
 	public ModelAndView learningQuestionTag(@ModelAttribute BoardBean board)throws Exception{      
@@ -453,6 +462,31 @@ public class FunctionController {
 		mav = ltm.entrance(2, board);
 		return mav;
 	}
+
+
+	// 선생님 토론게시판 내용수정
+	@RequestMapping(value = "/DebateUpdate", method = RequestMethod.POST)
+	public ModelAndView tclearningDebateUpdate(@ModelAttribute BoardBean board) {
+
+		System.out.println("토론게시판 내용수정 컨트롤러" + board.getBoardDate());
+		ltm.entrance(35, board);
+
+		mav = ltm.entrance(32, board);
+		return mav;
+	}
+
+	// 선생님 토론게시판 삭제
+	@RequestMapping(value = "/DebateDelete", method = RequestMethod.POST)
+	public ModelAndView tclearningDebateDelete(@ModelAttribute BoardBean board) {
+
+		ltm.entrance(38, board);
+
+		mav = ltm.entrance(32, board);
+		return mav;
+	}
+
+
+
 
 
 

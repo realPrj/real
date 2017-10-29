@@ -227,3 +227,4 @@ public class BoardBean {	// 게시판 bean
 
 
 }
+

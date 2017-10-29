@@ -89,9 +89,11 @@ public class StudentManagement extends TransactionExe {
 					/*if(dao.stLogHistory(member) != 0) {	// 로그히스토리
 					 */
 					// 동적으로 학습방 쏴주기
-
+					
 					session.setAttribute("stCode", member.getStudentCode());
 					session.setAttribute("identity", member.getIdentity());
+				
+					
 					mav = pm.entrance(2, null);
 					transaction = true;
 					/*	}else {
@@ -123,7 +125,8 @@ public class StudentManagement extends TransactionExe {
 
 			setTransactionResult(transaction);
 		}
-
+		mav.addObject("stCode",member.getStudentCode());
+		
 		return mav;
 	}
 

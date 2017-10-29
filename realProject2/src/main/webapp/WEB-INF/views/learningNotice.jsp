@@ -54,7 +54,6 @@ function noticeInsert(){
 	document.body.appendChild(ff);
 	
 	document.noticeInsert.submit();
-	
 }
 
 </script>
