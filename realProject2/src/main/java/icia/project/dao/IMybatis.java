@@ -146,7 +146,7 @@ public interface IMybatis {
 
 	// 오답노트 코멘트 추출
 	public DbBoardBean learningWANCommentGet(BoardBean board);
-	
+
 	// 오답노트 코멘트 추출
 	public DbBoardBean learningWANCommentGet2(BoardBean board);
 
@@ -272,18 +272,24 @@ public interface IMybatis {
 
 	// 선생님 토론게시판 삭제
 	public int tclearningDebateDelete(BoardBean board);
+
 	// 선생님 비밀번호찾기
 	public int findPwd(MemberBean member);
 
 	// 선생님 비밀번호 업데이트
 	public int updatePwd(MemberBean member);
+
 	// 학생 비밀번호찾기
 	public int findstPwd(MemberBean member);
 
 	// 학생 비밀번호 업데이트
 	public int updatestPwd(MemberBean member);
+	
+	// 과제 유무
+	public int learningTaskCheck(BoardBean board);
 
-
+	// 과제 리스트 출력
+	public ArrayList<BoardBean> learningTaskList(BoardBean board);
 
 
 
