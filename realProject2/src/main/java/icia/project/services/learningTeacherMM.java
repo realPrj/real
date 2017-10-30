@@ -21,6 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import icia.project.bean.BoardBean;
 import icia.project.bean.DbBoardBean;
+import icia.project.bean.MemberBean;
 import icia.project.dao.IMybatis;
 import icia.project.dao.TransactionExe;
 
@@ -150,6 +151,10 @@ public class learningTeacherMM extends TransactionExe {
 		case 27:   // 과제 페이지
 			mav = learningTaskPage((BoardBean)object[0]);
 			break;
+		case 28:   // test
+			mav = adminChating((BoardBean)object[0]);
+			break;
+
 
 
 
@@ -1959,8 +1964,8 @@ public class learningTeacherMM extends TransactionExe {
 			}else {
 				System.out.println("실패");
 			}
-			
-			
+
+
 			mav.setViewName("learningTask");
 			transaction = true;
 
@@ -1975,9 +1980,9 @@ public class learningTeacherMM extends TransactionExe {
 	}
 
 	private ModelAndView learningTaskPage(BoardBean board) { // 과제 페이지
-		
+
 		mav = new ModelAndView();
-		
+
 		String roomcode = null;
 		ArrayList<BoardBean> al;
 		StringBuffer sb = null;
@@ -1986,40 +1991,40 @@ public class learningTeacherMM extends TransactionExe {
 		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
 
 		try {
-			
+
 			sb = new StringBuffer();
-		
+
 			roomcode = (String)session.getAttribute("roomCode");
-			
+
 			board.setRoomCode(roomcode);
-			
+
 			if(board.getBoardCode() != null) {	// 게시글 내용,댓글 보여주기
-				
+
 				board = dao.learningTaskGet(board);	// 게시글 내용
-				
+
 				sb.append("<table>");
 				sb.append("<tr>");
 				sb.append("<td>");
 				sb.append("</td>");
 				sb.append("</tr>");
 				sb.append("</table>");
-				
-				
+
+
 				// 게시글 댓글(너가 여기서부터 댓글 뽑아내면되)
-				
-				
+
+
 			}
-			
-			
+
+
 			board = new BoardBean();
 			sb = new StringBuffer();
-			
+
 			board.setRoomCode(roomcode);
 
 			if(dao.learningTaskCheck(board) != 0) {	// 리스트 출력
-				
+
 				al = dao.learningTaskList(board);	// 리스트 담기
-				
+
 				for(int i = 0; i < al.size(); i++) {
 					sb.append("<tr>");
 					sb.append("<td>");
@@ -2030,13 +2035,13 @@ public class learningTeacherMM extends TransactionExe {
 					sb.append("</td>");
 					sb.append("</tr>");	
 				}
-				
-				mav.addObject("taskList", sb.toString());
-	
-			}
-			
 
-			
+				mav.addObject("taskList", sb.toString());
+
+			}
+
+
+
 			mav.setViewName("learningQuestionCXT");
 			transaction = true;
 
@@ -2051,11 +2056,39 @@ public class learningTeacherMM extends TransactionExe {
 	}
 
 
+	private ModelAndView adminChating(BoardBean board) { // 질문 댓글 삭제
 
 
+		mav = new ModelAndView();
+		
 
-
+		
+		boolean transaction = false;
 	
+
+		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
+
+		try {
+
+			board.setId((String)session.getAttribute("tcId"));
+			System.out.println(board.getId());
+			mav.addObject("id",board.getId());
+			mav.setViewName("adminChating");
+			transaction = true;
+
+
+		}catch(Exception ex){
+			ex.printStackTrace();
+		}finally {
+			setTransactionResult(transaction);
+		}
+		
+		return mav;
+	}
+
+
+
+
 }
 
 

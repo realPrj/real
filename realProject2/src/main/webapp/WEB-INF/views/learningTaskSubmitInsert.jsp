@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>공조 || 과제제출</title>
+<title>공조 || 학생과제제출</title>
 </head>
 <body>
 
