@@ -517,6 +517,9 @@ public class learningTeacherMM extends TransactionExe {
 				sb.append("게시글 번호");
 				sb.append("</td>");
 				sb.append("<td>");
+				sb.append("아이디");
+				sb.append("</td>");
+				sb.append("<td>");
 				sb.append("년도");
 				sb.append("</td>");
 				sb.append("<td>");
@@ -534,6 +537,7 @@ public class learningTeacherMM extends TransactionExe {
 
 					board = new BoardBean();
 					board.setRoomCode(boardList.get(0).getRoomCode());
+					board.setStudentName(boardList.get(i).getStudentName());
 					board.setYearCode(boardList.get(i).getYearCode());
 					board.setTypeCode(boardList.get(i).getTypeCode());
 					board.setRoomSB(dao.learningSBCodeGet(board));
@@ -543,6 +547,9 @@ public class learningTeacherMM extends TransactionExe {
 					sb.append("<tr>");
 					sb.append("<td>");
 					sb.append(i+1);
+					sb.append("</td>");
+					sb.append("<td>");
+					sb.append(board.getStudentName());
 					sb.append("</td>");
 					sb.append("<td>");
 					sb.append(board.getYearName());
