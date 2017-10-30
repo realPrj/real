@@ -2008,9 +2008,7 @@ public class learningTeacherMM extends TransactionExe {
 				
 			}
 			
-			
-			
-			
+
 			
 			mav.setViewName("learningQuestionCXT");
 			transaction = true;
