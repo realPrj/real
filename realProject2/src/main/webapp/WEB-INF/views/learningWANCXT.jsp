@@ -13,11 +13,11 @@
 
 $(document).ready(function() {
 	   
-	if(${checkCM} == 1){
+	if("${checkCM}" == 1){
 		 $("#tableText").hide();		
 	};
 	   
-	   
+	
 });
  
 //form 생성
@@ -130,11 +130,11 @@ ${InsertButton }
             <td>경로:${route }</td>
          </tr>
          <tr>
-            <td><input type="button" name="update" value="수정"
-               onClick="learningWANCMUpdatePage('${boardCode}')"></td>
+            <td><input type="button" value="수정"
+               onClick="learningWANCMUpdatePage('${boardCode}')" /></td>
          </tr>
          <tr>
-            <td><input type="button" name="update" value="삭제" onClick="learningWANCMDelete('${boardCode}','${roomCode }')"></td>
+            <td><input type="button" value="삭제" onClick="learningWANCMDelete('${boardCode}','${roomCode }')" /></td>
          </tr>
       </table>
 
