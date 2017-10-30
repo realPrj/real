@@ -70,6 +70,9 @@ function eventClick(formname,formaction,formmethod){
 <td><input type="button" value="아이디 찾기" onClick="eventClick('idFindPageform','idFindPage','post')" /></td>
 </tr>
 <tr>
+<td><input type="button" value="비밀번호 찾기" onClick="eventClick('idPwdPageform','idPwdPage','post')" /></td>
+</tr>
+<tr>
 <td><input type="button" value="회원가입" onClick="eventClick('joinPageform','joinPage','post')" /></td>
 </tr>
 <tr>

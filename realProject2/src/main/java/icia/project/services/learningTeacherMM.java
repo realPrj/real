@@ -111,7 +111,8 @@ public class learningTeacherMM extends TransactionExe {
 			mav = learningWANCXTPage((BoardBean)object[0]);
 			break;
 
-		case 18:	// 오답노트 코멘트 등록 페이지
+		case 18:	// 오답노트 코멘트 등록
+			mtfRequest = ((MultipartHttpServletRequest)object[1]);
 			mav = learningWANCommentInsert((BoardBean)object[0]);
 
 			break;
@@ -145,7 +146,7 @@ public class learningTeacherMM extends TransactionExe {
 		case 26:   // 선생님 학생 전체보기 자세히 보기
 			mav = teacherLearningSTadminCXT((BoardBean)object[0]);
 			break;
-
+	
 
 
 
@@ -686,6 +687,7 @@ public class learningTeacherMM extends TransactionExe {
 	private ModelAndView learningWANCXTPage(BoardBean board) { // 오답노트 코멘트 페이지 이동
 
 		mav = new ModelAndView();
+		ViewService view = new ViewService(); 
 		boolean transaction = false;
 		String page = null;
 		StringBuffer sb = new StringBuffer();
@@ -697,7 +699,7 @@ public class learningTeacherMM extends TransactionExe {
 
 			if(dao.learningWANCommentCheck(board) != 0) {	// 코멘트 있음
 
-				board = dao.learningWANCommentGet(board);
+/*				board = dao.learningWANCommentGet(board);
 
 				sb.append("<table>");
 				sb.append("<tr>");
@@ -734,7 +736,25 @@ public class learningTeacherMM extends TransactionExe {
 						+ "<input type='button' value='삭제' onClick=learningWANCMDelete('"+board.getBoardCode()+"','"+board.getRoomCode()+"') />");
 				sb.append("</td>");
 				sb.append("</tr>");
-				sb.append("</table>");
+				sb.append("</table>");*/
+
+				DbBoardBean bb = dao.learningWANCommentGet(board);	// 전체 루트(파일이름까지)
+
+				bb.setCutRoute(bb.getBoardRoute().substring(0,68));	// 루트만
+				String route = bb.getCutRoute();
+
+				bb.setCutContent(bb.getBoardRoute().substring(68));	// 파일이름
+
+				List<String> list = view.getList(bb);
+			
+				mav.addObject("content",bb.getBoardContent());
+				mav.addObject("list",list);
+				mav.addObject("file",bb.getCutContent());
+				mav.addObject("date",bb.getBoardDate());
+				mav.addObject("writeId",bb.getBoardId());
+				mav.addObject("route",route);
+				mav.addObject("rommCode", bb.getRoomCode());
+				mav.addObject("boardCode", bb.getBoardCode());
 
 				page="learningWANCXT";
 				transaction = true;
@@ -744,9 +764,10 @@ public class learningTeacherMM extends TransactionExe {
 				sb.append("<input type='button' value='코멘트 등록' onClick='commentInsertPage("+board.getBoardCode()+")' />");
 				page = "learningWANCXT";
 				transaction = true;
+				mav.addObject("InsertButton", sb.toString());
+				mav.addObject("checkCM", 1);
 			}
-
-			mav.addObject("content", sb.toString());
+		
 
 		}catch(Exception ex){
 
@@ -768,8 +789,6 @@ public class learningTeacherMM extends TransactionExe {
 		for (MultipartFile mf : fileList) {
 			String originFileName = mf.getOriginalFilename(); // 원본 파일 명
 			long fileSize = mf.getSize(); // 파일 사이즈
-			System.out.println("originFileName : " + originFileName);
-			System.out.println("fileSize : " + fileSize);
 			String safeFile = path + originFileName;
 			board.setBoardRoute(safeFile);
 			try {
@@ -784,17 +803,20 @@ public class learningTeacherMM extends TransactionExe {
 		return mav;
 	}
 
-	private ModelAndView learningWANCommentInsert(BoardBean board) { // 오답노트 코멘트 페이지 이동
+	private ModelAndView learningWANCommentInsert(BoardBean board) { // 오답노트 코멘트 등록
 
 		mav = new ModelAndView();
 		boolean transaction = false;
+		fileupload(board,mtfRequest);
 		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
 
 		try {
 
 			board.setRoomCode((String)session.getAttribute("roomCode"));
 			board.setId((String)session.getAttribute("tcId"));
-
+			
+			System.out.println(board.getBoardContent());
+			System.out.println(board.getBoardRoute());
 			dao.learningWANCommentInsert(board);
 
 			transaction = true;
@@ -820,21 +842,22 @@ public class learningTeacherMM extends TransactionExe {
 			board.setRoomCode((String)session.getAttribute("roomCode"));
 			board.setId((String)session.getAttribute("tcId"));
 
-			board = dao.learningWANCommentGet(board);
-
+			System.out.println(board.getBoardCode());
+			System.out.println(board.getRoomCode());
+			
+			DbBoardBean bb = dao.learningWANCommentGet2(board);
+			System.out.println(bb.getBoardContent());
+			mav.addObject("boardContent", bb.getBoardContent());
+			mav.addObject("boardCode", bb.getBoardCode());
+			
 			page="learningWANCMUpdate";
-			mav.addObject("boardContent", board.getBoardContent());
-			mav.addObject("boardRoute", board.getBoardRoute());
-			mav.addObject("boardCode", board.getBoardCode());
 			transaction = true;
 
 		}catch(Exception ex){
 
-
 			mav.addObject("message", "alert('코멘트 등록을 실패 하셨습니다')");
 			mav.addObject("windowclose", "window.close()");
 			page="learningWANCXT";
-
 
 		}finally {
 			mav.setViewName(page);

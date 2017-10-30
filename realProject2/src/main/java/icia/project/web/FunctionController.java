@@ -297,9 +297,9 @@ public class FunctionController {
 
 	// 오답노트 코멘트(선생님) 글 등록
 	@RequestMapping(value = "/learningWANCommentInsert", method = RequestMethod.POST)
-	public ModelAndView  learningWANCommentInsert(BoardBean board) {
+	public ModelAndView  learningWANCommentInsert(@ModelAttribute BoardBean board,MultipartHttpServletRequest mtfRequest) {
 
-		ltm.entrance(18, board);
+		ltm.entrance(18, board, mtfRequest);
 		mav = ltm.entrance(17, board);
 		mav.addObject("message", "alert('글 등록 되셨습니다.');");
 		return mav;
@@ -562,6 +562,25 @@ public class FunctionController {
 		mav = ltm.entrance(32, board);
 		return mav;
 	}
+
+
+	// 비밀번호찾기 페이지
+	@RequestMapping(value = "/findPwd", method = RequestMethod.POST)
+	public ModelAndView findPwd(@ModelAttribute MemberBean member) {
+
+
+	
+		System.out.println(member.getIdentity());
+		if(member.getIdentity().equals("1")) {
+			mav = tm.entrance(10, member);
+		}else {
+			mav = sm.entrance(10, member);
+		}
+		
+
+		return mav;
+	}
+
 
 
 
