@@ -544,6 +544,7 @@ public class learningStudentMM extends TransactionExe {
 	private ModelAndView learningWANCMCXTPage(BoardBean board) { // 오답노트 코멘트 페이지 이동
 
 		mav = new ModelAndView();
+		ViewService view = new ViewService(); 
 		boolean transaction = false;
 		String page = null;
 		StringBuffer sb = new StringBuffer();
@@ -555,6 +556,22 @@ public class learningStudentMM extends TransactionExe {
 
 			if(dao.learningWANCommentCheck(board) != 0) {	// 코멘트 있음
 
+				DbBoardBean bb = dao.learningWANCommentGet(board);	// 전체 루트(파일이름까지)
+
+				bb.setCutRoute(bb.getBoardRoute().substring(0,68));	// 루트만
+				String route = bb.getCutRoute();
+
+				bb.setCutContent(bb.getBoardRoute().substring(68));	// 파일이름
+
+				List<String> list = view.getList(bb);
+				mav.addObject("content",bb.getBoardContent());
+				mav.addObject("list",list);
+				mav.addObject("file",bb.getCutContent());
+				mav.addObject("date",bb.getBoardDate());
+				mav.addObject("writeId",bb.getBoardId());
+				mav.addObject("route",route);
+				
+			/*	
 				board = dao.learningWANCommentGet(board);
 
 				sb.append("<table>");
@@ -587,7 +604,7 @@ public class learningStudentMM extends TransactionExe {
 				sb.append("</td>");
 				sb.append("</tr>");
 				sb.append("</table>");
-
+*/
 				page="learningWANCXT";
 				transaction = true;
 

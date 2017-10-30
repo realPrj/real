@@ -21,7 +21,7 @@ function createForm(formname,formaction,formmethod){
 
 }
 
-function commentInsert(){
+/* function commentInsert(){
 
 	var boardCode = document.getElementsByName("boardCode")[0];
 	var boardContent = document.getElementsByName("boardContent")[0];
@@ -36,23 +36,21 @@ function commentInsert(){
 	form.appendChild(boardRoute);
 	
 	form.submit();
-}
+} */
 
 </script>
 <body>
-<input type="hidden" value="${boardCode }" name="boardCode" />
-<table>
-	<tr>
-		<td>내용</td>
-		<td><input type="text" name="boardContent" /></td>
-	</tr>
-	<tr>
-		<td>파일첨부</td>
-		<td><input type="text" name="boardRoute" /></td>
-	</tr>
-	<tr>
-		<td><input type="button" value="등록" onClick="commentInsert()" /></td>
-	</tr>
-</table>
+
+<!-- 자료실 글쓰기  -->
+   <form name="fileForm" action="learningWANCommentInsert" method="post"
+      enctype="multipart/form-data">
+      <input type="hidden" value="${boardCode }" name="boardCode" />
+     <br> 내용 :
+      <textarea name="boardContent" cols=50 rows=20 maxlength=500></textarea>
+
+      <br> <input multiple="multiple" type="file" name="file" /><input type="hidden"
+         name="load" value="Notice" />
+      <BUTTON type="SUBMIT">보내기</BUTTON>
+   </form>
 </body>
 </html>

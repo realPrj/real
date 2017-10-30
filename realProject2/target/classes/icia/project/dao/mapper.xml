@@ -384,12 +384,22 @@
 	</select>
 
 	<!-- 오답노트 코멘트 추출 -->
-	<select id="learningWANCommentGet" resultType="board"
+	<select id="learningWANCommentGet" resultType="dbBoard"
 		parameterType="board">
 		SELECT
 		WTAG_WANLRCODE AS roomCode, WTAG_WANCODE AS
 		boardCode, WTAG_CONTENT AS boardContent, WTAG_DATE AS boardDate,
 		WTAG_ROUTE AS boardRoute, WTAG_TCID AS boardId
+		FROM WRONGANSWERNOTESTAG
+		WHERE
+		WTAG_WANLRCODE=#{roomCode} AND WTAG_WANCODE=#{boardCode}
+	</select>
+
+	<!-- 오답노트 코멘트 추출 -->
+	<select id="learningWANCommentGet2" resultType="dbBoard"
+		parameterType="board">
+		SELECT
+		WTAG_WANCODE AS	boardCode, WTAG_CONTENT AS boardContent
 		FROM WRONGANSWERNOTESTAG
 		WHERE
 		WTAG_WANLRCODE=#{roomCode} AND WTAG_WANCODE=#{boardCode}
@@ -407,7 +417,7 @@
 		UPDATE
 		WRONGANSWERNOTESTAG
 		SET
-		WTAG_CONTENT=#{boardContent},WTAG_ROUTE=#{boardRoute}
+		WTAG_CONTENT=#{boardContent}
 		WHERE
 		WTAG_WANLRCODE=#{roomCode} AND WTAG_WANCODE=#{boardCode}
 	</update>
@@ -767,15 +777,18 @@
 	<update id="tclearningDebateUpdate" parameterType="board">
 		UPDATE DEBATE
 		SET DE_TITLE = #{boardTitle}, DE_CONTENT = #{boardContent}
-		WHERE DE_LRCODE = #{roomCode} AND DE_DATE =
-		TO_DATE(#{boardDate},'YYYY-MM-DD HH24:MI:SS')
+		WHERE
+		DE_LRCODE = #{roomCode} AND DE_DATE =
+		TO_DATE(#{boardDate},'YYYY-MM-DD
+		HH24:MI:SS')
 	</update>
 
 	<!-- 선생님 토론게시판 글등록 -->
 	<insert id="tclearningDebateInsert" parameterType="board">
 		INSERT INTO
 		DEBATE
-		VALUES(#{roomCode}, #{boardId}, #{boardTitle}, SYSDATE, #{boardContent})
+		VALUES(#{roomCode}, #{boardId}, #{boardTitle}, SYSDATE,
+		#{boardContent})
 	</insert>
 
 
@@ -836,10 +849,12 @@
 		QUERY WHERE
 		QU_LRCODE = #{roomCode}
 		AND QU_DATE =
-		TO_DATE(#{boardDate},'YYYY-MM-DD HH24:MI:SS')
+		TO_DATE(#{boardDate},'YYYY-MM-DD
+		HH24:MI:SS')
 		AND
 		QU_STRFSTUDENTCODE = #{boardId}
-		AND QU_TITLE = #{boardTitle}
+		AND QU_TITLE =
+		#{boardTitle}
 	</delete>
 
 	<!-- 게시판 -->
@@ -884,14 +899,19 @@
 	<!-- 질문게시판 댓글 삭제 -->
 	<delete id="learningQuestionTagDelete" parameterType="board">
 		DELETE
-		FROM QUERYTAG
+		FROM
+		QUERYTAG
 		WHERE
 		QTAG_QULRCODE=#{roomCode}
-		AND QTAG_QUSTRFSTUDENTCODE=#{boardId}
+		AND
+		QTAG_QUSTRFSTUDENTCODE=#{boardId}
 		AND QTAG_QUTITLE =#{boardTitle}
-		AND QTAG_QUDATE= TO_DATE(#{boardDate},'YYYY-MM-DD HH24:MI:SS')
-		AND QTAG_TCID = #{tagId}
-		AND QTAG_DATE = TO_DATE(#{tagDate},'YYYY-MM-DD HH24:MI:SS')
+		AND
+		QTAG_QUDATE= TO_DATE(#{boardDate},'YYYY-MM-DD HH24:MI:SS')
+		AND
+		QTAG_TCID = #{tagId}
+		AND QTAG_DATE = TO_DATE(#{tagDate},'YYYY-MM-DD
+		HH24:MI:SS')
 	</delete>
 
 
@@ -900,7 +920,8 @@
 		parameterType="board">
 		SELECT
 		LSR_LRCODE AS roomCode,
-		LSR_STRFSTUDENTCODE AS studentCode
+		LSR_STRFSTUDENTCODE AS
+		studentCode
 		FROM LEARNINGSTUDENTREGISTER
 		WHERE
 		LSR_LRCODE =#{roomCode}
@@ -924,25 +945,27 @@
 
 	<!-- 선생님 토론게시판 삭제 -->
 	<delete id="tclearningDebateDelete" parameterType="member">
-		DELETE FROM DEBATE WHERE DE_LRCODE = #{roomCode} AND DE_DATE =
+		DELETE FROM
+		DEBATE WHERE DE_LRCODE = #{roomCode} AND DE_DATE =
 		TO_DATE(#{boardDate},'YYYY-MM-DDHH24:MI:SS')
 	</delete>
-		<!-- 선생님 아이디 찾기 -->
+	<!-- 선생님 아이디 찾기 -->
 	<select id="findPwd" resultType="Integer" parameterType="member">
 		SELECT
 		COUNT(*)
 		FROM TEACHER
-		WHERE 
+		WHERE
 		TC_ID = #{id}
-		AND 
+		AND
 		TC_EMAIL= #{email}
 	</select>
-	
+
 	<!-- 선생님 비밀번호 수정 -->
 	<update id="updatePwd" parameterType="member">
 		UPDATE TEACHER
 		SET
-		TC_PWD =#{pwd}
+		TC_PWD
+		=#{pwd}
 		WHERE
 		TC_ID=#{id}
 	</update>
@@ -951,22 +974,23 @@
 		SELECT
 		COUNT(*)
 		FROM STUDENT
-		WHERE 
+		WHERE
 		ST_ID = #{id}
-		AND 
+		AND
 		ST_EMAIL= #{email}
 	</select>
-	
+
 	<!-- 학생 비밀번호 수정 -->
 	<update id="updatestPwd" parameterType="member">
 		UPDATE STUDENT
 		SET
-		ST_PWD =#{pwd}
+		ST_PWD
+		=#{pwd}
 		WHERE
 		ST_ID=#{id}
 	</update>
-	
-	
+
+
 
 
 </mapper>

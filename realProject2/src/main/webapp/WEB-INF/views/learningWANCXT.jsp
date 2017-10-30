@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+   pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -95,6 +97,36 @@ function windowcloseClick(){
 
 </script>
 <body onLoad="openerReload()">
-${content }
+
+      <table>
+         <tr>
+            <td><input type="hidden" name="boardContent" value="${content }">내용:${content }</td>
+         </tr>
+         <c:forEach var="file" items="${list }">
+            <tr>
+               <td><a href="download.action?name=${file}">${file}</a></td>
+            </tr>
+         </c:forEach>
+
+         <tr>
+            <td><input type="hidden" name="boardData" value="${date }">날짜:${date }</td>
+         </tr>
+         <tr>
+            <td><input type="hidden" name="boardData" value="${writeId }">글쓴이:${writeId }</td>
+         </tr>
+         <tr>
+            <td>경로:${route }</td>
+         </tr>
+         <tr>
+            <td><input type="button" name="update" value="수정"
+               onClick="learningWANCMUpdatePage('${boardCode}')"></td>
+         </tr>
+         
+         
+         <tr>
+            <td><input type="button" name="update" value="삭제" onClick="learningWANCMDelete('${boardCode}','${roomCode }')"></td>
+         </tr>
+      </table>
+
 </body>
 </html>

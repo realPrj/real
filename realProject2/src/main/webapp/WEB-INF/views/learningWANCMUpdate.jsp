@@ -25,7 +25,6 @@ function learningWANCMUpdate(){
 	
 	var boardCode = document.getElementsByName("boardCode")[0];
 	var boardContent = document.getElementsByName("boardContent")[0];
-	var boardRoute = document.getElementsByName("boardRoute")[0];
 	
 	createForm("learningWANCMUpdateform","learningWANCMUpdate","POST");
 	
@@ -33,7 +32,6 @@ function learningWANCMUpdate(){
 	
 	form.appendChild(boardCode);
 	form.appendChild(boardContent);
-	form.appendChild(boardRoute);
 	
 	form.submit();
 	
@@ -47,10 +45,6 @@ function learningWANCMUpdate(){
 	<tr>
 		<td>내용</td>
 		<td><input type="text" value="${boardContent }" name="boardContent" /></td>
-	</tr>
-	<tr>
-		<td>파일첨부</td>
-		<td><input type="text"  value="${boardRoute }" name="boardRoute" /></td>
 	</tr>
 	<tr>
 		<td><input type="button" value="수정" onClick="learningWANCMUpdate()" /></td>

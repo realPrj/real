@@ -34,6 +34,7 @@ public class BoardBean {	// 게시판 bean
 	private String boardRoute;	// 게시글 파일첨부 경로
 	private String boardId; // 게시글 작성자
 	private String boardDate;	// 게시글 날짜
+	private String fileName;	// 파일 이름
 
 	private String stHalf;	// 학생 반
 	private String stNumber;	// 학생 번호
@@ -46,6 +47,14 @@ public class BoardBean {	// 게시판 bean
 	private String phone;   // 폰번호
 
 
+
+	public String getFileName() {
+		return fileName;
+	}
+
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
+	}
 
 	public String getEmail() {
 		return email;

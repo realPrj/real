@@ -145,7 +145,10 @@ public interface IMybatis {
 	public int learningWANCommentCheck(BoardBean board);
 
 	// 오답노트 코멘트 추출
-	public BoardBean learningWANCommentGet(BoardBean board);
+	public DbBoardBean learningWANCommentGet(BoardBean board);
+	
+	// 오답노트 코멘트 추출
+	public DbBoardBean learningWANCommentGet2(BoardBean board);
 
 	// 오답노트 코멘트 등록 
 	public int learningWANCommentInsert(BoardBean board);
