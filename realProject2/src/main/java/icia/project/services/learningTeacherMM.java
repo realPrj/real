@@ -148,7 +148,7 @@ public class learningTeacherMM extends TransactionExe {
 			break;
 
 		case 27:   // 과제 페이지
-			mav = learningTaskPage();
+			mav = learningTaskPage((BoardBean)object[0]);
 			break;
 
 
@@ -1974,19 +1974,47 @@ public class learningTeacherMM extends TransactionExe {
 		return mav;
 	}
 
-	private ModelAndView learningTaskPage() { // 과제 페이지
+	private ModelAndView learningTaskPage(BoardBean board) { // 과제 페이지
 		
 		mav = new ModelAndView();
-		BoardBean board = new BoardBean();
+		
+		String roomcode = null;
 		ArrayList<BoardBean> al;
-		StringBuffer sb = new StringBuffer();
+		StringBuffer sb = null;
 		boolean transaction = false;
 
 		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
 
 		try {
 			
-			board.setRoomCode((String)session.getAttribute("roomCode"));
+			sb = new StringBuffer();
+		
+			roomcode = (String)session.getAttribute("roomCode");
+			
+			board.setRoomCode(roomcode);
+			
+			if(board.getBoardCode() != null) {	// 게시글 내용,댓글 보여주기
+				
+				board = dao.learningTaskGet(board);	// 게시글 내용
+				
+				sb.append("<table>");
+				sb.append("<tr>");
+				sb.append("<td>");
+				sb.append("</td>");
+				sb.append("</tr>");
+				sb.append("</table>");
+				
+				
+				// 게시글 댓글(너가 여기서부터 댓글 뽑아내면되)
+				
+				
+			}
+			
+			
+			board = new BoardBean();
+			sb = new StringBuffer();
+			
+			board.setRoomCode(roomcode);
 
 			if(dao.learningTaskCheck(board) != 0) {	// 리스트 출력
 				
@@ -1995,7 +2023,7 @@ public class learningTeacherMM extends TransactionExe {
 				for(int i = 0; i < al.size(); i++) {
 					sb.append("<tr>");
 					sb.append("<td>");
-					sb.append("<input type='button' value='"+al.get(i).getBoardTitle()+"' onClick='' />");
+					sb.append("<input type='button' value='"+al.get(i).getBoardTitle()+"' onClick='test("+al.get(i).getBoardCode()+")' />");
 					sb.append("</td>");
 					sb.append("<td>");
 					sb.append(al.get(i).getBoardDate());
@@ -2004,8 +2032,7 @@ public class learningTeacherMM extends TransactionExe {
 				}
 				
 				mav.addObject("taskList", sb.toString());
-				
-				
+	
 			}
 			
 			
@@ -2032,5 +2059,6 @@ public class learningTeacherMM extends TransactionExe {
 
 	
 }
+
 
 

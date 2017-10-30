@@ -206,7 +206,7 @@ public class HomeController  {
 
 		case 6 : 
 			// 과제
-			mav = ltmm.entrance(27, null);
+			mav = ltmm.entrance(27, board);
 			break;
 
 		case 7 : // 오답노트

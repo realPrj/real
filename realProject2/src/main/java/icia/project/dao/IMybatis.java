@@ -284,12 +284,16 @@ public interface IMybatis {
 
 	// 학생 비밀번호 업데이트
 	public int updatestPwd(MemberBean member);
-	
+
 	// 과제 유무
 	public int learningTaskCheck(BoardBean board);
 
 	// 과제 리스트 출력
 	public ArrayList<BoardBean> learningTaskList(BoardBean board);
+
+	// 과제 내용 출력
+	public BoardBean learningTaskGet(BoardBean board);
+
 
 
 
