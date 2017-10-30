@@ -8,7 +8,17 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>공조 || 오답노트 선생님 코멘트</title>
 </head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script>
+
+$(document).ready(function() {
+	   
+	if(${checkCM} == 1){
+		 $("#tableText").hide();		
+	};
+	   
+	   
+});
  
 //form 생성
 function createForm(formname,formaction,formmethod){
@@ -97,8 +107,8 @@ function windowcloseClick(){
 
 </script>
 <body onLoad="openerReload()">
-
-      <table>
+${InsertButton }
+      <table id="tableText">
          <tr>
             <td><input type="hidden" name="boardContent" value="${content }">내용:${content }</td>
          </tr>
@@ -121,8 +131,6 @@ function windowcloseClick(){
             <td><input type="button" name="update" value="수정"
                onClick="learningWANCMUpdatePage('${boardCode}')"></td>
          </tr>
-         
-         
          <tr>
             <td><input type="button" name="update" value="삭제" onClick="learningWANCMDelete('${boardCode}','${roomCode }')"></td>
          </tr>

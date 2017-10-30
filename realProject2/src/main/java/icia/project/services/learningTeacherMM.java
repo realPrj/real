@@ -760,7 +760,8 @@ public class learningTeacherMM extends TransactionExe {
 				sb.append("<input type='button' value='코멘트 등록' onClick='commentInsertPage("+board.getBoardCode()+")' />");
 				page = "learningWANCXT";
 				transaction = true;
-				mav.addObject("content", sb.toString());
+				mav.addObject("InsertButton", sb.toString());
+				mav.addObject("checkCM", 1);
 			}
 		
 
