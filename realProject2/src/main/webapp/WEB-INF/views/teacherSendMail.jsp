@@ -63,20 +63,20 @@ function stadmin(studentCode){
    
 }
 function sendmail(studentEmail) {
-   createinput("hidden", "studentEmail", studentEmail);
+   createinput("hidden", "email", studentEmail);
    createForm("mailSenderForm", "mailSender", "post");
 
    var form = document.getElementsByName("mailSenderForm")[0];
-   var studentEmail = document.getElementsByName("studentEmail")[0];
+   var email = document.getElementsByName("email")[0];
    var boardTitle = document.getElementsByName("boardTitle")[0];
    
    var boardContent = document.getElementsByName("boardContent")[0];
-   var studentEmail = document.getElementsByName("studentEmail")[0];
+   var email = document.getElementsByName("email")[0];
 
 
    form.appendChild(boardTitle);
    form.appendChild(boardContent);
-   form.appendChild(studentEmail);
+   form.appendChild(email);
 
    form.submit();
 }
