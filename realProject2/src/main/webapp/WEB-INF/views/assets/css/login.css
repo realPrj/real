@@ -1,0 +1,25 @@
+#loginInput {width : 500px;
+				 margin : 0 auto;
+				 padding : 20px;
+				 background-color : #EAEAEA;
+				 border : 1px #EAEAEA solid;
+				 text-align : left;}
+				
+.box	{width : 350px;
+				 height : 30px;
+				 border : white;
+				 padding-right : 10px;}
+				 
+#loginInput #sub{font-size:11px; color:gray;}
+
+.joinInput {width : 700px;
+			height : 385px;
+				 margin : 0 auto;
+				 padding : 20px;
+				 background-color : #EAEAEA;
+				 border : 1px #EAEAEA solid;
+				 text-align : left;}
+
+.joinInput .sub3{font-size:15px; }
+
+.box2 {width:50px; height:30px; border:white;}
