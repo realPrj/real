@@ -60,6 +60,8 @@ function commentInsertPage(valueCode){
 }
 
 function learningWANCMUpdatePage(valueCode){
+	
+	alert(valueCode);
 
 	createinput("hidden", "boardCode", valueCode);
 	
@@ -127,13 +129,7 @@ ${InsertButton }
          <tr>
             <td>경로:${route }</td>
          </tr>
-         <tr>
-            <td><input type="button" value="수정"
-               onClick="learningWANCMUpdatePage('${boardCode}')" /></td>
-         </tr>
-         <tr>
-            <td><input type="button" value="삭제" onClick="learningWANCMDelete('${boardCode}','${roomCode }')" /></td>
-         </tr>
+	${inputButton }
       </table>
 
 </body>
