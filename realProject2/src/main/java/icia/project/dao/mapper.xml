@@ -927,6 +927,12 @@
 		DELETE FROM DEBATE WHERE DE_LRCODE = #{roomCode} AND DE_DATE =
 		TO_DATE(#{boardDate},'YYYY-MM-DDHH24:MI:SS')
 	</delete>
+	
+	<!-- 토론게시판 댓글목록 -->
+	<select id="learningDebateTagList" resultType="board">
+		SELECT DTAG_STRFSTUDENTCODE AS studentCode, DTAG_CONTENT AS tagContent, DTAG_DATE AS tagDate, DTAG_DELRCODE AS roomCode, DTAG_DETITLE AS boardTitle, 
+		DTAG_DEDATE AS boardDate, DTAG_DETCID AS boardId FROM DEBATETAG
+	</select>
 
 
 </mapper>

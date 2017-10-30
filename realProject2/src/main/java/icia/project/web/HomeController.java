@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import icia.project.bean.BoardBean;
@@ -216,8 +217,8 @@ public class HomeController  {
 
 			break;
 		case 9 : // 학생관리
-	         mav = ltmm.entrance(25, board);
-	         break;
+			mav = ltmm.entrance(25, board);
+			break;
 		case 10 : // 자료실
 			mav = ltmm.entrance(13, board);
 			break;
@@ -469,7 +470,7 @@ public class HomeController  {
 
 		return mav;
 	} 
-	
+
 	// 질문게시판 글 수정 하기
 	@RequestMapping(value = "/learningQuestionUpdatePage", method = RequestMethod.POST)
 	public ModelAndView learningQuestionUpdatePage(@ModelAttribute BoardBean board) {
@@ -504,7 +505,7 @@ public class HomeController  {
 
 		return mav;
 	}
-	
+
 	// 학생 토론게시판 내용확인
 	@RequestMapping(value = "/stDebateConfirm", method = RequestMethod.POST)
 	public ModelAndView stlearningDebateCTX(@ModelAttribute BoardBean board) {
@@ -515,17 +516,28 @@ public class HomeController  {
 	}
 
 	// 이메일 보내기
-	   @RequestMapping(value = "/sendMail", method = RequestMethod.POST)
-	   public ModelAndView sendMail(@ModelAttribute BoardBean board) {
+	@RequestMapping(value = "/sendMail", method = RequestMethod.POST)
+	public ModelAndView sendMail(@ModelAttribute BoardBean board) {
 
-	      mav.addObject("email",board.getEmail());
-	   
-
-	      mav.setViewName("teacherSendMail");
-
-	      return mav;
-	   }
+		mav.addObject("email",board.getEmail());
 
 
+		mav.setViewName("teacherSendMail");
+
+		return mav;
+	}
+	
+	// 토론게시판 댓글 목록
+	@RequestMapping(value = "/learningDebateTagList", method = RequestMethod.POST)
+	public @ResponseBody BoardBean learningDebateTagList(@ModelAttribute BoardBean board) {
+
+		BoardBean b;
+		
+		b = ltmm.learningDebateTagList(board);
+
+		
+
+		return b;
+	}
 
 }
