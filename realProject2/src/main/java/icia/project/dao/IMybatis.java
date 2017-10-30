@@ -246,21 +246,33 @@ public interface IMybatis {
 	// 질문게시판 내용 보기   
 	public ArrayList<BoardBean> learningQuestionTagCXT(BoardBean board);
 
+	// 질문게시판 댓글 삭제
+	public int learningQuestionTagDelete(BoardBean board);
 
+	//선생님 학생 관리  보기
+	public ArrayList<BoardBean> teacherLearningSTadmin(BoardBean board);
+	
+	//선생님 학생 관리  보기 자세히 
+	public ArrayList<BoardBean> teacherLearningSTadminCXT(BoardBean board);
 
 	// 선생님 토론게시판 리스트
 	public ArrayList<BoardBean> tclearningDebateList(BoardBean board);
-	
+
 	// 선생님 토론게시판 내용확인
 	public BoardBean tclearningDebateCTX(BoardBean board);
-	
+
 	// 선생님 토론게시판 수정
 	public int tclearningDebateUpdate(BoardBean board);
-	
+
 	// 선생님 토론게시판 등록
 	public int tclearningDebateInsert(BoardBean board);
-	
+
 	// 선생님 토론게시판 삭제
 	public int tclearningDebateDelete(BoardBean board);
+
+
+
+
+
 }
 

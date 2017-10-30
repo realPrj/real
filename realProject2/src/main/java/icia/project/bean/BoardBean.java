@@ -42,8 +42,26 @@ public class BoardBean {	// 게시판 bean
 	private String tagDate;	// 댓글 날짜
 	private String tagContent;	// 댓글 내용
 
+	private String email;   // 이메일   
+	private String phone;   // 폰번호
 
 
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
 
 	public String getTagId() {
 		return tagId;

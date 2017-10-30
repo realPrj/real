@@ -40,7 +40,7 @@ public class learningTeacherMM extends TransactionExe {
 
 		switch(serviceCode) {
 
-		case 1:   // 선생님뎃글 달기
+		case 1:   // 선생님 댓글 달기
 			mav = learningQuestionTag((BoardBean)object[0]);
 			break;
 
@@ -131,6 +131,19 @@ public class learningTeacherMM extends TransactionExe {
 
 		case 23:	// 오답노트 학생별 정보 페이지
 			mav = learningSTInformationPage((BoardBean)object[0]);
+			break;
+
+		case 24:   // 질문게시판 댓글 선생님 삭제
+
+			mav = learningQuestionTagDelete((BoardBean)object[0]);
+			break;
+			
+		case 25:   // 선생님 학생 전체보기
+			mav = teacherLearningSTadmin((BoardBean)object[0]);
+			break;
+			
+		case 26:   // 선생님 학생 전체보기 자세히 보기
+			mav = teacherLearningSTadminCXT((BoardBean)object[0]);
 			break;
 
 
@@ -1751,7 +1764,7 @@ public class learningTeacherMM extends TransactionExe {
 
 		return mav;
 	}
-	private ModelAndView learningQuestionTag(BoardBean board) { // 질문 페이지 자세히 보기
+	private ModelAndView learningQuestionTag(BoardBean board) { // 질문 댓글 쓰기
 
 		mav = new ModelAndView();
 		boolean transaction = false;
@@ -1784,7 +1797,7 @@ public class learningTeacherMM extends TransactionExe {
 
 		return mav;
 	}
-	
+
 	private ModelAndView tclearningDebateDelete(BoardBean board) { // 선생님 토론게시판 삭제
 		mav = new ModelAndView();
 		boolean transaction = false;
@@ -1805,6 +1818,122 @@ public class learningTeacherMM extends TransactionExe {
 		return mav;
 	}
 
+	private ModelAndView teacherLearningSTadmin(BoardBean board) { // 선생님 학생보기
 
+	      mav = new ModelAndView();
+	      boolean transaction = false;
+	      StringBuffer sb = new StringBuffer();
+	      ArrayList<BoardBean> ar = null;
+	      setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
+
+	      try {
+	         session.getAttribute("roomCode");
+
+	         board.setRoomCode((String)session.getAttribute("roomCode"));
+	         board.setId((String)session.getAttribute("identity"));
+	         //mav.addObject("content",session.getAttribute("roomCode") + "의 공지사항");
+	         ar = dao.teacherLearningSTadmin(board);
+	         mav.addObject("content", tclearningNoticeList(board,ar));
+	         ;
+	         sb.append("<table>");
+	         sb.append("<tr>");
+	         sb.append("<td>과목</td>");
+	         sb.append("<td>학년/반/번호</td>");
+	         sb.append("</tr>");
+	         for(int i=0; i<ar.size(); i++) {
+	            sb.append("<tr>");   
+	            sb.append("<td>" + ar.get(i).getRoomCode() + "</td>");
+	            sb.append("<td>" + ar.get(i).getStudentCode() + "</td>");
+	            sb.append("<td>" + "<input type=\"button\" value=\"학생 자세히 보기\" onClick=\"stadmin('"+ar.get(i).getStudentCode() +"')\"/>" + "</td>");
+	            sb.append("</tr>");
+	         }
+	         sb.append("</table>");
+	         mav.addObject("teacherLearningSTadmin", sb.toString());
+	         transaction = true;
+
+	      }catch(Exception ex){
+
+	      }finally {
+	         mav.setViewName("teacherLearningSTadmin");
+	         setTransactionResult(transaction);
+	      }
+	      return mav;
+	   }
+	   
+	   
+	   private ModelAndView teacherLearningSTadminCXT(BoardBean board) { // 선생님 학생보기 자세히 보기
+
+	      mav = new ModelAndView();
+	      boolean transaction = false;
+	      StringBuffer sb = new StringBuffer();
+	      ArrayList<BoardBean> ar = null;
+	      setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
+
+	      try {
+	         session.getAttribute("roomCode");
+
+	         board.setRoomCode((String)session.getAttribute("roomCode"));
+	         board.setId((String)session.getAttribute("identity"));
+	         //mav.addObject("content",session.getAttribute("roomCode") + "의 공지사항");
+	         ar = dao.teacherLearningSTadminCXT(board);
+
+	         sb.append("<table>");
+	         sb.append("<tr>");
+	         sb.append("<td>학년/반/번호</td>");
+	         sb.append("<td>아이디</td>");
+	         sb.append("<td>이름</td>");
+	         sb.append("<td>이메일</td>");
+	         sb.append("<td>핸드폰 번호</td>");
+	         sb.append("</tr>");
+	         sb.append("<tr>");   
+	         sb.append("<td>" + ar.get(0).getStudentCode() + "</td>");
+	         sb.append("<td>" + ar.get(0).getId() + "</td>");
+	         sb.append("<td>" + ar.get(0).getStudentName() + "</td>");
+	         sb.append("<td>" + ar.get(0).getEmail() + "</td>");
+	         sb.append("<td>" + ar.get(0).getPhone() + "</td>");
+	         sb.append("<td>" + "<input type=\"button\" value=\"메일 발송\" onClick=\"sendMail('"+ ar.get(0).getEmail() +"')\"/>" + "</td>");
+	         sb.append("</tr>");
+	         sb.append("</table>");
+
+	         mav.addObject("list", sb.toString());
+ 
+	         transaction = true;
+	      }catch(Exception ex){
+
+	      }finally {
+
+	         setTransactionResult(transaction);
+	      }
+
+	      return mav;
+	   }
+	   
+	   private ModelAndView learningQuestionTagDelete(BoardBean board) { // 질문 댓글 삭제
+
+
+		      mav = new ModelAndView();
+		      boolean transaction = false;
+
+		      setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
+
+		      try {
+
+		         if(dao.learningQuestionTagDelete(board) !=0) {
+		            System.out.println("성공은햇어");
+		         }else {
+		            System.out.println("실패");
+		         }
+		         mav.setViewName("learningQuestionCXT");
+		         transaction = true;
+
+
+		      }catch(Exception ex){
+		         ex.printStackTrace();
+		      }finally {
+		         setTransactionResult(transaction);
+		      }
+
+		      return mav;
+		   }
 }
 

@@ -62,6 +62,24 @@ function stadmin(studentCode){
     form.submit();
    
 }
+function sendmail(studentEmail) {
+   createinput("hidden", "studentEmail", studentEmail);
+   createForm("mailSenderForm", "mailSender", "post");
+
+   var form = document.getElementsByName("mailSenderForm")[0];
+   var studentEmail = document.getElementsByName("studentEmail")[0];
+   var boardTitle = document.getElementsByName("boardTitle")[0];
+   
+   var boardContent = document.getElementsByName("boardContent")[0];
+   var studentEmail = document.getElementsByName("studentEmail")[0];
+
+
+   form.appendChild(boardTitle);
+   form.appendChild(boardContent);
+   form.appendChild(studentEmail);
+
+   form.submit();
+}
 
 </script>
 </head>
@@ -83,12 +101,20 @@ function stadmin(studentCode){
    <tr><td><input type="button" value="강의계획서" onClick="menu('12')" /></td></tr>
    <tr><td><input type="button" value="문제코드" onClick="menu('13')" /></td></tr>
 </table>
-
 </div>
 
-${teacherLearningSTadmin }
 
+   <!-- 자료실 글쓰기  -->
+   <form name="updateForm" action="learningQuUpdate" method="post">
+      <br> 이메일 :<input type="text" name="studentEmail"
+         value="${email }"> <br>제목 :<input type="text" name="boardTitle">
+      <br> 내용
+      <textarea name="boardContent" cols=50 rows=20 maxlength=500></textarea>
 
+<br>
+
+      <input type="button" value="발송하기" onClick="sendmail('${email }')" />
+   </form>
 
 </body>
 </html>

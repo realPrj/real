@@ -215,9 +215,9 @@ public class HomeController  {
 		case 8 : 	
 
 			break;
-		case 9 : 
-
-			break;
+		case 9 : // 학생관리
+	         mav = ltmm.entrance(25, board);
+	         break;
 		case 10 : // 자료실
 			mav = ltmm.entrance(13, board);
 			break;
@@ -451,7 +451,7 @@ public class HomeController  {
 
 	}
 
-	// 선생님 학생별 정보 보기
+	// 선생님 학생별 자세히 보기
 	@RequestMapping(value="/learningSTInformation", method = RequestMethod.POST)
 	private ModelAndView learningSTInformation(@ModelAttribute BoardBean board) {
 
@@ -469,6 +469,7 @@ public class HomeController  {
 
 		return mav;
 	} 
+	
 	// 질문게시판 글 수정 하기
 	@RequestMapping(value = "/learningQuestionUpdatePage", method = RequestMethod.POST)
 	public ModelAndView learningQuestionUpdatePage(@ModelAttribute BoardBean board) {
@@ -503,6 +504,7 @@ public class HomeController  {
 
 		return mav;
 	}
+	
 	// 학생 토론게시판 내용확인
 	@RequestMapping(value = "/stDebateConfirm", method = RequestMethod.POST)
 	public ModelAndView stlearningDebateCTX(@ModelAttribute BoardBean board) {
@@ -512,9 +514,17 @@ public class HomeController  {
 		return mav;
 	}
 
+	// 이메일 보내기
+	   @RequestMapping(value = "/sendMail", method = RequestMethod.POST)
+	   public ModelAndView sendMail(@ModelAttribute BoardBean board) {
 
+	      mav.addObject("email",board.getEmail());
+	   
 
+	      mav.setViewName("teacherSendMail");
 
+	      return mav;
+	   }
 
 
 

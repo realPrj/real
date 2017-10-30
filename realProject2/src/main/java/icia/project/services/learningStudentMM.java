@@ -717,57 +717,78 @@ public class learningStudentMM extends TransactionExe {
 
 		return mav;
 	}
+	
 	private ModelAndView questionBoardCXT(BoardBean board) { //질문 페이지 자세히 보기
 
-		ViewService view = new ViewService(); 
-		mav = new ModelAndView();
-		boolean transaction = false;
+        ViewService view = new ViewService(); 
+        mav = new ModelAndView();
+        StringBuffer sb = new StringBuffer();
+        ArrayList<BoardBean> taglist = null;
+        boolean transaction = false;
 
-		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
+        setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
 
-		try {
+        try {
 
-			session.getAttribute("roomCode");
-			mav.addObject("content",session.getAttribute("roomCode") + "자료실");
-			board.setRoomCode((String)session.getAttribute("roomCode"));
+           session.getAttribute("roomCode");
+           mav.addObject("content",session.getAttribute("roomCode") + "자료실");
+           board.setRoomCode((String)session.getAttribute("roomCode"));
+           
+           board.setStudentCode((String)session.getAttribute("stCode"));
 
-			board.setStudentCode((String)session.getAttribute("stCode"));
+           //mav.addObject("content",session.getAttribute("roomCode") + "의 공지사항");
 
-			//mav.addObject("content",session.getAttribute("roomCode") + "의 공지사항");
+           DbBoardBean bb = dao.questionBoardCXT(board);   // 전체 루트(파일이름까지)
 
-			DbBoardBean bb = dao.questionBoardCXT(board);   // 전체 루트(파일이름까지)
+           bb.setCutRoute(bb.getBoardRoute().substring(0,68));   // 루트만
+           String route = bb.getCutRoute();
+     
+           bb.setCutContent(bb.getBoardRoute().substring(68));   // 파일이름
+           System.out.println(bb.getCutContent());
+           List<String> list = view.getList(bb);
+           
+           mav.addObject("list",list);
+           mav.addObject("theme",bb.getBoardTitle());
+           mav.addObject("content",bb.getBoardContent());
+           mav.addObject("date",bb.getBoardDate());
+           mav.addObject("writeId",bb.getBoardId());
+           mav.addObject("roomCode",bb.getRoomCode());
+           mav.addObject("route",route);
+           mav.addObject("file",bb.getCutContent());
 
-			bb.setCutRoute(bb.getBoardRoute().substring(0,68));   // 루트만
-			String route = bb.getCutRoute();
+           taglist = dao.learningQuestionTagCXT(board);
 
-			bb.setCutContent(bb.getBoardRoute().substring(68));   // 파일이름
-			System.out.println(bb.getCutContent());
-			List<String> list = view.getList(bb);
+           sb.append("<table>");
+           sb.append("<tr>");
+           sb.append("<td>내용</td>");
+           sb.append("<td>날짜</td>");
+           sb.append("<td>아이디</td>");
+           sb.append("</tr>");
+           for(int i=0; i<taglist.size(); i++) {
+              sb.append("<tr>");
+              sb.append("<td>" + taglist.get(i).getTagContent() + "</td>");
+              sb.append("<td>" + taglist.get(i).getTagDate() + "</td>");
+              sb.append("<td>" + taglist.get(i).getTagId() + "</td>");
+              sb.append("</tr>");
 
-			mav.addObject("list",list);
-			mav.addObject("theme",bb.getBoardTitle());
-			mav.addObject("content",bb.getBoardContent());
-			mav.addObject("date",bb.getBoardDate());
-			mav.addObject("writeId",bb.getBoardId());
-			mav.addObject("roomCode",bb.getRoomCode());
-			mav.addObject("route",route);
-			mav.addObject("file",bb.getCutContent());
+           }
+           sb.append("</table>");
+           mav.addObject("taglists", sb.toString());
+           
+           mav.addObject("roomcode",session.getAttribute("roomCode"));
 
-			mav.addObject("roomcode",session.getAttribute("roomCode"));
-
-			mav.setViewName("learningQuestionStudentCXT");
-			transaction = true;
+           mav.setViewName("learningQuestionStudentCXT");
+           transaction = true;
 
 
-		}catch(Exception ex){
-			ex.printStackTrace();
-		}finally {
-			setTransactionResult(transaction);
-		}
+        }catch(Exception ex){
+           ex.printStackTrace();
+        }finally {
+           setTransactionResult(transaction);
+        }
 
-		return mav;
-	}
-
+        return mav;
+     }
 	private ModelAndView deleteQuestion(BoardBean board) { // 학생 질문 삭제
 		mav = new ModelAndView();
 		boolean transaction = false;
