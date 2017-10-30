@@ -6,6 +6,23 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>공조 || 과제</title>
 </head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script>
+
+$(document).ready(function() {
+	
+	$("#tableText").hide();
+	
+	if("${checkContent}" == 1){
+		 $("#tableText").show();		
+	};
+	   
+	
+});
+
+
+
+</script>
 <body>
 <table>
 	<tr><td><input type="button" value="로그아웃" onClick="" /></td></tr>
@@ -38,6 +55,6 @@
 
 <!-- 과제 보여주기(제목,내용,날짜   댓글 : 학생이름,파일다운(클릭)) -->
 ${content }
-
+${tagcontent }
 </body>
 </html>

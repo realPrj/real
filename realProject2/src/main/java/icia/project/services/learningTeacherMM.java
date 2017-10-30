@@ -1997,17 +1997,20 @@ public class learningTeacherMM extends TransactionExe {
 				
 				board = dao.learningTaskGet(board);	// 게시글 내용
 				
-				sb.append("<table>");
+				sb.append("<table id='tableText'>");
 				sb.append("<tr>");
 				sb.append("<td>");
 				sb.append("</td>");
 				sb.append("</tr>");
 				sb.append("</table>");
 				
-				
 				// 게시글 댓글(너가 여기서부터 댓글 뽑아내면되)
 				
 				
+				
+				
+		
+				mav.addObject("checkContent", 1);
 			}
 			
 			
@@ -2037,7 +2040,7 @@ public class learningTeacherMM extends TransactionExe {
 			
 
 			
-			mav.setViewName("learningQuestionCXT");
+			mav.setViewName("learningTask");
 			transaction = true;
 
 
