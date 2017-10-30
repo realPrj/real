@@ -757,7 +757,8 @@ public class learningTeacherMM extends TransactionExe {
 				sb.append("</tr>");
 				sb.append("<tr>");
 				sb.append("<td><input type='button' value='삭제' onClick='learningWANCMDelete("+bb.getBoardCode()+","+bb.getRoomCode()+")' /></td></tr>");
-
+				mav.addObject("inputButton", sb.toString());
+				
 				page="learningWANCXT";
 				transaction = true;
 
@@ -1771,7 +1772,7 @@ public class learningTeacherMM extends TransactionExe {
 				sb.append("<td>" + taglist.get(i).getTagContent() + "</td>");
 				sb.append("<td>" + taglist.get(i).getTagDate() + "</td>");
 				sb.append("<td>" + taglist.get(i).getTagId() + "</td>");
-				//sb.append("<td>" + "<input type=\"button\" value=\" 삭제\" onClick=\"stadmin('"+ar.get(i).getStudentCode() +"')\"/>" + "</td>");
+				sb.append("<td>"+ "<input type='button' value='삭제'onClick=\"tagDelete(\'"+bb.getBoardTitle()+"\',"+"\'"+bb.getBoardDate()+"\',"+"\'"+bb.getRoomCode()+"\',"+"\'"+bb.getBoardId()+"\',"+"\'"+taglist.get(i).getTagDate()+"\',"+"\'"+taglist.get(i).getTagId()+"\')\" />"+"</td>"); 
 				sb.append("</tr>");
 
 			}
