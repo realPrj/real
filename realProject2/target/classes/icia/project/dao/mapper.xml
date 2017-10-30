@@ -927,6 +927,46 @@
 		DELETE FROM DEBATE WHERE DE_LRCODE = #{roomCode} AND DE_DATE =
 		TO_DATE(#{boardDate},'YYYY-MM-DDHH24:MI:SS')
 	</delete>
+		<!-- 선생님 아이디 찾기 -->
+	<select id="findPwd" resultType="Integer" parameterType="member">
+		SELECT
+		COUNT(*)
+		FROM TEACHER
+		WHERE 
+		TC_ID = #{id}
+		AND 
+		TC_EMAIL= #{email}
+	</select>
+	
+	<!-- 선생님 비밀번호 수정 -->
+	<update id="updatePwd" parameterType="member">
+		UPDATE TEACHER
+		SET
+		TC_PWD =#{pwd}
+		WHERE
+		TC_ID=#{id}
+	</update>
+	<!-- 학생 아이디 찾기 -->
+	<select id="findstPwd" resultType="Integer" parameterType="member">
+		SELECT
+		COUNT(*)
+		FROM STUDENT
+		WHERE 
+		ST_ID = #{id}
+		AND 
+		ST_EMAIL= #{email}
+	</select>
+	
+	<!-- 학생 비밀번호 수정 -->
+	<update id="updatestPwd" parameterType="member">
+		UPDATE STUDENT
+		SET
+		ST_PWD =#{pwd}
+		WHERE
+		ST_ID=#{id}
+	</update>
+	
+	
 
 
 </mapper>

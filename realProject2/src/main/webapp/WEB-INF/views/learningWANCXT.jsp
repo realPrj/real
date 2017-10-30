@@ -11,86 +11,86 @@
 //form 생성
 function createForm(formname,formaction,formmethod){
 
-   var form = document.createElement("form");
+	var form = document.createElement("form");
 
-   form.name = formname;
-   form.action = formaction;
-   form.method = formmethod;
+	form.name = formname;
+	form.action = formaction;
+	form.method = formmethod;
 
-   document.body.appendChild(form);
+	document.body.appendChild(form);
 
 }
 
 //input 생성
 function createinput(itype, iname, ivalue){
-   var input = document.createElement("input");
-   input.type = itype;
-   input.name = iname;
-   input.value = ivalue;
+	var input = document.createElement("input");
+	input.type = itype;
+	input.name = iname;
+	input.value = ivalue;
 
-   document.body.appendChild(input);
+	document.body.appendChild(input);
 }
 
 
 function commentInsertPage(valueCode){
 
-   createinput("hidden", "boardCode", valueCode);
-   
-   var boardCode = document.getElementsByName("boardCode")[0];
-   
-   createForm("learningWANInsertPageform","learningWANInsertPage","POST");
-   
-   var form = document.getElementsByName("learningWANInsertPageform")[0];
-   
-   form.appendChild(boardCode);
-   
-   form.submit();
+	createinput("hidden", "boardCode", valueCode);
+	
+	var boardCode = document.getElementsByName("boardCode")[0];
+	
+	createForm("learningWANInsertPageform","learningWANInsertPage","POST");
+	
+	var form = document.getElementsByName("learningWANInsertPageform")[0];
+	
+	form.appendChild(boardCode);
+	
+	form.submit();
 }
 
 function learningWANCMUpdatePage(valueCode){
 
-   createinput("hidden", "boardCode", valueCode);
-   
-   var boardCode = document.getElementsByName("boardCode")[0];
-   
-   createForm("learningWANCMUpdatePageform","learningWANCMUpdatePage","POST");
-   
-   var form = document.getElementsByName("learningWANCMUpdatePageform")[0];
-   
-   form.appendChild(boardCode);
-   
-   form.submit();
-   
+	createinput("hidden", "boardCode", valueCode);
+	
+	var boardCode = document.getElementsByName("boardCode")[0];
+	
+	createForm("learningWANCMUpdatePageform","learningWANCMUpdatePage","POST");
+	
+	var form = document.getElementsByName("learningWANCMUpdatePageform")[0];
+	
+	form.appendChild(boardCode);
+	
+	form.submit();
+	
 }
 
 function learningWANCMDelete(boardcode,roomcode){
 
-   createinput("hidden", "boardCode", boardcode);
-   createinput("hidden", "roomCode", roomcode);
-   
-   var boardCode = document.getElementsByName("boardCode")[0];
-   var roomCode = document.getElementsByName("roomCode")[0];
-   
-   createForm("learningWANCMDeleteform","learningWANCMDelete","POST");
-   
-   var form = document.getElementsByName("learningWANCMDeleteform")[0];
-   
-   form.appendChild(boardCode);
-   form.appendChild(roomCode);
-   
-   form.submit();
-   
+	createinput("hidden", "boardCode", boardcode);
+	createinput("hidden", "roomCode", roomcode);
+	
+	var boardCode = document.getElementsByName("boardCode")[0];
+	var roomCode = document.getElementsByName("roomCode")[0];
+	
+	createForm("learningWANCMDeleteform","learningWANCMDelete","POST");
+	
+	var form = document.getElementsByName("learningWANCMDeleteform")[0];
+	
+	form.appendChild(boardCode);
+	form.appendChild(roomCode);
+	
+	form.submit();
+	
 }
 
 function openerReload(){
-   opener.location.reload(true); 
-   ${message};
-   ${windowclose};
+	opener.location.reload(true); 
+	${message};
+	${windowclose};
 }
 
 function windowcloseClick(){
-   opener.location.reload(true); 
-   ${windowcloseClick};
+	opener.location.reload(true); 
+	${windowcloseClick};
 }
 
 </script>

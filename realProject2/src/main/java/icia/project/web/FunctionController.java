@@ -564,6 +564,24 @@ public class FunctionController {
 	}
 
 
+	// 비밀번호찾기 페이지
+	@RequestMapping(value = "/findPwd", method = RequestMethod.POST)
+	public ModelAndView findPwd(@ModelAttribute MemberBean member) {
+
+
+	
+		System.out.println(member.getIdentity());
+		if(member.getIdentity().equals("1")) {
+			mav = tm.entrance(10, member);
+		}else {
+			mav = sm.entrance(10, member);
+		}
+		
+
+		return mav;
+	}
+
+
 
 
 

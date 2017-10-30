@@ -525,6 +525,16 @@ public class HomeController  {
 
 	      return mav;
 	   }
+	   
+		// 비밀번호찾기 페이지
+		@RequestMapping(value = "/idPwdPage", method = RequestMethod.POST)
+		public ModelAndView idPwdPage(@ModelAttribute MemberBean member) {
+
+			mav.addObject("identity", member.getIdentity());
+			mav.setViewName("findPWD");
+
+			return mav;
+		}
 
 
 

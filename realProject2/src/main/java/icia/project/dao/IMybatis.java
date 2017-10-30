@@ -251,7 +251,7 @@ public interface IMybatis {
 
 	//선생님 학생 관리  보기
 	public ArrayList<BoardBean> teacherLearningSTadmin(BoardBean board);
-	
+
 	//선생님 학생 관리  보기 자세히 
 	public ArrayList<BoardBean> teacherLearningSTadminCXT(BoardBean board);
 
@@ -269,6 +269,17 @@ public interface IMybatis {
 
 	// 선생님 토론게시판 삭제
 	public int tclearningDebateDelete(BoardBean board);
+	// 선생님 비밀번호찾기
+	public int findPwd(MemberBean member);
+
+	// 선생님 비밀번호 업데이트
+	public int updatePwd(MemberBean member);
+	// 학생 비밀번호찾기
+	public int findstPwd(MemberBean member);
+
+	// 학생 비밀번호 업데이트
+	public int updatestPwd(MemberBean member);
+
 
 
 
