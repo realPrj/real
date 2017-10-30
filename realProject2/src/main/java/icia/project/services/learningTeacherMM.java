@@ -1765,6 +1765,7 @@ public class learningTeacherMM extends TransactionExe {
 				sb.append("<td>" + taglist.get(i).getTagContent() + "</td>");
 				sb.append("<td>" + taglist.get(i).getTagDate() + "</td>");
 				sb.append("<td>" + taglist.get(i).getTagId() + "</td>");
+				//sb.append("<td>" + "<input type=\"button\" value=\" 삭제\" onClick=\"stadmin('"+ar.get(i).getStudentCode() +"')\"/>" + "</td>");
 				sb.append("</tr>");
 
 			}
