@@ -751,6 +751,12 @@ public class learningTeacherMM extends TransactionExe {
 				mav.addObject("route",route);
 				mav.addObject("rommCode", bb.getRoomCode());
 				mav.addObject("boardCode", bb.getBoardCode());
+				
+				sb.append("<tr>");
+				sb.append("<td><input type='button' value='수정' onClick='learningWANCMUpdatePage("+bb.getBoardCode()+")' /></td>");
+				sb.append("</tr>");
+				sb.append("<tr>");
+				sb.append("<td><input type='button' value='삭제' onClick='learningWANCMDelete("+bb.getBoardCode()+","+bb.getRoomCode()+")' /></td></tr>");
 
 				page="learningWANCXT";
 				transaction = true;
