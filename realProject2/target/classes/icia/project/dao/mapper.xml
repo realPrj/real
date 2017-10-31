@@ -1047,6 +1047,14 @@
 		VALUES(#{roomCode},#{boardCode},#{id},#{boardTitle},#{boardContent},SYSDATE)
 	</insert>
 
+	<!-- 과제 수정 -->
+	<update id="learningTaskUpdate" parameterType="board">
+		UPDATE TASK
+		SET
+		TA_TITLE=#{boardTitle},TA_CONTENT=#{boardContent}
+		WHERE
+		TA_LRCODE = #{roomCode} AND TA_CODE = #{boardCode}
+	</update>
 
 
 

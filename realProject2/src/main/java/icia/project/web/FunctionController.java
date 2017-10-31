@@ -497,7 +497,6 @@ public class FunctionController {
 	@RequestMapping(value = "/mailSender", method=RequestMethod.POST) 
 	public ModelAndView mailSender(@ModelAttribute BoardBean board) throws AddressException, MessagingException 
 	{    
-
 		mav = new ModelAndView();   
 		// 네이버일 경우 smtp.naver.com 을 입력합니다. 
 		// Google일 경우 smtp.gmail.com 을 입력합니다. 
@@ -579,7 +578,7 @@ public class FunctionController {
 		return mav;
 	}
 	
-	// 비밀번호찾기 페이지
+	// 과제 등록
 	@RequestMapping(value = "/learningTaskInsertform", method = RequestMethod.POST)
 	public ModelAndView learningTaskInsertform(@ModelAttribute BoardBean board) {
 		
@@ -588,10 +587,19 @@ public class FunctionController {
 		return mav;
 	}
 
+	// 과제 수정
+	@RequestMapping(value = "/learningTaskUpdate", method = RequestMethod.POST)
+	public ModelAndView learningTaskUpdate(@ModelAttribute BoardBean board) {
+		
+		ltm.entrance(29, board);
+		mav = ltm.entrance(27, board);
+
+		return mav;
+	}
 
 
 
-
+	
 
 	
 

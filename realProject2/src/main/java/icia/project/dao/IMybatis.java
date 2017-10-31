@@ -303,6 +303,9 @@ public interface IMybatis {
 	// 과제 게시글 번호 유무
 	public int learningTaskBoardCheck(BoardBean board);
 
+	// 과제 수정 
+	public int learningTaskUpdate(BoardBean board);
+
 
 
 

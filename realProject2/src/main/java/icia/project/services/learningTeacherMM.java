@@ -156,10 +156,9 @@ public class learningTeacherMM extends TransactionExe {
 			mav = learningTaskInsertform((BoardBean)object[0]);
 			break;
 
-		case 29:   // test
-			mav = adminChating();
+		case 29:  // 과제 수정
+			mav = learningTaskUpdate((BoardBean)object[0]);
 			break;
-
 
 		case 30:	// 선생님 공지사항 수정
 			mtfRequest = ((MultipartHttpServletRequest)object[1]);
@@ -202,6 +201,12 @@ public class learningTeacherMM extends TransactionExe {
 			learningDebateTagList((BoardBean)object[0]);
 			break;*/
 
+			
+		case 40 :   // 채팅
+		mav = adminChating();
+		break;
+			
+			
 		}
 
 		return mav;
@@ -2044,7 +2049,7 @@ public class learningTeacherMM extends TransactionExe {
 				sb.append("<table id='tableText'>");
 
 				sb.append("<tr>");
-				sb.append("<td>" + "<button onClick=update("+board.getBoardCode()+","+board.getRoomCode()+") />" + "수정" + "</button>" + "</td>");
+				sb.append("<td>" + "<button onClick=update("+board.getBoardCode()+","+board.getRoomCode()+",'"+board.getBoardTitle()+"','"+board.getBoardContent()+"') />" + "수정" + "</button>" + "</td>");
 				sb.append("<td>" + "<button onClick=deleteCXT("+board.getBoardCode()+","+board.getRoomCode()+") />" + "삭제" + "</button>" + "</td>");
 				sb.append("</tr>");
 				sb.append("</table>");
@@ -2132,13 +2137,41 @@ public class learningTeacherMM extends TransactionExe {
 			transaction = true;
 
 		}catch(Exception ex){
-			ex.printStackTrace();
+
 		}finally {
 			setTransactionResult(transaction);
 		}
 
 		return mav;
 	}
+	
+	
+	private ModelAndView learningTaskUpdate(BoardBean board) { // 과제 수정
+
+		mav = new ModelAndView();
+		boolean transaction = false;
+		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
+
+		try {
+
+			dao.learningTaskUpdate(board);
+			
+			
+
+			mav.addObject("message", "alert('과제 수정 되었습니다.')");
+
+			transaction = true;
+
+		}catch(Exception ex){
+
+		}finally {
+			setTransactionResult(transaction);
+		}
+
+		return mav;
+	}
+	
+	
 
 	private ModelAndView adminChating() { // 채팅
 
@@ -2169,6 +2202,11 @@ public class learningTeacherMM extends TransactionExe {
 		return mav;
 	}
 
+	
+	
+	
+	
+	
 }
 
 
