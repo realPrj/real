@@ -306,6 +306,10 @@ public interface IMybatis {
 	// 선생님 공지사항 글 삭제
 	public int learningTaskCXTDelete(BoardBean board);
 
+	// 과제 수정 
+	public int learningTaskUpdate(BoardBean board);
+
+
 
 
 }

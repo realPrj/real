@@ -187,7 +187,7 @@ public class learningStudentMM extends TransactionExe {
 
 					typeSum = dao.learningWANstTypeSum(board);
 
-					sum.append("<br><biv id='"+yearCode.get(i).getYearCode().substring(0, 4)+"' >");
+					sum.append("<br><biv id='"+yearCode.get(i).getYearCode().substring(0, 6)+"' >");
 
 					for(int y = 0; y < typeSum.size(); y++) {
 						board = new BoardBean();

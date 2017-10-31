@@ -1046,6 +1046,7 @@
 		TASK(TA_LRCODE,TA_CODE,TA_TCID,TA_TITLE,TA_CONTENT,TA_DATE)
 		VALUES(#{roomCode},#{boardCode},#{id},#{boardTitle},#{boardContent},SYSDATE)
 	</insert>
+
 	<!-- 과제 삭제 -->
 	<delete id="learningTaskCXTDelete" parameterType="board">
 		DELETE
@@ -1055,7 +1056,15 @@
 		AND
 		TA_CODE = #{boardCode}	
 	</delete>
-	
+
+	<!-- 과제 수정 -->
+	<update id="learningTaskUpdate" parameterType="board">
+		UPDATE TASK
+		SET
+		TA_TITLE=#{boardTitle},TA_CONTENT=#{boardContent}
+		WHERE
+		TA_LRCODE = #{roomCode} AND TA_CODE = #{boardCode}
+	</update>
 
 
 

@@ -589,13 +589,31 @@ public class HomeController  {
 	}
 
 
+	// 과제 글 수정 페이지
+	@RequestMapping(value = "/learningTaskUpdatePage", method = RequestMethod.POST)
+	public ModelAndView learningTaskUpdatePage(@ModelAttribute BoardBean board) {
+		
+		mav = new ModelAndView();
+		System.out.println( board.getBoardCode()+"asdf");
+	
+		mav.addObject("boardCode", board.getBoardCode());
+		mav.addObject("roomCode", board.getRoomCode());
+		mav.addObject("boardTitle", board.getBoardTitle());
+		mav.addObject("boardContent", board.getBoardContent());
+		
+		mav.setViewName("learningTaskUpdate");
+		
+		return mav;
+	}
 
+
+	
 	// 테스트 채팅
 	@RequestMapping(value = "/testChat", method = RequestMethod.GET)
 	public ModelAndView testChat() {
-
-		mav = ltmm.entrance(29, null);
-
+		
+		mav = ltmm.entrance(40, null);
+		
 		return mav;
 	}
 
