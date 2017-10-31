@@ -12,6 +12,7 @@ public class BoardBean {	// 게시판 bean
 	private String studentCode; // 학생학년반번호
 	private String studentName; // 학생이름
 	private String id;	// 아이디
+	private String identity;	// 신분
 	private String roomCode;	// 방코드
 	private String roomName;	// 방이름
 	private String roomIntroduction;	// 방소개
@@ -47,6 +48,14 @@ public class BoardBean {	// 게시판 bean
 	private String phone;   // 폰번호
 
 
+
+	public String getIdentity() {
+		return identity;
+	}
+
+	public void setIdentity(String identity) {
+		this.identity = identity;
+	}
 
 	public String getFileName() {
 		return fileName;

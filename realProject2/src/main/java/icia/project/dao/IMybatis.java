@@ -294,7 +294,11 @@ public interface IMybatis {
 	// 과제 내용 출력
 	public BoardBean learningTaskGet(BoardBean board);
 
+	// 과제 유무
+	public int learningTaskInsert(BoardBean board);
 
+	// 과제 게시글 번호 유무
+	public int learningTaskBoardCheck(BoardBean board);
 
 
 

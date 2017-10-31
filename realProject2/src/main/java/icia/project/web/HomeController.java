@@ -217,8 +217,8 @@ public class HomeController  {
 
 			break;
 		case 9 : // 학생관리
-	         mav = ltmm.entrance(25, board);
-	         break;
+			mav = ltmm.entrance(25, board);
+			break;
 		case 10 : // 자료실
 			mav = ltmm.entrance(13, board);
 			break;
@@ -470,7 +470,7 @@ public class HomeController  {
 
 		return mav;
 	} 
-	
+
 	// 질문게시판 글 수정 하기
 	@RequestMapping(value = "/learningQuestionUpdatePage", method = RequestMethod.POST)
 	public ModelAndView learningQuestionUpdatePage(@ModelAttribute BoardBean board) {
@@ -505,7 +505,7 @@ public class HomeController  {
 
 		return mav;
 	}
-	
+
 	// 학생 토론게시판 내용확인
 	@RequestMapping(value = "/stDebateConfirm", method = RequestMethod.POST)
 	public ModelAndView stlearningDebateCTX(@ModelAttribute BoardBean board) {
@@ -516,26 +516,53 @@ public class HomeController  {
 	}
 
 	// 이메일 보내기
-	   @RequestMapping(value = "/sendMail", method = RequestMethod.POST)
-	   public ModelAndView sendMail(@ModelAttribute BoardBean board) {
+	@RequestMapping(value = "/sendMail", method = RequestMethod.POST)
+	public ModelAndView sendMail(@ModelAttribute BoardBean board) {
 
-	      mav.addObject("email",board.getEmail());
-	   
+		mav.addObject("email",board.getEmail());
 
-	      mav.setViewName("teacherSendMail");
 
-	      return mav;
-	   }
-	   
-		// 비밀번호찾기 페이지
-		@RequestMapping(value = "/idPwdPage", method = RequestMethod.POST)
-		public ModelAndView idPwdPage(@ModelAttribute MemberBean member) {
+		mav.setViewName("teacherSendMail");
 
-			mav.addObject("identity", member.getIdentity());
-			mav.setViewName("findPWD");
+		return mav;
+	}
 
-			return mav;
+	// 비밀번호찾기 페이지
+	@RequestMapping(value = "/idPwdPage", method = RequestMethod.POST)
+	public ModelAndView idPwdPage(@ModelAttribute MemberBean member) {
+
+		mav.addObject("identity", member.getIdentity());
+		mav.setViewName("findPWD");
+
+		return mav;
+	}
+	
+	// 과제 페이지
+	@RequestMapping(value = "/learningTaskPage", method = RequestMethod.POST)
+	public ModelAndView learningTaskPage(@ModelAttribute BoardBean board) {
+		
+		mav = ltmm.entrance(27, board);
+		
+		return mav;
+	}
+
+	// 과제 등록 페이지
+	@RequestMapping(value = "/learningTaskInsertPage", method = RequestMethod.POST)
+	public ModelAndView learningTaskInsertPage(@ModelAttribute BoardBean board) {
+
+		if(Integer.parseInt(board.getIdentity()) == 1) {	// 선생님
+			
+			mav = new ModelAndView();
+			mav.setViewName("learningTaskInsert");
+			
+		}else {	// 학생
+			
+			mav = lsmm.entrance(1, board);
+			mav.addObject("message", "alert('선생님만 과제 생성을 할 수 있습니다.')");
 		}
+
+		return mav;
+	}
 
 
 

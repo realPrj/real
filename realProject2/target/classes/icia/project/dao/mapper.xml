@@ -1005,10 +1005,12 @@
 	<select id="learningTaskList" resultType="board" parameterType="board">
 		SELECT
 		TA_CODE AS boardCode,
-		TA_TITLE AS boardTitle,TA_DATE AS boardDate,TA_CONTENT AS boardContent
+		TA_TITLE AS boardTitle,TA_DATE AS
+		boardDate,TA_CONTENT AS boardContent
 		FROM TASK
 		WHERE
-		TA_LRCODE = #{roomCode}
+		TA_LRCODE =
+		#{roomCode}
 		ORDER BY TA_DATE
 		DESC
 	</select>
@@ -1022,6 +1024,22 @@
 		WHERE
 		TA_LRCODE = #{roomCode} AND TA_CODE = #{boardCode}
 	</select>
+	
+	<!-- 과제 게시글 번호 유무 -->
+	<select id="learningTaskBoardCheck" resultType="Integer" parameterType="board">
+		SELECT
+		COUNT(*)
+		FROM TASK
+		WHERE
+		TA_LRCODE = #{boardCode}
+	</select>
+
+	<!-- 과제 등록 -->
+	<insert id="learningTaskInsert" parameterType="board">
+		INSERT INTO
+		TASK(TA_LRCODE,TA_CODE,TA_TCID,TA_TITLE,TA_CONTENT,TA_DATE)
+		VALUES(#{roomCode},#{boardCode},#{id},#{boardTitle},#{boardContent},SYSDATE)
+	</insert>
 
 
 

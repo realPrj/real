@@ -20,10 +20,45 @@ $(document).ready(function() {
 	
 });
 
+//form 생성
+function createForm(formname,formaction,formmethod){
 
+   var form = document.createElement("form");
+
+   form.name = formname;
+   form.action = formaction;
+   form.method = formmethod;
+
+   document.body.appendChild(form);
+
+}
+
+//input 생성
+function createinput(itype, iname, ivalue) {
+   var input = document.createElement("input");
+   input.type = itype;
+   input.name = iname;
+   input.value = ivalue;
+
+   document.body.appendChild(input);
+}
+
+function insertPage() {
+
+   createForm("learningTaskInsertPageform", "learningTaskInsertPage", "post");
+   
+   var identity = document.getElementsByName("identity")[0];
+
+   var form = document.getElementsByName("learningTaskInsertPageform")[0];
+
+   form.appendChild(identity);
+   
+   form.submit();
+}
 
 </script>
-<body>
+<body onLoad="${message}">
+<input type="hidden" value="${identity }"  name="identity" />;
 <table>
 	<tr><td><input type="button" value="로그아웃" onClick="" /></td></tr>
 	<tr><td><input type="button" value="내 메인으로" onClick="menu('1')" /></td></tr>
@@ -53,8 +88,42 @@ $(document).ready(function() {
 	${taskList }
 </table>
 
-<!-- 과제 보여주기(제목,내용,날짜   댓글 : 학생이름,파일다운(클릭)) -->
-${content }
+<input type="button" value="과제 생성" onClick="insertPage()" />
+
+<!-- 과제 보여주기(제목,내용,날짜 -->
+<table id='tableText'>
+	${submissionCheck }
+	<tr>
+		<td>
+			제목
+		</td>
+		<td>
+			날짜
+		</td>
+	</tr>
+		<tr>
+		<td>
+			${title }
+		</td>
+		<td>
+			${date }
+		</td>
+	</tr>
+	<tr>
+		<td>
+			내용
+		</td>
+	</tr>
+		<tr>
+		<td>
+			${content }
+		</td>
+	</tr>
+	${inputButton }
+</table>
+
+<!-- 댓글 : 학생이름,파일다운(클릭)) -->
 ${tagcontent }
+
 </body>
 </html>

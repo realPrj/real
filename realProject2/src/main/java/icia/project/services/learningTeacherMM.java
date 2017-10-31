@@ -150,6 +150,10 @@ public class learningTeacherMM extends TransactionExe {
 		case 27:   // 과제 페이지
 			mav = learningTaskPage((BoardBean)object[0]);
 			break;
+			
+		case 28:   // 과제 등록
+			mav = learningTaskInsertform((BoardBean)object[0]);
+			break;
 
 
 
@@ -821,8 +825,6 @@ public class learningTeacherMM extends TransactionExe {
 			board.setRoomCode((String)session.getAttribute("roomCode"));
 			board.setId((String)session.getAttribute("tcId"));
 
-			System.out.println(board.getBoardContent());
-			System.out.println(board.getBoardRoute());
 			dao.learningWANCommentInsert(board);
 
 			transaction = true;
@@ -1944,11 +1946,8 @@ public class learningTeacherMM extends TransactionExe {
 
 	private ModelAndView learningQuestionTagDelete(BoardBean board) { // 질문 댓글 삭제
 
-
 		mav = new ModelAndView();
 		boolean transaction = false;
-		ArrayList<BoardBean> al = null;
-		StringBuffer sb = new StringBuffer();
 
 		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
 
@@ -1960,10 +1959,8 @@ public class learningTeacherMM extends TransactionExe {
 				System.out.println("실패");
 			}
 			
-			
-			mav.setViewName("learningTask");
+			mav.setViewName("");
 			transaction = true;
-
 
 		}catch(Exception ex){
 			ex.printStackTrace();
@@ -1987,6 +1984,9 @@ public class learningTeacherMM extends TransactionExe {
 
 		try {
 			
+			String identity = (String)session.getAttribute("identity");
+			mav.addObject("identity", identity);
+			
 			sb = new StringBuffer();
 		
 			roomcode = (String)session.getAttribute("roomCode");
@@ -1997,12 +1997,17 @@ public class learningTeacherMM extends TransactionExe {
 				
 				board = dao.learningTaskGet(board);	// 게시글 내용
 				
-				sb.append("<table id='tableText'>");
+				mav.addObject("title", board.getBoardTitle());
+				mav.addObject("date",board.getBoardDate());
+				mav.addObject("content", board.getBoardContent());
+				mav.addObject("submissionCheck", "<tr><td><input type='button' value='제출자확인' onClick='' /></td></tr>");
+				
 				sb.append("<tr>");
-				sb.append("<td>");
-				sb.append("</td>");
+				sb.append("<td><input type='button' value='수정' onClick='' /></td>");
+				sb.append("<td><input type='button' value='삭제' onClick='' /></td>");
 				sb.append("</tr>");
-				sb.append("</table>");
+				
+				mav.addObject("inputButton", sb.toString());
 				
 				// 게시글 댓글(너가 여기서부터 댓글 뽑아내면되)
 				
@@ -2053,6 +2058,47 @@ public class learningTeacherMM extends TransactionExe {
 		return mav;
 	}
 
+	private ModelAndView learningTaskInsertform(BoardBean board) { // 과제 등록
+
+		mav = new ModelAndView();
+		boolean transaction = false;
+		boolean distinction = true;
+		int boardCode = 0;
+		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
+
+		try {
+			
+			board.setRoomCode((String)session.getAttribute("roomCode"));
+			board.setId((String)session.getAttribute("tcId"));
+	
+			while(distinction) {	// 과제코드 유무 체크
+
+				boardCode = (int)(Math.random() *89999)+10000;
+
+				board.setBoardCode(Integer.toString(boardCode));
+
+				if(dao.learningTaskBoardCheck(board) == 0) {				
+					distinction = false;				
+				}else {
+					distinction = true;
+				}
+
+			}
+			
+			dao.learningTaskInsert(board);
+			
+			mav.addObject("message", "alert('과제 생성 되었습니다.')");
+			
+			mav.setViewName("learningTask");
+			transaction = true;
+
+		}catch(Exception ex){
+		}finally {
+			setTransactionResult(transaction);
+		}
+
+		return mav;
+	}
 
 
 
