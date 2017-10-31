@@ -21,6 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import icia.project.bean.BoardBean;
 import icia.project.bean.DbBoardBean;
+import icia.project.bean.MemberBean;
 import icia.project.dao.IMybatis;
 import icia.project.dao.TransactionExe;
 
@@ -146,11 +147,18 @@ public class learningTeacherMM extends TransactionExe {
 		case 26:   // 선생님 학생 전체보기 자세히 보기
 			mav = teacherLearningSTadminCXT((BoardBean)object[0]);
 			break;
-	
 
+		case 27:   // 과제 페이지
+			mav = learningTaskPage((BoardBean)object[0]);
+			break;
 
-
-
+		case 28:   // 과제 등록
+			mav = learningTaskInsertform((BoardBean)object[0]);
+			break;
+			
+		case 29:   // test
+			mav = adminChating();
+			break;
 
 
 		case 30:	// 선생님 공지사항 수정
@@ -699,7 +707,7 @@ public class learningTeacherMM extends TransactionExe {
 
 			if(dao.learningWANCommentCheck(board) != 0) {	// 코멘트 있음
 
-/*				board = dao.learningWANCommentGet(board);
+				/*				board = dao.learningWANCommentGet(board);
 
 				sb.append("<table>");
 				sb.append("<tr>");
@@ -746,7 +754,7 @@ public class learningTeacherMM extends TransactionExe {
 				bb.setCutContent(bb.getBoardRoute().substring(68));	// 파일이름
 
 				List<String> list = view.getList(bb);
-			
+
 				mav.addObject("content",bb.getBoardContent());
 				mav.addObject("list",list);
 				mav.addObject("file",bb.getCutContent());
@@ -755,6 +763,13 @@ public class learningTeacherMM extends TransactionExe {
 				mav.addObject("route",route);
 				mav.addObject("rommCode", bb.getRoomCode());
 				mav.addObject("boardCode", bb.getBoardCode());
+
+				sb.append("<tr>");
+				sb.append("<td><input type='button' value='수정' onClick='learningWANCMUpdatePage("+bb.getBoardCode()+")' /></td>");
+				sb.append("</tr>");
+				sb.append("<tr>");
+				sb.append("<td><input type='button' value='삭제' onClick='learningWANCMDelete("+bb.getBoardCode()+","+bb.getRoomCode()+")' /></td></tr>");
+				mav.addObject("inputButton", sb.toString());
 
 				page="learningWANCXT";
 				transaction = true;
@@ -767,7 +782,7 @@ public class learningTeacherMM extends TransactionExe {
 				mav.addObject("InsertButton", sb.toString());
 				mav.addObject("checkCM", 1);
 			}
-		
+
 
 		}catch(Exception ex){
 
@@ -814,9 +829,7 @@ public class learningTeacherMM extends TransactionExe {
 
 			board.setRoomCode((String)session.getAttribute("roomCode"));
 			board.setId((String)session.getAttribute("tcId"));
-			
-			System.out.println(board.getBoardContent());
-			System.out.println(board.getBoardRoute());
+
 			dao.learningWANCommentInsert(board);
 
 			transaction = true;
@@ -844,12 +857,12 @@ public class learningTeacherMM extends TransactionExe {
 
 			System.out.println(board.getBoardCode());
 			System.out.println(board.getRoomCode());
-			
+
 			DbBoardBean bb = dao.learningWANCommentGet2(board);
 			System.out.println(bb.getBoardContent());
 			mav.addObject("boardContent", bb.getBoardContent());
 			mav.addObject("boardCode", bb.getBoardCode());
-			
+
 			page="learningWANCMUpdate";
 			transaction = true;
 
@@ -1769,6 +1782,7 @@ public class learningTeacherMM extends TransactionExe {
 				sb.append("<td>" + taglist.get(i).getTagContent() + "</td>");
 				sb.append("<td>" + taglist.get(i).getTagDate() + "</td>");
 				sb.append("<td>" + taglist.get(i).getTagId() + "</td>");
+				sb.append("<td>"+ "<input type='button' value='삭제'onClick=\"tagDelete(\'"+bb.getBoardTitle()+"\',"+"\'"+bb.getBoardDate()+"\',"+"\'"+bb.getRoomCode()+"\',"+"\'"+bb.getBoardId()+"\',"+"\'"+taglist.get(i).getTagDate()+"\',"+"\'"+taglist.get(i).getTagId()+"\')\" />"+"</td>"); 
 				sb.append("</tr>");
 
 			}
@@ -1937,7 +1951,6 @@ public class learningTeacherMM extends TransactionExe {
 
 	private ModelAndView learningQuestionTagDelete(BoardBean board) { // 질문 댓글 삭제
 
-
 		mav = new ModelAndView();
 		boolean transaction = false;
 
@@ -1950,6 +1963,7 @@ public class learningTeacherMM extends TransactionExe {
 			}else {
 				System.out.println("실패");
 			}
+
 			mav.setViewName("learningQuestionCXT");
 			transaction = true;
 
@@ -1962,6 +1976,7 @@ public class learningTeacherMM extends TransactionExe {
 
 		return mav;
 	}
+
 	
 	public BoardBean learningDebateTagList(BoardBean board) { // 토론게시판 댓글 목록
 		mav = new ModelAndView();
@@ -1990,5 +2005,169 @@ public class learningTeacherMM extends TransactionExe {
 		return board;
 		
 	}
+
+	private ModelAndView learningTaskPage(BoardBean board) { // 과제 페이지
+
+		mav = new ModelAndView();
+
+		ArrayList<BoardBean> al;
+		String roomcode = null;
+		StringBuffer sb = null;
+		boolean transaction = false;
+
+		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
+
+		try {
+			
+			String identity = (String)session.getAttribute("identity");
+			mav.addObject("identity", identity);
+
+			sb = new StringBuffer();
+
+			roomcode = (String)session.getAttribute("roomCode");
+
+			board.setRoomCode(roomcode);
+
+			if(board.getBoardCode() != null) {	// 게시글 내용,댓글 보여주기
+
+				board = dao.learningTaskGet(board);	// 게시글 내용
+
+				sb.append("<table>");
+
+				mav.addObject("title", board.getBoardTitle());
+				mav.addObject("date",board.getBoardDate());
+				mav.addObject("content", board.getBoardContent());
+				mav.addObject("submissionCheck", "<tr><td><input type='button' value='제출자확인' onClick='' /></td></tr>");
+
+				sb.append("<table id='tableText'>");
+
+				sb.append("<tr>");
+				sb.append("<td><input type='button' value='수정' onClick='' /></td>");
+				sb.append("<td><input type='button' value='삭제' onClick='' /></td>");
+				sb.append("</tr>");
+				
+				mav.addObject("inputButton", sb.toString());
+
+				sb.append("</table>");
+
+				// 게시글 댓글(너가 여기서부터 댓글 뽑아내면되)
+				
+				mav.addObject("checkContent", 1);
+
+			}
+			
+            board = new BoardBean();
+            sb = new StringBuffer();
+
+            board.setRoomCode(roomcode);
+
+            if(dao.learningTaskCheck(board) != 0) {    // 리스트 출력
+
+                al = dao.learningTaskList(board);    // 리스트 담기
+
+                for(int i = 0; i < al.size(); i++) {
+                    sb.append("<tr>");
+                    sb.append("<td>");
+                    sb.append("<input type='button' value='"+al.get(i).getBoardTitle()+"' onClick='test("+al.get(i).getBoardCode()+")' />");
+                    sb.append("</td>");
+                    sb.append("<td>");
+                    sb.append(al.get(i).getBoardDate());
+                    sb.append("</td>");
+                    sb.append("</tr>");    
+                }
+
+                mav.addObject("taskList", sb.toString());
+
+            }
+
+
+
+            mav.setViewName("learningQuestionCXT");
+            transaction = true;
+
+
+
+		}catch(Exception ex){
+			ex.printStackTrace();
+		}finally {
+			setTransactionResult(transaction);
+		}
+		mav.setViewName("learningTask");
+		return mav;
+	}
+
+	private ModelAndView learningTaskInsertform(BoardBean board) { // 과제 등록
+
+		mav = new ModelAndView();
+		boolean transaction = false;
+		boolean distinction = true;
+		int boardCode = 0;
+		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
+
+		try {
+			
+			board.setRoomCode((String)session.getAttribute("roomCode"));
+			board.setId((String)session.getAttribute("tcId"));
+	
+			while(distinction) {	// 과제코드 유무 체크
+
+				boardCode = (int)(Math.random() *89999)+10000;
+
+				board.setBoardCode(Integer.toString(boardCode));
+
+				if(dao.learningTaskBoardCheck(board) == 0) {				
+					distinction = false;				
+				}else {
+					distinction = true;
+				}
+
+			}
+			
+			dao.learningTaskInsert(board);
+			
+			mav.addObject("message", "alert('과제 생성 되었습니다.')");
+			
+			mav.setViewName("learningTask");
+			transaction = true;
+
+		}catch(Exception ex){
+			ex.printStackTrace();
+		}finally {
+			setTransactionResult(transaction);
+		}
+
+		return mav;
+	}
+
+	private ModelAndView adminChating() { // 채팅
+
+		mav = new ModelAndView();
+
+		BoardBean board = new BoardBean();
+		boolean transaction = false;
+
+		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
+
+		try {
+
+			board.setId((String)session.getAttribute("tcId"));
+			board.setRoomCode((String)session.getAttribute("roomCode"));
+			
+			mav.addObject("id",board.getId());
+			mav.addObject("roomCode", board.getRoomCode());
+			mav.setViewName("adminChating");
+			transaction = true;
+
+
+		}catch(Exception ex){
+			ex.printStackTrace();
+		}finally {
+			setTransactionResult(transaction);
+		}
+		
+		return mav;
+	}
+
 }
+
 

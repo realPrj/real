@@ -79,8 +79,7 @@ public class teacherManagement extends TransactionExe {
 		case 9:	// 학습방 개설
 			mav = learningOpen(((LearningRoomBean)object));
 			break;
-		case 10:	// 학습방 개설
-			
+		case 10:	// 비밀번호 찾기
 			mav = findPwd(((MemberBean)object));
 			break;
 
@@ -105,21 +104,21 @@ public class teacherManagement extends TransactionExe {
 				if(enc.matches(member.getPwd(),dao.tcPwdGet(member).getPwd())) {	// 비밀번호 체크
 					member.setLogType(1);
 
-					/*if(dao.tcLogHistory(member) != 0) {	// 로그히스토리
-					 */						
+					if(dao.tcLogHistory(member) != 0) {	// 로그히스토리
+										
 					// 동적으로 학습방 쏴주기
-
 					session.setAttribute("tcId", member.getId());
 					session.setAttribute("identity", member.getIdentity());	
 					mav = pm.entrance(1, null);
 					transaction = true;
-					/*	}else {
-						page = "login";
+					
+					}else {
+						mav.setViewName("login");
 						mav.addObject("identity", "1");
 						mav.addObject("message", "alert('로그인 실패 하셨습니다.')");
 						mav.addObject("id", member.getId());
 					}
-					 */
+
 				}else {
 					mav = new ModelAndView();
 					mav.setViewName("login");
@@ -475,10 +474,6 @@ public class teacherManagement extends TransactionExe {
 		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
 
 		try {
-
-			
-			System.out.println(member.getEmail());
-			System.out.println(member.getId());
 
 			if(dao.findPwd(member) == 1) {
 				int code1 = (int)(Math.random() *1000);

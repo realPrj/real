@@ -118,7 +118,7 @@ public class HomeController  {
 	public ModelAndView teacherInfoUpdatePage(@ModelAttribute MemberBean member) {
 
 		mav = new ModelAndView();
-
+		System.out.println(member.getPhone());
 		mav.addObject("id", member.getId());
 		mav.addObject("name", member.getName());
 		mav.addObject("email", member.getEmail());
@@ -206,7 +206,8 @@ public class HomeController  {
 			break;
 
 		case 6 : 
-
+			// 과제
+			mav = ltmm.entrance(27, board);
 			break;
 
 		case 7 : // 오답노트
@@ -236,7 +237,7 @@ public class HomeController  {
 			break;
 
 		case 14 : 
-
+			
 			break;
 		}
 
@@ -521,6 +522,7 @@ public class HomeController  {
 
 		mav.addObject("email",board.getEmail());
 
+
 		mav.setViewName("teacherSendMail");
 
 		return mav;
@@ -548,6 +550,44 @@ public class HomeController  {
 
 
 		return b;
+	}
+	
+	// 과제 페이지
+	@RequestMapping(value = "/learningTaskPage", method = RequestMethod.POST)
+	public ModelAndView learningTaskPage(@ModelAttribute BoardBean board) {
+		
+		mav = ltmm.entrance(27, board);
+		
+		return mav;
+	}
+
+	// 과제 등록 페이지
+	@RequestMapping(value = "/learningTaskInsertPage", method = RequestMethod.POST)
+	public ModelAndView learningTaskInsertPage(@ModelAttribute BoardBean board) {
+
+		if(Integer.parseInt(board.getIdentity()) == 1) {	// 선생님
+			
+			mav = new ModelAndView();
+			mav.setViewName("learningTaskInsert");
+			
+		}else {	// 학생
+			
+			mav = lsmm.entrance(1, board);
+			mav.addObject("message", "alert('선생님만 과제 생성을 할 수 있습니다.')");
+		}
+
+		return mav;
+	}
+
+	
+	
+	// 테스트 채팅
+	@RequestMapping(value = "/testChat", method = RequestMethod.GET)
+	public ModelAndView testChat() {
+		
+		mav = ltmm.entrance(29, null);
+		
+		return mav;
 	}
 
 }

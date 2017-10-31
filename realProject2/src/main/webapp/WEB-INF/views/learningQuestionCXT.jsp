@@ -133,7 +133,36 @@
 
       form.submit(); 
    }
-   
+   function tagDelete(boardTitle, boardDate, roomCode, boardId,tagDate, tagId) {
+		createinput("hidden", "boardTitle", boardTitle);
+		createinput("hidden", "boardDate", boardDate);
+		createinput("hidden", "roomCode", roomCode);
+		createinput("hidden", "boardId", boardId);
+		createinput("hidden", "tagId", tagId);
+		createinput("hidden", "tagDate", tagDate);
+
+		createForm("learningQuestionTagDeleteForm",
+				"learningQuestionTagDelete", "post");
+
+		var form = document.getElementsByName("learningQuestionTagDeleteForm")[0];
+
+		var boardTitle = document.getElementsByName("boardTitle")[0];
+		var boardDate = document.getElementsByName("boardDate")[0];
+		var roomCode = document.getElementsByName("roomCode")[0];
+		var boardId = document.getElementsByName("boardId")[0];
+		var tagDate = document.getElementsByName("tagDate")[0];
+		var tagId = document.getElementsByName("tagId")[0];
+
+		form.appendChild(boardTitle);
+		form.appendChild(boardDate);
+		form.appendChild(roomCode);
+		form.appendChild(boardId);
+		form.appendChild(tagDate);
+		form.appendChild(tagId);
+
+		form.submit();
+
+	}
    function init() {
 
       var accessForm = document.getElementById("accessForm");

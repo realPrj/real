@@ -1,77 +1,43 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta charset="UTF-8">
-<title>공조 || 선생님 학습방 메인</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>공조 || 과제 게시글 등록</title>
 </head>
 <script>
+
 //form 생성
 function createForm(formname,formaction,formmethod){
 
-	var form = document.createElement("form");
-
-	form.name = formname;
-	form.action = formaction;
-	form.method = formmethod;
-
-	document.body.appendChild(form);
-
-}
-
-//input 생성
-function createinput(itype, iname, ivalue){
-	var input = document.createElement("input");
-	input.type = itype;
-	input.name = iname;
-	input.value = ivalue;
-
-	document.body.appendChild(input);
-}
-
-//메뉴선택
-function menu(ivalue){
-	
-	createinput("hidden", "caCode", ivalue);
-	
-	var caCode = document.getElementsByName("caCode")[0];
-	
-	createForm("menuform","tcmenu","post");
-	
-
-	var form = document.getElementsByName("menuform")[0];
-	form.appendChild(caCode);
-	
-	form.submit();
-	
-}
-
-//form 생성
-function createForm1(formname, formaction, ta) {
-
    var form = document.createElement("form");
-   form.target = ta;
+
    form.name = formname;
    form.action = formaction;
+   form.method = formmethod;
 
    document.body.appendChild(form);
 
 }
 
-function test(){
+function insertTask() {
 
-    createForm1("testChatform", "testChat", "POP");
+   createForm("learningTaskInsertform", "learningTaskInsert", "post");
+   
+   var boardTitle = document.getElementsByName("boardTitle")[0];
+   var boardContent = document.getElementsByName("boardContent")[0];
 
-    var form = document.getElementsByName("testChatform")[0];
-    window.open('', 'POP',
-          "width=570, height=350, resizable = no, scrollbars = no");
-    
-    form.submit();
+   var form = document.getElementsByName("learningTaskInsertform")[0];
+
+   form.appendChild(boardTitle);
+   form.appendChild(boardContent);
+   
+   form.submit();
 }
+
 </script>
-<body onLoad="test()">
-<div id="menu">
+<body>
 <table>
 	<tr><td><input type="button" value="로그아웃" onClick="" /></td></tr>
 	<tr><td><input type="button" value="내 메인으로" onClick="menu('1')" /></td></tr>
@@ -88,10 +54,32 @@ function test(){
 	<tr><td><input type="button" value="강의계획서" onClick="menu('12')" /></td></tr>
 	<tr><td><input type="button" value="문제코드" onClick="menu('13')" /></td></tr>
 </table>
-</div>
-<div id="content">
-${content}
-</div>
-
+<table id='tableText'>
+	<tr>
+		<td>
+			제목
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<input type="text" name="boardTitle" />
+		</td>
+	</tr>
+	<tr>
+		<td>
+			내용
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<input type="text" name="boardContent" />
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<input type="button" value="등록" onClick="insertTask()" />
+		</td>
+	</tr>
+</table>
 </body>
 </html>

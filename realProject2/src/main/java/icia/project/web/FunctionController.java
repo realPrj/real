@@ -258,7 +258,7 @@ public class FunctionController {
 	public ModelAndView  learningTaskInsert(BoardBean board) {
 
 		mav = new ModelAndView();		
-
+		mav = ltm.entrance(28, board);
 
 
 		return mav;
@@ -568,9 +568,6 @@ public class FunctionController {
 	@RequestMapping(value = "/findPwd", method = RequestMethod.POST)
 	public ModelAndView findPwd(@ModelAttribute MemberBean member) {
 
-
-	
-		System.out.println(member.getIdentity());
 		if(member.getIdentity().equals("1")) {
 			mav = tm.entrance(10, member);
 		}else {
@@ -580,12 +577,21 @@ public class FunctionController {
 
 		return mav;
 	}
+	
+	// 비밀번호찾기 페이지
+	@RequestMapping(value = "/learningTaskInsertform", method = RequestMethod.POST)
+	public ModelAndView learningTaskInsertform(@ModelAttribute BoardBean board) {
+		
+		mav = ltm.entrance(28, board);
+
+		return mav;
+	}
 
 
 
 
 
 
-
+	
 
 }
