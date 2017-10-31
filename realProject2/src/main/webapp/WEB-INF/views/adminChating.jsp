@@ -12,19 +12,14 @@
 	var websocket;
 	
 	function test(){
-	alert("${id} 환영합니다");
-	websocket = new WebSocket("ws://localhost:8080/web/chat");
+	websocket = new WebSocket("ws://localhost:80/web/chat");
 	//웹 소켓 이벤트 처리
   	alert(websocket);
 	websocket.onopen = onOpen;
 	websocket.onmessage = onMessage;
 	websocket.onclose = onClose;
 	}
-	
-	
-	
-	
-	
+
 	$(function() {
 
 		//입장 버튼을 클릭했을 때 이벤트 처리
@@ -83,7 +78,7 @@
 		//서버가 전송한 메시지 가져오기
 		var data = evt.data;
 		//메시지를 출력
-		$('#chatMessageArea').append(data + "<br />");
+		$('#'+${roomCode }).append(data + "<br />");
 	}
 </script>
 
@@ -91,12 +86,12 @@
 <body onLoad="test()">
 	<table>
 	<tr><td>
-	아이디:id
-	<input type="hidden" name="nickname" value="id" id="nickname" />
+	아이디:${id }
+	<input type="hidden" name="nickname" value="${id }" id="nickname" />
 
 	<h1>채팅 영역</h1>
 	<div id="chatArea">
-		<div id="chatMessageArea"></div>
+		<div id="${roomCode }"></div>
 	</div>
 	전송할 메시지:
 	<input type="text" name="message" id="message" />

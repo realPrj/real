@@ -236,7 +236,7 @@ public class HomeController  {
 			break;
 
 		case 14 : 
-			mav = ltmm.entrance(28, board);
+			
 			break;
 		}
 
@@ -564,6 +564,15 @@ public class HomeController  {
 		return mav;
 	}
 
-
+	
+	
+	// 테스트 채팅
+	@RequestMapping(value = "/testChat", method = RequestMethod.GET)
+	public ModelAndView testChat() {
+		
+		mav = ltmm.entrance(29, null);
+		
+		return mav;
+	}
 
 }

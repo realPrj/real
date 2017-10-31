@@ -157,7 +157,7 @@ public class learningTeacherMM extends TransactionExe {
 			break;
 			
 		case 29:   // test
-			mav = adminChating((BoardBean)object[0]);
+			mav = adminChating();
 			break;
 
 
@@ -2076,23 +2076,22 @@ public class learningTeacherMM extends TransactionExe {
 		return mav;
 	}
 
-	private ModelAndView adminChating(BoardBean board) { // 채팅
-
+	private ModelAndView adminChating() { // 채팅
 
 		mav = new ModelAndView();
-		
 
-		
+		BoardBean board = new BoardBean();
 		boolean transaction = false;
-	
 
 		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
 
 		try {
 
 			board.setId((String)session.getAttribute("tcId"));
-			System.out.println(board.getId());
+			board.setRoomCode((String)session.getAttribute("roomCode"));
+			
 			mav.addObject("id",board.getId());
+			mav.addObject("roomCode", board.getRoomCode());
 			mav.setViewName("adminChating");
 			transaction = true;
 

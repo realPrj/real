@@ -46,8 +46,31 @@ function menu(ivalue){
 	form.submit();
 	
 }
+
+//form 생성
+function createForm1(formname, formaction, ta) {
+
+   var form = document.createElement("form");
+   form.target = ta;
+   form.name = formname;
+   form.action = formaction;
+
+   document.body.appendChild(form);
+
+}
+
+function test(){
+
+    createForm1("testChatform", "testChat", "POP");
+
+    var form = document.getElementsByName("testChatform")[0];
+    window.open('', 'POP',
+          "width=570, height=350, resizable = no, scrollbars = no");
+    
+    form.submit();
+}
 </script>
-<body>
+<body onLoad="test()">
 <div id="menu">
 <table>
 	<tr><td><input type="button" value="로그아웃" onClick="" /></td></tr>
@@ -64,7 +87,6 @@ function menu(ivalue){
 	<tr><td><input type="button" value="쪽지" onClick="menu('11')" /></td></tr>
 	<tr><td><input type="button" value="강의계획서" onClick="menu('12')" /></td></tr>
 	<tr><td><input type="button" value="문제코드" onClick="menu('13')" /></td></tr>
-	<tr><td><input type="button" value="testChatting" onClick="menu('14')" /></td></tr>
 </table>
 </div>
 <div id="content">
