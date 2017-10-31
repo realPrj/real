@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import icia.project.bean.BoardBean;
@@ -535,6 +536,20 @@ public class HomeController  {
 		mav.setViewName("findPWD");
 
 		return mav;
+	}
+
+
+	// 토론게시판 댓글 목록
+	@RequestMapping(value = "/learningDebateTagList", method = RequestMethod.POST)
+	public @ResponseBody BoardBean learningDebateTagList(@ModelAttribute BoardBean board) {
+
+		BoardBean b;
+
+		b = ltmm.learningDebateTagList(board);
+
+
+
+		return b;
 	}
 	
 	// 과제 페이지

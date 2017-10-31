@@ -5,7 +5,26 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title> 공조 || 토론게시판 내용확인</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script>
+$(document).ready(function(){
+	tagList();	
+});
+var data = ${boardId}
+function tagList(){
+	
+	$.ajax({
+		url : "learningDebateTagList",
+		data : {'boardId' : data},
+		dataType : "html",
+		type : "post",
+		success : function(result){
+			//$("#tagList").append(result.boardId);
+			alert("성공");
+		}
+	});
+}
+
 function menu(ivalue, identity){
  	var ff = document.createElement("form");
 	ff.name = "menuform";
@@ -83,5 +102,6 @@ function boardDelete(roomCode, boardDate){
 </head>
 <body>
 ${content }
+<div id="tagList"></div>
 </body>
 </html>
