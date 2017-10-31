@@ -258,7 +258,7 @@ public class FunctionController {
 	public ModelAndView  learningTaskInsert(BoardBean board) {
 
 		mav = new ModelAndView();		
-
+		mav = ltm.entrance(28, board);
 
 
 		return mav;

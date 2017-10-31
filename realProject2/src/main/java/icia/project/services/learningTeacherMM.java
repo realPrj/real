@@ -1979,6 +1979,7 @@ public class learningTeacherMM extends TransactionExe {
 
 		mav = new ModelAndView();
 
+		ArrayList<BoardBean> al;
 		String roomcode = null;
 		StringBuffer sb = null;
 		boolean transaction = false;
@@ -2019,10 +2020,40 @@ public class learningTeacherMM extends TransactionExe {
 				sb.append("</table>");
 
 				// 게시글 댓글(너가 여기서부터 댓글 뽑아내면되)
-
+				
 				mav.addObject("checkContent", 1);
 
 			}
+			
+            board = new BoardBean();
+            sb = new StringBuffer();
+
+            board.setRoomCode(roomcode);
+
+            if(dao.learningTaskCheck(board) != 0) {    // 리스트 출력
+
+                al = dao.learningTaskList(board);    // 리스트 담기
+
+                for(int i = 0; i < al.size(); i++) {
+                    sb.append("<tr>");
+                    sb.append("<td>");
+                    sb.append("<input type='button' value='"+al.get(i).getBoardTitle()+"' onClick='test("+al.get(i).getBoardCode()+")' />");
+                    sb.append("</td>");
+                    sb.append("<td>");
+                    sb.append(al.get(i).getBoardDate());
+                    sb.append("</td>");
+                    sb.append("</tr>");    
+                }
+
+                mav.addObject("taskList", sb.toString());
+
+            }
+
+
+
+            mav.setViewName("learningQuestionCXT");
+            transaction = true;
+
 
 
 		}catch(Exception ex){
@@ -2030,7 +2061,7 @@ public class learningTeacherMM extends TransactionExe {
 		}finally {
 			setTransactionResult(transaction);
 		}
-
+		mav.setViewName("learningTask");
 		return mav;
 	}
 
@@ -2069,6 +2100,7 @@ public class learningTeacherMM extends TransactionExe {
 			transaction = true;
 
 		}catch(Exception ex){
+			ex.printStackTrace();
 		}finally {
 			setTransactionResult(transaction);
 		}
