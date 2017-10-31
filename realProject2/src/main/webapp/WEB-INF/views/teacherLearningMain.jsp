@@ -64,6 +64,7 @@ function menu(ivalue){
 	<tr><td><input type="button" value="쪽지" onClick="menu('11')" /></td></tr>
 	<tr><td><input type="button" value="강의계획서" onClick="menu('12')" /></td></tr>
 	<tr><td><input type="button" value="문제코드" onClick="menu('13')" /></td></tr>
+	<tr><td><input type="button" value="testChatting" onClick="menu('14')" /></td></tr>
 </table>
 </div>
 <div id="content">

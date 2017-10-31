@@ -236,7 +236,7 @@ public class HomeController  {
 			break;
 
 		case 14 : 
-
+			mav = ltmm.entrance(28, board);
 			break;
 		}
 
