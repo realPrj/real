@@ -56,6 +56,24 @@
 
 		form.submit();
 	}
+	function questionCXT(boardCode){
+		  createinput("hidden", "boardCode", boardCode);
+	      createForm("learningTaskCXTform", "learningTaskCXT", "post");
+	      var form = document.getElementsByName("learningTaskCXTform")[0];      
+	      var boardCode = document.getElementsByName("boardCode")[0];
+	      
+	      form.appendChild(boardCode);
+
+
+	      form.submit();
+		
+	}
+	
+	function viewContents(a,b){
+		alert(a);
+		alert(b);
+	}
+	
 </script>
 <body onLoad="${message}">
 	<input type="hidden" value="${identity }" name="identity" />;
@@ -131,7 +149,7 @@
 		<tr>
 			<td>${content }</td>
 		</tr>
-		
+		${inputButton }
 	</table>
 
 	<!-- 댓글 : 학생이름,파일다운(클릭)) -->

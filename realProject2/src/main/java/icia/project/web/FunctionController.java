@@ -258,19 +258,20 @@ public class FunctionController {
 	public ModelAndView  learningTaskInsert(BoardBean board) {
 
 		mav = new ModelAndView();		
-		mav = ltm.entrance(28, board);
-
+		ltm.entrance(28, board);
+		
+		mav = ltm.entrance(27, board);
 
 		return mav;
 	}
 
-	// 과제제출 게시판 글 등록
-	@RequestMapping(value = "/learningTaskSBInsert", method = RequestMethod.POST)
-	public ModelAndView  learningTaskSBInsert(BoardBean board) {
+	// 과제제출 자세히 보기
+	@RequestMapping(value = "/learningTaskCXT", method = RequestMethod.POST)
+	public ModelAndView  learningTaskCXT(BoardBean board) {
 
 		mav = new ModelAndView();		
-
-
+		System.out.println("여긴 왓니?");
+		mav = ltm.entrance(27, board);
 
 		return mav;
 	}
