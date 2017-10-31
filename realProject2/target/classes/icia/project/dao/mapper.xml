@@ -1046,7 +1046,16 @@
 		TASK(TA_LRCODE,TA_CODE,TA_TCID,TA_TITLE,TA_CONTENT,TA_DATE)
 		VALUES(#{roomCode},#{boardCode},#{id},#{boardTitle},#{boardContent},SYSDATE)
 	</insert>
-
+	<!-- 과제 삭제 -->
+	<delete id="learningTaskCXTDelete" parameterType="board">
+		DELETE
+		FROM TASK
+		WHERE 
+		TA_LRCODE = #{roomCode}
+		AND
+		TA_CODE = #{boardCode}	
+	</delete>
+	
 
 
 

@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>공조 || 과제</title>
+<title>공조 || 과제학생</title>
 </head>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -43,23 +43,10 @@
 		document.body.appendChild(input);
 	}
 
-	function insertPage() {
-
-		createForm("learningTaskInsertPageform", "learningTaskInsertPage",
-				"post");
-
-		var identity = document.getElementsByName("identity")[0];
-
-		var form = document.getElementsByName("learningTaskInsertPageform")[0];
-
-		form.appendChild(identity);
-
-		form.submit();
-	}
 	function questionCXT(boardCode){
 		  createinput("hidden", "boardCode", boardCode);
-	      createForm("learningTaskCXTform", "learningTaskCXT", "post");
-	      var form = document.getElementsByName("learningTaskCXTform")[0];      
+	      createForm("learningTaskCXTStudentform", "learningTaskCXTStudent", "post");
+	      var form = document.getElementsByName("learningTaskCXTStudentform")[0];      
 	      var boardCode = document.getElementsByName("boardCode")[0];
 	      
 	      form.appendChild(boardCode);
@@ -68,25 +55,7 @@
 	      form.submit();
 		
 	}
-	
-	function update(a,b){
-		alert(a);
-		alert(b);
-	}
-	function deleteCXT(boardCode,roomCode){
-		 createinput("hidden", "boardCode", boardCode);
-		 createinput("hidden", "roomCode", roomCode);
-	      createForm("learningTaskCXTDeleteform", "learningTaskCXTDelete", "post");
-	      var form = document.getElementsByName("learningTaskCXTDeleteform")[0];      
-	      var boardCode = document.getElementsByName("boardCode")[0];
-	      var roomCode = document.getElementsByName("roomCode")[0];
-	      
-	      form.appendChild(boardCode);
-	      form.appendChild(roomCode);
 
-
-	      form.submit();
-	}
 </script>
 <body onLoad="${message}">
 	<input type="hidden" value="${identity }" name="identity" />;
@@ -143,7 +112,6 @@
 		${taskList }
 	</table>
 
-	<input type="button" value="과제 생성" onClick="insertPage()" />
 
 	<!-- 과제 보여주기(제목,내용,날짜 -->
 	<table id='tableText'>
@@ -162,7 +130,7 @@
 		<tr>
 			<td>${content }</td>
 		</tr>
-		${inputButton }
+	
 	</table>
 
 	<!-- 댓글 : 학생이름,파일다운(클릭)) -->

@@ -259,7 +259,7 @@ public class FunctionController {
 
 		mav = new ModelAndView();		
 		ltm.entrance(28, board);
-		
+
 		mav = ltm.entrance(27, board);
 
 		return mav;
@@ -574,25 +574,33 @@ public class FunctionController {
 		}else {
 			mav = sm.entrance(10, member);
 		}
-		
+
 
 		return mav;
 	}
-	
-	// 비밀번호찾기 페이지
+
+	//  과제 인설트
 	@RequestMapping(value = "/learningTaskInsertform", method = RequestMethod.POST)
 	public ModelAndView learningTaskInsertform(@ModelAttribute BoardBean board) {
-		
+
 		mav = ltm.entrance(28, board);
 
 		return mav;
 	}
+	//   과제 삭제
+	@RequestMapping(value = "/learningTaskCXTDelete", method = RequestMethod.POST)
+	public ModelAndView learningTaskCXTDelete(@ModelAttribute BoardBean board) {
+
+		ltm.entrance(45, board);
+		mav.setViewName("teacherLearningMain");
+		return mav;
+	}
 
 
 
 
 
 
-	
+
 
 }

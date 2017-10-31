@@ -303,6 +303,8 @@ public interface IMybatis {
 	// 과제 게시글 번호 유무
 	public int learningTaskBoardCheck(BoardBean board);
 
+	// 선생님 공지사항 글 삭제
+	public int learningTaskCXTDelete(BoardBean board);
 
 
 

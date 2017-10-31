@@ -237,7 +237,7 @@ public class HomeController  {
 			break;
 
 		case 14 : 
-			
+
 			break;
 		}
 
@@ -270,8 +270,8 @@ public class HomeController  {
 			mav = lsmm.entrance(32, board);
 			break;
 
-		case 6 : 
-
+		case 6 :  //과제
+			mav = lsmm.entrance(14, board);
 			break;
 
 		case 7 : // 오답노트
@@ -551,13 +551,22 @@ public class HomeController  {
 
 		return b;
 	}
-	
+
 	// 과제 페이지
 	@RequestMapping(value = "/learningTaskPage", method = RequestMethod.POST)
 	public ModelAndView learningTaskPage(@ModelAttribute BoardBean board) {
-		
+
 		mav = ltmm.entrance(27, board);
-		
+
+		return mav;
+	}
+
+	// 학생과제 페이지
+	@RequestMapping(value = "/learningTaskCXTStudent", method = RequestMethod.POST)
+	public ModelAndView learningTaskCXTStudent(@ModelAttribute BoardBean board) {
+
+		mav = lsmm.entrance(14, board);
+
 		return mav;
 	}
 
@@ -566,12 +575,12 @@ public class HomeController  {
 	public ModelAndView learningTaskInsertPage(@ModelAttribute BoardBean board) {
 
 		if(Integer.parseInt(board.getIdentity()) == 1) {	// 선생님
-			
+
 			mav = new ModelAndView();
 			mav.setViewName("learningTaskInsert");
-			
+
 		}else {	// 학생
-			
+
 			mav = lsmm.entrance(1, board);
 			mav.addObject("message", "alert('선생님만 과제 생성을 할 수 있습니다.')");
 		}
@@ -579,14 +588,14 @@ public class HomeController  {
 		return mav;
 	}
 
-	
-	
+
+
 	// 테스트 채팅
 	@RequestMapping(value = "/testChat", method = RequestMethod.GET)
 	public ModelAndView testChat() {
-		
+
 		mav = ltmm.entrance(29, null);
-		
+
 		return mav;
 	}
 

@@ -86,10 +86,9 @@ public class learningStudentMM extends TransactionExe {
 			mav = learningQuUpdate((BoardBean)object[0]);
 			break;
 
-		case 14:	
-
+		case 14:	//과제 보기
+			mav = learningTaskPage((BoardBean)object[0]);
 			break;
-
 
 		case 15:	
 
@@ -945,5 +944,88 @@ public class learningStudentMM extends TransactionExe {
 		sb.append("</table>");
 		sb.append("<input type=\"button\" value=\"목록\" onClick=\"menu('5','"+ board.getBoardCode() +"')\"/>");
 		return sb.toString();
+	}
+	
+	
+	private ModelAndView learningTaskPage(BoardBean board) { // 과제 페이지
+
+		mav = new ModelAndView();
+
+		ArrayList<BoardBean> al;
+		String roomcode = null;
+		StringBuffer sb = null;
+		
+		boolean transaction = false;
+
+		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
+
+		try {
+
+			String identity = (String)session.getAttribute("identity");
+			mav.addObject("identity", identity);
+
+			sb = new StringBuffer();
+
+			roomcode = (String)session.getAttribute("roomCode");
+
+			board.setRoomCode(roomcode);
+			
+			if(board.getBoardCode() != null) {	// 게시글 내용,댓글 보여주기
+
+				board = dao.learningTaskGet(board);	// 게시글 내용
+				System.out.println(board.getBoardCode());
+				System.out.println(board.getRoomCode());
+				
+				
+				mav.addObject("title", board.getBoardTitle());
+				mav.addObject("date",board.getBoardDate());
+				mav.addObject("content", board.getBoardContent());
+			
+
+				
+
+				
+				// 게시글 댓글(너가 여기서부터 댓글 뽑아내면되)
+
+				mav.addObject("checkContent", 1);
+
+			}
+
+			board = new BoardBean();
+			sb = new StringBuffer();
+
+			board.setRoomCode(roomcode);
+
+			if(dao.learningTaskCheck(board) != 0) {    // 리스트 출력
+
+				al = dao.learningTaskList(board);    // 리스트 담기
+
+				for(int i = 0; i < al.size(); i++) {
+					sb.append("<tr>");
+					sb.append("<td>");
+					sb.append("<button onClick=\"questionCXT(\'"+ al.get(i).getBoardCode() +"\')\" />" + al.get(i).getBoardTitle() + "</button>");
+					sb.append("</td>");
+					sb.append("<td>");
+					sb.append(al.get(i).getBoardDate());
+					sb.append("</td>");
+					sb.append("</tr>");    
+				}
+
+				mav.addObject("taskList", sb.toString());
+
+			}
+
+			mav.setViewName("learningTaskStudent");
+			transaction = true;
+
+
+
+		}catch(Exception ex){
+			ex.printStackTrace();
+		}finally {
+			setTransactionResult(transaction);
+		}
+		System.out.println(mav.getViewName());
+		return mav;
 	}
 }

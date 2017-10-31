@@ -159,7 +159,7 @@ public class learningTeacherMM extends TransactionExe {
 		case 29:   // test
 			mav = adminChating();
 			break;
-
+		
 
 		case 30:	// 선생님 공지사항 수정
 			mtfRequest = ((MultipartHttpServletRequest)object[1]);
@@ -201,6 +201,12 @@ public class learningTeacherMM extends TransactionExe {
 		/*case 39 : // 선생님 토론게시판 댓글 목록
 			learningDebateTagList((BoardBean)object[0]);
 			break;*/
+			
+			
+		case 45:   // test
+			mav = learningTaskCXTDelete((BoardBean)object[0]);
+			break;	
+	
 
 		}
 
@@ -2083,7 +2089,7 @@ public class learningTeacherMM extends TransactionExe {
 
 			}
 
-			mav.setViewName("learningQuestionCXT");
+			
 			transaction = true;
 
 
@@ -2166,6 +2172,25 @@ public class learningTeacherMM extends TransactionExe {
 			setTransactionResult(transaction);
 		}
 
+		return mav;
+	}
+	private ModelAndView learningTaskCXTDelete(BoardBean board) { // 선생님 공지사항 삭제
+		mav = new ModelAndView();
+		boolean transaction = false;
+		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
+
+		try {
+			System.out.println(board.getRoomCode());
+			System.out.println(board.getBoardCode());
+			
+			if(dao.learningTaskCXTDelete(board) != 0) {
+				transaction = true;
+			}
+		}catch(Exception ex){
+
+		}finally {
+			setTransactionResult(transaction);
+		}
 		return mav;
 	}
 
