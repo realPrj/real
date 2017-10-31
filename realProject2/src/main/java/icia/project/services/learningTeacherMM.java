@@ -507,7 +507,7 @@ public class learningTeacherMM extends TransactionExe {
 
 					typeSum = dao.learningWANTypeSum(board);
 
-					sum.append("<div id='"+yearCode.get(i).getYearCode().substring(0, 4)+"' >");
+					sum.append("<div id='"+yearCode.get(i).getYearCode().substring(0, 6)+"' >");
 					for(int y = 0; y < typeSum.size(); y++) {
 						board = new BoardBean();
 						board.setRoomCode(boardList.get(0).getRoomCode());
@@ -539,7 +539,7 @@ public class learningTeacherMM extends TransactionExe {
 				sb.append("게시글 번호");
 				sb.append("</td>");
 				sb.append("<td>");
-				sb.append("아이디");
+				sb.append("학생이름");
 				sb.append("</td>");
 				sb.append("<td>");
 				sb.append("년도");
@@ -2104,9 +2104,6 @@ public class learningTeacherMM extends TransactionExe {
 		
 		return mav;
 	}
-
-
-
 
 }
 
