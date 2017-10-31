@@ -948,6 +948,12 @@
 		DEBATE WHERE DE_LRCODE = #{roomCode} AND DE_DATE =
 		TO_DATE(#{boardDate},'YYYY-MM-DDHH24:MI:SS')
 	</delete>
+	
+	<!-- 토론게시판 댓글목록 -->
+	<select id="learningDebateTagList" resultType="board">
+		SELECT DTAG_STRFSTUDENTCODE AS studentCode, DTAG_CONTENT AS tagContent, DTAG_DATE AS tagDate, DTAG_DELRCODE AS roomCode, DTAG_DETITLE AS boardTitle, 
+		DTAG_DEDATE AS boardDate, DTAG_DETCID AS boardId FROM DEBATETAG
+	</select>
 
 	<!-- 선생님 아이디 찾기 -->
 	<select id="findPwd" resultType="Integer" parameterType="member">
@@ -1040,6 +1046,7 @@
 		TASK(TA_LRCODE,TA_CODE,TA_TCID,TA_TITLE,TA_CONTENT,TA_DATE)
 		VALUES(#{roomCode},#{boardCode},#{id},#{boardTitle},#{boardContent},SYSDATE)
 	</insert>
+
 
 
 
