@@ -158,11 +158,11 @@ public class StudentManagement extends TransactionExe {
 			if(dao.stIdCheck(member) == 0) {	// 아이디 체크
 				member.setPwd(enc.encode(member.getPwd()));	// 보안비밀번호
 				member.setStateCode("1");
-
+			
 				if(dao.stCodeCheck(member) == 0) {	// 학생코드 유무
-
+					System.out.println("sdafsadf");
 					if(dao.stJoin(member) != 0) {	// 인설트
-
+						System.out.println("여기옴");
 						page ="login";
 						mav.addObject("message", "alert('회원가입 되셨습니다.')");
 						mav.addObject("identity", "2");

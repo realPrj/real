@@ -82,17 +82,6 @@
 </script>
 <body onLoad="${message}">
    <h1>공조</h1>
-   ${content}~
-   <table>
-      <tr>
-         <td><input type="button" value="로그아웃"
-            onClick="eventClick('logoutform','logout','post')" /></td>
-      </tr>
-      <tr>
-         <td><input type="button" value="나의정보"
-            onClick="eventClick('teacherInfoPageform','teacherInfoPage','post')" /></td>
-      </tr>
-   </table>
    <div>
       <input type="button" value="질문게시판" onClick="menu('4')" /> 
    </div>

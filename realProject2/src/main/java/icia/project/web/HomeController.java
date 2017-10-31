@@ -117,7 +117,7 @@ public class HomeController  {
 	public ModelAndView teacherInfoUpdatePage(@ModelAttribute MemberBean member) {
 
 		mav = new ModelAndView();
-
+		System.out.println(member.getPhone());
 		mav.addObject("id", member.getId());
 		mav.addObject("name", member.getName());
 		mav.addObject("email", member.getEmail());

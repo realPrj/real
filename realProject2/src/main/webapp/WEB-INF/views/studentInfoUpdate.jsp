@@ -53,7 +53,7 @@ function eventClick(formname,formaction,formmethod){
 		<td>이메일<input type="text" name="email" value="${email }" /></td>
 	</tr>
 	<tr>
-		<td>핸드폰<input type="text" name="phone" value="${email }" /></td>
+		<td>핸드폰<input type="text" name="phone" value="${phone }" /></td>
 	</tr>
 </table>
 <input type="button" value="나의정보 수정" onClick="eventClick('studentInfoUpdateform','studentInfoUpdate','post')" />

@@ -12,12 +12,31 @@
 	var websocket;
 	
 	function test(){
-	websocket = new WebSocket("ws://localhost:8080/web/chat");
+	websocket = new WebSocket("ws://localhost:80/web/chat");
 	//웹 소켓 이벤트 처리
   	alert(websocket);
 	websocket.onopen = onOpen;
 	websocket.onmessage = onMessage;
 	websocket.onclose = onClose;
+	
+	testClick();
+	
+	window.Close();
+	
+	}
+	
+	function testClick(){
+		
+		$('#sendBtn').bind('click', function() {
+			//nickname 과 message에 입력된 내용을 서버에 전송
+			var nick = $('#nickname').val();	// 아이디
+			
+			var msg = ${message};	// 메세지
+			//메시지 전송
+			websocket.send(nick + ":" + msg);
+			//메시지 입력창 초기화
+		});
+		
 	}
 
 	$(function() {
