@@ -2013,6 +2013,7 @@ public class learningTeacherMM extends TransactionExe {
 		ArrayList<BoardBean> al;
 		String roomcode = null;
 		StringBuffer sb = null;
+		
 		boolean transaction = false;
 
 		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
@@ -2033,7 +2034,7 @@ public class learningTeacherMM extends TransactionExe {
 				board = dao.learningTaskGet(board);	// 게시글 내용
 				System.out.println(board.getBoardCode());
 				System.out.println(board.getRoomCode());
-				sb.append("<table>");
+				
 				
 				mav.addObject("title", board.getBoardTitle());
 				mav.addObject("date",board.getBoardDate());
@@ -2043,15 +2044,15 @@ public class learningTeacherMM extends TransactionExe {
 				sb.append("<table id='tableText'>");
 
 				sb.append("<tr>");
-				sb.append("<td>" + "<button onClick=viewContents("+board.getBoardCode()+","+board.getRoomCode()+") />" + "수정" + "</button>" + "</td>");
-				sb.append("<td><input type='button' value='삭제' onClick='' /></td>");
+				sb.append("<td>" + "<button onClick=update("+board.getBoardCode()+","+board.getRoomCode()+") />" + "수정" + "</button>" + "</td>");
+				sb.append("<td>" + "<button onClick=deleteCXT("+board.getBoardCode()+","+board.getRoomCode()+") />" + "삭제" + "</button>" + "</td>");
 				sb.append("</tr>");
-			
+				sb.append("</table>");
+				mav.addObject("inputButton", sb.toString());
 
 				
 
-				sb.append("</table>");
-				mav.addObject("inputButton", sb.toString());
+				
 				// 게시글 댓글(너가 여기서부터 댓글 뽑아내면되)
 
 				mav.addObject("checkContent", 1);

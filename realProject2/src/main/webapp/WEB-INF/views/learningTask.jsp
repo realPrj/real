@@ -69,11 +69,22 @@
 		
 	}
 	
-	function viewContents(a,b){
+	function update(a,b){
 		alert(a);
 		alert(b);
 	}
-	
+	function deleteCXT(boardCode,roomCode){
+		 createinput("hidden", "boardCode", boardCode);
+		 createinput("hidden", "roomCode", roomCode);
+	      createForm("learningTaskCXTDeleteform", "learningTaskCXTDelete", "post");
+	      var form = document.getElementsByName("learningTaskCXTDeleteform")[0];      
+	      var boardCode = document.getElementsByName("boardCode")[0];
+	      
+	      form.appendChild(boardCode);
+
+
+	      form.submit();
+	}
 </script>
 <body onLoad="${message}">
 	<input type="hidden" value="${identity }" name="identity" />;
