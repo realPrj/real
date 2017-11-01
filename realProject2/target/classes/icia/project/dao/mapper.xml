@@ -1065,7 +1065,26 @@
 		WHERE
 		TA_LRCODE = #{roomCode} AND TA_CODE = #{boardCode}
 	</update>
+	
+	<!-- 학생 질문게시판 등록 -->
+	<insert id="learningSubmitTaskInsert" parameterType="board">
+		INSERT INTO
+		TASKSUBMIT(TS_TALRCODE,TS_CODE,TS_TACODE,TS_STRFSTUDENTCODE,TS_ROUTE,TS_DATET)
+		VALUES(#{roomCode},#{fileName},#{boardCode},#{studentCode},#{boardRoute},SYSDATE)
+	</insert>
+	
+	<select id="learningTaskSelect" resultType="board" parameterType="board">
+		SELECT
+		TO_CHAR(TS_DATET,'YYYY-MM-DD HH24:MI') AS boardDate
 
+		FROM TASKSUBMIT
+		WHERE
+		TS_TALRCODE= #{roomCode}
+		AND
+		TS_TACODE =#{boardCode}
+		AND 
+		TS_STRFSTUDENTCODE = #{studentCode}
+	</select>
 
 
 </mapper>

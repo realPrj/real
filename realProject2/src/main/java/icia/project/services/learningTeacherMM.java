@@ -206,7 +206,7 @@ public class learningTeacherMM extends TransactionExe {
 		case 45:   // test
 			mav = learningTaskCXTDelete((BoardBean)object[0]);
 			break;	
-	
+		
 
 			
 		case 40 :   // 채팅
@@ -2047,7 +2047,9 @@ public class learningTeacherMM extends TransactionExe {
 				System.out.println(board.getBoardCode());
 				System.out.println(board.getRoomCode());
 				
-				
+				mav.addObject("boardCode",board.getBoardCode());
+				mav.addObject("roomCode",board.getRoomCode());
+			
 				mav.addObject("title", board.getBoardTitle());
 				mav.addObject("date",board.getBoardDate());
 				mav.addObject("content", board.getBoardContent());
@@ -2228,7 +2230,6 @@ public class learningTeacherMM extends TransactionExe {
 		return mav;
 	}
 
-	
 	
 	
 	
