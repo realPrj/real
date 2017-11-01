@@ -596,11 +596,30 @@ public class HomeController  {
 		return mav;
 	}
 
-	
-	
-	
-	
-	
+	/**
+	    * 처리내용 : 아이템 정보 불러오는 ajax
+	    * 작성일 : 2017. 10. 25.
+	    * 작성자 : 신태휘
+	    * @Method Name : itemInfo
+	    * @return type : String
+	    */
+/*	   @RequestMapping(value="/subjectCode", method = RequestMethod.GET, produces = "application/text; charset=utf8")
+	   private ModelAndView subjectCode(@ModelAttribute LearningRoomBean room) {
+		   try {
+		         Gson gson = new Gson();
+		         ArrayList<LearningRoomBean> sbCode = dao.getAH(bean);
+		         String jsonPaser = gson.toJson(sbCode);
+		         
+		         System.out.println(jsonPaser);
+		         
+		         
+		      }catch(Exception e) {
+		         e.printStackTrace();
+		      }
+		      
+		      return mav;
+	   }
+*/
 	
 	// 테스트 채팅
 	@RequestMapping(value = "/testChat", method = RequestMethod.GET)

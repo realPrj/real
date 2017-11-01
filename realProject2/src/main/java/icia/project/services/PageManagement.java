@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.TransactionDefinition;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.gson.Gson;
+
 import icia.project.bean.BoardBean;
 import icia.project.bean.LearningRoomBean;
 import icia.project.bean.MemberBean;
@@ -395,7 +397,40 @@ public class PageManagement extends TransactionExe {
 	}
 
 
+	private ModelAndView subjectCode(BoardBean board) {	// 학생 학습방 메인 페이지
 
+		mav = new ModelAndView();
+
+		boolean transaction = false;
+		Gson gson = new Gson();
+		ArrayList<LearningRoomBean> sbCode;
+		
+		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
+
+		try {
+		
+			board.setRoomCode((String)session.getAttribute("roomCode"));
+			
+			board.setRoomSB(dao.learningSBCodeGet(board));
+			
+			
+		
+			String jsonPaser = gson.toJson(sbCode);
+	         
+	        System.out.println(jsonPaser);
+			
+			transaction = true;
+
+
+		}catch(Exception ex) {
+
+		}finally {
+			mav.setViewName("studentLearningMain");
+			setTransactionResult(transaction);
+		}
+
+		return mav;
+	}
 	
 
 }

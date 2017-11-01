@@ -1056,7 +1056,5 @@
 		TA_LRCODE = #{roomCode} AND TA_CODE = #{boardCode}
 	</update>
 
-
-
 </mapper>
 
