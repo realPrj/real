@@ -19,19 +19,7 @@
 		;
 
 	});
-	
-	  //form 생성
-	   function createForm1(formname, formaction, ta) {
 
-	      var form = document.createElement("form");
-	      form.target = ta;
-	      form.name = formname;
-	      form.action = formaction;
-
-	      document.body.appendChild(form);
-
-	   }
-	   
 	//form 생성
 	function createForm(formname, formaction, formmethod) {
 
@@ -55,44 +43,19 @@
 		document.body.appendChild(input);
 	}
 
-	function questionCXT(boardCode) {
-		createinput("hidden", "boardCode", boardCode);
-		createForm("learningTaskCXTStudentform", "learningTaskCXTStudent",
-				"post");
-		var form = document.getElementsByName("learningTaskCXTStudentform")[0];
-		var boardCode = document.getElementsByName("boardCode")[0];
+	function questionCXT(boardCode){
+		  createinput("hidden", "boardCode", boardCode);
+	      createForm("learningTaskCXTStudentform", "learningTaskCXTStudent", "post");
+	      var form = document.getElementsByName("learningTaskCXTStudentform")[0];      
+	      var boardCode = document.getElementsByName("boardCode")[0];
+	      
+	      form.appendChild(boardCode);
 
-		form.appendChild(boardCode);
 
-		form.submit();
-
+	      form.submit();
+		
 	}
-	function confirm(boardTitle, roomCode, boardCode) {
-		alert(boardTitle);
-		alert(roomCode);
-		alert(boardCode);
-		
-		createinput("hidden", "boardTitle", boardTitle);
-		createinput("hidden", "roomCode", roomCode);
-		createinput("hidden", "boardCode", boardCode);
-		var boardTitle = document.getElementsByName("boardTitle")[0];
-		var roomCode = document.getElementsByName("roomCode")[0];
-		var boardCode = document.getElementsByName("boardCode")[0];
-		
-		
 
-		createForm1("learningSubjectMMinsertForm", "learningSubjectMMinsert", "POP");
-
-		var form = document.getElementsByName("learningSubjectMMinsertForm")[0];
-		window.open('', 'POP',
-				"width=570, height=350, resizable = no, scrollbars = no");
-		form.appendChild(boardTitle);
-		form.appendChild(roomCode);
-		form.appendChild(boardCode);
-		
-
-		form.submit();
-	}
 </script>
 <body onLoad="${message}">
 	<input type="hidden" value="${identity }" name="identity" />;
@@ -167,9 +130,8 @@
 		<tr>
 			<td>${content }</td>
 		</tr>
-		
+	
 	</table>
-
 
 	<!-- 댓글 : 학생이름,파일다운(클릭)) -->
 	${tagcontent }
