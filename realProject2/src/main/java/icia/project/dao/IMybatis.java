@@ -317,6 +317,8 @@ public interface IMybatis {
 
 	// 과목 이름 출력
 	public String subjectNameGet(BoardBean board);
+	// 학생 과제 확인
+	public DbBoardBean checkFile(BoardBean board);
 
 
 }

@@ -18,10 +18,18 @@ public class DbBoardBean {	// dbboard bean
 	private String boardRoute;	// 게시글 파일첨부 경로
 	private String boardId; // 게시글 작성자
 	private String boardDate;	// 게시글 날짜
-	
+	private String studentCode;	// 학생 코드
 	private String cutRoute;
 	private String cutContent;
 	
+	
+	public String getStudentCode() {
+		return studentCode;
+	}
+	public void setStudentCode(String studentCode) {
+		this.studentCode = studentCode;
+	}
+
 	public String getRoomCode() {
 		return roomCode;
 	}

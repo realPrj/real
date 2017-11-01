@@ -61,7 +61,7 @@ public class teacherManagement extends TransactionExe {
 			break;
 
 		case 5:	// 로그아웃
-			mav = logout();
+			mav = logout(((MemberBean)object));
 			break;
 
 		case 6:	// 나의정보 수정
@@ -256,7 +256,7 @@ public class teacherManagement extends TransactionExe {
 
 			member = dao.tcIdFind(member);
 
-			if(member.getId() == null) {
+			if(member.getId().equals(null)) {
 
 				page = "login";
 				mav.addObject("identity", "1");
@@ -280,13 +280,13 @@ public class teacherManagement extends TransactionExe {
 		return mav;
 	}
 
-	private ModelAndView logout() {	// 로그아웃
+	private ModelAndView logout(MemberBean member) {	// 로그아웃
 
 		mav = new ModelAndView();
 
 		boolean transaction = false;
 		String page = null;
-		MemberBean member = new MemberBean();
+	
 
 		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
 

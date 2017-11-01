@@ -95,8 +95,8 @@ public class learningStudentMM extends TransactionExe {
 			mav = learningSubmitTaskInsert((BoardBean)object[0]);
 			break;
 
-		case 16:	
-
+		case 16:	 //학생 과제 확인
+			mav = checkFile((BoardBean)object[0]);
 			break;
 
 		case 17:	// 오답노트 코멘트 페이지
@@ -990,7 +990,7 @@ public class learningStudentMM extends TransactionExe {
 				al = dao.learningTaskSelect(board);	// 댓글 내용
 				
 				for(int i = 0; i < al.size(); i++) {
-					board = new BoardBean();
+					
 					board.setStudentCode(al.get(i).getStudentCode());
 					board.setStudentName(dao.stNameGet(board));
 					
@@ -1000,6 +1000,9 @@ public class learningStudentMM extends TransactionExe {
 			    	sb.append("</tr>");
 					sb.append("<tr>");
 					sb.append("<td>올린 날짜 : " +al.get(i).getBoardDate() + "</td>");
+			    	sb.append("</tr>");
+			    	sb.append("<tr>");
+			    	sb.append("<td>"+"<input type='button' value='올린 파일 보기' onClick=\"checkFile('"+ board.getBoardTitle() +"','" +al.get(i).getBoardDate() + "','" + board.getRoomCode() + "','"+ board.getBoardCode() +"')\">" + "</td>");
 			    	sb.append("</tr>");
 					sb.append("</table>"); 
 				}
@@ -1076,7 +1079,66 @@ public class learningStudentMM extends TransactionExe {
 
 		return mav;
 	}
+	private ModelAndView checkFile(BoardBean board) { //과제 페이지 자세하게 보기
 
+		ViewService view = new ViewService(); 
+		mav = new ModelAndView();
+		StringBuffer sb = new StringBuffer();
+		
+		ArrayList<BoardBean> al = null;
+		boolean transaction = false;
+
+		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
+
+		try {
+
+		
+			board.setRoomCode((String)session.getAttribute("roomCode"));
+			
+			board.setStudentCode((String)session.getAttribute("stCode"));
+			System.out.println(board.getBoardDate());
+			System.out.println(board.getBoardCode());
+			System.out.println(board.getRoomCode());
+			System.out.println(board.getStudentCode());
+			//mav.addObject("content",session.getAttribute("roomCode") + "의 공지사항");
+
+			DbBoardBean bb = dao.checkFile(board);   // 전체 루트(파일이름까지)
+			System.out.println("1");
+			System.out.println("1");
+			System.out.println("1");
+			System.out.println(bb.getBoardRoute());
+			bb.setCutRoute(bb.getBoardRoute().substring(0,68));   // 루트만
+			
+
+			bb.setCutContent(bb.getBoardRoute().substring(68));   // 파일이름
+			System.out.println(bb.getCutContent());
+			List<String> list = view.getList(bb);
+			
+			mav.addObject("list",list);
+			
+		
+			mav.addObject("date",board.getBoardDate());
+			
+			mav.addObject("roomCode",bb.getRoomCode());
+			
+			mav.addObject("file",bb.getCutContent());
+
+			
+
+		
+
+			mav.setViewName("learningTaskStudentCheck");
+			transaction = true;
+
+
+		}catch(Exception ex){
+			ex.printStackTrace();
+		}finally {
+			setTransactionResult(transaction);
+		}
+
+		return mav;
+	}
 
 
 }

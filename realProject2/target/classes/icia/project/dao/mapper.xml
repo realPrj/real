@@ -1102,11 +1102,26 @@
 		SELECT SB_NAME FROM SUBJECTVIEW WHERE SB_CODE = #{roomSB} GROUP BY SB_CODE,SB_NAME
 	</select>
 	
+	<!-- 학생 과제 자세히 보기 -->
+	<select id="checkFile" resultType="dbBoard"
+		parameterType="board">
+		SELECT
+		TS_ROUTE AS boardRoute
+		FROM TASKSUBMIT
+		WHERE
+		TS_TALRCODE= #{roomCode}
+		AND
+		TS_TACODE = #{boardCode}
+		AND
+		TS_STRFSTUDENTCODE = #{studentCode}
+		AND
+		TS_DATET =TO_CHAR(#{boardDate},'YYYY-MM-DD HH24:MI:SS')
+	</select>
+
+	
 
 
-
-
-
+	
 	
 
 

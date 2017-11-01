@@ -20,8 +20,10 @@ import icia.project.bean.DbBoardBean;
 import icia.project.bean.LearningRoomBean;
 import icia.project.bean.MemberBean;
 import icia.project.services.PageManagement;
+import icia.project.services.StudentManagement;
 import icia.project.services.learningStudentMM;
 import icia.project.services.learningTeacherMM;
+import icia.project.services.teacherManagement;
 
 
 @Controller
@@ -33,7 +35,11 @@ public class HomeController  {
 	private learningTeacherMM ltmm;
 	@Autowired
 	private learningStudentMM lsmm;
-
+	@Autowired
+	private StudentManagement stmm;
+	
+	@Autowired
+	private teacherManagement ttmm;
 	private ModelAndView mav;
 
 	///////////////////////////////////////// 페이지  /////////////////////////////////////////	
@@ -181,7 +187,7 @@ public class HomeController  {
 
 	// 선생님 학습메뉴
 	@RequestMapping(value = "/tcmenu", method = RequestMethod.POST)
-	public ModelAndView tcMenu(@ModelAttribute BoardBean board) {
+	public ModelAndView tcMenu(@ModelAttribute BoardBean board, MemberBean member) {
 
 		int code = Integer.parseInt(board.getCaCode());
 
@@ -237,7 +243,7 @@ public class HomeController  {
 			break;
 
 		case 14 : 
-
+			mav = ttmm.entrance(5, member);
 			break;
 		}
 
@@ -302,8 +308,8 @@ public class HomeController  {
 
 			break;
 
-		case 14 : 
-
+		case 14 : //로그아웃
+			mav = stmm.entrance(5, member);
 			break;
 		}
 

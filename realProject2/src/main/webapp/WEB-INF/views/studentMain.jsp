@@ -52,7 +52,7 @@ function createinput(itype, iname, ivalue){
 function eventClick(formname,formaction,formmethod){	
 
 	createForm(formname,formaction,formmethod);
-	
+
 	var form = document.getElementsByName(formname)[0];
 	
 	form.submit();
@@ -74,13 +74,29 @@ function learningGo(learningCode){
 	form.submit();
 	
 }
+//메뉴선택
+function menu(ivalue){
+	
+	createinput("hidden", "caCode", ivalue);
+	
+	var caCode = document.getElementsByName("caCode")[0];
+	
+	createForm("menuform","stmenu","post");
+	
+
+	var form = document.getElementsByName("menuform")[0];
+	form.appendChild(caCode);
+	
+	form.submit();
+	
+}
 
 </script>
 <body onLoad="${message}">
 <h1>공조</h1>
 <table>
 	<tr>
-		<td><input type="button" value="로그아웃" onClick="eventClick('logoutform','logout','post')"  /></td>
+		<td><input type="button" value="로그아웃" onClick="menu('14')"  /></td>
 	</tr>
 	<tr>
 		<td><input type="button" value="나의정보" onClick="eventClick('studentInfoPageform','studentInfoPage','post')"  /></td>
