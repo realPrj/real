@@ -90,7 +90,7 @@ public class learningStudentMM extends TransactionExe {
 			mav = learningTaskPage((BoardBean)object[0]);
 			break;
 
-		case 15:	
+		case 15:	// 과제 제출
 			mtfRequest = ((MultipartHttpServletRequest)object[1]);
 			mav = learningSubmitTaskInsert((BoardBean)object[0]);
 			break;
@@ -118,9 +118,7 @@ public class learningStudentMM extends TransactionExe {
 		case 33 : // 학생 토론게시판 내용확인
 			mav = stlearningDebateCTX((BoardBean)object[0]);
 			break;
-		case 46: // 과제글 제출
 
-			break;
 
 
 
@@ -959,7 +957,6 @@ public class learningStudentMM extends TransactionExe {
 		ArrayList<BoardBean> al;
 		String roomcode = null;
 		StringBuffer sb = null;
-		StringBuffer bu = null;
 
 		boolean transaction = false;
 
@@ -988,23 +985,25 @@ public class learningStudentMM extends TransactionExe {
 				mav.addObject("content", board.getBoardContent());
 				sb.append("<td>"+"<input type='button' value='과제 제출' onClick=\"confirm('"+ board.getBoardTitle() +"','" + board.getRoomCode() + "','"+ board.getBoardCode() +"')\">" + "</td>");
 			
-
 				board.setStudentCode((String)session.getAttribute("stCode"));
-			
 				
-				al = dao.learningTaskSelect(board);	// 게시글 내용
-
-				
+				al = dao.learningTaskSelect(board);	// 댓글 내용
 				
 				for(int i = 0; i < al.size(); i++) {
+					board = new BoardBean();
+					board.setStudentCode(al.get(i).getStudentCode());
+					board.setStudentName(dao.stNameGet(board));
+					
 					sb.append("<table>");
+					sb.append("<tr>");
+					sb.append("<td>학생 이름 : " +board.getStudentName() + "</td>");
+			    	sb.append("</tr>");
 					sb.append("<tr>");
 					sb.append("<td>올린 날짜 : " +al.get(i).getBoardDate() + "</td>");
 			    	sb.append("</tr>");
 					sb.append("</table>"); 
 				}
 
-				
 				mav.addObject("tagcontent", sb.toString());
 
 				mav.addObject("checkContent", 1);
@@ -1016,11 +1015,11 @@ public class learningStudentMM extends TransactionExe {
 
 			board.setRoomCode(roomcode);
 
-			if(dao.learningTaskCheck(board) != 0) {    // 리스트 출력
+			if(dao.learningTaskCheck(board) != 0) {    
 
-				al = dao.learningTaskList(board);    // 리스트 담기
+				al = dao.learningTaskList(board);    // 과제 리스트 담기
 
-				for(int i = 0; i < al.size(); i++) {
+				for(int i = 0; i < al.size(); i++) {	// 과제 리스트 출력
 					sb.append("<tr>");
 					sb.append("<td>");
 					sb.append("<button onClick=\"questionCXT(\'"+ al.get(i).getBoardCode() +"\')\" />" + al.get(i).getBoardTitle() + "</button>");
@@ -1039,37 +1038,34 @@ public class learningStudentMM extends TransactionExe {
 			transaction = true;
 
 
-
 		}catch(Exception ex){
 			ex.printStackTrace();
 		}finally {
 			setTransactionResult(transaction);
 		}
-		System.out.println(mav.getViewName());
+
 		return mav;
 	}
+	
 	private ModelAndView learningSubmitTaskInsert(BoardBean board) { // 과제 제출
 		mav = new ModelAndView();
 		boolean transaction = false;
 		fileupload(board,mtfRequest);
-
 
 		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
 		try {			
 			board.setRoomCode((String)session.getAttribute("roomCode"));
 			board.setStudentCode((String)session.getAttribute("stCode"));
 
-			System.out.println(board.getStudentCode());
 			int boardCode = (int)(Math.random() *89999)+10000;
 			board.setFileName(Integer.toString(boardCode));
-			System.out.println("TA_CODE");
-			System.out.println(board.getFileName());
+
 			session.getAttribute(board.getFileName());
 			if(dao.learningSubmitTaskInsert(board) != 0) {
-				System.out.println("나 성공햇다 ");
+				
 				transaction = true;
 			}else {
-				System.out.println("실패");
+
 			}
 		}
 		catch(Exception ex){

@@ -128,7 +128,7 @@ public interface IMybatis {
 
 	// 년도별 문제유형 합
 	public ArrayList<BoardBean> learningWANTypeSum(BoardBean board);
-	
+
 
 	// 중복 년도 코드 추출
 	public ArrayList<BoardBean> learningWANYearCodeOneGet(BoardBean board);
@@ -311,9 +311,12 @@ public interface IMybatis {
 	public int learningTaskUpdate(BoardBean board);
 	// 선생님 자료실 등록
 	public int learningSubmitTaskInsert(BoardBean board);
-	
-	// 과제 내용 출력
+
+	// 과제 댓글 내용 출력
 	public ArrayList<BoardBean> learningTaskSelect(BoardBean board);
+
+	// 과목 이름 출력
+	public String subjectNameGet(BoardBean board);
 
 
 }

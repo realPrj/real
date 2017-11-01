@@ -300,7 +300,7 @@
 	<select id="learningSBCodeGet" resultType="String"
 		parameterType="board">
 		SELECT
-		LR_SBCODE AS roomSB
+		LR_SBCODE
 		FROM LEARNINGROOM
 		WHERE
 		LR_CODE=#{roomCode}
@@ -948,10 +948,13 @@
 		DEBATE WHERE DE_LRCODE = #{roomCode} AND DE_DATE =
 		TO_DATE(#{boardDate},'YYYY-MM-DDHH24:MI:SS')
 	</delete>
-	
+
 	<!-- 토론게시판 댓글목록 -->
 	<select id="learningDebateTagList" resultType="board">
-		SELECT DTAG_STRFSTUDENTCODE AS studentCode, DTAG_CONTENT AS tagContent, DTAG_DATE AS tagDate, DTAG_DELRCODE AS roomCode, DTAG_DETITLE AS boardTitle, 
+		SELECT
+		DTAG_STRFSTUDENTCODE AS studentCode, DTAG_CONTENT AS tagContent,
+		DTAG_DATE AS tagDate, DTAG_DELRCODE AS roomCode, DTAG_DETITLE AS
+		boardTitle,
 		DTAG_DEDATE AS boardDate, DTAG_DETCID AS boardId FROM DEBATETAG
 	</select>
 
@@ -1030,9 +1033,10 @@
 		WHERE
 		TA_LRCODE = #{roomCode} AND TA_CODE = #{boardCode}
 	</select>
-	
+
 	<!-- 과제 게시글 번호 유무 -->
-	<select id="learningTaskBoardCheck" resultType="Integer" parameterType="board">
+	<select id="learningTaskBoardCheck" resultType="Integer"
+		parameterType="board">
 		SELECT
 		COUNT(*)
 		FROM TASK
@@ -1051,10 +1055,10 @@
 	<delete id="learningTaskCXTDelete" parameterType="board">
 		DELETE
 		FROM TASK
-		WHERE 
+		WHERE
 		TA_LRCODE = #{roomCode}
 		AND
-		TA_CODE = #{boardCode}	
+		TA_CODE = #{boardCode}
 	</delete>
 
 	<!-- 과제 수정 -->
@@ -1063,20 +1067,23 @@
 		SET
 		TA_TITLE=#{boardTitle},TA_CONTENT=#{boardContent}
 		WHERE
-		TA_LRCODE = #{roomCode} AND TA_CODE = #{boardCode}
+		TA_LRCODE =
+		#{roomCode} AND TA_CODE = #{boardCode}
 	</update>
-	
+
 	<!-- 학생 질문게시판 등록 -->
 	<insert id="learningSubmitTaskInsert" parameterType="board">
 		INSERT INTO
 		TASKSUBMIT(TS_TALRCODE,TS_CODE,TS_TACODE,TS_STRFSTUDENTCODE,TS_ROUTE,TS_DATET)
 		VALUES(#{roomCode},#{fileName},#{boardCode},#{studentCode},#{boardRoute},SYSDATE)
 	</insert>
-	
+
 	<!-- 과제 댓글 날짜 출력 -->
-	<select id="learningTaskSelect" resultType="board" parameterType="board">
+	<select id="learningTaskSelect" resultType="board"
+		parameterType="board">
 		SELECT
-		TO_CHAR(TS_DATET,'YYYY-MM-DD HH24:MI') AS boardDate,
+		TO_CHAR(TS_DATET,'YYYY-MM-DD HH24:MI') AS
+		boardDate,
 		TS_STRFSTUDENTCODE AS studentCode,
 		TS_TACODE AS boardCode,
 		TS_CODE AS tagCode,
@@ -1086,9 +1093,25 @@
 		TS_TALRCODE= #{roomCode}
 		AND
 		TS_TACODE =#{boardCode}
-		AND 
+		AND
 		TS_STRFSTUDENTCODE = #{studentCode}
 	</select>
+
+	<!-- 과목 이름 출력 -->
+	<select id="subjectNameGet" resultType="String"	parameterType="board">
+		SELECT SB_NAME FROM SUBJECTVIEW WHERE SB_CODE = #{roomSB} GROUP BY SB_CODE,SB_NAME
+	</select>
+	
+
+
+
+
+
+	
+
+
+
+
 
 </mapper>
 

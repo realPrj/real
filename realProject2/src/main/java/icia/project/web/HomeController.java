@@ -592,66 +592,53 @@ public class HomeController  {
 	// 과제 글 수정 페이지
 	@RequestMapping(value = "/learningTaskUpdatePage", method = RequestMethod.POST)
 	public ModelAndView learningTaskUpdatePage(@ModelAttribute BoardBean board) {
-		
+
 		mav = new ModelAndView();
 		System.out.println( board.getBoardCode()+"asdf");
-	
+
 		mav.addObject("boardCode", board.getBoardCode());
 		mav.addObject("roomCode", board.getRoomCode());
 		mav.addObject("boardTitle", board.getBoardTitle());
 		mav.addObject("boardContent", board.getBoardContent());
-		
+
 		mav.setViewName("learningTaskUpdate");
-		
+
 		return mav;
 	}
 
-
-	/**
-	    * 처리내용 : 아이템 정보 불러오는 ajax
-	    * 작성일 : 2017. 10. 25.
-	    * 작성자 : 신태휘
-	    * @Method Name : itemInfo
-	    * @return type : String
-	    */
-/*	   @RequestMapping(value="/subjectCode", method = RequestMethod.GET, produces = "application/text; charset=utf8")
-	   private ModelAndView subjectCode(@ModelAttribute LearningRoomBean room) {
-		   try {
-		         Gson gson = new Gson();
-		         ArrayList<LearningRoomBean> sbCode = dao.getAH(bean);
-		         String jsonPaser = gson.toJson(sbCode);
-		         
-		         System.out.println(jsonPaser);
-		         
-		         
-		      }catch(Exception e) {
-		         e.printStackTrace();
-		      }
-		      
-		      return mav;
-	   }
-*/
-
-	
-	// 테스트 채팅
+	// 채팅(알림)
 	@RequestMapping(value = "/testChat", method = RequestMethod.GET)
 	public ModelAndView testChat() {
-		
+
 		mav = ltmm.entrance(40, null);
-		
+
+		return mav;
+	}
+
+	// 선생님 과제 인설트 팝업창
+	@RequestMapping(value = "/learningSubjectMMinsert", method = RequestMethod.GET)
+	public ModelAndView learningSubjectMMinsert(@ModelAttribute BoardBean board) {
+		mav = new ModelAndView();
+		mav.addObject("boardCode",board.getBoardCode());
+		mav.addObject("roomCode",board.getRoomCode());
+
+		mav.addObject("title", board.getBoardTitle());
+		mav.setViewName("learningTaskSubmitInsert");
 		return mav;
 	}
 	
-	// 선생님 과제 인설트
-		@RequestMapping(value = "/learningSubjectMMinsert", method = RequestMethod.GET)
-		public ModelAndView learningSubjectMMinsert(@ModelAttribute BoardBean board) {
-			mav = new ModelAndView();
-			mav.addObject("boardCode",board.getBoardCode());
-			mav.addObject("roomCode",board.getRoomCode());
-		
-			mav.addObject("title", board.getBoardTitle());
-			mav.setViewName("learningTaskSubmitInsert");
-			return mav;
-		}
+	// 학습방 코드 보기
+	@RequestMapping(value = "/learningSubjectCode", method = RequestMethod.POST)
+	public ModelAndView learningSubjectCode(@ModelAttribute BoardBean board) {
+
+		mav = pm.subjectCode(board);
+
+		return mav;
+	}
+
+	
+	
+
+
 
 }

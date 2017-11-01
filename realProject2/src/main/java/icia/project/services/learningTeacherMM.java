@@ -13,6 +13,8 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.gson.Gson;
+
 import icia.project.bean.BoardBean;
 import icia.project.bean.DbBoardBean;
 import icia.project.dao.IMybatis;
@@ -427,6 +429,26 @@ public class learningTeacherMM extends TransactionExe {
 		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
 
 		try {
+			
+			Gson gson = new Gson();
+			ArrayList<BoardBean> sbCode = new ArrayList<BoardBean>();
+			board = new BoardBean();
+			
+			board.setRoomCode((String)session.getAttribute("roomCode"));
+			
+			board.setRoomSB(dao.learningSBCodeGet(board));	// 과목 코드 추출
+			
+			board.setSubjectName(dao.subjectNameGet(board));	// 과목 이름 추출
+			
+			sbCode.add(board);
+		
+			String jsonPaser = gson.toJson(sbCode);
+	         
+	        System.out.println(jsonPaser);
+			
+			
+			
+			
 			board = new BoardBean();
 			board.setRoomCode((String)session.getAttribute("roomCode"));
 
