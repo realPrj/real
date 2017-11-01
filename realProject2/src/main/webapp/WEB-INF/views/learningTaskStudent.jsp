@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>공조 || 과제</title>
+<title>공조 || 과제학생</title>
 </head>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -19,7 +19,19 @@
 		;
 
 	});
+	
+	  //form 생성
+	   function createForm1(formname, formaction, ta) {
 
+	      var form = document.createElement("form");
+	      form.target = ta;
+	      form.name = formname;
+	      form.action = formaction;
+
+	      document.body.appendChild(form);
+
+	   }
+	   
 	//form 생성
 	function createForm(formname, formaction, formmethod) {
 
@@ -43,72 +55,44 @@
 		document.body.appendChild(input);
 	}
 
-	function insertPage() {
-
-		createForm("learningTaskInsertPageform", "learningTaskInsertPage",
+	function questionCXT(boardCode) {
+		createinput("hidden", "boardCode", boardCode);
+		createForm("learningTaskCXTStudentform", "learningTaskCXTStudent",
 				"post");
+		var form = document.getElementsByName("learningTaskCXTStudentform")[0];
+		var boardCode = document.getElementsByName("boardCode")[0];
 
-		var identity = document.getElementsByName("identity")[0];
+		form.appendChild(boardCode);
 
-		var form = document.getElementsByName("learningTaskInsertPageform")[0];
+		form.submit();
 
-		form.appendChild(identity);
+	}
+	function confirm(boardTitle, roomCode, boardCode) {
+		alert(boardTitle);
+		alert(roomCode);
+		alert(boardCode);
+		
+		createinput("hidden", "boardTitle", boardTitle);
+		createinput("hidden", "roomCode", roomCode);
+		createinput("hidden", "boardCode", boardCode);
+		var boardTitle = document.getElementsByName("boardTitle")[0];
+		var roomCode = document.getElementsByName("roomCode")[0];
+		var boardCode = document.getElementsByName("boardCode")[0];
+		
+		
+
+		createForm1("learningSubjectMMinsertForm", "learningSubjectMMinsert", "POP");
+
+		var form = document.getElementsByName("learningSubjectMMinsertForm")[0];
+		window.open('', 'POP',
+				"width=570, height=350, resizable = no, scrollbars = no");
+		form.appendChild(boardTitle);
+		form.appendChild(roomCode);
+		form.appendChild(boardCode);
+		
 
 		form.submit();
 	}
-	function questionCXT(boardCode){
-		  createinput("hidden", "boardCode", boardCode);
-	      createForm("learningTaskCXTform", "learningTaskCXT", "post");
-	      var form = document.getElementsByName("learningTaskCXTform")[0];      
-	      var boardCode = document.getElementsByName("boardCode")[0];
-	      
-	      form.appendChild(boardCode);
-
-
-	      form.submit();
-		
-	}
-	
-	function update(boardcode,roomcode,title,content){
-		
-		createinput("hidden", "boardCode", boardcode);
-		createinput("hidden", "roomCode", roomcode);
-		createinput("hidden", "boardTitle", title);
-		createinput("hidden", "boardContent", content);
-		
-		var boardCode = document.getElementsByName("boardCode")[0];
-		var roomCode = document.getElementsByName("roomCode")[0];
-		var boardTitle = document.getElementsByName("boardTitle")[0];
-		var boardContent = document.getElementsByName("boardContent")[0];
-		
-		createForm("learningTaskUpdatePageform", "learningTaskUpdatePage", "post");
-		
-	    var form = document.getElementsByName("learningTaskUpdatePageform")[0];   
-	    
-	    form.appendChild(boardCode);
-	    form.appendChild(roomCode);
-	    form.appendChild(boardTitle);
-	    form.appendChild(boardContent);
-
-	    form.submit();
-		
-	}
-	
-	function deleteCXT(boardCode,roomCode){
-		 createinput("hidden", "boardCode", boardCode);
-		 createinput("hidden", "roomCode", roomCode);
-	      createForm("learningTaskCXTDeleteform", "learningTaskCXTDelete", "post");
-	      var form = document.getElementsByName("learningTaskCXTDeleteform")[0];      
-	      var boardCode = document.getElementsByName("boardCode")[0];
-	      var roomCode = document.getElementsByName("roomCode")[0];
-	      
-	      form.appendChild(boardCode);
-	      form.appendChild(roomCode);
-
-
-	      form.submit();
-	}
-	
 </script>
 <body onLoad="${message}">
 	<input type="hidden" value="${identity }" name="identity" />;
@@ -165,7 +149,6 @@
 		${taskList }
 	</table>
 
-	<input type="button" value="과제 생성" onClick="insertPage()" />
 
 	<!-- 과제 보여주기(제목,내용,날짜 -->
 	<table id='tableText'>
@@ -184,8 +167,9 @@
 		<tr>
 			<td>${content }</td>
 		</tr>
-		${inputButton }
+		
 	</table>
+
 
 	<!-- 댓글 : 학생이름,파일다운(클릭)) -->
 	${tagcontent }

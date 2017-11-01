@@ -1047,6 +1047,16 @@
 		VALUES(#{roomCode},#{boardCode},#{id},#{boardTitle},#{boardContent},SYSDATE)
 	</insert>
 
+	<!-- 과제 삭제 -->
+	<delete id="learningTaskCXTDelete" parameterType="board">
+		DELETE
+		FROM TASK
+		WHERE 
+		TA_LRCODE = #{roomCode}
+		AND
+		TA_CODE = #{boardCode}	
+	</delete>
+
 	<!-- 과제 수정 -->
 	<update id="learningTaskUpdate" parameterType="board">
 		UPDATE TASK
@@ -1055,6 +1065,30 @@
 		WHERE
 		TA_LRCODE = #{roomCode} AND TA_CODE = #{boardCode}
 	</update>
+	
+	<!-- 학생 질문게시판 등록 -->
+	<insert id="learningSubmitTaskInsert" parameterType="board">
+		INSERT INTO
+		TASKSUBMIT(TS_TALRCODE,TS_CODE,TS_TACODE,TS_STRFSTUDENTCODE,TS_ROUTE,TS_DATET)
+		VALUES(#{roomCode},#{fileName},#{boardCode},#{studentCode},#{boardRoute},SYSDATE)
+	</insert>
+	
+	<!-- 과제 댓글 날짜 출력 -->
+	<select id="learningTaskSelect" resultType="board" parameterType="board">
+		SELECT
+		TO_CHAR(TS_DATET,'YYYY-MM-DD HH24:MI') AS boardDate,
+		TS_STRFSTUDENTCODE AS studentCode,
+		TS_TACODE AS boardCode,
+		TS_CODE AS tagCode,
+		TS_ROUTE AS boardRoute
+		FROM TASKSUBMIT
+		WHERE
+		TS_TALRCODE= #{roomCode}
+		AND
+		TS_TACODE =#{boardCode}
+		AND 
+		TS_STRFSTUDENTCODE = #{studentCode}
+	</select>
 
 </mapper>
 
