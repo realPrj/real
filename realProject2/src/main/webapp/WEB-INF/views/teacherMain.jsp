@@ -56,14 +56,29 @@ function learningGo(learningCode){
 	
 }
 // 자료실 form
+//메뉴선택
+function menu(ivalue){
+	
+	createinput("hidden", "caCode", ivalue);
+	
+	var caCode = document.getElementsByName("caCode")[0];
+	
+	createForm("menuform","tcmenu","post");
+	
 
+	var form = document.getElementsByName("menuform")[0];
+	form.appendChild(caCode);
+	
+	form.submit();
+	
+}
 
 </script>
 <body onLoad="${message}">
 <h1>공조</h1>
 <table>
 	<tr>
-		<td><input type="button" value="로그아웃" onClick="eventClick('logoutform','logout','post')"  /></td>
+		<td><input type="button" value="로그아웃" onClick="menu('14')"  /></td>
 	</tr>
 	<tr>
 		<td><input type="button" value="나의정보" onClick="eventClick('teacherInfoPageform','teacherInfoPage','post')"  /></td>

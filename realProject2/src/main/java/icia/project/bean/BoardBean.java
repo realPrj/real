@@ -40,6 +40,7 @@ public class BoardBean {	// 게시판 bean
 	private String stHalf;	// 학생 반
 	private String stNumber;	// 학생 번호
 
+	private String tagCode;	// 댓글 코드
 	private String tagId;	// 댓글 아이디
 	private String tagDate;	// 댓글 날짜
 	private String tagContent;	// 댓글 내용
@@ -48,6 +49,14 @@ public class BoardBean {	// 게시판 bean
 	private String phone;   // 폰번호
 
 
+
+	public String getTagCode() {
+		return tagCode;
+	}
+
+	public void setTagCode(String tagCode) {
+		this.tagCode = tagCode;
+	}
 
 	public String getIdentity() {
 		return identity;

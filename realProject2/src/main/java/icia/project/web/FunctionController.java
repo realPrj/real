@@ -133,6 +133,7 @@ public class FunctionController {
 			break;
 
 		case 2:	// 학생
+			System.out.println("여긴 오니?");
 			mav = sm.entrance(4, member);
 			break;
 
@@ -599,7 +600,7 @@ public class FunctionController {
 	// 과제 수정
 	@RequestMapping(value = "/learningTaskUpdate", method = RequestMethod.POST)
 	public ModelAndView learningTaskUpdate(@ModelAttribute BoardBean board) {
-		
+
 		ltm.entrance(29, board);
 		mav = ltm.entrance(27, board);
 
@@ -607,8 +608,29 @@ public class FunctionController {
 	}
 
 
+	// 과제 게시판 댓글쓷기
+	@RequestMapping(value = "/learningSubmitTaskInsert", method = RequestMethod.POST)
+	public ModelAndView learningSubmitTaskInsert(@ModelAttribute BoardBean board,MultipartHttpServletRequest mtfRequest)throws Exception{      
 
-	
+
+		stm.entrance(15, board, mtfRequest);
+
+		mav = stm.entrance(14, board);
+
+		return mav;
+	}
+	// 학생 과제 파일 확인 팝업창
+		@RequestMapping(value = "/checkFile", method = RequestMethod.GET)
+		public ModelAndView checkFile(@ModelAttribute BoardBean board) {
+		
+			mav = new ModelAndView();
+			mav = stm.entrance(16, board);
+			
+			return mav;
+		}
+
+
+
 
 
 }

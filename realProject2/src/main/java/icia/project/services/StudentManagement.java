@@ -54,11 +54,12 @@ public class StudentManagement extends TransactionExe {
 			break;
 
 		case 4:	// 아이디 찾기
+			System.out.println("여긴 오니444?");
 			mav = idFind(((MemberBean)object));
 			break;
 
 		case 5:	// 로그아웃
-			mav = logout();
+			mav = logout(((MemberBean)object));
 			break;
 
 		case 6:	// 나의 정보 수정
@@ -89,7 +90,7 @@ public class StudentManagement extends TransactionExe {
 	private ModelAndView login(MemberBean member) {	// 로그인
 
 		boolean transaction = false;
-
+		String page =null;
 		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
 
 		try {
@@ -99,8 +100,8 @@ public class StudentManagement extends TransactionExe {
 				if(enc.matches(member.getPwd(),dao.stPwdGet(member).getPwd())) {	// 비밀번호 체크
 					member.setLogType(1);
 					member = dao.stCodeGet(member);	// 학생코드 추출
-					/*if(dao.stLogHistory(member) != 0) {	// 로그히스토리
-					 */
+					if(dao.stLogHistory(member) != 0) {	// 로그히스토리
+					 
 					// 동적으로 학습방 쏴주기
 					
 					session.setAttribute("stCode", member.getStudentCode());
@@ -109,12 +110,12 @@ public class StudentManagement extends TransactionExe {
 					
 					mav = pm.entrance(2, null);
 					transaction = true;
-					/*	}else {
+						}else {
 						page = "login";
 						mav.addObject("identity", "2");
 						mav.addObject("message", "alert('로그인 실패 하셨습니다.')");
 						mav.addObject("id", member.getId());
-					}*/
+					}
 
 				}else {
 					mav = new ModelAndView();
@@ -243,20 +244,25 @@ public class StudentManagement extends TransactionExe {
 		MemberBean mb;
 
 		try {
-
+			System.out.println("여긴 오니44455?");
+			System.out.println(member.getEmail());
 			mb = dao.stIdFind(member);
-			if(mb.getId().equals(null)) {
+			
+			if(mb.getId() == null) {
 				page = "login";
+				System.out.println("여긴 오니null?");
 				mav.addObject("identity", "2");
 				mav.addObject("message", "alert('아이디가 없습니다.')");
 			}else {
 				page = "login";
+				System.out.println("여긴 오니suc?");
 				mav.addObject("identity", "2");
 				mav.addObject("message", "alert('"+mb.getId()+"')");
+				System.out.println("여긴 오니?");
 			}
 
 		}catch(Exception ex) {
-
+			ex.printStackTrace();
 		}finally {
 			mav.setViewName(page);
 		}
@@ -264,13 +270,13 @@ public class StudentManagement extends TransactionExe {
 		return mav;
 	}
 
-	private ModelAndView logout() {	// 로그아웃
+	private ModelAndView logout(MemberBean member) {	// 로그아웃
 
 		mav = new ModelAndView();
 
 		boolean transaction = false;
 		String page = null;
-		MemberBean member = new MemberBean();
+	
 
 		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
 

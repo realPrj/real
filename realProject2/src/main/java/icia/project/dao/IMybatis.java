@@ -309,7 +309,17 @@ public interface IMybatis {
 	// 과제 수정 
 	public int learningTaskUpdate(BoardBean board);
 
+	// 선생님 자료실 등록
+	public int learningSubmitTaskInsert(BoardBean board);
 
+	// 과제 댓글 내용 출력
+	public ArrayList<BoardBean> learningTaskSelect(BoardBean board);
+
+	// 과목 이름 출력
+	public String subjectNameGet(BoardBean board);
+	
+	// 학생 과제 확인
+	public DbBoardBean checkFile(BoardBean board);
 
 
 }
