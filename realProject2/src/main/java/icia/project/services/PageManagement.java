@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.TransactionDefinition;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.gson.Gson;
+
 import icia.project.bean.BoardBean;
 import icia.project.bean.LearningRoomBean;
 import icia.project.bean.MemberBean;
@@ -52,7 +54,6 @@ public class PageManagement extends TransactionExe {
 		case 6:	// 학생 나의 정보 페이지
 			mav = studentInfoPage();
 			break;
-
 
 		}
 
@@ -123,7 +124,7 @@ public class PageManagement extends TransactionExe {
 
 		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
 
-		try {
+		try {System.out.println("여기 왓어염");
 			room = new LearningRoomBean();
 			room.setStudentCode((String)session.getAttribute("stCode"));
 			
@@ -395,7 +396,30 @@ public class PageManagement extends TransactionExe {
 	}
 
 
+	public ModelAndView subjectCode(BoardBean board) {	// 코드 보여주기
 
+		mav = new ModelAndView();
+		boolean transaction = false;
+
+		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
+
+		try {
+		
+
+
+			transaction = true;
+
+
+		}catch(Exception ex) {
+
+		}finally {
+			mav.setViewName("learningSubjectCode");
+			setTransactionResult(transaction);
+		}
+		
+		return null;
+
+	}
 	
 
 }

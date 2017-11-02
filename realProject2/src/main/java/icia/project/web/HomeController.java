@@ -20,8 +20,10 @@ import icia.project.bean.DbBoardBean;
 import icia.project.bean.LearningRoomBean;
 import icia.project.bean.MemberBean;
 import icia.project.services.PageManagement;
+import icia.project.services.StudentManagement;
 import icia.project.services.learningStudentMM;
 import icia.project.services.learningTeacherMM;
+import icia.project.services.teacherManagement;
 
 
 @Controller
@@ -33,7 +35,11 @@ public class HomeController  {
 	private learningTeacherMM ltmm;
 	@Autowired
 	private learningStudentMM lsmm;
-
+	@Autowired
+	private StudentManagement stmm;
+	
+	@Autowired
+	private teacherManagement ttmm;
 	private ModelAndView mav;
 
 	///////////////////////////////////////// 페이지  /////////////////////////////////////////	
@@ -181,7 +187,7 @@ public class HomeController  {
 
 	// 선생님 학습메뉴
 	@RequestMapping(value = "/tcmenu", method = RequestMethod.POST)
-	public ModelAndView tcMenu(@ModelAttribute BoardBean board) {
+	public ModelAndView tcMenu(@ModelAttribute BoardBean board, MemberBean member) {
 
 		int code = Integer.parseInt(board.getCaCode());
 
@@ -237,7 +243,7 @@ public class HomeController  {
 			break;
 
 		case 14 : 
-			
+			mav = ttmm.entrance(5, member);
 			break;
 		}
 
@@ -270,8 +276,8 @@ public class HomeController  {
 			mav = lsmm.entrance(32, board);
 			break;
 
-		case 6 : 
-
+		case 6 :  //과제
+			mav = lsmm.entrance(14, board);
 			break;
 
 		case 7 : // 오답노트
@@ -302,8 +308,8 @@ public class HomeController  {
 
 			break;
 
-		case 14 : 
-
+		case 14 : //로그아웃
+			mav = stmm.entrance(5, member);
 			break;
 		}
 
@@ -537,13 +543,22 @@ public class HomeController  {
 
 		return mav;
 	}
-	
+
 	// 과제 페이지
 	@RequestMapping(value = "/learningTaskPage", method = RequestMethod.POST)
 	public ModelAndView learningTaskPage(@ModelAttribute BoardBean board) {
-		
+
 		mav = ltmm.entrance(27, board);
-		
+
+		return mav;
+	}
+
+	// 학생과제 페이지
+	@RequestMapping(value = "/learningTaskCXTStudent", method = RequestMethod.POST)
+	public ModelAndView learningTaskCXTStudent(@ModelAttribute BoardBean board) {
+
+		mav = lsmm.entrance(14, board);
+
 		return mav;
 	}
 
@@ -552,12 +567,12 @@ public class HomeController  {
 	public ModelAndView learningTaskInsertPage(@ModelAttribute BoardBean board) {
 
 		if(Integer.parseInt(board.getIdentity()) == 1) {	// 선생님
-			
+
 			mav = new ModelAndView();
 			mav.setViewName("learningTaskInsert");
-			
+
 		}else {	// 학생
-			
+
 			mav = lsmm.entrance(1, board);
 			mav.addObject("message", "alert('선생님만 과제 생성을 할 수 있습니다.')");
 		}
@@ -565,15 +580,70 @@ public class HomeController  {
 		return mav;
 	}
 
-	
-	
-	// 테스트 채팅
-	@RequestMapping(value = "/testChat", method = RequestMethod.GET)
-	public ModelAndView testChat() {
-		
-		mav = ltmm.entrance(29, null);
-		
+
+	// 과제 글 수정 페이지
+	@RequestMapping(value = "/learningTaskUpdatePage", method = RequestMethod.POST)
+	public ModelAndView learningTaskUpdatePage(@ModelAttribute BoardBean board) {
+
+		mav = new ModelAndView();
+		System.out.println( board.getBoardCode()+"asdf");
+
+		mav.addObject("boardCode", board.getBoardCode());
+		mav.addObject("roomCode", board.getRoomCode());
+		mav.addObject("boardTitle", board.getBoardTitle());
+		mav.addObject("boardContent", board.getBoardContent());
+
+		mav.setViewName("learningTaskUpdate");
+
 		return mav;
 	}
+
+	// 채팅(알림)
+	@RequestMapping(value = "/testChat", method = RequestMethod.GET)
+	public ModelAndView testChat() {
+
+		mav = ltmm.entrance(40, null);
+
+		return mav;
+	}
+
+	// 선생님 과제 인설트 팝업창
+	@RequestMapping(value = "/learningSubjectMMinsert", method = RequestMethod.GET)
+	public ModelAndView learningSubjectMMinsert(@ModelAttribute BoardBean board) {
+		mav = new ModelAndView();
+		mav.addObject("boardCode",board.getBoardCode());
+		mav.addObject("roomCode",board.getRoomCode());
+
+		mav.addObject("title", board.getBoardTitle());
+		mav.setViewName("learningTaskSubmitInsert");
+		return mav;
+	}
+	
+	// 학습방 코드 보기
+	@RequestMapping(value = "/learningSubjectCode", method = RequestMethod.POST)
+	public ModelAndView learningSubjectCode(@ModelAttribute BoardBean board) {
+
+		mav = pm.subjectCode(board);
+
+		return mav;
+	}
+		// 학생 회원탈퇴 페이지 이동
+		@RequestMapping(value = "/WithdrawalPage", method = RequestMethod.POST)
+		public ModelAndView WithdrawalPage(@ModelAttribute BoardBean board) {
+
+			mav.setViewName("studentWithdrawalPage");
+
+			return mav;
+	}
+		// 학생 회원탈퇴 페이지 이동
+		@RequestMapping(value = "/WithdrawalTeacherPage", method = RequestMethod.POST)
+		public ModelAndView WithdrawalTeacherPage(@ModelAttribute BoardBean board) {
+
+			mav.setViewName("teacherWithdrawalPage");
+
+			return mav;
+	}
+
+
 
 }

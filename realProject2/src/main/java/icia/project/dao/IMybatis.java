@@ -312,7 +312,47 @@ public interface IMybatis {
 	// 토론게시판 댓글 삭제
 	public int learningDebateTagDelete(BoardBean board);
 
+	// 선생님 공지사항 글 삭제
+	public int learningTaskCXTDelete(BoardBean board);
 
+	// 과제 수정 
+	public int learningTaskUpdate(BoardBean board);
+
+	// 선생님 자료실 등록
+	public int learningSubmitTaskInsert(BoardBean board);
+
+	// 과제 댓글 내용 출력
+	public ArrayList<BoardBean> learningTaskSelect(BoardBean board);
+
+	// 과목 이름 출력
+	public String subjectNameGet(BoardBean board);
+
+	// 학생 과제 확인
+	public DbBoardBean checkFile(BoardBean board);
+
+	// 회원탈퇴 패스워드 체크
+	public MemberBean checkPwd(MemberBean member);
+	// 학생 과제체출 회원탈퇴
+	public int tasksubmitdelete(MemberBean member);
+	// 학생 오답노트 회원탈퇴
+	public int WRONGANSWERNOTES(MemberBean member);
+	// 학생 토론 태그 탈티
+	public int DEBATETAGdelete(MemberBean member);
+	// 학생 질문 탈퇴
+	public int QUERYdelete(MemberBean member);
+	// 학생 질문 탈퇴
+	public int MESSAGEdelete(MemberBean member);
+	// 학생 학습방 탈퇴
+	public int learningstudentdelete(MemberBean member);
+	// 학생 회원 탈퇴 업데이트
+	public int updateState(MemberBean member);
+
+	// 선생님 비밀번호 체크
+	public MemberBean checkTeacherPwd(MemberBean member);
+
+
+	// 선생님 상태 업데이트
+	public int updateTeacherState(MemberBean member);
 
 }
 

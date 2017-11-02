@@ -300,7 +300,7 @@
 	<select id="learningSBCodeGet" resultType="String"
 		parameterType="board">
 		SELECT
-		LR_SBCODE AS roomSB
+		LR_SBCODE
 		FROM LEARNINGROOM
 		WHERE
 		LR_CODE=#{roomCode}
@@ -949,6 +949,7 @@
 		TO_DATE(#{boardDate},'YYYY-MM-DDHH24:MI:SS')
 	</delete>
 
+
 	<!-- 선생님 아이디 찾기 -->
 	<select id="findPwd" resultType="Integer" parameterType="member">
 		SELECT
@@ -1025,8 +1026,13 @@
 		TA_LRCODE = #{roomCode} AND TA_CODE = #{boardCode}
 	</select>  
 	
+
+
+
+
 	<!-- 과제 게시글 번호 유무 -->
-	<select id="learningTaskBoardCheck" resultType="Integer" parameterType="board">
+	<select id="learningTaskBoardCheck" resultType="Integer"
+		parameterType="board">
 		SELECT
 		COUNT(*)
 		FROM TASK
@@ -1040,6 +1046,7 @@
 		TASK(TA_LRCODE,TA_CODE,TA_TCID,TA_TITLE,TA_CONTENT,TA_DATE)
 		VALUES(#{roomCode},#{boardCode},#{id},#{boardTitle},#{boardContent},SYSDATE)
 	</insert>
+
 	
 	<!-- 토론게시판 댓글 목록 -->
 	<select id="learningDebateTagList" resultType="board" parameterType="board">
@@ -1066,5 +1073,151 @@
 		HH24:MI:SS') AND DTAG_DATE = TO_DATE(#{tagDate},'YYYY-MM-DDHH24:MI:SS') AND DTAG_STRFSTUDENTCODE = #{studentCode}
 	</delete>
 	
+
+
+	<!-- 과제 삭제 -->
+	<delete id="learningTaskCXTDelete" parameterType="board">
+		DELETE
+		FROM TASK
+		WHERE
+		TA_LRCODE = #{roomCode}
+		AND
+		TA_CODE = #{boardCode}
+	</delete>
+
+	<!-- 과제 수정 -->
+	<update id="learningTaskUpdate" parameterType="board">
+		UPDATE TASK
+		SET
+		TA_TITLE=#{boardTitle},TA_CONTENT=#{boardContent}
+		WHERE
+		TA_LRCODE =
+		#{roomCode} AND TA_CODE = #{boardCode}
+	</update>
+
+	<!-- 학생 질문게시판 등록 -->
+	<insert id="learningSubmitTaskInsert" parameterType="board">
+		INSERT INTO
+		TASKSUBMIT(TS_TALRCODE,TS_CODE,TS_TACODE,TS_STRFSTUDENTCODE,TS_ROUTE,TS_DATET)
+		VALUES(#{roomCode},#{fileName},#{boardCode},#{studentCode},#{boardRoute},SYSDATE)
+	</insert>
+
+	<!-- 과제 댓글 날짜 출력 -->
+	<select id="learningTaskSelect" resultType="board"
+		parameterType="board">
+		SELECT
+		TO_CHAR(TS_DATET,'YYYY-MM-DD HH24:MI') AS
+		boardDate,
+		TS_STRFSTUDENTCODE AS studentCode,
+		TS_TACODE AS boardCode,
+		TS_CODE AS tagCode,
+		TS_ROUTE AS boardRoute
+		FROM TASKSUBMIT
+		WHERE
+		TS_TALRCODE= #{roomCode}
+		AND
+		TS_TACODE =#{boardCode}
+		AND
+		TS_STRFSTUDENTCODE = #{studentCode}
+	</select>
+
+	<!-- 과목 이름 출력 -->
+	<select id="subjectNameGet" resultType="String"	parameterType="board">
+		SELECT SB_NAME FROM SUBJECTVIEW WHERE SB_CODE = #{roomSB} GROUP BY SB_CODE,SB_NAME
+	</select>
+	
+	<!-- 학생 과제 자세히 보기 -->
+	<select id="checkFile" resultType="dbBoard"
+		parameterType="board">
+		SELECT
+		TS_ROUTE AS boardRoute
+		FROM TASKSUBMIT
+		WHERE
+		TS_TALRCODE= #{roomCode}
+		AND
+		TS_TACODE = #{boardCode}
+		AND
+		TS_STRFSTUDENTCODE = #{studentCode}
+		AND
+		TS_DATET =TO_CHAR(#{boardDate},'YYYY-MM-DD HH24:MI:SS')
+	</select>
+
+	
+<!-- 회원탈퇴 비밀번호 체크 -->
+	<select id="checkPwd" resultType="member" parameterType="member">
+		SELECT
+		ST_PWD AS pwd
+		FROM STUDENT
+		WHERE 
+		ST_RFSTUDENTCODE = #{studentCode}
+	
+	</select>
+		
+<!-- 회원탈퇴 학생 과제 제출 -->
+	<delete id="tasksubmitdelete" parameterType="member">
+		DELETE TASKSUBMIT 
+		WHERE 
+		TS_STRFSTUDENTCODE =#{studentCode}
+	</delete>
+	<!--오답노트 학생삭제  -->
+	<delete id="WRONGANSWERNOTES" parameterType="member">
+		DELETE WRONGANSWERNOTES 
+		WHERE WAN_STRFSTUDENTCODE =#{studentCode}
+	</delete>
+	<!-- 토론게시판 삭제 -->
+	<delete id="DEBATETAGdelete" parameterType="member">
+		DELETE DEBATETAG 
+		WHERE DTAG_STRFSTUDENTCODE =#{studentCode}
+	</delete>
+	<!-- 질문 삭제 -->
+	<delete id="QUERYdelete" parameterType="member">
+		DELETE QUERY 
+		WHERE QU_STRFSTUDENTCODE =#{studentCode}
+	</delete>
+	<!-- 학생 MESSAGEdelete  삭제 -->
+	<delete id="MESSAGEdelete" parameterType="member">
+		DELETE MESSAGE 
+		WHERE
+		MS_OTHER =#{studentCode}
+		OR
+		MS_ID =#{studentCode}
+	</delete>
+	
+	<!-- 학습방 -->
+	<delete id="learningstudentdelete" parameterType="member">
+		DELETE LEARNINGSTUDENTREGISTER 
+		WHERE LSR_STRFSTUDENTCODE =#{studentCode}
+	</delete>
+	
+	<update id="updateState" parameterType="member">
+		UPDATE STUDENT
+		SET
+		ST_STATECODE = 2
+		WHERE
+		ST_RFSTUDENTCODE =#{studentCode}
+	</update>
+	<!--선생님 회원탈퇴 비빌번호확인 -->
+	<select id="checkTeacherPwd" resultType="member" parameterType="member">
+		SELECT
+		TC_PWD AS pwd
+		FROM TEACHER
+		WHERE 
+		TC_ID = #{id}
+	
+	</select>
+	<!-- 선생님 상태 업데이트 -->
+	<update id="updateTeacherState" parameterType="member">
+		UPDATE TEACHER
+		SET
+		TC_STATECODE = 2
+		WHERE
+		TC_ID = #{id}
+	</update>
+
+		
+
+
+
+
 </mapper>
 

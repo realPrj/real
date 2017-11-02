@@ -69,22 +69,46 @@
 		
 	}
 	
-	function update(a,b){
-		alert(a);
-		alert(b);
+	function update(boardcode,roomcode,title,content){
+		
+		createinput("hidden", "boardCode", boardcode);
+		createinput("hidden", "roomCode", roomcode);
+		createinput("hidden", "boardTitle", title);
+		createinput("hidden", "boardContent", content);
+		
+		var boardCode = document.getElementsByName("boardCode")[0];
+		var roomCode = document.getElementsByName("roomCode")[0];
+		var boardTitle = document.getElementsByName("boardTitle")[0];
+		var boardContent = document.getElementsByName("boardContent")[0];
+		
+		createForm("learningTaskUpdatePageform", "learningTaskUpdatePage", "post");
+		
+	    var form = document.getElementsByName("learningTaskUpdatePageform")[0];   
+	    
+	    form.appendChild(boardCode);
+	    form.appendChild(roomCode);
+	    form.appendChild(boardTitle);
+	    form.appendChild(boardContent);
+
+	    form.submit();
+		
 	}
+	
 	function deleteCXT(boardCode,roomCode){
 		 createinput("hidden", "boardCode", boardCode);
 		 createinput("hidden", "roomCode", roomCode);
 	      createForm("learningTaskCXTDeleteform", "learningTaskCXTDelete", "post");
 	      var form = document.getElementsByName("learningTaskCXTDeleteform")[0];      
 	      var boardCode = document.getElementsByName("boardCode")[0];
+	      var roomCode = document.getElementsByName("roomCode")[0];
 	      
 	      form.appendChild(boardCode);
+	      form.appendChild(roomCode);
 
 
 	      form.submit();
 	}
+	
 </script>
 <body onLoad="${message}">
 	<input type="hidden" value="${identity }" name="identity" />;
@@ -145,7 +169,7 @@
 
 	<!-- 과제 보여주기(제목,내용,날짜 -->
 	<table id='tableText'>
-		
+
 		<tr>
 			<td>제목</td>
 			<td>날짜</td>

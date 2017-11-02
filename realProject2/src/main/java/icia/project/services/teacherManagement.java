@@ -61,7 +61,7 @@ public class teacherManagement extends TransactionExe {
 			break;
 
 		case 5:	// 로그아웃
-			mav = logout();
+			mav = logout(((MemberBean)object));
 			break;
 
 		case 6:	// 나의정보 수정
@@ -73,7 +73,7 @@ public class teacherManagement extends TransactionExe {
 			break;
 
 		case 8:	// 회원탈퇴
-			mav = memberDelete();
+			mav = memberDelete(((MemberBean)object));
 			break;
 
 		case 9:	// 학습방 개설
@@ -105,13 +105,13 @@ public class teacherManagement extends TransactionExe {
 					member.setLogType(1);
 
 					if(dao.tcLogHistory(member) != 0) {	// 로그히스토리
-										
-					// 동적으로 학습방 쏴주기
-					session.setAttribute("tcId", member.getId());
-					session.setAttribute("identity", member.getIdentity());	
-					mav = pm.entrance(1, null);
-					transaction = true;
-					
+
+						// 동적으로 학습방 쏴주기
+						session.setAttribute("tcId", member.getId());
+						session.setAttribute("identity", member.getIdentity());	
+						mav = pm.entrance(1, null);
+						transaction = true;
+
 					}else {
 						mav.setViewName("login");
 						mav.addObject("identity", "1");
@@ -256,7 +256,7 @@ public class teacherManagement extends TransactionExe {
 
 			member = dao.tcIdFind(member);
 
-			if(member.getId() == null) {
+			if(member.getId().equals(null)) {
 
 				page = "login";
 				mav.addObject("identity", "1");
@@ -280,13 +280,13 @@ public class teacherManagement extends TransactionExe {
 		return mav;
 	}
 
-	private ModelAndView logout() {	// 로그아웃
+	private ModelAndView logout(MemberBean member) {	// 로그아웃
 
 		mav = new ModelAndView();
 
 		boolean transaction = false;
 		String page = null;
-		MemberBean member = new MemberBean();
+
 
 		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
 
@@ -320,41 +320,42 @@ public class teacherManagement extends TransactionExe {
 		return mav;
 	}
 
-	private ModelAndView memberDelete() {	// 회원탈퇴
+	private ModelAndView memberDelete(MemberBean member) {	// 회원탈퇴
 
 		mav = new ModelAndView();
 
 		boolean transaction = false;
-		String page = null;
-		MemberBean member = new MemberBean();
+		
+
 
 		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
 
 		try {
 			member.setId((String)session.getAttribute("tcId"));
+			System.out.println(member.getId());
+			if(enc.matches(member.getPwd(),dao.checkTeacherPwd(member).getPwd())) {
+				System.out.println("성공");
+				if(dao.updateTeacherState(member) != 0) {
+					System.out.println("업데이트성공");
+					session.removeAttribute("stCode");
+					session.removeAttribute("identity");
 
-			if(dao.tcmemberDelete(member) != 0) {
+					mav.setViewName("home");
+					mav.addObject("message", "alert('회원탈퇴 되었습니다.')");
+					transaction = true;
+				}
 
-				// 다른 테이블도 delete 시켜줘야함
-
-				session.removeAttribute("tcId");
-				session.removeAttribute("identity");
-				page = "home";
-				mav.addObject("message", "alert('회원탈퇴 되셨습니다.')");
-				transaction = true;
-			}else {
-				session.removeAttribute("tcId");
-				session.removeAttribute("identity");
-				page = "home";
-				mav.addObject("message", "alert('회원탈퇴 실패하셨습니다.')");
-				transaction = true;
 			}
+			else {
 
+				mav.setViewName("teacherMain");
+				mav.addObject("message", "alert('비밀번호가 틀리셨습니다.')");
 
+			}
 		}catch(Exception ex) {
 
 		}finally {
-			mav.setViewName(page);
+			
 			setTransactionResult(transaction);
 		}
 
@@ -487,10 +488,10 @@ public class teacherManagement extends TransactionExe {
 					mav.addObject("identity", "1");
 					page= "home";
 					transaction = true;
-					
+
 				}
 			}else {
-				
+
 				page = "findPWD";
 				mav.addObject("identity", "1");
 				mav.addObject("message", "해당하는 아이디/메일이 없습니다");
@@ -501,12 +502,12 @@ public class teacherManagement extends TransactionExe {
 		}catch(Exception ex) {
 			ex.printStackTrace();
 		}finally {
-			
+
 			setTransactionResult(transaction);
 		}
 		mav.setViewName(page);
-		
-		
+
+
 		return mav;
 	}
 
