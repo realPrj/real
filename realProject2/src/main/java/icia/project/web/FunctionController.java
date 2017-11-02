@@ -620,14 +620,36 @@ public class FunctionController {
 		return mav;
 	}
 	// 학생 과제 파일 확인 팝업창
-		@RequestMapping(value = "/checkFile", method = RequestMethod.GET)
-		public ModelAndView checkFile(@ModelAttribute BoardBean board) {
+	@RequestMapping(value = "/checkFile", method = RequestMethod.GET)
+	public ModelAndView checkFile(@ModelAttribute BoardBean board) {
+
+		mav = new ModelAndView();
+		mav = stm.entrance(16, board);
+
+		return mav;
+	}
+
+	// 학생 회원탈퇴 비밀 번호 확인
+	@RequestMapping(value = "/checkPwd", method = RequestMethod.POST)
+	public ModelAndView checkPwd(@ModelAttribute  MemberBean member) {
+
+		mav = new ModelAndView();
+
+		mav = sm.entrance(8, member);
+
+		return mav;
+	}
+	// 학생 회원탈퇴 비밀 번호 확인
+	@RequestMapping(value = "/teachercheckPwd", method = RequestMethod.POST)
+	public ModelAndView teachercheckPwd(@ModelAttribute  MemberBean member) {
+
+		mav = new ModelAndView();
 		
-			mav = new ModelAndView();
-			mav = stm.entrance(16, board);
-			
-			return mav;
-		}
+		mav = tm.entrance(8, member);
+
+		return mav;
+	}
+
 
 
 

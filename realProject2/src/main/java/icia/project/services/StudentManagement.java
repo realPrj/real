@@ -71,7 +71,7 @@ public class StudentManagement extends TransactionExe {
 			break;
 
 		case 8:	// 회원탈퇴
-			mav = memberDelete();
+			mav = memberDelete(((MemberBean)object));
 			break;
 
 		case 9:	// 학습방 참여 및 조회
@@ -101,16 +101,16 @@ public class StudentManagement extends TransactionExe {
 					member.setLogType(1);
 					member = dao.stCodeGet(member);	// 학생코드 추출
 					if(dao.stLogHistory(member) != 0) {	// 로그히스토리
-					 
-					// 동적으로 학습방 쏴주기
-					
-					session.setAttribute("stCode", member.getStudentCode());
-					session.setAttribute("identity", member.getIdentity());
-				
-					
-					mav = pm.entrance(2, null);
-					transaction = true;
-						}else {
+
+						// 동적으로 학습방 쏴주기
+
+						session.setAttribute("stCode", member.getStudentCode());
+						session.setAttribute("identity", member.getIdentity());
+
+
+						mav = pm.entrance(2, null);
+						transaction = true;
+					}else {
 						page = "login";
 						mav.addObject("identity", "2");
 						mav.addObject("message", "alert('로그인 실패 하셨습니다.')");
@@ -134,13 +134,13 @@ public class StudentManagement extends TransactionExe {
 			}		
 
 		}catch(Exception ex) {
-
+			ex.printStackTrace();
 		}finally {
 
 			setTransactionResult(transaction);
 		}
-		mav.addObject("stCode",member.getStudentCode());
-		
+
+
 		return mav;
 	}
 
@@ -154,12 +154,12 @@ public class StudentManagement extends TransactionExe {
 		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
 
 		try {
-		
+
 
 			if(dao.stIdCheck(member) == 0) {	// 아이디 체크
 				member.setPwd(enc.encode(member.getPwd()));	// 보안비밀번호
 				member.setStateCode("1");
-			
+
 				if(dao.stCodeCheck(member) == 0) {	// 학생코드 유무
 					System.out.println("sdafsadf");
 					if(dao.stJoin(member) != 0) {	// 인설트
@@ -247,7 +247,7 @@ public class StudentManagement extends TransactionExe {
 			System.out.println("여긴 오니44455?");
 			System.out.println(member.getEmail());
 			mb = dao.stIdFind(member);
-			
+
 			if(mb.getId() == null) {
 				page = "login";
 				System.out.println("여긴 오니null?");
@@ -276,7 +276,7 @@ public class StudentManagement extends TransactionExe {
 
 		boolean transaction = false;
 		String page = null;
-	
+
 
 		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
 
@@ -342,43 +342,57 @@ public class StudentManagement extends TransactionExe {
 		return mav;
 	}
 
-	private ModelAndView memberDelete() {	// 회원탈퇴
+	private ModelAndView memberDelete(MemberBean member) {	// 회원탈퇴
 
 		mav = new ModelAndView();
 
 		boolean transaction = false;
-		String page = null;
-		MemberBean member = new MemberBean();
+
+
 
 		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
 
 		try {
 			member.setStudentCode((String)session.getAttribute("stCode"));
-
+			
 			// 회원정보와 로그 기록은 남긴다.(단 회원정보에 상태코드 update 하여 탈퇴로 변경해주자!)
 
-			if(dao.stmemberDelete(member) != 0) {
+			// 다른 테이블도 delete 시켜줘야함
+			if(enc.matches(member.getPwd(),dao.checkPwd(member).getPwd())) {
+		
+				dao.tasksubmitdelete(member);
 
-				// 다른 테이블도 delete 시켜줘야함
+				dao.WRONGANSWERNOTES(member);
+				dao.DEBATETAGdelete(member);
+				dao.QUERYdelete(member);
+				dao.MESSAGEdelete(member);
+				dao.learningstudentdelete(member);
+				if(dao.updateState(member) != 0) {
+	
+					session.removeAttribute("stCode");
+					session.removeAttribute("identity");
 
-				session.removeAttribute("stCode");
-				session.removeAttribute("identity");
-				page = "home";
-				mav.addObject("message", "alert('회원탈퇴 되셨습니다.')");
-				transaction = true;
-			}else {
-				session.removeAttribute("stCode");
-				session.removeAttribute("identity");
-				page = "home";
-				mav.addObject("message", "alert('회원탈퇴 실패하셨습니다.')");
-				transaction = true;
+					mav.setViewName("home");
+					mav.addObject("message", "alert('회원탈퇴 되었습니다.')");
+					transaction = true;
+				}
+
+
+			}	else {
+				
+				mav.setViewName("studentMain");
+				mav.addObject("message", "alert('비밀번호가 틀리셨습니다.')");
+
 			}
 
 
+
+
 		}catch(Exception ex) {
+			ex.printStackTrace();
 
 		}finally {
-			mav.setViewName(page);
+
 			setTransactionResult(transaction);
 		}
 
@@ -426,7 +440,7 @@ public class StudentManagement extends TransactionExe {
 
 		try {
 			room.setStudentCode((String)session.getAttribute("stCode"));
-			
+
 			if(room.getRoomCode() == null) {	// 조회
 
 				if(dao.tclearningRoomCheck(room) != 0) {
@@ -478,7 +492,7 @@ public class StudentManagement extends TransactionExe {
 
 		return mav;
 	}
-	
+
 	private ModelAndView findPwd(MemberBean member) {	// 비밀번호 찾기
 
 		mav = new ModelAndView();
@@ -505,12 +519,12 @@ public class StudentManagement extends TransactionExe {
 					mailSender(member);
 					page= "home";
 					transaction = true;
-					
+
 				}
 			}else {
-				
+
 				page = "findPWD";
-				
+
 				mav.addObject("message", "해당하는 아이디/메일이 없습니다");
 				transaction = true;
 			}
@@ -519,7 +533,7 @@ public class StudentManagement extends TransactionExe {
 		}catch(Exception ex) {
 			ex.printStackTrace();
 		}finally {
-			
+
 			setTransactionResult(transaction);
 		}
 		mav.setViewName(page);

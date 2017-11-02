@@ -641,6 +641,23 @@ public class HomeController  {
 
 		return mav;
 	}
+		// 학생 회원탈퇴 페이지 이동
+		@RequestMapping(value = "/WithdrawalPage", method = RequestMethod.POST)
+		public ModelAndView WithdrawalPage(@ModelAttribute BoardBean board) {
+
+			mav.setViewName("studentWithdrawalPage");
+
+			return mav;
+	}
+		// 학생 회원탈퇴 페이지 이동
+		@RequestMapping(value = "/WithdrawalTeacherPage", method = RequestMethod.POST)
+		public ModelAndView WithdrawalTeacherPage(@ModelAttribute BoardBean board) {
+
+			mav.setViewName("teacherWithdrawalPage");
+
+			return mav;
+	}
+
 
 
 }

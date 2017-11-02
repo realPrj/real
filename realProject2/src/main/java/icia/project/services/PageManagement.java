@@ -124,7 +124,7 @@ public class PageManagement extends TransactionExe {
 
 		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
 
-		try {
+		try {System.out.println("여기 왓어염");
 			room = new LearningRoomBean();
 			room.setStudentCode((String)session.getAttribute("stCode"));
 			

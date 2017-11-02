@@ -1119,8 +1119,78 @@
 	</select>
 
 	
+<!-- 회원탈퇴 비밀번호 체크 -->
+	<select id="checkPwd" resultType="member" parameterType="member">
+		SELECT
+		ST_PWD AS pwd
+		FROM STUDENT
+		WHERE 
+		ST_RFSTUDENTCODE = #{studentCode}
+	
+	</select>
+		
+<!-- 회원탈퇴 학생 과제 제출 -->
+	<delete id="tasksubmitdelete" parameterType="member">
+		DELETE TASKSUBMIT 
+		WHERE 
+		TS_STRFSTUDENTCODE =#{studentCode}
+	</delete>
+	<!--오답노트 학생삭제  -->
+	<delete id="WRONGANSWERNOTES" parameterType="member">
+		DELETE WRONGANSWERNOTES 
+		WHERE WAN_STRFSTUDENTCODE =#{studentCode}
+	</delete>
+	<!-- 토론게시판 삭제 -->
+	<delete id="DEBATETAGdelete" parameterType="member">
+		DELETE DEBATETAG 
+		WHERE DTAG_STRFSTUDENTCODE =#{studentCode}
+	</delete>
+	<!-- 질문 삭제 -->
+	<delete id="QUERYdelete" parameterType="member">
+		DELETE QUERY 
+		WHERE QU_STRFSTUDENTCODE =#{studentCode}
+	</delete>
+	<!-- 학생 MESSAGEdelete  삭제 -->
+	<delete id="MESSAGEdelete" parameterType="member">
+		DELETE MESSAGE 
+		WHERE
+		MS_OTHER =#{studentCode}
+		OR
+		MS_ID =#{studentCode}
+	</delete>
+	
+	<!-- 학습방 -->
+	<delete id="learningstudentdelete" parameterType="member">
+		DELETE LEARNINGSTUDENTREGISTER 
+		WHERE LSR_STRFSTUDENTCODE =#{studentCode}
+	</delete>
+	
+	<update id="updateState" parameterType="member">
+		UPDATE STUDENT
+		SET
+		ST_STATECODE = 2
+		WHERE
+		ST_RFSTUDENTCODE =#{studentCode}
+	</update>
+	<!--선생님 회원탈퇴 비빌번호확인 -->
+	<select id="checkTeacherPwd" resultType="member" parameterType="member">
+		SELECT
+		TC_PWD AS pwd
+		FROM TEACHER
+		WHERE 
+		TC_ID = #{id}
+	
+	</select>
+	<!-- 선생님 상태 업데이트 -->
+	<update id="updateTeacherState" parameterType="member">
+		UPDATE TEACHER
+		SET
+		TC_STATECODE = 2
+		WHERE
+		TC_ID = #{id}
+	</update>
 
-
+		
 
 
 
