@@ -139,9 +139,9 @@ public class learningTeacherMM extends TransactionExe {
 			mav = teacherLearningSTadmin((BoardBean)object[0]);
 			break;
 
-		case 26:   // 선생님 학생 전체보기 자세히 보기
+		/*case 26:   // 선생님 학생 전체보기 자세히 보기
 			mav = teacherLearningSTadminCXT((BoardBean)object[0]);
-			break;
+			break;*/
 
 		case 27:   // 과제 페이지
 			mav = learningTaskPage((BoardBean)object[0]);
@@ -1924,14 +1924,21 @@ public class learningTeacherMM extends TransactionExe {
 			;
 			sb.append("<table>");
 			sb.append("<tr>");
-			sb.append("<td>과목</td>");
 			sb.append("<td>학년/반/번호</td>");
+			sb.append("<td>아이디</td>");
+			sb.append("<td>이름</td>");
+			sb.append("<td>이메일</td>");
+			sb.append("<td>핸드폰 번호</td>");
 			sb.append("</tr>");
 			for(int i=0; i<ar.size(); i++) {
 				sb.append("<tr>");   
-				sb.append("<td>" + ar.get(i).getRoomCode() + "</td>");
 				sb.append("<td>" + ar.get(i).getStudentCode() + "</td>");
-				sb.append("<td>" + "<input type=\"button\" value=\"학생 자세히 보기\" onClick=\"stadmin('"+ar.get(i).getStudentCode() +"')\"/>" + "</td>");
+				sb.append("<td>" + ar.get(i).getId() + "</td>");
+				sb.append("<td>" + ar.get(i).getStudentName() + "</td>");
+				sb.append("<td>" + ar.get(i).getEmail() + "</td>");
+				sb.append("<td>" + ar.get(i).getPhone() + "</td>");
+				sb.append("<td>" + "<input type=\"button\" value=\"메일 발송\" onClick=\"sendMail('"+ ar.get(0).getEmail() +"')\"/>" + "</td>");
+				sb.append("<td><input type=\"button\" value=\"쪽지보내기\" onClick=\"sendMessage()\" /></td>");
 				sb.append("</tr>");
 			}
 			sb.append("</table>");
@@ -1948,7 +1955,7 @@ public class learningTeacherMM extends TransactionExe {
 	}
 
 
-	private ModelAndView teacherLearningSTadminCXT(BoardBean board) { // 선생님 학생보기 자세히 보기
+/*	private ModelAndView teacherLearningSTadminCXT(BoardBean board) { // 선생님 학생보기 자세히 보기
 
 		mav = new ModelAndView();
 		boolean transaction = false;
@@ -1993,7 +2000,7 @@ public class learningTeacherMM extends TransactionExe {
 		}
 
 		return mav;
-	}
+	}*/
 
 	private ModelAndView learningQuestionTagDelete(BoardBean board) { // 질문 댓글 삭제
 

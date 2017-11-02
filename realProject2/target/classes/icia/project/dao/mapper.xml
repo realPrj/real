@@ -919,13 +919,7 @@
 	<!-- 선생님 학생보기 -->
 	<select id="teacherLearningSTadmin" resultType="board"
 		parameterType="board">
-		SELECT
-		LSR_LRCODE AS roomCode,
-		LSR_STRFSTUDENTCODE AS
-		studentCode
-		FROM LEARNINGSTUDENTREGISTER
-		WHERE
-		LSR_LRCODE =#{roomCode}
+		SELECT * FROM LEARNINGSTUDENTLIST WHERE roomCode = #{roomCode}
 	</select>
 
 	<!-- 선생님자세히 학생보기 -->

@@ -484,7 +484,7 @@ public class FunctionController {
 		mav = ltm.entrance(2, board);
 		return mav;
 	}
-	// 선생님 학생 자세히보기
+/*	// 선생님 학생 자세히보기
 	@RequestMapping(value = "/teacherLearningSTadminCXT", method = RequestMethod.POST)
 	public ModelAndView teacherLearningSTadminCXT(@ModelAttribute BoardBean board)throws Exception{      
 
@@ -492,7 +492,7 @@ public class FunctionController {
 
 		mav.setViewName("teacherLearningSTadminCXT");
 		return mav;
-	}
+	}*/
 
 	/** 자바 메일 발송 * @throws MessagingException * @throws AddressException **/
 	@RequestMapping(value = "/mailSender", method=RequestMethod.POST) 
