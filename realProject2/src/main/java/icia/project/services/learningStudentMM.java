@@ -118,6 +118,17 @@ public class learningStudentMM extends TransactionExe {
 		case 33 : // 학생 토론게시판 내용확인
 			mav = stlearningDebateCTX((BoardBean)object[0]);
 			break;
+			
+		case 34 : // 학생 토론게시판 댓글등록
+			mav = learningDebateTagInsert((BoardBean)object[0]);
+			break;
+			
+		case 35 : // 학생 토론게시판 댓글삭제
+			mav = learningDebateTagDelete((BoardBean)object[0]);
+			break;
+			
+			
+
 
 
 
@@ -896,10 +907,10 @@ public class learningStudentMM extends TransactionExe {
 		return sb.toString();
 	}
 	
-	private ModelAndView stlearningDebateCTX(BoardBean board) { // 선생님 토론게시판 내용확인
+	private ModelAndView stlearningDebateCTX(BoardBean board) { // 토론게시판 내용확인
 		mav = new ModelAndView();
 		boolean transaction = false;
-
+		ArrayList<BoardBean> ar = null;
 		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
 
 		try {
@@ -907,14 +918,13 @@ public class learningStudentMM extends TransactionExe {
 			session.getAttribute("roomCode");
 
 			board.setRoomCode((String)session.getAttribute("roomCode"));
-
-			System.out.println("토론게시판 신분:"+session.getAttribute("identity"));
 			board = dao.tclearningDebateCTX(board);
 			board.setBoardCode((String)session.getAttribute("identity"));
-			System.out.println("보드한번더더더더더:"+board.getBoardCode());
-
 			mav.addObject("content", getStlearningDebateCTX(board));
-
+			
+			ar = dao.learningDebateTagList(board);
+			mav.addObject("debateTagList", getlearningDebateTagList(ar,board));
+			
 			transaction = true;
 
 		}catch(Exception ex){
@@ -925,10 +935,37 @@ public class learningStudentMM extends TransactionExe {
 		}
 		return mav;
 	}
+	
+	private String getlearningDebateTagList(ArrayList<BoardBean> ar, BoardBean board) throws Exception { // 토론게시판 댓글 리스트
+		StringBuffer sb = new StringBuffer();
+		
+		sb.append("<input type=\"text\" name=\"tagContent\" placeholder=\"댓글을 입력하세요\" />");
+		sb.append("<input type=\"button\" value=\"댓글등록\" "
+				+ "onClick=\"debateTagInsert('"+ board.getBoardTitle() +"','"+ board.getBoardDate() +"','"+ board.getBoardId() +"')\" />");
+		sb.append("<table>");
+		sb.append("<tr>");
+		sb.append("<td> 작성자 </td>");
+		sb.append("<td> 내용 </td>");
+		sb.append("<td> 날짜 </td>");
+		sb.append("</tr>");
+		for(int i=0; i < ar.size(); i++) {
+			sb.append("<tr>");
+			sb.append("<td>" + ar.get(i).getStudentName() + "</td>");
+			sb.append("<td>" + ar.get(i).getTagContent() + "</td>");
+			sb.append("<td>" + ar.get(i).getTagDate() + "</td>");
+			if(session.getAttribute("stCode").equals(ar.get(i).getStudentCode())) {
+				sb.append("<td><input type=\"button\" value=\"수정\" onClick=\"TagUpdate()\"/></td>");
+				sb.append("<td><input type=\"button\" value=\"삭제\" onClick=\"TagDelete('"+ ar.get(i).getTagDate() +"','"+ board.getBoardDate() +"')\"/></td>");
+			}
+			sb.append("</tr>");
+		}
+		sb.append("</table>");
+		
+		return sb.toString();
+	}
 
 	private String getStlearningDebateCTX(BoardBean board) { // 토론게시판 내용 끌고오기
 		StringBuffer sb = new StringBuffer();
-		System.out.println("신분한번터 : " + board.getBoardCode());
 		sb.append("<table>");
 		sb.append("<tr>");
 		sb.append("<td>제목 : " + board.getBoardTitle() + "</td>");
@@ -944,6 +981,54 @@ public class learningStudentMM extends TransactionExe {
 		sb.append("</tr>");
 		sb.append("</table>");
 		sb.append("<input type=\"button\" value=\"목록\" onClick=\"menu('5','"+ board.getBoardCode() +"')\"/>");
+		sb.append("</br>");
 		return sb.toString();
+	}
+	
+	private ModelAndView learningDebateTagInsert(BoardBean board) { // 토론게시판 댓글 등록
+		System.out.println("토론게시판 댓글등록 서비스");
+		mav = new ModelAndView();
+		boolean transaction = false;
+
+		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
+
+		try {
+			board.setRoomCode((String)session.getAttribute("roomCode"));
+			board.setStudentCode((String)session.getAttribute("stCode"));
+			
+			if(dao.learningDebateTagInsert(board) != 0) {
+				System.out.println("토론게시판 댓글쓰기 성공");
+				transaction = true;
+			}
+		}catch(Exception ex){
+
+		}finally {
+			setTransactionResult(transaction);
+		}
+
+		return mav;
+	}
+	
+	private ModelAndView learningDebateTagDelete(BoardBean board) { // 토론게시판 댓글 삭제
+		mav = new ModelAndView();
+		boolean transaction = false;
+
+		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
+
+		try {
+			board.setRoomCode((String)session.getAttribute("roomCode"));
+			board.setStudentCode((String)session.getAttribute("stCode"));
+			
+			if(dao.learningDebateTagDelete(board) != 0) {
+				System.out.println("토론게시판 댓글삭제 성공");
+				transaction = true;
+			}
+		}catch(Exception ex){
+
+		}finally {
+			setTransactionResult(transaction);
+		}
+
+		return mav;
 	}
 }

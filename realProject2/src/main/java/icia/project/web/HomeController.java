@@ -537,20 +537,6 @@ public class HomeController  {
 
 		return mav;
 	}
-
-
-	// 토론게시판 댓글 목록
-	@RequestMapping(value = "/learningDebateTagList", method = RequestMethod.POST)
-	public @ResponseBody BoardBean learningDebateTagList(@ModelAttribute BoardBean board) {
-
-		BoardBean b;
-
-		b = ltmm.learningDebateTagList(board);
-
-
-
-		return b;
-	}
 	
 	// 과제 페이지
 	@RequestMapping(value = "/learningTaskPage", method = RequestMethod.POST)

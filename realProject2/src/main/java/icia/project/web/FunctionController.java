@@ -259,7 +259,7 @@ public class FunctionController {
 
 		mav = new ModelAndView();		
 		ltm.entrance(28, board);
-		
+
 		mav = ltm.entrance(27, board);
 
 		return mav;
@@ -574,25 +574,42 @@ public class FunctionController {
 		}else {
 			mav = sm.entrance(10, member);
 		}
-		
+
 
 		return mav;
 	}
-	
+
 	// 비밀번호찾기 페이지
 	@RequestMapping(value = "/learningTaskInsertform", method = RequestMethod.POST)
 	public ModelAndView learningTaskInsertform(@ModelAttribute BoardBean board) {
-		
+
 		mav = ltm.entrance(28, board);
 
 		return mav;
 	}
 
 
+	// 토론게시판 댓글 등록
+	@RequestMapping(value = "/DebateTagInsert", method = RequestMethod.POST)
+	public ModelAndView learningDebateTagInsert(@ModelAttribute BoardBean board) {
+		stm.entrance(34, board);
+
+		mav = stm.entrance(33, board);
+		return mav;
+	}
+
+	// 토론게시판 댓글 등록
+	@RequestMapping(value = "/DebateTagDelete", method = RequestMethod.POST)
+	public ModelAndView learningDebateTagDelete(@ModelAttribute BoardBean board) {
+		System.out.println("댓글삭제 컨트롤러 : " + board.getTagDate());
+		stm.entrance(35, board);
+
+		mav = stm.entrance(33, board);
+		return mav;
+	}
 
 
 
 
-	
 
 }
