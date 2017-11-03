@@ -151,8 +151,8 @@
 	      form.submit();
 	   }
 
-	function checkFile(boardTitle, boardDate, roomCode, boardCode) {
-		alert("버튼은 눌리니?");
+	function checkFile(roomCode, boardCode) {
+		alert(roomCode);
 		createinput("hidden", "boardTitle", boardTitle);
 		createinput("hidden", "boardDate", boardDate);
 		createinput("hidden", "roomCode", roomCode);

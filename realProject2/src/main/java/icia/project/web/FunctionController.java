@@ -610,10 +610,11 @@ public class FunctionController {
 		return mav;
 	}
 
-
-	// 과제 게시판 댓글쓷기
+	// 과제 게시판 댓글쓰기
 	@RequestMapping(value = "/learningSubmitTaskInsert", method = RequestMethod.POST)
-	public ModelAndView learningSubmitTaskInsert(@ModelAttribute BoardBean board,MultipartHttpServletRequest mtfRequest)throws Exception{
+	public ModelAndView learningSubmitTaskInsert(@ModelAttribute BoardBean board,MultipartHttpServletRequest mtfRequest)throws Exception{      
+
+
 		stm.entrance(15, board, mtfRequest);
 
 		mav = stm.entrance(14, board);
@@ -671,9 +672,6 @@ public class FunctionController {
 
 		return mav;
 	}
-
-
-
 
 
 
