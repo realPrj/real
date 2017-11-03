@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -424,8 +425,8 @@ public class FunctionController {
 	
 	// 학생 질문게시판 글쓰기
 	@RequestMapping(value = "/QuestionInsert123", method = RequestMethod.POST)
-	public ModelAndView QuestionInsert123(@ModelAttribute BoardBean board, @RequestParam MultipartHttpServletRequest mtfRequest)throws Exception{
-		
+	public @ResponseBody ModelAndView QuestionInsert123(@ModelAttribute BoardBean board, MultipartHttpServletRequest mtfRequest)throws Exception{
+		System.out.println("sdf");
 		System.out.println("learningQuestionInsert");
 		board.setId((String)session.getAttribute("id"));
 		System.out.println(mtfRequest.getParameter("multiple"));
