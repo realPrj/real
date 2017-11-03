@@ -346,15 +346,6 @@
 			</div>
 		</div>
 	</div>
-	<div>
-		<input type="button" value="질문게시판" onClick="menu('4')" /> <input
-			type="button" value="질문게시판 글쓰러가기"
-			onClick="eventClick('dataform','questionInsert','post')" />
-	</div>
-
-
-
-
 
 
 	
