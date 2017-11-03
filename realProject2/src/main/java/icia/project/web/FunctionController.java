@@ -2,6 +2,7 @@ package icia.project.web;
 
 import java.util.Properties;
 
+
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Session;
@@ -15,6 +16,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -44,7 +47,7 @@ public class FunctionController {
 	@Autowired
 	private learningTeacherMM ltm;
 	@Autowired
-	private learningStudentMM stm;
+	private learningStudentMM lsm;
 
 	private ModelAndView mav;
 
@@ -375,6 +378,11 @@ public class FunctionController {
 
 	// 자료실 삭제
 	@RequestMapping(value = "/learningDataDelete", method = RequestMethod.POST)
+	
+	
+	
+	
+	
 	public ModelAndView learningDataDelete(@ModelAttribute BoardBean board){      
 
 		ltm.entrance(15, board);
@@ -414,15 +422,17 @@ public class FunctionController {
 
 		return mav;
 	}
-
+	
 	// 학생 질문게시판 글쓰기
-	@RequestMapping(value = "/learningQuestionInsert", method = RequestMethod.POST)
-	public ModelAndView learningQuestionInsert(@ModelAttribute BoardBean board,MultipartHttpServletRequest mtfRequest)throws Exception{      
-
+	@RequestMapping(value = "/QuestionInsert123", method = RequestMethod.POST)
+	public @ResponseBody ModelAndView QuestionInsert123(@ModelAttribute BoardBean board, MultipartHttpServletRequest mtfRequest)throws Exception{
+		System.out.println("sdf");
+		System.out.println("learningQuestionInsert");
 		board.setId((String)session.getAttribute("id"));
-
-		mav = stm.entrance(5, board, mtfRequest);
-
+		System.out.println(mtfRequest.getParameter("multiple"));
+		System.out.println("여기 옴??");
+		mav = lsm.entrance(5, board, mtfRequest);
+		
 		return mav;
 	}
 
@@ -430,7 +440,7 @@ public class FunctionController {
 	@RequestMapping(value = "/questionBoardCXT", method = RequestMethod.POST)
 	public ModelAndView questionBoardCXT(@ModelAttribute BoardBean board)throws Exception{      
 
-		mav = stm.entrance(6, board);
+		mav = lsm.entrance(6, board);
 
 		return mav;
 	}
@@ -439,9 +449,9 @@ public class FunctionController {
 	@RequestMapping(value = "/learningQuestionDelete", method = RequestMethod.POST)
 	public ModelAndView learningQuestionDelete(@ModelAttribute BoardBean board){      
 
-		stm.entrance(12, board);
+		lsm.entrance(12, board);
 
-		mav = stm.entrance(4, board);
+		mav = lsm.entrance(4, board);
 
 		return mav;
 	}
@@ -449,9 +459,9 @@ public class FunctionController {
 	// 질문게시판 업데이트
 	@RequestMapping(value = "/learningQuUpdate", method = RequestMethod.POST)
 	public ModelAndView learningQuUpdate(@ModelAttribute BoardBean board){     
-		stm.entrance(13, board);
+		lsm.entrance(13, board);
 
-		mav = stm.entrance(4, board); // 다시 메뉴로 가기
+		mav = lsm.entrance(4, board); // 다시 메뉴로 가기
 
 		return mav;
 	}
@@ -610,13 +620,14 @@ public class FunctionController {
 		return mav;
 	}
 
-
-	// 과제 게시판 댓글쓷기
+	// 과제 게시판 댓글쓰기
 	@RequestMapping(value = "/learningSubmitTaskInsert", method = RequestMethod.POST)
-	public ModelAndView learningSubmitTaskInsert(@ModelAttribute BoardBean board,MultipartHttpServletRequest mtfRequest)throws Exception{
-		stm.entrance(15, board, mtfRequest);
+	public ModelAndView learningSubmitTaskInsert(@ModelAttribute BoardBean board,MultipartHttpServletRequest mtfRequest)throws Exception{      
 
-		mav = stm.entrance(14, board);
+
+		lsm.entrance(15, board, mtfRequest);
+
+		mav = lsm.entrance(14, board);
 
 		return mav;
 	}
@@ -624,9 +635,9 @@ public class FunctionController {
 	// 토론게시판 댓글 등록
 	@RequestMapping(value = "/DebateTagInsert", method = RequestMethod.POST)
 	public ModelAndView learningDebateTagInsert(@ModelAttribute BoardBean board) {
-		stm.entrance(34, board);
+		lsm.entrance(34, board);
 
-		mav = stm.entrance(33, board);
+		mav = lsm.entrance(33, board);
 		return mav;
 	}
 
@@ -634,20 +645,9 @@ public class FunctionController {
 	@RequestMapping(value = "/DebateTagDelete", method = RequestMethod.POST)
 	public ModelAndView learningDebateTagDelete(@ModelAttribute BoardBean board) {
 		System.out.println("댓글삭제 컨트롤러 : " + board.getTagDate());
-		stm.entrance(35, board);
+		lsm.entrance(35, board);
 
-		mav = stm.entrance(33, board);
-		return mav;
-	}
-
-		
-	// 학생 과제 파일 확인 팝업창
-	@RequestMapping(value = "/checkFile", method = RequestMethod.GET)
-	public ModelAndView checkFile(@ModelAttribute BoardBean board) {
-
-		mav = new ModelAndView();
-		mav = stm.entrance(16, board);
-
+		mav = lsm.entrance(33, board);
 		return mav;
 	}
 
@@ -671,9 +671,6 @@ public class FunctionController {
 
 		return mav;
 	}
-
-
-
 
 
 

@@ -107,6 +107,7 @@
 		ORDER BY IOH_DATE
 		DESC
 	</select>
+	
 
 	<!-- 선생님 나의정보 추출 -->
 	<select id="tcInformationGet" resultType="member" parameterType="member">
@@ -1132,8 +1133,6 @@
 		TS_TACODE = #{boardCode}
 		AND
 		TS_STRFSTUDENTCODE = #{studentCode}
-		AND
-		TS_DATET =TO_CHAR(#{boardDate},'YYYY-MM-DD HH24:MI:SS')
 	</select>
 
 	

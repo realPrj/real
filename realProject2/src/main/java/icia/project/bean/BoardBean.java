@@ -2,6 +2,7 @@ package icia.project.bean;
 
 
 import org.apache.ibatis.type.Alias;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 
 @Alias("board")
@@ -47,8 +48,19 @@ public class BoardBean {	// 게시판 bean
 
 	private String email;   // 이메일   
 	private String phone;   // 폰번호
+	
+	MultipartHttpServletRequest multiple;
+	
+	
 
 
+	public MultipartHttpServletRequest getMultiple() {
+		return multiple;
+	}
+
+	public void setMultiple(MultipartHttpServletRequest multiple) {
+		this.multiple = multiple;
+	}
 
 	public String getTagCode() {
 		return tagCode;

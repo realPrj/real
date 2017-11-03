@@ -36,8 +36,8 @@ public class HomeController  {
 	@Autowired
 	private learningStudentMM lsmm;
 	@Autowired
-	private StudentManagement stmm;
-
+	private StudentManagement stm;
+	
 	@Autowired
 	private teacherManagement ttmm;
 	private ModelAndView mav;
@@ -258,7 +258,7 @@ public class HomeController  {
 
 		switch(code) {
 		case 1 : 
-
+			mav.setViewName("studentLearningMain");
 			break;
 		case 2 : 
 
@@ -309,7 +309,7 @@ public class HomeController  {
 			break;
 
 		case 14 : //로그아웃
-			mav = stmm.entrance(5, member);
+			mav = stm.entrance(5, member);
 			break;
 		}
 
@@ -471,7 +471,6 @@ public class HomeController  {
 	// 질문게시판 글 페이지 보내기
 	@RequestMapping(value = "/questionInsert", method = RequestMethod.POST)
 	public ModelAndView questionInsertPage(@ModelAttribute BoardBean board) {
-
 		mav = new ModelAndView();
 		mav.setViewName("learningQuestionInsert");
 
@@ -485,6 +484,8 @@ public class HomeController  {
 
 		mav.addObject("boardTitle",board.getBoardTitle());
 		mav.addObject("boardDate",board.getBoardDate());
+		
+		
 		mav.addObject("boardId",board.getBoardId());
 		mav.addObject("boardContent",board.getBoardContent());
 		mav.addObject("roomCode",board.getRoomCode());
@@ -651,6 +652,15 @@ public class HomeController  {
 
 		return mav;
 	}
+		
+		// 학생 과제 파일 확인 팝업창
+		@RequestMapping(value = "/checkFile", method = RequestMethod.GET)
+		public ModelAndView checkFile(@ModelAttribute BoardBean board) {
+
+			mav = lsmm.entrance(16, board);
+
+			return mav;
+		}
 
 
 

@@ -449,7 +449,7 @@ public class StudentManagement extends TransactionExe {
 					al = dao.learningGet(room);
 
 					for(int i=0; i < al.size(); i++) {
-						sb.append("<input type='button' value='"+al.get(i).getRoomName()+"' "
+						sb.append("<input type='button' class='btn' value='"+al.get(i).getRoomName()+"' "
 								+ "onClick=learningJoin('"+al.get(i).getRoomCode()+"') />");
 					}
 

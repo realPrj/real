@@ -3,8 +3,43 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
+<meta charset="utf-8" />
+<link rel="apple-touch-icon" sizes="76x76"
+	href="assets/img/apple-icon.png">
+<link rel="icon" type="image/png" sizes="96x96"
+	href="assets/img/favicon.png">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
 <title>공조 || 학습참여</title>
+<meta
+	content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0'
+	name='viewport' />
+<meta name="viewport" content="width=device-width" />
+
+
+<!-- Bootstrap core CSS     -->
+<link href="assets/css/bootstrap.min.css" rel="stylesheet" />
+
+<!-- Animation library for notifications   -->
+<link href="assets/css/animate.min.css" rel="stylesheet" />
+
+<!--  Paper Dashboard core CSS    -->
+<link href="assets/css/paper-dashboard.css" rel="stylesheet" />
+
+
+<!--  CSS for Demo Purpose, don't include it in your project     -->
+<link href="assets/css/demo.css" rel="stylesheet" />
+<link rel="stylesheet" href="assets/css/login.css" type="text/css">
+
+
+<!--  Fonts and icons     -->
+<link
+	href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css"
+	rel="stylesheet">
+<link href='https://fonts.googleapis.com/css?family=Muli:400,300'
+	rel='stylesheet' type='text/css'>
+<link href="assets/css/themify-icons.css" rel="stylesheet">
+
 <script>
 //form 생성
 function createForm(formname,formaction,formmethod){
@@ -62,16 +97,59 @@ function learningJoin(ivalue){
 }
 
 </script>
+<style>
+body {
+	background-color: white;
+	color: #353535;
+	text-align: center;
+	font-size: 15px;
+}
+</style>
 <body onLoad="${message}">
-<input type="button" value="로그아웃" onClick="" />
-<input type="button" value="메인으로" onClick="" />
-<table>
-<tr>
-<td>방이름</td>
-<td><input type="text" name="id" value="${id }" placeholder="선생님 아이디를 쓰세요" /></td>
-<td><input type="button" value="조회" onClick="inquiry('learningJoinform','learningJoin','post')" /></td>
-</tr>
-</table>
+
+
+<div id="xy"></div>
+
+	<br />
+	<img src="assets/img/gong_logo.png" alt="공조" width="200*150">
+	<br />
+
+	<!-- 로그아웃,나의프로필 버튼 -->
+	<br />
+	<br />
+	<button type="button" class="btn">로그아웃</button>
+	<button type="button" class="btn">메인으로</button>
+	<br />
+	<br />
+
+
+	<br />
+	<br />
+	<!-- 과목참여 -->
+
+			<div class="container">
+				<h3 class="container">학습방 참여</h3>
+				<br /> <br />
+				
+				<p>담임 선생님 아이디를 입력하세요</p>
+				<form>
+				<!-- 담임아이디검색창 -->
+					<div class="input-group input-group-lg">
+						<input type="text" class="form-control" placeholder="Search"  name="id" value="${id }">
+						<div class="input-group-btn">
+							<div class="btn btn-default">
+						
+							</div>
+						</div>
+					</div>
+					<button type="button" class="btn"  onClick="inquiry('learningJoinform','learningJoin','post')" >조회</button>
+				</form>
+				<br>
+			
+	
+		</div>
+
+
 
 <div id="content">
 ${content }
