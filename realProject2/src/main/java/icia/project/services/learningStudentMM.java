@@ -783,7 +783,7 @@ public class learningStudentMM extends TransactionExe {
 
 			taglist = dao.learningQuestionTagCXT(board);
 
-			sb.append("<table>");
+			sb.append("<table class=\"table table-hover\">");
 			sb.append("<tr>");
 			sb.append("<td>내용</td>");
 			sb.append("<td>날짜</td>");

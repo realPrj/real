@@ -266,13 +266,7 @@
                         </div>
                     </div>
                     </div>
-   <div>
-   <div>
-      <input type="button" value="질문하기" onClick="eventClick('dataform','questionInsert','post')" /> 
-   </div>
- 
-      ${datalist }
-   
+  
 
 </body>
 </html>
