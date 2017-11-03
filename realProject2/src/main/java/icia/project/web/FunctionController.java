@@ -599,27 +599,27 @@ public class FunctionController {
 	// 과제 수정
 	@RequestMapping(value = "/learningTaskUpdate", method = RequestMethod.POST)
 	public ModelAndView learningTaskUpdate(@ModelAttribute BoardBean board) {
-		
+
 		ltm.entrance(29, board);
 		mav = ltm.entrance(27, board);
 
 		return mav;
 	}
-	
-		// 과제 게시판 댓글쓷기
-		@RequestMapping(value = "/learningSubmitTaskInsert", method = RequestMethod.POST)
-		public ModelAndView learningSubmitTaskInsert(@ModelAttribute BoardBean board,MultipartHttpServletRequest mtfRequest)throws Exception{      
-			
-			
-			stm.entrance(15, board, mtfRequest);
 
-			mav = stm.entrance(14, board);
-
-			return mav;
-		}
+	// 과제 게시판 댓글쓰기
+	@RequestMapping(value = "/learningSubmitTaskInsert", method = RequestMethod.POST)
+	public ModelAndView learningSubmitTaskInsert(@ModelAttribute BoardBean board,MultipartHttpServletRequest mtfRequest)throws Exception{      
 
 
-	
+		stm.entrance(15, board, mtfRequest);
+
+		mav = stm.entrance(14, board);
+
+		return mav;
+	}
+
+
+
 
 
 }
