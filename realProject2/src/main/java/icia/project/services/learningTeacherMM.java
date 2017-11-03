@@ -139,9 +139,9 @@ public class learningTeacherMM extends TransactionExe {
 			mav = teacherLearningSTadmin((BoardBean)object[0]);
 			break;
 
-		case 26:   // 선생님 학생 전체보기 자세히 보기
+		/*case 26:   // 선생님 학생 전체보기 자세히 보기
 			mav = teacherLearningSTadminCXT((BoardBean)object[0]);
-			break;
+			break;*/
 
 		case 27:   // 과제 페이지
 			mav = learningTaskPage((BoardBean)object[0]);
@@ -193,9 +193,6 @@ public class learningTeacherMM extends TransactionExe {
 			mav = tclearningDebateDelete((BoardBean)object[0]);
 			break;
 
-		/*case 39 : // 선생님 토론게시판 댓글 목록
-			learningDebateTagList((BoardBean)object[0]);
-			break;*/
 			
 			
 		case 45:   // test
@@ -209,6 +206,7 @@ public class learningTeacherMM extends TransactionExe {
 		break;
 			
 			
+
 		}
 
 		return mav;
@@ -1608,9 +1606,10 @@ public class learningTeacherMM extends TransactionExe {
 		return sb.toString();
 	}
 
-	private ModelAndView tclearningDebateCTX(BoardBean board) { // 선생님 토론게시판 내용확인
+	private ModelAndView tclearningDebateCTX(BoardBean board) { // 선생님 토론게시판 내용확인, 댓글 목록
 		mav = new ModelAndView();
 		boolean transaction = false;
+		ArrayList<BoardBean> ar = null;
 
 		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
 
@@ -1620,13 +1619,12 @@ public class learningTeacherMM extends TransactionExe {
 
 			board.setRoomCode((String)session.getAttribute("roomCode"));
 
-			System.out.println("토론게시판 신분:"+session.getAttribute("identity"));
 			board = dao.tclearningDebateCTX(board);
 			board.setBoardCode((String)session.getAttribute("identity"));
-			System.out.println("보드한번더더더더더:"+board.getBoardCode());
-
 			mav.addObject("content", getTclearningDebateCTX(board));
-
+			
+			ar = dao.learningDebateTagList(board);
+			mav.addObject("debateTagList", getlearningDebateTagList(ar));
 			transaction = true;
 
 		}catch(Exception ex){
@@ -1636,6 +1634,27 @@ public class learningTeacherMM extends TransactionExe {
 			setTransactionResult(transaction);
 		}
 		return mav;
+	}
+	
+	private String getlearningDebateTagList(ArrayList<BoardBean> ar) { // 토론게시판 댓글 리스트
+		StringBuffer sb = new StringBuffer();
+		
+		sb.append("<table>");
+		sb.append("<tr>");
+		sb.append("<td> 작성자 </td>");
+		sb.append("<td> 내용 </td>");
+		sb.append("<td> 날짜 </td>");
+		sb.append("</tr>");
+		for(int i=0; i < ar.size(); i++) {
+			sb.append("<tr>");
+			sb.append("<td>" + ar.get(i).getStudentName() + "</td>");
+			sb.append("<td>" + ar.get(i).getTagContent() + "</td>");
+			sb.append("<td>" + ar.get(i).getTagDate() + "</td>");
+			sb.append("</tr>");
+		}
+		sb.append("</table>");
+		
+		return sb.toString();
 	}
 
 	private String getTclearningDebateCTX(BoardBean board) { // 토론게시판 내용 끌고오기
@@ -1905,14 +1924,21 @@ public class learningTeacherMM extends TransactionExe {
 			;
 			sb.append("<table>");
 			sb.append("<tr>");
-			sb.append("<td>과목</td>");
 			sb.append("<td>학년/반/번호</td>");
+			sb.append("<td>아이디</td>");
+			sb.append("<td>이름</td>");
+			sb.append("<td>이메일</td>");
+			sb.append("<td>핸드폰 번호</td>");
 			sb.append("</tr>");
 			for(int i=0; i<ar.size(); i++) {
 				sb.append("<tr>");   
-				sb.append("<td>" + ar.get(i).getRoomCode() + "</td>");
 				sb.append("<td>" + ar.get(i).getStudentCode() + "</td>");
-				sb.append("<td>" + "<input type=\"button\" value=\"학생 자세히 보기\" onClick=\"stadmin('"+ar.get(i).getStudentCode() +"')\"/>" + "</td>");
+				sb.append("<td>" + ar.get(i).getId() + "</td>");
+				sb.append("<td>" + ar.get(i).getStudentName() + "</td>");
+				sb.append("<td>" + ar.get(i).getEmail() + "</td>");
+				sb.append("<td>" + ar.get(i).getPhone() + "</td>");
+				sb.append("<td>" + "<input type=\"button\" value=\"메일 발송\" onClick=\"sendMail('"+ ar.get(0).getEmail() +"')\"/>" + "</td>");
+				sb.append("<td><input type=\"button\" value=\"쪽지보내기\" onClick=\"sendMessage()\" /></td>");
 				sb.append("</tr>");
 			}
 			sb.append("</table>");
@@ -1929,7 +1955,7 @@ public class learningTeacherMM extends TransactionExe {
 	}
 
 
-	private ModelAndView teacherLearningSTadminCXT(BoardBean board) { // 선생님 학생보기 자세히 보기
+/*	private ModelAndView teacherLearningSTadminCXT(BoardBean board) { // 선생님 학생보기 자세히 보기
 
 		mav = new ModelAndView();
 		boolean transaction = false;
@@ -1974,7 +2000,7 @@ public class learningTeacherMM extends TransactionExe {
 		}
 
 		return mav;
-	}
+	}*/
 
 	private ModelAndView learningQuestionTagDelete(BoardBean board) { // 질문 댓글 삭제
 
@@ -2004,34 +2030,6 @@ public class learningTeacherMM extends TransactionExe {
 		return mav;
 	}
 
-	
-	public BoardBean learningDebateTagList(BoardBean board) { // 토론게시판 댓글 목록
-		mav = new ModelAndView();
-		boolean transaction = false;
-		//ArrayList<BoardBean> ar = null;
-		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
-
-		try {
-			session.getAttribute("roomCode");
-
-			board.setRoomCode((String)session.getAttribute("roomCode"));
-			board.setId((String)session.getAttribute("identity"));
-			//mav.addObject("content",session.getAttribute("roomCode") + "의 공지사항");
-			board = dao.learningDebateTagList();
-			//mav.addObject("content", tclearningNoticeList(board,ar));
-
-
-			transaction = true;
-
-		}catch(Exception ex){
-
-		}finally {
-			mav.setViewName("learningDebateCTX");
-			setTransactionResult(transaction);
-		}
-		return board;
-		
-	}
 
 	private ModelAndView learningTaskPage(BoardBean board) { // 과제 페이지
 

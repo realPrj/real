@@ -274,7 +274,7 @@ public interface IMybatis {
 	public int tclearningDebateDelete(BoardBean board);
 
 	// 토론게시판 댓글 목록
-	public BoardBean learningDebateTagList();
+	public ArrayList<BoardBean> learningDebateTagList(BoardBean board);
 
 	// 선생님 비밀번호찾기
 	public int findPwd(MemberBean member);
@@ -302,6 +302,15 @@ public interface IMybatis {
 
 	// 과제 게시글 번호 유무
 	public int learningTaskBoardCheck(BoardBean board);
+
+	// 토론게시판 댓글 등록
+	public int learningDebateTagInsert(BoardBean board);
+	
+	// 토론게시판 댓글 수정
+	public int learningDebateTagUpdate(BoardBean board);
+	
+	// 토론게시판 댓글 삭제
+	public int learningDebateTagDelete(BoardBean board);
 
 	// 선생님 공지사항 글 삭제
 	public int learningTaskCXTDelete(BoardBean board);

@@ -7,24 +7,6 @@
 <title> 공조 || 토론게시판 내용확인</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script>
-$(document).ready(function(){
-	tagList();	
-});
-var data = ${boardId}
-function tagList(){
-	
-	$.ajax({
-		url : "learningDebateTagList",
-		data : {'boardId' : data},
-		dataType : "html",
-		type : "post",
-		success : function(result){
-			//$("#tagList").append(result.boardId);
-			alert("성공");
-		}
-	});
-}
-
 function menu(ivalue, identity){
  	var ff = document.createElement("form");
 	ff.name = "menuform";
@@ -98,10 +80,86 @@ function boardDelete(roomCode, boardDate){
 	
 	alert("삭제되었습니다");
 }
+
+function debateTagInsert(boardTitle, boardDate, boardId){
+	
+	var tagForm = document.createElement("form");
+	tagForm.name = "debateTagInsert";
+	tagForm.method = "post";
+	tagForm.action = "DebateTagInsert";
+	document.body.appendChild(tagForm);
+	
+	var content = document.getElementsByName("tagContent")[0];
+	tagForm.appendChild(content);
+	
+	/* var stcode = document.createElement("input");
+	stcode.type = "hidden";
+	stcode.name = "stCode";
+	stcode.value = stCode;
+	tagForm.appendChild(stcode);
+	
+	var roomcode = document.createElement("input");
+	roomcode.type = "hidden";
+	roomcode.name = "roomCode";
+	roomcode.value = roomCode;
+	tagForm.appendChild(roomcode); */
+	
+	var title = document.createElement("input");
+	title.type = "hidden";
+	title.name = "boardTitle";
+	title.value = boardTitle;
+	tagForm.appendChild(title);
+	
+	var date = document.createElement("input");
+	date.type = "hidden";
+	date.name = "boardDate";
+	date.value = boardDate;
+	tagForm.appendChild(date);
+	
+	var id = document.createElement("input");
+	id.type = "hidden";
+	id.name = "boardId";
+	id.value = boardId;
+	tagForm.appendChild(id);
+	
+	
+	
+	document.debateTagInsert.submit();
+		
+}
+
+function TagUpdate(){
+	
+}
+
+function TagDelete(tagDate, boardDate){
+	
+	var tagDeleteForm = document.createElement("form");
+	tagDeleteForm.name = "debateTagDelete";
+	tagDeleteForm.method = "post";
+	tagDeleteForm.action = "DebateTagDelete";
+	document.body.appendChild(tagDeleteForm);
+	
+	var boarddate = document.createElement("input");
+	boarddate.type = "hidden";
+	boarddate.name = "boardDate";
+	boarddate.value = boardDate;
+	tagDeleteForm.appendChild(boarddate); 
+	
+	var tagdate = document.createElement("input");
+	tagdate.type = "hidden";
+	tagdate.name = "tagDate";
+	tagdate.value = tagDate;
+	tagDeleteForm.appendChild(tagdate);
+	
+	document.debateTagDelete.submit();
+}
+
 </script>
 </head>
 <body>
 ${content }
-<div id="tagList"></div>
+
+${debateTagList }
 </body>
 </html>

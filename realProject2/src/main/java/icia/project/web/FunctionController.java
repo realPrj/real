@@ -484,7 +484,7 @@ public class FunctionController {
 		mav = ltm.entrance(2, board);
 		return mav;
 	}
-	// 선생님 학생 자세히보기
+/*	// 선생님 학생 자세히보기
 	@RequestMapping(value = "/teacherLearningSTadminCXT", method = RequestMethod.POST)
 	public ModelAndView teacherLearningSTadminCXT(@ModelAttribute BoardBean board)throws Exception{      
 
@@ -492,7 +492,7 @@ public class FunctionController {
 
 		mav.setViewName("teacherLearningSTadminCXT");
 		return mav;
-	}
+	}*/
 
 	/** 자바 메일 발송 * @throws MessagingException * @throws AddressException **/
 	@RequestMapping(value = "/mailSender", method=RequestMethod.POST) 
@@ -579,6 +579,9 @@ public class FunctionController {
 		return mav;
 	}
 
+
+	// 비밀번호찾기 페이지
+
 	// 과제 등록
 	@RequestMapping(value = "/learningTaskInsertform", method = RequestMethod.POST)
 	public ModelAndView learningTaskInsertform(@ModelAttribute BoardBean board) {
@@ -610,15 +613,34 @@ public class FunctionController {
 
 	// 과제 게시판 댓글쓷기
 	@RequestMapping(value = "/learningSubmitTaskInsert", method = RequestMethod.POST)
-	public ModelAndView learningSubmitTaskInsert(@ModelAttribute BoardBean board,MultipartHttpServletRequest mtfRequest)throws Exception{      
-
-
+	public ModelAndView learningSubmitTaskInsert(@ModelAttribute BoardBean board,MultipartHttpServletRequest mtfRequest)throws Exception{
 		stm.entrance(15, board, mtfRequest);
 
 		mav = stm.entrance(14, board);
 
 		return mav;
 	}
+
+	// 토론게시판 댓글 등록
+	@RequestMapping(value = "/DebateTagInsert", method = RequestMethod.POST)
+	public ModelAndView learningDebateTagInsert(@ModelAttribute BoardBean board) {
+		stm.entrance(34, board);
+
+		mav = stm.entrance(33, board);
+		return mav;
+	}
+
+	// 토론게시판 댓글 삭제
+	@RequestMapping(value = "/DebateTagDelete", method = RequestMethod.POST)
+	public ModelAndView learningDebateTagDelete(@ModelAttribute BoardBean board) {
+		System.out.println("댓글삭제 컨트롤러 : " + board.getTagDate());
+		stm.entrance(35, board);
+
+		mav = stm.entrance(33, board);
+		return mav;
+	}
+
+		
 	// 학생 과제 파일 확인 팝업창
 	@RequestMapping(value = "/checkFile", method = RequestMethod.GET)
 	public ModelAndView checkFile(@ModelAttribute BoardBean board) {
@@ -649,6 +671,7 @@ public class FunctionController {
 
 		return mav;
 	}
+
 
 
 
