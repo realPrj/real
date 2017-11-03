@@ -1044,6 +1044,7 @@ public class learningStudentMM extends TransactionExe {
 				// 게시글 댓글(너가 여기서부터 댓글 뽑아내면되)
 
 				board.setStudentCode((String)session.getAttribute("stCode"));
+				board.setRoomCode(roomcode);
 
 				al = dao.learningTaskSelect(board);	// 댓글 내용
 				
@@ -1062,20 +1063,8 @@ public class learningStudentMM extends TransactionExe {
 					sb.append("<tr>");
 					sb.append("<td>" +board.getStudentName() + "</td>");
 					sb.append("<td>" +al.get(i).getBoardDate() + "</td>");
-					sb.append("<td>"+"<input type='button'class='btn' value='올린 파일 보기' onClick=\"checkFile('"+ board.getBoardTitle() +"','" +al.get(i).getBoardDate() + "','" + board.getRoomCode() + "','"+ board.getBoardCode() +"')\">" + "</td>");
+					sb.append("<td>"+"<input type='button'class='btn' value='올린 파일 보기' onClick='checkFile("+board.getRoomCode()+","+al.get(i).getBoardCode()+")'>" + "</td>");
 			    	sb.append("</tr>");
-					
-					sb.append("<table>");
-					sb.append("<tr>");
-					sb.append("<td>학생 이름 : " +board.getStudentName() + "</td>");
-					sb.append("</tr>");
-					sb.append("<tr>");
-					sb.append("<td>올린 날짜 : " +al.get(i).getBoardDate() + "</td>");
-					sb.append("</tr>");
-					sb.append("<tr>");
-					sb.append("<td>"+"<input type='button' value='올린 파일 보기' onClick=\"checkFile('"+ board.getBoardTitle() +"','" +al.get(i).getBoardDate() + "','" + board.getRoomCode() + "','"+ board.getBoardCode() +"')\">" + "</td>");
-					sb.append("</tr>");
-					sb.append("</table>"); 
 
 				}
 				sb.append("</table>"); 
