@@ -152,13 +152,10 @@
 	   }
 
 	function checkFile(roomCode, boardCode) {
-		alert(roomCode);
-		createinput("hidden", "boardTitle", boardTitle);
-		createinput("hidden", "boardDate", boardDate);
+		
 		createinput("hidden", "roomCode", roomCode);
 		createinput("hidden", "boardCode", boardCode);
-		var boardTitle = document.getElementsByName("boardTitle")[0];
-		var boardDate = document.getElementsByName("boardDate")[0];
+		
 		var roomCode = document.getElementsByName("roomCode")[0];
 		var boardCode = document.getElementsByName("boardCode")[0];
 
@@ -167,11 +164,10 @@
 		var form = document.getElementsByName("checkFileForm")[0];
 		window.open('', 'POP',
 				"width=570, height=350, resizable = no, scrollbars = no");
-		form.appendChild(boardTitle);
-		form.appendChild(boardDate);
+
 		form.appendChild(roomCode);
 		form.appendChild(boardCode);
-		alert("가니?")
+
 		form.submit();
 
 	}
