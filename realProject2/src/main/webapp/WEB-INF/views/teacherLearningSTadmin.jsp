@@ -97,7 +97,12 @@ function stadmin(studentCode){
  }
  
  function sendMessage(){
-	 sendMessagePopUp = window.open("sendMessagePopUp.jsp","new","width=500, height=500")
+	createForm("MessagePopUp", "sendMessagePopUp", "post");
+	 var form = document.getElementsByName("MessagePopUp")[0];
+	 window.open('','sendMessage',"width=500, height=500");
+	 document.MessagePopUp.submit(); 
+	 
+	
  }
 
 </script>

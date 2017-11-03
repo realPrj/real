@@ -37,7 +37,7 @@ public class HomeController  {
 	private learningStudentMM lsmm;
 	@Autowired
 	private StudentManagement stmm;
-	
+
 	@Autowired
 	private teacherManagement ttmm;
 	private ModelAndView mav;
@@ -618,7 +618,7 @@ public class HomeController  {
 		mav.setViewName("learningTaskSubmitInsert");
 		return mav;
 	}
-	
+
 	// 학습방 코드 보기
 	@RequestMapping(value = "/learningSubjectCode", method = RequestMethod.POST)
 	public ModelAndView learningSubjectCode(@ModelAttribute BoardBean board) {
@@ -627,21 +627,29 @@ public class HomeController  {
 
 		return mav;
 	}
-		// 학생 회원탈퇴 페이지 이동
-		@RequestMapping(value = "/WithdrawalPage", method = RequestMethod.POST)
-		public ModelAndView WithdrawalPage(@ModelAttribute BoardBean board) {
+	// 학생 회원탈퇴 페이지 이동
+	@RequestMapping(value = "/WithdrawalPage", method = RequestMethod.POST)
+	public ModelAndView WithdrawalPage(@ModelAttribute BoardBean board) {
 
-			mav.setViewName("studentWithdrawalPage");
+		mav.setViewName("studentWithdrawalPage");
 
-			return mav;
+		return mav;
 	}
-		// 학생 회원탈퇴 페이지 이동
-		@RequestMapping(value = "/WithdrawalTeacherPage", method = RequestMethod.POST)
-		public ModelAndView WithdrawalTeacherPage(@ModelAttribute BoardBean board) {
+	// 학생 회원탈퇴 페이지 이동
+	@RequestMapping(value = "/WithdrawalTeacherPage", method = RequestMethod.POST)
+	public ModelAndView WithdrawalTeacherPage(@ModelAttribute BoardBean board) {
 
-			mav.setViewName("teacherWithdrawalPage");
+		mav.setViewName("teacherWithdrawalPage");
 
-			return mav;
+		return mav;
+	}
+	// 쪽지보내기 팝업
+	@RequestMapping(value = "/sendMessagePopUp", method = RequestMethod.POST)
+	public ModelAndView learningSendMessagePopUp(@ModelAttribute BoardBean board) {
+		System.out.println("쪽지보내기 팝업 컨트롤러");
+		mav = ltmm.entrance(39, board);
+
+		return mav;
 	}
 
 
