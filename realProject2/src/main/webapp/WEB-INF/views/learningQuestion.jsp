@@ -232,7 +232,6 @@
 									<b class="caret"></b>
                               </a> 
                               <ul class="dropdown-menu">
-                                <li><a href="http://localhost/real/studentLearningMSG.jsp" >쪽지함</a></li>
                                 <li><a href="http://localhost/real/first_join.jsp" >로그아웃</a></li>
                               </ul> 
                         </li>
