@@ -2,6 +2,7 @@ package icia.project.web;
 
 import java.util.Properties;
 
+
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Session;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -375,6 +377,11 @@ public class FunctionController {
 
 	// 자료실 삭제
 	@RequestMapping(value = "/learningDataDelete", method = RequestMethod.POST)
+	
+	
+	
+	
+	
 	public ModelAndView learningDataDelete(@ModelAttribute BoardBean board){      
 
 		ltm.entrance(15, board);
@@ -414,15 +421,17 @@ public class FunctionController {
 
 		return mav;
 	}
-
+	
 	// 학생 질문게시판 글쓰기
-	@RequestMapping(value = "/learningQuestionInsert", method = RequestMethod.POST)
-	public ModelAndView learningQuestionInsert(@ModelAttribute BoardBean board,MultipartHttpServletRequest mtfRequest)throws Exception{      
-
+	@RequestMapping(value = "/QuestionInsert123", method = RequestMethod.POST)
+	public ModelAndView QuestionInsert123(@ModelAttribute BoardBean board, @RequestParam MultipartHttpServletRequest mtfRequest)throws Exception{
+		
+		System.out.println("learningQuestionInsert");
 		board.setId((String)session.getAttribute("id"));
-
+		System.out.println(mtfRequest.getParameter("multiple"));
+		System.out.println("여기 옴??");
 		mav = lsm.entrance(5, board, mtfRequest);
-
+		
 		return mav;
 	}
 

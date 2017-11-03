@@ -107,6 +107,7 @@
 		ORDER BY IOH_DATE
 		DESC
 	</select>
+	
 
 	<!-- 선생님 나의정보 추출 -->
 	<select id="tcInformationGet" resultType="member" parameterType="member">

@@ -471,7 +471,6 @@ public class HomeController  {
 	// 질문게시판 글 페이지 보내기
 	@RequestMapping(value = "/questionInsert", method = RequestMethod.POST)
 	public ModelAndView questionInsertPage(@ModelAttribute BoardBean board) {
-
 		mav = new ModelAndView();
 		mav.setViewName("learningQuestionInsert");
 
@@ -485,6 +484,8 @@ public class HomeController  {
 
 		mav.addObject("boardTitle",board.getBoardTitle());
 		mav.addObject("boardDate",board.getBoardDate());
+		
+		
 		mav.addObject("boardId",board.getBoardId());
 		mav.addObject("boardContent",board.getBoardContent());
 		mav.addObject("roomCode",board.getRoomCode());

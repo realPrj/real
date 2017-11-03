@@ -936,10 +936,11 @@ public class learningStudentMM extends TransactionExe {
 	private String getlearningDebateTagList(ArrayList<BoardBean> ar, BoardBean board) throws Exception { // 토론게시판 댓글 리스트
 		StringBuffer sb = new StringBuffer();
 
-		sb.append("<input type=\"text\" name=\"tagContent\" placeholder=\"댓글을 입력하세요\" />");
-		sb.append("<input type=\"button\" value=\"댓글등록\" "
+		sb.append("<input type=\"text\"  name=\"tagContent\" placeholder=\"댓글을 입력하세요\" />");
+		sb.append("<input type=\"button\"class='btn-sm'  value=\"댓글등록\" "
 				+ "onClick=\"debateTagInsert('"+ board.getBoardTitle() +"','"+ board.getBoardDate() +"','"+ board.getBoardId() +"')\" />");
-		sb.append("<table>");
+		sb.append("</br></br>");
+		sb.append("<table  class=\"table table-hover\">");
 		sb.append("<tr>");
 		sb.append("<td> 작성자 </td>");
 		sb.append("<td> 내용 </td>");
@@ -951,8 +952,8 @@ public class learningStudentMM extends TransactionExe {
 			sb.append("<td>" + ar.get(i).getTagContent() + "</td>");
 			sb.append("<td>" + ar.get(i).getTagDate() + "</td>");
 			if(session.getAttribute("stCode").equals(ar.get(i).getStudentCode())) {
-				sb.append("<td><input type=\"button\" value=\"수정\" onClick=\"TagUpdate()\"/></td>");
-				sb.append("<td><input type=\"button\" value=\"삭제\" onClick=\"TagDelete('"+ ar.get(i).getTagDate() +"','"+ board.getBoardDate() +"')\"/></td>");
+				sb.append("<td><input type=\"button\"  class='btn' value=\"수정\" onClick=\"TagUpdate()\"/></td>");
+				sb.append("<td><input type=\"button\" class='btn' value=\"삭제\" onClick=\"TagDelete('"+ ar.get(i).getTagDate() +"','"+ board.getBoardDate() +"')\"/></td>");
 			}
 			sb.append("</tr>");
 		}
@@ -963,7 +964,7 @@ public class learningStudentMM extends TransactionExe {
 
 	private String getStlearningDebateCTX(BoardBean board) { // 토론게시판 내용 끌고오기
 		StringBuffer sb = new StringBuffer();
-		sb.append("<table>");
+		sb.append("<table class=\"table table-hover\">");
 		sb.append("<tr>");
 		sb.append("<td>제목 : " + board.getBoardTitle() + "</td>");
 		sb.append("</tr>");
@@ -977,7 +978,6 @@ public class learningStudentMM extends TransactionExe {
 		sb.append("<td>내용 : " + board.getBoardContent() + "</td>");
 		sb.append("</tr>");
 		sb.append("</table>");
-		sb.append("<input type=\"button\" value=\"목록\" onClick=\"menu('5','"+ board.getBoardCode() +"')\"/>");
 		sb.append("</br>");
 		return sb.toString();
 	}
