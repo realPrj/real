@@ -37,7 +37,7 @@ public class HomeController  {
 	private learningStudentMM lsmm;
 	@Autowired
 	private StudentManagement stm;
-	
+
 	@Autowired
 	private teacherManagement ttmm;
 	private ModelAndView mav;
@@ -188,7 +188,6 @@ public class HomeController  {
 	// 선생님 학습메뉴
 	@RequestMapping(value = "/tcmenu", method = RequestMethod.POST)
 	public ModelAndView tcMenu(@ModelAttribute BoardBean board, MemberBean member) {
-		System.out.println(" 컨트롤러 오니? ");
 		int code = Integer.parseInt(board.getCaCode());
 
 		switch(code) {
@@ -230,7 +229,7 @@ public class HomeController  {
 			mav = ltmm.entrance(13, board);
 			break;
 
-		case 11 : // 쪽지
+		case 11 : // 쪽지 페이지
 			mav = ltmm.entrance(39, board);
 			break;
 
@@ -484,8 +483,8 @@ public class HomeController  {
 
 		mav.addObject("boardTitle",board.getBoardTitle());
 		mav.addObject("boardDate",board.getBoardDate());
-		
-		
+
+
 		mav.addObject("boardId",board.getBoardId());
 		mav.addObject("boardContent",board.getBoardContent());
 		mav.addObject("roomCode",board.getRoomCode());
@@ -652,15 +651,35 @@ public class HomeController  {
 
 		return mav;
 	}*/
-		
-		// 학생 과제 파일 확인 팝업창
-		@RequestMapping(value = "/checkFile", method = RequestMethod.GET)
-		public ModelAndView checkFile(@ModelAttribute BoardBean board) {
 
-			mav = lsmm.entrance(16, board);
+	// 학생 과제 파일 확인 팝업창
+	@RequestMapping(value = "/checkFile", method = RequestMethod.GET)
+	public ModelAndView checkFile(@ModelAttribute BoardBean board) {
 
-			return mav;
+		mav = lsmm.entrance(16, board);
+
+		return mav;
+	}
+
+	// 쪽지 보내기 페이지
+	@RequestMapping(value = "/Message", method = RequestMethod.POST)
+	public ModelAndView message(@ModelAttribute BoardBean board, MemberBean member) {
+		int code = Integer.parseInt(board.getCaCode());
+
+		switch(code) {
+		case 1: // 쪽지 보내기 페이지
+			mav = ltmm.entrance(41, board);
+			break;
+		case 2: // 받은쪽지 리스트 페이지
+			mav = ltmm.entrance(42, board);
+			break;
+		case 3: // 보낸쪽지 리스트 페이지
+			mav = ltmm.entrance(43, board);
+			break;
 		}
+		
+		return mav;
+	}
 
 
 

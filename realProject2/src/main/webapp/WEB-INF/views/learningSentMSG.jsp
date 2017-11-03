@@ -41,48 +41,6 @@
 <link href="assets/css/themify-icons.css" rel="stylesheet">
 
 </head>
-<script>
-
-//form 생성
-function createForm(formname, formaction, formmethod) {
-
-   var form = document.createElement("form");
-
-   form.name = formname;
-   form.action = formaction;
-   form.method = formmethod;
-
-   document.body.appendChild(form);
-
-}
-
-//input 생성
-function createinput(itype, iname, ivalue) {
-   var input = document.createElement("input");
-   input.type = itype;
-   input.name = iname;
-   input.value = ivalue;
-
-   document.body.appendChild(input);
-   
-   return input;
-}
-//메뉴선택
-function message(ivalue) {
-
-   createinput("hidden", "caCode", ivalue);
-
-   var caCode = document.getElementsByName("caCode")[0];
-
-   createForm("messageForm", "Message", "post");
-
-   var form = document.getElementsByName("messageForm")[0];
-   form.appendChild(caCode);
-   
-   form.submit();
-
-}
-</script>
 <body>
 
 	<div class="wrapper">
@@ -195,7 +153,7 @@ function message(ivalue) {
 				</div>
 			</nav>
 
-
+<!-- 보낸쪽지 -->
 			<div class="col-lg-100 col-md-12">
 				<div class="card">
 					<!-- <div class="header">
@@ -203,81 +161,94 @@ function message(ivalue) {
                             </div> -->
 					<div class="content">
 						<form>
+						<h2 ><b>쪽지함</b></h2>
 							<div class="row">
-								<div class="col-md-5">
-									<div class="container">
-										<!-- <h3>과목</h3> -->
 
-									</div>
+								<div class="col-md-5">
+									<!-- <div class="container">
+										<h3>과목</h3>
+									</div> -->
 
 								</div>
-								<br /> <br />
-								<div class="col-sm-11" style="text-align:center;">
-								<button type="button" class="btn" 
-									OnClick="message('1')">보내기</button>
-									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+								<br /> 
+							
+								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+								<button type="button" class="btn" OnClick="location.href='http://localhost/real/studentLearningMSG2.jsp'">보내기</button>
+								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 								<button type="button" class="btn"
-									OnClick="message('2')">받은쪽지</button>
-									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+									OnClick="location.href='http://localhost/real/studentLearningMSG3.jsp'">받은쪽지</button>
+								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 								<button type="button" class="btn"
-									OnClick="message('3')">보낸쪽지</button>
-							</div>
+									OnClick="location.href='http://localhost/real/studentLearningMSG5.jsp'">보낸쪽지</button>
+
 							</div>
 					</div>
+
 					<div class="row">
 						<div class="col-md-8">
-							<div class="container">
+							<div class="form-group"></div>
 
-								<h2>쪽지함</h2>
-
-								<table class="table table-hover">
-									<thead>
-										<tr>
-											<th>번호</th>
-											<th>제목</th>
-											<th>작성자</th>
-											<th>날짜</th>
-
-										</tr>
-									</thead>
-									<tbody>
-										<tr>
-											<td>165</td>
-											<td>부트스트랩</td>
-											<td>우진</td>
-											<td>2017</td>
-
-
-										</tr>
-									</tbody>
-								</table>
-								<hr />
-								<!-- <a class="btn btn-default qull-right" >글쓰기</a>  선생님 페이지에는 글쓰기 넣기-->
-								<!-- 페이지네이션넣기 -->
-								<div class="text-center">
-									<ul class="pagination">
-										<li><a href="#">1</a></li>
-										<li><a href="#">2</a></li>
-										<li><a href="#">3</a></li>
-										<li><a href="#">4</a></li>
-										<li><a href="#">5</a></li>
-									</ul>
-								</div>
-
-							</div>
-							<!-- 	<div class="container">
-								<label>소개글</label>
-								<textarea rows="10" class="form-control border-input"
-									placeholder="Here can be your description" value="Mike">게시판형식만들기</textarea>
-									<br/>
-
-							</div> -->
 						</div>
 
 					</div>
+					<div class="container">
+						<!-- <h2>Filterable Table</h2>
+  <p>Type something in the input field to search the table for first names, last names or emails:</p>   -->
+						<input class="form-control" id="myInput" type="text"
+							placeholder="Search.."> <br>
+						<table class="table table-bordered table-striped">
+							<thead>
+								<tr>
+									<th>보낸사람</th>
+									<th>제목</th>
+									<th>날짜</th>
+								</tr>
+							</thead>
+							<tbody id="myTable">
+								<tr>
+									<td>John</td>
+									<td>Doe</td>
+									<td>john@example.com</td>
+								</tr>
+								<tr>
+									<td>Mary</td>
+									<td>Moe</td>
+									<td>mary@mail.com</td>
+								</tr>
+								<tr>
+									<td>July</td>
+									<td>Dooley</td>
+									<td>july@greatstuff.com</td>
+								</tr>
+								<tr>
+									<td>Anja</td>
+									<td>Ravendale</td>
+									<td>a_r@test.com</td>
+								</tr>
+							</tbody>
+						</table>
 
 
+					</div>
 
+					<script>
+$(document).ready(function(){
+  $("#myInput").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#myTable tr").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+});
+</script>
 
 
 
@@ -286,9 +257,8 @@ function message(ivalue) {
 			</div>
 		</div>
 
-		<hr>
-
 	</div>
+
 
 	</div>
 	</li>

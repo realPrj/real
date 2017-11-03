@@ -193,8 +193,20 @@ public class learningTeacherMM extends TransactionExe {
 			mav = tclearningDebateDelete((BoardBean)object[0]);
 			break;
 			
-		case 39 : // 학생관리 쪽지페이지
-			mav = learningSendMessagePopUpPage((BoardBean)object[0]);
+		case 39 : // 쪽지페이지
+			mav = learningMessagePage((BoardBean)object[0]);
+			break;
+			
+		case 41: // 쪽지보내기 페이지
+			mav = learningSendMessagePage((BoardBean)object[0]);
+			break;
+			
+		case 42: // 받은쪽지 리스트 페이지
+			mav = learningReceiveMessagePage((BoardBean)object[0]);
+			break;
+			
+		case 43: // 보낸쪽지 리스트 페이지
+			mav = learningSentMessagePage((BoardBean)object[0]);
 			break;
 			
 
@@ -2246,7 +2258,7 @@ public class learningTeacherMM extends TransactionExe {
 		return mav;
 	}
 
-	private ModelAndView learningSendMessagePopUpPage(BoardBean board) {
+	private ModelAndView learningMessagePage(BoardBean board) { // 쪽지 페이지
 		mav = new ModelAndView();
 		boolean transaction = false;
 		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
@@ -2254,7 +2266,7 @@ public class learningTeacherMM extends TransactionExe {
 		try {
 			session.getAttribute("roomCode");
 
-			
+			board.setRoomCode((String)session.getAttribute("roomCode"));
 			//mav.addObject("content",session.getAttribute("roomCode") + "의 공지사항");
 			
 
@@ -2270,7 +2282,77 @@ public class learningTeacherMM extends TransactionExe {
 		return mav;
 	}
 	
+	private ModelAndView learningSendMessagePage(BoardBean board) { // 쪽지 보내기 페이지
+		mav = new ModelAndView();
+		boolean transaction = false;
+		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
+
+		try {
+			session.getAttribute("roomCode");
+
+			board.setRoomCode((String)session.getAttribute("roomCode"));
+			//mav.addObject("content",session.getAttribute("roomCode") + "의 공지사항");
+			
+
+
+			transaction = true;
+
+		}catch(Exception ex){
+
+		}finally {
+			mav.setViewName("learningSendMSG");
+			setTransactionResult(transaction);
+		}
+		return mav;
+	}
 	
+	private ModelAndView learningReceiveMessagePage(BoardBean board) { // 받은쪽지 리스트 페이지
+		mav = new ModelAndView();
+		boolean transaction = false;
+		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
+
+		try {
+			session.getAttribute("roomCode");
+
+			board.setRoomCode((String)session.getAttribute("roomCode"));
+			//mav.addObject("content",session.getAttribute("roomCode") + "의 공지사항");
+			
+
+
+			transaction = true;
+
+		}catch(Exception ex){
+
+		}finally {
+			mav.setViewName("learningReceiveMSG");
+			setTransactionResult(transaction);
+		}
+		return mav;
+	}
+	
+	private ModelAndView learningSentMessagePage(BoardBean board) { // 보낸쪽지 리스트 페이지
+		mav = new ModelAndView();
+		boolean transaction = false;
+		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
+
+		try {
+			session.getAttribute("roomCode");
+
+			board.setRoomCode((String)session.getAttribute("roomCode"));
+			//mav.addObject("content",session.getAttribute("roomCode") + "의 공지사항");
+			
+
+
+			transaction = true;
+
+		}catch(Exception ex){
+
+		}finally {
+			mav.setViewName("learningSentMSG");
+			setTransactionResult(transaction);
+		}
+		return mav;
+	}
 	
 	
 }
