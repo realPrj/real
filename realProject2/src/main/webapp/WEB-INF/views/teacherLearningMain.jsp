@@ -222,7 +222,7 @@ function test(){
 									<p>마이메뉴</p> <b class="caret"></b>
 							</a>
 								<ul class="dropdown-menu">
-									<li><a href="http://localhost/studentLearningMSG.jsp">쪽지함</a></li>
+									<li><a onClick="menu('11')">쪽지함</a></li>
 									<li><a  onClick="menu('14')"  >로그아웃</a></li>
 								</ul></li>
 

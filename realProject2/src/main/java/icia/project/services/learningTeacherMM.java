@@ -193,9 +193,10 @@ public class learningTeacherMM extends TransactionExe {
 			mav = tclearningDebateDelete((BoardBean)object[0]);
 			break;
 			
-		case 39 : // 학생관리 쪽지보내기 팝업 페이지
-			mav = learningSendMessagePopUpPage();
+		case 39 : // 학생관리 쪽지페이지
+			mav = learningSendMessagePopUpPage((BoardBean)object[0]);
 			break;
+			
 
 			
 			
@@ -2245,7 +2246,7 @@ public class learningTeacherMM extends TransactionExe {
 		return mav;
 	}
 
-	private ModelAndView learningSendMessagePopUpPage() {
+	private ModelAndView learningSendMessagePopUpPage(BoardBean board) {
 		mav = new ModelAndView();
 		boolean transaction = false;
 		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
@@ -2263,7 +2264,7 @@ public class learningTeacherMM extends TransactionExe {
 		}catch(Exception ex){
 
 		}finally {
-			mav.setViewName("sendMessagePopUp");
+			mav.setViewName("learningMSG");
 			setTransactionResult(transaction);
 		}
 		return mav;

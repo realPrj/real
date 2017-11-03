@@ -188,7 +188,7 @@ public class HomeController  {
 	// 선생님 학습메뉴
 	@RequestMapping(value = "/tcmenu", method = RequestMethod.POST)
 	public ModelAndView tcMenu(@ModelAttribute BoardBean board, MemberBean member) {
-
+		System.out.println(" 컨트롤러 오니? ");
 		int code = Integer.parseInt(board.getCaCode());
 
 		switch(code) {
@@ -230,8 +230,8 @@ public class HomeController  {
 			mav = ltmm.entrance(13, board);
 			break;
 
-		case 11 : 
-
+		case 11 : // 쪽지
+			mav = ltmm.entrance(39, board);
 			break;
 
 		case 12 : 
@@ -644,14 +644,14 @@ public class HomeController  {
 
 		return mav;
 	}
-	// 쪽지보내기 팝업
+	/*// 쪽지보내기 팝업
 	@RequestMapping(value = "/sendMessagePopUp", method = RequestMethod.POST)
 	public ModelAndView learningSendMessagePopUp(@ModelAttribute BoardBean board) {
 		System.out.println("쪽지보내기 팝업 컨트롤러");
 		mav = ltmm.entrance(39, board);
 
 		return mav;
-	}
+	}*/
 		
 		// 학생 과제 파일 확인 팝업창
 		@RequestMapping(value = "/checkFile", method = RequestMethod.GET)
