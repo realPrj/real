@@ -258,7 +258,7 @@ public class HomeController  {
 
 		switch(code) {
 		case 1 : 
-
+			mav.setViewName("studentLearningMain");
 			break;
 		case 2 : 
 

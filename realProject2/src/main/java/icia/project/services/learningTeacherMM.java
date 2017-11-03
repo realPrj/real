@@ -522,49 +522,49 @@ public class learningTeacherMM extends TransactionExe {
 
 				board.setRoomCode((String)session.getAttribute("roomCode"));
 
-				yearCode = dao.learningWANYearCodeOneGet(board);
+	            yearCode = dao.learningWANYearCodeOneGet(board);
+
+	            sb = new StringBuffer();
+	            sum = new StringBuffer();
+	            sb.append("<select id = 'yearSelect' class='btn-sm'>");
+	            sb.append("<option></option>");
+
+	            for(int i =0; i < yearCode.size(); i++) {
+	               board = new BoardBean();
+	               board.setRoomCode(boardList.get(0).getRoomCode());
+	               board.setYearCode(yearCode.get(i).getYearCode());
+
+	               sb.append("<option>"+yearCode.get(i).getYearCode()+"</option>");
+
+	               typeSum = dao.learningWANTypeSum(board);
+
+	               sum.append("<div style='margin-left: 550px' id='"+yearCode.get(i).getYearCode().substring(0, 6)+"' >");
+	               for(int y = 0; y < typeSum.size(); y++) {
+	                  board = new BoardBean();
+	                  board.setRoomCode(boardList.get(0).getRoomCode());
+	                  board.setYearCode(yearCode.get(i).getYearCode());
+	                  board.setRoomSB(dao.learningSBCodeGet(board));
+	                  board.setTypeCode(typeSum.get(y).getTypeCode());
+	                  board.setTypeName(dao.learningTypeNameGet(board));
+	                  board.setTypeSum(typeSum.get(y).getTypeSum());   
+	                  sum.append(board.getTypeName()+" : "+ board.getTypeSum()+"<br>");
+
+	               }
+	               sum.append("</div>");
+
+	               if(i == 0) {
+	                  mav.addObject("lowest", yearCode.get(i).getYearCode());
+	               }
+
+	            }
+
+	            sb.append("</select>");
+	            mav.addObject("size", yearCode.size());
+	            mav.addObject("yearSelect", sb.toString());
+	            mav.addObject("typeSumb", sum.toString());
 
 				sb = new StringBuffer();
-				sum = new StringBuffer();
-				sb.append("<select id = 'yearSelect'>");
-				sb.append("<option></option>");
-
-				for(int i =0; i < yearCode.size(); i++) {
-					board = new BoardBean();
-					board.setRoomCode(boardList.get(0).getRoomCode());
-					board.setYearCode(yearCode.get(i).getYearCode());
-
-					sb.append("<option>"+yearCode.get(i).getYearCode()+"</option>");
-
-					typeSum = dao.learningWANTypeSum(board);
-
-					sum.append("<div id='"+yearCode.get(i).getYearCode().substring(0, 6)+"' >");
-					for(int y = 0; y < typeSum.size(); y++) {
-						board = new BoardBean();
-						board.setRoomCode(boardList.get(0).getRoomCode());
-						board.setYearCode(yearCode.get(i).getYearCode());
-						board.setRoomSB(dao.learningSBCodeGet(board));
-						board.setTypeCode(typeSum.get(y).getTypeCode());
-						board.setTypeName(dao.learningTypeNameGet(board));
-						board.setTypeSum(typeSum.get(y).getTypeSum());	
-						sum.append(board.getTypeName()+" : "+ board.getTypeSum()+"<br>");
-
-					}
-					sum.append("</div>");
-
-					if(i == 0) {
-						mav.addObject("lowest", yearCode.get(i).getYearCode());
-					}
-
-				}
-
-				sb.append("</select>");
-				mav.addObject("size", yearCode.size());
-				mav.addObject("yearSelect", sb.toString());
-				mav.addObject("typeSumb", sum.toString());
-
-				sb = new StringBuffer();
-				sb.append("<table>");
+				sb.append("<table class=\"table table-hover\">");
 				sb.append("<tr>");
 				sb.append("<td>");
 				sb.append("게시글 번호");
@@ -614,7 +614,7 @@ public class learningTeacherMM extends TransactionExe {
 					sb.append(boardList.get(i).getNumberCode());
 					sb.append("</td>");
 					sb.append("<td>");
-					sb.append("<input type='button' value='선생님 코멘트' onClick='commentCheck("+boardList.get(i).getBoardCode()+")' />");
+					sb.append("<input type='button-sm' class='btn' value='선생님 코멘트' onClick='commentCheck("+boardList.get(i).getBoardCode()+")' />");
 					sb.append("</td>");
 					sb.append("</tr>");
 				}
@@ -792,10 +792,10 @@ public class learningTeacherMM extends TransactionExe {
 				mav.addObject("boardCode", bb.getBoardCode());
 
 				sb.append("<tr>");
-				sb.append("<td><input type='button' value='수정' onClick='learningWANCMUpdatePage("+bb.getBoardCode()+")' /></td>");
+				sb.append("<td><input type='button' class='btn' value='수정' onClick='learningWANCMUpdatePage("+bb.getBoardCode()+")' /></td>");
 				sb.append("</tr>");
 				sb.append("<tr>");
-				sb.append("<td><input type='button' value='삭제' onClick='learningWANCMDelete("+bb.getBoardCode()+","+bb.getRoomCode()+")' /></td></tr>");
+				sb.append("<td><input type='button' class='btn' value='삭제' onClick='learningWANCMDelete("+bb.getBoardCode()+","+bb.getRoomCode()+")' /></td></tr>");
 				mav.addObject("inputButton", sb.toString());
 
 				page="learningWANCXT";
@@ -1145,7 +1145,7 @@ public class learningTeacherMM extends TransactionExe {
 
 			//mav.addObject("content",session.getAttribute("roomCode") + "의 공지사항");
 			bb = dao.datalistStudent(board);
-			sb.append("<table>");
+			sb.append("<table class=\"table table-hover\">");
 			sb.append("<tr>");
 			sb.append("<td>제목</td>");
 			sb.append("<td>날짜</td>");
@@ -1153,7 +1153,7 @@ public class learningTeacherMM extends TransactionExe {
 			sb.append("</tr>");
 			for(int i=0; i<bb.size(); i++) {
 				sb.append("<tr>");
-				sb.append("<td>" + "<input type='button' value='"+bb.get(i).getBoardTitle()+"' onClick=viewData(\'"+bb.get(i).getRoomCode()+"\',"+"\'"+bb.get(i).getBoardTitle()+"\',"+"\'"+bb.get(i).getBoardDate()+"\') />" + "</td>");
+				sb.append("<td>" + "<input type='button' class='btn' value='"+bb.get(i).getBoardTitle()+"' onClick=viewData(\'"+bb.get(i).getRoomCode()+"\',"+"\'"+bb.get(i).getBoardTitle()+"\',"+"\'"+bb.get(i).getBoardDate()+"\') />" + "</td>");
 				sb.append("<td>" + bb.get(i).getBoardDate() + "</td>");
 				sb.append("<td>" + bb.get(i).getBoardId() + "</td>");
 				sb.append("</tr>");

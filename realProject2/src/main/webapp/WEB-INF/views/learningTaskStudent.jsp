@@ -4,8 +4,65 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8" />
+<link rel="apple-touch-icon" sizes="76x76"
+	href="assets/img/apple-icon.png">
+<link rel="icon" type="image/png" sizes="96x96"
+	href="assets/img/favicon.png">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
 <title>공조 || 과제학생</title>
-</head>
+<meta
+	content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0'
+	name='viewport' />
+<meta name="viewport" content="width=device-width" />
+
+
+
+<!-- Bootstrap core CSS     -->
+<link href="assets/css/bootstrap.min.css" rel="stylesheet" />
+
+<!-- Animation library for notifications   -->
+<link href="assets/css/animate.min.css" rel="stylesheet" />
+
+<!--  Paper Dashboard core CSS    -->
+<link href="assets/css/paper-dashboard.css" rel="stylesheet" />
+
+
+<!--  CSS for Demo Purpose, don't include it in your project     -->
+<link href="assets/css/demo.css" rel="stylesheet" />
+
+
+<!--  Fonts and icons     -->
+<link
+	href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css"
+	rel="stylesheet">
+<link href='https://fonts.googleapis.com/css?family=Muli:400,300'
+	rel='stylesheet' type='text/css'>
+<link href="assets/css/themify-icons.css" rel="stylesheet">
+
+<!--   Core JS Files   -->
+<script src="assets/js/jquery-1.10.2.js" type="text/javascript"></script>
+<script src="assets/js/bootstrap.min.js" type="text/javascript"></script>
+
+<!--  Checkbox, Radio & Switch Plugins -->
+<script src="assets/js/bootstrap-checkbox-radio.js"></script>
+
+<!--  Charts Plugin -->
+<script src="assets/js/chartist.min.js"></script>
+
+<!--  Notifications Plugin    -->
+<script src="assets/js/bootstrap-notify.js"></script>
+
+<!--  Google Maps Plugin    -->
+<script type="text/javascript"
+	src="https://maps.googleapis.com/maps/api/js"></script>
+
+<!-- Paper Dashboard Core javascript and methods for Demo purpose -->
+<script src="assets/js/paper-dashboard.js"></script>
+
+<!-- Paper Dashboard DEMO methods, don't include it in your project! -->
+<script src="assets/js/demo.js"></script>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script>
@@ -32,6 +89,18 @@
 		document.body.appendChild(form);
 
 	}
+	function createForm1(formname,formaction,ta) {
+
+		var form = document.createElement("form");
+		form.target=ta;
+		form.name = formname;
+		form.action = formaction;
+
+		document.body.appendChild(form);
+
+
+	}
+
 
 	//input 생성
 	function createinput(itype, iname, ivalue) {
@@ -43,21 +112,47 @@
 		document.body.appendChild(input);
 	}
 
-	function questionCXT(boardCode){
-		  createinput("hidden", "boardCode", boardCode);
-	      createForm("learningTaskCXTStudentform", "learningTaskCXTStudent", "post");
-	      var form = document.getElementsByName("learningTaskCXTStudentform")[0];      
+	function questionCXT(boardCode) {
+		createinput("hidden", "boardCode", boardCode);
+		createForm("learningTaskCXTStudentform", "learningTaskCXTStudent",
+				"post");
+		var form = document.getElementsByName("learningTaskCXTStudentform")[0];
+		var boardCode = document.getElementsByName("boardCode")[0];
+
+		form.appendChild(boardCode);
+
+		form.submit();
+
+	}
+	function confirm(boardTitle, roomCode, boardCode) {
+	      alert(boardTitle);
+	      alert(roomCode);
+	      alert(boardCode);
+	      
+	      createinput("hidden", "boardTitle", boardTitle);
+	      createinput("hidden", "roomCode", roomCode);
+	      createinput("hidden", "boardCode", boardCode);
+	      var boardTitle = document.getElementsByName("boardTitle")[0];
+	      var roomCode = document.getElementsByName("roomCode")[0];
 	      var boardCode = document.getElementsByName("boardCode")[0];
 	      
-	      form.appendChild(boardCode);
+	      
 
+	      createForm1("learningSubjectMMinsertForm", "learningSubjectMMinsert", "POP");
+
+	      var form = document.getElementsByName("learningSubjectMMinsertForm")[0];
+	      window.open('', 'POP',
+	            "width=570, height=350, resizable = no, scrollbars = no");
+	      form.appendChild(boardTitle);
+	      form.appendChild(roomCode);
+	      form.appendChild(boardCode);
+	      
 
 	      form.submit();
-		
-	}
+	   }
 
-	function checkFile(boardTitle,boardDate,roomCode,boardCode){
-	
+	function checkFile(boardTitle, boardDate, roomCode, boardCode) {
+		alert("버튼은 눌리니?");
 		createinput("hidden", "boardTitle", boardTitle);
 		createinput("hidden", "boardDate", boardDate);
 		createinput("hidden", "roomCode", roomCode);
@@ -66,8 +161,7 @@
 		var boardDate = document.getElementsByName("boardDate")[0];
 		var roomCode = document.getElementsByName("roomCode")[0];
 		var boardCode = document.getElementsByName("boardCode")[0];
-		
-		
+
 		createForm1("checkFileForm", "checkFile", "POP");
 
 		var form = document.getElementsByName("checkFileForm")[0];
@@ -77,92 +171,167 @@
 		form.appendChild(boardDate);
 		form.appendChild(roomCode);
 		form.appendChild(boardCode);
-		
-
+		alert("가니?")
 		form.submit();
-		
-		
+
 	}
+	 //메뉴선택
+	   function menu(ivalue) {
 
+	      createinput("hidden", "caCode", ivalue);
+
+	      var caCode = document.getElementsByName("caCode")[0];
+
+	      createForm("menuform", "stmenu", "post");
+
+	      var form = document.getElementsByName("menuform")[0];
+	      form.appendChild(caCode);
+	      
+	      form.submit();
+
+	   }
 </script>
+</head>
 <body onLoad="${message}">
-	<input type="hidden" value="${identity }" name="identity" />;
-	<table>
-		<tr>
-			<td><input type="button" value="로그아웃" onClick="" /></td>
-		</tr>
-		<tr>
-			<td><input type="button" value="내 메인으로" onClick="menu('1')" /></td>
-		</tr>
-		<tr>
-			<td><input type="button" value="홈" onClick="menu('2')" /></td>
-		</tr>
-		<tr>
-			<td><input type="button" value="공지사항" onClick="menu('3')" /></td>
-		</tr>
-		<tr>
-			<td><input type="button" value="질문게시판" onClick="menu('4')" /></td>
-		</tr>
-		<tr>
-			<td><input type="button" value="토론게시판" onClick="menu('5')" /></td>
-		</tr>
-		<tr>
-			<td><input type="button" value="과제" onClick="menu('6')" /></td>
-		</tr>
-		<tr>
-			<td><input type="button" value="오답노트" onClick="menu('7')" /></td>
-		</tr>
-		<tr>
-			<td><input type="button" value="성적" onClick="menu('8')" /></td>
-		</tr>
-		<tr>
-			<td><input type="button" value="학생관리" onClick="menu('9')" /></td>
-		</tr>
-		<tr>
-			<td><input type="button" value="자료실" onClick="menu('10')" /></td>
-		</tr>
-		<tr>
-			<td><input type="button" value="쪽지" onClick="menu('11')" /></td>
-		</tr>
-		<tr>
-			<td><input type="button" value="강의계획서" onClick="menu('12')" /></td>
-		</tr>
-		<tr>
-			<td><input type="button" value="문제코드" onClick="menu('13')" /></td>
-		</tr>
-	</table>
-	<!-- 과제 리스트 -->
-	<table>
-		<tr>
-			<td>제목</td>
-			<td>날짜</td>
-		</tr>
-		${taskList }
-	</table>
+	<input type="hidden" value="${identity }" name="identity" />
+	<div class="wrapper">
+		<div class="sidebar" data-background-color="white"
+			data-active-color="danger">
 
 
-	<!-- 과제 보여주기(제목,내용,날짜 -->
-	<table id='tableText'>
+			<!-- 왼쪽메뉴바 영역 -->
 
-		<tr>
-			<td>제목</td>
-			<td>날짜</td>
-		</tr>
-		<tr>
-			<td>${title }</td>
-			<td>${date }</td>
-		</tr>
-		<tr>
-			<td>내용</td>
-		</tr>
-		<tr>
-			<td>${content }</td>
-		</tr>
 
-	</table>
+			<div class="sidebar-wrapper">
+				<div class="logo">
+					<a href="teacher_main.html" class="simple-text"> <img
+						src="assets/img/gong_logo.png" alt="공조" width="150*100">
+					</a>
+				</div>
 
-	<!-- 댓글 : 학생이름,파일다운(클릭)) -->
-	${tagcontent }
+				<ul class="nav">
+					<li></li>
+					<li class="active"><a href=""> <i class="ti-user"></i>
+							<p>마이페이지</p>
+					</a></li>
+					<!-- 마이페이지로 가기만들기 -->
+					<li><a onClick="menu('1')"> <i class="ti-home"></i>
+							<p>홈</p>
+					</a></li>
+					<li><a onClick="menu('3')"> <i class="ti-star"></i>
+							<p>공지사항</p>
+					</a></li>
+					<li><a onClick="menu('4')"> <i class="ti-help"></i>
+							<p>질문게시판</p>
+					</a></li>
+					<li><a onClick="menu('5')"> <i class="ti-pencil-alt2"></i>
+							<p>토론게시판</p>
+					</a></li>
+					<li><a onClick="menu('6')"> <i class="ti-clipboard"></i>
+							<p>과제</p>
+					</a></li>
+					<li><a onClick="menu('7')"> <i class="ti-book"></i>
+							<p>오답노트</p>
+					</a></li>
+					<li><a onClick="menu('8')"> <i class="ti-bar-chart"></i>
+							<p>성적</p>
+					</a></li>
+					<li><a onClick="menu('9')"> <i class="ti-settings"></i>
+							<p>우리반학생</p>
+					</a></li>
+					<li><a onClick="menu('10')"> <i
+							class="ti-shopping-cart-full "></i>
+							<p>자료실</p>
+					</a></li>
+					<li></li>
+					<li><a onClick="menu('12')"> <i class="ti-pencil-alt "></i>
+							<p>강의계획서</p>
+					</a></li>
+					<li><a onClick="menu('13')"> <i class="ti-bookmark-alt "></i>
+							<p>과목코드</p>
+					</a></li>
+
+				</ul>
+			</div>
+		</div>
+		<!-- 상단바 영역 -->
+
+
+		<div class="main-panel">
+			<nav class="navbar navbar-default">
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle">
+						<span class="sr-only">Toggle navigation</span> <span
+							class="icon-bar bar1"></span> <span class="icon-bar bar2"></span>
+						<span class="icon-bar bar3"></span>
+					</button>
+					<a class="navbar-brand" href="#"></a>
+				</div>
+				<div class="collapse navbar-collapse">
+					<ul class="nav navbar-nav navbar-right">
+
+						<li class="dropdown"><a href="#" class="dropdown-toggle"
+							data-toggle="dropdown"> <i class="ti-bell"></i>
+								<p class="notification"></p>
+								<p>마이메뉴</p> <b class="caret"></b>
+						</a>
+							<ul class="dropdown-menu">
+								<li><a href="http://localhost/real/studentLearningMSG.jsp">쪽지함</a></li>
+								<li><a href="http://localhost/real/first_join.jsp">로그아웃</a></li>
+							</ul></li>
+
+					</ul>
+
+				</div>
+			</div>
+			</nav>
+
+			<!-- 질문게시판 -->
+			<div class="col-lg-35 col-md-12">
+
+				<div class="card">
+					<br />
+					<h2>
+						<b>과제 게시판</b>
+					</h2>
+
+					${taskList }
+					<hr />
+					<table class="table table-hover">
+
+						<tr>
+							<td>제목</td>
+							<td>날짜</td>
+							<td>내용</td>
+						</tr>
+						<tr>
+							<td>${title }</td>
+							<td>${date }</td>
+							<td>${content }</td>
+						</tr>
+					
+					</table>
+						${tagcontent }
+				
+					<!-- 페이지네이션넣기 -->
+					<div class="text-center">
+						<ul class="pagination">
+							<li><a href="#">1</a></li>
+							<li><a href="#">2</a></li>
+							<li><a href="#">3</a></li>
+							<li><a href="#">4</a></li>
+							<li><a href="#">5</a></li>
+						</ul>
+					</div>
+
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+
 
 </body>
 </html>

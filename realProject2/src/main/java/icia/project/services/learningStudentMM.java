@@ -213,7 +213,7 @@ public class learningStudentMM extends TransactionExe {
 				/////////////////////////////////////////////////////////////////////////
 
 				sb = new StringBuffer();
-				sb.append("<table>");
+				sb.append("<table class=\"table table-hover\">");
 				sb.append("<tr>");
 				sb.append("<td>");
 				sb.append("게시글 번호");
@@ -262,7 +262,7 @@ public class learningStudentMM extends TransactionExe {
 					sb.append(boardList.get(i).getBoardDate());
 					sb.append("</td>");
 					sb.append("<td>");
-					sb.append("<input type='button' value='선생님 코멘트' onClick='commentCheck("+boardList.get(i).getBoardCode()+")' />");
+					sb.append("<input type='button' class='btn' value='선생님 코멘트' onClick='commentCheck("+boardList.get(i).getBoardCode()+")' />");
 					sb.append("</td>");
 					sb.append("</tr>");
 				}
@@ -283,7 +283,7 @@ public class learningStudentMM extends TransactionExe {
 
 				sb = new StringBuffer();
 
-				sb.append("<table>");
+				sb.append("<table class=\"table table-hover\">");
 				sb.append("<tr>");
 				sb.append("<td>");
 				sb.append("모의고사 기출년월");
@@ -442,7 +442,7 @@ public class learningStudentMM extends TransactionExe {
 
 	private String stlearningNoticeList(BoardBean board, ArrayList<BoardBean> ar) { // 공지사항 리스트
 		StringBuffer sb = new StringBuffer();
-		sb.append("<table>");
+		sb.append("<table class=\"table table-hover\">");
 		sb.append("<tr>");
 		sb.append("<td>제목</td>");
 		sb.append("<td>날짜</td>");
@@ -598,7 +598,7 @@ public class learningStudentMM extends TransactionExe {
 				sb.append("<tr>");
 				sb.append("<td>");
 				sb.append("아이디 : "+board.getBoardId());
-				sb.append("</td>");
+				sb.append("</td>");inputButton
 				sb.append("</tr>");
 				sb.append("</table>");
 */
@@ -641,7 +641,7 @@ public class learningStudentMM extends TransactionExe {
 
 			//mav.addObject("content",session.getAttribute("roomCode") + "의 공지사항");
 			bb = dao.learningQuestionlist(board);
-			sb.append("<table>");
+			sb.append("<table class=\"table table-hover\">");
 			sb.append("<tr>");
 			sb.append("<td>제목</td>");
 			sb.append("<td>날짜</td>");
@@ -649,7 +649,7 @@ public class learningStudentMM extends TransactionExe {
 			sb.append("</tr>");
 			for(int i=0; i<bb.size(); i++) {
 				sb.append("<tr>");
-				sb.append("<td>" + "<input type='button' value='"+bb.get(i).getBoardTitle()+"' onClick=viewData(\'"+bb.get(i).getRoomCode()+"\',"+"\'"+bb.get(i).getBoardTitle()+"\',"+"\'"+bb.get(i).getBoardDate()+"\') />" + "</td>");
+				sb.append("<td>" + "<input type='button'class='btn' value='"+bb.get(i).getBoardTitle()+"' onClick=viewData(\'"+bb.get(i).getRoomCode()+"\',"+"\'"+bb.get(i).getBoardTitle()+"\',"+"\'"+bb.get(i).getBoardDate()+"\') />" + "</td>");
 				sb.append("<td>" + bb.get(i).getBoardDate() + "</td>");
 				sb.append("<td>" + bb.get(i).getBoardId() + "</td>");
 				sb.append("</tr>");
@@ -874,7 +874,7 @@ public class learningStudentMM extends TransactionExe {
 	
 	private String stlearningDebateList(BoardBean board, ArrayList<BoardBean> ar) { // 토론게시판 리스트 출력
 		StringBuffer sb = new StringBuffer();
-		sb.append("<table>");
+		sb.append("<table class=\"table table-hover\">");
 		sb.append("<tr>");
 		sb.append("<td>제목</td>");
 		sb.append("<td>날짜</td>");
@@ -977,6 +977,7 @@ public class learningStudentMM extends TransactionExe {
 				mav.addObject("title", board.getBoardTitle());
 				mav.addObject("date",board.getBoardDate());
 				mav.addObject("content", board.getBoardContent());		
+				sb.append("<td>"+"<input type='button' class='btn' value='과제 제출' onClick=\"confirm('"+ board.getBoardTitle() +"','" + board.getRoomCode() + "','"+ board.getBoardCode() +"')\">" + "</td>");
 
 				
 				// 게시글 댓글(너가 여기서부터 댓글 뽑아내면되)
@@ -985,24 +986,26 @@ public class learningStudentMM extends TransactionExe {
 				
 				al = dao.learningTaskSelect(board);	// 댓글 내용
 				
+				sb.append("<table class=\"table table-hover\">");
+				sb.append("<tr>");
+				sb.append("<td>학생 이름 </td>");
+				sb.append("<td>올린 날짜 </td>");
+				sb.append("<td>파일 보기 </td>");
+		    	sb.append("</tr>");
 				for(int i = 0; i < al.size(); i++) {
 					
 					board.setStudentCode(al.get(i).getStudentCode());
 					board.setStudentName(dao.stNameGet(board));
 					
-					sb.append("<table>");
+					
 					sb.append("<tr>");
-					sb.append("<td>학생 이름 : " +board.getStudentName() + "</td>");
+					sb.append("<td>" +board.getStudentName() + "</td>");
+					sb.append("<td>" +al.get(i).getBoardDate() + "</td>");
+					sb.append("<td>"+"<input type='button'class='btn' value='올린 파일 보기' onClick=\"checkFile('"+ board.getBoardTitle() +"','" +al.get(i).getBoardDate() + "','" + board.getRoomCode() + "','"+ board.getBoardCode() +"')\">" + "</td>");
 			    	sb.append("</tr>");
-					sb.append("<tr>");
-					sb.append("<td>올린 날짜 : " +al.get(i).getBoardDate() + "</td>");
-			    	sb.append("</tr>");
-			    	sb.append("<tr>");
-			    	sb.append("<td>"+"<input type='button' value='올린 파일 보기' onClick=\"checkFile('"+ board.getBoardTitle() +"','" +al.get(i).getBoardDate() + "','" + board.getRoomCode() + "','"+ board.getBoardCode() +"')\">" + "</td>");
-			    	sb.append("</tr>");
-					sb.append("</table>"); 
+					
 				}
-
+				sb.append("</table>"); 
 				mav.addObject("tagcontent", sb.toString());
 
 				mav.addObject("checkContent", 1);
@@ -1017,18 +1020,22 @@ public class learningStudentMM extends TransactionExe {
 			if(dao.learningTaskCheck(board) != 0) {    
 
 				al = dao.learningTaskList(board);    // 과제 리스트 담기
-
+				sb.append("<table class=\"table table-hover\">");
+				sb.append("<tr>");
+				sb.append("<td>제목</td>");
+				sb.append("<td>날짜</td>");
+				sb.append("</tr>");
 				for(int i = 0; i < al.size(); i++) {	// 과제 리스트 출력
 					sb.append("<tr>");
 					sb.append("<td>");
-					sb.append("<button onClick=\"questionCXT(\'"+ al.get(i).getBoardCode() +"\')\" />" + al.get(i).getBoardTitle() + "</button>");
+					sb.append("<button class='btn' onClick=\"questionCXT(\'"+ al.get(i).getBoardCode() +"\')\" />" + al.get(i).getBoardTitle() + "</button>");
 					sb.append("</td>");
 					sb.append("<td>");
 					sb.append(al.get(i).getBoardDate());
 					sb.append("</td>");
 					sb.append("</tr>");    
 				}
-
+				sb.append("</table>");
 				mav.addObject("taskList", sb.toString());
 
 			}
