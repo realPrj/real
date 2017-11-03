@@ -1173,40 +1173,32 @@ public class learningStudentMM extends TransactionExe {
 
 	private ModelAndView checkFile(BoardBean board) { //과제 페이지 자세하게 보기
 
-		ViewService view = new ViewService(); 
 		mav = new ModelAndView();
-		StringBuffer sb = new StringBuffer();
-
-		ArrayList<BoardBean> al = null;
+		
+		ViewService view = new ViewService(); 
+		
 		boolean transaction = false;
 
 		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
 
 		try {
 
-			board.setRoomCode((String)session.getAttribute("roomCode"));
-
 			board.setStudentCode((String)session.getAttribute("stCode"));
-			System.out.println(board.getBoardDate());
-			System.out.println(board.getBoardCode());
-			System.out.println(board.getRoomCode());
-			System.out.println(board.getStudentCode());
+
 			//mav.addObject("content",session.getAttribute("roomCode") + "의 공지사항");
 
 			DbBoardBean bb = dao.checkFile(board);   // 전체 루트(파일이름까지)
-			System.out.println("1");
-			System.out.println("1");
-			System.out.println("1");
-			System.out.println(bb.getBoardRoute());
+
 			bb.setCutRoute(bb.getBoardRoute().substring(0,68));   // 루트만
 
-
 			bb.setCutContent(bb.getBoardRoute().substring(68));   // 파일이름
-			System.out.println(bb.getCutContent());
+			
+			System.out.println(bb.getCutRoute()+"루트");
+			System.out.println(bb.getCutContent()+"파일이름");
+			
 			List<String> list = view.getList(bb);
 
 			mav.addObject("list",list);
-
 
 			mav.addObject("date",board.getBoardDate());
 
@@ -1215,6 +1207,7 @@ public class learningStudentMM extends TransactionExe {
 			mav.addObject("file",bb.getCutContent());
 
 			mav.setViewName("learningTaskStudentCheck");
+			
 			transaction = true;
 
 

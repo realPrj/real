@@ -36,7 +36,7 @@ public class HomeController  {
 	@Autowired
 	private learningStudentMM lsmm;
 	@Autowired
-	private StudentManagement stmm;
+	private StudentManagement stm;
 	
 	@Autowired
 	private teacherManagement ttmm;
@@ -309,7 +309,7 @@ public class HomeController  {
 			break;
 
 		case 14 : //로그아웃
-			mav = stmm.entrance(5, member);
+			mav = stm.entrance(5, member);
 			break;
 		}
 
@@ -643,6 +643,15 @@ public class HomeController  {
 
 			return mav;
 	}
+		
+		// 학생 과제 파일 확인 팝업창
+		@RequestMapping(value = "/checkFile", method = RequestMethod.GET)
+		public ModelAndView checkFile(@ModelAttribute BoardBean board) {
+
+			mav = lsmm.entrance(16, board);
+
+			return mav;
+		}
 
 
 

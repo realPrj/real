@@ -44,7 +44,7 @@ public class FunctionController {
 	@Autowired
 	private learningTeacherMM ltm;
 	@Autowired
-	private learningStudentMM stm;
+	private learningStudentMM lsm;
 
 	private ModelAndView mav;
 
@@ -421,7 +421,7 @@ public class FunctionController {
 
 		board.setId((String)session.getAttribute("id"));
 
-		mav = stm.entrance(5, board, mtfRequest);
+		mav = lsm.entrance(5, board, mtfRequest);
 
 		return mav;
 	}
@@ -430,7 +430,7 @@ public class FunctionController {
 	@RequestMapping(value = "/questionBoardCXT", method = RequestMethod.POST)
 	public ModelAndView questionBoardCXT(@ModelAttribute BoardBean board)throws Exception{      
 
-		mav = stm.entrance(6, board);
+		mav = lsm.entrance(6, board);
 
 		return mav;
 	}
@@ -439,9 +439,9 @@ public class FunctionController {
 	@RequestMapping(value = "/learningQuestionDelete", method = RequestMethod.POST)
 	public ModelAndView learningQuestionDelete(@ModelAttribute BoardBean board){      
 
-		stm.entrance(12, board);
+		lsm.entrance(12, board);
 
-		mav = stm.entrance(4, board);
+		mav = lsm.entrance(4, board);
 
 		return mav;
 	}
@@ -449,9 +449,9 @@ public class FunctionController {
 	// 질문게시판 업데이트
 	@RequestMapping(value = "/learningQuUpdate", method = RequestMethod.POST)
 	public ModelAndView learningQuUpdate(@ModelAttribute BoardBean board){     
-		stm.entrance(13, board);
+		lsm.entrance(13, board);
 
-		mav = stm.entrance(4, board); // 다시 메뉴로 가기
+		mav = lsm.entrance(4, board); // 다시 메뉴로 가기
 
 		return mav;
 	}
@@ -615,9 +615,9 @@ public class FunctionController {
 	public ModelAndView learningSubmitTaskInsert(@ModelAttribute BoardBean board,MultipartHttpServletRequest mtfRequest)throws Exception{      
 
 
-		stm.entrance(15, board, mtfRequest);
+		lsm.entrance(15, board, mtfRequest);
 
-		mav = stm.entrance(14, board);
+		mav = lsm.entrance(14, board);
 
 		return mav;
 	}
@@ -625,9 +625,9 @@ public class FunctionController {
 	// 토론게시판 댓글 등록
 	@RequestMapping(value = "/DebateTagInsert", method = RequestMethod.POST)
 	public ModelAndView learningDebateTagInsert(@ModelAttribute BoardBean board) {
-		stm.entrance(34, board);
+		lsm.entrance(34, board);
 
-		mav = stm.entrance(33, board);
+		mav = lsm.entrance(33, board);
 		return mav;
 	}
 
@@ -635,20 +635,9 @@ public class FunctionController {
 	@RequestMapping(value = "/DebateTagDelete", method = RequestMethod.POST)
 	public ModelAndView learningDebateTagDelete(@ModelAttribute BoardBean board) {
 		System.out.println("댓글삭제 컨트롤러 : " + board.getTagDate());
-		stm.entrance(35, board);
+		lsm.entrance(35, board);
 
-		mav = stm.entrance(33, board);
-		return mav;
-	}
-
-		
-	// 학생 과제 파일 확인 팝업창
-	@RequestMapping(value = "/checkFile", method = RequestMethod.GET)
-	public ModelAndView checkFile(@ModelAttribute BoardBean board) {
-
-		mav = new ModelAndView();
-		mav = stm.entrance(16, board);
-
+		mav = lsm.entrance(33, board);
 		return mav;
 	}
 
