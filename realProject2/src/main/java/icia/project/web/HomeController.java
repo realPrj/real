@@ -20,8 +20,10 @@ import icia.project.bean.DbBoardBean;
 import icia.project.bean.LearningRoomBean;
 import icia.project.bean.MemberBean;
 import icia.project.services.PageManagement;
+import icia.project.services.StudentManagement;
 import icia.project.services.learningStudentMM;
 import icia.project.services.learningTeacherMM;
+import icia.project.services.teacherManagement;
 
 
 @Controller
@@ -33,7 +35,11 @@ public class HomeController  {
 	private learningTeacherMM ltmm;
 	@Autowired
 	private learningStudentMM lsmm;
-
+	@Autowired
+	private StudentManagement stmm;
+	
+	@Autowired
+	private teacherManagement ttmm;
 	private ModelAndView mav;
 
 	///////////////////////////////////////// 페이지  /////////////////////////////////////////	
@@ -181,7 +187,7 @@ public class HomeController  {
 
 	// 선생님 학습메뉴
 	@RequestMapping(value = "/tcmenu", method = RequestMethod.POST)
-	public ModelAndView tcMenu(@ModelAttribute BoardBean board) {
+	public ModelAndView tcMenu(@ModelAttribute BoardBean board, MemberBean member) {
 
 		int code = Integer.parseInt(board.getCaCode());
 
@@ -237,7 +243,7 @@ public class HomeController  {
 			break;
 
 		case 14 : 
-
+			mav = ttmm.entrance(5, member);
 			break;
 		}
 
@@ -252,7 +258,7 @@ public class HomeController  {
 
 		switch(code) {
 		case 1 : 
-
+			mav.setViewName("studentLearningMain");
 			break;
 		case 2 : 
 
@@ -302,8 +308,8 @@ public class HomeController  {
 
 			break;
 
-		case 14 : 
-
+		case 14 : //로그아웃
+			mav = stmm.entrance(5, member);
 			break;
 		}
 
@@ -538,20 +544,6 @@ public class HomeController  {
 		return mav;
 	}
 
-
-	// 토론게시판 댓글 목록
-	@RequestMapping(value = "/learningDebateTagList", method = RequestMethod.POST)
-	public @ResponseBody BoardBean learningDebateTagList(@ModelAttribute BoardBean board) {
-
-		BoardBean b;
-
-		b = ltmm.learningDebateTagList(board);
-
-
-
-		return b;
-	}
-
 	// 과제 페이지
 	@RequestMapping(value = "/learningTaskPage", method = RequestMethod.POST)
 	public ModelAndView learningTaskPage(@ModelAttribute BoardBean board) {
@@ -635,9 +627,22 @@ public class HomeController  {
 
 		return mav;
 	}
+		// 학생 회원탈퇴 페이지 이동
+		@RequestMapping(value = "/WithdrawalPage", method = RequestMethod.POST)
+		public ModelAndView WithdrawalPage(@ModelAttribute BoardBean board) {
 
-	
-	
+			mav.setViewName("studentWithdrawalPage");
+
+			return mav;
+	}
+		// 학생 회원탈퇴 페이지 이동
+		@RequestMapping(value = "/WithdrawalTeacherPage", method = RequestMethod.POST)
+		public ModelAndView WithdrawalTeacherPage(@ModelAttribute BoardBean board) {
+
+			mav.setViewName("teacherWithdrawalPage");
+
+			return mav;
+	}
 
 
 

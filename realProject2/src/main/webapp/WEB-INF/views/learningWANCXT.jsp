@@ -6,7 +6,41 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8" />
+<link rel="apple-touch-icon" sizes="76x76"
+   href="assets/img/apple-icon.png">
+<link rel="icon" type="image/png" sizes="96x96"
+   href="assets/img/favicon.png">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
 <title>공조 || 오답노트 선생님 코멘트</title>
+<meta
+   content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0'
+   name='viewport' />
+<meta name="viewport" content="width=device-width" />
+
+
+<!-- Bootstrap core CSS     -->
+<link href="assets/css/bootstrap.min.css" rel="stylesheet" />
+
+<!-- Animation library for notifications   -->
+<link href="assets/css/animate.min.css" rel="stylesheet" />
+
+<!--  Paper Dashboard core CSS    -->
+<link href="assets/css/paper-dashboard.css" rel="stylesheet" />
+
+
+<!--  CSS for Demo Purpose, don't include it in your project     -->
+<link href="assets/css/demo.css" rel="stylesheet" />
+
+
+<!--  Fonts and icons     -->
+<link
+   href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css"
+   rel="stylesheet">
+<link href='https://fonts.googleapis.com/css?family=Muli:400,300'
+   rel='stylesheet' type='text/css'>
+<link href="assets/css/themify-icons.css" rel="stylesheet">
 </head>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script>
@@ -109,6 +143,10 @@ function windowcloseClick(){
 
 </script>
 <body onLoad="openerReload()">
+ <br />
+   <img src="assets/img/gong_logo.png" alt="공조" width="200*150">
+   <br />
+
 ${InsertButton }
       <table id="tableText">
          <tr>
@@ -126,9 +164,7 @@ ${InsertButton }
          <tr>
             <td><input type="hidden" name="boardData" value="${writeId }">글쓴이:${writeId }</td>
          </tr>
-         <tr>
-            <td>경로:${route }</td>
-         </tr>
+
 	${inputButton }
       </table>
 

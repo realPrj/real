@@ -63,6 +63,43 @@ function stadmin(studentCode){
    
 }
 
+/* function stadmin(studentCode) {
+    alert(studentCode);
+    createinput("hidden", "studentCode", studentCode);
+
+    createForm("teacherLearningSTadminCXTform",
+          "teacherLearningSTadminCXT", "post");
+
+    var form = document.getElementsByName("teacherLearningSTadminCXTform")[0];
+
+    var boardTitle = document.getElementsByName("studentCode")[0];
+
+    form.appendChild(studentCode);
+
+    form.submit();
+
+ } */
+ function sendMail(studentEmail) {
+    alert(studentEmail);
+    createinput("hidden", "email", studentEmail);
+
+    createForm("sendmailForm",
+          "sendMail", "post");
+
+    var form = document.getElementsByName("sendmailForm")[0];
+
+    var email = document.getElementsByName("email")[0];
+
+    form.appendChild(email);
+
+    form.submit();
+
+ }
+ 
+ function sendMessage(){
+	 sendMessagePopUp = window.open("sendMessagePopUp.jsp","new","width=500, height=500")
+ }
+
 </script>
 </head>
 <body>

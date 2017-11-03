@@ -79,15 +79,15 @@ public class PageManagement extends TransactionExe {
 				al = dao.tclearningRoomGet(room);
 
 				sb.append("<table>");
+				sb.append("<tr>");
 				for(int i =0; i < al.size(); i++) {
-
-					sb.append("<tr>");
+					
 					sb.append("<td>");
-					sb.append("<input type='button' value='"+al.get(i).getRoomName()+"' onClick=learningGo('"+al.get(i).getRoomCode()+"') />");
+					sb.append("<input type='button' class='btn' value='"+al.get(i).getRoomName()+"' onClick=learningGo('"+al.get(i).getRoomCode()+"') />");
 					sb.append("</td>");
-					sb.append("</tr>");
 
 				}
+				sb.append("</tr>");
 				sb.append("</table>");
 				mav.addObject("content", sb.toString());
 				mav.setViewName("teacherMain");
@@ -124,7 +124,7 @@ public class PageManagement extends TransactionExe {
 
 		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
 
-		try {
+		try {System.out.println("여기 왓어염");
 			room = new LearningRoomBean();
 			room.setStudentCode((String)session.getAttribute("stCode"));
 			
@@ -141,7 +141,7 @@ public class PageManagement extends TransactionExe {
 					
 					sb.append("<tr>");
 					sb.append("<td>");
-					sb.append("<input type='button' value='"+room.getRoomName()+"' onClick=learningGo('"+room.getRoomCode()+"') />");
+					sb.append("<input type='button' class='btn' value='"+room.getRoomName()+"' onClick=learningGo('"+room.getRoomCode()+"') />");
 					sb.append("</td>");
 					sb.append("</tr>");
 					
@@ -195,7 +195,7 @@ public class PageManagement extends TransactionExe {
 			}
 			sb.append("이번달 지각 : "+ tardy+"<br>");
 			sb.append("이번달 조퇴 : "+ early+"<br>");
-			sb.append("<input type='button' value='접어두기' onClick='fold()' >");
+			sb.append("<input type='button'  class='btn' value='접어두기' onClick='fold()' >");
 			sb.append("</div>");
 			mav.addObject("attendance",sb.toString());
 			

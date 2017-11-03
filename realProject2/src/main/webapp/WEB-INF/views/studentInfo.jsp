@@ -58,6 +58,6 @@ function pwdUP(formname,formaction,formmethod){
 ${content }
 <input type="button" value="비밀번호 수정" onClick="pwdUP('studentInfoPWDUpdatePageform','studentInfoPWDUpdatePage','post')" />
 <input type="button" value="나의정보 수정" onClick="eventClick('studentInfoUpdatePageform','studentInfoUpdatePage','post')" />
-<input type="button" value="회원탈퇴" onClick="" />
+<input type="button" value="회원탈퇴" onClick="eventClick('Withdrawalform','WithdrawalPage','post')" />
 </body>
 </html>
