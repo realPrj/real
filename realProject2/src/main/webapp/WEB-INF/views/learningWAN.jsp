@@ -101,7 +101,16 @@ $(document).ready(function() {
 
       document.body.appendChild(input);
    }
+   function createinput1(itype, iname, ivalue) {
+	      var input = document.createElement("input");
+	      input.type = itype;
+	      input.name = iname;
+	      input.value = ivalue;
 
+	      document.body.appendChild(input);
+	      
+	      return input;
+	   }
    function commentCheck(valueCode) {
 
       createinput("hidden", "boardCode", valueCode);
@@ -127,6 +136,20 @@ $(document).ready(function() {
       form.submit();
 
    }
+   function menu(ivalue) {
+		
+	      createinput1("hidden", "caCode", ivalue);
+
+	      var caCode = document.getElementsByName("caCode")[0];
+
+	      createForm1("menuform", "tcmenu", "post");
+
+	      var form = document.getElementsByName("menuform")[0];
+	      form.appendChild(caCode);
+	      
+	      form.submit();
+
+	   }
 </script>
 <body>
 	<div class="wrapper">
@@ -146,7 +169,7 @@ $(document).ready(function() {
 
 				<ul class="nav">
 					<li></li>
-					<li class="active"><a href=""> <i class="ti-user"></i>
+					<li class="active"><a onClick="menu('15')"> <i class="ti-user"></i>
 							<p>마이페이지</p>
 					</a></li>
 					<!-- 마이페이지로 가기만들기 -->

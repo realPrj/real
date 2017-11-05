@@ -138,7 +138,7 @@
 
 				<ul class="nav">
 					<li></li>
-					<li class="active"><a href=""> <i class="ti-user"></i>
+					<li class="active"><a onClick="menu('15')"> <i class="ti-user"></i>
 							<p>마이페이지</p>
 					</a></li>
 					<!-- 마이페이지로 가기만들기 -->
@@ -261,7 +261,7 @@
 							</div>
 							<div>
 
-								<br /> <br /> <input type="button" class="btn"
+								<br /> <br /> <input type="button" class="btn" value="수정 하기"
 									onClick="check('${boardTitle }','${boardContent}','${roomCode }','${boardDate }','${boardId }')">
 
 							</div>

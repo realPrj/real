@@ -121,7 +121,7 @@ function menu(ivalue){
 				<ul class="nav">
 					<li></li>
 					<li class="active">
-					<a href="">
+					<a onClick="menu('15')">
 					 <i class="ti-user"></i>
 							<p >마이페이지</p>
 					</a></li><!-- 마이페이지로 가기만들기 -->

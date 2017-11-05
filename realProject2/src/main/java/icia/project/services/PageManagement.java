@@ -222,7 +222,7 @@ public class PageManagement extends TransactionExe {
 
 			member = dao.tcInformationGet(member);
 
-			sb.append("<table>");
+			sb.append("<table class=\"joinInput\">");
 			sb.append("<tr>");
 			sb.append("<td>");
 			sb.append("아이디");
@@ -276,7 +276,9 @@ public class PageManagement extends TransactionExe {
 		mav = new ModelAndView();
 		boolean transaction = false;
 		StringBuffer sb = new StringBuffer();
+		LearningRoomBean room = new  LearningRoomBean();
 		MemberBean member = new MemberBean();
+		ArrayList<LearningRoomBean> ar = null;
 		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
 
 		try {	
@@ -284,13 +286,13 @@ public class PageManagement extends TransactionExe {
 
 			member = dao.stInformationGet(member);
 
-			sb.append("<table>");
+			sb.append("<table class=\"joinInput\">");
 			sb.append("<tr>");
 			sb.append("<td>");
 			sb.append("아이디");
 			sb.append("</td>");
 			sb.append("<td>");
-			sb.append("<input type=\"text\" name='id' value='"+member.getId()+"' readonly>");
+			sb.append("<input type=\"text\" name='id' class=\"box\" value='"+member.getId()+"' readonly>");
 			sb.append("</td>");
 			sb.append("</tr>");
 			sb.append("<tr>");
@@ -298,7 +300,7 @@ public class PageManagement extends TransactionExe {
 			sb.append("이름");
 			sb.append("</td>");
 			sb.append("<td>");
-			sb.append("<input type=\"text\" name='name' value='"+member.getName()+"' readonly>");
+			sb.append("<input type=\"text\" name='name' class=\"box\" value='"+member.getName()+"' readonly>");
 			sb.append("</td>");
 			sb.append("</tr>");
 			sb.append("<tr>");
@@ -306,7 +308,7 @@ public class PageManagement extends TransactionExe {
 			sb.append("이메일");
 			sb.append("</td>");
 			sb.append("<td>");
-			sb.append("<input type=\"text\" name='email' value='"+member.getEmail()+"' readonly>");
+			sb.append("<input type=\"text\" name='email' class=\"box\" value='"+member.getEmail()+"' readonly>");
 			sb.append("</td>");
 			sb.append("</tr>");
 			sb.append("<tr>");
@@ -314,12 +316,45 @@ public class PageManagement extends TransactionExe {
 			sb.append("핸드폰");
 			sb.append("</td>");
 			sb.append("<td>");
-			sb.append("<input type=\"text\" name='phone' value='"+member.getPhone()+"' readonly>");
+			sb.append("<input type=\"text\" name='phone' class=\"box\" value='"+member.getPhone()+"' readonly>");
 			sb.append("</td>");
 			sb.append("</tr>");
 			sb.append("</table>");
-
+			System.out.println("content는 왓어 ");
 			mav.addObject("content", sb.toString());
+			System.out.println(member.getStudentCode());
+			
+			room.setStudentCode(member.getStudentCode());
+			System.out.println(room.getStudentCode());
+			ar = dao.attendanceGet(room);
+			System.out.println("room는 왓어 ");
+			System.out.println(room.getAttendDate());
+			System.out.println(room.getAttendanceType());
+			sb.append("<table class=\"joinInput\">");
+			sb.append("<tr>");
+			sb.append("<td>");
+			sb.append("날짜");
+			sb.append("</td>");
+			sb.append("<td>");
+			sb.append("출결");
+			sb.append("</td>");
+			sb.append("</tr>");
+//			for(int i =0; i < ar.size(); i++) {				
+//				sb.append("<tr>");
+//				sb.append("<td>");
+//				sb.append(room.getAttendDate());
+//				sb.append("</td>");
+//				sb.append("<td>");
+//				sb.append(room.getAttendanceType());
+//				sb.append("</td>");
+//				sb.append("</tr>");
+//				
+//			}
+			sb.append("</table>");
+			
+			mav.addObject("attendance",sb.toString());
+			
+			
 			transaction = true;		
 
 		}catch(Exception ex) {

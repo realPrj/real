@@ -431,8 +431,8 @@ public class FunctionController {
 		board.setId((String)session.getAttribute("id"));
 		System.out.println(mtfRequest.getParameter("multiple"));
 		System.out.println("여기 옴??");
-		mav = lsm.entrance(5, board, mtfRequest);
-		
+		lsm.entrance(5, board, mtfRequest);
+		mav = lsm.entrance(4, board);
 		return mav;
 	}
 
