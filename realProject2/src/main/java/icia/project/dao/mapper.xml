@@ -295,6 +295,9 @@
 		WRONGANSWERNOTES
 		WHERE
 		WAN_LRCODE=#{roomCode}
+		ORDER
+		BY
+		WAN_DATE DESC
 	</select>
 
 	<!-- 학습방 과목 코드 추출 -->

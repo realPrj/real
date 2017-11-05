@@ -184,7 +184,7 @@ public class learningStudentMM extends TransactionExe {
 
 				sb = new StringBuffer();
 				sum = new StringBuffer();
-				sb.append("<select id = 'yearSelect'>");
+				sb.append("<select id = 'yearSelect' class='btn-sm'>");
 				sb.append("<option></option>");
 
 				for(int i =0; i < yearCode.size(); i++) {
@@ -255,6 +255,8 @@ public class learningStudentMM extends TransactionExe {
 					board.setRoomSB(dao.learningSBCodeGet(board));
 					board.setYearName(dao.learningYearNameGet(board));
 					board.setTypeName(dao.learningTypeNameGet(board));
+					board.setBoardCode(boardList.get(i).getBoardCode());
+					String check =((dao.learningWANCommentCheck(board) == 1)? "O" : "X");
 
 					sb.append("<tr>");
 					sb.append("<td>");
@@ -274,6 +276,9 @@ public class learningStudentMM extends TransactionExe {
 					sb.append("</td>");
 					sb.append("<td>");
 					sb.append("<input type='button' class='btn' value='선생님 코멘트' onClick='commentCheck("+boardList.get(i).getBoardCode()+")' />");
+					sb.append("</td>");
+					sb.append("<td>");
+					sb.append(check);
 					sb.append("</td>");
 					sb.append("</tr>");
 				}

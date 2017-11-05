@@ -42,28 +42,21 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script>
 $(document).ready(function() {
-	   
-	   var sizee = ${size};
-	   var dateCode = ${lowest};
 
-	   for(var i = 0; i < parseInt(sizee) ; i++){
-	      $("#"+dateCode).hide();
-	      dateCode = parseInt(dateCode) + 1;
-	   };
-	   
+	   $("div[name *='div']").hide(); 
 	   
 	   $("#yearSelect").click(function() {
 	   var selectValue = $("#yearSelect").val();
-	   var dateCode = ${lowest};
-	   for(var i = 0; i < parseInt(sizee); i++){
-	      $("#"+dateCode).hide();
-	      dateCode = parseInt(dateCode) + 1;
-	   };
+
+	   $("div[name *='div']").hide(); 
 	      $("#"+selectValue).show();
 	      var divbox = $("#divbox");
 	      divbox.append($("#"+selectValue));
 	   });
-	   
+
+	   $("tbody[name *='tbody']").hide(); 
+	   var tableList = $("#tableList");
+	   tableList.append($("#tbody0").show());
 	   
 	 });
 
@@ -127,15 +120,20 @@ $(document).ready(function() {
       form.submit();
 
    }
+   
+    function pageNumber(value){
+	   $("tbody[name *='tbody']").hide(); 
+	   var tableList = $("#tableList");
+	   tableList.append($("#tbody"+value).show());
+   }
+   
 </script>
 <body>
 	<div class="wrapper">
 		<div class="sidebar" data-background-color="white"
 			data-active-color="danger">
 
-
 			<!-- 왼쪽메뉴바 영역 -->
-
 
 			<div class="sidebar-wrapper">
 				<div class="logo">
@@ -244,31 +242,17 @@ $(document).ready(function() {
 
 						<%@include file="learningWANgraph.jsp"%>
 					</div>
+					${content3 }
 					${content }
+					${content2 }
 					<hr />
-
-
-					<div class="text-center">
-						<ul class="pagination">
-							<li><a href="#">1</a></li>
-							<li><a href="#">2</a></li>
-							<li><a href="#">3</a></li>
-							<li><a href="#">4</a></li>
-							<li><a href="#">5</a></li>
-						</ul>
-					</div>
 
 				</div>
 			</div>
-			*/
+			
 		</div>
 
 	</div>
-
-
-
-
-	<div id="divbox"></div>
 
 </body>
 </html>

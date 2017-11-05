@@ -45,7 +45,31 @@
 	$(document).ready(function() {
 
 		$("#chart_div2").hide();
+		
+		
+		   var sizee = ${size};
+		   var dateCode = ${lowest};
 
+		   for(var i = 0; i < parseInt(sizee) ; i++){
+		      $("#"+dateCode).hide();
+		      dateCode = parseInt(dateCode) + 100;
+		   };
+		   
+		   
+		   $("#yearSelect").click(function() {
+		   var selectValue = $("#yearSelect").val();
+		   var dateCode = ${lowest};
+		   for(var i = 0; i < parseInt(sizee); i++){
+		      $("#"+dateCode).hide();
+		      dateCode = parseInt(dateCode) + 1;
+		   };
+		      $("#"+selectValue).show();
+		      var divbox = $("#divbox");
+		      divbox.append($("#"+selectValue));
+		   });
+		
+		
+/* 
 		var sizee = $
 		{
 			size
@@ -59,7 +83,7 @@
 
 		for (var i = 0; i < parseInt(sizee); i++) {
 			$("#" + dateCode).hide();
-			dateCode = parseInt(dateCode) + 1;
+			dateCode = parseInt(dateCode) + 100;
 		}
 		;
 
@@ -78,7 +102,7 @@
 			$("#" + selectValue).show();
 			var divbox = $("#divbox");
 			divbox.append($("#" + selectValue));
-		});
+		}); */
 
 	});
 
@@ -262,10 +286,13 @@
 						</tr>
 					</table>
 					년도 선택${yearSelect } ${typeSumb }
-					<div id="divbox" style="margin-left:300px" class="table table-hover">
+					<div id="divbox"></div>
+
+					<div style="margin-left: 300px" class="table table-hover">
 
 						<%@include file="learningWANgraph.jsp"%>
 					</div>
+					
 					${content } ${average }
 					<hr />
 
@@ -286,6 +313,5 @@
 
 	</div>
 	<div id="studentInformation"></div>
-
 </body>
 </html>
