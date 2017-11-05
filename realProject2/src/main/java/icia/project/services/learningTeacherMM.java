@@ -2324,7 +2324,7 @@ public class learningTeacherMM extends TransactionExe {
 		}catch(Exception ex){
 
 		}finally {
-			mav.setViewName("learningReceiveMSG");
+			mav.setViewName("learningGetMSG");
 			setTransactionResult(transaction);
 		}
 		return mav;
