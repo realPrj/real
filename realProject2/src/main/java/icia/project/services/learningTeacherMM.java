@@ -1588,6 +1588,7 @@ public class learningTeacherMM extends TransactionExe {
 			ar = dao.tclearningDebateList(board);
 
 			mav.addObject("content", tclearningDebateList(board,ar));
+			mav.addObject("identity", session.getAttribute("roomCode"));
 
 			transaction = true;
 
