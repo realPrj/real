@@ -174,11 +174,11 @@ function menu(ivalue, identity){
 							<i class="ti-star"></i>
 							<p>공지사항</p>
 					</a></li>
-					<li><a onClick="menu('4')"> 
+					<li><a onClick="menu('4','${identity }')"> 
 					<i class="ti-help"></i>
 							<p>질문게시판</p>
 					</a></li>
-					<li><a onClick="menu('5')"> <i
+					<li><a onClick="menu('5','${identity }')"> <i
 							class="ti-pencil-alt2"></i>
 							<p>토론게시판</p>
 					</a></li>

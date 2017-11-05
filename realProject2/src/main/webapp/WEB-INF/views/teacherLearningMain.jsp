@@ -3,10 +3,13 @@
 <!DOCTYPE html>
 <html>
 <head>
+
 	<meta charset="utf-8" />
 	<link rel="apple-touch-icon" sizes="76x76" href="assets/img/apple-icon.png">
 	<link rel="icon" type="image/png" sizes="96x96" href="assets/img/favicon.png">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+
 
 <title>공조 || 선생님 학습방 메인</title>
 <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
@@ -59,6 +62,7 @@
 <link href="assets/css/themify-icons.css" rel="stylesheet">
 
 </head>
+
 <script>
 //form 생성
 function createForm(formname,formaction,formmethod){
@@ -126,7 +130,11 @@ function test(){
 <body onLoad="test()">
 <div id="menu">
 
+
 	<div class="wrapper">
+
+<div class="wrapper">
+
 		<div class="sidebar" data-background-color="white"
 			data-active-color="danger">
 
@@ -146,6 +154,7 @@ function test(){
 					<a onClick="menu('15')">
 					 <i class="ti-user"></i>
 							<p >마이페이지</p>
+							
 					</a></li><!-- 마이페이지로 가기만들기 -->
 					<li><a onClick="menu('1')"> <i
 							class="ti-home"></i>
@@ -178,7 +187,7 @@ function test(){
 					</a></li>
 					<li><a onClick="menu('9')">
 							<i class="ti-settings"></i>
-							<p>우리반학생</p>
+							<p>학생관리</p>
 					</a></li>
 					<li><a onClick="menu('10')">
 							<i class="ti-shopping-cart-full "></i>
@@ -222,8 +231,10 @@ function test(){
 									<p>마이메뉴</p> <b class="caret"></b>
 							</a>
 								<ul class="dropdown-menu">
-									<li><a href="http://localhost/real/studentLearningMSG.jsp">쪽지함</a></li>
-									<li><a  onClick="menu('14')"  >로그아웃</a></li>
+
+									<li><a onClick="menu('11')">쪽지함</a></li>
+									<li><a  onClick="menu('14')">로그아웃</a></li>
+
 								</ul></li>
 
 						</ul>
@@ -236,7 +247,7 @@ function test(){
 				<div class="card">
 
 					<div class="content">
-						<form>
+					
 						<!-- 흰색 배경 -->
 							<div class="row">
 								<div class="container">
@@ -257,8 +268,6 @@ function test(){
 
 					</div>
 
-
-				
 				</div>
 			</div>
 		</div>
