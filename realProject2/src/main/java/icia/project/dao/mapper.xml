@@ -1236,13 +1236,12 @@
 		TS_STRFSTUDENTCODE = #{studentCode}
 	</select>
 	
-	<!-- 학생 출결 추출 -->
+	<!-- 학생 로그인기록 추출 -->
 	<select id="attendanceGet" resultType="room" parameterType="room">
 	select SLOH_DATE AS attendDate,SLOH_TYPE AS attendanceType 
 	from STUDENTLOGOUTHISTORY 
 	where SLOH_STRFSTUDENTCODE=#{studentCode}
 	ORDER BY sloh_date desc;
-	
 	</select>
 		
 

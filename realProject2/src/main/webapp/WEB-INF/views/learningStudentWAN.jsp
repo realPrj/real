@@ -44,7 +44,7 @@
 <script>
 	$(document).ready(function() {
 
-		$("#chart_div2").hide();
+ 		$("#chart_div2").hide();
 		
 		
 		   var sizee = ${size};
@@ -67,42 +67,11 @@
 		      var divbox = $("#divbox");
 		      divbox.append($("#"+selectValue));
 		   });
+		   
+		   $("tbody[name *='tbody']").hide(); 
+		   var tableList = $("#tableList");
+		   tableList.append($("#tbody0").show());
 		
-		
-/* 
-		var sizee = $
-		{
-			size
-		}
-		;
-		var dateCode = $
-		{
-			lowest
-		}
-		;
-
-		for (var i = 0; i < parseInt(sizee); i++) {
-			$("#" + dateCode).hide();
-			dateCode = parseInt(dateCode) + 100;
-		}
-		;
-
-		$("#yearSelect").click(function() {
-			var selectValue = $("#yearSelect").val();
-			var dateCode = $
-			{
-				lowest
-			}
-			;
-			for (var i = 0; i < parseInt(sizee); i++) {
-				$("#" + dateCode).hide();
-				dateCode = parseInt(dateCode) + 1;
-			}
-			;
-			$("#" + selectValue).show();
-			var divbox = $("#divbox");
-			divbox.append($("#" + selectValue));
-		}); */
 
 	});
 
@@ -169,6 +138,14 @@
 
 		form.submit();
 	}
+	
+    function pageNumber(value){
+ 	   $("tbody[name *='tbody']").hide(); 
+ 	   var tableList = $("#tableList");
+ 	   tableList.append($("#tbody"+value).show());
+ 	
+    }
+	
 </script>
 <body>
 	<div class="wrapper">
@@ -296,9 +273,11 @@
 							<td>${stHalf }</td>
 							<td>${stNumber }</td>
 							<td>${allSum }</td>
+							<td>년도 선택${yearSelect }</td>
 						</tr>
+
 					</table>
-					년도 선택${yearSelect } ${typeSumb }
+					 	${typeSumb }
 					<div id="divbox"></div>
 
 					<div style="margin-left: 300px" class="table table-hover">
@@ -306,19 +285,9 @@
 						<%@include file="learningWANgraph.jsp"%>
 					</div>
 					
-					${content } ${average }
+					${content3 } ${content } ${content2 } ${average }
 					<hr />
 
-					
-					<div class="text-center">
-						<ul class="pagination">
-							<li><a href="#">1</a></li>
-							<li><a href="#">2</a></li>
-							<li><a href="#">3</a></li>
-							<li><a href="#">4</a></li>
-							<li><a href="#">5</a></li>
-						</ul>
-					</div>
 
 				</div>
 			</div>*/

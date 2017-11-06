@@ -196,7 +196,7 @@ public class learningStudentMM extends TransactionExe {
 
 					typeSum = dao.learningWANstTypeSum(board);
 
-					sum.append("<br><biv id='"+yearCode.get(i).getYearCode().substring(0, 6)+"' >");
+					sum.append("<br><biv style='margin-left: 550px' name='div' id='"+yearCode.get(i).getYearCode().substring(0, 6)+"' >");
 
 					for(int y = 0; y < typeSum.size(); y++) {
 						board = new BoardBean();
@@ -224,7 +224,7 @@ public class learningStudentMM extends TransactionExe {
 				/////////////////////////////////////////////////////////////////////////
 
 				sb = new StringBuffer();
-				sb.append("<table class=\"table table-hover\">");
+				sb.append("<table id='tableList' class=\"table table-hover\">");
 				sb.append("<tr>");
 				sb.append("<td>");
 				sb.append("게시글 번호");
@@ -246,46 +246,86 @@ public class learningStudentMM extends TransactionExe {
 				sb.append("</td>");
 				sb.append("</tr>");
 
-				for(int i = 0; i < boardList.size(); i++ ) {
+				mav.addObject("content3", sb.toString());
+				sb = new StringBuffer();
 
-					board = new BoardBean();
-					board.setRoomCode(boardList.get(0).getRoomCode());
-					board.setYearCode(boardList.get(i).getYearCode());
-					board.setTypeCode(boardList.get(i).getTypeCode());
-					board.setRoomSB(dao.learningSBCodeGet(board));
-					board.setYearName(dao.learningYearNameGet(board));
-					board.setTypeName(dao.learningTypeNameGet(board));
-					board.setBoardCode(boardList.get(i).getBoardCode());
-					String check =((dao.learningWANCommentCheck(board) == 1)? "O" : "X");
+				// 1
+				int forI = 0;
+				int forB = 0;
+				int pageCount = 5;
 
-					sb.append("<tr>");
-					sb.append("<td>");
-					sb.append(i+1);
-					sb.append("</td>");
-					sb.append("<td>");
-					sb.append(board.getYearName());
-					sb.append("</td>");
-					sb.append("<td>");
-					sb.append(board.getTypeName());
-					sb.append("</td>");
-					sb.append("<td>");
-					sb.append(boardList.get(i).getNumberCode());
-					sb.append("</td>");
-					sb.append("<td>");
-					sb.append(boardList.get(i).getBoardDate());
-					sb.append("</td>");
-					sb.append("<td>");
-					sb.append("<input type='button' class='btn' value='선생님 코멘트' onClick='commentCheck("+boardList.get(i).getBoardCode()+")' />");
-					sb.append("</td>");
-					sb.append("<td>");
-					sb.append(check);
-					sb.append("</td>");
-					sb.append("</tr>");
+				double sizeDouble = boardList.size() / (double)pageCount;
+
+				for(forI=0; forI < sizeDouble; forI++) {
+
+					if(boardList.size()< pageCount) {
+						pageCount= boardList.size();
+					}
+
+					sb.append("<tbody name=tbody"+forI+" id=tbody"+forI+">");
+
+					for(forB = forB; forB < pageCount; forB++){
+
+						board = new BoardBean();
+						board.setRoomCode(boardList.get(0).getRoomCode());
+						board.setYearCode(boardList.get(forB).getYearCode());
+						board.setTypeCode(boardList.get(forB).getTypeCode());
+						board.setRoomSB(dao.learningSBCodeGet(board));
+						board.setYearName(dao.learningYearNameGet(board));
+						board.setTypeName(dao.learningTypeNameGet(board));
+						board.setBoardCode(boardList.get(forB).getBoardCode());
+						String check =((dao.learningWANCommentCheck(board) == 1)? "O" : "X");
+
+						sb.append("<tr>");
+						sb.append("<td>");
+						sb.append(forB+1);
+						sb.append("</td>");
+						sb.append("<td>");
+						sb.append(board.getYearName());
+						sb.append("</td>");
+						sb.append("<td>");
+						sb.append(board.getTypeName());
+						sb.append("</td>");
+						sb.append("<td>");
+						sb.append(boardList.get(forB).getNumberCode());
+						sb.append("</td>");
+						sb.append("<td>");
+						sb.append(boardList.get(forB).getBoardDate());
+						sb.append("</td>");
+						sb.append("<td>");
+						sb.append("<input type='button' class='btn' value='선생님 코멘트' onClick='commentCheck("+boardList.get(forB).getBoardCode()+")' />");
+						sb.append("</td>");
+						sb.append("<td>");
+						sb.append(check);
+						sb.append("</td>");
+						sb.append("</tr>");
+					}
+
+					sb.append("</tbody>");	
+
+					pageCount+=pageCount;
+
 				}
-
 				sb.append("</table>");
 
 				mav.addObject("content", sb.toString());
+
+				sb = new StringBuffer();
+
+				sb.append("<div class='text-center'>");
+				sb.append("<ul class='pagination'>");
+
+
+				for(int y=0; y < sizeDouble; y++) {
+
+					sb.append("<li><input class='btn-sm' type='button' value="+(y+1)+" onClick='pageNumber("+y+")' /></li>");			
+				}
+				sb.append("</ul>");
+				sb.append("</div>");
+
+
+				mav.addObject("content2", sb.toString());
+
 
 				////////////////////////////////////////////////////////////////////////
 
@@ -795,15 +835,15 @@ public class learningStudentMM extends TransactionExe {
 			sb.append("<td>날짜</td>");
 			sb.append("<td>아이디</td>");
 			sb.append("</tr>");
-			
+
 			for(int i=0; i<taglist.size(); i++) {
 				if(taglist.size()!=0) {
 					System.out.println("여기옴");
-				sb.append("<tr>");
-				sb.append("<td>" + taglist.get(i).getTagContent() + "</td>");
-				sb.append("<td>" + taglist.get(i).getTagDate() + "</td>");
-				sb.append("<td>" + taglist.get(i).getTagId() + "</td>");
-				sb.append("</tr>");
+					sb.append("<tr>");
+					sb.append("<td>" + taglist.get(i).getTagContent() + "</td>");
+					sb.append("<td>" + taglist.get(i).getTagDate() + "</td>");
+					sb.append("<td>" + taglist.get(i).getTagId() + "</td>");
+					sb.append("</tr>");
 				}else {
 					break;
 				}
@@ -1059,24 +1099,24 @@ public class learningStudentMM extends TransactionExe {
 				board.setRoomCode(roomcode);
 
 				al = dao.learningTaskSelect(board);	// 댓글 내용
-			
+
 				sb.append("<table class=\"table table-hover\">");
 				sb.append("<tr>");
 				sb.append("<td>학생 이름 </td>");
 				sb.append("<td>올린 날짜 </td>");
 				sb.append("<td>파일 보기 </td>");
-		    	sb.append("</tr>");
+				sb.append("</tr>");
 
 				for(int i = 0; i < al.size(); i++) {
 
 					board.setStudentCode(al.get(i).getStudentCode());
 					board.setStudentName(dao.stNameGet(board));	
-					
+
 					sb.append("<tr>");
 					sb.append("<td>" +board.getStudentName() + "</td>");
 					sb.append("<td>" +al.get(i).getBoardDate() + "</td>");
 					sb.append("<td>"+"<input type='button'class='btn' value='올린 파일 보기' onClick='checkFile("+board.getRoomCode()+","+al.get(i).getBoardCode()+")'>" + "</td>");
-			    	sb.append("</tr>");
+					sb.append("</tr>");
 
 				}
 				sb.append("</table>"); 
@@ -1186,7 +1226,7 @@ public class learningStudentMM extends TransactionExe {
 	private ModelAndView checkFile(BoardBean board) { //과제 페이지 자세하게 보기
 
 		mav = new ModelAndView();
-		
+
 		ViewService view = new ViewService(); 
 		System.out.println(board.getBoardDate());
 		boolean transaction = false;
@@ -1204,17 +1244,17 @@ public class learningStudentMM extends TransactionExe {
 			bb.setCutRoute(bb.getBoardRoute().substring(0,68));   // 루트만
 
 			bb.setCutContent(bb.getBoardRoute().substring(68));   // 파일이름
-	
+
 			List<String> list = view.getList(bb);
 
-	
+
 			mav.addObject("list",list);
 
 			mav.addObject("date",bb.getBoardDate());
-		
+
 
 			mav.setViewName("learningTaskStudentCheck");
-			
+
 			transaction = true;
 
 

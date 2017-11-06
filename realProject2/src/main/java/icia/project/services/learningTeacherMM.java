@@ -552,7 +552,7 @@ public class learningTeacherMM extends TransactionExe {
 
 					typeSum = dao.learningWANTypeSum(board);
 
-	               sum.append("<div style='margin-left: 550px' name='div' id='"+yearCode.get(i).getYearCode().substring(0, 6)+"' >");
+	            sum.append("<div style='margin-left: 550px' name='div' id="+yearCode.get(i).getYearCode().substring(0, 6)+" >");
 	               for(int y = 0; y < typeSum.size(); y++) {
 	                  board = new BoardBean();
 	                  board.setRoomCode(boardList.get(0).getRoomCode());
@@ -561,30 +561,18 @@ public class learningTeacherMM extends TransactionExe {
 	                  board.setTypeCode(typeSum.get(y).getTypeCode());
 	                  board.setTypeName(dao.learningTypeNameGet(board));
 	                  board.setTypeSum(typeSum.get(y).getTypeSum());   
+	                  sum.append(board.getTypeName()+" : "+ board.getTypeSum()+"<br>");
 
-				/*	sum.append("<div style='margin-left: 550px' id='"+yearCode.get(i).getYearCode().substring(0, 6)+"' >");
-					for(int y = 0; y < typeSum.size(); y++) {
-						board = new BoardBean();
-						board.setRoomCode(boardList.get(0).getRoomCode());
-						board.setYearCode(yearCode.get(i).getYearCode());
-						board.setRoomSB(dao.learningSBCodeGet(board));
-						board.setTypeCode(typeSum.get(y).getTypeCode());
-						board.setTypeName(dao.learningTypeNameGet(board));
-						board.setTypeSum(typeSum.get(y).getTypeSum());   
-						sum.append(board.getTypeName()+" : "+ board.getTypeSum()+"<br>");
-
-
-					}*/
+					}
 					sum.append("</div>");
 
+				
 	            }
 
-	            sb.append("</select>");
-	            mav.addObject("yearSelect", sb.toString());
-	            mav.addObject("typeSumb", sum.toString());
-	            
-				}
-
+				sb.append("</select>");
+				mav.addObject("yearSelect", sb.toString());
+				mav.addObject("typeSumb", sum.toString());
+				
 				sb = new StringBuffer();
 				sb.append("<table id='tableList' class=\"table table-hover\">");
 				sb.append("<tr>");
@@ -618,7 +606,7 @@ public class learningTeacherMM extends TransactionExe {
 				// 1
 				int forI = 0;
 				int forB = 0;
-				int pageCount = 3;
+				int pageCount = 5;
 
 				double sizeDouble = boardList.size() / (double)pageCount;
 
