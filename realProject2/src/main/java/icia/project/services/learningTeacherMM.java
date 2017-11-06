@@ -1169,6 +1169,7 @@ public class learningTeacherMM extends TransactionExe {
 	}
 
 	private ModelAndView tclearningNoticeUpdate(BoardBean board) {	// 선생님 공지사항 수정
+		
 		mav = new ModelAndView();
 		boolean transaction = false;
 		fileupload(board,mtfRequest);
@@ -1178,7 +1179,15 @@ public class learningTeacherMM extends TransactionExe {
 		try {
 			session.getAttribute("roomCode");
 			board.setRoomCode((String)session.getAttribute("roomCode"));
+			System.out.println("공지사항 수정 서비스");
+			System.out.println(board.getBoardTitle());
+			System.out.println(board.getBoardContent());
+			System.out.println(board.getBoardDate());
+			System.out.println(board.getRoomCode());
+			System.out.println(board.getBoardRoute());
+			
 			if(dao.tclearningNoticeUpdate(board) != 0) {
+				System.out.println("공지사항 수정 완료");
 				transaction = true;
 			}
 		}catch(Exception ex){
