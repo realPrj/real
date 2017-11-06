@@ -399,6 +399,9 @@ public interface IMybatis {
 	// 선생님 ㄹ스트
 	public BoardBean getTeacherInfo(BoardBean board);
 	
+	// 학생 수강생 리스트
+	public ArrayList<BoardBean> getStudentList(BoardBean board);
+	
 
 }
 

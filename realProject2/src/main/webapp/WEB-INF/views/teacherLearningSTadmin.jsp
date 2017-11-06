@@ -274,7 +274,7 @@ function stadmin(studentCode){
 				<div class="card">
 					<br />
 					<h2>
-						<b>우리반 학생</b>
+						<b>수강생</b>
 					</h2>
 			
 					${teacherLearningSTadmin }
