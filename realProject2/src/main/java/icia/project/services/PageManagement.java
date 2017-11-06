@@ -48,7 +48,6 @@ public class PageManagement extends TransactionExe {
 
 		case 5:	// 선생님 나의 정보 페이지
 			mav = teacherInfoPage();
-
 			break;
 
 		case 6:	// 학생 나의 정보 페이지
@@ -78,7 +77,7 @@ public class PageManagement extends TransactionExe {
 
 				al = dao.tclearningRoomGet(room);
 
-				sb.append("<table>");
+				sb.append("</br><table>");
 				sb.append("<tr>");
 				for(int i =0; i < al.size(); i++) {
 					
@@ -124,7 +123,8 @@ public class PageManagement extends TransactionExe {
 
 		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
 
-		try {System.out.println("여기 왓어염");
+		try {
+			session.removeAttribute("roomCode");
 			room = new LearningRoomBean();
 			room.setStudentCode((String)session.getAttribute("stCode"));
 			
@@ -132,20 +132,22 @@ public class PageManagement extends TransactionExe {
 
 				alCode = dao.stlearningRoomGet1(room);
 
-				sb.append("<table>");
+				sb.append("</br><table>");
+				sb.append("<tr>");
 				for(int i =0; i < alCode.size(); i++) {
 					
 					room = new LearningRoomBean();
 					room.setRoomCode(alCode.get(i).getRoomCode());
 					room = dao.stlearningRoomGet2(room);
 					
-					sb.append("<tr>");
+					
 					sb.append("<td>");
 					sb.append("<input type='button' class='btn' value='"+room.getRoomName()+"' onClick=learningGo('"+room.getRoomCode()+"') />");
 					sb.append("</td>");
-					sb.append("</tr>");
+					
 					
 				}
+				sb.append("</tr>");
 				sb.append("</table>");
 				mav.addObject("content", sb.toString());
 				mav.setViewName("studentMain");
@@ -319,17 +321,23 @@ public class PageManagement extends TransactionExe {
 			sb.append("<input type=\"text\" name='phone' class=\"box\" value='"+member.getPhone()+"' readonly>");
 			sb.append("</td>");
 			sb.append("</tr>");
+			sb.append("<tr>");
+			sb.append("<td>");
+			sb.append("학년/반/번호");
+			sb.append("</td>");
+			sb.append("<td>");
+			sb.append("<input type=\"text\" name='studentCode' class=\"box\" value='"+member.getStudentCode()+"' readonly>");
+			sb.append("</td>");
+			sb.append("</tr>");
 			sb.append("</table>");
-			System.out.println("content는 왓어 ");
+	
 			mav.addObject("content", sb.toString());
-			System.out.println(member.getStudentCode());
+
 			
 			room.setStudentCode(member.getStudentCode());
-			System.out.println(room.getStudentCode());
+
 			ar = dao.attendanceGet(room);
-			System.out.println("room는 왓어 ");
-			System.out.println(room.getAttendDate());
-			System.out.println(room.getAttendanceType());
+
 			sb.append("<table class=\"joinInput\">");
 			sb.append("<tr>");
 			sb.append("<td>");

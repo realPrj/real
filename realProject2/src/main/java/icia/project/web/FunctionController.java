@@ -26,6 +26,7 @@ import org.springframework.web.servlet.ModelAndView;
 import icia.project.bean.MemberBean;
 import icia.project.bean.BoardBean;
 import icia.project.bean.LearningRoomBean;
+import icia.project.services.PageManagement;
 import icia.project.services.ProjectUtils;
 import icia.project.services.StudentManagement;
 import icia.project.services.learningStudentMM;
@@ -48,6 +49,8 @@ public class FunctionController {
 	private learningTeacherMM ltm;
 	@Autowired
 	private learningStudentMM lsm;
+	@Autowired
+	private PageManagement pm;
 
 	private ModelAndView mav;
 
@@ -92,6 +95,7 @@ public class FunctionController {
 			break;
 
 		default :
+			mav = new ModelAndView();
 			mav.addObject("message", "alert('신분을 선택해주세요')");
 			mav.setViewName("home");	
 			break;
@@ -116,6 +120,7 @@ public class FunctionController {
 			break;
 
 		default :
+			mav = new ModelAndView();
 			mav.addObject("message", "alert('신분을 선택해주세요')");
 			mav.setViewName("home");	
 			break;
@@ -136,11 +141,11 @@ public class FunctionController {
 			break;
 
 		case 2:	// 학생
-			System.out.println("여긴 오니?");
 			mav = sm.entrance(4, member);
 			break;
 
 		default :
+			mav = new ModelAndView();
 			mav.addObject("message", "alert('신분을 선택해주세요')");
 			mav.setViewName("home");	
 			break;
@@ -192,8 +197,9 @@ public class FunctionController {
 	@RequestMapping(value = "/studentInfoUpdate", method = RequestMethod.POST)
 	public ModelAndView  studentInfoUpdate(MemberBean member) {
 
-		mav = sm.entrance(6, member);
-
+		sm.entrance(6, member);
+		mav = pm.entrance(6, null);
+		mav.addObject("message","alert('나의정보 되셨습니다.')");
 		return mav;
 	}
 
@@ -210,7 +216,9 @@ public class FunctionController {
 	@RequestMapping(value = "/studentInfoPWDUpdate", method = RequestMethod.POST)
 	public ModelAndView  studentInfoPWDUpdate(MemberBean member) {
 
-		mav = sm.entrance(7, member);
+		sm.entrance(7, member);
+		mav = pm.entrance(6, null);
+		mav.addObject("message","alert('비밀번호 수정 되셨습니다.')");
 
 		return mav;
 	}

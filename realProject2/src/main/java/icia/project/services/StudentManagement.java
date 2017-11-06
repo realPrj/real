@@ -54,7 +54,6 @@ public class StudentManagement extends TransactionExe {
 			break;
 
 		case 4:	// 아이디 찾기
-			System.out.println("여긴 오니444?");
 			mav = idFind(((MemberBean)object));
 			break;
 
@@ -244,21 +243,17 @@ public class StudentManagement extends TransactionExe {
 		MemberBean mb;
 
 		try {
-			System.out.println("여긴 오니44455?");
-			System.out.println(member.getEmail());
+
 			mb = dao.stIdFind(member);
 
 			if(mb.getId() == null) {
 				page = "login";
-				System.out.println("여긴 오니null?");
 				mav.addObject("identity", "2");
 				mav.addObject("message", "alert('아이디가 없습니다.')");
 			}else {
 				page = "login";
-				System.out.println("여긴 오니suc?");
 				mav.addObject("identity", "2");
 				mav.addObject("message", "alert('"+mb.getId()+"')");
-				System.out.println("여긴 오니?");
 			}
 
 		}catch(Exception ex) {
@@ -289,6 +284,7 @@ public class StudentManagement extends TransactionExe {
 			if(dao.stLogHistory(member) != 0) {
 				session.removeAttribute("stCode");
 				session.removeAttribute("identity");
+				session.removeAttribute("roomCode");
 				page = "home";
 				mav.addObject("message", "alert('로그아웃 되셨습니다.')");
 				transaction = true;
@@ -318,24 +314,13 @@ public class StudentManagement extends TransactionExe {
 
 		try {
 
-			member.setStudentCode(((String)session.getAttribute("stCode")));
-
-			if(dao.stInformationChange(member) != 0) {
-
-				mav = pm.entrance(6, null);
-				mav.addObject("message","alert('나의정보 되셨습니다.')");
-				transaction = true;
-			}else {
-				mav = pm.entrance(6, null);
-				mav.addObject("message","alert('나의정보 실패되셨습니다.')");
-				transaction = true;
-			}
-
+			dao.stInformationChange(member);
+			
+			transaction = true;
 
 		}catch(Exception ex) {
 
 		}finally {
-
 			setTransactionResult(transaction);
 		}
 
@@ -410,15 +395,9 @@ public class StudentManagement extends TransactionExe {
 			member.setStudentCode((String)session.getAttribute("stCode"));
 			member.setPwd(enc.encode(member.getPwd()));
 
-			if(dao.stInformationPWDChange(member) != 0) {
-				mav = pm.entrance(6, null);
-				mav.addObject("message","alert('비밀번호 수정 되셨습니다.')");
+			dao.stInformationPWDChange(member);
+				
 				transaction = true;
-			}else {
-				mav = pm.entrance(6, null);
-				mav.addObject("message","alert('비밀번호 수정 실패되셨습니다.')");
-				transaction = true;
-			}
 
 		}catch(Exception ex) {
 

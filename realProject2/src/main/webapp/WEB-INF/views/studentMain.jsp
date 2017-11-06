@@ -171,7 +171,7 @@ body {
 			<div class="card ">
 				<div class="header">
 					<h4 class="title">
-						<b>개설한 과목</b>
+						<b>참여 과목</b>
 					</h4>
 					${content }
 				</div>

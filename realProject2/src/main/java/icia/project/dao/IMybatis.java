@@ -372,6 +372,9 @@ public interface IMybatis {
 	// 보낸 쪽지 리스트
 	public ArrayList<BoardBean> sentMessageList(BoardBean board);
 
+	// 선생님 상태코드 확인(로그인시)
+	public String stateCodeCheck(MemberBean member);
+
 
 }
 
