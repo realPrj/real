@@ -106,21 +106,23 @@
 
    }
 
-   function viewData(referCode, referTitle, referDate) {
-      createinput("hidden", "boardTitle", referTitle);
+   function viewData(referCode,referDate) {
+	alert(referCode);
+	
+	alert(referDate);
+	
+   
       createinput("hidden", "boardDate", referDate);
       createinput("hidden", "roomCode", referCode);
       
       createForm("questionBoardCXTForm", "questionBoardCXT", "post");
 
       var form = document.getElementsByName("questionBoardCXTForm")[0];
-      
-      var boardTitle = document.getElementsByName("boardTitle")[0];
+    
       var boardDate = document.getElementsByName("boardDate")[0];
       var roomCode = document.getElementsByName("roomCode")[0];
       
    
-      form.appendChild(boardTitle);
       form.appendChild(boardDate);
       form.appendChild(roomCode);
 
@@ -147,7 +149,7 @@
 				<ul class="nav">
 					<li></li>
 					<li class="active">
-					<a href="">
+					<a onClick="menu('15')">
 					 <i class="ti-user"></i>
 							<p >마이페이지</p>
 					</a></li><!-- 마이페이지로 가기만들기 -->

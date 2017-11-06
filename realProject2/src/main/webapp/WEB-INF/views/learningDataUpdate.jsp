@@ -66,7 +66,7 @@
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script>
-<script>
+
    //form 생성
    function createForm(formname, formaction, formmethod) {
 
@@ -116,15 +116,198 @@
       form.submit();
       
    }
+   
+   function checking(boardTitle, boardContent, roomCode, boardDate, boardId) {
+		createinput("hidden", "boardTitle", boardTitle);
+		createinput("hidden", "boardContent", boardContent);
+		createinput("hidden", "roomCode", roomCode);
+		createinput("hidden", "boardDate", boardDate);
+		createinput("hidden", "boardId", boardId);
+
+		createForm("DataupdateForm", "learningDataUpdate", "post");
+
+		var form = document.getElementsByName("DataupdateForm")[0];
+
+		var boardTitle = document.getElementsByName("boardTitle")[0];
+		var boardContent = document.getElementsByName("boardContent")[0];
+		var roomCode = document.getElementsByName("roomCode")[0];
+		var boardDate = document.getElementsByName("boardDate")[0];
+		var boardId = document.getElementsByName("boardId")[0];
+		
+		form.appendChild(boardTitle);
+		form.appendChild(boardContent);
+		form.appendChild(roomCode);
+		form.appendChild(boardDate);
+		form.appendChild(boardId);
+		
+
+		form.submit();
+
+	}
 
    // 자료실 form
 </script>
 <body onLoad="${message}">
-	
+	<div class="wrapper">
+		<div class="sidebar" data-background-color="white"
+			data-active-color="danger">
+
+
+			<!-- 왼쪽메뉴바 영역 -->
+
+
+			<div class="sidebar-wrapper">
+				<div class="logo">
+					<a href="teacher_main.html" class="simple-text"> <img
+						src="assets/img/gong_logo.png" alt="공조" width="150*100">
+					</a>
+				</div>
+
+				<ul class="nav">
+					<li></li>
+					<li class="active"><a onClick="menu('15')"> <i class="ti-user"></i>
+							<p>마이페이지</p>
+					</a></li>
+					<!-- 마이페이지로 가기만들기 -->
+					<li><a onClick="menu('1')"> <i class="ti-home"></i>
+							<p>홈</p>
+					</a></li>
+					<li><a onClick="menu('3')"> <i class="ti-star"></i>
+							<p>공지사항</p>
+					</a></li>
+					<li><a onClick="menu('4')"> <i class="ti-help"></i>
+							<p>질문게시판</p>
+					</a></li>
+					<li><a onClick="menu('5')"> <i class="ti-pencil-alt2"></i>
+							<p>토론게시판</p>
+					</a></li>
+					<li><a onClick="menu('6')"> <i class="ti-clipboard"></i>
+							<p>과제</p>
+					</a></li>
+					<li><a onClick="menu('7')"> <i class="ti-book"></i>
+							<p>오답노트</p>
+					</a></li>
+					<li><a onClick="menu('8')"> <i class="ti-bar-chart"></i>
+							<p>성적</p>
+					</a></li>
+					<li><a onClick="menu('9')"> <i class="ti-settings"></i>
+							<p>우리반학생</p>
+					</a></li>
+					<li><a onClick="menu('10')"> <i
+							class="ti-shopping-cart-full "></i>
+							<p>자료실</p>
+					</a></li>
+					<li></li>
+					<li><a onClick="menu('12')"> <i class="ti-pencil-alt "></i>
+							<p>강의계획서</p>
+					</a></li>
+					<li><a onClick="menu('13')"> <i class="ti-bookmark-alt "></i>
+							<p>과목코드</p>
+					</a></li>
+
+				</ul>
+			</div>
+		</div>
+
+
+		<!-- 상단바 영역 -->
+
+
+		<div class="main-panel">
+			<nav class="navbar navbar-default">
+				<div class="container-fluid">
+					<div class="navbar-header">
+						<button type="button" class="navbar-toggle">
+							<span class="sr-only">Toggle navigation</span> <span
+								class="icon-bar bar1"></span> <span class="icon-bar bar2"></span>
+							<span class="icon-bar bar3"></span>
+						</button>
+						<a class="navbar-brand" href="#"></a>
+					</div>
+					<div class="collapse navbar-collapse">
+						<ul class="nav navbar-nav navbar-right">
+
+							<li class="dropdown"><a href="#" class="dropdown-toggle"
+								data-toggle="dropdown"> <i class="ti-bell"></i>
+									<p class="notification"></p>
+									<p>마이메뉴</p> <b class="caret"></b>
+							</a>
+								<ul class="dropdown-menu">
+									<li><a href="http://localhost/real/first_join.jsp">로그아웃</a></li>
+								</ul></li>
+
+						</ul>
+
+					</div>
+				</div>
+			</nav>
+
+			<!-- 자료실게시판수정 -->
+
+			<div class="col-lg-35 col-md-12"
+				style="display: inline-block; text-align: center;">
+				<div class="card">
+					<div class="container">
+						<form>
+							<h2>
+								<b>자료실 수정게시판</b>
+							</h2>
+					</div>
+
+					<form>
+						<div id="content"
+							style="display: inline-block; text-align: center;">
+							<input type="hidden" name="pageNum" value="${pageNum}"> <input
+								type="hidden" name="articleNumber"
+								value="${article.articleNumber}">
+
+							<div class="input-group input-group-md" role="group"
+								aria-label="...">
+								<table border="2" width="700px" height="300px">
+
+									<thead class="table table-striped table-bordered">
+
+										<tr>
+											<th style="padding-top: 15px">제목</th>
+											<td><input type="text" name="boardTitle"
+												value="${boardTitle }" class="form-control"
+												aria-describedby="basic-addon1"></td>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td colspan="2"><textarea class="form-control" rows="20"
+													name="boardContent">${boardContent}</textarea>
+											<input type="hidden" name="roomCode" value="${roomCode }">
+											<input type="hidden" name="boardDate" value="${boardDate }">
+											<input type="hidden" name="boardId" value="${boardId }">
+											</td>
+										</tr>
+
+									</tbody>
+								</table>
+							</div>
+							<div>
+
+								<br /> <br /> <input type="button" class="btn" value="수정 하기"
+									onClick="checking('${boardTitle }','${boardContent}','${roomCode }','${boardDate }','${boardId }')">
+
+							</div>
+						</div>
+				</div>
+			</div>
+
+			<hr>
+
+		</div>
+
+
+
+	</div>
 
 
    <!-- 자료실 글쓰기  -->
-   <form name="updateForm" action="learningDataUpdate" method="post">
+ <!--  <form name="updateForm" action="learningDataUpdate" method="post">
       <br> 제목 :<input type="text" name="boardTitle"
          value="${boardTitle }"> <br> 내용
       <textarea name="boardContent" cols=50 rows=20 maxlength=500>${ boardContent}</textarea>
@@ -133,8 +316,8 @@
          type="hidden" name="boardId" value="${boardId }">
 
 
-      <BUTTON type="SUBMIT">보내기</BUTTON>
-   </form>
+      <input type="SUBMIT">보내기
+   </form>  -->
 
 </body>
 </html>

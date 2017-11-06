@@ -126,6 +126,7 @@ function createinput(itype, iname, ivalue) {
    
    return input;
 }
+
 //메뉴선택
 function menu(ivalue, identity) {
 
@@ -148,6 +149,7 @@ function menu(ivalue, identity) {
 </script>
 </head>
 <body>
+<input type="hidden" name="identity" value="${identity }" />
 <div class="wrapper">
 		<div class="sidebar" data-background-color="white"
 			data-active-color="danger">
@@ -163,8 +165,9 @@ function menu(ivalue, identity) {
 					</a>
 				</div>
 
-				<ul class="nav">
+            <ul class="nav">
 					<li></li>
+
 					<li class="active"><a href=""> <i class="ti-user"></i>
 							<p>마이페이지</p>
 					</a></li>
@@ -240,7 +243,7 @@ function menu(ivalue, identity) {
 			</div>
 			</nav>
 
-			<!-- 질문게시판 -->
+			<!-- 공지사항 -->
 			<div class="col-lg-35 col-md-12">
 
 				<div class="card">

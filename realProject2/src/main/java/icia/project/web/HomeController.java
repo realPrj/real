@@ -244,6 +244,9 @@ public class HomeController  {
 		case 14 : 
 			mav = ttmm.entrance(5, member);
 			break;
+		case 15 : 
+			mav = pm.entrance(1, null);
+			break;
 		}
 
 		return mav;
@@ -309,6 +312,9 @@ public class HomeController  {
 
 		case 14 : //로그아웃
 			mav = stm.entrance(5, member);
+			break;
+		case 15 : //메인페이지
+			mav = pm.entrance(2, null);
 			break;
 		}
 
@@ -635,6 +641,18 @@ public class HomeController  {
 
 		return mav;
 	}
+
+	// 선생님 과제 파일 확인 팝업창
+	@RequestMapping(value = "/learningTesk", method = RequestMethod.GET)
+	public ModelAndView learningTesk(@ModelAttribute BoardBean board) {
+		System.out.println("선생님 과제 파일 확인 팝업창");
+		mav = ltmm.entrance(39, board);
+
+
+		mav.setViewName("studentWithdrawalPage");
+
+		return mav;
+	}
 	// 학생 회원탈퇴 페이지 이동
 	@RequestMapping(value = "/WithdrawalTeacherPage", method = RequestMethod.POST)
 	public ModelAndView WithdrawalTeacherPage(@ModelAttribute BoardBean board) {
@@ -643,6 +661,7 @@ public class HomeController  {
 
 		return mav;
 	}
+	
 	/*// 쪽지보내기 팝업
 	@RequestMapping(value = "/sendMessagePopUp", method = RequestMethod.POST)
 	public ModelAndView learningSendMessagePopUp(@ModelAttribute BoardBean board) {
@@ -678,6 +697,7 @@ public class HomeController  {
 			break;
 		}
 		
+
 		return mav;
 	}
 

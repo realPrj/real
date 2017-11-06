@@ -295,6 +295,9 @@
 		WRONGANSWERNOTES
 		WHERE
 		WAN_LRCODE=#{roomCode}
+		ORDER
+		BY
+		WAN_DATE DESC
 	</select>
 
 	<!-- 학습방 과목 코드 추출 -->
@@ -466,10 +469,8 @@
 		FROM REFERENCE
 		WHERE
 		RR_LRCODE=#{roomCode}
-		AND RR_DATE=TO_DATE(#{boardDate},'YYYY-MM-DD
-		HH24:MI:SS')
-		AND
-		RR_TITLE=#{boardTitle}
+		AND RR_DATE=TO_DATE(#{boardDate},'YYYY-MM-DD HH24:MI:SS')
+	
 	</select>
 
 	<!-- 선생님 공지사항 글 수정하기 -->
@@ -815,13 +816,13 @@
 	<select id="learningQuestionlist" resultType="board"
 		parameterType="board">
 		SELECT
-		QU_TITLE AS boardTitle,TO_CHAR(QU_DATE,
-		'YYYYMMDDHH24MISS') AS
+		QU_TITLE AS boardTitle,QU_DATE AS
 		boardDate,QU_STRFSTUDENTCODE AS
 		boardId,QU_LRCODE AS roomCode
 		FROM QUERY
 		WHERE
 		QU_LRCODE=#{roomCode}
+		ORDER BY QU_DATE DESC
 	</select>
 
 	<!-- 질문자세히보기 -->
@@ -840,10 +841,8 @@
 		WHERE
 		QU_LRCODE=#{roomCode}
 		AND
-		QU_DATE=TO_DATE(#{boardDate},'YYYY-MM-DD
-		HH24:MI:SS')
-		AND
-		QU_TITLE=#{boardTitle}
+		QU_DATE= TO_DATE(#{boardDate},'YYYY-MM-DD HH24:MI:SS')
+
 	</select>
 
 	<!-- 질문 삭제 -->
@@ -894,7 +893,7 @@
 		WHERE
 		QTAG_QULRCODE=#{roomCode}
 		AND
-		QTAG_QUTITLE = #{boardTitle}
+		QTAG_QUTITLE =#{boardTitle}
 		ORDER BY QTAG_DATE
 		DESC
 	</select>
@@ -1125,7 +1124,8 @@
 	<select id="checkFile" resultType="dbBoard"
 		parameterType="board">
 		SELECT
-		TS_ROUTE AS boardRoute
+		TS_ROUTE AS boardRoute,
+		TS_DATET AS boardDate
 		FROM TASKSUBMIT
 		WHERE
 		TS_TALRCODE= #{roomCode}
@@ -1206,7 +1206,44 @@
 		WHERE
 		TC_ID = #{id}
 	</update>
-
+	
+	
+	<!-- 선생님 과제 댓글 뽑기 --> 
+	<select id="teacherTaskTag" resultType="board"
+		parameterType="board">
+		SELECT
+		TO_CHAR(TS_DATET,'YYYY-MM-DD HH24:MI') AS
+		boardDate,
+		TS_STRFSTUDENTCODE AS studentCode
+		FROM TASKSUBMIT
+		WHERE
+		TS_TALRCODE= #{roomCode}
+		AND
+		TS_TACODE =#{boardCode}
+	</select>
+	<!-- 학생 과제 자세히 보기 -->
+	<select id="learningTesk" resultType="dbBoard"
+		parameterType="board">
+		SELECT
+		TS_ROUTE AS boardRoute,
+		TS_DATET AS boardDate
+		FROM TASKSUBMIT
+		WHERE
+		TS_TALRCODE= #{roomCode}
+		AND
+		TS_TACODE = #{boardCode}
+		AND
+		TS_STRFSTUDENTCODE = #{studentCode}
+	</select>
+	
+	<!-- 학생 출결 추출 -->
+	<select id="attendanceGet" resultType="room" parameterType="room">
+	select SLOH_DATE AS attendDate,SLOH_TYPE AS attendanceType 
+	from STUDENTLOGOUTHISTORY 
+	where SLOH_STRFSTUDENTCODE=#{studentCode}
+	ORDER BY sloh_date desc;
+	
+	</select>
 		
 
 

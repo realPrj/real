@@ -184,7 +184,7 @@ public class learningStudentMM extends TransactionExe {
 
 				sb = new StringBuffer();
 				sum = new StringBuffer();
-				sb.append("<select id = 'yearSelect'>");
+				sb.append("<select id = 'yearSelect' class='btn-sm'>");
 				sb.append("<option></option>");
 
 				for(int i =0; i < yearCode.size(); i++) {
@@ -255,6 +255,8 @@ public class learningStudentMM extends TransactionExe {
 					board.setRoomSB(dao.learningSBCodeGet(board));
 					board.setYearName(dao.learningYearNameGet(board));
 					board.setTypeName(dao.learningTypeNameGet(board));
+					board.setBoardCode(boardList.get(i).getBoardCode());
+					String check =((dao.learningWANCommentCheck(board) == 1)? "O" : "X");
 
 					sb.append("<tr>");
 					sb.append("<td>");
@@ -274,6 +276,9 @@ public class learningStudentMM extends TransactionExe {
 					sb.append("</td>");
 					sb.append("<td>");
 					sb.append("<input type='button' class='btn' value='선생님 코멘트' onClick='commentCheck("+boardList.get(i).getBoardCode()+")' />");
+					sb.append("</td>");
+					sb.append("<td>");
+					sb.append(check);
 					sb.append("</td>");
 					sb.append("</tr>");
 				}
@@ -661,8 +666,9 @@ public class learningStudentMM extends TransactionExe {
 			sb.append("</tr>");
 			for(int i=0; i<bb.size(); i++) {
 				sb.append("<tr>");
-				sb.append("<td>" + "<input type='button'class='btn' value='"+bb.get(i).getBoardTitle()+"' onClick=viewData(\'"+bb.get(i).getRoomCode()+"\',"+"\'"+bb.get(i).getBoardTitle()+"\',"+"\'"+bb.get(i).getBoardDate()+"\') />" + "</td>");
-				sb.append("<td>" + bb.get(i).getBoardDate() + "</td>");
+				sb.append("<td onClick=\"viewData('"+bb.get(i).getRoomCode() +"','" + bb.get(i).getBoardDate() + "')\">" +bb.get(i).getBoardTitle() + "</td>");
+				//sb.append("<td>" + "<input type='button'class='btn' value='"+bb.get(i).getBoardTitle()+"' onClick=viewData(\'"+bb.get(i).getRoomCode()+"\',"+"\'"+bb.get(i).getBoardDate()+"\') />" + "</td>");
+				sb.append("<td>" +bb.get(i).getBoardDate()+"</td>");
 				sb.append("<td>" + bb.get(i).getBoardId() + "</td>");
 				sb.append("</tr>");
 
@@ -714,7 +720,7 @@ public class learningStudentMM extends TransactionExe {
 		}finally {
 			setTransactionResult(transaction);
 		}
-
+		mav.setViewName("");
 		return mav;
 	}
 	private ModelAndView fileupload(BoardBean board,MultipartHttpServletRequest mtfRequest) {
@@ -765,14 +771,14 @@ public class learningStudentMM extends TransactionExe {
 			//mav.addObject("content",session.getAttribute("roomCode") + "의 공지사항");
 
 			DbBoardBean bb = dao.questionBoardCXT(board);   // 전체 루트(파일이름까지)
-
+			System.out.println(bb.getBoardRoute());
 			bb.setCutRoute(bb.getBoardRoute().substring(0,68));   // 루트만
 			String route = bb.getCutRoute();
 
 			bb.setCutContent(bb.getBoardRoute().substring(68));   // 파일이름
 			System.out.println(bb.getCutContent());
 			List<String> list = view.getList(bb);
-
+			System.out.println(bb.getBoardTitle());
 			mav.addObject("list",list);
 			mav.addObject("theme",bb.getBoardTitle());
 			mav.addObject("content",bb.getBoardContent());
@@ -781,7 +787,7 @@ public class learningStudentMM extends TransactionExe {
 			mav.addObject("roomCode",bb.getRoomCode());
 			mav.addObject("route",route);
 			mav.addObject("file",bb.getCutContent());
-
+			board.setBoardTitle(bb.getBoardTitle());
 			taglist = dao.learningQuestionTagCXT(board);
 
 			sb.append("<table class=\"table table-hover\">");
@@ -790,12 +796,18 @@ public class learningStudentMM extends TransactionExe {
 			sb.append("<td>날짜</td>");
 			sb.append("<td>아이디</td>");
 			sb.append("</tr>");
+			
 			for(int i=0; i<taglist.size(); i++) {
+				if(taglist.size()!=0) {
+					System.out.println("여기옴");
 				sb.append("<tr>");
 				sb.append("<td>" + taglist.get(i).getTagContent() + "</td>");
 				sb.append("<td>" + taglist.get(i).getTagDate() + "</td>");
 				sb.append("<td>" + taglist.get(i).getTagId() + "</td>");
 				sb.append("</tr>");
+				}else {
+					break;
+				}
 
 			}
 			sb.append("</table>");
@@ -1049,7 +1061,7 @@ public class learningStudentMM extends TransactionExe {
 				board.setRoomCode(roomcode);
 
 				al = dao.learningTaskSelect(board);	// 댓글 내용
-				
+			
 				sb.append("<table class=\"table table-hover\">");
 				sb.append("<tr>");
 				sb.append("<td>학생 이름 </td>");
@@ -1178,7 +1190,7 @@ public class learningStudentMM extends TransactionExe {
 		mav = new ModelAndView();
 		
 		ViewService view = new ViewService(); 
-		
+		System.out.println(board.getBoardDate());
 		boolean transaction = false;
 
 		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
@@ -1194,19 +1206,14 @@ public class learningStudentMM extends TransactionExe {
 			bb.setCutRoute(bb.getBoardRoute().substring(0,68));   // 루트만
 
 			bb.setCutContent(bb.getBoardRoute().substring(68));   // 파일이름
-			
-			System.out.println(bb.getCutRoute()+"루트");
-			System.out.println(bb.getCutContent()+"파일이름");
-			
+	
 			List<String> list = view.getList(bb);
 
+	
 			mav.addObject("list",list);
 
-			mav.addObject("date",board.getBoardDate());
-
-			mav.addObject("roomCode",bb.getRoomCode());
-
-			mav.addObject("file",bb.getCutContent());
+			mav.addObject("date",bb.getBoardDate());
+		
 
 			mav.setViewName("learningTaskStudentCheck");
 			

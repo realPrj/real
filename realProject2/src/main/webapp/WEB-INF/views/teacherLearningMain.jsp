@@ -3,10 +3,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<meta charset="utf-8" />
+
+	<meta charset="utf-8" />
 	<link rel="apple-touch-icon" sizes="76x76" href="assets/img/apple-icon.png">
 	<link rel="icon" type="image/png" sizes="96x96" href="assets/img/favicon.png">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+
+
 <title>공조 || 선생님 학습방 메인</title>
 <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
     <meta name="viewport" content="width=device-width" />
@@ -126,7 +130,11 @@ function test(){
 <body onLoad="test()">
 <div id="menu">
 
+
+	<div class="wrapper">
+
 <div class="wrapper">
+
 		<div class="sidebar" data-background-color="white"
 			data-active-color="danger">
 
@@ -143,9 +151,10 @@ function test(){
 				<ul class="nav">
 					<li></li>
 					<li class="active">
-					<a href="">
+					<a onClick="menu('15')">
 					 <i class="ti-user"></i>
 							<p >마이페이지</p>
+							
 					</a></li><!-- 마이페이지로 가기만들기 -->
 					<li><a onClick="menu('1')"> <i
 							class="ti-home"></i>
@@ -222,8 +231,10 @@ function test(){
 									<p>마이메뉴</p> <b class="caret"></b>
 							</a>
 								<ul class="dropdown-menu">
+
 									<li><a onClick="menu('11')">쪽지함</a></li>
 									<li><a  onClick="menu('14')">로그아웃</a></li>
+
 								</ul></li>
 
 						</ul>
@@ -236,7 +247,7 @@ function test(){
 				<div class="card">
 
 					<div class="content">
-						<form>
+					
 						<!-- 흰색 배경 -->
 							<div class="row">
 								<div class="container">
@@ -257,8 +268,6 @@ function test(){
 
 					</div>
 
-
-					</form>
 				</div>
 			</div>
 		</div>
@@ -269,6 +278,7 @@ function test(){
 
 
 </div>
+
 
 </body>
 </html>

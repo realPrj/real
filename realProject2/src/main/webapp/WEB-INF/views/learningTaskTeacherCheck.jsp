@@ -7,7 +7,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
-<title>공조 || 자료실</title>
+<title>공조 || 선생님</title>
 </head>
 
 <body onLoad="${message}">
@@ -19,7 +19,9 @@
 
 	<form name="datactx">
 		<table>
-			
+			<tr>
+				<td>학생:${name }</td>
+			</tr>
 			<c:forEach var="file" items="${list }">
 				<tr>
 				올린 파일:	<td><a href="download.action?name=${file}">${file}</a></td>

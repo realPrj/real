@@ -117,6 +117,7 @@ function createinput(itype, iname, ivalue) {
    
    return input;
 }
+
 //메뉴선택
 function menu(ivalue, identity) {
 
@@ -135,12 +136,12 @@ function menu(ivalue, identity) {
    
    form.submit();
 
-}
 
 </script>
 </head>
 <body>
 <div class="wrapper">
+<input type="hidden" name="identity" value="${identity }" />
     <div class="sidebar" data-background-color="white" data-active-color="danger">
 
 
@@ -152,12 +153,13 @@ function menu(ivalue, identity) {
                 <a href="teacher_main.html" class="simple-text">
                     <img src="assets/img/gong_logo.png" alt="공조" width="150*100">
                 </a>
+                ${identity }
             </div>
 
             <ul class="nav">
 					<li></li>
 					<li class="active">
-					<a href="">
+					<a onClick="menu('15')">
 					 <i class="ti-user"></i>
 							<p >마이페이지</p>
 					</a></li><!-- 마이페이지로 가기만들기 -->
@@ -260,7 +262,7 @@ function menu(ivalue, identity) {
                        <h2><b>토론게시판</b></h2>
                            ${content }
                            <hr/>
-                           <a class="btn btn-default qull-right" href="http://localhost/real/studentLearningDebate3.jsp" >글쓰기</a> 
+                            
                            <!-- 페이지네이션넣기 -->
                            <div class="text-center">
                            	<ul class="pagination">
