@@ -199,7 +199,7 @@
 					<div class="container">
 
 						<h2>
-							<b>자료실 글쓰기</b>
+							<b>질문게시판 글쓰기</b>
 						</h2>
 					</div>
 
@@ -219,7 +219,7 @@
 										<tr>
 											<th style="padding-top: 15px">제목</th>
 											<td><input type="text" name="boardTitle"
-												value="${article.title}" class="form-control"
+												class="form-control"
 												aria-describedby="basic-addon1"></td>
 										</tr>
 									</thead>

@@ -249,7 +249,7 @@ function menu(ivalue, identity) {
 				<div class="card">
 					<br />
 					<h2>
-						<b>공지사항 페이지</b>
+						<b>공지사항</b>
 					</h2>
 
 					${content }

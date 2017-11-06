@@ -178,7 +178,7 @@ function NoticeInsertOk(){
          </div>
          </nav>
          
-          <div class="col-lg-35 col-md-12"
+          <!-- <div class="col-lg-35 col-md-12"
             style="display: inline-block; text-align: center;">
             <div class="card">
                <div class="container">
@@ -199,7 +199,67 @@ function NoticeInsertOk(){
 
             </div>
          </div>
-      </div>
+      </div> -->
+      
+      <!-- 글쓰기 -->
+      <div class="col-lg-35 col-md-12"
+				style="display: inline-block; text-align: center;">
+				<div class="card">
+					<div class="container">
+
+						<h2>
+							<b>공지사항 글쓰기</b>
+						</h2>
+					</div>
+
+					 <form name="noticeInsert" method="post" action="learningBoardNoticeInsert" enctype="multipart/form-data">
+						<div id="content"
+							style="display: inline-block; text-align: center;">
+
+
+							<div class="input-group input-group-md" role="group"
+								aria-label="...">
+								<table border="2" width="700px" ;
+	height="300px";  >
+									<br />
+									<thead class="table table-striped table-bordered">
+
+										<tr>
+											<th style="padding-top: 15px">제목</th>
+											<td><input type="text" name="boardTitle"
+												value="${article.title}" class="form-control"
+												aria-describedby="basic-addon1"></td>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td colspan="2"><textarea class="form-control" rows="20"
+													name="boardContent">${article.content}</textarea></td>
+										</tr>
+										<tr>
+											<th style="padding-top: 15px">첨부파일</th>
+											<td><input multiple="multiple" type="file" name="file"  class="btn btn-default"/>
+      											<input type="hidden" name="load" value="Notice" />
+      											
+
+										</tr>
+
+
+									</tbody>
+								</table>
+							</div>
+							<div>
+								  <input type="button" value="작성완료" onClick="NoticeInsertOk()"/></td>
+								<br /> <br />
+							</div>
+						</div>
+					</form>
+
+				</div>
+			</div>
+		</div>
+
+
 
 <!-- <form name="noticeInsert" method="post" action="learningBoardNoticeInsert" enctype="multipart/form-data">
 

@@ -1769,7 +1769,7 @@ public class learningTeacherMM extends TransactionExe {
 	private String getlearningDebateTagList(ArrayList<BoardBean> ar) { // 토론게시판 댓글 리스트
 		StringBuffer sb = new StringBuffer();
 
-		sb.append("<table>");
+		sb.append("<table class=\"table table-hover\" >");
 		sb.append("<tr>");
 		sb.append("<td> 작성자 </td>");
 		sb.append("<td> 내용 </td>");
@@ -1790,7 +1790,7 @@ public class learningTeacherMM extends TransactionExe {
 	private String getTclearningDebateCTX(BoardBean board) { // 토론게시판 내용 끌고오기
 		StringBuffer sb = new StringBuffer();
 		System.out.println("신분한번터 : " + board.getBoardCode());
-		sb.append("<table>");
+		sb.append("<table class=\"table table-hover\" >");
 		sb.append("<tr>");
 		sb.append("<td>제목 : " + board.getBoardTitle() + "</td>");
 		sb.append("</tr>");
