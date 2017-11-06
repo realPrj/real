@@ -367,11 +367,14 @@
 	<!-- 자료실 리스트 -->
 	<select id="datalist" resultType="board" parameterType="board">
 		SELECT
-		RR_TITLE AS boardTitle,TO_CHAR(RR_DATE, 'YYYYMMDDHH24MISS') AS
+		RR_TITLE AS boardTitle,RR_DATE AS
 		boardDate,RR_TCID AS boardId,RR_LRCODE AS roomCode
 		FROM REFERENCE
 		WHERE
 		RR_TCID=#{id} AND RR_LRCODE=#{roomCode}
+		ORDER BY 
+		RR_DATE DESC
+		
 	</select>
 
 	<!-- 오답노트 코멘트 확인 유무 -->
@@ -732,14 +735,18 @@
 	<!-- 자료실 학생 리스트 -->
 	<select id="datalistStudent" resultType="board" parameterType="board">
 		SELECT
-		RR_TITLE AS boardTitle,TO_CHAR(RR_DATE, 'YYYYMMDDHH24MISS') AS
+		RR_TITLE AS boardTitle,RR_DATE AS
 		boardDate,RR_TCID AS boardId,RR_LRCODE AS roomCode
 		FROM REFERENCE
 		WHERE
 		RR_LRCODE=#{roomCode}
+		ORDER
+		BY
+		RR_DATE DESC
 	</select>
 
 	<!-- 선생님 -> 학습방 학생코드 추출 -->
+	
 	<select id="learningWANAllStudentCode" resultType="board"
 		parameterType="board">
 		SELECT

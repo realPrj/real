@@ -154,7 +154,8 @@
 
 				<ul class="nav">
 					<li></li>
-					<li class="active"><a onClick="menu('15')"> <i class="ti-user"></i>
+					<li class="active"><a onClick="menu('15')"> <i
+							class="ti-user"></i>
 							<p>마이페이지</p>
 					</a></li>
 					<!-- 마이페이지로 가기만들기 -->
@@ -237,8 +238,8 @@
 					<h2>
 						<b>자료실</b>
 					</h2>
-					<input type="button" value="자료실 글쓰러가기" class="btn"
-						onClick="eventClick('dataform','DataInsert','post')" />
+					<br> <input type="button" value="자료실 글쓰러가기" class="btn"
+						onClick="eventClick('dataform','DataInsert','post')" /> <br>
 					${datalist }
 					<hr />
 
