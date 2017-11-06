@@ -2534,6 +2534,7 @@ public class learningTeacherMM extends TransactionExe {
 	private ModelAndView learningSentMessagePage(BoardBean board) { // 보낸쪽지 리스트 페이지
 		mav = new ModelAndView();
 		boolean transaction = false;
+		ArrayList<BoardBean> ar = null;
 		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
 
 		try {
@@ -2541,8 +2542,8 @@ public class learningTeacherMM extends TransactionExe {
 
 			board.setRoomCode((String)session.getAttribute("roomCode"));
 			
-			
-
+			ar = dao.sentMessageList(board);
+			mav.addObject("messageList", getlearningSentMessageList(ar, board));
 
 			transaction = true;
 
@@ -2553,6 +2554,23 @@ public class learningTeacherMM extends TransactionExe {
 			setTransactionResult(transaction);
 		}
 		return mav;
+	}
+	
+	private String getlearningSentMessageList(ArrayList<BoardBean> ar, BoardBean board) { // 보낸쪽지 리스트 끌고오기
+		StringBuffer sb = new StringBuffer();
+		
+		sb.append("<tbody id=\"myTable\">");
+		for(int i=0; i<ar.size(); i++) {
+			sb.append("<tr>");
+			sb.append("<td>" + ar.get(i).getMessageOther() + "</td>");
+			sb.append("<td>" + ar.get(i).getMessageTitle() + "</td>");
+			sb.append("<td>" + ar.get(i).getMessageDate() + "</td>");
+			sb.append("</tr>");
+			sb.append("</tbody>");
+		}
+		
+		
+		return sb.toString();
 	}
 
 

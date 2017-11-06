@@ -368,6 +368,9 @@ public interface IMybatis {
 
 	// 학생 출결 추출
 	public ArrayList<LearningRoomBean> attendanceGet(LearningRoomBean room);
+	
+	// 보낸 쪽지 리스트
+	public ArrayList<BoardBean> sentMessageList(BoardBean board);
 
 
 }

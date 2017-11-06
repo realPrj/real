@@ -228,7 +228,7 @@ function message(ivalue){
 						<div class="col-md-8">
 							<div class="container">
 								<textarea rows="10" class="form-control border-input"
-									placeholder="Here can be your description" value="Mike">쪽지내용</textarea>
+									placeholder="Here can be your description" name=></textarea>
 
 							</div>
 							<br /> &nbsp;&nbsp;&nbsp;&nbsp;
