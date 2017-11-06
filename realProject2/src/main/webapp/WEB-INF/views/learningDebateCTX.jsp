@@ -320,7 +320,7 @@ function TagDelete(tagDate, boardDate){
 								<p>마이메뉴</p> <b class="caret"></b>
 						</a>
 							<ul class="dropdown-menu">
-
+								<a onClick="menu('11')">쪽지함</a>
 								<li><a onClick="menu('14')">로그아웃</a></li>
 							</ul></li>
 
