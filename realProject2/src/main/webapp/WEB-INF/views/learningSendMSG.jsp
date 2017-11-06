@@ -97,6 +97,23 @@ function message(ivalue){
 	 
 	form.submit();
 }
+
+function sendMessage(){
+	createForm("messageForm", "SendMessage", "post");
+	var form = document.getElementsByName("messageForm")[0];
+	
+	var messageOther = document.getElementsByName("messageOther")[0];
+	var messageTitle = document.getElementsByName("messageTitle")[0];
+	var messageContent = document.getElementsByName("messageContent")[0];
+	
+	form.appendChild(messageOther);
+	form.appendChild(messageTitle);
+	form.appendChild(messageContent);
+	
+	form.submit();
+	
+	
+}
 </script>
 <body>
 
@@ -207,7 +224,7 @@ function message(ivalue){
 							
 									<br /> <br /><br /> <br />  <label>받는사람</label> <input type="text"
 										class="form-control border-input" placeholder="Username"
-										value="michael23">
+										name="messageOther" value='${messageOther }'>
 
 								</div>
 								<br /> 
@@ -227,14 +244,15 @@ function message(ivalue){
 					<div class="row">
 						<div class="col-md-8">
 							<div class="container">
+							<input type="text" class="form-control border-input" placeholder="제목" name="messageTitle">
 								<textarea rows="10" class="form-control border-input"
-									placeholder="Here can be your description" name=></textarea>
+									placeholder="내용을 입력하세요" name="messageContent"></textarea>
 
 							</div>
 							<br /> &nbsp;&nbsp;&nbsp;&nbsp;
 							<button type="button" class="btn">작성취소</button>
 							&nbsp;&nbsp;&nbsp;&nbsp;
-							<button type="button" class="btn">보내기</button>
+							<button type="button" class="btn" onClick="sendMessage()">보내기</button>
 							<br /><br />
 						</div>
 						

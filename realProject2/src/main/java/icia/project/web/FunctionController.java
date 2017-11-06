@@ -680,6 +680,17 @@ public class FunctionController {
 		return mav;
 	}
 	
+	// 쪽지 보내기
+	@RequestMapping(value = "/SendMessage", method = RequestMethod.POST)
+	public ModelAndView SendMessage(@ModelAttribute  BoardBean board) {
+		
+		ltm.entrance(47, board);
+		
+		mav = ltm.entrance(43, board);
+
+		return mav;
+	}
+	
 	
 
 

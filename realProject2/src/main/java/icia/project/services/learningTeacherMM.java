@@ -6,6 +6,8 @@ import java.util.ArrayList;
 
 import java.util.List;
 
+import javax.swing.plaf.synth.SynthSeparatorUI;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.TransactionDefinition;
@@ -221,6 +223,24 @@ public class learningTeacherMM extends TransactionExe {
 		case 40 :   // 채팅
 			mav = adminChating();
 			break;
+			
+		case 46:   // 쪽지 보내기 페이지
+			mav = learningSendMessagePage((BoardBean)object[0]);
+			break;	
+			
+		case 47:   // 쪽지 보내기
+			mav = learningSendMessage((BoardBean)object[0]);
+			break;	
+			
+		case 48:   // 보낸쪽지 내용확인
+			mav = learningSentMessageCTX((BoardBean)object[0]);
+			break;
+			
+		case 49:   // 받은쪽지 내용확인
+			mav = learningGetMessageCTX((BoardBean)object[0]);
+			break;
+			
+			
 
 
 
@@ -2074,7 +2094,7 @@ public class learningTeacherMM extends TransactionExe {
 				sb.append("<td>" + ar.get(i).getEmail() + "</td>");
 				sb.append("<td>" + ar.get(i).getPhone() + "</td>");
 				sb.append("<td>" + "<input type=\"button\"  class='btn' value=\"메일 발송\" onClick=\"sendMail('"+ ar.get(0).getEmail() +"')\"/>" + "</td>");
-				sb.append("<td><input type=\"button\"class='btn' value=\"쪽지보내기\" onClick=\"sendMessage()\" /></td>");
+				sb.append("<td><input type=\"button\"class='btn' value=\"쪽지보내기\" onClick=\"sendMessage('"+ ar.get(i).getStudentCode() +"')\" /></td>");
 				sb.append("</tr>");
 			}
 			sb.append("</table>");
@@ -2494,7 +2514,7 @@ public class learningTeacherMM extends TransactionExe {
 			board.setRoomCode((String)session.getAttribute("roomCode"));
 			
 			
-
+			mav.addObject("messageOther", board.getStudentCode());
 
 			transaction = true;
 
@@ -2510,15 +2530,19 @@ public class learningTeacherMM extends TransactionExe {
 	private ModelAndView learningReceiveMessagePage(BoardBean board) { // 받은쪽지 리스트 페이지
 		mav = new ModelAndView();
 		boolean transaction = false;
+		ArrayList<BoardBean> ar = null;
 		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
 
 		try {
 			session.getAttribute("roomCode");
 
 			board.setRoomCode((String)session.getAttribute("roomCode"));
+			board.setMessageCode("G");
+			board.setMessageId((String)session.getAttribute("tcId"));
 			
+			ar = dao.getMessageList(board);
 			
-
+			mav.addObject("messageList", getlearningGetMessageList(ar, board));
 
 			transaction = true;
 
@@ -2538,12 +2562,14 @@ public class learningTeacherMM extends TransactionExe {
 		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
 
 		try {
+			System.out.println("뭐야?");
 			session.getAttribute("roomCode");
 
 			board.setRoomCode((String)session.getAttribute("roomCode"));
-			
+			board.setMessageCode("S");
+			board.setMessageId((String)session.getAttribute("tcId"));
 			ar = dao.sentMessageList(board);
-			mav.addObject("messageList", getlearningSentMessageList(ar, board));
+			mav.addObject("messageList", getlearningSentMessageList(ar,board));
 
 			transaction = true;
 
@@ -2563,19 +2589,133 @@ public class learningTeacherMM extends TransactionExe {
 		for(int i=0; i<ar.size(); i++) {
 			sb.append("<tr>");
 			sb.append("<td>" + ar.get(i).getMessageOther() + "</td>");
-			sb.append("<td>" + ar.get(i).getMessageTitle() + "</td>");
+			sb.append("<td onClick=\"messageCTX('" + board.getMessageCode() + "','" + board.getRoomCode() + "','"+ ar.get(i).getMessageDate() +"')\">" + ar.get(i).getMessageTitle() + "</td>");
 			sb.append("<td>" + ar.get(i).getMessageDate() + "</td>");
 			sb.append("</tr>");
-			sb.append("</tbody>");
 		}
+		sb.append("</tbody>");
 		
 		
 		return sb.toString();
 	}
 
+	private ModelAndView learningSendMessage(BoardBean board) { // 쪽지 보내기
+		mav = new ModelAndView();
+		boolean transaction = false;
+		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
+
+		try {
+			session.getAttribute("roomCode");
+
+			board.setRoomCode((String)session.getAttribute("roomCode"));
+			board.setMessageCode("S");
+			board.setMessageId((String)session.getAttribute("tcId"));
+			
+			if(dao.sendMessageS(board) != 0) {
+				board.setMessageCode("G");
+				if(dao.sendMessageG(board) != 0) {
+					System.out.println("쪽지 보내기 성공");
+				}
+			}
+
+
+			transaction = true;
+
+		}catch(Exception ex){
+
+		}finally {
+	
+			setTransactionResult(transaction);
+		}
+		return mav;
+	}
 
 
 
+	private String getlearningGetMessageList(ArrayList<BoardBean> ar, BoardBean board) { // 받은쪽지 리스트 끌고오기
+		StringBuffer sb = new StringBuffer();
+		
+		sb.append("<tbody id=\"myTable\">");
+		for(int i=0; i<ar.size(); i++) {
+			sb.append("<tr>");
+			sb.append("<td>" + ar.get(i).getMessageOther() + "</td>");
+			sb.append("<td onClick=\"messageCTX('"+ board.getMessageCode() +"','"+ ar.get(i).getRoomCode() +"','"+ ar.get(i).getMessageDate() +"')\">" + ar.get(i).getMessageTitle() + "</td>");
+			sb.append("<td>" + ar.get(i).getMessageDate() + "</td>");
+			sb.append("</tr>");
+		}
+		sb.append("</tbody>");
+		
+		
+		return sb.toString();
+	}
+	
+	private ModelAndView learningSentMessageCTX(BoardBean board) { // 보낸쪽지 내용확인
+		mav = new ModelAndView();
+		boolean transaction = false;
+		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
+
+		try {
+			session.getAttribute("roomCode");
+
+			board.setRoomCode((String)session.getAttribute("roomCode"));
+			board.setMessageCode("S");
+			board.setMessageId((String)session.getAttribute("tcId"));
+			
+			board = dao.sentMessageCTX(board);
+			
+			mav.addObject("id", "받은사람");
+			mav.addObject("messageOther", board.getMessageOther());
+			mav.addObject("messageTitle", board.getMessageTitle());
+			mav.addObject("messageContent", board.getMessageContent());
+			
+
+			transaction = true;
+
+		}catch(Exception ex){
+
+		}finally {
+			mav.setViewName("learningMSGctx");
+			setTransactionResult(transaction);
+		}
+		return mav;
+	}
+	
+	private ModelAndView learningGetMessageCTX(BoardBean board) { // 받은쪽지 내용확인
+		mav = new ModelAndView();
+		boolean transaction = false;
+		StringBuffer sb = new StringBuffer();
+		
+		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
+
+		try {
+			session.getAttribute("roomCode");
+
+			board.setRoomCode((String)session.getAttribute("roomCode"));
+			board.setMessageCode("G");
+			board.setMessageId((String)session.getAttribute("tcId"));
+			
+			board = dao.getMessageCTX(board);
+			
+			mav.addObject("id", "보낸사람");
+			mav.addObject("messageOther", board.getMessageOther());
+			mav.addObject("messageTitle", board.getMessageTitle());
+			mav.addObject("messageContent", board.getMessageContent());
+			
+			sb.append("<input type=\"button\" value=\"목록\" onClick=\"message('2')\"/>");
+			sb.append("<input type=\"button\" value=\"삭제\" onClick=\"messageDelete()\"/>");
+			mav.addObject("button", sb.toString());
+			
+
+			transaction = true;
+
+		}catch(Exception ex){
+
+		}finally {
+			mav.setViewName("learningMSGctx");
+			setTransactionResult(transaction);
+		}
+		return mav;
+	}
 
 
 

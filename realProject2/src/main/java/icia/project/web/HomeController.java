@@ -661,7 +661,7 @@ public class HomeController  {
 
 		return mav;
 	}
-	
+
 	/*// 쪽지보내기 팝업
 	@RequestMapping(value = "/sendMessagePopUp", method = RequestMethod.POST)
 	public ModelAndView learningSendMessagePopUp(@ModelAttribute BoardBean board) {
@@ -696,7 +696,34 @@ public class HomeController  {
 			mav = ltmm.entrance(43, board);
 			break;
 		}
-		
+
+		return mav;
+	}
+
+	// 쪽지 보내기 페이지
+	@RequestMapping(value = "/sendMessagePage", method = RequestMethod.POST)
+	public ModelAndView sendMessagePage(@ModelAttribute BoardBean board) {
+
+		mav = ltmm.entrance(46, board);
+
+		return mav;
+	}
+
+	// 보낸쪽지 내용확인 페이지
+	@RequestMapping(value = "/sentMessageCTX", method = RequestMethod.POST)
+	public ModelAndView sentMessageCTX(@ModelAttribute BoardBean board) {
+
+		mav = ltmm.entrance(48, board);
+
+		return mav;
+	}
+
+	// 받은쪽지 내용확인 페이지
+	@RequestMapping(value = "/getMessageCTX", method = RequestMethod.POST)
+	public ModelAndView getMessageCTX(@ModelAttribute BoardBean board) {
+
+		mav = ltmm.entrance(49, board);
+
 		return mav;
 	}
 

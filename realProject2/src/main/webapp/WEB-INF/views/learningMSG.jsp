@@ -214,9 +214,6 @@ function message(ivalue){
 								</div>
 								<br /> <br />
 								<div class="col-sm-11" style="text-align:center;">
-								<button type="button" class="btn" 
-									OnClick="message('1')">보내기</button>
-									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 								<button type="button" class="btn"
 									OnClick="message('2')">받은쪽지</button>
 									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;

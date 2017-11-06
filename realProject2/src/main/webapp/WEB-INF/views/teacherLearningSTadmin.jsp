@@ -152,14 +152,22 @@ function stadmin(studentCode){
 
  }
  
- function sendMessage(){
-	createForm("MessagePopUp", "sendMessagePopUp", "post");
-	 var form = document.getElementsByName("MessagePopUp")[0];
-	 window.open('','sendMessage',"width=500, height=500");
-	 document.MessagePopUp.submit(); 
+ function sendMessage(studentCode){
+	 
+	 createForm("message", "sendMessagePage", "post");
+	 
+	 var form = document.getElementsByName("message")[0];
+	 
+	 createinput("hidden", "studentCode", studentCode);
+	 var studentCode = document.getElementsByName("studentCode")[0];
+	 
+	 form.appendChild(studentCode);
+	 
+	 form.submit();
 	 
 	
  }
+ 
 
 </script>
 </head>

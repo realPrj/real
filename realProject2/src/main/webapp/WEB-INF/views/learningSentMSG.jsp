@@ -99,6 +99,26 @@ function message(ivalue){
 	form.submit();
 }
 
+function messageCTX(messageCode, roomCode, messageDate){
+	createForm("messageForm", "sentMessageCTX", "post");
+	var form = document.getElementsByName("messageForm")[0];
+	
+	createinput("hidden", "messageCode", messageCode);
+	createinput("hidden", "roomCode", roomCode);
+	createinput("hidden", "messageDate", messageDate);
+	
+	var messageCode = document.getElementsByName("messageCode")[0];
+	var roomCode = document.getElementsByName("roomCode")[0];
+	var messageDate = document.getElementsByName("messageDate")[0];
+	
+	form.appendChild(messageCode);
+	form.appendChild(roomCode);
+	form.appendChild(messageDate);
+	
+	form.submit();
+	
+}
+
 </script>
 <body>
 
@@ -252,7 +272,7 @@ function message(ivalue){
 						<table class="table table-bordered table-striped">
 							<thead>
 								<tr>
-									<th>보낸사람</th>
+									<th>수신인</th>
 									<th>제목</th>
 									<th>날짜</th>
 								</tr>
