@@ -10,7 +10,7 @@
 	href="assets/img/favicon.png">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 
-<title>공조 || 쪽지보내기 페이지</title>
+<title>공조 || 쪽지내용확인 페이지</title>
 
 <meta
 	content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0'
@@ -85,15 +85,19 @@ function menu(ivalue, identity) {
 
 }
 
-function message(ivalue){
+function message(ivalue, identity){
+	alert("identity : " + identity);
+	alert("ivalue : " + ivalue);
 	createinput("hidden", "caCode", ivalue);
-
+	createinput("hidden", "identity", identity);
 	var caCode = document.getElementsByName("caCode")[0];
+	var identity = document.getElementsByName("identity")[0];
 	
 	createForm("messageForm", "Message", "post");
 	
 	var form = document.getElementsByName("messageForm")[0];
 	form.appendChild(caCode);
+	form.appendChild(identity);
 	 
 	form.submit();
 }
@@ -115,21 +119,25 @@ function sendMessage(){
 	
 }
 
-function messageDelete(roomCode, messageCode, messageDate){
+function messageDelete(identity,roomCode, messageCode, messageDate){
+	alert(identity);
 	createForm("messageForm", "MessageDelete", "post");
 	var form = document.getElementsByName("messageForm")[0];
 	
 	createinput("hidden", "roomCode", roomCode);
 	createinput("hidden", "messageCode", messageCode);
 	createinput("hidden", "messageDate", messageDate);
+	createinput("hidden", "identity", identity);
 	
 	var roomCode = document.getElementsByName("roomCode")[0];
 	var messageCode = document.getElementsByName("messageCode")[0];
 	var messageDate = document.getElementsByName("messageDate")[0];
+	var identity = document.getElementsByName("identity")[0];
 	
 	form.appendChild(roomCode);
 	form.appendChild(messageCode);
 	form.appendChild(messageDate);
+	form.appendChild(identity);
 	
 	form.submit();
 	
@@ -249,15 +257,13 @@ function messageDelete(roomCode, messageCode, messageDate){
 
 								</div>
 								<br /> 
-								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-								<button type="button" class="btn" 
-									OnClick="message('1')">보내기</button>
+								
 									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 								<button type="button" class="btn"
-									OnClick="message('2')">받은쪽지</button>
+									OnClick="message('2',${identity})">받은쪽지</button>
 									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 								<button type="button" class="btn"
-									OnClick="message('3')">보낸쪽지</button>
+									OnClick="message('3',${identity})">보낸쪽지</button>
 								
 							</div>
 					</div>

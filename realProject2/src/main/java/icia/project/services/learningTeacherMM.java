@@ -1724,7 +1724,6 @@ public class learningTeacherMM extends TransactionExe {
 			session.getAttribute("roomCode");
 			board.setRoomCode((String)session.getAttribute("roomCode"));
 			board.setId((String)session.getAttribute("identity"));
-
 			ar = dao.tclearningDebateList(board);
 
 			mav.addObject("content", tclearningDebateList(board,ar));
@@ -2079,11 +2078,11 @@ public class learningTeacherMM extends TransactionExe {
 			session.getAttribute("roomCode");
 
 			board.setRoomCode((String)session.getAttribute("roomCode"));
-			board.setId((String)session.getAttribute("identity"));
-			
+			//board.setId((String)session.getAttribute("identity"));
+			board.setIdentity((String)session.getAttribute("identity"));
 			ar = dao.teacherLearningSTadmin(board);
-			mav.addObject("content", tclearningNoticeList(board,ar));
-			;
+			//mav.addObject("content", tclearningNoticeList(board,ar));
+			
 			
 			sb.append("<table  class=\"table table-hover\">");
 			sb.append("<tr>");
@@ -2103,7 +2102,7 @@ public class learningTeacherMM extends TransactionExe {
 				sb.append("<td>" + ar.get(i).getEmail() + "</td>");
 				sb.append("<td>" + ar.get(i).getPhone() + "</td>");
 				sb.append("<td>" + "<input type=\"button\"  class='btn' value=\"메일 발송\" onClick=\"sendMail('"+ ar.get(0).getEmail() +"')\"/>" + "</td>");
-				sb.append("<td><input type=\"button\"class='btn' value=\"쪽지보내기\" onClick=\"sendMessage('"+ ar.get(i).getStudentCode() +"')\" /></td>");
+				sb.append("<td><input type=\"button\"class='btn' value=\"쪽지보내기\" onClick=\"sendMessage('"+ ar.get(i).getStudentCode() +"','"+ board.getIdentity() +"')\" /></td>");
 				sb.append("</tr>");
 			}
 			sb.append("</table>");
@@ -2551,6 +2550,7 @@ public class learningTeacherMM extends TransactionExe {
 			
 			ar = dao.getMessageList(board);
 			
+			board.setIdentity((String)session.getAttribute("identity"));
 			mav.addObject("messageList", getlearningGetMessageList(ar, board));
 
 			transaction = true;
@@ -2577,6 +2577,7 @@ public class learningTeacherMM extends TransactionExe {
 			board.setRoomCode((String)session.getAttribute("roomCode"));
 			board.setMessageCode("S");
 			board.setMessageId((String)session.getAttribute("tcId"));
+			board.setIdentity((String)session.getAttribute("identity"));
 			ar = dao.sentMessageList(board);
 			mav.addObject("messageList", getlearningSentMessageList(ar,board));
 
@@ -2598,7 +2599,7 @@ public class learningTeacherMM extends TransactionExe {
 		for(int i=0; i<ar.size(); i++) {
 			sb.append("<tr>");
 			sb.append("<td>" + ar.get(i).getMessageOther() + "</td>");
-			sb.append("<td onClick=\"messageCTX('" + board.getMessageCode() + "','" + board.getRoomCode() + "','"+ ar.get(i).getMessageDate() +"')\">" + ar.get(i).getMessageTitle() + "</td>");
+			sb.append("<td onClick=\"messageCTX('" + board.getMessageCode() + "','" + board.getRoomCode() + "','"+ ar.get(i).getMessageDate() +"','"+ board.getIdentity() +"')\">" + ar.get(i).getMessageTitle() + "</td>");
 			sb.append("<td>" + ar.get(i).getMessageDate() + "</td>");
 			sb.append("</tr>");
 		}
@@ -2648,7 +2649,7 @@ public class learningTeacherMM extends TransactionExe {
 		for(int i=0; i<ar.size(); i++) {
 			sb.append("<tr>");
 			sb.append("<td>" + ar.get(i).getMessageOther() + "</td>");
-			sb.append("<td onClick=\"messageCTX('"+ board.getMessageCode() +"','"+ ar.get(i).getRoomCode() +"','"+ ar.get(i).getMessageDate() +"')\">" + ar.get(i).getMessageTitle() + "</td>");
+			sb.append("<td onClick=\"messageCTX('"+ board.getMessageCode() +"','"+ ar.get(i).getRoomCode() +"','"+ ar.get(i).getMessageDate() +"','"+board.getIdentity()+"')\">" + ar.get(i).getMessageTitle() + "</td>");
 			sb.append("<td>" + ar.get(i).getMessageDate() + "</td>");
 			sb.append("</tr>");
 		}
@@ -2671,6 +2672,7 @@ public class learningTeacherMM extends TransactionExe {
 			board.setMessageCode("S");
 			board.setMessageId((String)session.getAttribute("tcId"));
 			
+			
 			board = dao.sentMessageCTX(board);
 			
 			mav.addObject("id", "받은사람");
@@ -2678,8 +2680,12 @@ public class learningTeacherMM extends TransactionExe {
 			mav.addObject("messageTitle", board.getMessageTitle());
 			mav.addObject("messageContent", board.getMessageContent());
 			
-			sb.append("<input type=\"button\" value=\"목록\" onClick=\"message('3')\"/>");
-			sb.append("<input type=\"button\" value=\"삭제\" onClick=\"messageDelete('"+board.getRoomCode()+"','"+board.getMessageCode()+"','"+board.getMessageDate()+"')\"/>");
+			board.setIdentity((String)session.getAttribute("identity"));
+			System.out.println("보낸쪽지 서비스 : " + board.getIdentity());
+			
+			
+			sb.append("<input type=\"button\" value=\"목록\" onClick=\"message('"+3+"','"+board.getIdentity()+"')\"/>");
+			sb.append("<input type=\"button\" value=\"삭제\" onClick=\"messageDelete('"+board.getIdentity()+"','"+board.getRoomCode()+"','"+board.getMessageCode()+"','"+board.getMessageDate()+"')\"/>");
 			mav.addObject("button", sb.toString());
 			
 
@@ -2715,8 +2721,10 @@ public class learningTeacherMM extends TransactionExe {
 			mav.addObject("messageTitle", board.getMessageTitle());
 			mav.addObject("messageContent", board.getMessageContent());
 			
-			sb.append("<input type=\"button\" value=\"목록\" onClick=\"message('2')\"/>");
-			sb.append("<input type=\"button\" value=\"삭제\" onClick=\"messageDelete('"+board.getRoomCode()+"','"+board.getMessageCode()+"','"+board.getMessageDate()+"')\"/>");
+			board.setIdentity((String)session.getAttribute("identity"));
+			
+			sb.append("<input type=\"button\" value=\"목록\" onClick=\"message('"+2+"','"+board.getIdentity()+"')\"/>");
+			sb.append("<input type=\"button\" value=\"삭제\" onClick=\"messageDelete('"+board.getIdentity()+"','"+board.getRoomCode()+"','"+board.getMessageCode()+"','"+board.getMessageDate()+"')\"/>");
 			mav.addObject("button", sb.toString());
 			
 

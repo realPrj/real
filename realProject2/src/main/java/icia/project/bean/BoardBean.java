@@ -56,11 +56,23 @@ public class BoardBean {	// 게시판 bean
 	private String messageTitle; // 쪽지 제목
 	private String messageCode; // 쪽지 코드
 	
+	private String name;
+	
+	
 	
 	MultipartHttpServletRequest multiple;
 	
 	
 	
+	
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
 	public String getMessageCode() {
 		return messageCode;
 	}

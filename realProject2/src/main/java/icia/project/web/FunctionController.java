@@ -683,32 +683,45 @@ public class FunctionController {
 	// 쪽지 보내기
 	@RequestMapping(value = "/SendMessage", method = RequestMethod.POST)
 	public ModelAndView SendMessage(@ModelAttribute  BoardBean board) {
+		
+		if(board.getIdentity().equals("1")) {
+			ltm.entrance(47, board);
 
-		ltm.entrance(47, board);
-
-		mav = ltm.entrance(43, board);
-
+			mav = ltm.entrance(43, board);
+		}else{
+			lsm.entrance(40, board);
+			
+			mav = lsm.entrance(36, board);
+		}
+		
 		return mav;
 	}
 
-	// 받은 쪽지 삭제
+	// 쪽지 삭제
 	@RequestMapping(value = "/MessageDelete", method = RequestMethod.POST)
 	public ModelAndView MessageDelete(@ModelAttribute  BoardBean board) {
 		
-		System.out.println(board.getMessageCode());
-		if(board.getMessageCode().equals("G")) {
+		
+		if(board.getMessageCode().equals("G") && board.getIdentity().equals("1")) { // 받은 쪽지 삭제
+			System.out.println("받은쪽지 삭제 컨트롤러 : " + board.getIdentity());
 			ltm.entrance(50, board);
 			
 			mav = ltm.entrance(42, board);
-		}else {
+		}else if(board.getMessageCode().equals("S") && board.getIdentity().equals("1")) { // 보낸쪽지 삭제
 			ltm.entrance(51, board);
 			
 			mav = ltm.entrance(43, board);
+		}else if(board.getMessageCode().equals("G")) {
+			System.out.println("학생 받은쪽지 삭제 컨트롤러 :" + board.getIdentity());
+			lsm.entrance(42, board);
+			
+			mav = lsm.entrance(36, board);
+		}else {
+			System.out.println("학생 qhsostkrwp 삭제 컨트롤러 :" + board.getIdentity());
+			lsm.entrance(43, board);
+			
+			mav = lsm.entrance(38, board);
 		}
-		
-
-		
-
 		return mav;
 	}
 	

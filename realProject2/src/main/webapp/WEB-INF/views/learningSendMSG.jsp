@@ -85,34 +85,46 @@ function menu(ivalue, identity) {
 
 }
 
-function message(ivalue){
+function message(ivalue, identity){
+	alert(identity);
 	createinput("hidden", "caCode", ivalue);
-
+	createinput("hidden", "identity", identity);
 	var caCode = document.getElementsByName("caCode")[0];
+	var identity = document.getElementsByName("identity")[0];
 	
 	createForm("messageForm", "Message", "post");
 	
 	var form = document.getElementsByName("messageForm")[0];
 	form.appendChild(caCode);
+	form.appendChild(identity);
 	 
 	form.submit();
 }
 
-function sendMessage(){
+function sendMessage(identity){
+	alert(identity);
 	createForm("messageForm", "SendMessage", "post");
 	var form = document.getElementsByName("messageForm")[0];
 	
 	var messageOther = document.getElementsByName("messageOther")[0];
 	var messageTitle = document.getElementsByName("messageTitle")[0];
 	var messageContent = document.getElementsByName("messageContent")[0];
+	createinput("hidden", "identity", identity);
+	var identity = document.getElementsByName("identity")[0];
 	
 	form.appendChild(messageOther);
 	form.appendChild(messageTitle);
 	form.appendChild(messageContent);
+	form.appendChild(identity);
 	
 	form.submit();
 	
 	
+}
+
+function sendCancle(identity){
+	alert(identity);
+	menu('9',identity);
 }
 </script>
 <body>
@@ -202,7 +214,7 @@ function sendMessage(){
 						</a>
 							<ul class="dropdown-menu">
 								<li><a onClick="menu('11','${identity}')">쪽지함</a></li>
-								<li><a onClick="menu('14')">로그아웃</a></li>
+								<li><a onClick="menu('14',${identity})">로그아웃</a></li>
 							</ul></li>
 
 					</ul>
@@ -228,15 +240,13 @@ function sendMessage(){
 
 								</div>
 								<br /> 
-								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-								<button type="button" class="btn" 
-									OnClick="message('1')">보내기</button>
+								
 									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 								<button type="button" class="btn"
-									OnClick="message('2')">받은쪽지</button>
+									OnClick="message('2',${identity})">받은쪽지</button>
 									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 								<button type="button" class="btn"
-									OnClick="message('3')">보낸쪽지</button>
+									OnClick="message('3',${identity})">보낸쪽지</button>
 								
 							</div>
 					</div>
@@ -250,9 +260,9 @@ function sendMessage(){
 
 							</div>
 							<br /> &nbsp;&nbsp;&nbsp;&nbsp;
-							<button type="button" class="btn">작성취소</button>
+							<button type="button" class="btn" onClick="sendCancle(${identity})">작성취소</button>
 							&nbsp;&nbsp;&nbsp;&nbsp;
-							<button type="button" class="btn" onClick="sendMessage()">보내기</button>
+							<button type="button" class="btn" onClick="sendMessage(${identity})">보내기</button>
 							<br /><br />
 						</div>
 						

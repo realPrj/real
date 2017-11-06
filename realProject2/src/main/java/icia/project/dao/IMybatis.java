@@ -396,6 +396,9 @@ public interface IMybatis {
 	// 받은 쪽지 삭제
 	public int getMessageDelete(BoardBean board);
 	
+	// 선생님 ㄹ스트
+	public BoardBean getTeacherInfo(BoardBean board);
+	
 
 }
 

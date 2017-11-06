@@ -1254,7 +1254,7 @@
 	<!-- 보낸쪽지 리스트 -->
 	<select id="sentMessageList" resultType="board" parameterType="board">
 		SELECT MS_OTHER AS messageOther, MS_ID AS messageId, MS_DATE AS messageDate, MS_TITLE AS messageTitle, MS_CONTENT AS messageContent 
-		FROM MESSAGE WHERE MS_LRCODE = #{roomCode} AND MS_MSCCODE = #{messageCode} AND MS_ID = #{messageId}
+		FROM MESSAGE WHERE MS_LRCODE = #{roomCode} AND MS_MSCCODE = #{messageCode} AND MS_ID = #{messageId} ORDER BY MS_DATE DESC
 	</select>
 
 		
@@ -1276,7 +1276,7 @@
 	<!--  받은 쪽지 리스트 -->
 	<select id="getMessageList" resultType="board" parameterType="board">
 		SELECT MS_OTHER AS messageOther, MS_ID AS messageId, MS_DATE AS messageDate, MS_TITLE AS messageTitle, MS_CONTENT AS messageContent 
-		FROM MESSAGE WHERE MS_LRCODE = #{roomCode} AND MS_MSCCODE = #{messageCode} AND MS_ID = #{messageId}
+		FROM MESSAGE WHERE MS_LRCODE = #{roomCode} AND MS_MSCCODE = #{messageCode} AND MS_ID = #{messageId}  ORDER BY MS_DATE DESC
 	</select>
 	
 	<!-- 받은쪽지 내용확인 -->
@@ -1300,6 +1300,11 @@
 	<delete id="getMessageDelete" parameterType="board">
 		DELETE FROM MESSAGE WHERE MS_LRCODE = #{roomCode} AND MS_MSCCODE = #{messageCode} AND MS_DATE = TO_DATE(#{messageDate},'YYYY-MM-DD HH24:MI:SS')
 	</delete>
+	
+	<!-- 선생님 리스트 -->
+	<select id="getTeacherInfo" resultType="board" parameterType="board">
+		SELECT id, email, name, phone, roomCode FROM TEACHERINFO WHERE roomCode = #{roomCode}
+	</select>
 	
 </mapper>
 

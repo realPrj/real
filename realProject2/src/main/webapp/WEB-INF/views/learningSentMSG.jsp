@@ -86,34 +86,41 @@ function menu(ivalue, identity) {
 
 }
 
-function message(ivalue){
+function message(ivalue, identity){
+	alert(identity);
 	createinput("hidden", "caCode", ivalue);
-
+	createinput("hidden", "identity", identity);
 	var caCode = document.getElementsByName("caCode")[0];
+	var identity = document.getElementsByName("identity")[0];
 	
 	createForm("messageForm", "Message", "post");
 	
 	var form = document.getElementsByName("messageForm")[0];
 	form.appendChild(caCode);
+	form.appendChild(identity);
 	 
 	form.submit();
 }
 
-function messageCTX(messageCode, roomCode, messageDate){
+function messageCTX(messageCode, roomCode, messageDate, identity){
+	alert(identity);
 	createForm("messageForm", "sentMessageCTX", "post");
 	var form = document.getElementsByName("messageForm")[0];
 	
 	createinput("hidden", "messageCode", messageCode);
 	createinput("hidden", "roomCode", roomCode);
 	createinput("hidden", "messageDate", messageDate);
+	createinput("hidden", "identity", identity);
 	
 	var messageCode = document.getElementsByName("messageCode")[0];
 	var roomCode = document.getElementsByName("roomCode")[0];
 	var messageDate = document.getElementsByName("messageDate")[0];
+	var identity = document.getElementsByName("identity")[0];
 	
 	form.appendChild(messageCode);
 	form.appendChild(roomCode);
 	form.appendChild(messageDate);
+	form.appendChild(identity);
 	
 	form.submit();
 	
@@ -224,7 +231,7 @@ function messageCTX(messageCode, roomCode, messageDate){
                             </div> -->
 					<div class="content">
 						<form>
-						<h2 ><b>쪽지함</b></h2>
+						<h2 ><b>보낸쪽지함</b></h2>
 							<div class="row">
 
 								<div class="col-md-5">
@@ -245,14 +252,12 @@ function messageCTX(messageCode, roomCode, messageDate){
 								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 								
-								<button type="button" class="btn" 
-									OnClick="message('1')">보내기</button>
+								
+								<button type="button" class="btn"
+									OnClick="message('2',${identity})">받은쪽지</button>
 									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 								<button type="button" class="btn"
-									OnClick="message('2')">받은쪽지</button>
-									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-								<button type="button" class="btn"
-									OnClick="message('3')">보낸쪽지</button>
+									OnClick="message('3',${identity})">보낸쪽지</button>
 
 							</div>
 					</div>

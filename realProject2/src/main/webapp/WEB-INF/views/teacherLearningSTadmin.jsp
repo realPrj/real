@@ -152,16 +152,19 @@ function stadmin(studentCode){
 
  }
  
- function sendMessage(studentCode){
-	 
+ function sendMessage(studentCode, identity){
 	 createForm("message", "sendMessagePage", "post");
 	 
 	 var form = document.getElementsByName("message")[0];
 	 
 	 createinput("hidden", "studentCode", studentCode);
+	 createinput("hidden", "identity", identity);
+	 
 	 var studentCode = document.getElementsByName("studentCode")[0];
+	 var identity = document.getElementsByName("identity")[0];
 	 
 	 form.appendChild(studentCode);
+	 form.appendChild(identity);
 	 
 	 form.submit();
 	 
