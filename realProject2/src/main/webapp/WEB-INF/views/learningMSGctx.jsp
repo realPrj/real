@@ -115,6 +115,26 @@ function sendMessage(){
 	
 }
 
+function messageDelete(roomCode, messageCode, messageDate){
+	createForm("messageForm", "MessageDelete", "post");
+	var form = document.getElementsByName("messageForm")[0];
+	
+	createinput("hidden", "roomCode", roomCode);
+	createinput("hidden", "messageCode", messageCode);
+	createinput("hidden", "messageDate", messageDate);
+	
+	var roomCode = document.getElementsByName("roomCode")[0];
+	var messageCode = document.getElementsByName("messageCode")[0];
+	var messageDate = document.getElementsByName("messageDate")[0];
+	
+	form.appendChild(roomCode);
+	form.appendChild(messageCode);
+	form.appendChild(messageDate);
+	
+	form.submit();
+	
+}
+
 </script>
 <body>
 

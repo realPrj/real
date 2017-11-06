@@ -386,11 +386,11 @@ public class FunctionController {
 
 	// 자료실 삭제
 	@RequestMapping(value = "/learningDataDelete", method = RequestMethod.POST)
-	
-	
-	
-	
-	
+
+
+
+
+
 	public ModelAndView learningDataDelete(@ModelAttribute BoardBean board){      
 
 		ltm.entrance(15, board);
@@ -430,7 +430,7 @@ public class FunctionController {
 
 		return mav;
 	}
-	
+
 	// 학생 질문게시판 글쓰기
 	@RequestMapping(value = "/QuestionInsert123", method = RequestMethod.POST)
 	public @ResponseBody ModelAndView QuestionInsert123(@ModelAttribute BoardBean board, MultipartHttpServletRequest mtfRequest)throws Exception{
@@ -502,7 +502,7 @@ public class FunctionController {
 		mav = ltm.entrance(2, board);
 		return mav;
 	}
-/*	// 선생님 학생 자세히보기
+	/*	// 선생님 학생 자세히보기
 	@RequestMapping(value = "/teacherLearningSTadminCXT", method = RequestMethod.POST)
 	public ModelAndView teacherLearningSTadminCXT(@ModelAttribute BoardBean board)throws Exception{      
 
@@ -674,24 +674,46 @@ public class FunctionController {
 	public ModelAndView teachercheckPwd(@ModelAttribute  MemberBean member) {
 
 		mav = new ModelAndView();
-		
+
 		mav = tm.entrance(8, member);
 
 		return mav;
 	}
-	
+
 	// 쪽지 보내기
 	@RequestMapping(value = "/SendMessage", method = RequestMethod.POST)
 	public ModelAndView SendMessage(@ModelAttribute  BoardBean board) {
-		
+
 		ltm.entrance(47, board);
-		
+
 		mav = ltm.entrance(43, board);
+
+		return mav;
+	}
+
+	// 받은 쪽지 삭제
+	@RequestMapping(value = "/MessageDelete", method = RequestMethod.POST)
+	public ModelAndView MessageDelete(@ModelAttribute  BoardBean board) {
+		
+		System.out.println(board.getMessageCode());
+		if(board.getMessageCode().equals("G")) {
+			ltm.entrance(50, board);
+			
+			mav = ltm.entrance(42, board);
+		}else {
+			ltm.entrance(51, board);
+			
+			mav = ltm.entrance(43, board);
+		}
+		
+
+		
 
 		return mav;
 	}
 	
 	
+
 
 
 

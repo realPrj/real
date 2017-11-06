@@ -1296,5 +1296,10 @@
 		DELETE FROM MESSAGE WHERE MS_LRCODE = #{roomCode} AND MS_MSCCODE = #{messageCode} AND MS_DATE = TO_DATE(#{messageDate},'YYYY-MM-DD HH24:MI:SS')
 	</delete>
 	
+	<!-- 받은쪽지 삭제 -->
+	<delete id="getMessageDelete" parameterType="board">
+		DELETE FROM MESSAGE WHERE MS_LRCODE = #{roomCode} AND MS_MSCCODE = #{messageCode} AND MS_DATE = TO_DATE(#{messageDate},'YYYY-MM-DD HH24:MI:SS')
+	</delete>
+	
 </mapper>
 

@@ -389,7 +389,13 @@ public interface IMybatis {
 	
 	// 보낸 쪽지 내용확인
 	public BoardBean sentMessageCTX(BoardBean board);
-
+	
+	// 보낸 쪽지 삭제
+	public int sentMessageDelete(BoardBean board);
+	
+	// 받은 쪽지 삭제
+	public int getMessageDelete(BoardBean board);
+	
 
 }
 
