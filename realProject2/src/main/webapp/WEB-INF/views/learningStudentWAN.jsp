@@ -44,41 +44,34 @@
 <script>
 	$(document).ready(function() {
 
-		$("#chart_div2").hide();
+ 		$("#chart_div2").hide();
+		
+		
+		   var sizee = ${size};
+		   var dateCode = ${lowest};
 
-		var sizee = $
-		{
-			size
-		}
-		;
-		var dateCode = $
-		{
-			lowest
-		}
-		;
-
-		for (var i = 0; i < parseInt(sizee); i++) {
-			$("#" + dateCode).hide();
-			dateCode = parseInt(dateCode) + 1;
-		}
-		;
-
-		$("#yearSelect").click(function() {
-			var selectValue = $("#yearSelect").val();
-			var dateCode = $
-			{
-				lowest
-			}
-			;
-			for (var i = 0; i < parseInt(sizee); i++) {
-				$("#" + dateCode).hide();
-				dateCode = parseInt(dateCode) + 1;
-			}
-			;
-			$("#" + selectValue).show();
-			var divbox = $("#divbox");
-			divbox.append($("#" + selectValue));
-		});
+		   for(var i = 0; i < parseInt(sizee) ; i++){
+		      $("#"+dateCode).hide();
+		      dateCode = parseInt(dateCode) + 100;
+		   };
+		   
+		   
+		   $("#yearSelect").click(function() {
+		   var selectValue = $("#yearSelect").val();
+		   var dateCode = ${lowest};
+		   for(var i = 0; i < parseInt(sizee); i++){
+		      $("#"+dateCode).hide();
+		      dateCode = parseInt(dateCode) + 1;
+		   };
+		      $("#"+selectValue).show();
+		      var divbox = $("#divbox");
+		      divbox.append($("#"+selectValue));
+		   });
+		   
+		   $("tbody[name *='tbody']").hide(); 
+		   var tableList = $("#tableList");
+		   tableList.append($("#tbody0").show());
+		
 
 	});
 
@@ -145,6 +138,14 @@
 
 		form.submit();
 	}
+	
+    function pageNumber(value){
+ 	   $("tbody[name *='tbody']").hide(); 
+ 	   var tableList = $("#tableList");
+ 	   tableList.append($("#tbody"+value).show());
+ 	
+    }
+	
 </script>
 <body>
 	<div class="wrapper">
@@ -201,7 +202,7 @@
 					</a></li>
 					<li><a onClick="menu('9')">
 							<i class="ti-settings"></i>
-							<p>우리반학생</p>
+							<p>수강생</p>
 					</a></li>
 					<li><a onClick="menu('10')">
 							<i class="ti-shopping-cart-full "></i>
@@ -272,25 +273,26 @@
 							<td>${stHalf }</td>
 							<td>${stNumber }</td>
 							<td>${allSum }</td>
+							<td>년도 선택${yearSelect }</td>
 						</tr>
+
 					</table>
-					년도 선택${yearSelect } ${typeSumb }
-					<div id="divbox" style="margin-left:300px" class="table table-hover">
+					 	${typeSumb }
+					<div id="divbox"></div>
+
+					<div style="margin-left: 300px" class="table table-hover">
 
 						<%@include file="learningWANgraph.jsp"%>
 					</div>
-					${content } ${average }
+					
+					${content3 } ${content } ${content2 } ${average }
 					<hr />
 
-					
-				
-
 				</div>
-			</div>*/
+			</div>
 		</div>
 
 	</div>
 	<div id="studentInformation"></div>
-
 </body>
 </html>

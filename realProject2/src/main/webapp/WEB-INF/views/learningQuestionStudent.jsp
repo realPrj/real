@@ -184,7 +184,7 @@
 					</a></li>
 					<li><a onClick="menu('9')">
 							<i class="ti-settings"></i>
-							<p>우리반학생</p>
+							<p>수강생</p>
 					</a></li>
 					<li><a onClick="menu('10')">
 							<i class="ti-shopping-cart-full "></i>

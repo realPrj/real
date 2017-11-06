@@ -139,7 +139,7 @@ function message(ivalue) {
 					</a></li>
 					<li><a href="http://localhost/real/studentLearningClass.jsp">
 							<i class="ti-settings"></i>
-							<p>우리반학생</p>
+							<p>수강생</p>
 					</a></li>
 					<li><a href="http://localhost/real/studentLearningData.jsp">
 							<i class="ti-shopping-cart-full "></i>
