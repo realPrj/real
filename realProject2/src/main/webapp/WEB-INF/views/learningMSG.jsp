@@ -86,6 +86,19 @@ function menu(ivalue, identity) {
 
 }
 
+function message(ivalue){
+	createinput("hidden", "caCode", ivalue);
+
+	var caCode = document.getElementsByName("caCode")[0];
+	
+	createForm("messageForm", "Message", "post");
+	
+	var form = document.getElementsByName("messageForm")[0];
+	form.appendChild(caCode);
+	 
+	form.submit();
+}
+
 </script>
 <body>
 

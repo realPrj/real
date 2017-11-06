@@ -680,7 +680,7 @@ public class HomeController  {
 		return mav;
 	}
 
-	// 쪽지 보내기 페이지
+	// 쪽지 페이지
 	@RequestMapping(value = "/Message", method = RequestMethod.POST)
 	public ModelAndView message(@ModelAttribute BoardBean board, MemberBean member) {
 		int code = Integer.parseInt(board.getCaCode());
@@ -697,7 +697,6 @@ public class HomeController  {
 			break;
 		}
 		
-
 		return mav;
 	}
 
