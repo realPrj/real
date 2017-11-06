@@ -1250,14 +1250,13 @@
 	where SLOH_STRFSTUDENTCODE=#{studentCode}
 	ORDER BY sloh_date desc;
 	</select>
-<<<<<<< HEAD
-	
+
 	<!-- 보낸쪽지 리스트 -->
 	<select id="sentMessageList" resultType="board" parameterType="board">
 		SELECT MS_OTHER AS messageOther, MS_ID AS messageId, MS_DATE AS messageDate, MS_TITLE AS messageTitle, MS_CONTENT AS messageContent 
 		FROM MESSAGE WHERE MS_LRCODE = ${roomCode} AND MS_MSCCODE = ${messageCode}
 	</select>
-=======
+
 		
 	<!-- 선생님 상태코드 확인(로그인시) -->
 	<select id="stateCodeCheck" resultType="String" parameterType="member">
@@ -1265,7 +1264,6 @@
 	</select>
 
 
->>>>>>> 9315148cd0d76defd37c232f3f3c88433a990de9
 
 </mapper>
 
