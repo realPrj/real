@@ -120,12 +120,16 @@ function createinput(itype, iname, ivalue) {
 //메뉴선택
 function menu(ivalue, identity) {
 
+	alert(identity);
    createinput("hidden", "caCode", ivalue);
 
    var caCode = document.getElementsByName("caCode")[0];
-   if(identity == '1')
-   createForm("menuform", "stmenu", "post");
-
+   if(identity == '1'){
+	   createForm("menuform", "tcmenu", "post");
+   }else{
+	   createForm("menuform", "stmenu", "post");
+   }
+   
    var form = document.getElementsByName("menuform")[0];
    form.appendChild(caCode);
    
