@@ -369,6 +369,9 @@ public interface IMybatis {
 	// 학생 출결 추출
 	public ArrayList<LearningRoomBean> attendanceGet(LearningRoomBean room);
 
+	// 선생님 상태코드 확인(로그인시)
+	public String stateCodeCheck(MemberBean member);
+
 
 }
 

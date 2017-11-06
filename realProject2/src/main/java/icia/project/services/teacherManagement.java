@@ -99,23 +99,34 @@ public class teacherManagement extends TransactionExe {
 
 		try {
 
-			if(dao.tcIdCheck(member) != 0) {	// 아이디 체크
+			String state = dao.stateCodeCheck(member);
+			if(Integer.parseInt(state) == 1) {	// 상태코드 확인
 
-				if(enc.matches(member.getPwd(),dao.tcPwdGet(member).getPwd())) {	// 비밀번호 체크
-					member.setLogType(1);
+				if(dao.tcIdCheck(member) != 0) {	// 아이디 체크
 
-					if(dao.tcLogHistory(member) != 0) {	// 로그히스토리
+					if(enc.matches(member.getPwd(),dao.tcPwdGet(member).getPwd())) {	// 비밀번호 체크
+						member.setLogType(1);
 
-						// 동적으로 학습방 쏴주기
-						session.setAttribute("tcId", member.getId());
-						session.setAttribute("identity", member.getIdentity());	
-						mav = pm.entrance(1, null);
-						transaction = true;
+						if(dao.tcLogHistory(member) != 0) {	// 로그히스토리
+
+							// 동적으로 학습방 쏴주기
+							session.setAttribute("tcId", member.getId());
+							session.setAttribute("identity", member.getIdentity());	
+							mav = pm.entrance(1, null);
+							transaction = true;
+
+						}else {
+							mav.setViewName("login");
+							mav.addObject("identity", "1");
+							mav.addObject("message", "alert('로그인 실패 하셨습니다.')");
+							mav.addObject("id", member.getId());
+						}
 
 					}else {
+						mav = new ModelAndView();
 						mav.setViewName("login");
 						mav.addObject("identity", "1");
-						mav.addObject("message", "alert('로그인 실패 하셨습니다.')");
+						mav.addObject("message", "alert('비밀번호가 틀렸습니다.')");
 						mav.addObject("id", member.getId());
 					}
 
@@ -123,15 +134,14 @@ public class teacherManagement extends TransactionExe {
 					mav = new ModelAndView();
 					mav.setViewName("login");
 					mav.addObject("identity", "1");
-					mav.addObject("message", "alert('비밀번호가 틀렸습니다.')");
+					mav.addObject("message", "alert('아이디가 틀렸습니다.')");
 					mav.addObject("id", member.getId());
 				}
-
 			}else {
 				mav = new ModelAndView();
 				mav.setViewName("login");
 				mav.addObject("identity", "1");
-				mav.addObject("message", "alert('아이디가 틀렸습니다.')");
+				mav.addObject("message", "alert('탈퇴하신 아이디 입니다.')");
 				mav.addObject("id", member.getId());
 			}
 
@@ -253,7 +263,6 @@ public class teacherManagement extends TransactionExe {
 		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
 
 		try {
-
 			member = dao.tcIdFind(member);
 
 			if(member.getId().equals(null)) {
@@ -265,7 +274,7 @@ public class teacherManagement extends TransactionExe {
 			}else {
 				page = "login";
 				mav.addObject("identity", "1");
-				mav.addObject("message", "alert('"+member.getId()+"')");
+				mav.addObject("message", "alert('아이디 : "+member.getId()+"')");
 				transaction = true;
 			}
 
@@ -325,7 +334,7 @@ public class teacherManagement extends TransactionExe {
 		mav = new ModelAndView();
 
 		boolean transaction = false;
-		
+
 
 
 		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
@@ -355,7 +364,7 @@ public class teacherManagement extends TransactionExe {
 		}catch(Exception ex) {
 
 		}finally {
-			
+
 			setTransactionResult(transaction);
 		}
 

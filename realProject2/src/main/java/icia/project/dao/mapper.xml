@@ -79,7 +79,7 @@
 	<select id="tcIdFind" resultType="member" parameterType="member">
 		SELECT
 		TC_ID AS id
-		FROM TEACHER
+		FROM TEACHER WHERE TC_EMAIL = #{email}
 	</select>
 
 	<!-- 학생 아이디 찾기 -->
@@ -122,7 +122,7 @@
 	<select id="stInformationGet" resultType="member" parameterType="member">
 		SELECT
 		ST_ID AS id, ST_NAME AS name,ST_EMAIL AS email, ST_PHONE AS
-		phone
+		phone, ST_RFSTUDENTCODE AS studentCode
 		FROM STUDENT
 		WHERE ST_RFSTUDENTCODE=#{studentCode}
 	</select>
@@ -1251,7 +1251,10 @@
 	ORDER BY sloh_date desc;
 	</select>
 		
-
+	<!-- 선생님 상태코드 확인(로그인시) -->
+	<select id="stateCodeCheck" resultType="String" parameterType="member">
+	SELECT TC_STATECODE FROM TEACHER WHERE TC_ID = #{id}
+	</select>
 
 
 

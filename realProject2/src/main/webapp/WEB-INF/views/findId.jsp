@@ -70,7 +70,7 @@ function idfind(){
 	
 	var email = document.getElementsByName("email")[0];
 	var identity = document.getElementsByName("identity")[0];
-	
+
 	createForm("idFindform","idFind","post");
 	
 	var form = document.getElementsByName("idFindform")[0];
