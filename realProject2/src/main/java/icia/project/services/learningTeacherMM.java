@@ -2470,7 +2470,7 @@ public class learningTeacherMM extends TransactionExe {
 			board.setRoomCode((String)session.getAttribute("roomCode"));
 			
 			
-
+			mav.addObject("identity", session.getAttribute("identity"));
 
 			transaction = true;
 

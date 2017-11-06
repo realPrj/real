@@ -230,7 +230,7 @@ public class HomeController  {
 			break;
 
 		case 11 : // 쪽지 페이지
-			mav = ltmm.entrance(39, board);
+			mav = ltmm.entrance(44, board);
 			break;
 
 		case 12 : 
