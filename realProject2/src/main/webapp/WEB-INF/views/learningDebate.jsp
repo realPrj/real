@@ -117,26 +117,34 @@ function createinput(itype, iname, ivalue) {
    
    return input;
 }
-//메뉴선택
-function menu(ivalue) {
-
-   createinput("hidden", "caCode", ivalue);
-
-   var caCode = document.getElementsByName("caCode")[0];
-
-   createForm("menuform", "stmenu", "post");
-
-   var form = document.getElementsByName("menuform")[0];
-   form.appendChild(caCode);
-   
-   form.submit();
-
+function menu(ivalue, identity){
+	alert(ivalue);
+	alert(identity);
+ 	var ff = document.createElement("form");
+	ff.name = "menuform";
+	ff.method = "post";
+	if(identity == '1'){
+		ff.action = "tcmenu";
+	}else{
+		ff.action = "stmenu";
+	}
+	document.body.appendChild(ff);
+	
+	var i = document.createElement("input");
+	i.type = "hidden";
+	i.name = "caCode";
+	i.value = ivalue;
+	ff.appendChild(i);  
+	
+	document.menuform.submit();
+	
 }
 
 </script>
 </head>
 <body>
 <div class="wrapper">
+<input type="hidden" name="identity" value="${identity }" />
     <div class="sidebar" data-background-color="white" data-active-color="danger">
 
 
@@ -148,12 +156,13 @@ function menu(ivalue) {
                 <a href="teacher_main.html" class="simple-text">
                     <img src="assets/img/gong_logo.png" alt="공조" width="150*100">
                 </a>
+                ${identity }
             </div>
 
             <ul class="nav">
 					<li></li>
 					<li class="active">
-					<a href="">
+					<a onClick="menu('15')">
 					 <i class="ti-user"></i>
 							<p >마이페이지</p>
 					</a></li><!-- 마이페이지로 가기만들기 -->
@@ -165,11 +174,11 @@ function menu(ivalue) {
 							<i class="ti-star"></i>
 							<p>공지사항</p>
 					</a></li>
-					<li><a onClick="menu('4')"> 
+					<li><a onClick="menu('4','${identity }')"> 
 					<i class="ti-help"></i>
 							<p>질문게시판</p>
 					</a></li>
-					<li><a onClick="menu('5')"> <i
+					<li><a onClick="menu('5','${identity }')"> <i
 							class="ti-pencil-alt2"></i>
 							<p>토론게시판</p>
 					</a></li>
@@ -256,7 +265,7 @@ function menu(ivalue) {
                        <h2><b>토론게시판</b></h2>
                            ${content }
                            <hr/>
-                           <a class="btn btn-default qull-right" href="http://localhost/real/studentLearningDebate3.jsp" >글쓰기</a> 
+                            
                            <!-- 페이지네이션넣기 -->
                            <div class="text-center">
                            	<ul class="pagination">

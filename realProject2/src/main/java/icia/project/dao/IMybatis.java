@@ -305,10 +305,10 @@ public interface IMybatis {
 
 	// 토론게시판 댓글 등록
 	public int learningDebateTagInsert(BoardBean board);
-	
+
 	// 토론게시판 댓글 수정
 	public int learningDebateTagUpdate(BoardBean board);
-	
+
 	// 토론게시판 댓글 삭제
 	public int learningDebateTagDelete(BoardBean board);
 
@@ -353,6 +353,22 @@ public interface IMybatis {
 
 	// 선생님 상태 업데이트
 	public int updateTeacherState(MemberBean member);
+
+
+
+	// 과제 리스트 출력
+	public ArrayList<BoardBean> teacherTaskTag(BoardBean board);
+
+
+	// 선생님 과제 확인
+	public DbBoardBean learningTesk(BoardBean board);
+
+
+
+
+	// 학생 출결 추출
+	public ArrayList<LearningRoomBean> attendanceGet(LearningRoomBean room);
+
 
 }
 

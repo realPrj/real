@@ -14,7 +14,14 @@ public class LearningRoomBean {	// 학습방 bean
 	private String attendanceType;	// 출결 타입
 	private String attendanceCode;	// 출결 날짜코드
 	private String yyyymm;	// 이번달 코드
+	private String attendDate;	// 이번달 코드
 	
+	public String getAttendDate() {
+		return attendDate;
+	}
+	public void setAttendDate(String attendDate) {
+		this.attendDate = attendDate;
+	}
 	public String getStudentCode() {
 		return studentCode;
 	}

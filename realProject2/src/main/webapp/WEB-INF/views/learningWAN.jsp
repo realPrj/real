@@ -94,7 +94,16 @@ $(document).ready(function() {
 
       document.body.appendChild(input);
    }
+   function createinput1(itype, iname, ivalue) {
+	      var input = document.createElement("input");
+	      input.type = itype;
+	      input.name = iname;
+	      input.value = ivalue;
 
+	      document.body.appendChild(input);
+	      
+	      return input;
+	   }
    function commentCheck(valueCode) {
 
       createinput("hidden", "boardCode", valueCode);
@@ -120,13 +129,28 @@ $(document).ready(function() {
       form.submit();
 
    }
-   
+
     function pageNumber(value){
 	   $("tbody[name *='tbody']").hide(); 
 	   var tableList = $("#tableList");
 	   tableList.append($("#tbody"+value).show());
    }
    
+   function menu(ivalue) {
+		
+	      createinput1("hidden", "caCode", ivalue);
+
+	      var caCode = document.getElementsByName("caCode")[0];
+
+	      createForm1("menuform", "tcmenu", "post");
+
+	      var form = document.getElementsByName("menuform")[0];
+	      form.appendChild(caCode);
+	      
+	      form.submit();
+
+	   }
+
 </script>
 <body>
 	<div class="wrapper">
@@ -144,7 +168,8 @@ $(document).ready(function() {
 
 				<ul class="nav">
 					<li></li>
-					<li class="active"><a href=""> <i class="ti-user"></i>
+					<li class="active"><a onClick="menu('15')"> <i
+							class="ti-user"></i>
 							<p>마이페이지</p>
 					</a></li>
 					<!-- 마이페이지로 가기만들기 -->
@@ -232,24 +257,22 @@ $(document).ready(function() {
 							<td><input type="button" class='btn' value="전체" onClick="" />
 								<input type="button" class='btn' value="학생별"
 								onClick="studentInformation()" /></td>
-						<td>년도 선택${yearSelect }</td>
+							<td>년도 선택${yearSelect }</td>
 						</tr>
 
 					</table>
-					 ${typeSumb }
+					${typeSumb }
 					<div id="divbox"></div>
 					<div style="margin-left: 300px" class="table table-hover">
 
 						<%@include file="learningWANgraph.jsp"%>
 					</div>
-					${content3 }
-					${content }
-					${content2 }
+					${content3 } ${content } ${content2 }
 					<hr />
 
 				</div>
 			</div>
-			
+
 		</div>
 
 	</div>

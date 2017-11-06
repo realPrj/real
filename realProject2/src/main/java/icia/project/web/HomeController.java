@@ -37,7 +37,7 @@ public class HomeController  {
 	private learningStudentMM lsmm;
 	@Autowired
 	private StudentManagement stm;
-	
+
 	@Autowired
 	private teacherManagement ttmm;
 	private ModelAndView mav;
@@ -188,7 +188,6 @@ public class HomeController  {
 	// 선생님 학습메뉴
 	@RequestMapping(value = "/tcmenu", method = RequestMethod.POST)
 	public ModelAndView tcMenu(@ModelAttribute BoardBean board, MemberBean member) {
-
 		int code = Integer.parseInt(board.getCaCode());
 
 		switch(code) {
@@ -230,8 +229,8 @@ public class HomeController  {
 			mav = ltmm.entrance(13, board);
 			break;
 
-		case 11 : 
-
+		case 11 : // 쪽지 페이지
+			mav = ltmm.entrance(39, board);
 			break;
 
 		case 12 : 
@@ -244,6 +243,9 @@ public class HomeController  {
 
 		case 14 : 
 			mav = ttmm.entrance(5, member);
+			break;
+		case 15 : 
+			mav = pm.entrance(1, null);
 			break;
 		}
 
@@ -310,6 +312,9 @@ public class HomeController  {
 
 		case 14 : //로그아웃
 			mav = stm.entrance(5, member);
+			break;
+		case 15 : //메인페이지
+			mav = pm.entrance(2, null);
 			break;
 		}
 
@@ -484,8 +489,8 @@ public class HomeController  {
 
 		mav.addObject("boardTitle",board.getBoardTitle());
 		mav.addObject("boardDate",board.getBoardDate());
-		
-		
+
+
 		mav.addObject("boardId",board.getBoardId());
 		mav.addObject("boardContent",board.getBoardContent());
 		mav.addObject("roomCode",board.getRoomCode());
@@ -619,7 +624,7 @@ public class HomeController  {
 		mav.setViewName("learningTaskSubmitInsert");
 		return mav;
 	}
-	
+
 	// 학습방 코드 보기
 	@RequestMapping(value = "/learningSubjectCode", method = RequestMethod.POST)
 	public ModelAndView learningSubjectCode(@ModelAttribute BoardBean board) {
@@ -628,31 +633,73 @@ public class HomeController  {
 
 		return mav;
 	}
-		// 학생 회원탈퇴 페이지 이동
-		@RequestMapping(value = "/WithdrawalPage", method = RequestMethod.POST)
-		public ModelAndView WithdrawalPage(@ModelAttribute BoardBean board) {
+	// 학생 회원탈퇴 페이지 이동
+	@RequestMapping(value = "/WithdrawalPage", method = RequestMethod.POST)
+	public ModelAndView WithdrawalPage(@ModelAttribute BoardBean board) {
 
-			mav.setViewName("studentWithdrawalPage");
+		mav.setViewName("studentWithdrawalPage");
 
-			return mav;
+		return mav;
 	}
-		// 학생 회원탈퇴 페이지 이동
-		@RequestMapping(value = "/WithdrawalTeacherPage", method = RequestMethod.POST)
-		public ModelAndView WithdrawalTeacherPage(@ModelAttribute BoardBean board) {
 
-			mav.setViewName("teacherWithdrawalPage");
+	// 선생님 과제 파일 확인 팝업창
+	@RequestMapping(value = "/learningTesk", method = RequestMethod.GET)
+	public ModelAndView learningTesk(@ModelAttribute BoardBean board) {
+		System.out.println("선생님 과제 파일 확인 팝업창");
+		mav = ltmm.entrance(39, board);
 
-			return mav;
+
+		mav.setViewName("studentWithdrawalPage");
+
+		return mav;
 	}
-		
-		// 학생 과제 파일 확인 팝업창
-		@RequestMapping(value = "/checkFile", method = RequestMethod.GET)
-		public ModelAndView checkFile(@ModelAttribute BoardBean board) {
+	// 학생 회원탈퇴 페이지 이동
+	@RequestMapping(value = "/WithdrawalTeacherPage", method = RequestMethod.POST)
+	public ModelAndView WithdrawalTeacherPage(@ModelAttribute BoardBean board) {
 
-			mav = lsmm.entrance(16, board);
+		mav.setViewName("teacherWithdrawalPage");
 
-			return mav;
+		return mav;
+	}
+	
+	/*// 쪽지보내기 팝업
+	@RequestMapping(value = "/sendMessagePopUp", method = RequestMethod.POST)
+	public ModelAndView learningSendMessagePopUp(@ModelAttribute BoardBean board) {
+		System.out.println("쪽지보내기 팝업 컨트롤러");
+		mav = ltmm.entrance(39, board);
+
+		return mav;
+	}*/
+
+	// 학생 과제 파일 확인 팝업창
+	@RequestMapping(value = "/checkFile", method = RequestMethod.GET)
+	public ModelAndView checkFile(@ModelAttribute BoardBean board) {
+
+		mav = lsmm.entrance(16, board);
+
+		return mav;
+	}
+
+	// 쪽지 보내기 페이지
+	@RequestMapping(value = "/Message", method = RequestMethod.POST)
+	public ModelAndView message(@ModelAttribute BoardBean board, MemberBean member) {
+		int code = Integer.parseInt(board.getCaCode());
+
+		switch(code) {
+		case 1: // 쪽지 보내기 페이지
+			mav = ltmm.entrance(41, board);
+			break;
+		case 2: // 받은쪽지 리스트 페이지
+			mav = ltmm.entrance(42, board);
+			break;
+		case 3: // 보낸쪽지 리스트 페이지
+			mav = ltmm.entrance(43, board);
+			break;
 		}
+		
+
+		return mav;
+	}
 
 
 

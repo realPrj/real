@@ -106,8 +106,8 @@
 
    }
 
-   function viewData(referCode, referTitle, referDate) {
-      createinput("hidden", "boardTitle", referTitle);
+   function viewData(referCode, referDate) {
+   
       createinput("hidden", "boardDate", referDate);
       createinput("hidden", "roomCode", referCode);
       
@@ -115,12 +115,12 @@
 
       var form = document.getElementsByName("learningDataCXTform")[0];
       
-      var boardTitle = document.getElementsByName("boardTitle")[0];
+     
       var boardDate = document.getElementsByName("boardDate")[0];
       var roomCode = document.getElementsByName("roomCode")[0];
       
    
-      form.appendChild(boardTitle);
+      
       form.appendChild(boardDate);
       form.appendChild(roomCode);
 
@@ -148,7 +148,7 @@
 				<ul class="nav">
 					<li></li>
 					<li class="active">
-					<a href="">
+					<a onClick="menu('15')">
 					 <i class="ti-user"></i>
 							<p >마이페이지</p>
 					</a></li><!-- 마이페이지로 가기만들기 -->
@@ -232,7 +232,6 @@
 									<b class="caret"></b>
                               </a> 
                               <ul class="dropdown-menu">
-                                <li><a href="http://localhost/real/studentLearningMSG.jsp" >쪽지함</a></li>
                                 <li><a href="http://localhost/real/first_join.jsp" >로그아웃</a></li>
                               </ul> 
                         </li>
@@ -251,7 +250,6 @@
                        <h2><b>질문 게시판</b></h2>
                            ${datalist}
                            <hr/>
-                           <a class="btn btn-default qull-right" href="http://localhost/real/studentLearningDebate3.jsp" >글쓰기</a> 
                            <!-- 페이지네이션넣기 -->
                            <div class="text-center">
                            	<ul class="pagination">
