@@ -250,43 +250,43 @@ function TagDelete(tagDate, boardDate){
 
 				<ul class="nav">
 					<li></li>
-					<li class="active"><a onClick="menu('15')"> <i class="ti-user"></i>
+					<li class="active"><a onClick="menu('15','${identity}')"> <i class="ti-user"></i>
 							<p>마이페이지</p>
 					</a></li>
 					<!-- 마이페이지로 가기만들기 -->
-					<li><a onClick="menu('1')"> <i class="ti-home"></i>
+					<li><a onClick="menu('1','${identity}')"> <i class="ti-home"></i>
 							<p>홈</p>
 					</a></li>
-					<li><a onClick="menu('3')"> <i class="ti-star"></i>
+					<li><a onClick="menu('3','${identity}')"> <i class="ti-star"></i>
 							<p>공지사항</p>
 					</a></li>
-					<li><a onClick="menu('4')"> <i class="ti-help"></i>
+					<li><a onClick="menu('4','${identity}')"> <i class="ti-help"></i>
 							<p>질문게시판</p>
 					</a></li>
-					<li><a onClick="menu('5')"> <i class="ti-pencil-alt2"></i>
+					<li><a onClick="menu('5','${identity}')"> <i class="ti-pencil-alt2"></i>
 							<p>토론게시판</p>
 					</a></li>
-					<li><a onClick="menu('6')"> <i class="ti-clipboard"></i>
+					<li><a onClick="menu('6','${identity}')"> <i class="ti-clipboard"></i>
 							<p>과제</p>
 					</a></li>
-					<li><a onClick="menu('7')"> <i class="ti-book"></i>
+					<li><a onClick="menu('7','${identity}')"> <i class="ti-book"></i>
 							<p>오답노트</p>
 					</a></li>
-					<li><a onClick="menu('8')"> <i class="ti-bar-chart"></i>
+					<li><a onClick="menu('8','${identity}')"> <i class="ti-bar-chart"></i>
 							<p>성적</p>
 					</a></li>
-					<li><a onClick="menu('9')"> <i class="ti-settings"></i>
-							<p>우리반학생</p>
+					<li><a onClick="menu('9','${identity}')"> <i class="ti-settings"></i>
+							<p>수강생</p>
 					</a></li>
-					<li><a onClick="menu('10')"> <i
+					<li><a onClick="menu('10','${identity}')"> <i
 							class="ti-shopping-cart-full "></i>
 							<p>자료실</p>
 					</a></li>
 					<li></li>
-					<li><a onClick="menu('12')"> <i class="ti-pencil-alt "></i>
+					<li><a onClick="menu('12','${identity}')"> <i class="ti-pencil-alt "></i>
 							<p>강의계획서</p>
 					</a></li>
-					<li><a onClick="menu('13')"> <i class="ti-bookmark-alt "></i>
+					<li><a onClick="menu('13','${identity}')"> <i class="ti-bookmark-alt "></i>
 							<p>과목코드</p>
 					</a></li>
 
