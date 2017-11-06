@@ -299,6 +299,7 @@ public class teacherManagement extends TransactionExe {
 			if(dao.tcLogHistory(member) != 0) {
 				session.removeAttribute("tcId");
 				session.removeAttribute("identity");
+				session.removeAttribute("roomCode");
 				page = "home";
 				mav.addObject("message", "alert('로그아웃 되셨습니다.')");
 				transaction = true;

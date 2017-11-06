@@ -78,7 +78,7 @@ public class PageManagement extends TransactionExe {
 
 				al = dao.tclearningRoomGet(room);
 
-				sb.append("<table>");
+				sb.append("</br><table>");
 				sb.append("<tr>");
 				for(int i =0; i < al.size(); i++) {
 					
@@ -124,7 +124,8 @@ public class PageManagement extends TransactionExe {
 
 		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
 
-		try {System.out.println("여기 왓어염");
+		try {
+			session.removeAttribute("roomCode");
 			room = new LearningRoomBean();
 			room.setStudentCode((String)session.getAttribute("stCode"));
 			
@@ -132,20 +133,22 @@ public class PageManagement extends TransactionExe {
 
 				alCode = dao.stlearningRoomGet1(room);
 
-				sb.append("<table>");
+				sb.append("</br><table>");
+				sb.append("<tr>");
 				for(int i =0; i < alCode.size(); i++) {
 					
 					room = new LearningRoomBean();
 					room.setRoomCode(alCode.get(i).getRoomCode());
 					room = dao.stlearningRoomGet2(room);
 					
-					sb.append("<tr>");
+					
 					sb.append("<td>");
 					sb.append("<input type='button' class='btn' value='"+room.getRoomName()+"' onClick=learningGo('"+room.getRoomCode()+"') />");
 					sb.append("</td>");
-					sb.append("</tr>");
+					
 					
 				}
+				sb.append("</tr>");
 				sb.append("</table>");
 				mav.addObject("content", sb.toString());
 				mav.setViewName("studentMain");

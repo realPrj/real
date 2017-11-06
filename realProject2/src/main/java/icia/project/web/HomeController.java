@@ -241,10 +241,10 @@ public class HomeController  {
 
 			break;
 
-		case 14 : 
+		case 14 :  // 로그아웃
 			mav = ttmm.entrance(5, member);
 			break;
-		case 15 : 
+		case 15 : // 마이페이지
 			mav = pm.entrance(1, null);
 			break;
 		}
