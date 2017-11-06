@@ -314,6 +314,7 @@ public class learningTeacherMM extends TransactionExe {
 			mav.addObject("boardId",bb.getBoardId());
 			mav.addObject("file",bb.getCutContent());
 			mav.addObject("content", getTclearningNoticeCTX(bb));
+			mav.addObject("identity", session.getAttribute("identity"));
 
 
 			transaction = true;
@@ -369,7 +370,8 @@ public class learningTeacherMM extends TransactionExe {
 
 		try {
 			session.getAttribute("roomCode");
-
+			mav.addObject("identity", session.getAttribute("identity"));
+			mav.addObject("studentList", "학생관리");
 
 			transaction = true;
 
@@ -1161,8 +1163,8 @@ public class learningTeacherMM extends TransactionExe {
 
 			mav.addObject("boardTitle", board.getBoardTitle());
 			mav.addObject("boardContent", board.getBoardContent());
-			mav.addObject("boardRoute", "Ggg");
-
+			mav.addObject("identity", session.getAttribute("identity"));
+			
 			sb.append("<input type=\"hidden\" name=\"boardDate\" value='"+ board.getBoardDate() +"'/>");
 			mav.addObject("boardDate", sb.toString());
 			transaction = true;
@@ -1755,6 +1757,7 @@ public class learningTeacherMM extends TransactionExe {
 
 			ar = dao.learningDebateTagList(board);
 			mav.addObject("debateTagList", getlearningDebateTagList(ar));
+			mav.addObject("identity", session.getAttribute("identity"));
 			transaction = true;
 
 		}catch(Exception ex){
@@ -1890,7 +1893,7 @@ public class learningTeacherMM extends TransactionExe {
 
 			board.setRoomCode((String)session.getAttribute("roomCode"));
 			board.setId((String)session.getAttribute("identity"));
-			//mav.addObject("content",session.getAttribute("roomCode") + "의 공지사항");
+		
 
 			transaction = true;
 
@@ -1926,7 +1929,7 @@ public class learningTeacherMM extends TransactionExe {
 
 			board.setStudentCode((String)session.getAttribute("stCode"));
 
-			//mav.addObject("content",session.getAttribute("roomCode") + "의 공지사항");
+			
 
 
 			DbBoardBean bb = dao.questionBoardCXT(board);   // 전체 루트(파일이름까지)
@@ -2051,7 +2054,7 @@ public class learningTeacherMM extends TransactionExe {
 
 			board.setRoomCode((String)session.getAttribute("roomCode"));
 			board.setId((String)session.getAttribute("identity"));
-			//mav.addObject("content",session.getAttribute("roomCode") + "의 공지사항");
+			
 			ar = dao.teacherLearningSTadmin(board);
 			mav.addObject("content", tclearningNoticeList(board,ar));
 			;
@@ -2104,7 +2107,7 @@ public class learningTeacherMM extends TransactionExe {
 
 			board.setRoomCode((String)session.getAttribute("roomCode"));
 			board.setId((String)session.getAttribute("identity"));
-			//mav.addObject("content",session.getAttribute("roomCode") + "의 공지사항");
+			
 			ar = dao.teacherLearningSTadminCXT(board);
 
 			sb.append("<table>");
@@ -2426,7 +2429,7 @@ public class learningTeacherMM extends TransactionExe {
 		try {
 			board.setStudentCode(board.getStudentCode());
 			board.setStudentName(dao.stNameGet(board));	
-		//mav.addObject("content",session.getAttribute("roomCode") + "의 공지사항");
+		
 
 			DbBoardBean bb = dao.learningTesk(board);   // 전체 루트(파일이름까지)
 
@@ -2468,7 +2471,7 @@ public class learningTeacherMM extends TransactionExe {
 			session.getAttribute("roomCode");
 
 			board.setRoomCode((String)session.getAttribute("roomCode"));
-			//mav.addObject("content",session.getAttribute("roomCode") + "의 공지사항");
+			
 			
 
 
@@ -2492,7 +2495,7 @@ public class learningTeacherMM extends TransactionExe {
 			session.getAttribute("roomCode");
 
 			board.setRoomCode((String)session.getAttribute("roomCode"));
-			//mav.addObject("content",session.getAttribute("roomCode") + "의 공지사항");
+			
 			
 
 
@@ -2516,7 +2519,7 @@ public class learningTeacherMM extends TransactionExe {
 			session.getAttribute("roomCode");
 
 			board.setRoomCode((String)session.getAttribute("roomCode"));
-			//mav.addObject("content",session.getAttribute("roomCode") + "의 공지사항");
+			
 			
 
 
@@ -2540,7 +2543,7 @@ public class learningTeacherMM extends TransactionExe {
 			session.getAttribute("roomCode");
 
 			board.setRoomCode((String)session.getAttribute("roomCode"));
-			//mav.addObject("content",session.getAttribute("roomCode") + "의 공지사항");
+			
 			
 
 
