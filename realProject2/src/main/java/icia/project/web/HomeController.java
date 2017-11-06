@@ -230,7 +230,7 @@ public class HomeController  {
 			break;
 
 		case 11 : // 쪽지 페이지
-			mav = ltmm.entrance(39, board);
+			mav = ltmm.entrance(44, board);
 			break;
 
 		case 12 : 
@@ -241,10 +241,10 @@ public class HomeController  {
 
 			break;
 
-		case 14 : 
+		case 14 :  // 로그아웃
 			mav = ttmm.entrance(5, member);
 			break;
-		case 15 : 
+		case 15 : // 마이페이지
 			mav = pm.entrance(1, null);
 			break;
 		}
@@ -680,7 +680,7 @@ public class HomeController  {
 		return mav;
 	}
 
-	// 쪽지 보내기 페이지
+	// 쪽지 페이지
 	@RequestMapping(value = "/Message", method = RequestMethod.POST)
 	public ModelAndView message(@ModelAttribute BoardBean board, MemberBean member) {
 		int code = Integer.parseInt(board.getCaCode());
@@ -697,7 +697,6 @@ public class HomeController  {
 			break;
 		}
 		
-
 		return mav;
 	}
 

@@ -10,7 +10,7 @@
 	href="assets/img/favicon.png">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 
-<title>공조</title>
+<title>공조 || 쪽지함</title>
 
 <meta
 	content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0'
@@ -68,20 +68,37 @@ function createinput(itype, iname, ivalue) {
    return input;
 }
 //메뉴선택
-function message(ivalue) {
+function menu(ivalue, identity) {
 
    createinput("hidden", "caCode", ivalue);
 
    var caCode = document.getElementsByName("caCode")[0];
-
-   createForm("messageForm", "Message", "post");
-
-   var form = document.getElementsByName("messageForm")[0];
+   if(identity == '1'){
+	   createForm("menuform", "tcmenu", "post");
+   }else{
+	   createForm("menuform", "stmenu", "post");
+   }
+   
+   var form = document.getElementsByName("menuform")[0];
    form.appendChild(caCode);
    
    form.submit();
 
 }
+
+function message(ivalue){
+	createinput("hidden", "caCode", ivalue);
+
+	var caCode = document.getElementsByName("caCode")[0];
+	
+	createForm("messageForm", "Message", "post");
+	
+	var form = document.getElementsByName("messageForm")[0];
+	form.appendChild(caCode);
+	 
+	form.submit();
+}
+
 </script>
 <body>
 
@@ -100,99 +117,83 @@ function message(ivalue) {
 					</a>
 				</div>
 
-				<ul class="nav">
+            <ul class="nav">
 					<li></li>
-					<li class="active"><a
-						href="http://localhost/real/student_info.jsp"> <i
-							class="ti-user"></i>
+
+					<li class="active"><a href=""> <i class="ti-user"></i>
 							<p>마이페이지</p>
 					</a></li>
-					<li><a href="http://localhost/real/studentMain.jsp"> <i
-							class="ti-home"></i>
+					<!-- 마이페이지로 가기만들기 -->
+					<li><a onClick="menu('1','${identity}')"> <i class="ti-home"></i>
 							<p>홈</p>
 					</a></li>
-					<li><a href="http://localhost/real/studentLearningNotice.jsp">
-							<i class="ti-star"></i>
+					<li><a onClick="menu('3','${identity}')"> <i class="ti-star"></i>
 							<p>공지사항</p>
 					</a></li>
-					<li><a
-						href="http://localhost/real/studentLearningQuestion.jsp"> <i
-							class="ti-help"></i>
+					<li><a onClick="menu('4','${identity}')"> <i class="ti-help"></i>
 							<p>질문게시판</p>
 					</a></li>
-					<li><a href="http://localhost/real/studentLearningDebateMain.jsp"> <i
-							class="ti-pencil-alt2"></i>
+					<li><a onClick="menu('5','${identity}')"> <i class="ti-pencil-alt2"></i>
 							<p>토론게시판</p>
 					</a></li>
-					<li><a href="http://localhost/real/studentLearningTask.jsp">
-							<i class="ti-clipboard"></i>
+					<li><a onClick="menu('6','${identity}')"> <i class="ti-clipboard"></i>
 							<p>과제</p>
 					</a></li>
-					<li><a
-						href="http://localhost/real/studentLearningWrongAnswer.jsp"> <i
-							class="ti-book"></i>
+					<li><a onClick="menu('7','${identity}')"> <i class="ti-book"></i>
 							<p>오답노트</p>
 					</a></li>
-					<li><a href="http://localhost/real/studentLearningGrade.jsp">
-							<i class="ti-bar-chart"></i>
+					<li><a onClick="menu('8','${identity}')"> <i class="ti-bar-chart"></i>
 							<p>성적</p>
 					</a></li>
-					<li><a href="http://localhost/real/studentLearningClass.jsp">
-							<i class="ti-settings"></i>
+					<li><a onClick="menu('9','${identity}')"> <i class="ti-settings"></i>
 							<p>수강생</p>
 					</a></li>
-					<li><a href="http://localhost/real/studentLearningData.jsp">
-							<i class="ti-shopping-cart-full "></i>
+					<li><a onClick="menu('10','${identity}')"> <i
+							class="ti-shopping-cart-full "></i>
 							<p>자료실</p>
 					</a></li>
 					<li></li>
-					<li><a href="http://localhost/real/studentLearningPlan.jsp">
-							<i class="ti-pencil-alt "></i>
+					<li><a onClick="menu('12','${identity}')"> <i class="ti-pencil-alt "></i>
 							<p>강의계획서</p>
 					</a></li>
-					<li><a href="http://localhost/real/studentLearningSJcode.jsp">
-							<i class="ti-bookmark-alt "></i>
+					<li><a onClick="menu('13','${identity}')"> <i class="ti-bookmark-alt "></i>
 							<p>과목코드</p>
 					</a></li>
 
 				</ul>
 			</div>
 		</div>
-
-
-
-
 		<!-- 상단바 영역 -->
 
 
 		<div class="main-panel">
 			<nav class="navbar navbar-default">
-				<div class="container-fluid">
-					<div class="navbar-header">
-						<button type="button" class="navbar-toggle">
-							<span class="sr-only">Toggle navigation</span> <span
-								class="icon-bar bar1"></span> <span class="icon-bar bar2"></span>
-							<span class="icon-bar bar3"></span>
-						</button>
-						<a class="navbar-brand" href="#"></a>
-					</div>
-					<div class="collapse navbar-collapse">
-						<ul class="nav navbar-nav navbar-right">
-
-							<li class="dropdown"><a href="#" class="dropdown-toggle"
-								data-toggle="dropdown"> <i class="ti-bell"></i>
-									<p class="notification"></p>
-									<p>마이메뉴</p> <b class="caret"></b>
-							</a>
-								<ul class="dropdown-menu">
-									<li><a href="http://localhost/real/studentLearningMSG.jsp">쪽지함</a></li>
-									<li><a href="http://localhost/real/first_join.jsp">로그아웃</a></li>
-								</ul></li>
-
-						</ul>
-
-					</div>
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle">
+						<span class="sr-only">Toggle navigation</span> <span
+							class="icon-bar bar1"></span> <span class="icon-bar bar2"></span>
+						<span class="icon-bar bar3"></span>
+					</button>
+					<a class="navbar-brand" href="#"></a>
 				</div>
+				<div class="collapse navbar-collapse">
+					<ul class="nav navbar-nav navbar-right">
+
+						<li class="dropdown"><a href="#" class="dropdown-toggle"
+							data-toggle="dropdown"> <i class="ti-bell"></i>
+								<p class="notification"></p>
+								<p>마이메뉴</p> <b class="caret"></b>
+						</a>
+							<ul class="dropdown-menu">
+								<li><a onClick="menu('11')">쪽지함</a></li>
+								<li><a onClick="menu('14')">로그아웃</a></li>
+							</ul></li>
+
+					</ul>
+
+				</div>
+			</div>
 			</nav>
 
 

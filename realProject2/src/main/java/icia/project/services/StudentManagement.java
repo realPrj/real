@@ -284,6 +284,7 @@ public class StudentManagement extends TransactionExe {
 			if(dao.stLogHistory(member) != 0) {
 				session.removeAttribute("stCode");
 				session.removeAttribute("identity");
+				session.removeAttribute("roomCode");
 				page = "home";
 				mav.addObject("message", "alert('로그아웃 되셨습니다.')");
 				transaction = true;
