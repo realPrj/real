@@ -43,7 +43,7 @@
 <script>
 $(document).ready(function() {
 
-	   $("div[name *='div']").hide(); 
+   $("div[name *='div']").hide(); 
 	   
 	   $("#yearSelect").click(function() {
 	   var selectValue = $("#yearSelect").val();
@@ -52,7 +52,7 @@ $(document).ready(function() {
 	      $("#"+selectValue).show();
 	      var divbox = $("#divbox");
 	      divbox.append($("#"+selectValue));
-	   });
+	   }); 
 
 	   $("tbody[name *='tbody']").hide(); 
 	   var tableList = $("#tableList");
@@ -256,12 +256,12 @@ $(document).ready(function() {
 						<tr>
 							<td><input type="button" class='btn' value="전체" onClick="" />
 								<input type="button" class='btn' value="학생별"
-								onClick="studentInformation()" /></td>
-							<td>년도 선택${yearSelect }</td>
+								onClick="studentInformation()" /></td>	
+								<td>년도 선택${yearSelect }</td>
 						</tr>
 
 					</table>
-					${typeSumb }
+					 	${typeSumb }
 					<div id="divbox"></div>
 					<div style="margin-left: 300px" class="table table-hover">
 
