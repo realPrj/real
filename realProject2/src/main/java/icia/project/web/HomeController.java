@@ -70,7 +70,8 @@ public class HomeController  {
 	public ModelAndView joinPage(@ModelAttribute MemberBean member) {
 
 		switch(Integer.parseInt(member.getIdentity())) {
-
+		case 0: //관리자
+			break;
 		case 1:	// 선생님
 			mav.addObject("identity", member.getIdentity());
 			mav.setViewName("teacherjoin");

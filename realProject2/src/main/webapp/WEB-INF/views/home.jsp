@@ -107,14 +107,15 @@
 	<br/>
 	
 	<div>
-		 
-		 
+		<input type="button" value="관리자" class="btn" onClick="identity('0')" /> 
+		  <br/>
+		 <br/>
 		<input type="button" value="선생님"class="btn" onClick="identity('1')" />
 		 <br/>
 		 <br/>
 		 
 		<input type="button" value="학생" class="btn" onClick="identity('2')" />
-		 
+		 	
 		
 		 <br/>
 		 <br/>

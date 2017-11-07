@@ -50,7 +50,19 @@ body {
 </style>
 </head>
 <script>
+$(document).ready(function() {
+	/* 복사 */
+	$("tbody[name *='tbody']").hide();
+	var tableList = $("#tableList");
+	tableList.append($("#tbody0").show());
 
+});
+/*복사  */
+function pageNumber(value) {
+	$("tbody[name *='tbody']").hide();
+	var tableList = $("#tableList");
+	tableList.append($("#tbody" + value).show());
+}
 //form 생성
 function createForm(formname,formaction,formmethod){
 
@@ -158,7 +170,9 @@ function pwdUP(formname,formaction,formmethod){
 		onClick="eventClick('teacherInfoUpdatePageform','teacherInfoUpdatePage','post')" />
 	<input type="button" value="회원탈퇴" class="btn"
 		onClick="eventClick('Withdrawalform','WithdrawalTeacherPage','post')" />
-
+		<input type="button" value="출결"  class="btn" onClick="attendance()"  />
+		</br></br></br>${attendance }${content2 }
+	
 
 
 

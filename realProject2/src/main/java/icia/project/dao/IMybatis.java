@@ -371,6 +371,8 @@ public interface IMybatis {
 
 	// 선생님 상태코드 확인(로그인시)
 	public String stateCodeCheck(MemberBean member);
+	// 학생 출결 추출
+	public ArrayList<LearningRoomBean> tcattendanceGet(LearningRoomBean room);
 
 
 }

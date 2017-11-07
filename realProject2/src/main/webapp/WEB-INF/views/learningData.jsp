@@ -64,76 +64,87 @@
 <script src="assets/js/demo.js"></script>
 
 <script>
-   //form 생성
-   function createForm(formname, formaction, formmethod) {
+	$(document).ready(function() {
+		/* 복사 */
+		$("tbody[name *='tbody']").hide();
+		var tableList = $("#tableList");
+		tableList.append($("#tbody0").show());
 
-      var form = document.createElement("form");
+	});
+	/*복사  */
+	function pageNumber(value) {
+		$("tbody[name *='tbody']").hide();
+		var tableList = $("#tableList");
+		tableList.append($("#tbody" + value).show());
+	}
+	//form 생성
+	function createForm(formname, formaction, formmethod) {
 
-      form.name = formname;
-      form.action = formaction;
-      form.method = formmethod;
+		var form = document.createElement("form");
 
-      document.body.appendChild(form);
+		form.name = formname;
+		form.action = formaction;
+		form.method = formmethod;
 
-   }
+		document.body.appendChild(form);
 
-   //input 생성
-   function createinput(itype, iname, ivalue) {
-      var input = document.createElement("input");
-      input.type = itype;
-      input.name = iname;
-      input.value = ivalue;
+	}
 
-      document.body.appendChild(input);
-      
-      return input;
-   }
+	//input 생성
+	function createinput(itype, iname, ivalue) {
+		var input = document.createElement("input");
+		input.type = itype;
+		input.name = iname;
+		input.value = ivalue;
 
-   function eventClick(formname, formaction, formmethod) {
+		document.body.appendChild(input);
 
-      createForm(formname, formaction, formmethod);
-      
-      var form = document.getElementsByName(formname)[0];
+		return input;
+	}
 
-      form.submit();
+	function eventClick(formname, formaction, formmethod) {
 
-   }
-   //메뉴선택
-   function menu(ivalue) {
+		createForm(formname, formaction, formmethod);
 
-      createinput("hidden", "caCode", ivalue);
+		var form = document.getElementsByName(formname)[0];
 
-      var caCode = document.getElementsByName("caCode")[0];
+		form.submit();
 
-      createForm("menuform", "tcmenu", "post");
+	}
+	//메뉴선택
+	function menu(ivalue) {
 
-      var form = document.getElementsByName("menuform")[0];
-      form.appendChild(caCode);
-      
-      form.submit();
+		createinput("hidden", "caCode", ivalue);
 
-   }
+		var caCode = document.getElementsByName("caCode")[0];
 
-   function viewData(referCode,referDate) {
+		createForm("menuform", "tcmenu", "post");
 
-      createinput("hidden", "boardDate", referDate);
-      createinput("hidden", "roomCode", referCode);
-      
-      createForm("learningDataCXTform", "learningDataCXT", "post");
+		var form = document.getElementsByName("menuform")[0];
+		form.appendChild(caCode);
 
-      var form = document.getElementsByName("learningDataCXTform")[0];
-     
-      var boardDate = document.getElementsByName("boardDate")[0];
-      var roomCode = document.getElementsByName("roomCode")[0];
-      
-   
-      form.appendChild(boardDate);
-      form.appendChild(roomCode);
+		form.submit();
 
-      form.submit();
-      
-   }
-   
+	}
+
+	function viewData(referCode, referDate) {
+
+		createinput("hidden", "boardDate", referDate);
+		createinput("hidden", "roomCode", referCode);
+
+		createForm("learningDataCXTform", "learningDataCXT", "post");
+
+		var form = document.getElementsByName("learningDataCXTform")[0];
+
+		var boardDate = document.getElementsByName("boardDate")[0];
+		var roomCode = document.getElementsByName("roomCode")[0];
+
+		form.appendChild(boardDate);
+		form.appendChild(roomCode);
+
+		form.submit();
+
+	}
 </script>
 </head>
 <body onLoad="${message}">
@@ -241,19 +252,10 @@
 					</h2>
 					<br> <input type="button" value="자료실 글쓰러가기" class="btn"
 						onClick="eventClick('dataform','DataInsert','post')" /> <br>
-					${datalist }
+					${datalist }${content2 }
 					<hr />
 
-					<!-- 페이지네이션넣기 -->
-					<div class="text-center">
-						<ul class="pagination">
-							<li><a href="#">1</a></li>
-							<li><a href="#">2</a></li>
-							<li><a href="#">3</a></li>
-							<li><a href="#">4</a></li>
-							<li><a href="#">5</a></li>
-						</ul>
-					</div>
+			
 
 				</div>
 			</div>

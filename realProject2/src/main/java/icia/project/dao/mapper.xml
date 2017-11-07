@@ -1245,15 +1245,22 @@
 	
 	<!-- 학생 로그인기록 추출 -->
 	<select id="attendanceGet" resultType="room" parameterType="room">
-	select SLOH_DATE AS attendDate,SLOH_TYPE AS attendanceType 
-	from STUDENTLOGOUTHISTORY 
-	where SLOH_STRFSTUDENTCODE=#{studentCode}
-	ORDER BY sloh_date desc;
+	SELECT SLOH_DATE AS attendDate,SLOH_TYPE AS attendanceType 
+	FROM STUDENTLOGOUTHISTORY 
+	WHERE SLOH_STRFSTUDENTCODE = #{studentCode}
+	ORDER BY SLOH_DATE DESC
 	</select>
 		
 	<!-- 선생님 상태코드 확인(로그인시) -->
 	<select id="stateCodeCheck" resultType="String" parameterType="member">
 	SELECT TC_STATECODE FROM TEACHER WHERE TC_ID = #{id}
+	</select>
+	<!-- 선생님 로그인기록 추출 -->
+	<select id="tcattendanceGet" resultType="room" parameterType="room">
+	SELECT TLOH_DATE AS attendDate,TLOH_TYPE AS attendanceType 
+	FROM TEACHERLOGOUTHISTORY 
+	WHERE TLOH_TCID = #{id}
+	ORDER BY TLOH_DATE DESC
 	</select>
 
 

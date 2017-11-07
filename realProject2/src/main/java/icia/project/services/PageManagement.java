@@ -80,7 +80,7 @@ public class PageManagement extends TransactionExe {
 				sb.append("</br><table>");
 				sb.append("<tr>");
 				for(int i =0; i < al.size(); i++) {
-					
+
 					sb.append("<td>");
 					sb.append("<input type='button' class='btn' value='"+al.get(i).getRoomName()+"' onClick=learningGo('"+al.get(i).getRoomCode()+"') />");
 					sb.append("</td>");
@@ -108,7 +108,7 @@ public class PageManagement extends TransactionExe {
 	}
 
 	private ModelAndView studentMainPage() {	// 학생 메인 페이지
-		
+
 		mav = new ModelAndView();
 		LearningRoomBean room;
 		ArrayList<LearningRoomBean> alCode = new ArrayList<LearningRoomBean>();
@@ -127,7 +127,7 @@ public class PageManagement extends TransactionExe {
 			session.removeAttribute("roomCode");
 			room = new LearningRoomBean();
 			room.setStudentCode((String)session.getAttribute("stCode"));
-			
+
 			if(dao.stlearningRoomCheck(room) != 0) {	// 학습방 추출
 
 				alCode = dao.stlearningRoomGet1(room);
@@ -135,17 +135,17 @@ public class PageManagement extends TransactionExe {
 				sb.append("</br><table>");
 				sb.append("<tr>");
 				for(int i =0; i < alCode.size(); i++) {
-					
+
 					room = new LearningRoomBean();
 					room.setRoomCode(alCode.get(i).getRoomCode());
 					room = dao.stlearningRoomGet2(room);
-					
-					
+
+
 					sb.append("<td>");
 					sb.append("<input type='button' class='btn' value='"+room.getRoomName()+"' onClick=learningGo('"+room.getRoomCode()+"') />");
 					sb.append("</td>");
-					
-					
+
+
 				}
 				sb.append("</tr>");
 				sb.append("</table>");
@@ -157,7 +157,7 @@ public class PageManagement extends TransactionExe {
 				mav.setViewName("studentMain");
 				transaction = true;
 			}
-			
+
 			sb = new StringBuffer();
 			room = new LearningRoomBean();
 			room.setStudentCode((String)session.getAttribute("stCode"));		
@@ -166,55 +166,57 @@ public class PageManagement extends TransactionExe {
 			attendanceInCode = dao.stIOHGet(room);
 			room.setAttendanceType("2");
 			attendanceOutCode = dao.stIOHGet(room);
-			
+
 			sb.append("<div id='attendance'>");
 			sb.append("<h3>"+room.getYyyymm().substring(4)+"월</h3>");
-			for(int i = 0; i < attendanceInCode.size(); i++) {
+			for(int i = 0; i < attendanceInCode.size(); i++) { 
 				time = "083000";
 				isNotAttendance = Integer.parseInt(attendanceInCode.get(i).getAttendanceCode().substring(8)) - Integer.parseInt(time);
-				
+
 				if(isNotAttendance <= 0) {	// 정상출근
 					time = "170000";
 					isNotAttendance = Integer.parseInt(attendanceOutCode.get(i).getAttendanceCode().substring(8)) - Integer.parseInt(time);
-					
+
 					if(isNotAttendance >= 0) {	// 정상 퇴근	
-						
+
 						sb.append(attendanceInCode.get(i).getAttendanceCode().substring(0,8)+" : "+" 정상출결 <br>");
 
 					}else {	// 조퇴
-						
+
 						sb.append(attendanceInCode.get(i).getAttendanceCode().substring(0,8)+" : "+" 조퇴 <br>");						
 						early++;
 					}
-					
+
 				}else {	// 지각
-					
+
 					sb.append(attendanceInCode.get(i).getAttendanceCode().substring(0,8)+" : "+" 지각 <br>");					
 					tardy++;
-					
+
 				}
-				
+
 			}
 			sb.append("이번달 지각 : "+ tardy+"<br>");
 			sb.append("이번달 조퇴 : "+ early+"<br>");
 			sb.append("<input type='button'  class='btn' value='접어두기' onClick='fold()' >");
 			sb.append("</div>");
 			mav.addObject("attendance",sb.toString());
-			
+
 		}catch(Exception ex) {
 
 		}finally {
 
 			setTransactionResult(transaction);
 		}
-		
+
 		return mav;
 	}
-	
+
 	private ModelAndView teacherInfoPage() {	// 선생님 나의정보 페이지
 
 		mav = new ModelAndView();
 		boolean transaction = false;
+		ArrayList<LearningRoomBean> ar = null;
+		LearningRoomBean room = new  LearningRoomBean();
 		StringBuffer sb = new StringBuffer();
 		MemberBean member = new MemberBean();
 		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
@@ -259,12 +261,75 @@ public class PageManagement extends TransactionExe {
 			sb.append("</tr>");
 			sb.append("</table>");
 			mav.addObject("content", sb.toString());
+			
+			sb = new StringBuffer();
+			room.setId((String)session.getAttribute("tcId"));
+			
+			System.out.println(room.getId());
+			ar = dao.tcattendanceGet(room);
 
-			transaction = true;
+			sb.append("<table class=\"table table-hover\">");
+			sb.append("<tr>");
+			sb.append("<td>");
+			sb.append("날짜");
+			sb.append("</td>");
+			sb.append("<td>");
+			sb.append("로그인/로그아웃");
+			sb.append("</td>");
+			sb.append("</tr>");
+			// 페이지
+			int forI = 0; // 크게 한사람
+			int forB = 0;	// 내용물
+			int pageCount = 15; // 
 
+			double sizeDouble = ar.size() / (double)pageCount;
+
+			for(forI=0; forI < sizeDouble; forI++) {
+
+				if(ar.size()< pageCount) {
+					pageCount= ar.size();
+				}
+
+				sb.append("<tbody name=tbody"+forI+" id=tbody"+forI+">");
+
+				for(forB=forB; forB<pageCount; forB++) {
+					String check =((Integer.parseInt(ar.get(forB).getAttendanceType()) == 1)? "로그인" : "로그아웃");
+					sb.append("<tr>");
+					sb.append("<td>");
+					sb.append(ar.get(forB).getAttendDate());
+					sb.append("</td>");
+					sb.append("<td>");
+					sb.append(check);
+					sb.append("</td>");
+					sb.append("</tr>");
+				}
+				sb.append("</tbody>");	
+
+				pageCount+=pageCount;
+
+
+			}
+
+			sb.append("</table>");
+			mav.addObject("attendance", sb.toString());
+			sb = new StringBuffer();
+
+			sb.append("<div class='text-center'>");
+			sb.append("<ul class='pagination'>");
+
+
+			for(int y=0; y < sizeDouble; y++) {// 페이지 버튼
+
+				sb.append("<li><input class='btn-sm' type='button' value="+(y+1)+" onClick='pageNumber("+y+")' /></li>");			
+			}
+			sb.append("</ul>");
+			sb.append("</div>");
+
+
+			mav.addObject("content2", sb.toString());
 
 		}catch(Exception ex) {
-
+			ex.printStackTrace();
 		}finally {
 			mav.setViewName("teacherInfo");
 			setTransactionResult(transaction);
@@ -272,7 +337,6 @@ public class PageManagement extends TransactionExe {
 
 		return mav;
 	}	
-
 	private ModelAndView studentInfoPage() {	// 학생 나의정보 페이지
 
 		mav = new ModelAndView();
@@ -330,43 +394,77 @@ public class PageManagement extends TransactionExe {
 			sb.append("</td>");
 			sb.append("</tr>");
 			sb.append("</table>");
-	
+
 			mav.addObject("content", sb.toString());
 
-			
+			sb = new StringBuffer();
+				
 			room.setStudentCode(member.getStudentCode());
 
 			ar = dao.attendanceGet(room);
 
-			sb.append("<table class=\"joinInput\">");
+			sb.append("<table class=\"table table-hover\">");
 			sb.append("<tr>");
 			sb.append("<td>");
 			sb.append("날짜");
 			sb.append("</td>");
 			sb.append("<td>");
-			sb.append("출결");
+			sb.append("로그인/로그아웃");
 			sb.append("</td>");
 			sb.append("</tr>");
-//			for(int i =0; i < ar.size(); i++) {				
-//				sb.append("<tr>");
-//				sb.append("<td>");
-//				sb.append(room.getAttendDate());
-//				sb.append("</td>");
-//				sb.append("<td>");
-//				sb.append(room.getAttendanceType());
-//				sb.append("</td>");
-//				sb.append("</tr>");
-//				
-//			}
+			// 페이지
+			int forI = 0; // 크게 한사람
+			int forB = 0;	// 내용물
+			int pageCount = 15; // 
+
+			double sizeDouble = ar.size() / (double)pageCount;
+
+			for(forI=0; forI < sizeDouble; forI++) {
+
+				if(ar.size()< pageCount) {
+					pageCount= ar.size();
+				}
+
+				sb.append("<tbody name=tbody"+forI+" id=tbody"+forI+">");
+
+				for(forB=forB; forB<pageCount; forB++) {
+					String check =((Integer.parseInt(ar.get(forB).getAttendanceType()) == 0)? "로그인" : "로그아웃");
+					sb.append("<tr>");
+					sb.append("<td>");
+					sb.append(ar.get(forB).getAttendDate());
+					sb.append("</td>");
+					sb.append("<td>");
+					sb.append(check);
+					sb.append("</td>");
+					sb.append("</tr>");
+				}
+				sb.append("</tbody>");	
+
+				pageCount+=pageCount;
+
+
+			}
+
 			sb.append("</table>");
-			
-			mav.addObject("attendance",sb.toString());
-			
-			
-			transaction = true;		
+			mav.addObject("attendance", sb.toString());
+			sb = new StringBuffer();
+
+			sb.append("<div class='text-center'>");
+			sb.append("<ul class='pagination'>");
+
+
+			for(int y=0; y < sizeDouble; y++) {// 페이지 버튼
+
+				sb.append("<li><input class='btn-sm' type='button' value="+(y+1)+" onClick='pageNumber("+y+")' /></li>");			
+			}
+			sb.append("</ul>");
+			sb.append("</div>");
+
+
+			mav.addObject("content2", sb.toString());
 
 		}catch(Exception ex) {
-
+			ex.printStackTrace();
 		}finally {
 			mav.setViewName("studentInfo");
 			setTransactionResult(transaction);
@@ -402,7 +500,7 @@ public class PageManagement extends TransactionExe {
 
 		return mav;
 	}
-	
+
 	private ModelAndView studentLearningMainPage(LearningRoomBean room) {	// 학생 학습방 메인 페이지
 
 		mav = new ModelAndView();
@@ -412,17 +510,17 @@ public class PageManagement extends TransactionExe {
 		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
 
 		try {
-		
+
 			mav.addObject("code",room.getRoomCode());
-			
-			
-		
-			
+
+
+
+
 			room = dao.learningRoomGo(room);
-			
+
 			session.setAttribute("roomCode", room.getRoomCode());
 			board.setRoomCode(room.getRoomCode());
-			
+
 			mav.addObject("content",room.getRoomIntroduction());
 
 			transaction = true;
@@ -447,7 +545,7 @@ public class PageManagement extends TransactionExe {
 		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
 
 		try {
-		
+
 
 
 			transaction = true;
@@ -459,10 +557,10 @@ public class PageManagement extends TransactionExe {
 			mav.setViewName("learningSubjectCode");
 			setTransactionResult(transaction);
 		}
-		
+
 		return null;
 
 	}
-	
+
 
 }
