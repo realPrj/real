@@ -59,7 +59,8 @@ public class FunctionController {
 	public ModelAndView login(@ModelAttribute MemberBean member) {
 
 		switch(Integer.parseInt(member.getIdentity())) {
-
+		case 0: // 관리자
+			break;
 		case 1:	// 선생님
 			mav = tm.entrance(1, member);
 			break;

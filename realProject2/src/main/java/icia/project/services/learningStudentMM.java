@@ -697,27 +697,67 @@ public class learningStudentMM extends TransactionExe {
 			bb = dao.learningQuestionlist(board);
 			sb.append("<table class=\"table table-hover\">");
 			sb.append("<tr>");
+			sb.append("<td>방 번호</td>");
 			sb.append("<td>제목</td>");
 			sb.append("<td>날짜</td>");
 			sb.append("<td>아이디</td>");
 			sb.append("</tr>");
-			for(int i=0; i<bb.size(); i++) {
-				sb.append("<tr>");
-				sb.append("<td onClick=\"viewData('"+bb.get(i).getRoomCode() +"','" + bb.get(i).getBoardDate() + "')\">" +bb.get(i).getBoardTitle() + "</td>");
-				//sb.append("<td>" + "<input type='button'class='btn' value='"+bb.get(i).getBoardTitle()+"' onClick=viewData(\'"+bb.get(i).getRoomCode()+"\',"+"\'"+bb.get(i).getBoardDate()+"\') />" + "</td>");
-				sb.append("<td>" +bb.get(i).getBoardDate()+"</td>");
-				sb.append("<td>" + bb.get(i).getBoardId() + "</td>");
-				sb.append("</tr>");
+
+			int forI = 0; // 크게 한사람
+			int forB = 0;	// 내용물
+			int pageCount = 5; // 
+
+			double sizeDouble = bb.size() / (double)pageCount;
+
+			for(forI=0; forI < sizeDouble; forI++) {
+
+				if(bb.size()< pageCount) {
+					pageCount= bb.size();
+				}
+
+				sb.append("<tbody name=tbody"+forI+" id=tbody"+forI+">");
+
+				for(forB=forB; forB<pageCount; forB++) {
+					sb.append("<tr>");
+					sb.append("<td>");
+					sb.append(forB+1);
+					sb.append("</td>");
+					sb.append("<td onClick=\"viewData('"+bb.get(forB).getRoomCode() +"','" + bb.get(forB).getBoardDate() + "')\">" +bb.get(forB).getBoardTitle() + "</td>");
+					//sb.append("<td>" + "<input type='button'class='btn' value='"+bb.get(i).getBoardTitle()+"' onClick=viewData(\'"+bb.get(i).getRoomCode()+"\',"+"\'"+bb.get(i).getBoardDate()+"\') />" + "</td>");
+					sb.append("<td>" +bb.get(forB).getBoardDate()+"</td>");
+					sb.append("<td>" + bb.get(forB).getBoardId() + "</td>");
+					sb.append("</tr>");
+
+				}
+				sb.append("</tbody>");	
+
+				pageCount+=pageCount;
+
 
 			}
-			sb.append("</table>");
 
-			mav.addObject("message", message);
+			sb.append("</table>");
 			mav.addObject("datalist", sb.toString());
-			mav.setViewName("learningData");
+			mav.addObject("message", message);
+			sb = new StringBuffer();
+
+			sb.append("<div class='text-center'>");
+			sb.append("<ul class='pagination'>");
+
+
+			for(int y=0; y < sizeDouble; y++) {// 페이지 버튼
+
+				sb.append("<li><input class='btn-sm' type='button' value="+(y+1)+" onClick='pageNumber("+y+")' /></li>");			
+			}
+			sb.append("</ul>");
+			sb.append("</div>");
+
+
+			mav.addObject("content2", sb.toString());
+
 		}
 		catch(Exception ex){
-			ex.printStackTrace();
+			ex.printStackTrace();	
 		}finally {
 			setTransactionResult(transaction);
 		}

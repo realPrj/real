@@ -54,6 +54,8 @@ $(document).ready(function() {
 	      divbox.append($("#"+selectValue));
 	   }); 
 
+	   
+	   /* 복사 */
 	   $("tbody[name *='tbody']").hide(); 
 	   var tableList = $("#tableList");
 	   tableList.append($("#tbody0").show());
@@ -140,7 +142,7 @@ $(document).ready(function() {
       form.submit();
 
    }
-
+/*복사  */
     function pageNumber(value){
 	   $("tbody[name *='tbody']").hide(); 
 	   var tableList = $("#tableList");

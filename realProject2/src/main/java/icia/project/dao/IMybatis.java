@@ -376,7 +376,7 @@ public interface IMybatis {
 	// 선생님 과제 확인
 	public DbBoardBean learningTesk(BoardBean board);
 
-	// 학생 출결 추출
+	// 학생 로그 추출
 	public ArrayList<LearningRoomBean> attendanceGet(LearningRoomBean room);
 
 	// 보낸 쪽지 리스트
@@ -384,6 +384,9 @@ public interface IMybatis {
 
 	// 선생님 상태코드 확인(로그인시)
 	public String stateCodeCheck(MemberBean member);
+
+	// 선생님 로그 추출
+	public ArrayList<LearningRoomBean> tcattendanceGet(LearningRoomBean room);
 
 	// 쪽지 보내기 1
 	public int sendMessageS(BoardBean board);
@@ -417,6 +420,7 @@ public interface IMybatis {
 	
 	// 현재 년도 추출
 	public String nowYearGet();
+
 
 }
 

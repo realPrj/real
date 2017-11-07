@@ -12,6 +12,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 
 <title>공조 || 학생 나의 정보</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <meta
 	content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0'
 	name='viewport' />
@@ -52,21 +53,19 @@ body {
 <script>
 
 $(document).ready(function() {
-	$("#attendance").hide();
+	/* 복사 */
+	$("tbody[name *='tbody']").hide();
+	var tableList = $("#tableList");
+	tableList.append($("#tbody0").show());
 
-	
- });
-
-function attendance(){
-
-	$("#attendance").show(1000);
-
+});
+/*복사  */
+function pageNumber(value) {
+	$("tbody[name *='tbody']").hide();
+	var tableList = $("#tableList");
+	tableList.append($("#tbody" + value).show());
 }
 
-function fold(){
-	
-	$("#attendance").hide(1000);
-}
 
 //form 생성
 function createForm(formname,formaction,formmethod){
@@ -170,10 +169,10 @@ function menu(ivalue) {
 		onClick="eventClick('studentInfoUpdatePageform','studentInfoUpdatePage','post')" />
 	<input type="button" value="회원탈퇴" class="btn"
 		onClick="eventClick('Withdrawalform','WithdrawalPage','post')" />
-			${attendance }
+			
 		
 	<input type="button" value="출결"  class="btn" onClick="attendance()"  />
-	
+		</br></br></br>${attendance }${content2 }
 
 
 
