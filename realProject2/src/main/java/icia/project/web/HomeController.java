@@ -1,6 +1,7 @@
 package icia.project.web;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
@@ -14,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.google.gson.Gson;
 
 import icia.project.bean.BoardBean;
 import icia.project.bean.DbBoardBean;
@@ -234,11 +237,10 @@ public class HomeController  {
 			break;
 
 		case 12 : 
-
 			break;
 
-		case 13 : 
-
+		case 13 : // 과목코드
+			mav = pm.entrance(7, board);
 			break;
 
 		case 14 :  // 로그아웃
@@ -375,11 +377,11 @@ public class HomeController  {
 	// 선생님 오답노트 코멘트 페이지
 	@RequestMapping(value = "/learningWANCXTPage", method = RequestMethod.GET)
 	public ModelAndView learningWANCXTPage(@ModelAttribute BoardBean board) {
-
+		System.out.println("asdf");
 		mav = ltmm.entrance(17, board);
 		return mav;
 	}
-
+	
 	// 학생 오답노트 코멘트 페이지
 	@RequestMapping(value = "/learningWANCMCXTPage", method = RequestMethod.GET)
 	public ModelAndView learningWANCMCXTPage(@ModelAttribute BoardBean board) {
@@ -625,14 +627,6 @@ public class HomeController  {
 		return mav;
 	}
 
-	// 학습방 코드 보기
-	@RequestMapping(value = "/learningSubjectCode", method = RequestMethod.POST)
-	public ModelAndView learningSubjectCode(@ModelAttribute BoardBean board) {
-
-		mav = pm.subjectCode(board);
-
-		return mav;
-	}
 	// 학생 회원탈퇴 페이지 이동
 	@RequestMapping(value = "/WithdrawalPage", method = RequestMethod.POST)
 	public ModelAndView WithdrawalPage(@ModelAttribute BoardBean board) {
@@ -699,7 +693,23 @@ public class HomeController  {
 		
 		return mav;
 	}
-
+	
+	
+	// 문제 번호 보여주기
+	@RequestMapping(value = "/subjectCCT1", method = RequestMethod.POST,produces = "application/text; charset=utf8")
+	@ResponseBody public String subjectCCT1(@ModelAttribute BoardBean board) {
+	
+		ArrayList<BoardBean> code = null;
+		
+		// 문제번호
+		code = pm.subjectCCT1(board);		
+		
+		Gson gson = new Gson();
+		
+		String test = gson.toJson(code);
+		System.out.println(test);
+		return test;
+	}
 
 
 }

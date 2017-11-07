@@ -107,7 +107,7 @@
 		ORDER BY IOH_DATE
 		DESC
 	</select>
-	
+
 
 	<!-- 선생님 나의정보 추출 -->
 	<select id="tcInformationGet" resultType="member" parameterType="member">
@@ -124,7 +124,8 @@
 		ST_ID AS id, ST_NAME AS name,ST_EMAIL AS email, ST_PHONE AS
 		phone, ST_RFSTUDENTCODE AS studentCode
 		FROM STUDENT
-		WHERE ST_RFSTUDENTCODE=#{studentCode}
+		WHERE
+		ST_RFSTUDENTCODE=#{studentCode}
 	</select>
 
 	<!-- 선생님 나의정보 수정 -->
@@ -320,6 +321,30 @@
 		YA_SBCODE=#{roomSB} AND YA_CODE=#{yearCode}
 	</select>
 
+	<!-- 년도 코드 추출 -->
+	<select id="learningYearCodeGet" resultType="board"
+		parameterType="board">
+		SELECT
+		YA_CODE AS yearCode
+		FROM YEAR
+		WHERE
+		YA_SBCODE=#{roomSB}
+		ORDER
+		BY
+		YA_CODE DESC
+	</select>
+
+	<!-- 문제유형 코드 추출 -->
+	<select id="learningTypeCodeGet" resultType="String"
+		parameterType="board">
+		SELECT
+		QT_STYPECODE
+		FROM QUESTION
+		WHERE
+		QT_STYPEYASBCODE=#{roomSB} AND QT_STYPEYACODE=#{yearCode} AND QT_NUMBER=#{numberCode}
+	</select>
+
+
 	<!-- 문제유형 이름 추출 -->
 	<select id="learningTypeNameGet" resultType="String"
 		parameterType="board">
@@ -347,6 +372,17 @@
 		WAN_QTSTYPECODE ASC
 	</select>
 
+	<!-- 년도별 문제 -->
+	<select id="learningWANNumberGet" resultType="board"
+		parameterType="board">
+		SELECT
+		QT_NUMBER AS numberCode
+		FROM QUESTION WHERE QT_STYPEYASBCODE =#{roomSB} AND QT_STYPEYACODE=#{yearCode}
+		ORDER
+		BY
+		to_number(QT_NUMBER) ASC
+	</select>
+
 	<!-- 중복 년도 코드 추출 -->
 	<select id="learningWANYearCodeOneGet" resultType="board"
 		parameterType="board">
@@ -371,13 +407,15 @@
 	<select id="datalist" resultType="board" parameterType="board">
 		SELECT
 		RR_TITLE AS boardTitle,RR_DATE AS
-		boardDate,RR_TCID AS boardId,RR_LRCODE AS roomCode
+		boardDate,RR_TCID AS
+		boardId,RR_LRCODE AS roomCode
 		FROM REFERENCE
 		WHERE
-		RR_TCID=#{id} AND RR_LRCODE=#{roomCode}
-		ORDER BY 
+		RR_TCID=#{id} AND
+		RR_LRCODE=#{roomCode}
+		ORDER BY
 		RR_DATE DESC
-		
+
 	</select>
 
 	<!-- 오답노트 코멘트 확인 유무 -->
@@ -472,8 +510,9 @@
 		FROM REFERENCE
 		WHERE
 		RR_LRCODE=#{roomCode}
-		AND RR_DATE=TO_DATE(#{boardDate},'YYYY-MM-DD HH24:MI:SS')
-	
+		AND RR_DATE=TO_DATE(#{boardDate},'YYYY-MM-DD
+		HH24:MI:SS')
+
 	</select>
 
 	<!-- 선생님 공지사항 글 수정하기 -->
@@ -739,7 +778,8 @@
 	<select id="datalistStudent" resultType="board" parameterType="board">
 		SELECT
 		RR_TITLE AS boardTitle,RR_DATE AS
-		boardDate,RR_TCID AS boardId,RR_LRCODE AS roomCode
+		boardDate,RR_TCID AS
+		boardId,RR_LRCODE AS roomCode
 		FROM REFERENCE
 		WHERE
 		RR_LRCODE=#{roomCode}
@@ -749,7 +789,6 @@
 	</select>
 
 	<!-- 선생님 -> 학습방 학생코드 추출 -->
-	
 	<select id="learningWANAllStudentCode" resultType="board"
 		parameterType="board">
 		SELECT
@@ -926,7 +965,8 @@
 	<!-- 선생님 학생보기 -->
 	<select id="teacherLearningSTadmin" resultType="board"
 		parameterType="board">
-		SELECT * FROM LEARNINGSTUDENTLIST WHERE roomCode = #{roomCode}
+		SELECT * FROM LEARNINGSTUDENTLIST WHERE roomCode =
+		#{roomCode}
 	</select>
 
 	<!-- 선생님자세히 학생보기 -->
@@ -1025,8 +1065,8 @@
 		FROM TASK
 		WHERE
 		TA_LRCODE = #{roomCode} AND TA_CODE = #{boardCode}
-	</select>  
-	
+	</select>
+
 
 
 
@@ -1048,32 +1088,45 @@
 		VALUES(#{roomCode},#{boardCode},#{id},#{boardTitle},#{boardContent},SYSDATE)
 	</insert>
 
-	
+
 	<!-- 토론게시판 댓글 목록 -->
-	<select id="learningDebateTagList" resultType="board" parameterType="board">
-		SELECT studentCode, studentName, tagDate, tagContent FROM DETAGLIST WHERE roomCode = #{roomCode} AND boardDate = TO_DATE(#{boardDate},'YYYY-MM-DD
+	<select id="learningDebateTagList" resultType="board"
+		parameterType="board">
+		SELECT studentCode, studentName, tagDate, tagContent
+		FROM DETAGLIST WHERE roomCode = #{roomCode} AND boardDate =
+		TO_DATE(#{boardDate},'YYYY-MM-DD
 		HH24:MI:SS') ORDER BY tagDate DESC
 	</select>
-	
+
 	<!-- 토론게시판 댓글 등록 -->
 	<insert id="learningDebateTagInsert" parameterType="board">
-		INSERT INTO DEBATETAG
-		VALUES(#{studentCode}, #{tagContent}, SYSDATE, #{roomCode}, #{boardTitle}, TO_DATE(#{boardDate},'YYYY-MM-DD
-		HH24:MI:SS'), #{boardId})
+		INSERT INTO
+		DEBATETAG
+		VALUES(#{studentCode}, #{tagContent}, SYSDATE, #{roomCode},
+		#{boardTitle}, TO_DATE(#{boardDate},'YYYY-MM-DD
+		HH24:MI:SS'),
+		#{boardId})
 	</insert>
-	
+
 	<!-- 토론게시판 댓글 수정 -->
 	<update id="learningDebateTagUpdate" parameterType="board">
-		UPDATE DEBATETAG SET DTAG_CONTENT = #{tagContent} WHERE DTAG_STRFSTUDENTCODE = #{studentCode} AND DTAG_DATE = #{tagDate} AND DTAG_DELRCODE = #{roomCode} 
+		UPDATE
+		DEBATETAG SET DTAG_CONTENT = #{tagContent} WHERE DTAG_STRFSTUDENTCODE
+		= #{studentCode} AND DTAG_DATE = #{tagDate} AND DTAG_DELRCODE =
+		#{roomCode}
 		AND DTAG_DEDATE = #{boardDate}
 	</update>
-	
+
 	<!-- 토론게시판 댓글 삭제 -->
 	<delete id="learningDebateTagDelete" parameterType="board">
-		DELETE FROM DEBATETAG WHERE DTAG_DELRCODE = #{roomCode} AND DTAG_DEDATE = TO_DATE(#{boardDate},'YYYY-MM-DD
-		HH24:MI:SS') AND DTAG_DATE = TO_DATE(#{tagDate},'YYYY-MM-DDHH24:MI:SS') AND DTAG_STRFSTUDENTCODE = #{studentCode}
+		DELETE FROM
+		DEBATETAG WHERE DTAG_DELRCODE = #{roomCode} AND DTAG_DEDATE =
+		TO_DATE(#{boardDate},'YYYY-MM-DD
+		HH24:MI:SS') AND DTAG_DATE =
+		TO_DATE(#{tagDate},'YYYY-MM-DDHH24:MI:SS') AND DTAG_STRFSTUDENTCODE =
+		#{studentCode}
 	</delete>
-	
+
 
 
 	<!-- 과제 삭제 -->
@@ -1123,13 +1176,13 @@
 	</select>
 
 	<!-- 과목 이름 출력 -->
-	<select id="subjectNameGet" resultType="String"	parameterType="board">
-		SELECT SB_NAME FROM SUBJECTVIEW WHERE SB_CODE = #{roomSB} GROUP BY SB_CODE,SB_NAME
+	<select id="subjectNameGet" resultType="String" parameterType="board">
+		SELECT SB_NAME FROM SUBJECTVIEW WHERE SB_CODE = #{roomSB} GROUP BY
+		SB_CODE,SB_NAME
 	</select>
-	
+
 	<!-- 학생 과제 자세히 보기 -->
-	<select id="checkFile" resultType="dbBoard"
-		parameterType="board">
+	<select id="checkFile" resultType="dbBoard" parameterType="board">
 		SELECT
 		TS_ROUTE AS boardRoute,
 		TS_DATET AS boardDate
@@ -1142,53 +1195,56 @@
 		TS_STRFSTUDENTCODE = #{studentCode}
 	</select>
 
-	
-<!-- 회원탈퇴 비밀번호 체크 -->
+
+	<!-- 회원탈퇴 비밀번호 체크 -->
 	<select id="checkPwd" resultType="member" parameterType="member">
 		SELECT
 		ST_PWD AS pwd
 		FROM STUDENT
-		WHERE 
+		WHERE
 		ST_RFSTUDENTCODE = #{studentCode}
-	
+
 	</select>
-		
-<!-- 회원탈퇴 학생 과제 제출 -->
+
+	<!-- 회원탈퇴 학생 과제 제출 -->
 	<delete id="tasksubmitdelete" parameterType="member">
-		DELETE TASKSUBMIT 
-		WHERE 
+		DELETE TASKSUBMIT
+		WHERE
 		TS_STRFSTUDENTCODE =#{studentCode}
 	</delete>
-	<!--오답노트 학생삭제  -->
+	<!--오답노트 학생삭제 -->
 	<delete id="WRONGANSWERNOTES" parameterType="member">
-		DELETE WRONGANSWERNOTES 
+		DELETE
+		WRONGANSWERNOTES
 		WHERE WAN_STRFSTUDENTCODE =#{studentCode}
 	</delete>
 	<!-- 토론게시판 삭제 -->
 	<delete id="DEBATETAGdelete" parameterType="member">
-		DELETE DEBATETAG 
+		DELETE DEBATETAG
 		WHERE DTAG_STRFSTUDENTCODE =#{studentCode}
 	</delete>
 	<!-- 질문 삭제 -->
 	<delete id="QUERYdelete" parameterType="member">
-		DELETE QUERY 
-		WHERE QU_STRFSTUDENTCODE =#{studentCode}
+		DELETE QUERY
+		WHERE
+		QU_STRFSTUDENTCODE =#{studentCode}
 	</delete>
-	<!-- 학생 MESSAGEdelete  삭제 -->
+	<!-- 학생 MESSAGEdelete 삭제 -->
 	<delete id="MESSAGEdelete" parameterType="member">
-		DELETE MESSAGE 
+		DELETE MESSAGE
 		WHERE
 		MS_OTHER =#{studentCode}
 		OR
 		MS_ID =#{studentCode}
 	</delete>
-	
+
 	<!-- 학습방 -->
 	<delete id="learningstudentdelete" parameterType="member">
-		DELETE LEARNINGSTUDENTREGISTER 
+		DELETE
+		LEARNINGSTUDENTREGISTER
 		WHERE LSR_STRFSTUDENTCODE =#{studentCode}
 	</delete>
-	
+
 	<update id="updateState" parameterType="member">
 		UPDATE STUDENT
 		SET
@@ -1201,9 +1257,9 @@
 		SELECT
 		TC_PWD AS pwd
 		FROM TEACHER
-		WHERE 
+		WHERE
 		TC_ID = #{id}
-	
+
 	</select>
 	<!-- 선생님 상태 업데이트 -->
 	<update id="updateTeacherState" parameterType="member">
@@ -1213,24 +1269,23 @@
 		WHERE
 		TC_ID = #{id}
 	</update>
-	
-	
-	<!-- 선생님 과제 댓글 뽑기 --> 
-	<select id="teacherTaskTag" resultType="board"
-		parameterType="board">
+
+
+	<!-- 선생님 과제 댓글 뽑기 -->
+	<select id="teacherTaskTag" resultType="board" parameterType="board">
 		SELECT
 		TO_CHAR(TS_DATET,'YYYY-MM-DD HH24:MI') AS
 		boardDate,
 		TS_STRFSTUDENTCODE AS studentCode
 		FROM TASKSUBMIT
 		WHERE
-		TS_TALRCODE= #{roomCode}
+		TS_TALRCODE=
+		#{roomCode}
 		AND
 		TS_TACODE =#{boardCode}
 	</select>
 	<!-- 학생 과제 자세히 보기 -->
-	<select id="learningTesk" resultType="dbBoard"
-		parameterType="board">
+	<select id="learningTesk" resultType="dbBoard" parameterType="board">
 		SELECT
 		TS_ROUTE AS boardRoute,
 		TS_DATET AS boardDate
@@ -1242,18 +1297,20 @@
 		AND
 		TS_STRFSTUDENTCODE = #{studentCode}
 	</select>
-	
+
 	<!-- 학생 로그인기록 추출 -->
 	<select id="attendanceGet" resultType="room" parameterType="room">
-	select SLOH_DATE AS attendDate,SLOH_TYPE AS attendanceType 
-	from STUDENTLOGOUTHISTORY 
-	where SLOH_STRFSTUDENTCODE=#{studentCode}
-	ORDER BY sloh_date desc;
+		select SLOH_DATE AS attendDate,SLOH_TYPE AS attendanceType
+		from
+		STUDENTLOGOUTHISTORY
+		where SLOH_STRFSTUDENTCODE=#{studentCode}
+		ORDER BY
+		sloh_date desc;
 	</select>
-		
+
 	<!-- 선생님 상태코드 확인(로그인시) -->
 	<select id="stateCodeCheck" resultType="String" parameterType="member">
-	SELECT TC_STATECODE FROM TEACHER WHERE TC_ID = #{id}
+		SELECT TC_STATECODE FROM TEACHER WHERE TC_ID = #{id}
 	</select>
 
 

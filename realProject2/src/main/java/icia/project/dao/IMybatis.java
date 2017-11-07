@@ -123,11 +123,20 @@ public interface IMybatis {
 	// 년도 이름 추출
 	public String learningYearNameGet(BoardBean board);
 
+	// 년도 코드 추출
+	public ArrayList<BoardBean> learningYearCodeGet(BoardBean board);
+	
+	// 문제유형 코드 추출
+	public String learningTypeCodeGet(BoardBean board);
+	
 	// 문제유형 이름 추출
 	public String learningTypeNameGet(BoardBean board);
 
 	// 년도별 문제유형 합
 	public ArrayList<BoardBean> learningWANTypeSum(BoardBean board);
+
+	// 년도별 문제
+	public ArrayList<BoardBean> learningWANNumberGet(BoardBean board);
 
 	// 중복 년도 코드 추출
 	public ArrayList<BoardBean> learningWANYearCodeOneGet(BoardBean board);

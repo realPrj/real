@@ -654,7 +654,7 @@ public class learningTeacherMM extends TransactionExe {
 						sb.append(boardList.get(forB).getBoardDate());
 						sb.append("</td>");
 						sb.append("<td>");
-						sb.append("<input type='button-sm' class='btn' value='선생님 코멘트' onClick='commentCheck("+boardList.get(forB).getBoardCode()+")' />");
+						sb.append("<input type='button-sm' name='cmClick' class='btn' id="+boardList.get(forB).getBoardCode()+" value='선생님 코멘트'  />");
 						sb.append("</td>");
 						sb.append("<td>");
 						sb.append(check);
@@ -850,45 +850,6 @@ public class learningTeacherMM extends TransactionExe {
 
 			if(dao.learningWANCommentCheck(board) != 0) {	// 코멘트 있음
 
-				/*				board = dao.learningWANCommentGet(board);
-
-				sb.append("<table>");
-				sb.append("<tr>");
-				sb.append("<td>");
-				sb.append("내용");
-				sb.append("</td>");
-				sb.append("</tr>");
-				sb.append("<tr>");
-				sb.append("<td>");
-				sb.append(board.getBoardContent());
-				sb.append("</td>");
-				sb.append("</tr>");
-				sb.append("<tr>");
-				sb.append("<td>");
-				sb.append("파일첨부");
-				sb.append("</td>");
-				sb.append("<td>");
-				sb.append(board.getBoardRoute());
-				sb.append("</td>");
-				sb.append("</tr>");
-				sb.append("<tr>");
-				sb.append("<td>");
-				sb.append("날짜 : "+board.getBoardDate());
-				sb.append("</td>");
-				sb.append("</tr>");
-				sb.append("<tr>");
-				sb.append("<td>");
-				sb.append("아이디 : "+board.getBoardId());
-				sb.append("</td>");
-				sb.append("</tr>");
-				sb.append("<tr>");
-				sb.append("<td>");
-				sb.append("<input type='button' value='수정' onClick='learningWANCMUpdatePage("+board.getBoardCode()+")'/>" 
-						+ "<input type='button' value='삭제' onClick=learningWANCMDelete('"+board.getBoardCode()+"','"+board.getRoomCode()+"') />");
-				sb.append("</td>");
-				sb.append("</tr>");
-				sb.append("</table>");*/
-
 				DbBoardBean bb = dao.learningWANCommentGet(board);	// 전체 루트(파일이름까지)
 
 				bb.setCutRoute(bb.getBoardRoute().substring(0,68));	// 루트만
@@ -918,7 +879,6 @@ public class learningTeacherMM extends TransactionExe {
 				transaction = true;
 
 			}else {	// 코멘트 없음
-
 				sb.append("<input type='button' value='코멘트 등록' onClick='commentInsertPage("+board.getBoardCode()+")' />");
 				page = "learningWANCXT";
 				transaction = true;
@@ -928,7 +888,7 @@ public class learningTeacherMM extends TransactionExe {
 
 
 		}catch(Exception ex){
-
+			
 		}finally {
 			mav.setViewName(page);
 			setTransactionResult(transaction);

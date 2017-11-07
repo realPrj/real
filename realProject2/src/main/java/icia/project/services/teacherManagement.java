@@ -309,14 +309,13 @@ public class teacherManagement extends TransactionExe {
 				session.removeAttribute("tcId");
 				session.removeAttribute("identity");
 				session.removeAttribute("roomCode");
-				page = "home";
-				mav.addObject("message", "alert('로그아웃 되셨습니다.')");
+				page = "home";			
 				transaction = true;
 			}else {
 				session.removeAttribute("tcId");
 				session.removeAttribute("identity");
+				session.removeAttribute("roomCode");
 				page = "home";
-				mav.addObject("message", "alert('로그아웃 실패하셨습니다.')");
 				transaction = true;
 			}
 
