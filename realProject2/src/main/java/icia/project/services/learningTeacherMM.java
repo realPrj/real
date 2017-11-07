@@ -2674,6 +2674,7 @@ public class learningTeacherMM extends TransactionExe {
 			board.setRoomCode((String)session.getAttribute("roomCode"));	
 
 			mav.addObject("messageOther", board.getStudentCode());
+			mav.addObject("messageOther", board.getMessageOther());
 
 			transaction = true;
 
@@ -2880,6 +2881,7 @@ public class learningTeacherMM extends TransactionExe {
 
 			board.setIdentity((String)session.getAttribute("identity"));
 
+			sb.append("<input type=\"button\" value=\"답장\" onClick=\"reply('"+board.getMessageOther()+"','"+session.getAttribute("identity")+"')\"/>");
 			sb.append("<input type=\"button\" value=\"목록\" onClick=\"message('"+2+"','"+board.getIdentity()+"')\"/>");
 			sb.append("<input type=\"button\" value=\"삭제\" onClick=\"messageDelete('"+board.getIdentity()+"','"+board.getRoomCode()+"','"+board.getMessageCode()+"','"+board.getMessageDate()+"')\"/>");
 			mav.addObject("button", sb.toString());
