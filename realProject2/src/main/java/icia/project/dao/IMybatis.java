@@ -377,10 +377,40 @@ public interface IMybatis {
 
 	// 학생 출결 추출
 	public ArrayList<LearningRoomBean> attendanceGet(LearningRoomBean room);
+	
+	// 보낸 쪽지 리스트
+	public ArrayList<BoardBean> sentMessageList(BoardBean board);
 
 	// 선생님 상태코드 확인(로그인시)
 	public String stateCodeCheck(MemberBean member);
-
+	
+	// 쪽지 보내기 1
+	public int sendMessageS(BoardBean board);
+	
+	//쪽지 보내기 2
+	public int sendMessageG(BoardBean board);
+	
+	// 받은 쪽지 리스트
+	public ArrayList<BoardBean> getMessageList(BoardBean board);
+	
+	// 받은 쪽지 내용확인
+	public BoardBean getMessageCTX(BoardBean board);
+	
+	// 보낸 쪽지 내용확인
+	public BoardBean sentMessageCTX(BoardBean board);
+	
+	// 보낸 쪽지 삭제
+	public int sentMessageDelete(BoardBean board);
+	
+	// 받은 쪽지 삭제
+	public int getMessageDelete(BoardBean board);
+	
+	// 선생님 ㄹ스트
+	public BoardBean getTeacherInfo(BoardBean board);
+	
+	// 학생 수강생 리스트
+	public ArrayList<BoardBean> getStudentList(BoardBean board);
+	
 
 }
 

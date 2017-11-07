@@ -233,7 +233,8 @@ public class HomeController  {
 			break;
 
 		case 11 : // 쪽지 페이지
-			mav = ltmm.entrance(44, board);
+			System.out.println("선생님 쪽지 컨트롤러");
+			mav = ltmm.entrance(42, board);
 			break;
 
 		case 12 : 
@@ -292,16 +293,17 @@ public class HomeController  {
 
 			break;
 
-		case 9 : 
-
+		case 9 : // 수강생
+			mav = lsmm.entrance(9, board);
 			break;
 
 		case 10 :  // 자료실
 			mav = ltmm.entrance(5, board);
 			break;
 
-		case 11 : 
-
+		case 11 : // 쪽지 페이지
+			System.out.println("쪽지 컨트롤러 학생");
+			mav = lsmm.entrance(36, board);
 			break;
 
 		case 12 : 
@@ -655,7 +657,7 @@ public class HomeController  {
 
 		return mav;
 	}
-	
+
 	/*// 쪽지보내기 팝업
 	@RequestMapping(value = "/sendMessagePopUp", method = RequestMethod.POST)
 	public ModelAndView learningSendMessagePopUp(@ModelAttribute BoardBean board) {
@@ -676,19 +678,71 @@ public class HomeController  {
 
 	// 쪽지 페이지
 	@RequestMapping(value = "/Message", method = RequestMethod.POST)
-	public ModelAndView message(@ModelAttribute BoardBean board, MemberBean member) {
+	public ModelAndView message(@ModelAttribute BoardBean board) {
 		int code = Integer.parseInt(board.getCaCode());
-
+		System.out.println("컨트롤러 신분코드 : " + board.getIdentity());
 		switch(code) {
-		case 1: // 쪽지 보내기 페이지
-			mav = ltmm.entrance(41, board);
-			break;
+		
 		case 2: // 받은쪽지 리스트 페이지
-			mav = ltmm.entrance(42, board);
-			break;
+			System.out.println("일로오냐.");
+			if(board.getIdentity().equals("1")) {
+				mav = ltmm.entrance(42, board);
+				break;
+			}else {
+				mav = lsmm.entrance(36, board);
+				break;
+			}
+			
+			
 		case 3: // 보낸쪽지 리스트 페이지
-			mav = ltmm.entrance(43, board);
-			break;
+			if(board.getIdentity().equals("1")) {
+				mav = ltmm.entrance(43, board);
+				break;
+			}else{
+				mav = lsmm.entrance(38, board);
+				break;
+			}
+			
+			
+		}
+
+		return mav;
+	}
+
+	// 쪽지 보내기 페이지
+	@RequestMapping(value = "/sendMessagePage", method = RequestMethod.POST)
+	public ModelAndView sendMessagePage(@ModelAttribute BoardBean board) {
+		if(board.getIdentity().equals("1")) {
+			mav = ltmm.entrance(46, board);
+		}else {
+			mav = lsmm.entrance(39, board);
+		}
+		
+
+		return mav;
+	}
+
+	// 보낸쪽지 내용확인 페이지
+	@RequestMapping(value = "/sentMessageCTX", method = RequestMethod.POST)
+	public ModelAndView sentMessageCTX(@ModelAttribute BoardBean board) {
+
+		if(board.getIdentity().equals("1")) {
+			mav = ltmm.entrance(48, board);
+		}else {
+			mav = lsmm.entrance(41, board);
+		}
+		
+		return mav;
+	}
+
+	// 받은쪽지 내용확인 페이지
+	@RequestMapping(value = "/getMessageCTX", method = RequestMethod.POST)
+	public ModelAndView getMessageCTX(@ModelAttribute BoardBean board) {
+		
+		if(board.getIdentity().equals("1")) {
+			mav = ltmm.entrance(49, board);
+		}else{
+			mav = lsmm.entrance(37, board);
 		}
 		
 		return mav;

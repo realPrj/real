@@ -86,19 +86,45 @@ function menu(ivalue, identity) {
 
 }
 
-function message(ivalue){
+function message(ivalue, identity){
+	alert(identity);
 	createinput("hidden", "caCode", ivalue);
-
+	createinput("hidden", "identity", identity);
 	var caCode = document.getElementsByName("caCode")[0];
+	var identity = document.getElementsByName("identity")[0];
 	
 	createForm("messageForm", "Message", "post");
 	
 	var form = document.getElementsByName("messageForm")[0];
 	form.appendChild(caCode);
+	form.appendChild(identity);
 	 
 	form.submit();
 }
 
+function messageCTX(messageCode, roomCode, messageDate, identity){
+	alert("받은 메시지 내용확인 : " + identity);
+	createForm("messageForm", "getMessageCTX", "post");
+	var form = document.getElementsByName("messageForm")[0];
+	
+	createinput("hidden", "messageCode", messageCode);
+	createinput("hidden", "roomCode", roomCode);
+	createinput("hidden", "messageDate", messageDate);
+	createinput("hidden", "identity", identity);
+	
+	var messageCode = document.getElementsByName("messageCode")[0];
+	var roomCode = document.getElementsByName("roomCode")[0];
+	var messageDate = document.getElementsByName("messageDate")[0];
+	var identity = document.getElementsByName("identity")[0];
+	
+	form.appendChild(messageCode);
+	form.appendChild(roomCode);
+	form.appendChild(messageDate);
+	form.appendChild(identity);
+
+	form.submit();
+	
+}
 </script>
 <body>
 
@@ -202,7 +228,7 @@ function message(ivalue){
 					
 					<div class="content">
 						<form>
-						<h2 ><b>쪽지함</b></h2>
+						<h2 ><b>받은 쪽지함</b></h2>
 							<div class="row">
 								
 								<div class="col-md-5">
@@ -224,14 +250,11 @@ function message(ivalue){
 								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 								
-								<button type="button" class="btn" 
-									OnClick="message('1')">보내기</button>
+								<button type="button" class="btn"
+									OnClick="message('2',${identity})">받은쪽지</button>
 									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 								<button type="button" class="btn"
-									OnClick="message('2')">받은쪽지</button>
-									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-								<button type="button" class="btn"
-									OnClick="message('3')">보낸쪽지</button>
+									OnClick="message('3',${identity})">보낸쪽지</button>
 
 							</div>
 					</div>
@@ -251,33 +274,12 @@ function message(ivalue){
 						<table class="table table-bordered table-striped">
 							<thead>
 								<tr>
-									<th>보낸사람</th>
+									<th>발신인</th>
 									<th>제목</th>
 									<th>날짜</th>
 								</tr>
 							</thead>
-							<tbody id="myTable">
-								<tr>
-									<td>John</td>
-									<td>Doe</td>
-									<td>john@example.com</td>
-								</tr>
-								<tr>
-									<td>Mary</td>
-									<td>Moe</td>
-									<td>mary@mail.com</td>
-								</tr>
-								<tr>
-									<td>July</td>
-									<td>Dooley</td>
-									<td>july@greatstuff.com</td>
-								</tr>
-								<tr>
-									<td>Anja</td>
-									<td>Ravendale</td>
-									<td>a_r@test.com</td>
-								</tr>
-							</tbody>
+							${messageList }
 						</table>
 
 
