@@ -1446,7 +1446,9 @@ public class learningStudentMM extends TransactionExe {
 
 			mav.addObject("id", "보낸사람");
 			mav.addObject("messageOther", board.getMessageOther());
+			mav.addObject("title", "제목");
 			mav.addObject("messageTitle", board.getMessageTitle());
+			mav.addObject("content", "내용");
 			mav.addObject("messageContent", board.getMessageContent());
 
 			board.setIdentity((String)session.getAttribute("identity"));
@@ -1666,7 +1668,9 @@ public class learningStudentMM extends TransactionExe {
 
 			mav.addObject("id", "받은사람");
 			mav.addObject("messageOther", board.getMessageOther());
+			mav.addObject("title", "제목");
 			mav.addObject("messageTitle", board.getMessageTitle());
+			mav.addObject("content", "내용");
 			mav.addObject("messageContent", board.getMessageContent());
 
 			board.setIdentity((String)session.getAttribute("identity"));

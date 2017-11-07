@@ -271,7 +271,9 @@ function messageDelete(identity,roomCode, messageCode, messageDate){
 					<div class="row">
 						<div class="col-md-8">
 							<div class="container">
+							 <label>${title}</label>
 							<input type="text" class="form-control border-input" value='${messageTitle }' readonly>
+							 <label>${content}</label>
 								<textarea rows="10" class="form-control border-input"
 									  readonly>${messageContent }</textarea>
 							</div>
