@@ -1366,5 +1366,33 @@
 	<select id="getStudentList" resultType="board" parameterType="board">
 		SELECT * FROM LEARNINGSTUDENTLIST WHERE NOT STUDENTCODE = #{studentCode} AND ROOMCODE = #{roomCode}
 	</select>
+
+	<!-- 달력 출력 -->
+	<select id="calendarGet" resultType="calendar" parameterType="calendar">
+	<![CDATA[
+	SELECT 
+       MIN(DECODE( TO_CHAR(DATES,'D'), 1, TO_CHAR(DATES, 'DD'))) Sunday,
+       MIN(DECODE( TO_CHAR(DATES,'D'), 2, TO_CHAR(DATES, 'DD'))) Monday,
+       MIN(DECODE( TO_CHAR(DATES,'D'), 3, TO_CHAR(DATES, 'DD'))) Tuesday,
+       MIN(DECODE( TO_CHAR(DATES,'D'), 4, TO_CHAR(DATES, 'DD'))) Wednesday,
+       MIN(DECODE( TO_CHAR(DATES,'D'), 5, TO_CHAR(DATES, 'DD'))) Thursday,
+       MIN(DECODE( TO_CHAR(DATES,'D'), 6, TO_CHAR(DATES, 'DD'))) Friday,
+       MIN(DECODE( TO_CHAR(DATES,'D'), 7, TO_CHAR(DATES, 'DD'))) Saturday
+	FROM (
+        SELECT (MAKE_DATES + LEVEL -1 ) DATES
+            FROM ( SELECT TO_DATE(#{month},'YYYYMM') MAKE_DATES FROM DUAL) 
+					CONNECT BY (MAKE_DATES + LEVEL-1) <= LAST_DAY(MAKE_DATES)
+				)
+		GROUP BY DECODE(TO_CHAR(DATES,'D'), 1, TO_CHAR(DATES, 'IW')+1, TO_CHAR(DATES, 'IW'))
+		ORDER BY DECODE(TO_CHAR(DATES,'D'), 1, TO_CHAR(DATES, 'IW')+1, TO_CHAR(DATES, 'IW'))	
+		]]>
+	</select>
+	
+	<!-- 현재 년도 -->
+	<select id="nowYearGet" resultType="String">
+		SELECT to_char(trunc(sysdate,'mm') ,'yyyymm') FROM dual
+	</select>
+	
+
 </mapper>
 

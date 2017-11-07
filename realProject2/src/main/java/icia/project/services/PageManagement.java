@@ -10,6 +10,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.google.gson.Gson;
 
 import icia.project.bean.BoardBean;
+import icia.project.bean.Calendar;
 import icia.project.bean.LearningRoomBean;
 import icia.project.bean.MemberBean;
 import icia.project.dao.IMybatis;
@@ -526,6 +527,44 @@ public class PageManagement extends TransactionExe {
 				board.setTypeName(dao.learningTypeNameGet(board));
 				board.setAllSum(al.size());
 				code.add(board);
+			}
+					
+			transaction = true;
+
+		}catch(Exception ex) {
+
+		}finally {
+
+			setTransactionResult(transaction);
+		}
+		
+		return code;
+
+	}
+	
+	public ArrayList<Calendar> calendar(Calendar cd) {	// 달력 보여주기
+
+		boolean transaction = false;
+		ArrayList<Calendar> al = null;
+		ArrayList<Calendar> code = new ArrayList<Calendar>();
+
+		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
+
+		try {
+			
+			al = dao.calendarGet(cd);	// 달력 출력
+
+			for(int i = 0; i < al.size(); i++) {
+				cd = new Calendar();
+				cd.setSunday(al.get(i).getSunday());
+				cd.setMonday(al.get(i).getMonday());
+				cd.setTuesday(al.get(i).getTuesday());
+				cd.setWednesday(al.get(i).getWednesday());
+				cd.setThursday(al.get(i).getThursday());
+				cd.setFriday(al.get(i).getFriday());
+				cd.setSaturday(al.get(i).getSaturday());		
+				cd.setAllSize(al.size());
+				code.add(cd);
 			}
 					
 			transaction = true;

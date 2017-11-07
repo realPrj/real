@@ -6,8 +6,6 @@ import java.util.ArrayList;
 
 import java.util.List;
 
-import javax.swing.plaf.synth.SynthSeparatorUI;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.TransactionDefinition;
@@ -248,7 +246,13 @@ public class learningTeacherMM extends TransactionExe {
 			mav = learningSentMessageDelete((BoardBean)object[0]);
 			break;
 			
+		case 52:   // 강의계획서 페이지
+			mav = learningPlanPage((BoardBean)object[0]);
+			break;
 			
+		case 53:   // 강의계획서 등록 페이지
+			mav = learningPlanInsertPage((BoardBean)object[0]);
+			break;
 			
 			
 
@@ -2712,9 +2716,7 @@ public class learningTeacherMM extends TransactionExe {
 			board.setMessageCode("G");
 			board.setMessageId((String)session.getAttribute("tcId"));
 			
-			if(dao.getMessageDelete(board) != 0) {
-				System.out.println("삭ㅂ제성공");
-			}
+			dao.getMessageDelete(board);
 
 			transaction = true;
 
@@ -2739,9 +2741,7 @@ public class learningTeacherMM extends TransactionExe {
 			board.setMessageCode("S");
 			board.setMessageId((String)session.getAttribute("tcId"));
 			
-			if(dao.sentMessageDelete(board) != 0) {
-				System.out.println("삭ㅂ제성공2");
-			}
+			dao.sentMessageDelete(board);
 
 			transaction = true;
 
@@ -2753,7 +2753,60 @@ public class learningTeacherMM extends TransactionExe {
 		return mav;
 	}
 
+	private ModelAndView learningPlanPage(BoardBean board) { // 강의 계획서 페이지
+		mav = new ModelAndView();
+		boolean transaction = false;
+		
+		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
 
+		try {
+
+
+			transaction = true;
+
+		}catch(Exception ex){
+
+		}finally {
+			setTransactionResult(transaction);
+		}
+		return mav;
+	}
+	
+	
+	private ModelAndView learningPlanInsertPage(BoardBean board) { // 강의 계획서 등록 페이지
+		
+		mav = new ModelAndView();
+		boolean transaction = false;
+		StringBuffer sb = new StringBuffer();
+		String nowYear2 = null;
+		
+		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
+
+		try {
+			String nowYear = dao.nowYearGet();
+			int subtract = 12 - Integer.parseInt(nowYear.substring(4));
+			nowYear2 = nowYear;
+			
+			sb.append("<select id = 'yearSelect' class='btn-sm'>");
+			sb.append("<option></option>");
+
+			for(int i = 0; i <= subtract; i++) {
+				nowYear2 = Integer.toString(Integer.parseInt(nowYear)+i);
+				sb.append("<option vale="+nowYear2+">"+nowYear2.substring(0, 4)+"년"+nowYear2.substring(4)+"월"+"</option>");
+			}
+			sb.append("</select>");
+			
+			mav.addObject("select", sb.toString());
+			mav.setViewName("learningPlan");
+			transaction = true;
+
+		}catch(Exception ex){
+
+		}finally {
+			setTransactionResult(transaction);
+		}
+		return mav;
+	}
 
 
 }

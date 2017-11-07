@@ -19,6 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.google.gson.Gson;
 
 import icia.project.bean.BoardBean;
+import icia.project.bean.Calendar;
 import icia.project.bean.DbBoardBean;
 import icia.project.bean.LearningRoomBean;
 import icia.project.bean.MemberBean;
@@ -233,11 +234,11 @@ public class HomeController  {
 			break;
 
 		case 11 : // 쪽지 페이지
-			System.out.println("선생님 쪽지 컨트롤러");
 			mav = ltmm.entrance(42, board);
 			break;
 
-		case 12 : 
+		case 12 : // 강의 계획서
+			mav = ltmm.entrance(53, board);
 			break;
 
 		case 13 : // 과목코드
@@ -752,7 +753,7 @@ public class HomeController  {
 	// 문제 번호 보여주기
 	@RequestMapping(value = "/subjectCCT1", method = RequestMethod.POST,produces = "application/text; charset=utf8")
 	@ResponseBody public String subjectCCT1(@ModelAttribute BoardBean board) {
-	
+
 		ArrayList<BoardBean> code = null;
 		
 		// 문제번호
@@ -761,7 +762,27 @@ public class HomeController  {
 		Gson gson = new Gson();
 		
 		String test = gson.toJson(code);
-		System.out.println(test);
+	
+		return test;
+	}
+	
+	// 강의계획서(달력)
+	@RequestMapping(value = "/calendar", method = RequestMethod.POST,produces = "application/text; charset=utf8")
+	@ResponseBody public String calendar(@ModelAttribute BoardBean board) {
+	
+		Calendar cd = new Calendar();
+		cd.setMonth("201711");
+		
+		pm.calendar(cd);
+		ArrayList<BoardBean> code = null;
+		
+		// 문제번호
+		code = pm.subjectCCT1(board);		
+		
+		Gson gson = new Gson();
+		
+		String test = gson.toJson(code);
+	
 		return test;
 	}
 

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import icia.project.bean.MemberBean;
 import icia.project.bean.BoardBean;
+import icia.project.bean.Calendar;
 import icia.project.bean.DbBoardBean;
 import icia.project.bean.LearningRoomBean;
 
@@ -125,10 +126,10 @@ public interface IMybatis {
 
 	// 년도 코드 추출
 	public ArrayList<BoardBean> learningYearCodeGet(BoardBean board);
-	
+
 	// 문제유형 코드 추출
 	public String learningTypeCodeGet(BoardBean board);
-	
+
 	// 문제유형 이름 추출
 	public String learningTypeNameGet(BoardBean board);
 
@@ -341,76 +342,81 @@ public interface IMybatis {
 
 	// 회원탈퇴 패스워드 체크
 	public MemberBean checkPwd(MemberBean member);
+
 	// 학생 과제체출 회원탈퇴
 	public int tasksubmitdelete(MemberBean member);
+
 	// 학생 오답노트 회원탈퇴
 	public int WRONGANSWERNOTES(MemberBean member);
+
 	// 학생 토론 태그 탈티
 	public int DEBATETAGdelete(MemberBean member);
+
 	// 학생 질문 탈퇴
 	public int QUERYdelete(MemberBean member);
+
 	// 학생 질문 탈퇴
 	public int MESSAGEdelete(MemberBean member);
+
 	// 학생 학습방 탈퇴
 	public int learningstudentdelete(MemberBean member);
+
 	// 학생 회원 탈퇴 업데이트
 	public int updateState(MemberBean member);
 
 	// 선생님 비밀번호 체크
 	public MemberBean checkTeacherPwd(MemberBean member);
 
-
 	// 선생님 상태 업데이트
 	public int updateTeacherState(MemberBean member);
-
-
 
 	// 과제 리스트 출력
 	public ArrayList<BoardBean> teacherTaskTag(BoardBean board);
 
-
 	// 선생님 과제 확인
 	public DbBoardBean learningTesk(BoardBean board);
 
-
-
-
 	// 학생 출결 추출
 	public ArrayList<LearningRoomBean> attendanceGet(LearningRoomBean room);
-	
+
 	// 보낸 쪽지 리스트
 	public ArrayList<BoardBean> sentMessageList(BoardBean board);
 
 	// 선생님 상태코드 확인(로그인시)
 	public String stateCodeCheck(MemberBean member);
-	
+
 	// 쪽지 보내기 1
 	public int sendMessageS(BoardBean board);
-	
+
 	//쪽지 보내기 2
 	public int sendMessageG(BoardBean board);
-	
+
 	// 받은 쪽지 리스트
 	public ArrayList<BoardBean> getMessageList(BoardBean board);
-	
+
 	// 받은 쪽지 내용확인
 	public BoardBean getMessageCTX(BoardBean board);
-	
+
 	// 보낸 쪽지 내용확인
 	public BoardBean sentMessageCTX(BoardBean board);
-	
+
 	// 보낸 쪽지 삭제
 	public int sentMessageDelete(BoardBean board);
-	
+
 	// 받은 쪽지 삭제
 	public int getMessageDelete(BoardBean board);
-	
-	// 선생님 ㄹ스트
+
+	// 선생님 리스트
 	public BoardBean getTeacherInfo(BoardBean board);
-	
+
 	// 학생 수강생 리스트
 	public ArrayList<BoardBean> getStudentList(BoardBean board);
+
+	// 달력출력
+	public ArrayList<Calendar> calendarGet(Calendar cd);
 	
+	// 현재 년도 추출
+	public String nowYearGet();
 
 }
 
