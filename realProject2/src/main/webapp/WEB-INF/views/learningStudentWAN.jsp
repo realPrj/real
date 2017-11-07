@@ -73,6 +73,13 @@
 		   tableList.append($("#tbody0").show());
 		
 
+		   /* 코멘트 */
+			$("input[name = cmClick]").click(function() {
+				var valueCode = $(this).attr('id');
+				commentCheck(valueCode);
+				$("input[name = boardCode]").remove();
+			});
+		   
 	});
 
 	//form 생성

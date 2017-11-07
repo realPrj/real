@@ -10,7 +10,7 @@
 	href="assets/img/favicon.png">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 
-<title>공조 || 보낸쪽지함</title>
+<title>공조 || 쪽지내용확인 페이지</title>
 
 <meta
 	content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0'
@@ -42,7 +42,6 @@
 
 </head>
 <script>
-
 //form 생성
 function createForm(formname, formaction, formmethod) {
 
@@ -87,7 +86,8 @@ function menu(ivalue, identity) {
 }
 
 function message(ivalue, identity){
-	alert(identity);
+	alert("identity : " + identity);
+	alert("ivalue : " + ivalue);
 	createinput("hidden", "caCode", ivalue);
 	createinput("hidden", "identity", identity);
 	var caCode = document.getElementsByName("caCode")[0];
@@ -102,23 +102,40 @@ function message(ivalue, identity){
 	form.submit();
 }
 
-function messageCTX(messageCode, roomCode, messageDate, identity){
-	alert(identity);
-	createForm("messageForm", "sentMessageCTX", "post");
+function sendMessage(){
+	createForm("messageForm", "SendMessage", "post");
 	var form = document.getElementsByName("messageForm")[0];
 	
-	createinput("hidden", "messageCode", messageCode);
+	var messageOther = document.getElementsByName("messageOther")[0];
+	var messageTitle = document.getElementsByName("messageTitle")[0];
+	var messageContent = document.getElementsByName("messageContent")[0];
+	
+	form.appendChild(messageOther);
+	form.appendChild(messageTitle);
+	form.appendChild(messageContent);
+	
+	form.submit();
+	
+	
+}
+
+function messageDelete(identity,roomCode, messageCode, messageDate){
+	alert(identity);
+	createForm("messageForm", "MessageDelete", "post");
+	var form = document.getElementsByName("messageForm")[0];
+	
 	createinput("hidden", "roomCode", roomCode);
+	createinput("hidden", "messageCode", messageCode);
 	createinput("hidden", "messageDate", messageDate);
 	createinput("hidden", "identity", identity);
 	
-	var messageCode = document.getElementsByName("messageCode")[0];
 	var roomCode = document.getElementsByName("roomCode")[0];
+	var messageCode = document.getElementsByName("messageCode")[0];
 	var messageDate = document.getElementsByName("messageDate")[0];
 	var identity = document.getElementsByName("identity")[0];
 	
-	form.appendChild(messageCode);
 	form.appendChild(roomCode);
+	form.appendChild(messageCode);
 	form.appendChild(messageDate);
 	form.appendChild(identity);
 	
@@ -222,93 +239,59 @@ function messageCTX(messageCode, roomCode, messageDate, identity){
 				</div>
 			</div>
 			</nav>
-
-<!-- 보낸쪽지 -->
-			<div class="col-lg-100 col-md-12">
+			
+		<!-- 받는사람,쪽지내용 -->
+			<div class="col-lg-35 col-md-12">
 				<div class="card">
-					<!-- <div class="header">
-                                <h4 class="title">선택한과목정보</h4>
-                            </div> -->
+					
 					<div class="content">
 						<form>
-						<h2 ><b>보낸쪽지함</b></h2>
+						<h2 ><b>쪽지함</b></h2>
 							<div class="row">
-
-								<div class="col-md-5">
-									<!-- <div class="container">
-										<h3>과목</h3>
-									</div> -->
+								
+								<div class="col-md-3">
+							
+									<br /> <br /><br /> <br />   <label>${id}</label><input type="text"
+										class="form-control border-input" placeholder="Username"
+										name="messageOther" value='${messageOther }' readonly>
 
 								</div>
 								<br /> 
-							
-								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 								
-								
+									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 								<button type="button" class="btn"
 									OnClick="message('2',${identity})">받은쪽지</button>
 									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 								<button type="button" class="btn"
 									OnClick="message('3',${identity})">보낸쪽지</button>
-
+								
 							</div>
 					</div>
-
+<!-- 작성취소,보내기 버튼 -->
 					<div class="row">
 						<div class="col-md-8">
-							<div class="form-group"></div>
-
+							<div class="container">
+							<input type="text" class="form-control border-input" value='${messageTitle }' readonly>
+								<textarea rows="10" class="form-control border-input"
+									  readonly>${messageContent }</textarea>
+							</div>
+							<br /> &nbsp;&nbsp;&nbsp;&nbsp;
+							${button }
+							<br /><br />
 						</div>
-
+						
 					</div>
-					<div class="container">
-						<!-- <h2>Filterable Table</h2>
-  <p>Type something in the input field to search the table for first names, last names or emails:</p>   -->
-						<input class="form-control" id="myInput" type="text"
-							placeholder="Search.."> <br>
-						<table class="table table-bordered table-striped">
-							<thead>
-								<tr>
-									<th>수신인</th>
-									<th>제목</th>
-									<th>날짜</th>
-								</tr>
-							</thead>
-							${messageList }
-						</table>
-
-
-					</div>
-
-					<script>
-$(document).ready(function(){
-  $("#myInput").on("keyup", function() {
-    var value = $(this).val().toLowerCase();
-    $("#myTable tr").filter(function() {
-      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-    });
-  });
-});
-</script>
-
-
 
 					</form>
 				</div>
 			</div>
 		</div>
-
+		
+		<hr>
+		
 	</div>
-
-
+	
+	
 	</div>
 	</li>
 	</ul>
@@ -321,9 +304,6 @@ $(document).ready(function(){
 	</div>
 	</div>
 	</div>
-
-
-
 
 	</div>
 	</div>

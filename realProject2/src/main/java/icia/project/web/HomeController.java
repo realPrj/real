@@ -1,6 +1,7 @@
 package icia.project.web;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
@@ -14,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.google.gson.Gson;
 
 import icia.project.bean.BoardBean;
 import icia.project.bean.DbBoardBean;
@@ -231,15 +234,15 @@ public class HomeController  {
 			break;
 
 		case 11 : // 쪽지 페이지
-			mav = ltmm.entrance(44, board);
+			System.out.println("선생님 쪽지 컨트롤러");
+			mav = ltmm.entrance(42, board);
 			break;
 
 		case 12 : 
-
 			break;
 
-		case 13 : 
-
+		case 13 : // 과목코드
+			mav = pm.entrance(7, board);
 			break;
 
 		case 14 :  // 로그아웃
@@ -291,16 +294,17 @@ public class HomeController  {
 
 			break;
 
-		case 9 : 
-
+		case 9 : // 수강생
+			mav = lsmm.entrance(9, board);
 			break;
 
 		case 10 :  // 자료실
 			mav = ltmm.entrance(5, board);
 			break;
 
-		case 11 : 
-
+		case 11 : // 쪽지 페이지
+			System.out.println("쪽지 컨트롤러 학생");
+			mav = lsmm.entrance(36, board);
 			break;
 
 		case 12 : 
@@ -376,11 +380,11 @@ public class HomeController  {
 	// 선생님 오답노트 코멘트 페이지
 	@RequestMapping(value = "/learningWANCXTPage", method = RequestMethod.GET)
 	public ModelAndView learningWANCXTPage(@ModelAttribute BoardBean board) {
-
+		System.out.println("asdf");
 		mav = ltmm.entrance(17, board);
 		return mav;
 	}
-
+	
 	// 학생 오답노트 코멘트 페이지
 	@RequestMapping(value = "/learningWANCMCXTPage", method = RequestMethod.GET)
 	public ModelAndView learningWANCMCXTPage(@ModelAttribute BoardBean board) {
@@ -626,14 +630,6 @@ public class HomeController  {
 		return mav;
 	}
 
-	// 학습방 코드 보기
-	@RequestMapping(value = "/learningSubjectCode", method = RequestMethod.POST)
-	public ModelAndView learningSubjectCode(@ModelAttribute BoardBean board) {
-
-		mav = pm.subjectCode(board);
-
-		return mav;
-	}
 	// 학생 회원탈퇴 페이지 이동
 	@RequestMapping(value = "/WithdrawalPage", method = RequestMethod.POST)
 	public ModelAndView WithdrawalPage(@ModelAttribute BoardBean board) {
@@ -662,7 +658,7 @@ public class HomeController  {
 
 		return mav;
 	}
-	
+
 	/*// 쪽지보내기 팝업
 	@RequestMapping(value = "/sendMessagePopUp", method = RequestMethod.POST)
 	public ModelAndView learningSendMessagePopUp(@ModelAttribute BoardBean board) {
@@ -683,24 +679,92 @@ public class HomeController  {
 
 	// 쪽지 페이지
 	@RequestMapping(value = "/Message", method = RequestMethod.POST)
-	public ModelAndView message(@ModelAttribute BoardBean board, MemberBean member) {
+	public ModelAndView message(@ModelAttribute BoardBean board) {
 		int code = Integer.parseInt(board.getCaCode());
-
+		System.out.println("컨트롤러 신분코드 : " + board.getIdentity());
 		switch(code) {
-		case 1: // 쪽지 보내기 페이지
-			mav = ltmm.entrance(41, board);
-			break;
+		
 		case 2: // 받은쪽지 리스트 페이지
-			mav = ltmm.entrance(42, board);
-			break;
+			System.out.println("일로오냐.");
+			if(board.getIdentity().equals("1")) {
+				mav = ltmm.entrance(42, board);
+				break;
+			}else {
+				mav = lsmm.entrance(36, board);
+				break;
+			}
+			
+			
 		case 3: // 보낸쪽지 리스트 페이지
-			mav = ltmm.entrance(43, board);
-			break;
+			if(board.getIdentity().equals("1")) {
+				mav = ltmm.entrance(43, board);
+				break;
+			}else{
+				mav = lsmm.entrance(38, board);
+				break;
+			}
+			
+			
+		}
+
+		return mav;
+	}
+
+	// 쪽지 보내기 페이지
+	@RequestMapping(value = "/sendMessagePage", method = RequestMethod.POST)
+	public ModelAndView sendMessagePage(@ModelAttribute BoardBean board) {
+		if(board.getIdentity().equals("1")) {
+			mav = ltmm.entrance(46, board);
+		}else {
+			mav = lsmm.entrance(39, board);
+		}
+		
+
+		return mav;
+	}
+
+	// 보낸쪽지 내용확인 페이지
+	@RequestMapping(value = "/sentMessageCTX", method = RequestMethod.POST)
+	public ModelAndView sentMessageCTX(@ModelAttribute BoardBean board) {
+
+		if(board.getIdentity().equals("1")) {
+			mav = ltmm.entrance(48, board);
+		}else {
+			mav = lsmm.entrance(41, board);
 		}
 		
 		return mav;
 	}
 
+	// 받은쪽지 내용확인 페이지
+	@RequestMapping(value = "/getMessageCTX", method = RequestMethod.POST)
+	public ModelAndView getMessageCTX(@ModelAttribute BoardBean board) {
+		
+		if(board.getIdentity().equals("1")) {
+			mav = ltmm.entrance(49, board);
+		}else{
+			mav = lsmm.entrance(37, board);
+		}
+		
+		return mav;
+	}
+	
+	
+	// 문제 번호 보여주기
+	@RequestMapping(value = "/subjectCCT1", method = RequestMethod.POST,produces = "application/text; charset=utf8")
+	@ResponseBody public String subjectCCT1(@ModelAttribute BoardBean board) {
+	
+		ArrayList<BoardBean> code = null;
+		
+		// 문제번호
+		code = pm.subjectCCT1(board);		
+		
+		Gson gson = new Gson();
+		
+		String test = gson.toJson(code);
+		System.out.println(test);
+		return test;
+	}
 
 
 }

@@ -152,14 +152,25 @@ function stadmin(studentCode){
 
  }
  
- function sendMessage(){
-	createForm("MessagePopUp", "sendMessagePopUp", "post");
-	 var form = document.getElementsByName("MessagePopUp")[0];
-	 window.open('','sendMessage',"width=500, height=500");
-	 document.MessagePopUp.submit(); 
+ function sendMessage(studentCode, identity){
+	 createForm("message", "sendMessagePage", "post");
+	 
+	 var form = document.getElementsByName("message")[0];
+	 
+	 createinput("hidden", "studentCode", studentCode);
+	 createinput("hidden", "identity", identity);
+	 
+	 var studentCode = document.getElementsByName("studentCode")[0];
+	 var identity = document.getElementsByName("identity")[0];
+	 
+	 form.appendChild(studentCode);
+	 form.appendChild(identity);
+	 
+	 form.submit();
 	 
 	
  }
+ 
 
 </script>
 </head>
@@ -263,7 +274,7 @@ function stadmin(studentCode){
 				<div class="card">
 					<br />
 					<h2>
-						<b>우리반 학생</b>
+						<b>수강생</b>
 					</h2>
 			
 					${teacherLearningSTadmin }

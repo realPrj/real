@@ -60,6 +60,14 @@ $(document).ready(function() {
 	   var tableList = $("#tableList");
 	   tableList.append($("#tbody0").show());
 	   
+
+	   /* 코멘트 */
+		$("input[name = cmClick]").click(function() {
+			var valueCode = $(this).attr('id');
+			commentCheck(valueCode);
+			$("input[name = boardCode]").remove();
+		});
+	   
 	   
 	 });
 
@@ -107,7 +115,9 @@ $(document).ready(function() {
 	      
 	      return input;
 	   }
-   function commentCheck(valueCode) {
+
+   
+    function commentCheck(valueCode) {
 
       createinput("hidden", "boardCode", valueCode);
 
@@ -121,7 +131,7 @@ $(document).ready(function() {
       form.appendChild(boardCode);
 
       form.submit();
-   }
+   } 
 
    function studentInformation() {
 

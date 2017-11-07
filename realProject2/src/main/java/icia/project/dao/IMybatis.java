@@ -123,11 +123,20 @@ public interface IMybatis {
 	// 년도 이름 추출
 	public String learningYearNameGet(BoardBean board);
 
+	// 년도 코드 추출
+	public ArrayList<BoardBean> learningYearCodeGet(BoardBean board);
+	
+	// 문제유형 코드 추출
+	public String learningTypeCodeGet(BoardBean board);
+	
 	// 문제유형 이름 추출
 	public String learningTypeNameGet(BoardBean board);
 
 	// 년도별 문제유형 합
 	public ArrayList<BoardBean> learningWANTypeSum(BoardBean board);
+
+	// 년도별 문제
+	public ArrayList<BoardBean> learningWANNumberGet(BoardBean board);
 
 	// 중복 년도 코드 추출
 	public ArrayList<BoardBean> learningWANYearCodeOneGet(BoardBean board);
@@ -350,29 +359,54 @@ public interface IMybatis {
 	// 선생님 비밀번호 체크
 	public MemberBean checkTeacherPwd(MemberBean member);
 
-
 	// 선생님 상태 업데이트
 	public int updateTeacherState(MemberBean member);
-
-
 
 	// 과제 리스트 출력
 	public ArrayList<BoardBean> teacherTaskTag(BoardBean board);
 
-
 	// 선생님 과제 확인
 	public DbBoardBean learningTesk(BoardBean board);
 
-
-
-
-	// 학생 출결 추출
+	// 학생 로그 추출
 	public ArrayList<LearningRoomBean> attendanceGet(LearningRoomBean room);
+	
+	// 보낸 쪽지 리스트
+	public ArrayList<BoardBean> sentMessageList(BoardBean board);
 
 	// 선생님 상태코드 확인(로그인시)
 	public String stateCodeCheck(MemberBean member);
-	// 학생 출결 추출
+
+	// 선생님 로그 추출
 	public ArrayList<LearningRoomBean> tcattendanceGet(LearningRoomBean room);
+	
+	// 쪽지 보내기 1
+	public int sendMessageS(BoardBean board);
+	
+	//쪽지 보내기 2
+	public int sendMessageG(BoardBean board);
+	
+	// 받은 쪽지 리스트
+	public ArrayList<BoardBean> getMessageList(BoardBean board);
+	
+	// 받은 쪽지 내용확인
+	public BoardBean getMessageCTX(BoardBean board);
+	
+	// 보낸 쪽지 내용확인
+	public BoardBean sentMessageCTX(BoardBean board);
+	
+	// 보낸 쪽지 삭제
+	public int sentMessageDelete(BoardBean board);
+	
+	// 받은 쪽지 삭제
+	public int getMessageDelete(BoardBean board);
+	
+	// 선생님 ㄹ스트
+	public BoardBean getTeacherInfo(BoardBean board);
+	
+	// 학생 수강생 리스트
+	public ArrayList<BoardBean> getStudentList(BoardBean board);
+	
 
 
 }

@@ -130,14 +130,12 @@ function learningWANCMDelete(boardcode,roomcode){
 	
 }
 
-function openerReload(){
-	opener.location.reload(true); 
+ function openerReload(){
 	${message};
 	${windowclose};
 }
 
 function windowcloseClick(){
-	opener.location.reload(true); 
 	${windowcloseClick};
 }
 

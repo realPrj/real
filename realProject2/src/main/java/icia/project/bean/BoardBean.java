@@ -49,7 +49,78 @@ public class BoardBean {	// 게시판 bean
 	private String email;   // 이메일   
 	private String phone;   // 폰번호
 	
+	private String messageId; // 로그인 아이디
+	private String messageOther; // 상대방 아이디
+	private String messageDate; // 쪽지 날짜
+	private String messageContent; // 쪽지 내용
+	private String messageTitle; // 쪽지 제목
+	private String messageCode; // 쪽지 코드
+	
+	private String name;
+	
+	
+	
 	MultipartHttpServletRequest multiple;
+	
+	
+	
+	
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getMessageCode() {
+		return messageCode;
+	}
+
+	public void setMessageCode(String messageCode) {
+		this.messageCode = messageCode;
+	}
+
+	public String getMessageId() {
+		return messageId;
+	}
+
+	public void setMessageId(String messageId) {
+		this.messageId = messageId;
+	}
+
+	public String getMessageOther() {
+		return messageOther;
+	}
+
+	public void setMessageOther(String messageOther) {
+		this.messageOther = messageOther;
+	}
+
+	public String getMessageDate() {
+		return messageDate;
+	}
+
+	public void setMessageDate(String messageDate) {
+		this.messageDate = messageDate;
+	}
+
+	public String getMessageContent() {
+		return messageContent;
+	}
+
+	public void setMessageContent(String messageContent) {
+		this.messageContent = messageContent;
+	}
+
+	public String getMessageTitle() {
+		return messageTitle;
+	}
+
+	public void setMessageTitle(String messageTitle) {
+		this.messageTitle = messageTitle;
+	}
+
 	
 	
 

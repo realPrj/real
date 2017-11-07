@@ -53,6 +53,10 @@ public class PageManagement extends TransactionExe {
 		case 6:	// 학생 나의 정보 페이지
 			mav = studentInfoPage();
 			break;
+			
+		case 7:	// 학습방 코드표
+			mav = subjectCCT(((BoardBean)object));
+			break;		
 
 		}
 
@@ -537,30 +541,104 @@ public class PageManagement extends TransactionExe {
 	}
 
 
-	public ModelAndView subjectCode(BoardBean board) {	// 코드 보여주기
+	private ModelAndView subjectCCT(BoardBean board) {	// 코드 보여주기
 
 		mav = new ModelAndView();
 		boolean transaction = false;
+		ArrayList<BoardBean> al = null;
+		StringBuffer sb=null;
 
 		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
 
 		try {
+			
+			board.setRoomCode((String)session.getAttribute("roomCode"));
 
-
-
+			board.setRoomSB(dao.learningSBCodeGet(board));	// 과목 코드
+			String sbCode = board.getRoomSB();
+			
+			board.setSubjectName(dao.subjectNameGet(board));	// 과목 이름
+			
+			mav.addObject("sbName", "<input type='button' class='btn' value='"+board.getSubjectName()+"("+board.getRoomSB()+")' />");
+			
+			al = dao.learningYearCodeGet(board);	// 년도 코드		
+			sb = new StringBuffer();
+		
+			sb.append("<table align=\"center\" id='Click'>");
+			
+			for(int i = 0; i < al.size(); i++) {
+				board = new BoardBean();
+				board.setRoomSB(sbCode);
+				board.setYearCode(al.get(i).getYearCode());
+				board.setYearName(dao.learningYearNameGet(board));
+				sb.append("<tbody id='"+board.getYearCode()+"'>");
+				sb.append("<tr>");
+				sb.append("<td><input type='button' class='btn' value='"+board.getYearName()+"("+board.getYearCode()+")' /></td>");
+				sb.append("</tr>");
+				sb.append("</tbody>");
+			}
+			
+			sb.append("</table>");
+			
+			mav.addObject("yearCode", sb.toString());
+			
 			transaction = true;
 
 
 		}catch(Exception ex) {
 
 		}finally {
-			mav.setViewName("learningSubjectCode");
+			mav.setViewName("subjectCCT");
 			setTransactionResult(transaction);
 		}
 
-		return null;
+
+		return mav;
 
 	}
+	
+	
+	public ArrayList<BoardBean> subjectCCT1(BoardBean board) {	// 코드 보여주기
 
+		boolean transaction = false;
+		ArrayList<BoardBean> al = null;
+		ArrayList<BoardBean> code = new ArrayList<BoardBean>();
 
+		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
+
+		try {
+			
+			board.setRoomCode((String)session.getAttribute("roomCode"));
+
+			board.setRoomSB(dao.learningSBCodeGet(board));	// 과목 코드
+			String sbCode = board.getRoomSB();
+			String yearCode = board.getYearCode();
+			
+			al = dao.learningWANNumberGet(board);	// 문제번호 추출
+			
+			for(int i = 0; i < al.size(); i++) {
+				board = new BoardBean();
+				board.setRoomSB(sbCode);
+				board.setYearCode(yearCode);
+				board.setNumberCode(al.get(i).getNumberCode());
+				board.setTypeCode(dao.learningTypeCodeGet(board));
+				board.setTypeName(dao.learningTypeNameGet(board));
+				board.setAllSum(al.size());
+				code.add(board);
+			}
+					
+			transaction = true;
+
+		}catch(Exception ex) {
+
+		}finally {
+
+			setTransactionResult(transaction);
+		}
+		
+		return code;
+
+	}
+	
 }
+
