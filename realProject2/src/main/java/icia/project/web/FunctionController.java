@@ -696,7 +696,7 @@ public class FunctionController {
 		}else{
 			lsm.entrance(40, board);
 			
-			mav = lsm.entrance(36, board);
+			mav = lsm.entrance(38, board);
 		}
 		
 		return mav;

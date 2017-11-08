@@ -6,8 +6,6 @@ import java.util.ArrayList;
 
 import java.util.List;
 
-import javax.swing.plaf.synth.SynthSeparatorUI;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.TransactionDefinition;
@@ -248,10 +246,15 @@ public class learningTeacherMM extends TransactionExe {
 			mav = learningSentMessageDelete((BoardBean)object[0]);
 			break;
 			
-			
-			
-			
+		case 52:   // 강의계획서 페이지
+			mav = learningPlanPage((BoardBean)object[0]);
+			break;
 
+		case 53:   // 강의 계획서 자세히 보기 페이지
+			mav = learningPlanCTXPage((BoardBean)object[0]);
+			break;
+			
+			
 
 		}
 
@@ -1836,8 +1839,33 @@ public class learningTeacherMM extends TransactionExe {
 		sb.append("</table>");
 		sb.append("<input type=\"button\" value=\"글쓰기\" onClick=\"debateInsert()\"/>");
 
+
 		return sb.toString();
 	}
+
+	private String pageButton(ArrayList<BoardBean> ar) {
+		StringBuffer sb = new StringBuffer();
+
+		int pageCount = 5; // 
+
+		double sizeDouble = ar.size() / (double)pageCount;
+
+		sb.append("<div class='text-center'>");
+		sb.append("<ul class='pagination'>");
+
+
+		for(int y=0; y < sizeDouble; y++) {// 페이지 버튼
+
+			sb.append("<li><input class='btn-sm' type='button' value="+(y+1)+" onClick='pageNumber("+y+")' /></li>");			
+		}
+		sb.append("</ul>");
+		sb.append("</div>");
+
+		return sb.toString();
+
+
+	}
+
 
 	private ModelAndView tclearningDebateCTX(BoardBean board) { // 선생님 토론게시판 내용확인, 댓글 목록
 		mav = new ModelAndView();
@@ -2596,6 +2624,7 @@ public class learningTeacherMM extends TransactionExe {
 			board.setRoomCode((String)session.getAttribute("roomCode"));	
 			
 			mav.addObject("messageOther", board.getStudentCode());
+			mav.addObject("messageOther", board.getMessageOther());
 
 			transaction = true;
 
@@ -2668,18 +2697,39 @@ public class learningTeacherMM extends TransactionExe {
 	
 	private String getlearningSentMessageList(ArrayList<BoardBean> ar, BoardBean board) { // 보낸쪽지 리스트 끌고오기
 		StringBuffer sb = new StringBuffer();
-		
-		sb.append("<tbody id=\"myTable\">");
-		for(int i=0; i<ar.size(); i++) {
+
+
+		int forI = 0; // 크게 한사람
+		int forB = 0;	// 내용물
+		int pageCount = 5; // 
+
+		double sizeDouble = ar.size() / (double)pageCount;
+
+		for(forI=0; forI < sizeDouble; forI++) {
+
+			if(ar.size()< pageCount) {
+				pageCount= ar.size();
+			}
+
+			sb.append("<tbody name=tbody"+forI+" id=tbody"+forI+">");
+		//sb.append("<tbody id=\"myTable\">");
+		for(forB=forB; forB<pageCount; forB++) {
+
+
 			sb.append("<tr>");
-			sb.append("<td>" + ar.get(i).getMessageOther() + "</td>");
-			sb.append("<td onClick=\"messageCTX('" + board.getMessageCode() + "','" + board.getRoomCode() + "','"+ ar.get(i).getMessageDate() +"','"+ board.getIdentity() +"')\">" + ar.get(i).getMessageTitle() + "</td>");
-			sb.append("<td>" + ar.get(i).getMessageDate() + "</td>");
+			sb.append("<td>" + ar.get(forB).getMessageOther() + "</td>");
+			sb.append("<td onClick=\"messageCTX('" + board.getMessageCode() + "','" + board.getRoomCode() + "','"+ ar.get(forB).getMessageDate() +"','"+ board.getIdentity() +"')\">" + ar.get(forB).getMessageTitle() + "</td>");
+			sb.append("<td>" + ar.get(forB).getMessageDate() + "</td>");
 			sb.append("</tr>");
 		}
 		sb.append("</tbody>");
-		
-		
+
+
+		}
+
+
+
+
 		return sb.toString();
 	}
 
@@ -2752,7 +2802,9 @@ public class learningTeacherMM extends TransactionExe {
 			
 			mav.addObject("id", "받은사람");
 			mav.addObject("messageOther", board.getMessageOther());
+			mav.addObject("title", "제목");
 			mav.addObject("messageTitle", board.getMessageTitle());
+			mav.addObject("content", "내용");
 			mav.addObject("messageContent", board.getMessageContent());
 			
 			board.setIdentity((String)session.getAttribute("identity"));
@@ -2793,11 +2845,16 @@ public class learningTeacherMM extends TransactionExe {
 			
 			mav.addObject("id", "보낸사람");
 			mav.addObject("messageOther", board.getMessageOther());
+			mav.addObject("title", "제목");
 			mav.addObject("messageTitle", board.getMessageTitle());
+			mav.addObject("content", "내용");
 			mav.addObject("messageContent", board.getMessageContent());
 			
 			board.setIdentity((String)session.getAttribute("identity"));
-			
+
+
+			sb.append("<input type=\"button\" value=\"답장\" onClick=\"reply('"+board.getMessageOther()+"','"+session.getAttribute("identity")+"')\"/>");
+
 			sb.append("<input type=\"button\" value=\"목록\" onClick=\"message('"+2+"','"+board.getIdentity()+"')\"/>");
 			sb.append("<input type=\"button\" value=\"삭제\" onClick=\"messageDelete('"+board.getIdentity()+"','"+board.getRoomCode()+"','"+board.getMessageCode()+"','"+board.getMessageDate()+"')\"/>");
 			mav.addObject("button", sb.toString());
@@ -2827,9 +2884,7 @@ public class learningTeacherMM extends TransactionExe {
 			board.setMessageCode("G");
 			board.setMessageId((String)session.getAttribute("tcId"));
 			
-			if(dao.getMessageDelete(board) != 0) {
-				System.out.println("삭ㅂ제성공");
-			}
+			dao.getMessageDelete(board);
 
 			transaction = true;
 
@@ -2854,9 +2909,7 @@ public class learningTeacherMM extends TransactionExe {
 			board.setMessageCode("S");
 			board.setMessageId((String)session.getAttribute("tcId"));
 			
-			if(dao.sentMessageDelete(board) != 0) {
-				System.out.println("삭ㅂ제성공2");
-			}
+			dao.sentMessageDelete(board);
 
 			transaction = true;
 
@@ -2867,8 +2920,80 @@ public class learningTeacherMM extends TransactionExe {
 		}
 		return mav;
 	}
+	
+	private ModelAndView learningPlanPage(BoardBean board) { // 강의 계획서 페이지
+		
+		mav = new ModelAndView();
+		boolean transaction = false;
 
+		StringBuffer sb = new StringBuffer();
+		String nowYear2 = null;
+		
+		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
 
+		try {
+			String nowYear = dao.nowYearGet();
+			int subtract = 12 - Integer.parseInt(nowYear.substring(4));
+			nowYear2 = nowYear;
+			
+			sb.append("<select id = 'yearSelect' class='btn-sm'>");
+			sb.append("<option></option>");
+
+			for(int i = 0; i <= subtract; i++) {
+				nowYear2 = Integer.toString(Integer.parseInt(nowYear)+i);
+				sb.append("<option value="+nowYear2+">"+nowYear2.substring(0, 4)+"년"+nowYear2.substring(4)+"월"+"</option>");
+			}
+			sb.append("</select>");
+			
+			mav.addObject("select", sb.toString());
+			mav.setViewName("learningPlan");
+			transaction = true;
+
+		}catch(Exception ex){
+
+		}finally {
+			setTransactionResult(transaction);
+		}
+		return mav;
+	}
+
+	
+	private ModelAndView learningPlanCTXPage(BoardBean board) { // 강의 계획서 자세히 보기 페이지
+		
+		mav = new ModelAndView();
+		boolean transaction = false;
+		StringBuffer sb = new StringBuffer();
+		
+		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
+
+		try {
+			
+			board.setRoomCode((String)session.getAttribute("roomCode"));
+			
+			if(dao.planCheck(board) != 0) { // 있음
+				
+				board = dao.planCTX(board);
+				mav.addObject("title", board.getBoardTitle());
+				mav.addObject("content", board.getBoardContent());
+				mav.addObject("check", 1);
+				
+			}else {
+				sb.append("<input type='button' value='강의계획 등록' onClick=planInsert("+board.getBoardCode()+") />");
+				mav.addObject("insert", sb.toString());
+				mav.addObject("check", 0);
+			}
+	
+			mav.setViewName("learningPlanCTX");
+			
+			transaction = true;
+
+		}catch(Exception ex){
+
+		}finally {
+			setTransactionResult(transaction);
+		}
+		return mav;
+	}
 
 
 }

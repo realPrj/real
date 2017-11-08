@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import icia.project.bean.MemberBean;
 import icia.project.bean.BoardBean;
+import icia.project.bean.Calendar;
 import icia.project.bean.DbBoardBean;
 import icia.project.bean.LearningRoomBean;
 
@@ -341,18 +342,25 @@ public interface IMybatis {
 
 	// 회원탈퇴 패스워드 체크
 	public MemberBean checkPwd(MemberBean member);
+
 	// 학생 과제체출 회원탈퇴
 	public int tasksubmitdelete(MemberBean member);
+
 	// 학생 오답노트 회원탈퇴
 	public int WRONGANSWERNOTES(MemberBean member);
+
 	// 학생 토론 태그 탈티
 	public int DEBATETAGdelete(MemberBean member);
+
 	// 학생 질문 탈퇴
 	public int QUERYdelete(MemberBean member);
+
 	// 학생 질문 탈퇴
 	public int MESSAGEdelete(MemberBean member);
+
 	// 학생 학습방 탈퇴
 	public int learningstudentdelete(MemberBean member);
+
 	// 학생 회원 탈퇴 업데이트
 	public int updateState(MemberBean member);
 
@@ -401,12 +409,44 @@ public interface IMybatis {
 	// 받은 쪽지 삭제
 	public int getMessageDelete(BoardBean board);
 
-	// 선생님 ㄹ스트
+	// 선생님 리스트
 	public BoardBean getTeacherInfo(BoardBean board);
 
 	// 학생 수강생 리스트
 	public ArrayList<BoardBean> getStudentList(BoardBean board);
 
+	// 달력출력
+	public ArrayList<Calendar> calendarGet(Calendar calendar);
+
+	// 현재 년도 추출
+	public String nowYearGet();
+
+	// 강의계획서 체크
+	public int planCheck(BoardBean board);
+
+	// 일요일 체크
+	public int CheckSunday(Calendar cd);
+
+	// 월요일 체크
+	public int CheckMonday(Calendar cd);
+
+	// 화요일 체크
+	public int CheckTuesday(Calendar cd);
+
+	// 수요일 체크
+	public int CheckWednesday(Calendar cd);
+
+	// 목요일 체크
+	public int CheckThursday(Calendar cd);
+
+	// 금요일 체크
+	public int CheckFriday(Calendar cd);
+
+	// 토요일 체크
+	public int CheckSaturday(Calendar cd);
+
+	// 강의계획서 내용
+	public BoardBean planCTX(BoardBean board);
 
 	// admin id check
 	public int adminIdCheck(MemberBean member);

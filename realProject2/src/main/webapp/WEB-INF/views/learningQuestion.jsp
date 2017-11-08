@@ -148,6 +148,7 @@
 	}
 </script>
 <body onLoad="${message}">
+
 	<h1>공조</h1>
 	<div class="wrapper">
 		<div class="sidebar" data-background-color="white"
@@ -248,6 +249,7 @@
 					</div>
 				</div>
 			</nav>
+
 
 			<!-- 질문게시판 -->
 			<div class="col-lg-35 col-md-12">

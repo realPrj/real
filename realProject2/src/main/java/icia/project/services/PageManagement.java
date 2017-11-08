@@ -1,7 +1,12 @@
 package icia.project.services;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+
+import org.apache.ibatis.reflection.SystemMetaObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.TransactionDefinition;
@@ -10,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.google.gson.Gson;
 
 import icia.project.bean.BoardBean;
+import icia.project.bean.Calendar;
 import icia.project.bean.LearningRoomBean;
 import icia.project.bean.MemberBean;
 import icia.project.dao.IMybatis;
@@ -625,6 +631,72 @@ public class PageManagement extends TransactionExe {
 				board.setTypeName(dao.learningTypeNameGet(board));
 				board.setAllSum(al.size());
 				code.add(board);
+			}
+					
+			transaction = true;
+
+		}catch(Exception ex) {
+
+		}finally {
+
+			setTransactionResult(transaction);
+		}
+		
+		return code;
+
+	}
+	
+	public ArrayList<Calendar> calendar(Calendar cd){	// 달력 보여주기
+
+		boolean transaction = false;
+		ArrayList<Calendar> al = null;
+		ArrayList<Calendar> code = new ArrayList<Calendar>();
+
+		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
+
+		try {
+			String roomcode = (String)session.getAttribute("roomCode");
+			String month = cd.getMonth();	// 년월
+
+			al = dao.calendarGet(cd);	// 달력 출력
+
+			for(int i = 0; i < al.size(); i++) {
+				cd = new Calendar();
+				cd.setMonth(month);
+				cd.setRoomCode(roomcode);
+				
+				cd.setSunday(al.get(i).getSunday());
+				cd.setCheckSunday(month+al.get(i).getSunday());
+				cd.setCheckSunday(Integer.toString(dao.CheckSunday(cd)));
+
+
+				cd.setMonday(al.get(i).getMonday());
+				cd.setCheckMonday(month+al.get(i).getMonday());
+				cd.setCheckMonday(Integer.toString(dao.CheckMonday(cd)));
+				
+				cd.setTuesday(al.get(i).getTuesday());
+				cd.setCheckTuesday(month+al.get(i).getTuesday());
+				cd.setCheckTuesday(Integer.toString(dao.CheckTuesday(cd)));
+				
+				cd.setWednesday(al.get(i).getWednesday());
+				cd.setCheckWednesday(month+al.get(i).getWednesday());
+				cd.setCheckWednesday(Integer.toString(dao.CheckWednesday(cd)));
+				
+				cd.setThursday(al.get(i).getThursday());
+				cd.setCheckThursday(month+al.get(i).getThursday());
+				cd.setCheckThursday(Integer.toString(dao.CheckThursday(cd)));
+				
+				cd.setFriday(al.get(i).getFriday());
+				cd.setCheckFriday(month+al.get(i).getFriday());
+				cd.setCheckFriday(Integer.toString(dao.CheckFriday(cd)));
+				
+				cd.setSaturday(al.get(i).getSaturday());
+				cd.setCheckSaturday(month+al.get(i).getSaturday());
+				cd.setCheckSaturday(Integer.toString(dao.CheckSaturday(cd)));
+
+				cd.setAllSize(al.size());
+
+				code.add(cd);
 			}
 					
 			transaction = true;

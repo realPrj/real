@@ -149,6 +149,7 @@
 </script>
 <body onLoad="${message}">
 	<div class="wrapper">
+
 		<div class="sidebar" data-background-color="white"
 			data-active-color="danger">
 
@@ -242,6 +243,7 @@
 					</div>
 				</div>
 			</nav>
+
 
 			<!-- 자료실게시판수정 -->
 

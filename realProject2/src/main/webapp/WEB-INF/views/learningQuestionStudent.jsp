@@ -142,6 +142,7 @@ function pageNumber(value) {
 </script>
 <body onLoad="${message}">
 	<div class="wrapper">
+
 		<div class="sidebar" data-background-color="white"
 			data-active-color="danger">
 
@@ -242,6 +243,7 @@ function pageNumber(value) {
 					</div>
 				</div>
 			</nav>
+
 
 			<!-- 질문게시판 -->
 			<div class="col-lg-35 col-md-12">

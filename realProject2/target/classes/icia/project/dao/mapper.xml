@@ -1391,6 +1391,32 @@
 		#{studentCode} AND ROOMCODE = #{roomCode}
 	</select>
 
+	<!-- 달력 출력 -->
+	<select id="calendarGet" resultType="calendar" parameterType="calendar">
+	<![CDATA[
+	SELECT 
+       MIN(DECODE( TO_CHAR(DATES,'D'), 1, TO_CHAR(DATES, 'DD'))) AS Sunday,
+       MIN(DECODE( TO_CHAR(DATES,'D'), 2, TO_CHAR(DATES, 'DD'))) AS Monday,
+       MIN(DECODE( TO_CHAR(DATES,'D'), 3, TO_CHAR(DATES, 'DD'))) AS Tuesday,
+       MIN(DECODE( TO_CHAR(DATES,'D'), 4, TO_CHAR(DATES, 'DD'))) AS Wednesday,
+       MIN(DECODE( TO_CHAR(DATES,'D'), 5, TO_CHAR(DATES, 'DD'))) AS Thursday,
+       MIN(DECODE( TO_CHAR(DATES,'D'), 6, TO_CHAR(DATES, 'DD'))) AS Friday,
+       MIN(DECODE( TO_CHAR(DATES,'D'), 7, TO_CHAR(DATES, 'DD'))) AS Saturday
+	FROM (
+        SELECT (MAKE_DATES + LEVEL -1 ) DATES
+            FROM ( SELECT TO_DATE(#{month},'YYYYMM') MAKE_DATES FROM DUAL) 
+					CONNECT BY (MAKE_DATES + LEVEL-1) <= LAST_DAY(MAKE_DATES)
+				)
+		GROUP BY DECODE(TO_CHAR(DATES,'D'), 1, TO_CHAR(DATES, 'IW')+1, TO_CHAR(DATES, 'IW'))
+		ORDER BY DECODE(TO_CHAR(DATES,'D'), 1, TO_CHAR(DATES, 'IW')+1, TO_CHAR(DATES, 'IW'))	
+		]]>
+	</select>
+	
+	<!-- 현재 년도 -->
+	<select id="nowYearGet" resultType="String">
+		SELECT to_char(trunc(sysdate,'mm') ,'yyyymm') FROM dual
+	</select>
+	
 	<!-- 선생님 로그인기록 추출 -->
 	<select id="tcattendanceGet" resultType="room" parameterType="room">
 		SELECT TLOH_DATE AS attendDate,TLOH_TYPE AS attendanceType
@@ -1501,6 +1527,50 @@
 		SELECT ST_STATECODE FROM STUDENT WHERE ST_ID = #{id}
 	</select>
 
+	<!-- 일요일 체크 -->
+	<select id="CheckSunday" resultType="Integer" parameterType="calendar">
+		SELECT COUNT(*) FROM PLAN WHERE PL_LRCODE=#{roomCode} AND PL_CODE=#{CheckSunday}
+	</select>
+	
+	<!-- 월요일 체크 -->
+	<select id="CheckMonday" resultType="Integer" parameterType="calendar">
+		SELECT COUNT(*) FROM PLAN WHERE PL_LRCODE=#{roomCode} AND PL_CODE=#{CheckMonday}
+	</select>
+	
+	<!-- 화요일 체크 -->
+	<select id="CheckTuesday" resultType="Integer" parameterType="calendar">
+		SELECT COUNT(*) FROM PLAN WHERE PL_LRCODE=#{roomCode} AND PL_CODE=#{CheckTuesday}
+	</select>
+	
+	<!-- 수요일 체크 -->
+	<select id="CheckWednesday" resultType="Integer" parameterType="calendar">
+		SELECT COUNT(*) FROM PLAN WHERE PL_LRCODE=#{roomCode} AND PL_CODE=#{CheckWednesday}
+	</select>
+	
+	<!-- 목요일 체크 -->
+	<select id="CheckThursday" resultType="Integer" parameterType="calendar">
+		SELECT COUNT(*) FROM PLAN WHERE PL_LRCODE=#{roomCode} AND PL_CODE=#{CheckThursday}
+	</select>
+	
+	<!-- 금요일 체크 -->
+	<select id="CheckFriday" resultType="Integer" parameterType="calendar">
+		SELECT COUNT(*) FROM PLAN WHERE PL_LRCODE=#{roomCode} AND PL_CODE=#{CheckFriday}
+	</select>
+	
+	<!-- 토요일 체크 -->
+	<select id="CheckSaturday" resultType="Integer" parameterType="calendar">
+		SELECT COUNT(*) FROM PLAN WHERE PL_LRCODE=#{roomCode} AND PL_CODE=#{CheckSaturday}
+	</select>
+	
+	<!-- 강의계획서 체크 -->
+	<select id="planCheck" resultType="Integer" parameterType="board">
+		SELECT COUNT(*) FROM PLAN WHERE PL_LRCODE=#{roomCode} AND PL_CODE=#{boardCode}
+	</select>
+	
+	<!-- 강의계획서 내용 -->
+	<select id="planCTX" resultType="board" parameterType="board">
+		SELECT PL_CODE AS boardCode, PL_TITLE AS boardTitle, PL_CONTENT AS boardContent FROM PLAN WHERE PL_LRCODE=#{roomCode} AND PL_CODE=#{boardCode}
+	</select>
 
 </mapper>
 

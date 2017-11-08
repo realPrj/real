@@ -204,6 +204,7 @@
 
 			
             <ul class="nav">
+
 					<li></li>
 					<li class="active">
 					<a onClick="menu('15')">
@@ -292,6 +293,7 @@
 				</div>
 			</div>
 			</nav>
+
 
 			<!-- 질문게시판 -->
 			<div class="col-lg-35 col-md-12">

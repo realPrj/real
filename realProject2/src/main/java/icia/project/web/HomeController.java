@@ -19,6 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.google.gson.Gson;
 
 import icia.project.bean.BoardBean;
+import icia.project.bean.Calendar;
 import icia.project.bean.DbBoardBean;
 import icia.project.bean.LearningRoomBean;
 import icia.project.bean.MemberBean;
@@ -236,11 +237,11 @@ public class HomeController  {
 			break;
 
 		case 11 : // 쪽지 페이지
-			System.out.println("선생님 쪽지 컨트롤러");
 			mav = ltmm.entrance(42, board);
 			break;
 
-		case 12 : 
+		case 12 : // 강의 계획서
+			mav = ltmm.entrance(52, board);
 			break;
 
 		case 13 : // 과목코드
@@ -261,7 +262,7 @@ public class HomeController  {
 	// 학생 학습메뉴
 	@RequestMapping(value = "/stmenu", method = RequestMethod.POST)
 	public ModelAndView stMenu(@ModelAttribute  BoardBean board, MemberBean member,LearningRoomBean room) {
-
+		System.out.println("asdf");
 		int code = Integer.parseInt(board.getCaCode());
 
 		switch(code) {
@@ -305,7 +306,6 @@ public class HomeController  {
 			break;
 
 		case 11 : // 쪽지 페이지
-			System.out.println("쪽지 컨트롤러 학생");
 			mav = lsmm.entrance(36, board);
 			break;
 
@@ -714,9 +714,11 @@ public class HomeController  {
 	// 쪽지 보내기 페이지
 	@RequestMapping(value = "/sendMessagePage", method = RequestMethod.POST)
 	public ModelAndView sendMessagePage(@ModelAttribute BoardBean board) {
+		System.out.println(board.getMessageOther());
 		if(board.getIdentity().equals("1")) {
 			mav = ltmm.entrance(46, board);
 		}else {
+			
 			mav = lsmm.entrance(39, board);
 		}
 
@@ -750,7 +752,6 @@ public class HomeController  {
 		return mav;
 	}
 
-
 	// 문제 번호 보여주기
 	@RequestMapping(value = "/subjectCCT1", method = RequestMethod.POST,produces = "application/text; charset=utf8")
 	@ResponseBody public String subjectCCT1(@ModelAttribute BoardBean board) {
@@ -763,11 +764,33 @@ public class HomeController  {
 		Gson gson = new Gson();
 
 		String test = gson.toJson(code);
-		System.out.println(test);
+	
 		return test;
 	}
+	
+	// 강의계획서(달력)
+	@RequestMapping(value = "/calendar", method = RequestMethod.POST,produces = "application/text; charset=utf8")
+	@ResponseBody public String calendar(@ModelAttribute Calendar cd) {
+		ArrayList<Calendar> code = null;
 
+		code = pm.calendar(cd);	
+		
+		Gson gson = new Gson();
+		
+		String test = gson.toJson(code);
+		
+		System.out.println(test);
+		
+		return test;
+	}
+	
+	// 강의계획서 자세히 보기
+	@RequestMapping(value = "/learningPlanCTXPage", method = RequestMethod.GET)
+	public ModelAndView learningPlanCTXPage(@ModelAttribute BoardBean board) {
 
+		mav = ltmm.entrance(53, board);
+		return mav;
+		}
 
 	// 해당 학생 자세히 보기
 	@RequestMapping(value = "/studentCXT", method = RequestMethod.GET)
@@ -792,4 +815,15 @@ public class HomeController  {
 		mav.setViewName("adminEmail");
 		return mav;
 	}
+
+
+	// 강의계획서 등록 페이지
+	@RequestMapping(value = "/learningPlanInsertPage", method = RequestMethod.GET)
+	public ModelAndView learningPlanInsertPage(@ModelAttribute BoardBean board) {
+
+		mav = ltmm.entrance(54, board);
+
+		return mav;
+	}
+	
 }
