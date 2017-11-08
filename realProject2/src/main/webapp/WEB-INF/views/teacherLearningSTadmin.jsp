@@ -268,7 +268,7 @@ function stadmin(studentCode){
 					</div>
 				</div>
 			</nav>
-
+S
 
 			<!-- 질문게시판 -->
 			<div class="col-lg-35 col-md-12">
