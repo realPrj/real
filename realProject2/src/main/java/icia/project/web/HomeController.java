@@ -713,9 +713,11 @@ public class HomeController  {
 	// 쪽지 보내기 페이지
 	@RequestMapping(value = "/sendMessagePage", method = RequestMethod.POST)
 	public ModelAndView sendMessagePage(@ModelAttribute BoardBean board) {
+		System.out.println(board.getMessageOther());
 		if(board.getIdentity().equals("1")) {
 			mav = ltmm.entrance(46, board);
 		}else {
+			
 			mav = lsmm.entrance(39, board);
 		}
 		

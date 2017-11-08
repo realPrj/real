@@ -166,6 +166,7 @@ $(document).ready(function() {
 </head>
 <body>
 	<div class="wrapper">
+
 		<div class="sidebar" data-background-color="white"
 			data-active-color="danger">
 
@@ -256,6 +257,7 @@ $(document).ready(function() {
 					</div>
 				</div>
 			</nav>
+
 			
 	
 			<!-- 과목코드표 -->

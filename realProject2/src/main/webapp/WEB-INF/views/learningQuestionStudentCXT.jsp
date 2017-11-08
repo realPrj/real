@@ -180,6 +180,7 @@
 </script>
 <body onLoad="init()">
 	<div class="wrapper">
+
 		<div class="sidebar" data-background-color="white"
 			data-active-color="danger">
 
@@ -275,6 +276,7 @@
 				</div>
 			</div>
 			</nav>
+
 
 
 			<!-- 질문게시판 내용확인 -->

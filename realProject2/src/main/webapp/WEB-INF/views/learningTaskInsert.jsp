@@ -123,6 +123,7 @@ function insertTask() {
 <body>
 	<input type="hidden" value="${identity }" name="identity" />
 	<div class="wrapper">
+
 		<div class="sidebar" data-background-color="white"
 			data-active-color="danger">
 
@@ -215,6 +216,7 @@ function insertTask() {
 				</div>
 			</div>
 			</nav>
+
 
 			<!-- 질문게시판 -->
 			<div class="col-lg-35 col-md-12">

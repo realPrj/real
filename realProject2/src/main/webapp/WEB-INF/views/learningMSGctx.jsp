@@ -143,6 +143,22 @@ function messageDelete(identity,roomCode, messageCode, messageDate){
 	
 }
 
+function reply(messageOther, identity){
+	
+	createForm("messageForm", "sendMessagePage", "post");
+	var form = document.getElementsByName("messageForm")[0];
+	
+	createinput("hidden", "identity", identity);
+	createinput("hidden", "messageOther", messageOther);
+	var identity = document.getElementsByName("identity")[0];
+	var messageOther = document.getElementsByName("messageOther")[0];
+	
+	form.appendChild(identity);
+	form.appendChild(messageOther);
+	
+	form.submit();
+}
+
 </script>
 <body>
 
@@ -271,7 +287,9 @@ function messageDelete(identity,roomCode, messageCode, messageDate){
 					<div class="row">
 						<div class="col-md-8">
 							<div class="container">
+							 <label>${title}</label>
 							<input type="text" class="form-control border-input" value='${messageTitle }' readonly>
+							 <label>${content}</label>
 								<textarea rows="10" class="form-control border-input"
 									  readonly>${messageContent }</textarea>
 							</div>
