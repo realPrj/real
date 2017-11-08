@@ -149,7 +149,6 @@
 </script>
 <body onLoad="${message}">
 
-	<h1>공조</h1>
 	<div class="wrapper">
 		<div class="sidebar" data-background-color="white"
 			data-active-color="danger">

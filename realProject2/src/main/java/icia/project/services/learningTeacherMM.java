@@ -2255,18 +2255,38 @@ public class learningTeacherMM extends TransactionExe {
 			sb.append("<td>핸드폰 번호</td>");
 			sb.append("<td>쪽지 보내기</td>");
 			sb.append("</tr>");
-			for(int i=0; i<ar.size(); i++) {
+			
+			int forI = 0; // 크게 한사람
+			int forB = 0;	// 내용물
+			int pageCount = 5; // 
+
+			double sizeDouble = ar.size() / (double)pageCount;
+
+			for(forI=0; forI < sizeDouble; forI++) {
+
+				if(ar.size()< pageCount) {
+					pageCount= ar.size();
+				}
+
+				sb.append("<tbody name=tbody"+forI+" id=tbody"+forI+">");
+			for(forB=forB; forB<pageCount; forB++) {
+			//for(int i=0; i<ar.size(); i++) {
 				sb.append("<tr>");   
-				sb.append("<td>" + ar.get(i).getStudentCode() + "</td>");
-				sb.append("<td>" + ar.get(i).getId() + "</td>");
-				sb.append("<td>" + ar.get(i).getStudentName() + "</td>");
-				sb.append("<td>" + ar.get(i).getEmail() + "</td>");
-				sb.append("<td>" + ar.get(i).getPhone() + "</td>");
-				sb.append("<td><input type=\"button\"class='btn' value=\"쪽지보내기\" onClick=\"sendMessage('"+ ar.get(i).getStudentCode() +"','"+ board.getIdentity() +"')\" /></td>");
+				sb.append("<td>" + ar.get(forB).getStudentCode() + "</td>");
+				sb.append("<td>" + ar.get(forB).getId() + "</td>");
+				sb.append("<td>" + ar.get(forB).getStudentName() + "</td>");
+				sb.append("<td>" + ar.get(forB).getEmail() + "</td>");
+				sb.append("<td>" + ar.get(forB).getPhone() + "</td>");
+				sb.append("<td><input type=\"button\"class='btn' value=\"쪽지보내기\" onClick=\"sendMessage('"+ ar.get(forB).getStudentCode() +"','"+ board.getIdentity() +"')\" /></td>");
 				sb.append("</tr>");
+			}
+			sb.append("</tbody>");	
+
+			pageCount+=pageCount;
 			}
 			sb.append("</table>");
 			mav.addObject("teacherLearningSTadmin", sb.toString());
+			mav.addObject("button", pageButton(ar));
 			transaction = true;
 
 		}catch(Exception ex){

@@ -63,6 +63,19 @@
 <!-- Paper Dashboard DEMO methods, don't include it in your project! -->
 <script src="assets/js/demo.js"></script>
 <script>
+$(document).ready(function() {
+	/* 복사 */
+	$("tbody[name *='tbody']").hide();
+	var tableList = $("#tableList");
+	tableList.append($("#tbody0").show());
+
+});
+/*복사  */
+function pageNumber(value) {
+	$("tbody[name *='tbody']").hide();
+	var tableList = $("#tableList");
+	tableList.append($("#tbody" + value).show());
+}
 //form 생성
 function createForm(formname,formaction,formmethod){
 
@@ -287,16 +300,7 @@ function stadmin(studentCode){
 					${teacherLearningSTadmin } ${button }
 					<hr />
 
-					<!-- 페이지네이션넣기 -->
-					<div class="text-center">
-						<ul class="pagination">
-							<li><a href="#">1</a></li>
-							<li><a href="#">2</a></li>
-							<li><a href="#">3</a></li>
-							<li><a href="#">4</a></li>
-							<li><a href="#">5</a></li>
-						</ul>
-					</div>
+					
 
 				</div>
 			</div>
