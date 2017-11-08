@@ -249,13 +249,18 @@ public class learningTeacherMM extends TransactionExe {
 		case 52:   // 강의계획서 페이지
 			mav = learningPlanPage((BoardBean)object[0]);
 			break;
+<<<<<<< HEAD
 			
 		case 53:   // 강의계획서 등록 페이지
 			mav = learningPlanInsertPage((BoardBean)object[0]);
+=======
+
+		case 53:   // 강의 계획서 자세히 보기 페이지
+			mav = learningPlanCTXPage((BoardBean)object[0]);
+>>>>>>> a7faa5eef351c86e643b32b616f9a0b8810e1225
 			break;
 			
 			
-
 
 		}
 
@@ -2923,33 +2928,17 @@ public class learningTeacherMM extends TransactionExe {
 		}
 		return mav;
 	}
-
+	
 	private ModelAndView learningPlanPage(BoardBean board) { // 강의 계획서 페이지
-		mav = new ModelAndView();
-		boolean transaction = false;
-		
-		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
-
-		try {
-
-
-			transaction = true;
-
-		}catch(Exception ex){
-
-		}finally {
-			setTransactionResult(transaction);
-		}
-		return mav;
-	}
-	
-	
-	private ModelAndView learningPlanInsertPage(BoardBean board) { // 강의 계획서 등록 페이지
 		
 		mav = new ModelAndView();
 		boolean transaction = false;
+<<<<<<< HEAD
+=======
+
 		StringBuffer sb = new StringBuffer();
 		String nowYear2 = null;
+>>>>>>> a7faa5eef351c86e643b32b616f9a0b8810e1225
 		
 		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
 
@@ -2963,7 +2952,7 @@ public class learningTeacherMM extends TransactionExe {
 
 			for(int i = 0; i <= subtract; i++) {
 				nowYear2 = Integer.toString(Integer.parseInt(nowYear)+i);
-				sb.append("<option vale="+nowYear2+">"+nowYear2.substring(0, 4)+"년"+nowYear2.substring(4)+"월"+"</option>");
+				sb.append("<option value="+nowYear2+">"+nowYear2.substring(0, 4)+"년"+nowYear2.substring(4)+"월"+"</option>");
 			}
 			sb.append("</select>");
 			
@@ -2978,7 +2967,69 @@ public class learningTeacherMM extends TransactionExe {
 		}
 		return mav;
 	}
+<<<<<<< HEAD
+	
+	
+	private ModelAndView learningPlanInsertPage(BoardBean board) { // 강의 계획서 등록 페이지
+=======
 
+	private ModelAndView learningPlanCTXPage(BoardBean board) { // 강의 계획서 자세히 보기 페이지
+>>>>>>> a7faa5eef351c86e643b32b616f9a0b8810e1225
+		
+		mav = new ModelAndView();
+		boolean transaction = false;
+		StringBuffer sb = new StringBuffer();
+<<<<<<< HEAD
+		String nowYear2 = null;
+=======
+>>>>>>> a7faa5eef351c86e643b32b616f9a0b8810e1225
+		
+		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
+
+		try {
+<<<<<<< HEAD
+			String nowYear = dao.nowYearGet();
+			int subtract = 12 - Integer.parseInt(nowYear.substring(4));
+			nowYear2 = nowYear;
+			
+			sb.append("<select id = 'yearSelect' class='btn-sm'>");
+			sb.append("<option></option>");
+=======
+			
+			board.setRoomCode((String)session.getAttribute("roomCode"));
+>>>>>>> a7faa5eef351c86e643b32b616f9a0b8810e1225
+
+			if(dao.planCheck(board) != 0) { // 있음
+				
+				board = dao.planCTX(board);
+				mav.addObject("title", board.getBoardTitle());
+				mav.addObject("content", board.getBoardContent());
+				mav.addObject("check", 1);
+				
+			}else {
+				sb.append("<input type='button' value='강의계획 등록' onClick=planInsert("+board.getBoardCode()+") />");
+				mav.addObject("insert", sb.toString());
+				mav.addObject("check", 0);
+			}
+<<<<<<< HEAD
+			sb.append("</select>");
+			
+			mav.addObject("select", sb.toString());
+			mav.setViewName("learningPlan");
+=======
+	
+			mav.setViewName("learningPlanCTX");
+
+>>>>>>> a7faa5eef351c86e643b32b616f9a0b8810e1225
+			transaction = true;
+
+		}catch(Exception ex){
+
+		}finally {
+			setTransactionResult(transaction);
+		}
+		return mav;
+	}
 
 }
 

@@ -239,7 +239,7 @@ public class HomeController  {
 			break;
 
 		case 12 : // 강의 계획서
-			mav = ltmm.entrance(53, board);
+			mav = ltmm.entrance(52, board);
 			break;
 
 		case 13 : // 과목코드
@@ -304,7 +304,6 @@ public class HomeController  {
 			break;
 
 		case 11 : // 쪽지 페이지
-			System.out.println("쪽지 컨트롤러 학생");
 			mav = lsmm.entrance(36, board);
 			break;
 
@@ -752,7 +751,6 @@ public class HomeController  {
 		return mav;
 	}
 	
-	
 	// 문제 번호 보여주기
 	@RequestMapping(value = "/subjectCCT1", method = RequestMethod.POST,produces = "application/text; charset=utf8")
 	@ResponseBody public String subjectCCT1(@ModelAttribute BoardBean board) {
@@ -771,23 +769,36 @@ public class HomeController  {
 	
 	// 강의계획서(달력)
 	@RequestMapping(value = "/calendar", method = RequestMethod.POST,produces = "application/text; charset=utf8")
-	@ResponseBody public String calendar(@ModelAttribute BoardBean board) {
-	
-		Calendar cd = new Calendar();
-		cd.setMonth("201711");
-		
-		pm.calendar(cd);
-		ArrayList<BoardBean> code = null;
-		
-		// 문제번호
-		code = pm.subjectCCT1(board);		
+	@ResponseBody public String calendar(@ModelAttribute Calendar cd) {
+		ArrayList<Calendar> code = null;
+
+		code = pm.calendar(cd);	
 		
 		Gson gson = new Gson();
 		
 		String test = gson.toJson(code);
-	
+		
+		System.out.println(test);
+		
 		return test;
 	}
+	
+	// 강의계획서 자세히 보기
+	@RequestMapping(value = "/learningPlanCTXPage", method = RequestMethod.GET)
+	public ModelAndView learningPlanCTXPage(@ModelAttribute BoardBean board) {
 
+		mav = ltmm.entrance(53, board);
 
+		return mav;
+	}
+
+	// 강의계획서 등록 페이지
+	@RequestMapping(value = "/learningPlanInsertPage", method = RequestMethod.GET)
+	public ModelAndView learningPlanInsertPage(@ModelAttribute BoardBean board) {
+
+		mav = ltmm.entrance(54, board);
+
+		return mav;
+	}
+	
 }

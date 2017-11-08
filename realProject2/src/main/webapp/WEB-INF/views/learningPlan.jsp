@@ -1,10 +1,43 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<<<<<<< HEAD
 <title>공조 || 강의계획서</title>
+=======
+<link rel="apple-touch-icon" sizes="76x76"
+	href="assets/img/apple-icon.png">
+<link rel="icon" type="image/png" sizes="96x96"
+	href="assets/img/favicon.png">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<title>공조 || 강의계획서</title>
+<meta
+	content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0'
+	name='viewport' />
+<meta name="viewport" content="width=device-width" />
+<!-- Bootstrap core CSS     -->
+<link href="assets/css/bootstrap.min.css" rel="stylesheet" />
+
+<!-- Animation library for notifications   -->
+<link href="assets/css/animate.min.css" rel="stylesheet" />
+
+<!--  Paper Dashboard core CSS    -->
+<link href="assets/css/paper-dashboard.css" rel="stylesheet" />
+
+
+<!--  CSS for Demo Purpose, don't include it in your project     -->
+<link href="assets/css/demo.css" rel="stylesheet" />
+
+
+<!--  Fonts and icons     -->
+<link href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css"
+	rel="stylesheet">
+<link href='https://fonts.googleapis.com/css?family=Muli:400,300'
+	rel='stylesheet' type='text/css'>
+<link href="assets/css/themify-icons.css" rel="stylesheet">
+>>>>>>> a7faa5eef351c86e643b32b616f9a0b8810e1225
 </head>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script>
@@ -12,37 +45,83 @@ $(document).ready(function() {
 	   
 	$("#yearSelect").click(function() {
 		var yearcode = $(this).val();
+		
 	    $.ajax({
 	        type: "post",
-	        url: "subjectCCT1",
+	        url: "calendar",
 	        data: { month : yearcode},             		
 	        dataType: "json",                            
 	        timeout : "5000",                              
 	        success : function(data) {  
-	        	$("#number").empty();
+	   
+	        	var lengthNum = data.length;
+	        	$("#calendarId").empty();
+	        	var dayName = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
 	        	var html = "";
-	        	html += "<table>"
-	        	for(var i =0; i < data[0].allSum; i++){
-	        		html += "<tbody id='"+data[i].numberCode+"'>";
+
+	        	html += "</br><table align=center id='"+data[0].month+"'>"
+	        		html += "<tbody align=center>";
+        			html += "<tr>";
+        			html += "<td><input type='button' style='color:#FF0000' class='btn' value="+dayName[0]+" /></td>";
+        			html += "<td><input type='button' class='btn' value="+dayName[1]+" /></td>";
+        			html += "<td><input type='button' class='btn' value="+dayName[2]+" /></td>";
+        			html += "<td><input type='button' class='btn' value="+dayName[3]+" /></td>";
+        			html += "<td><input type='button' class='btn' value="+dayName[4]+" /></td>";
+        			html += "<td><input type='button' class='btn' value="+dayName[5]+" /></td>";
+        			html += "<td><input type='button' style='color:#0100FF' class='btn' value="+dayName[6]+" /></td>";
+        			html += "</tr>";
+	        		html += "</tbody>";
+	        	for(var i =0; i < data[0].allSize; i++){
+	        		var Sunday;
+	        		var Monday;
+	        		var Tuesday;
+	        		var Wednesday;
+	        		var Thursday;
+	        		var Friday;
+	        		var Saturday;
+
+	        		Sunday =((data[i].CheckSunday == 1)? "#FFBB00" : "transparent");
+	        		Monday =((data[i].CheckMonday == 1)? "#FFBB00" : "transparent");
+	        		Tuesday =((data[i].CheckTuesday == 1)? "#FFBB00" : "transparent");
+	        		Wednesday =((data[i].CheckWednesday == 1)? "#FFBB00" : "transparent");
+	        		Thursday =((data[i].CheckThursday == 1)? "#FFBB00" : "transparent");
+	        		Friday =((data[i].CheckFriday == 1)? "#FFBB00" : "transparent");
+	        		Saturday =((data[i].CheckSaturday == 1)? "#FFBB00" : "transparent");
+	        		
+	        		html += "<tbody align=center>";
 	        		html += "<tr>";
-	        		html += "<tr>";
-	        		html += "<td><input type='button' class='btn-sm' value="+data[i].numberCode+"("+data[i].typeName+") /></td>";
+	        		html += "<td><input type='button' onClick=planCXT('"+data[0].month+data[i].Sunday+"') name='day"+data[0].month+data[i].Sunday+"' style='color:#FF0000;background: "+Sunday+";' class='btn' value='"+data[i].Sunday+"' /></br><input name='day"+data[i].Sunday+"' style='border:none; background: transparent; text-align:center;width:100%;' type='text' value='' readonly></td>";
+	        		html += "<td><input type='button' onClick=planCXT('"+data[0].month+data[i].Monday+"') name='day"+data[0].month+data[i].Monday+"' class='btn' style='color:#000000;background: "+Monday+";' value='"+data[i].Monday+"' /></br><input name='day"+data[i].Monday+"' style='border:none; background: transparent; text-align:center;width:100%;' type='text' value='' readonly></td>";
+	        		html += "<td><input type='button' onClick=planCXT('"+data[0].month+data[i].Tuesday+"') name='day"+data[0].month+data[i].Tuesday+"' class='btn' style='color:#000000;background: "+Tuesday+";' value='"+data[i].Tuesday+"' /></br><input name='day"+data[i].Tuesday+"' style='border:none; background: transparent; text-align:center;width:100%;' type='text' value='' readonly></td>";
+	        		html += "<td><input type='button' onClick=planCXT('"+data[0].month+data[i].Wednesday+"') name='day"+data[0].month+data[i].Wednesday+"' class='btn' style='color:#000000;background: "+Wednesday+";' value='"+data[i].Wednesday+"' /></br><input name='day"+data[i].Wednesday+"' style='border:none; background: transparent; text-align:center;width:100%;' type='text' value='' readonly></td>";
+	        		html += "<td><input type='button' onClick=planCXT('"+data[0].month+data[i].Thursday+"') name='day"+data[0].month+data[i].Thursday+"' class='btn' style='color:#000000;background: "+Thursday+";' value='"+data[i].Thursday+"' /></br><input name='day"+data[i].Thursday+"' style='border:none; background: transparent; text-align:center;width:100%;' type='text' value='' readonly></td>";
+	        		html += "<td><input type='button' onClick=planCXT('"+data[0].month+data[i].Friday+"') name='day"+data[0].month+data[i].Friday+"' class='btn' style='color:#000000;background: "+Friday+";' value='"+data[i].Friday+"' /></br><input name='day"+data[i].Friday+"' style='border:none; background: transparent; text-align:center;width:100%;' type='text' value='' readonly></td>";
+	        		html += "<td><input type='button' onClick=planCXT('"+data[0].month+data[i].Saturday+"') name='day"+data[0].month+data[i].Saturday+"' style='color:#0100FF;background: "+Saturday+";' class='btn' value='"+data[i].Saturday+"' /></br><input name='day"+data[i].Saturday+"' style='border:none; background: transparent; text-align:center;width:100%;' type='text' value='' readonly></td>";
 	        		html += "</tr>";
 	        		html += "</tbody>";
+	        		
 	        	}
+	        	
 	        	html += "</table>"
-	        		$("#number").append(html);
+	        	$("#calendarId").append(html);
 	           console.log(data);
+	           if($("input[value=undefined]")){
+	        	   var dayName = $("input[value *=undefined]").attr('name');
+	        	   $("input[name="+dayName+"]").remove();
+	        	   $("input[value=undefined]").remove();
+	        	   
+	           }	    	   
 	           
 	        },
 	        error : function( error ) {                    
 	           alert( "error" );
 	           console.log(error);
 	        }
-	     });    
+	     }); 
 	   
 	});
-	   
+	
+		
 	 });
 	 
 function createinput(itype, iname, ivalue) {
@@ -69,11 +148,29 @@ document.body.appendChild(form);
 
 }
 
+<<<<<<< HEAD
 function menu(ivalue) {
 	
     createinput("hidden", "caCode", ivalue);
 
     var caCode = document.getElementsByName("caCode")[0];
+=======
+
+//form 생성
+function createForm1(formname, formaction, ta) {
+
+   var form = document.createElement("form");
+   form.target = ta;
+   form.name = formname;
+   form.action = formaction;
+
+   document.body.appendChild(form);
+
+}
+
+//메뉴선택
+function menu(ivalue, identity) {
+>>>>>>> a7faa5eef351c86e643b32b616f9a0b8810e1225
 
     createForm("menuform", "tcmenu", "post");
 
@@ -82,6 +179,26 @@ function menu(ivalue) {
     
     form.submit();
 
+}
+
+function planCXT(value){
+
+	  createinput("hidden", "boardCode", value);
+
+      var boardCode = document.getElementsByName("boardCode")[0];
+
+      createForm1("learningPlanCTXPageform", "learningPlanCTXPage", "POP");
+
+      var form = document.getElementsByName("learningPlanCTXPageform")[0];
+      
+      window.open('', 'POP',
+            "width=570, height=350, resizable = no, scrollbars = no");
+      form.appendChild(boardCode);
+
+      form.submit();
+      
+      $("input[name = boardCode]").remove();
+	
 }
 
 	 
@@ -182,5 +299,6 @@ function menu(ivalue) {
 			</nav>
 
 ${select }
+<div id="calendarId"></div>
 </body>
 </html>
