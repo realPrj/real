@@ -2195,7 +2195,6 @@ public class learningTeacherMM extends TransactionExe {
 			sb.append("<td>이름</td>");
 			sb.append("<td>이메일</td>");
 			sb.append("<td>핸드폰 번호</td>");
-			sb.append("<td>메일 발송</td>");
 			sb.append("<td>쪽지 보내기</td>");
 			sb.append("</tr>");
 			for(int i=0; i<ar.size(); i++) {
@@ -2205,7 +2204,6 @@ public class learningTeacherMM extends TransactionExe {
 				sb.append("<td>" + ar.get(i).getStudentName() + "</td>");
 				sb.append("<td>" + ar.get(i).getEmail() + "</td>");
 				sb.append("<td>" + ar.get(i).getPhone() + "</td>");
-				sb.append("<td>" + "<input type=\"button\"  class='btn' value=\"메일 발송\" onClick=\"sendMail('"+ ar.get(0).getEmail() +"')\"/>" + "</td>");
 				sb.append("<td><input type=\"button\"class='btn' value=\"쪽지보내기\" onClick=\"sendMessage('"+ ar.get(i).getStudentCode() +"','"+ board.getIdentity() +"')\" /></td>");
 				sb.append("</tr>");
 			}
