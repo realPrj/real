@@ -29,6 +29,7 @@ import icia.project.bean.LearningRoomBean;
 import icia.project.services.PageManagement;
 import icia.project.services.ProjectUtils;
 import icia.project.services.StudentManagement;
+import icia.project.services.adminManagement;
 import icia.project.services.learningStudentMM;
 import icia.project.services.learningTeacherMM;
 import icia.project.services.teacherManagement;
@@ -51,6 +52,8 @@ public class FunctionController {
 	private learningStudentMM lsm;
 	@Autowired
 	private PageManagement pm;
+	@Autowired 
+	private adminManagement ad;
 
 	private ModelAndView mav;
 
@@ -60,6 +63,7 @@ public class FunctionController {
 
 		switch(Integer.parseInt(member.getIdentity())) {
 		case 0: // 관리자
+			mav = ad.entrance(1, member);
 			break;
 		case 1:	// 선생님
 			mav = tm.entrance(1, member);

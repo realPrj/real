@@ -125,10 +125,10 @@ public interface IMybatis {
 
 	// 년도 코드 추출
 	public ArrayList<BoardBean> learningYearCodeGet(BoardBean board);
-	
+
 	// 문제유형 코드 추출
 	public String learningTypeCodeGet(BoardBean board);
-	
+
 	// 문제유형 이름 추출
 	public String learningTypeNameGet(BoardBean board);
 
@@ -370,7 +370,7 @@ public interface IMybatis {
 
 	// 학생 로그 추출
 	public ArrayList<LearningRoomBean> attendanceGet(LearningRoomBean room);
-	
+
 	// 보낸 쪽지 리스트
 	public ArrayList<BoardBean> sentMessageList(BoardBean board);
 
@@ -379,35 +379,65 @@ public interface IMybatis {
 
 	// 선생님 로그 추출
 	public ArrayList<LearningRoomBean> tcattendanceGet(LearningRoomBean room);
-	
+
 	// 쪽지 보내기 1
 	public int sendMessageS(BoardBean board);
-	
+
 	//쪽지 보내기 2
 	public int sendMessageG(BoardBean board);
-	
+
 	// 받은 쪽지 리스트
 	public ArrayList<BoardBean> getMessageList(BoardBean board);
-	
+
 	// 받은 쪽지 내용확인
 	public BoardBean getMessageCTX(BoardBean board);
-	
+
 	// 보낸 쪽지 내용확인
 	public BoardBean sentMessageCTX(BoardBean board);
-	
+
 	// 보낸 쪽지 삭제
 	public int sentMessageDelete(BoardBean board);
-	
+
 	// 받은 쪽지 삭제
 	public int getMessageDelete(BoardBean board);
-	
+
 	// 선생님 ㄹ스트
 	public BoardBean getTeacherInfo(BoardBean board);
-	
+
 	// 학생 수강생 리스트
 	public ArrayList<BoardBean> getStudentList(BoardBean board);
-	
 
+
+	// admin id check
+	public int adminIdCheck(MemberBean member);
+
+	// admin pwd check
+	public int adminPassowrd(MemberBean member);
+
+	// all student
+	public int allStudent(MemberBean member);
+	// all student
+	public int allteacher(MemberBean member);
+	// student all
+	public ArrayList<MemberBean> student(MemberBean member);
+	// student all
+	public ArrayList<MemberBean> teacher(MemberBean member);
+	// 학생 질문개수
+	public int studnetWorngCount(MemberBean member);
+	// 학생  질문개수
+	public int studentQueryCount(MemberBean member);
+	// 학생 ㅌㅗㄹㄴ 질문개수
+	public int studentDebateCount(MemberBean member);
+	//clas,wrong,refer,notice,debate,wronganswer count
+	public int classCount(MemberBean member);
+	public int wrongTagcount(MemberBean member);
+	public int refercount(MemberBean member);
+	public int noticecount(MemberBean member);
+	public int debatecount(MemberBean member);
+	public int wrongecount(MemberBean member);
+	// the end
+	// 학생 상태코드 확인(로그인시)
+	public String stateSTCodeCheck(MemberBean member);
 
 }
 

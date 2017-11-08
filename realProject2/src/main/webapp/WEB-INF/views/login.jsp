@@ -132,6 +132,6 @@ body {
 		&nbsp;&nbsp;
 		<input type="button" value="회원가입" class="btn" onClick="eventClick('joinPageform','joinPage','post')"/>
 	
-	<input type="hidden" name="identity" value="${identity }" />${identity }
+	<input type="hidden" name="identity" value="${identity }" />
 </body>
 </html>

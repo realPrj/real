@@ -94,25 +94,36 @@ public class StudentManagement extends TransactionExe {
 
 		try {
 
-			if(dao.stIdCheck(member) != 0) {	// 아이디 체크
-
-				if(enc.matches(member.getPwd(),dao.stPwdGet(member).getPwd())) {	// 비밀번호 체크
-					member.setLogType(1);
-					member = dao.stCodeGet(member);	// 학생코드 추출
-					if(dao.stLogHistory(member) != 0) {	// 로그히스토리
-
-						// 동적으로 학습방 쏴주기
-
-						session.setAttribute("stCode", member.getStudentCode());
-						session.setAttribute("identity", member.getIdentity());
+			String state = dao.stateSTCodeCheck(member);
+			if(Integer.parseInt(state) == 1) {
+				if(dao.stIdCheck(member) != 0) {	// 아이디 체크
 
 
-						mav = pm.entrance(2, null);
-						transaction = true;
+					if(enc.matches(member.getPwd(),dao.stPwdGet(member).getPwd())) {	// 비밀번호 체크
+						member.setLogType(1);
+						member = dao.stCodeGet(member);	// 학생코드 추출
+						if(dao.stLogHistory(member) != 0) {	// 로그히스토리
+
+							// 동적으로 학습방 쏴주기
+
+							session.setAttribute("stCode", member.getStudentCode());
+							session.setAttribute("identity", member.getIdentity());
+
+
+							mav = pm.entrance(2, null);
+							transaction = true;
+						}else {
+							page = "login";
+							mav.addObject("identity", "2");
+							mav.addObject("message", "alert('로그인 실패 하셨습니다.')");
+							mav.addObject("id", member.getId());
+						}
+
 					}else {
-						page = "login";
+						mav = new ModelAndView();
+						mav.setViewName("login");
 						mav.addObject("identity", "2");
-						mav.addObject("message", "alert('로그인 실패 하셨습니다.')");
+						mav.addObject("message", "alert('비밀번호가 틀렸습니다.')");
 						mav.addObject("id", member.getId());
 					}
 
@@ -120,17 +131,17 @@ public class StudentManagement extends TransactionExe {
 					mav = new ModelAndView();
 					mav.setViewName("login");
 					mav.addObject("identity", "2");
-					mav.addObject("message", "alert('비밀번호가 틀렸습니다.')");
+					mav.addObject("message", "alert('아이디가 틀렸습니다.')");
 					mav.addObject("id", member.getId());
 				}
-
-			}else {
+			}	
+			else {
 				mav = new ModelAndView();
 				mav.setViewName("login");
 				mav.addObject("identity", "2");
-				mav.addObject("message", "alert('아이디가 틀렸습니다.')");
+				mav.addObject("message", "alert('탈퇴하신 아이디 입니다.')");
 				mav.addObject("id", member.getId());
-			}		
+			}
 
 		}catch(Exception ex) {
 			ex.printStackTrace();
@@ -315,7 +326,7 @@ public class StudentManagement extends TransactionExe {
 		try {
 
 			dao.stInformationChange(member);
-			
+
 			transaction = true;
 
 		}catch(Exception ex) {
@@ -339,12 +350,12 @@ public class StudentManagement extends TransactionExe {
 
 		try {
 			member.setStudentCode((String)session.getAttribute("stCode"));
-			
+
 			// 회원정보와 로그 기록은 남긴다.(단 회원정보에 상태코드 update 하여 탈퇴로 변경해주자!)
 
 			// 다른 테이블도 delete 시켜줘야함
 			if(enc.matches(member.getPwd(),dao.checkPwd(member).getPwd())) {
-		
+
 				dao.tasksubmitdelete(member);
 
 				dao.WRONGANSWERNOTES(member);
@@ -353,7 +364,7 @@ public class StudentManagement extends TransactionExe {
 				dao.MESSAGEdelete(member);
 				dao.learningstudentdelete(member);
 				if(dao.updateState(member) != 0) {
-	
+
 					session.removeAttribute("stCode");
 					session.removeAttribute("identity");
 
@@ -364,7 +375,7 @@ public class StudentManagement extends TransactionExe {
 
 
 			}	else {
-				
+
 				mav.setViewName("studentMain");
 				mav.addObject("message", "alert('비밀번호가 틀리셨습니다.')");
 
@@ -396,8 +407,8 @@ public class StudentManagement extends TransactionExe {
 			member.setPwd(enc.encode(member.getPwd()));
 
 			dao.stInformationPWDChange(member);
-				
-				transaction = true;
+
+			transaction = true;
 
 		}catch(Exception ex) {
 
