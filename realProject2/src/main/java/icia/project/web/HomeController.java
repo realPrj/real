@@ -715,6 +715,7 @@ public class HomeController  {
 	@RequestMapping(value = "/sendMessagePage", method = RequestMethod.POST)
 	public ModelAndView sendMessagePage(@ModelAttribute BoardBean board) {
 		System.out.println(board.getMessageOther());
+		System.out.println(board.getStudentCode());
 		if(board.getIdentity().equals("1")) {
 			mav = ltmm.entrance(46, board);
 		}else {

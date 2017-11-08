@@ -156,6 +156,7 @@ function stadmin(studentCode){
  }
  
  function sendMessage(studentCode, identity){
+	 alert(studentCode);
 	 createForm("message", "sendMessagePage", "post");
 	 
 	 var form = document.getElementsByName("message")[0];
@@ -276,12 +277,14 @@ function stadmin(studentCode){
 			<div class="col-lg-35 col-md-12">
 
 				<div class="card">
+					${teacherInfo }
 					<br />
+					
 					<h2>
 						<b>수강생</b>
 					</h2>
 			
-					${teacherLearningSTadmin }
+					${teacherLearningSTadmin } ${button }
 					<hr />
 
 					<!-- 페이지네이션넣기 -->
