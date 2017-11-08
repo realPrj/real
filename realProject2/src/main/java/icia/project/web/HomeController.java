@@ -260,7 +260,7 @@ public class HomeController  {
 	// 학생 학습메뉴
 	@RequestMapping(value = "/stmenu", method = RequestMethod.POST)
 	public ModelAndView stMenu(@ModelAttribute  BoardBean board, MemberBean member,LearningRoomBean room) {
-
+		System.out.println("asdf");
 		int code = Integer.parseInt(board.getCaCode());
 
 		switch(code) {
