@@ -84,7 +84,7 @@ function createinput(itype, iname, ivalue){
 
 //메뉴선택
 function menu(ivalue){
-	
+	alert(ivalue);
 	createinput("hidden", "caCode", ivalue);
 	
 	var caCode = document.getElementsByName("caCode")[0];
