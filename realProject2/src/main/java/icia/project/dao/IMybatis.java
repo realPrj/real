@@ -448,6 +448,19 @@ public interface IMybatis {
 	// 강의계획서 내용
 	public BoardBean planCTX(BoardBean board);
 
+	// 강의계획서 등록
+	public int planInsert(BoardBean board);
+
+	// 강의계획서 수정
+	public int planUpdate(BoardBean board);
+	
+	// 강의계획서 삭제
+	public int planDelete(BoardBean board);
+	
+	
+	
+
+
 
 }
 

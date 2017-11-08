@@ -42,89 +42,102 @@
 </head>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script>
+
 $(document).ready(function() {
-	   
-	$("#yearSelect").click(function() {
-		var yearcode = $(this).val();
-		
-	    $.ajax({
-	        type: "post",
-	        url: "calendar",
-	        data: { month : yearcode},             		
-	        dataType: "json",                            
-	        timeout : "5000",                              
-	        success : function(data) {  
-	   
-	        	var lengthNum = data.length;
-	        	$("#calendarId").empty();
-	        	var dayName = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
-	        	var html = "";
-
-	        	html += "</br><table align=center id='"+data[0].month+"'>"
-	        		html += "<tbody align=center>";
-        			html += "<tr>";
-        			html += "<td><input type='button' style='color:#FF0000' class='btn' value="+dayName[0]+" /></td>";
-        			html += "<td><input type='button' class='btn' value="+dayName[1]+" /></td>";
-        			html += "<td><input type='button' class='btn' value="+dayName[2]+" /></td>";
-        			html += "<td><input type='button' class='btn' value="+dayName[3]+" /></td>";
-        			html += "<td><input type='button' class='btn' value="+dayName[4]+" /></td>";
-        			html += "<td><input type='button' class='btn' value="+dayName[5]+" /></td>";
-        			html += "<td><input type='button' style='color:#0100FF' class='btn' value="+dayName[6]+" /></td>";
-        			html += "</tr>";
-	        		html += "</tbody>";
-	        	for(var i =0; i < data[0].allSize; i++){
-	        		var Sunday;
-	        		var Monday;
-	        		var Tuesday;
-	        		var Wednesday;
-	        		var Thursday;
-	        		var Friday;
-	        		var Saturday;
-
-	        		Sunday =((data[i].CheckSunday == 1)? "#FFBB00" : "transparent");
-	        		Monday =((data[i].CheckMonday == 1)? "#FFBB00" : "transparent");
-	        		Tuesday =((data[i].CheckTuesday == 1)? "#FFBB00" : "transparent");
-	        		Wednesday =((data[i].CheckWednesday == 1)? "#FFBB00" : "transparent");
-	        		Thursday =((data[i].CheckThursday == 1)? "#FFBB00" : "transparent");
-	        		Friday =((data[i].CheckFriday == 1)? "#FFBB00" : "transparent");
-	        		Saturday =((data[i].CheckSaturday == 1)? "#FFBB00" : "transparent");
-	        		
-	        		html += "<tbody align=center>";
-	        		html += "<tr>";
-	        		html += "<td><input type='button' onClick=planCXT('"+data[0].month+data[i].Sunday+"') name='day"+data[0].month+data[i].Sunday+"' style='color:#FF0000;background: "+Sunday+";' class='btn' value='"+data[i].Sunday+"' /></br><input name='day"+data[i].Sunday+"' style='border:none; background: transparent; text-align:center;width:100%;' type='text' value='' readonly></td>";
-	        		html += "<td><input type='button' onClick=planCXT('"+data[0].month+data[i].Monday+"') name='day"+data[0].month+data[i].Monday+"' class='btn' style='color:#000000;background: "+Monday+";' value='"+data[i].Monday+"' /></br><input name='day"+data[i].Monday+"' style='border:none; background: transparent; text-align:center;width:100%;' type='text' value='' readonly></td>";
-	        		html += "<td><input type='button' onClick=planCXT('"+data[0].month+data[i].Tuesday+"') name='day"+data[0].month+data[i].Tuesday+"' class='btn' style='color:#000000;background: "+Tuesday+";' value='"+data[i].Tuesday+"' /></br><input name='day"+data[i].Tuesday+"' style='border:none; background: transparent; text-align:center;width:100%;' type='text' value='' readonly></td>";
-	        		html += "<td><input type='button' onClick=planCXT('"+data[0].month+data[i].Wednesday+"') name='day"+data[0].month+data[i].Wednesday+"' class='btn' style='color:#000000;background: "+Wednesday+";' value='"+data[i].Wednesday+"' /></br><input name='day"+data[i].Wednesday+"' style='border:none; background: transparent; text-align:center;width:100%;' type='text' value='' readonly></td>";
-	        		html += "<td><input type='button' onClick=planCXT('"+data[0].month+data[i].Thursday+"') name='day"+data[0].month+data[i].Thursday+"' class='btn' style='color:#000000;background: "+Thursday+";' value='"+data[i].Thursday+"' /></br><input name='day"+data[i].Thursday+"' style='border:none; background: transparent; text-align:center;width:100%;' type='text' value='' readonly></td>";
-	        		html += "<td><input type='button' onClick=planCXT('"+data[0].month+data[i].Friday+"') name='day"+data[0].month+data[i].Friday+"' class='btn' style='color:#000000;background: "+Friday+";' value='"+data[i].Friday+"' /></br><input name='day"+data[i].Friday+"' style='border:none; background: transparent; text-align:center;width:100%;' type='text' value='' readonly></td>";
-	        		html += "<td><input type='button' onClick=planCXT('"+data[0].month+data[i].Saturday+"') name='day"+data[0].month+data[i].Saturday+"' style='color:#0100FF;background: "+Saturday+";' class='btn' value='"+data[i].Saturday+"' /></br><input name='day"+data[i].Saturday+"' style='border:none; background: transparent; text-align:center;width:100%;' type='text' value='' readonly></td>";
-	        		html += "</tr>";
-	        		html += "</tbody>";
-	        		
-	        	}
-	        	
-	        	html += "</table>"
-	        	$("#calendarId").append(html);
-	           console.log(data);
-	           if($("input[value=undefined]")){
-	        	   var dayName = $("input[value *=undefined]").attr('name');
-	        	   $("input[name="+dayName+"]").remove();
-	        	   $("input[value=undefined]").remove();
-	        	   
-	           }	    	   
-	           
-	        },
-	        error : function( error ) {                    
-	           alert( "error" );
-	           console.log(error);
-	        }
-	     }); 
-	   
-	});
 	
-		
+	 $("#yearSelect").click(function() {
+
+			var yearcode = $(this).val();
+			
+			continuing(yearcode);
+
+		});
+	
+	
 	 });
 	 
+function continuing(yearcode){
+	
+	$.ajax({
+        type: "post",
+        url: "calendar",
+        data: { month : yearcode},             		
+        dataType: "json",                            
+        timeout : "5000",                              
+        success : function(data) {  
+
+        	var lengthNum = data.length;
+        	$("#calendarId").empty();
+        	$("#monthSring").empty();
+        	var monthSring = data[0].month.substring(4)+"월";
+        	$("#monthSring").append(monthSring);
+        	
+        	var dayName = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+        	var html = "";
+
+        	html += "</br><table align=center id='"+data[0].month+"'>"
+        		html += "<tbody align=center>";
+    			html += "<tr>";
+    			html += "<td><input type='button' style='color:#FF0000' class='btn' value="+dayName[0]+" /></td>";
+    			html += "<td><input type='button' class='btn' value="+dayName[1]+" /></td>";
+    			html += "<td><input type='button' class='btn' value="+dayName[2]+" /></td>";
+    			html += "<td><input type='button' class='btn' value="+dayName[3]+" /></td>";
+    			html += "<td><input type='button' class='btn' value="+dayName[4]+" /></td>";
+    			html += "<td><input type='button' class='btn' value="+dayName[5]+" /></td>";
+    			html += "<td><input type='button' style='color:#0100FF' class='btn' value="+dayName[6]+" /></td>";
+    			html += "</tr>";
+        		html += "</tbody>";
+        	for(var i =0; i < data[0].allSize; i++){
+        		var Sunday;
+        		var Monday;
+        		var Tuesday;
+        		var Wednesday;
+        		var Thursday;
+        		var Friday;
+        		var Saturday;
+
+        		Sunday =((data[i].CheckSunday == 1)? "#FFBB00" : "transparent");
+        		Monday =((data[i].CheckMonday == 1)? "#FFBB00" : "transparent");
+        		Tuesday =((data[i].CheckTuesday == 1)? "#FFBB00" : "transparent");
+        		Wednesday =((data[i].CheckWednesday == 1)? "#FFBB00" : "transparent");
+        		Thursday =((data[i].CheckThursday == 1)? "#FFBB00" : "transparent");
+        		Friday =((data[i].CheckFriday == 1)? "#FFBB00" : "transparent");
+        		Saturday =((data[i].CheckSaturday == 1)? "#FFBB00" : "transparent");
+        		
+        		html += "<tbody align=center>";
+        		html += "<tr>";
+        		html += "<td><input type='button' onClick=planCXT('"+data[0].month+data[i].Sunday+"') name='day"+data[0].month+data[i].Sunday+"' style='color:#FF0000;background: "+Sunday+";' class='btn' value='"+data[i].Sunday+"' /></br><input name='day"+data[i].Sunday+"' style='border:none; background: transparent; text-align:center;width:100%;' type='text' value='' readonly></td>";
+        		html += "<td><input type='button' onClick=planCXT('"+data[0].month+data[i].Monday+"') name='day"+data[0].month+data[i].Monday+"' class='btn' style='color:#000000;background: "+Monday+";' value='"+data[i].Monday+"' /></br><input name='day"+data[i].Monday+"' style='border:none; background: transparent; text-align:center;width:100%;' type='text' value='' readonly></td>";
+        		html += "<td><input type='button' onClick=planCXT('"+data[0].month+data[i].Tuesday+"') name='day"+data[0].month+data[i].Tuesday+"' class='btn' style='color:#000000;background: "+Tuesday+";' value='"+data[i].Tuesday+"' /></br><input name='day"+data[i].Tuesday+"' style='border:none; background: transparent; text-align:center;width:100%;' type='text' value='' readonly></td>";
+        		html += "<td><input type='button' onClick=planCXT('"+data[0].month+data[i].Wednesday+"') name='day"+data[0].month+data[i].Wednesday+"' class='btn' style='color:#000000;background: "+Wednesday+";' value='"+data[i].Wednesday+"' /></br><input name='day"+data[i].Wednesday+"' style='border:none; background: transparent; text-align:center;width:100%;' type='text' value='' readonly></td>";
+        		html += "<td><input type='button' onClick=planCXT('"+data[0].month+data[i].Thursday+"') name='day"+data[0].month+data[i].Thursday+"' class='btn' style='color:#000000;background: "+Thursday+";' value='"+data[i].Thursday+"' /></br><input name='day"+data[i].Thursday+"' style='border:none; background: transparent; text-align:center;width:100%;' type='text' value='' readonly></td>";
+        		html += "<td><input type='button' onClick=planCXT('"+data[0].month+data[i].Friday+"') name='day"+data[0].month+data[i].Friday+"' class='btn' style='color:#000000;background: "+Friday+";' value='"+data[i].Friday+"' /></br><input name='day"+data[i].Friday+"' style='border:none; background: transparent; text-align:center;width:100%;' type='text' value='' readonly></td>";
+        		html += "<td><input type='button' onClick=planCXT('"+data[0].month+data[i].Saturday+"') name='day"+data[0].month+data[i].Saturday+"' style='color:#0100FF;background: "+Saturday+";' class='btn' value='"+data[i].Saturday+"' /></br><input name='day"+data[i].Saturday+"' style='border:none; background: transparent; text-align:center;width:100%;' type='text' value='' readonly></td>";
+        		html += "</tr>";
+        		html += "</tbody>";
+        		
+        	}
+        	
+        	html += "</table>"
+        	$("#calendarId").append(html);
+           console.log(data);
+           if($("input[value=undefined]")){
+        	   var dayName = $("input[value *=undefined]").attr('name');
+        	   $("input[name="+dayName+"]").remove();
+        	   $("input[value=undefined]").remove();
+           }	    	   
+           
+        },
+        error : function( error ) {                    
+           console.log(error);
+        }
+     }); 
+	setTimeout("continuing("+yearcode+")",2000);
+	
+	
+}	 
+	 
+	  
 function createinput(itype, iname, ivalue) {
     var input = document.createElement("input");
     input.type = itype;
@@ -161,20 +174,13 @@ function createForm1(formname, formaction, ta) {
 
 }
 
-<<<<<<< HEAD
-function menu(ivalue) {
-	
-    createinput("hidden", "caCode", ivalue);
-
-    var caCode = document.getElementsByName("caCode")[0];
-=======
 //메뉴선택
 function menu(ivalue) {
 	
 	 createinput("hidden", "caCode", ivalue);
 
 	 var caCode = document.getElementsByName("caCode")[0];
->>>>>>> 91704e4cc50e27071fdd1576f2b25ffbcc97726a
+
 
     createForm("menuform", "tcmenu", "post");
 
@@ -196,7 +202,7 @@ function planCXT(value){
       var form = document.getElementsByName("learningPlanCTXPageform")[0];
       
       window.open('', 'POP',
-            "width=570, height=350, resizable = no, scrollbars = no");
+            "width=550, height=450, resizable = no, scrollbars = no");
       form.appendChild(boardCode);
 
       form.submit();
@@ -301,6 +307,7 @@ function planCXT(value){
 			</div>
 			</nav>
 ${select }
+<div align="center"><h1 id="monthSring"></h1></div>
 <div id="calendarId"></div>
 </body>
 </html>

@@ -1261,6 +1261,7 @@
 		TC_ID = #{id}
 
 	</select>
+	
 	<!-- 선생님 상태 업데이트 -->
 	<update id="updateTeacherState" parameterType="member">
 		UPDATE TEACHER
@@ -1269,7 +1270,6 @@
 		WHERE
 		TC_ID = #{id}
 	</update>
-
 
 	<!-- 선생님 과제 댓글 뽑기 -->
 	<select id="teacherTaskTag" resultType="board" parameterType="board">
@@ -1441,8 +1441,27 @@
 	
 	<!-- 강의계획서 내용 -->
 	<select id="planCTX" resultType="board" parameterType="board">
-		SELECT PL_CODE AS boardCode, PL_TITLE AS boardTitle, PL_CONTENT AS boardContent FROM PLAN WHERE PL_LRCODE=#{roomCode} AND PL_CODE=#{boardCode}
+		SELECT PL_LRCODE AS roomCode, PL_CODE AS boardCode, PL_TITLE AS boardTitle, PL_CONTENT AS boardContent FROM PLAN WHERE PL_LRCODE=#{roomCode} AND PL_CODE=#{boardCode}
 	</select>
+	
+	<!-- 강의계획서 등록 -->
+	<insert id="planInsert" parameterType="board">
+		INSERT INTO PLAN VALUES(#{roomCode},#{id},#{boardCode}, #{boardTitle}, #{boardContent})
+	</insert>
+
+	<!-- 강의계획서 수정 -->
+	<update id="planUpdate" parameterType="board">
+		UPDATE PLAN
+		SET
+		PL_TITLE=#{boardTitle},PL_CONTENT=#{boardContent}
+		WHERE
+		PL_LRCODE=#{roomCode} AND PL_CODE=#{boardCode}
+	</update>
+	
+	<!-- 강의계획서 삭제 -->
+	<delete id="planDelete" parameterType="board">
+		DELETE FROM PLAN WHERE PL_LRCODE=#{roomCode} AND PL_CODE=#{boardCode}
+	</delete>
 
 </mapper>
 
