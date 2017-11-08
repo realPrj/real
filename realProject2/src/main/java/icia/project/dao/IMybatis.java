@@ -416,10 +416,37 @@ public interface IMybatis {
 	public ArrayList<BoardBean> getStudentList(BoardBean board);
 
 	// 달력출력
-	public ArrayList<Calendar> calendarGet(Calendar cd);
-	
+	public ArrayList<Calendar> calendarGet(Calendar calendar);
+
 	// 현재 년도 추출
 	public String nowYearGet();
+
+	// 강의계획서 체크
+	public int planCheck(BoardBean board);
+
+	// 일요일 체크
+	public int CheckSunday(Calendar cd);
+
+	// 월요일 체크
+	public int CheckMonday(Calendar cd);
+
+	// 화요일 체크
+	public int CheckTuesday(Calendar cd);
+
+	// 수요일 체크
+	public int CheckWednesday(Calendar cd);
+
+	// 목요일 체크
+	public int CheckThursday(Calendar cd);
+
+	// 금요일 체크
+	public int CheckFriday(Calendar cd);
+
+	// 토요일 체크
+	public int CheckSaturday(Calendar cd);
+
+	// 강의계획서 내용
+	public BoardBean planCTX(BoardBean board);
 
 
 }

@@ -5,6 +5,10 @@ import org.apache.ibatis.type.Alias;
 @Alias("calendar")
 public class Calendar {
 	
+	private String roomCode;
+	
+	private String boardCode;
+	
 	private String month; // 이번달 월
 	
 	private String Monday;
@@ -17,8 +21,70 @@ public class Calendar {
 	
 	private int allSize;	// 사이즈
 	
+	private String CheckMonday;
+	private String CheckTuesday;
+	private String CheckWednesday;
+	private String CheckThursday;
+	private String CheckFriday;
+	private String CheckSaturday;
+	private String CheckSunday;
+	
 	
 
+	public String getBoardCode() {
+		return boardCode;
+	}
+	public void setBoardCode(String boardCode) {
+		this.boardCode = boardCode;
+	}
+	public String getCheckMonday() {
+		return CheckMonday;
+	}
+	public void setCheckMonday(String checkMonday) {
+		CheckMonday = checkMonday;
+	}
+	public String getCheckTuesday() {
+		return CheckTuesday;
+	}
+	public void setCheckTuesday(String checkTuesday) {
+		CheckTuesday = checkTuesday;
+	}
+	public String getCheckWednesday() {
+		return CheckWednesday;
+	}
+	public void setCheckWednesday(String checkWednesday) {
+		CheckWednesday = checkWednesday;
+	}
+	public String getCheckThursday() {
+		return CheckThursday;
+	}
+	public void setCheckThursday(String checkThursday) {
+		CheckThursday = checkThursday;
+	}
+	public String getCheckFriday() {
+		return CheckFriday;
+	}
+	public void setCheckFriday(String checkFriday) {
+		CheckFriday = checkFriday;
+	}
+	public String getCheckSaturday() {
+		return CheckSaturday;
+	}
+	public void setCheckSaturday(String checkSaturday) {
+		CheckSaturday = checkSaturday;
+	}
+	public String getCheckSunday() {
+		return CheckSunday;
+	}
+	public void setCheckSunday(String checkSunday) {
+		CheckSunday = checkSunday;
+	}
+	public String getRoomCode() {
+		return roomCode;
+	}
+	public void setRoomCode(String roomCode) {
+		this.roomCode = roomCode;
+	}
 	public int getAllSize() {
 		return allSize;
 	}
