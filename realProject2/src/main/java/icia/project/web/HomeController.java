@@ -25,6 +25,7 @@ import icia.project.bean.LearningRoomBean;
 import icia.project.bean.MemberBean;
 import icia.project.services.PageManagement;
 import icia.project.services.StudentManagement;
+import icia.project.services.adminManagement;
 import icia.project.services.learningStudentMM;
 import icia.project.services.learningTeacherMM;
 import icia.project.services.teacherManagement;
@@ -41,7 +42,8 @@ public class HomeController  {
 	private learningStudentMM lsmm;
 	@Autowired
 	private StudentManagement stm;
-
+	@Autowired 
+	private adminManagement ad;
 	@Autowired
 	private teacherManagement ttmm;
 	private ModelAndView mav;
@@ -380,11 +382,11 @@ public class HomeController  {
 	// 선생님 오답노트 코멘트 페이지
 	@RequestMapping(value = "/learningWANCXTPage", method = RequestMethod.GET)
 	public ModelAndView learningWANCXTPage(@ModelAttribute BoardBean board) {
-		System.out.println("asdf");
+
 		mav = ltmm.entrance(17, board);
 		return mav;
 	}
-	
+
 	// 학생 오답노트 코멘트 페이지
 	@RequestMapping(value = "/learningWANCMCXTPage", method = RequestMethod.GET)
 	public ModelAndView learningWANCMCXTPage(@ModelAttribute BoardBean board) {
@@ -494,7 +496,6 @@ public class HomeController  {
 
 		mav.addObject("boardTitle",board.getBoardTitle());
 		mav.addObject("boardDate",board.getBoardDate());
-
 
 		mav.addObject("boardId",board.getBoardId());
 		mav.addObject("boardContent",board.getBoardContent());
@@ -683,7 +684,7 @@ public class HomeController  {
 		int code = Integer.parseInt(board.getCaCode());
 		System.out.println("컨트롤러 신분코드 : " + board.getIdentity());
 		switch(code) {
-		
+
 		case 2: // 받은쪽지 리스트 페이지
 			System.out.println("일로오냐.");
 			if(board.getIdentity().equals("1")) {
@@ -693,8 +694,8 @@ public class HomeController  {
 				mav = lsmm.entrance(36, board);
 				break;
 			}
-			
-			
+
+
 		case 3: // 보낸쪽지 리스트 페이지
 			if(board.getIdentity().equals("1")) {
 				mav = ltmm.entrance(43, board);
@@ -703,8 +704,8 @@ public class HomeController  {
 				mav = lsmm.entrance(38, board);
 				break;
 			}
-			
-			
+
+
 		}
 
 		return mav;
@@ -720,7 +721,7 @@ public class HomeController  {
 			
 			mav = lsmm.entrance(39, board);
 		}
-		
+
 
 		return mav;
 	}
@@ -734,34 +735,34 @@ public class HomeController  {
 		}else {
 			mav = lsmm.entrance(41, board);
 		}
-		
+
 		return mav;
 	}
 
 	// 받은쪽지 내용확인 페이지
 	@RequestMapping(value = "/getMessageCTX", method = RequestMethod.POST)
 	public ModelAndView getMessageCTX(@ModelAttribute BoardBean board) {
-		
+
 		if(board.getIdentity().equals("1")) {
 			mav = ltmm.entrance(49, board);
 		}else{
 			mav = lsmm.entrance(37, board);
 		}
-		
+
 		return mav;
 	}
-	
+
 	// 문제 번호 보여주기
 	@RequestMapping(value = "/subjectCCT1", method = RequestMethod.POST,produces = "application/text; charset=utf8")
 	@ResponseBody public String subjectCCT1(@ModelAttribute BoardBean board) {
 
 		ArrayList<BoardBean> code = null;
-		
+
 		// 문제번호
 		code = pm.subjectCCT1(board);		
-		
+
 		Gson gson = new Gson();
-		
+
 		String test = gson.toJson(code);
 	
 		return test;
@@ -796,9 +797,33 @@ public class HomeController  {
 	public ModelAndView learningPlanCTXPage(@ModelAttribute BoardBean board) {
 
 		mav = ltmm.entrance(53, board);
+		return mav;
+		}
 
+	// 해당 학생 자세히 보기
+	@RequestMapping(value = "/studentCXT", method = RequestMethod.GET)
+	public ModelAndView studentCXT(@ModelAttribute MemberBean member) {
+		mav =ad.entrance(2, member);
+		mav.setViewName("adminstudentCXT");
 		return mav;
 	}
+	// 해당 선생님 자세히보기
+	@RequestMapping(value = "/teacherCxt", method = RequestMethod.GET)
+	public ModelAndView teacherCxt(@ModelAttribute MemberBean member) {
+		mav =ad.entrance(3, member);
+		mav.setViewName("adminTeacherCXT");
+		return mav;
+	}
+	// 해당 메일보내기 
+	@RequestMapping(value = "/email", method = RequestMethod.GET)
+	public ModelAndView email(@ModelAttribute MemberBean member) {
+
+		mav = new ModelAndView();
+		mav.addObject("email",member.getEmail());
+		mav.setViewName("adminEmail");
+		return mav;
+	}
+
 
 	// 강의계획서 등록 페이지
 	@RequestMapping(value = "/learningPlanInsertPage", method = RequestMethod.POST)

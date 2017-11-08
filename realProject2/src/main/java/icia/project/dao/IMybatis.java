@@ -456,10 +456,37 @@ public interface IMybatis {
 	
 	// 강의계획서 삭제
 	public int planDelete(BoardBean board);
-	
-	
-	
 
+	// admin id check
+	public int adminIdCheck(MemberBean member);
+
+	// admin pwd check
+	public int adminPassowrd(MemberBean member);
+
+	// all student
+	public int allStudent(MemberBean member);
+	// all student
+	public int allteacher(MemberBean member);
+	// student all
+	public ArrayList<MemberBean> student(MemberBean member);
+	// student all
+	public ArrayList<MemberBean> teacher(MemberBean member);
+	// 학생 질문개수
+	public int studnetWorngCount(MemberBean member);
+	// 학생  질문개수
+	public int studentQueryCount(MemberBean member);
+	// 학생 ㅌㅗㄹㄴ 질문개수
+	public int studentDebateCount(MemberBean member);
+	//clas,wrong,refer,notice,debate,wronganswer count
+	public int classCount(MemberBean member);
+	public int wrongTagcount(MemberBean member);
+	public int refercount(MemberBean member);
+	public int noticecount(MemberBean member);
+	public int debatecount(MemberBean member);
+	public int wrongecount(MemberBean member);
+	// the end
+	// 학생 상태코드 확인(로그인시)
+	public String stateSTCodeCheck(MemberBean member);
 
 
 }

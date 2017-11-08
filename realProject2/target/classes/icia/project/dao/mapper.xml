@@ -341,7 +341,8 @@
 		QT_STYPECODE
 		FROM QUESTION
 		WHERE
-		QT_STYPEYASBCODE=#{roomSB} AND QT_STYPEYACODE=#{yearCode} AND QT_NUMBER=#{numberCode}
+		QT_STYPEYASBCODE=#{roomSB} AND QT_STYPEYACODE=#{yearCode} AND
+		QT_NUMBER=#{numberCode}
 	</select>
 
 
@@ -377,7 +378,8 @@
 		parameterType="board">
 		SELECT
 		QT_NUMBER AS numberCode
-		FROM QUESTION WHERE QT_STYPEYASBCODE =#{roomSB} AND QT_STYPEYACODE=#{yearCode}
+		FROM QUESTION WHERE
+		QT_STYPEYASBCODE =#{roomSB} AND QT_STYPEYACODE=#{yearCode}
 		ORDER
 		BY
 		to_number(QT_NUMBER) ASC
@@ -1300,69 +1302,93 @@
 
 	<!-- 학생 로그인기록 추출 -->
 	<select id="attendanceGet" resultType="room" parameterType="room">
-	SELECT SLOH_DATE AS attendDate,SLOH_TYPE AS attendanceType 
-	FROM STUDENTLOGOUTHISTORY 
-	WHERE SLOH_STRFSTUDENTCODE = #{studentCode}
-	ORDER BY SLOH_DATE DESC
+		SELECT SLOH_DATE AS attendDate,SLOH_TYPE AS attendanceType
+		FROM
+		STUDENTLOGOUTHISTORY
+		WHERE SLOH_STRFSTUDENTCODE = #{studentCode}
+		ORDER
+		BY SLOH_DATE DESC
 	</select>
 
 	<!-- 보낸쪽지 리스트 -->
 	<select id="sentMessageList" resultType="board" parameterType="board">
-		SELECT MS_OTHER AS messageOther, MS_ID AS messageId, MS_DATE AS messageDate, MS_TITLE AS messageTitle, MS_CONTENT AS messageContent 
-		FROM MESSAGE WHERE MS_LRCODE = #{roomCode} AND MS_MSCCODE = #{messageCode} AND MS_ID = #{messageId} ORDER BY MS_DATE DESC
+		SELECT MS_OTHER AS messageOther, MS_ID AS messageId, MS_DATE AS
+		messageDate, MS_TITLE AS messageTitle, MS_CONTENT AS messageContent
+		FROM MESSAGE WHERE MS_LRCODE = #{roomCode} AND MS_MSCCODE =
+		#{messageCode} AND MS_ID = #{messageId} ORDER BY MS_DATE DESC
 	</select>
 
 	<!-- 선생님 상태코드 확인(로그인시) -->
 	<select id="stateCodeCheck" resultType="String" parameterType="member">
 		SELECT TC_STATECODE FROM TEACHER WHERE TC_ID = #{id}
 	</select>
-	
+
 	<!-- 쪽지 보내기1 -->
 	<insert id="sendMessageS" parameterType="board">
-		INSERT INTO MESSAGE VALUES(#{messageCode}, #{roomCode},#{messageOther},#{messageId}, SYSDATE, #{messageTitle}, #{messageContent})
+		INSERT INTO MESSAGE
+		VALUES(#{messageCode}, #{roomCode},#{messageOther},#{messageId},
+		SYSDATE, #{messageTitle}, #{messageContent})
 	</insert>
-	
+
 	<!-- 쪽지 보내기2 -->
 	<insert id="sendMessageG" parameterType="board">
-		INSERT INTO MESSAGE VALUES(#{messageCode}, #{roomCode},#{messageId},#{messageOther}, SYSDATE, #{messageTitle}, #{messageContent})
+		INSERT INTO MESSAGE
+		VALUES(#{messageCode}, #{roomCode},#{messageId},#{messageOther},
+		SYSDATE, #{messageTitle}, #{messageContent})
 	</insert>
-	
-	<!--  받은 쪽지 리스트 -->
+
+	<!-- 받은 쪽지 리스트 -->
 	<select id="getMessageList" resultType="board" parameterType="board">
-		SELECT MS_OTHER AS messageOther, MS_ID AS messageId, MS_DATE AS messageDate, MS_TITLE AS messageTitle, MS_CONTENT AS messageContent 
-		FROM MESSAGE WHERE MS_LRCODE = #{roomCode} AND MS_MSCCODE = #{messageCode} AND MS_ID = #{messageId}  ORDER BY MS_DATE DESC
+		SELECT MS_OTHER AS messageOther, MS_ID AS messageId, MS_DATE AS
+		messageDate, MS_TITLE AS messageTitle, MS_CONTENT AS messageContent
+		FROM MESSAGE WHERE MS_LRCODE = #{roomCode} AND MS_MSCCODE =
+		#{messageCode} AND MS_ID = #{messageId} ORDER BY MS_DATE DESC
 	</select>
-	
+
 	<!-- 받은쪽지 내용확인 -->
 	<select id="getMessageCTX" resultType="board" parameterType="board">
-		SELECT MS_MSCCODE AS messageCode, MS_LRCODE AS roomCode, MS_DATE AS messageDate, MS_TITLE AS messageTitle, MS_CONTENT AS messageContent, MS_OTHER AS messageOther
-		FROM MESSAGE WHERE MS_MSCCODE = #{messageCode} AND MS_LRCODE = #{roomCode} AND MS_DATE = TO_DATE(#{messageDate},'YYYY-MM-DD HH24:MI:SS')
+		SELECT MS_MSCCODE AS messageCode, MS_LRCODE AS roomCode, MS_DATE AS
+		messageDate, MS_TITLE AS messageTitle, MS_CONTENT AS messageContent,
+		MS_OTHER AS messageOther
+		FROM MESSAGE WHERE MS_MSCCODE = #{messageCode}
+		AND MS_LRCODE = #{roomCode} AND MS_DATE =
+		TO_DATE(#{messageDate},'YYYY-MM-DD HH24:MI:SS')
 	</select>
-	
+
 	<!-- 보낸쪽지 내용확인 -->
 	<select id="sentMessageCTX" resultType="board" parameterType="board">
-		SELECT MS_MSCCODE AS messageCode, MS_LRCODE AS roomCode, MS_DATE AS messageDate, MS_TITLE AS messageTitle, MS_CONTENT AS messageContent, MS_OTHER AS messageOther
-		FROM MESSAGE WHERE MS_MSCCODE = #{messageCode} AND MS_LRCODE = #{roomCode} AND MS_DATE = TO_DATE(#{messageDate},'YYYY-MM-DD HH24:MI:SS')
+		SELECT MS_MSCCODE AS messageCode, MS_LRCODE AS roomCode, MS_DATE AS
+		messageDate, MS_TITLE AS messageTitle, MS_CONTENT AS messageContent,
+		MS_OTHER AS messageOther
+		FROM MESSAGE WHERE MS_MSCCODE = #{messageCode}
+		AND MS_LRCODE = #{roomCode} AND MS_DATE =
+		TO_DATE(#{messageDate},'YYYY-MM-DD HH24:MI:SS')
 	</select>
-	
+
 	<!-- 보낸쪽지 삭제 -->
 	<delete id="sentMessageDelete" parameterType="board">
-		DELETE FROM MESSAGE WHERE MS_LRCODE = #{roomCode} AND MS_MSCCODE = #{messageCode} AND MS_DATE = TO_DATE(#{messageDate},'YYYY-MM-DD HH24:MI:SS')
+		DELETE FROM MESSAGE
+		WHERE MS_LRCODE = #{roomCode} AND MS_MSCCODE = #{messageCode} AND
+		MS_DATE = TO_DATE(#{messageDate},'YYYY-MM-DD HH24:MI:SS')
 	</delete>
-	
+
 	<!-- 받은쪽지 삭제 -->
 	<delete id="getMessageDelete" parameterType="board">
-		DELETE FROM MESSAGE WHERE MS_LRCODE = #{roomCode} AND MS_MSCCODE = #{messageCode} AND MS_DATE = TO_DATE(#{messageDate},'YYYY-MM-DD HH24:MI:SS')
+		DELETE FROM MESSAGE
+		WHERE MS_LRCODE = #{roomCode} AND MS_MSCCODE = #{messageCode} AND
+		MS_DATE = TO_DATE(#{messageDate},'YYYY-MM-DD HH24:MI:SS')
 	</delete>
-	
+
 	<!-- 선생님 리스트 -->
 	<select id="getTeacherInfo" resultType="board" parameterType="board">
-		SELECT id, email, name, phone, roomCode FROM TEACHERINFO WHERE roomCode = #{roomCode}
+		SELECT id, email, name, phone, roomCode FROM TEACHERINFO WHERE
+		roomCode = #{roomCode}
 	</select>
-	
+
 	<!-- 학생 수강생 리스트 -->
 	<select id="getStudentList" resultType="board" parameterType="board">
-		SELECT * FROM LEARNINGSTUDENTLIST WHERE NOT STUDENTCODE = #{studentCode} AND ROOMCODE = #{roomCode}
+		SELECT * FROM LEARNINGSTUDENTLIST WHERE NOT STUDENTCODE =
+		#{studentCode} AND ROOMCODE = #{roomCode}
 	</select>
 
 	<!-- 달력 출력 -->
@@ -1393,10 +1419,112 @@
 	
 	<!-- 선생님 로그인기록 추출 -->
 	<select id="tcattendanceGet" resultType="room" parameterType="room">
-	SELECT TLOH_DATE AS attendDate,TLOH_TYPE AS attendanceType 
-	FROM TEACHERLOGOUTHISTORY 
-	WHERE TLOH_TCID = #{id}
-	ORDER BY TLOH_DATE DESC
+		SELECT TLOH_DATE AS attendDate,TLOH_TYPE AS attendanceType
+		FROM
+		TEACHERLOGOUTHISTORY
+		WHERE TLOH_TCID = #{id}
+		ORDER BY TLOH_DATE DESC
+	</select>
+
+	<!-- admin 아이디 체크 -->
+	<select id="adminIdCheck" resultType="Integer" parameterType="member">
+		SELECT COUNT(*)
+		FROM ADMIN
+		WHERE AD_ID=#{id}
+	</select>
+
+	<!-- admin password 체크 -->
+	<select id="adminPassowrd" resultType="Integer" parameterType="member">
+		SELECT COUNT(*)
+		FROM ADMIN
+		WHERE AD_PWD=#{pwd} AND AD_ID = #{id}
+	</select>
+
+	<!-- student count -->
+	<select id="allStudent" resultType="Integer" parameterType="member">
+		SELECT COUNT(*)
+		FROM STUDENT
+	</select>
+	<!-- teacher count -->
+	<select id="allteacher" resultType="Integer" parameterType="member">
+		SELECT COUNT(*)
+		FROM TEACHER
+	</select>
+
+	<select id="student" resultType="member" parameterType="member">
+		SELECT
+		ST_RFSTUDENTCODE AS studentCode,
+		ST_ID AS id,
+		ST_NAME AS name,
+		ST_EMAIL
+		AS email,
+		ST_PHONE AS phone
+		FROM STUDENT
+	</select>
+	<select id="teacher" resultType="member" parameterType="member">
+		SELECT
+		TC_ID AS id,
+		TC_NAME AS name,
+		TC_EMAIL AS email,
+		TC_PHONE AS phone
+		FROM
+		TEACHER
+	</select>
+
+
+	<!-- 학생 오답노트 질문개수 -->
+	<select id="studnetWorngCount" resultType="Integer"
+		parameterType="member">
+		select COUNT(*)
+		from WRONGANSWERNOTES
+		WHERE
+		WAN_STRFSTUDENTCODE=#{studentCode}
+	</select>
+	<!-- 학생 질문개수 -->
+	<select id="studentQueryCount" resultType="Integer"
+		parameterType="member">
+		select COUNT(*)
+		from query
+		WHERE
+		QU_STRFSTUDENTCODE=#{studentCode}
+	</select>
+	<!-- 학생debate coubt개수 -->
+	<select id="studentDebateCount" resultType="Integer"
+		parameterType="member">
+		select COUNT(*)
+		from DEBATETAG
+		WHERE
+		DTAG_STRFSTUDENTCODE=#{studentCode}
+	</select>
+	<!-- TEACHER CLASS COUBNT -->
+	<select id="classCount" resultType="Integer" parameterType="member">
+		select COUNT(*) from learningroom where LR_TCID=#{id}
+	</select>
+	<!-- TEACHER wrongTagcount -->
+	<select id="wrongTagcount" resultType="Integer" parameterType="member">
+		SELECT COUNT(*) FROM QUERYTAG WHERE QTAG_TCID=#{id}
+	</select>
+	<!-- TEACHER refercount -->
+	<select id="refercount" resultType="Integer" parameterType="member">
+		SELECT COUNT(*) FROM REFERENCE WHERE RR_TCID=#{id}
+	</select>
+	<!-- TEACHER noticecount -->
+	<select id="noticecount" resultType="Integer" parameterType="member">
+		SELECT COUNT(*) FROM NOTICE WHERE NT_TCID=#{id}
+	</select>
+	<!-- TEACHER debatecount -->
+	<select id="debatecount" resultType="Integer" parameterType="member">
+		SELECT COUNT(*) FROM DEBATE WHERE DE_TCID=#{id}
+	</select>
+	<!-- TEACHER wrongecount -->
+	<select id="wrongecount" resultType="Integer" parameterType="member">
+		SELECT COUNT(*) FROM WRONGANSWERNOTESTAG WHERE WTAG_TCID=#{id}
+	</select>
+	
+	
+	<!--학생상태코드 확인(로그인시) -->
+	<select id="stateSTCodeCheck" resultType="String" parameterType="member">
+		SELECT ST_STATECODE FROM STUDENT WHERE ST_ID = #{id}
 	</select>
 
 	<!-- 일요일 체크 -->
