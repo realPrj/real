@@ -1844,6 +1844,29 @@ public class learningTeacherMM extends TransactionExe {
 		return sb.toString();
 	}
 
+	private String pageButton(ArrayList<BoardBean> ar) {
+		StringBuffer sb = new StringBuffer();
+
+		int pageCount = 5; // 
+
+		double sizeDouble = ar.size() / (double)pageCount;
+
+		sb.append("<div class='text-center'>");
+		sb.append("<ul class='pagination'>");
+
+
+		for(int y=0; y < sizeDouble; y++) {// 페이지 버튼
+
+			sb.append("<li><input class='btn-sm' type='button' value="+(y+1)+" onClick='pageNumber("+y+")' /></li>");			
+		}
+		sb.append("</ul>");
+		sb.append("</div>");
+
+		return sb.toString();
+
+
+	}
+
 
 	private ModelAndView tclearningDebateCTX(BoardBean board) { // 선생님 토론게시판 내용확인, 댓글 목록
 		mav = new ModelAndView();
@@ -2663,7 +2686,6 @@ public class learningTeacherMM extends TransactionExe {
 			board.setIdentity((String)session.getAttribute("identity"));
 			ar = dao.sentMessageList(board);
 			mav.addObject("messageList", getlearningSentMessageList(ar,board));
-			mav.addObject("button", pageButton(ar));
 
 			transaction = true;
 
@@ -2678,6 +2700,7 @@ public class learningTeacherMM extends TransactionExe {
 	
 	private String getlearningSentMessageList(ArrayList<BoardBean> ar, BoardBean board) { // 보낸쪽지 리스트 끌고오기
 		StringBuffer sb = new StringBuffer();
+
 
 		int forI = 0; // 크게 한사람
 		int forB = 0;	// 내용물
@@ -2695,6 +2718,7 @@ public class learningTeacherMM extends TransactionExe {
 		//sb.append("<tbody id=\"myTable\">");
 		for(forB=forB; forB<pageCount; forB++) {
 
+
 			sb.append("<tr>");
 			sb.append("<td>" + ar.get(forB).getMessageOther() + "</td>");
 			sb.append("<td onClick=\"messageCTX('" + board.getMessageCode() + "','" + board.getRoomCode() + "','"+ ar.get(forB).getMessageDate() +"','"+ board.getIdentity() +"')\">" + ar.get(forB).getMessageTitle() + "</td>");
@@ -2703,32 +2727,13 @@ public class learningTeacherMM extends TransactionExe {
 		}
 		sb.append("</tbody>");
 
+
 		}
 
-		return sb.toString();
-	}
-	
-	private String pageButton(ArrayList<BoardBean> ar) {
-		StringBuffer sb = new StringBuffer();
 
-		int pageCount = 5; // 
-
-		double sizeDouble = ar.size() / (double)pageCount;
-
-		sb.append("<div class='text-center'>");
-		sb.append("<ul class='pagination'>");
-
-
-		for(int y=0; y < sizeDouble; y++) {// 페이지 버튼
-
-			sb.append("<li><input class='btn-sm' type='button' value="+(y+1)+" onClick='pageNumber("+y+")' /></li>");			
-		}
-		sb.append("</ul>");
-		sb.append("</div>");
 
 
 		return sb.toString();
-
 	}
 
 	private ModelAndView learningSendMessage(BoardBean board) { // 쪽지 보내기

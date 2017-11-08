@@ -283,10 +283,8 @@ function messageCTX(messageCode, roomCode, messageDate, identity){
 									<th>날짜</th>
 								</tr>
 							</thead>
-							${messageList } 
+							${messageList }
 						</table>
-						${button }
-						
 
 
 					</div>
