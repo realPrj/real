@@ -38,6 +38,7 @@
 <link href='https://fonts.googleapis.com/css?family=Muli:400,300'
 	rel='stylesheet' type='text/css'>
 <link href="assets/css/themify-icons.css" rel="stylesheet">
+
 </head>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script>
@@ -160,11 +161,20 @@ function createForm1(formname, formaction, ta) {
 
 }
 
+<<<<<<< HEAD
 function menu(ivalue) {
 	
     createinput("hidden", "caCode", ivalue);
 
     var caCode = document.getElementsByName("caCode")[0];
+=======
+//메뉴선택
+function menu(ivalue) {
+	
+	 createinput("hidden", "caCode", ivalue);
+
+	 var caCode = document.getElementsByName("caCode")[0];
+>>>>>>> 91704e4cc50e27071fdd1576f2b25ffbcc97726a
 
     createForm("menuform", "tcmenu", "post");
 
