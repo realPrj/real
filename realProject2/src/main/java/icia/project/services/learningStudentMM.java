@@ -1457,13 +1457,15 @@ public class learningStudentMM extends TransactionExe {
 			board.setRoomCode((String)session.getAttribute("roomCode"));
 			board.setId((String)session.getAttribute("identity"));
 			board.setStudentCode((String)session.getAttribute("stCode"));
-			
+
 			ar = dao.getStudentList(board);
 			//mav.addObject("content", tclearningNoticeList(board,ar));
-			
+
 			board = dao.getTeacherInfo(board);
 			// 선생님
-			sb.append("선생님");
+			sb.append("<h2>");
+			sb.append("<b>선생님</b>");
+			sb.append("</h2>");
 			sb.append("<table  class=\"table table-hover\">");
 			sb.append("<tr>");
 			sb.append("<td>아이디</td>");
@@ -1481,8 +1483,10 @@ public class learningStudentMM extends TransactionExe {
 			sb.append("<td><input type=\"button\"class='btn' value=\"쪽지보내기\" onClick=\"sendMessage('"+ board.getId() +"')\" /></td>");
 			sb.append("</tr>");
 			sb.append("</table>");
-			
+			mav.addObject("teacherInfo", sb.toString());
+
 			// 학생
+			sb = new StringBuffer();
 			sb.append("<table  class=\"table table-hover\">");
 			sb.append("<tr>");
 			sb.append("<td>학년/반/번호</td>");
@@ -1500,11 +1504,11 @@ public class learningStudentMM extends TransactionExe {
 				sb.append("<td>" + ar.get(i).getStudentName() + "</td>");
 				sb.append("<td>" + ar.get(i).getEmail() + "</td>");
 				sb.append("<td>" + ar.get(i).getPhone() + "</td>");
-				
+
 				sb.append("<td>" + "<input type=\"button\"  class='btn' value=\"메일 발송\" onClick=\"sendMail('"+ ar.get(0).getEmail() +"')\"/>" + "</td>");
 				sb.append("<td><input type=\"button\"class='btn' value=\"쪽지보내기\" onClick=\"sendMessage('"+ ar.get(i).getStudentCode() +"')\" /></td>");
-				
-				
+
+
 				sb.append("</tr>");
 			}
 			sb.append("</table>");
