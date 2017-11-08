@@ -65,19 +65,6 @@
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script>
-$(document).ready(function() {
-	/* 복사 */
-	$("tbody[name *='tbody']").hide();
-	var tableList = $("#tableList");
-	tableList.append($("#tbody0").show());
-
-});
-/*복사  */
-function pageNumber(value) {
-	$("tbody[name *='tbody']").hide();
-	var tableList = $("#tableList");
-	tableList.append($("#tbody" + value).show());
-}
 function confirm(boardTitle, boardDate, identity) {
 	var f = document.createElement("form");
 	f.name = "boardConfirm";
@@ -164,21 +151,22 @@ function menu(ivalue, identity) {
 <body>
 <input type="hidden" name="identity" value="${identity }" />
 <div class="wrapper">
-      <div class="sidebar" data-background-color="white"
-         data-active-color="danger">
+		<div class="sidebar" data-background-color="white"
+			data-active-color="danger">
 
 
-         <!-- 왼쪽메뉴바 영역 -->
+			<!-- 왼쪽메뉴바 영역 -->
 
 
-         <div class="sidebar-wrapper">
-            <div class="logo">
-               <a href="teacher_main.html" class="simple-text"> <img
-                  src="assets/img/gong_logo.png" alt="공조" width="150*100">
-               </a>
-            </div>
+			<div class="sidebar-wrapper">
+				<div class="logo">
+					<a href="teacher_main.html" class="simple-text"> <img
+						src="assets/img/gong_logo.png" alt="공조" width="150*100">
+					</a>
+				</div>
 
             <ul class="nav">
+
                <li></li>
                <li class="active"><a onClick="menu('15','${identity}')"> <i class="ti-user"></i>
                      <p>마이페이지</p>
@@ -256,6 +244,7 @@ function menu(ivalue, identity) {
          </div>
          </nav>
 
+
 			<!-- 공지사항 -->
 			<div class="col-lg-35 col-md-12">
 
@@ -265,10 +254,10 @@ function menu(ivalue, identity) {
 						<b>공지사항</b>
 					</h2>
 
-					${content } ${button }
+					${content }
 					<hr />
 
-					<!-- <!-- 페이지네이션넣기 
+					<!-- 페이지네이션넣기 -->
 					<div class="text-center">
 						<ul class="pagination">
 							<li><a href="#">1</a></li>
@@ -277,7 +266,7 @@ function menu(ivalue, identity) {
 							<li><a href="#">4</a></li>
 							<li><a href="#">5</a></li>
 						</ul>
-					</div> -->
+					</div>
 
 				</div>
 			</div>

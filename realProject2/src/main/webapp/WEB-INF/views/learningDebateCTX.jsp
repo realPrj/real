@@ -234,6 +234,7 @@ function TagDelete(tagDate, boardDate){
 </head>
 <body>
 <div class="wrapper">
+
       <div class="sidebar" data-background-color="white"
          data-active-color="danger">
 
@@ -325,6 +326,7 @@ function TagDelete(tagDate, boardDate){
             </div>
          </div>
          </nav>
+
 
 
 			<!-- 질문게시판 내용확인 -->
