@@ -1,12 +1,10 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<<<<<<< HEAD
-<title>공조 || 강의계획서</title>
-=======
 <link rel="apple-touch-icon" sizes="76x76"
 	href="assets/img/apple-icon.png">
 <link rel="icon" type="image/png" sizes="96x96"
@@ -17,6 +15,8 @@
 	content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0'
 	name='viewport' />
 <meta name="viewport" content="width=device-width" />
+
+
 <!-- Bootstrap core CSS     -->
 <link href="assets/css/bootstrap.min.css" rel="stylesheet" />
 
@@ -32,12 +32,12 @@
 
 
 <!--  Fonts and icons     -->
-<link href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css"
+<link
+	href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css"
 	rel="stylesheet">
 <link href='https://fonts.googleapis.com/css?family=Muli:400,300'
 	rel='stylesheet' type='text/css'>
 <link href="assets/css/themify-icons.css" rel="stylesheet">
->>>>>>> a7faa5eef351c86e643b32b616f9a0b8810e1225
 </head>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script>
@@ -148,14 +148,6 @@ document.body.appendChild(form);
 
 }
 
-<<<<<<< HEAD
-function menu(ivalue) {
-	
-    createinput("hidden", "caCode", ivalue);
-
-    var caCode = document.getElementsByName("caCode")[0];
-=======
-
 //form 생성
 function createForm1(formname, formaction, ta) {
 
@@ -168,9 +160,11 @@ function createForm1(formname, formaction, ta) {
 
 }
 
-//메뉴선택
-function menu(ivalue, identity) {
->>>>>>> a7faa5eef351c86e643b32b616f9a0b8810e1225
+function menu(ivalue) {
+	
+    createinput("hidden", "caCode", ivalue);
+
+    var caCode = document.getElementsByName("caCode")[0];
 
     createForm("menuform", "tcmenu", "post");
 
@@ -206,7 +200,6 @@ function planCXT(value){
 
 <body>
 <div class="wrapper">
-
 		<div class="sidebar" data-background-color="white"
 			data-active-color="danger">
 
@@ -297,7 +290,6 @@ function planCXT(value){
 				</div>
 			</div>
 			</nav>
-
 ${select }
 <div id="calendarId"></div>
 </body>
