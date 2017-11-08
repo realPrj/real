@@ -771,16 +771,24 @@ public class HomeController  {
 	// 강의계획서(달력)
 	@RequestMapping(value = "/calendar", method = RequestMethod.POST,produces = "application/text; charset=utf8")
 	@ResponseBody public String calendar(@ModelAttribute Calendar cd) {
-		ArrayList<Calendar> code = null;
+		
+		String test = null;
+		Gson gson = null;
+		ArrayList<Calendar> code  = null;
+		
+		if(cd.getMonth().equals("월 선택")) {
+			test = null;
+		}else {
+		
+		code = null;
 
 		code = pm.calendar(cd);	
 		
-		Gson gson = new Gson();
+		gson = new Gson();
 		
-		String test = gson.toJson(code);
-		
-		System.out.println(test);
-		
+		test = gson.toJson(code);
+
+		}
 		return test;
 	}
 	
@@ -818,12 +826,33 @@ public class HomeController  {
 
 
 	// 강의계획서 등록 페이지
-	@RequestMapping(value = "/learningPlanInsertPage", method = RequestMethod.GET)
+	@RequestMapping(value = "/learningPlanInsertPage", method = RequestMethod.POST)
 	public ModelAndView learningPlanInsertPage(@ModelAttribute BoardBean board) {
 
-		mav = ltmm.entrance(54, board);
+		mav.addObject("boardcode", board.getBoardCode());
+		mav.setViewName("learningPlanInsert");
 
 		return mav;
 	}
+	
+	
+	// 강의계획서 수정 페이지
+	@RequestMapping(value = "/learningPlanUpdatePage", method = RequestMethod.POST)
+	public ModelAndView learningPlanUpdatePage(@ModelAttribute BoardBean board) {
+
+		mav = new ModelAndView();
+		
+		mav.addObject("title", board.getBoardTitle());
+		mav.addObject("content", board.getBoardContent());
+		mav.addObject("roomcode", board.getRoomCode());
+		mav.addObject("boardcode", board.getBoardCode());
+		
+		mav.setViewName("learningPlanUpdate");
+
+		return mav;
+	}
+	
+	
+	
 	
 }

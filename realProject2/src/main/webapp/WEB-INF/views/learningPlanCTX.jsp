@@ -14,7 +14,6 @@ $(document).ready(function() {
 		$("#tableShow").show();
 	}
 	
-	
 });
 
 function createinput(itype, iname, ivalue) {
@@ -41,21 +40,70 @@ document.body.appendChild(form);
 
 }
 
-function planInsert(boardcode){
-	alert(boardcode);
+function planInsert(boardcode){	// 등록 페이지
 
-/*     createinput("hidden", "boardCode", boardcode);
+    createinput("hidden", "boardCode", boardcode);
 
     var boardCode = document.getElementsByName("boardCode")[0];
 
     createForm("learningPlanInsertPageform", "learningPlanInsertPage", "post");
 
-    var form = document.getElementsByName("learningPlanInsertform")[0];
+    var form = document.getElementsByName("learningPlanInsertPageform")[0];
     
     form.appendChild(boardCode);
     
-    form.submit(); */
+    form.submit();
 	
+    $("input[name = boardCode]").remove();
+}
+
+function planUpdatePage(boardcode,roomcode){	// 수정 페이지
+
+    createinput("hidden", "boardCode", boardcode);
+    createinput("hidden", "roomCode", roomcode);
+
+    var boardCode = document.getElementsByName("boardCode")[0];
+    var boardTitle = document.getElementsByName("boardTitle")[0];
+    var boardContent = document.getElementsByName("boardContent")[0];
+    var roomCode = document.getElementsByName("roomCode")[0];
+
+    createForm("learningPlanUpdatePageform", "learningPlanUpdatePage", "post");
+
+    var form = document.getElementsByName("learningPlanUpdatePageform")[0];
+    
+    form.appendChild(boardCode);
+    form.appendChild(boardTitle);
+    form.appendChild(boardContent);
+    form.appendChild(roomCode);
+    
+    form.submit();
+	
+    $("input[name = boardCode]").remove();
+    $("input[name = boardTitle]").remove();
+    $("input[name = boardContent]").remove();
+    $("input[name = roomCode]").remove();
+   
+}
+
+
+function planDelete(boardcode,roomcode){	// 삭제
+	
+	 createinput("hidden", "boardCode", boardcode);
+	 createinput("hidden", "roomCode", roomcode);
+
+    var boardCode = document.getElementsByName("boardCode")[0];
+    var roomCode = document.getElementsByName("roomCode")[0];
+
+    createForm("learningPlanDeleteform", "learningPlanDelete", "post");
+
+    var form = document.getElementsByName("learningPlanDeleteform")[0];
+    
+    form.appendChild(boardCode);
+    form.appendChild(roomCode);
+    
+    form.submit();
+	
+    $("input[name = boardCode]").remove();
 }
 
 </script>
@@ -70,6 +118,6 @@ function planInsert(boardcode){
 		<td>${content }</td>
 	</tr>
 </table>
-${insert }
+${button }
 </body>
 </html>

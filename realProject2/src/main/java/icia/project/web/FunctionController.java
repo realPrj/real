@@ -273,8 +273,7 @@ public class FunctionController {
 	// 과제 게시판 글 등록
 	@RequestMapping(value = "/learningTaskInsert", method = RequestMethod.POST)
 	public ModelAndView  learningTaskInsert(BoardBean board) {
-
-		mav = new ModelAndView();		
+	
 		ltm.entrance(28, board);
 
 		mav = ltm.entrance(27, board);
@@ -286,30 +285,18 @@ public class FunctionController {
 	@RequestMapping(value = "/learningTaskCXT", method = RequestMethod.POST)
 	public ModelAndView  learningTaskCXT(BoardBean board) {
 
-		mav = new ModelAndView();		
-		System.out.println("여긴 왓니?");
 		mav = ltm.entrance(27, board);
 
 		return mav;
 	}
 
-	// 성적 게시판 글 등록
-	@RequestMapping(value = "/learningGradeInsert", method = RequestMethod.POST)
-	public ModelAndView  learningGradeInsert(BoardBean board) {
-
-		mav = new ModelAndView();		
-
-
-
-		return mav;
-	}
-
-	// 강의계획서  글 등록
+	// 강의계획서 글 등록
 	@RequestMapping(value = "/learningPlanInsert", method = RequestMethod.POST)
 	public ModelAndView  learningPlanInsert(BoardBean board) {
 
-		mav = new ModelAndView();		
-
+		ltm.entrance(54, board);
+		mav = ltm.entrance(53, board);
+		
 		return mav;
 	}
 
@@ -730,10 +717,26 @@ public class FunctionController {
 		return mav;
 	}
 	
+	// 강의계획서 수정
+	@RequestMapping(value = "/learningPlanUpdate", method = RequestMethod.POST)
+	public ModelAndView learningPlanUpdate(@ModelAttribute  BoardBean board) {
+		
+		ltm.entrance(55, board);
+		mav = ltm.entrance(53, board);
+		
+		return mav;
+	}
 	
-
-
-
-
+	// 강의계획서 삭제
+	@RequestMapping(value = "/learningPlanDelete", method = RequestMethod.POST)
+	public ModelAndView learningPlanDelete(@ModelAttribute  BoardBean board) {
+		
+		ltm.entrance(56, board);
+		mav = ltm.entrance(53, board);
+		
+		return mav;
+	}
+	
+	
 
 }

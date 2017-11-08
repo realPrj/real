@@ -448,6 +448,15 @@ public interface IMybatis {
 	// 강의계획서 내용
 	public BoardBean planCTX(BoardBean board);
 
+	// 강의계획서 등록
+	public int planInsert(BoardBean board);
+
+	// 강의계획서 수정
+	public int planUpdate(BoardBean board);
+	
+	// 강의계획서 삭제
+	public int planDelete(BoardBean board);
+
 	// admin id check
 	public int adminIdCheck(MemberBean member);
 
@@ -478,6 +487,7 @@ public interface IMybatis {
 	// the end
 	// 학생 상태코드 확인(로그인시)
 	public String stateSTCodeCheck(MemberBean member);
+
 
 }
 
