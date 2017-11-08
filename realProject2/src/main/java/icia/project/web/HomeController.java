@@ -313,8 +313,8 @@ public class HomeController  {
 
 			break;
 
-		case 13 : 
-
+		case 13 : // 과목코드표
+			mav = pm.entrance(8, board);
 			break;
 
 		case 14 : //로그아웃
