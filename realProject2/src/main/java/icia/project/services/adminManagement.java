@@ -219,7 +219,6 @@ public class adminManagement extends TransactionExe{
 	
 	private ModelAndView adminTeacherCXT(MemberBean member) {
 		boolean transaction = false;
-		String page =null;
 
 		mav = new ModelAndView();
 
