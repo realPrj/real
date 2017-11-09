@@ -308,10 +308,10 @@ function messageCTX(messageCode, roomCode, messageDate, identity){
 						<table class="table table-bordered table-striped">
 							<thead>
 								<tr>
-									<th>번호</th>
-									<th>발신인</th>
-									<th>제목</th>
-									<th>날짜</th>
+									<th><b>번호</b></th>
+									<th><b>발신인</b></th>
+									<th><b>제목</b></th>
+									<th><b>날짜</b></th>
 								</tr>
 							</thead>
 							${messageList }

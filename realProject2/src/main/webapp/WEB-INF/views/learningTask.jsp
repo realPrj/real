@@ -334,12 +334,13 @@
 					${taskList }
 					<input type="button" class="btn"value="과제 생성" onClick="insertPage()" />
 					<hr />
+					<h3 style="padding-left:10px">과제정보</h3>
 					<table class="table table-hover">
 
 						<tr>
-							<td>제목</td>
-							<td>날짜</td>
-							<td>내용</td>
+							<td><b>제목</b></td>
+							<td><b>날짜</b></td>
+							<td><b>내용</b></td>
 						</tr>
 						<tr>
 							<td>${title }</td>
@@ -350,16 +351,7 @@
 					</table>
 							${taskLists }
 				
-					<!-- 페이지네이션넣기 -->
-					<div class="text-center">
-						<ul class="pagination">
-							<li><a href="#">1</a></li>
-							<li><a href="#">2</a></li>
-							<li><a href="#">3</a></li>
-							<li><a href="#">4</a></li>
-							<li><a href="#">5</a></li>
-						</ul>
-					</div>
+					
 
 				</div>
 			</div>

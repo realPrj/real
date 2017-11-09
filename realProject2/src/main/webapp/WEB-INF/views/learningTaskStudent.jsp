@@ -302,12 +302,13 @@
 
 					${taskList }
 					<hr />
+					<h3 style="padding-left:10px">과제정보</h3>
 					<table class="table table-hover">
 
 						<tr>
-							<td>제목</td>
-							<td>날짜</td>
-							<td>내용</td>
+							<td><b>제목</b></td>
+							<td><b>날짜</b></td>
+							<td><b>내용</b></td>
 						</tr>
 						<tr>
 							<td>${title }</td>

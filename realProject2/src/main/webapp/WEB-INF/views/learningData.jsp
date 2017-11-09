@@ -254,11 +254,13 @@
 					<h2>
 						<b>자료실</b>
 					</h2>
-					<br> <input type="button" value="자료실 글쓰러가기" class="btn"
-						onClick="eventClick('dataform','DataInsert','post')" /> <br>
-					${datalist }${content2 }
+					
+					${datalist }
+					 <input type="button" value="글쓰기" class="btn btn-md"
+						onClick="eventClick('dataform','DataInsert','post')" />
+						${content2 } 
 					<hr />
-
+						
 			
 
 				</div>
