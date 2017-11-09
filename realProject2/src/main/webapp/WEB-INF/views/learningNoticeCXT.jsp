@@ -206,11 +206,8 @@ function eventClick(formname, formaction, formmethod) {
                <li><a onClick="menu('7')"> <i class="ti-book"></i>
                      <p>오답노트</p>
                </a></li>
-               <li><a onClick="menu('8')"> <i class="ti-bar-chart"></i>
-                     <p>성적</p>
-               </a></li>
                <li><a onClick="menu('9')"> <i class="ti-settings"></i>
-                     <p>우리반학생</p>
+                     <p>수강생</p>
                </a></li>
                <li><a onClick="menu('10')"> <i
                      class="ti-shopping-cart-full "></i>
