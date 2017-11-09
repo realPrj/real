@@ -342,7 +342,7 @@
 			<div class="col-lg-35 col-md-12"
 				style="display: inline-block; text-align: center;">
 				<div class="card">
-
+				<br/>
 					<h2>
 						<b>질문게시판</b>
 					</h2>

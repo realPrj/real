@@ -290,6 +290,7 @@ function stadmin(studentCode){
 			<div class="col-lg-35 col-md-12">
 
 				<div class="card">
+				<br />
 					${teacherInfo }
 					<br />
 					
