@@ -177,7 +177,7 @@ function messageCTX(messageCode, roomCode, messageDate, identity){
 
 			<div class="sidebar-wrapper">
 				<div class="logo">
-					<a href="teacher_main.html" class="simple-text"> <img
+					<a onClick="menu('15')" class="simple-text"> <img
 						src="assets/img/gong_logo.png" alt="공조" width="150*100">
 					</a>
 				</div>
@@ -206,9 +206,6 @@ function messageCTX(messageCode, roomCode, messageDate, identity){
                </a></li>
                <li><a onClick="menu('7','${identity}')"> <i class="ti-book"></i>
                      <p>오답노트</p>
-               </a></li>
-               <li><a onClick="menu('8','${identity}')"> <i class="ti-bar-chart"></i>
-                     <p>성적</p>
                </a></li>
                <li><a onClick="menu('9','${identity}')"> <i class="ti-settings"></i>
                      <p>수강생</p>
@@ -311,10 +308,16 @@ function messageCTX(messageCode, roomCode, messageDate, identity){
 					<div class="container">
 						<!-- <h2>Filterable Table</h2>
   <p>Type something in the input field to search the table for first names, last names or emails:</p>   -->
-						<input class="form-control" id="myInput" type="text"
-							placeholder="Search.."> <br>
+						 <br>
 						<table class="table table-bordered table-striped">
-							
+							<thead>
+								<tr>
+									<th>번호</th>
+									<th>수신인</th>
+									<th>제목</th>
+									<th>날짜</th>
+								</tr>
+							</thead>
 							${messageList } 
 						</table>
 						${button }

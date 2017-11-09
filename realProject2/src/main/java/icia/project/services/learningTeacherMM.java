@@ -2804,8 +2804,6 @@ public class learningTeacherMM extends TransactionExe {
 			sb.append("<tbody name=tbody"+forI+" id=tbody"+forI+">");
 			//sb.append("<tbody id=\"myTable\">");
 			for(forB=forB; forB<pageCount; forB++) {
-
-
 				sb.append("<tr>");
 				sb.append("<td>"+ (forB+1) +"</td>");
 				sb.append("<td>" + ar.get(forB).getMessageOther() + "</td>");

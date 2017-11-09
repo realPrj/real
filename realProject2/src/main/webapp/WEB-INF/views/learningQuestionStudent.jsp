@@ -152,7 +152,7 @@ function pageNumber(value) {
 
 			<div class="sidebar-wrapper">
 				<div class="logo">
-					<a href="teacher_main.html" class="simple-text"> <img
+					<a onClick="menu('15')" class="simple-text"> <img
 						src="assets/img/gong_logo.png" alt="공조" width="150*100">
 					</a>
 				</div>
@@ -181,9 +181,6 @@ function pageNumber(value) {
 					</a></li>
 					<li><a onClick="menu('7')"> <i class="ti-book"></i>
 							<p>오답노트</p>
-					</a></li>
-					<li><a onClick="menu('8')"> <i class="ti-bar-chart"></i>
-							<p>성적</p>
 					</a></li>
 					<li><a onClick="menu('9')"> <i class="ti-settings"></i>
 							<p>수강생</p>
@@ -253,9 +250,11 @@ function pageNumber(value) {
 					<h2>
 						<b>질문 게시판</b>
 					</h2>
-					<a class="btn btn-default qull-right"
+					
+					${datalist}
+					<a class="btn" 
 						onClick="eventClick('dataform','questionInsert','post')">글쓰기</a>
-					${datalist}${content2 }
+						${content2 }
 					<hr />
 					
 
