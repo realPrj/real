@@ -327,14 +327,18 @@
 												name="content" readonly>${content }</textarea></td>
 									</tr>
 								</tbody>
-								<tr>
+								<tr id="accessForm">
 									<td colspan="2"><Button class='btn' name="delete"
 										value="삭제"
 										onClick="deleteQuestion('${theme }','${date }','${roomcode}','${writeId }')">삭제
 										</Button>
-								<input type="button" class='btn' name="update"
+										<Button class='btn' name="update"
 										value="수정"
-										onClick="updateQuestion('${theme }','${date }','${roomcode}','${writeId }','${content }')"></td>
+										onClick="updateQuestion('${theme }','${date }','${roomcode}','${writeId }','${content }')">수정
+										</Button></td>
+						<%-- 		<input type="button" class='btn' name="update"
+										value="수정"
+										onClick="updateQuestion('${theme }','${date }','${roomcode}','${writeId }','${content }')"></td> --%>
 								</tr>
 							</table>
 								${taglists }

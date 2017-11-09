@@ -310,8 +310,8 @@ public class HomeController  {
 			mav = lsmm.entrance(36, board);
 			break;
 
-		case 12 : 
-
+		case 12 : // 강의 계획서
+			mav = lsmm.entrance(44, board);
 			break;
 
 		case 13 : // 과목코드표
@@ -720,7 +720,7 @@ public class HomeController  {
 		if(board.getIdentity().equals("1")) {
 			mav = ltmm.entrance(46, board);
 		}else {
-			
+
 			mav = lsmm.entrance(39, board);
 		}
 
@@ -766,41 +766,41 @@ public class HomeController  {
 		Gson gson = new Gson();
 
 		String test = gson.toJson(code);
-	
+
 		return test;
 	}
-	
+
 	// 강의계획서(달력)
 	@RequestMapping(value = "/calendar", method = RequestMethod.POST,produces = "application/text; charset=utf8")
 	@ResponseBody public String calendar(@ModelAttribute Calendar cd) {
-		
+
 		String test = null;
 		Gson gson = null;
 		ArrayList<Calendar> code  = null;
-		
+
 		if(cd.getMonth().equals("월 선택")) {
 			test = null;
 		}else {
-		
-		code = null;
 
-		code = pm.calendar(cd);	
-		
-		gson = new Gson();
-		
-		test = gson.toJson(code);
+			code = null;
+
+			code = pm.calendar(cd);	
+
+			gson = new Gson();
+
+			test = gson.toJson(code);
 
 		}
 		return test;
 	}
-	
+
 	// 강의계획서 자세히 보기
 	@RequestMapping(value = "/learningPlanCTXPage", method = RequestMethod.GET)
 	public ModelAndView learningPlanCTXPage(@ModelAttribute BoardBean board) {
 
 		mav = ltmm.entrance(53, board);
 		return mav;
-		}
+	}
 
 	// 해당 학생 자세히 보기
 	@RequestMapping(value = "/studentCXT", method = RequestMethod.GET)
@@ -836,25 +836,33 @@ public class HomeController  {
 
 		return mav;
 	}
-	
-	
+
+
 	// 강의계획서 수정 페이지
 	@RequestMapping(value = "/learningPlanUpdatePage", method = RequestMethod.POST)
 	public ModelAndView learningPlanUpdatePage(@ModelAttribute BoardBean board) {
 
 		mav = new ModelAndView();
-		
+
 		mav.addObject("title", board.getBoardTitle());
 		mav.addObject("content", board.getBoardContent());
 		mav.addObject("roomcode", board.getRoomCode());
 		mav.addObject("boardcode", board.getBoardCode());
-		
+
 		mav.setViewName("learningPlanUpdate");
 
 		return mav;
 	}
-	
-	
-	
-	
+
+
+	// 강의계획서 학생
+	@RequestMapping(value = "/learningPlanCTXStudent", method = RequestMethod.GET)
+	public ModelAndView learningPlanCTXStudent(@ModelAttribute BoardBean board) {
+
+		mav = lsmm.entrance(45, board);
+		return mav;
+	}
+
+
+
 }

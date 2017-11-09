@@ -158,6 +158,14 @@ public class learningStudentMM extends TransactionExe {
 		case 43:   // 보낸쪽지 삭제
 			mav = learningSentMessageDelete((BoardBean)object[0]);
 			break;
+		case 44:   // 강의계획서 보내기
+			mav = learningPlanPage((BoardBean)object[0]);
+			break;
+			
+		case 45:   // 강의계획서자세히 보내기
+			mav = learningPlanCTXPage((BoardBean)object[0]);
+			break;
+
 
 
 
@@ -1790,5 +1798,75 @@ public class learningStudentMM extends TransactionExe {
 
 
 	}
+	private ModelAndView learningPlanPage(BoardBean board) { // 강의 계획서 페이지
 
+		mav = new ModelAndView();
+
+		boolean transaction = false;
+		StringBuffer sb = new StringBuffer();
+		String nowYear2 = null;
+
+		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
+
+		try {
+			String nowYear = dao.nowYearGet();
+			int subtract = 12 - Integer.parseInt(nowYear.substring(4));
+			nowYear2 = nowYear;
+
+			sb.append("<select id = 'yearSelect' class='btn-sm'>");
+			sb.append("<option>월 선택</option>");
+
+			for(int i = 0; i <= subtract; i++) {
+				nowYear2 = Integer.toString(Integer.parseInt(nowYear)+i);
+				sb.append("<option value="+nowYear2+">"+nowYear2.substring(0, 4)+"년"+nowYear2.substring(4)+"월"+"</option>");
+			}
+			sb.append("</select>");
+
+			mav.addObject("select", sb.toString());
+			mav.setViewName("learningPlanStudent");
+			transaction = true;
+
+		}catch(Exception ex){
+
+		}finally {
+			setTransactionResult(transaction);
+		}
+		return mav;
+	}
+	private ModelAndView learningPlanCTXPage(BoardBean board) { // 강의 계획서 자세히 보기 페이지
+
+		mav = new ModelAndView();
+		boolean transaction = false;
+		StringBuffer sb = new StringBuffer();
+
+		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
+
+		try {
+
+			board.setRoomCode((String)session.getAttribute("roomCode"));
+
+			if(dao.planCheck(board) != 0) { // 있음
+
+				board = dao.planCTX(board);
+				mav.addObject("title", "<input type='text' name='boardTitle' value="+board.getBoardTitle()+" readonly/>");
+				mav.addObject("content","<input type='text' name='boardContent' value="+board.getBoardContent()+" readonly/>" );
+				mav.addObject("check", 1);
+			
+
+			}else {
+				mav.addObject("title", "등록된 계획이 없습니다");
+				mav.addObject("check", 0);
+			}
+
+			mav.setViewName("learningPlanCTXStudent");
+
+			transaction = true;
+
+		}catch(Exception ex){
+
+		}finally {
+			setTransactionResult(transaction);
+		}
+		return mav;
+	}
 }
