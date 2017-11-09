@@ -256,8 +256,9 @@ function test(){
 						<div class="col-lg-30 col-md-5">
 							<div class="container">
 								<h3>소개글</h3>
-								<textarea rows="10" class="form-control border-input"
-									laceholder="Here can be your description" value="Mike">${content }</textarea>
+								<div class="form-control" style="width:930px; height:200px">${content }</div>
+								<!-- <textarea rows="10" class="form-control border-input"
+									laceholder="Here can be your description" value="Mike"> --><!-- </textarea> -->
 									<br/>
 							</div>
 						</div>

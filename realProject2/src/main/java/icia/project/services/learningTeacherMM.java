@@ -311,8 +311,8 @@ public class learningTeacherMM extends TransactionExe {
 		sb.append("<tr>");
 		sb.append("<td>게시글번호</td>");
 		sb.append("<td>제목</td>");
-		sb.append("<td>날짜</td>");
 		sb.append("<td>작성자</td>");
+		sb.append("<td>날짜</td>");
 		sb.append("</tr>");
 
 
@@ -334,8 +334,8 @@ public class learningTeacherMM extends TransactionExe {
 				sb.append("<td>"+ (forB+1) +"</td>");
 				//sb.append("<input type=\"hidden\" name=\"boardTitle\" value='" + board.getBoardTitle() + "'/>");
 				sb.append("<td onClick=\"confirm('"+ ar.get(forB).getBoardTitle() +"','" + ar.get(forB).getBoardDate() + "','"+ board.getId() +"')\">" + ar.get(forB).getBoardTitle() + "</td>");
-				sb.append("<td>" + ar.get(forB).getBoardDate() + "</td>");
 				sb.append("<td>" + ar.get(forB).getBoardId() + "</td>");
+				sb.append("<td>" + ar.get(forB).getBoardDate() + "</td>");
 				sb.append("</tr>");
 			}
 			sb.append("</tbody>");	
@@ -477,8 +477,8 @@ public class learningTeacherMM extends TransactionExe {
 			sb.append("<tr>");
 			sb.append("<td><b>게시글번호</b></td>");
 			sb.append("<td>제목</td>");
+			sb.append("<td>작성자</td>");
 			sb.append("<td>날짜</td>");
-			sb.append("<td>아이디</td>");
 			sb.append("</tr>");
 
 
@@ -503,8 +503,8 @@ public class learningTeacherMM extends TransactionExe {
 					sb.append(forB+1);
 					sb.append("</td>");
 					sb.append("<td onClick=\"viewData('"+bb.get(forB).getRoomCode() +"','" + bb.get(forB).getBoardDate() + "')\">" +bb.get(forB).getBoardTitle() + "</td>");
-					sb.append("<td>" + bb.get(forB).getBoardDate() + "</td>");
 					sb.append("<td>" + bb.get(forB).getBoardId() + "</td>");
+					sb.append("<td>" + bb.get(forB).getBoardDate() + "</td>");
 					sb.append("</tr>");
 
 				}
@@ -1869,8 +1869,8 @@ public class learningTeacherMM extends TransactionExe {
 		sb.append("<tr>");
 		sb.append("<td>게시글번호</td>");
 		sb.append("<td>제목</td>");
-		sb.append("<td>날짜</td>");
 		sb.append("<td>작성자</td>");
+		sb.append("<td>날짜</td>");
 		sb.append("</tr>");
 		int forI = 0; // 크게 한사람
 		int forB = 0;	// 내용물
@@ -1890,8 +1890,8 @@ public class learningTeacherMM extends TransactionExe {
 				sb.append("<td>"+ (forB+1) +"</td>");
 				//sb.append("<input type=\"hidden\" name=\"boardTitle\" value='" + board.getBoardTitle() + "'/>");
 				sb.append("<td onClick=\"confirm('"+ ar.get(forB).getBoardTitle() +"','" + ar.get(forB).getBoardDate() + "','"+ board.getId() +"')\">" + ar.get(forB).getBoardTitle() + "</td>");
-				sb.append("<td>" + ar.get(forB).getBoardDate() + "</td>");
 				sb.append("<td>" + ar.get(forB).getBoardId() + "</td>");
+				sb.append("<td>" + ar.get(forB).getBoardDate() + "</td>");
 				sb.append("</tr>");
 			}
 			sb.append("</tbody>");	

@@ -289,23 +289,16 @@ function eventClick(formname, formaction, formmethod) {
                         <thead class="table table-striped table-bordered">
 
                            <tr>
-                              <th width="20%" style="padding-top: 15px">작성자</th>
+                              <th width="15%" style="padding-top: 15px">작성자</th>
                               <td width="80%"> ${boardId }</td>
                            </tr>
                            <tr>
-                              <th width="20%" style="padding-top: 15px">제목</th>
+                              <th width="15%" style="padding-top: 15px">제목</th>
                               <td width="80%">${boardTitle }</td>
                            </tr>
+                           
                            <tr>
-                              <th width="20%">다운로드</th>
-                              <td width="80%"><c:forEach var="file" items="${list }">
-
-                                    <a href="download.action?name=${file}">${file}</a>
-
-                                 </c:forEach></td>
-                           </tr>
-                           <tr>
-                              <th width="20%" style="padding-top: 15px">날짜</th>
+                              <th width=15% style="padding-top: 15px">날짜</th>
                               <td width="80%">${boardDate }</td>
                            </tr>
                         </thead>
@@ -315,10 +308,18 @@ function eventClick(formname, formaction, formmethod) {
                                     style="background-color: white; color: black;"
                                     name="content" readonly>${boardContent }</textarea></td>
                            </tr>
+                           <tr>
+                              <th width="15%">다운로드</th>
+                              <td width="80%"><c:forEach var="file" items="${list }">
+
+                                    <a href="download.action?name=${file}">${file}</a>
+
+                                 </c:forEach></td>
+                           </tr>
                         </tbody>
 
                      </table>
-               
+               		${content } 
                   </div>
 
                </div>
@@ -331,7 +332,7 @@ function eventClick(formname, formaction, formmethod) {
 
 
    
-   <%--    ${content } --%>
+       
 
 </body>
 </html>

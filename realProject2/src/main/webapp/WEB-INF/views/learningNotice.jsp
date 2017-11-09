@@ -174,7 +174,7 @@ function menu(ivalue, identity) {
 
 			<div class="sidebar-wrapper">
 				<div class="logo">
-					<a onClick="menu('15')" class="simple-text"> <img
+					<a onClick="menu('15','${identity}')" class="simple-text"> <img
 						src="assets/img/gong_logo.png" alt="공조" width="150*100">
 					</a>
 				</div>
@@ -257,7 +257,7 @@ function menu(ivalue, identity) {
 
 
 			<!-- 공지사항 -->
-			<div class="col-lg-35 col-md-12">
+			<div class="col-lg-30 col-md-12">
 
 				<div class="card">
 					<br />
