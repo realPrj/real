@@ -46,11 +46,10 @@
 $(document).ready(function() {
 	
 	 $("#yearSelect").click(function() {
-
+		 
 			var yearcode = $(this).val();
-			
-			continuing(yearcode);
-
+			setTimeout(continuing(yearcode), 3000);
+			 
 		});
 	
 	
@@ -132,12 +131,12 @@ function continuing(yearcode){
            console.log(error);
         }
      }); 
-	setTimeout("continuing("+yearcode+")",2000);
 	
-	
+
 }	 
 	 
-	  
+
+
 function createinput(itype, iname, ivalue) {
     var input = document.createElement("input");
     input.type = itype;
