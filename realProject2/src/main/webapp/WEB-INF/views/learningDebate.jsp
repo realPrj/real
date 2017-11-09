@@ -10,7 +10,7 @@
 <link rel="icon" type="image/png" sizes="96x96"
    href="assets/img/favicon.png">
 <title> 공조 || 토론게시판 </title>
-   <!-- Bootstrap core CSS     -->
+<!-- Bootstrap core CSS     -->
 <link href="assets/css/bootstrap.min.css" rel="stylesheet" />
 
 <!-- Animation library for notifications   -->
@@ -26,14 +26,52 @@
 
 <!--  Fonts and icons     -->
 <link
-   href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css"
-   rel="stylesheet">
+	href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css"
+	rel="stylesheet">
 <link href='https://fonts.googleapis.com/css?family=Muli:400,300'
-   rel='stylesheet' type='text/css'>
+	rel='stylesheet' type='text/css'>
 <link href="assets/css/themify-icons.css" rel="stylesheet">
+
+<!--   Core JS Files   -->
+<script src="assets/js/jquery-1.10.2.js" type="text/javascript"></script>
+<script src="assets/js/bootstrap.min.js" type="text/javascript"></script>
+
+<!--  Checkbox, Radio & Switch Plugins -->
+<script src="assets/js/bootstrap-checkbox-radio.js"></script>
+
+<!--  Charts Plugin -->
+<script src="assets/js/chartist.min.js"></script>
+
+<!--  Notifications Plugin    -->
+<script src="assets/js/bootstrap-notify.js"></script>
+
+<!--  Google Maps Plugin    -->
+<script type="text/javascript"
+	src="https://maps.googleapis.com/maps/api/js"></script>
+
+<!-- Paper Dashboard Core javascript and methods for Demo purpose -->
+<script src="assets/js/paper-dashboard.js"></script>
+
+<!-- Paper Dashboard DEMO methods, don't include it in your project! -->
+<script src="assets/js/demo.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     
 
 <script>
+$(document).ready(function() {
+	/* 복사 */
+	$("tbody[name *='tbody']").hide();
+	var tableList = $("#tableList");
+	tableList.append($("#tbody0").show());
+
+});
+/*복사  */
+function pageNumber(value) {
+	$("tbody[name *='tbody']").hide();
+	var tableList = $("#tableList");
+	tableList.append($("#tbody" + value).show());
+}
 function confirm(boardTitle, boardDate, identity) {
 	var f = document.createElement("form");
 	f.name = "boardConfirm";
@@ -221,10 +259,10 @@ function menu(ivalue, identity) {
 						<b>토론게시판</b>
 					</h2>
 
-					${content }
+					${content } ${button }
 					<hr />
 
-					<!-- 페이지네이션넣기 -->
+					<!-- 페이지네이션넣기 -
 					<div class="text-center">
 						<ul class="pagination">
 							<li><a href="#">1</a></li>
@@ -233,7 +271,7 @@ function menu(ivalue, identity) {
 							<li><a href="#">4</a></li>
 							<li><a href="#">5</a></li>
 						</ul>
-					</div>
+					</div>-->
 
 				</div>
 			</div>
