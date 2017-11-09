@@ -250,9 +250,11 @@ function pageNumber(value) {
 					<h2>
 						<b>질문 게시판</b>
 					</h2>
-					<a class="btn btn-default qull-right"
+					
+					${datalist}
+					<a class="btn" 
 						onClick="eventClick('dataform','questionInsert','post')">글쓰기</a>
-					${datalist}${content2 }
+						${content2 }
 					<hr />
 					
 

@@ -357,7 +357,8 @@ public class learningStudentMM extends TransactionExe {
 
 				for(int y=0; y < sizeDouble; y++) {
 
-					sb.append("<li><input class='btn-sm' type='button' value="+(y+1)+" onClick='pageNumber("+y+")' /></li>");			
+					//sb.append("<li><input class='btn-sm' type='button' value="+(y+1)+" onClick='pageNumber("+y+")' /></li>");
+					sb.append("<li><a onClick='pageNumber("+y+")'>"+(y+1)+"</a></li>");
 				}
 				sb.append("</ul>");
 				sb.append("</div>");
@@ -724,7 +725,7 @@ public class learningStudentMM extends TransactionExe {
 			bb = dao.learningQuestionlist(board);
 			sb.append("<table class=\"table table-hover\">");
 			sb.append("<tr>");
-			sb.append("<td>방 번호</td>");
+			sb.append("<td>게시물번호</td>");
 			sb.append("<td>제목</td>");
 			sb.append("<td>날짜</td>");
 			sb.append("<td>아이디</td>");
@@ -774,7 +775,8 @@ public class learningStudentMM extends TransactionExe {
 
 			for(int y=0; y < sizeDouble; y++) {// 페이지 버튼
 
-				sb.append("<li><input class='btn-sm' type='button' value="+(y+1)+" onClick='pageNumber("+y+")' /></li>");			
+				//sb.append("<li><input class='btn-sm' type='button' value="+(y+1)+" onClick='pageNumber("+y+")' /></li>");
+				sb.append("<li><a onClick='pageNumber("+y+")'>"+(y+1)+"</a></li>");
 			}
 			sb.append("</ul>");
 			sb.append("</div>");
@@ -1549,14 +1551,12 @@ public class learningStudentMM extends TransactionExe {
 			sb.append("<td>이름</td>");
 			sb.append("<td>이메일</td>");
 			sb.append("<td>핸드폰 번호</td>");
-			sb.append("<td>메일 발송</td>");
 			sb.append("<td>쪽지 보내기</td>");
 			sb.append("<tr>");
 			sb.append("<td>"+ board.getId() +"</td>");
 			sb.append("<td>"+ board.getName() +"</td>");
 			sb.append("<td>"+ board.getEmail() +"</td>");
 			sb.append("<td>"+ board.getPhone() +"</td>");
-			sb.append("<td>" + "<input type=\"button\"  class='btn' value=\"메일 발송\" onClick=\"sendMail('"+ board.getEmail() +"')\"/>" + "</td>");
 			sb.append("<td><input type=\"button\"class='btn' value=\"쪽지보내기\" onClick=\"sendMessage('"+ board.getId() +"')\" /></td>");
 			sb.append("</tr>");
 			sb.append("</table>");
@@ -1571,7 +1571,6 @@ public class learningStudentMM extends TransactionExe {
 			sb.append("<td>이름</td>");
 			sb.append("<td>이메일</td>");
 			sb.append("<td>핸드폰 번호</td>");
-			sb.append("<td>메일 발송</td>");
 			sb.append("<td>쪽지 보내기</td>");
 			sb.append("</tr>");
 			int forI = 0; // 크게 한사람
@@ -1596,7 +1595,6 @@ public class learningStudentMM extends TransactionExe {
 				sb.append("<td>" + ar.get(forB).getEmail() + "</td>");
 				sb.append("<td>" + ar.get(forB).getPhone() + "</td>");
 
-				sb.append("<td>" + "<input type=\"button\"  class='btn' value=\"메일 발송\" onClick=\"sendMail('"+ ar.get(0).getEmail() +"')\"/>" + "</td>");
 				sb.append("<td><input type=\"button\"class='btn' value=\"쪽지보내기\" onClick=\"sendMessage('"+ ar.get(forB).getStudentCode() +"')\" /></td>");
 
 
@@ -1789,7 +1787,8 @@ public class learningStudentMM extends TransactionExe {
 
 		for(int y=0; y < sizeDouble; y++) {// 페이지 버튼
 
-			sb.append("<li><input class='btn-sm' type='button' value="+(y+1)+" onClick='pageNumber("+y+")' /></li>");			
+			//sb.append("<li><input class='btn-sm' type='button' value="+(y+1)+" onClick='pageNumber("+y+")' /></li>");
+			sb.append("<li><a onClick='pageNumber("+y+")'>"+(y+1)+"</a></li>");
 		}
 		sb.append("</ul>");
 		sb.append("</div>");

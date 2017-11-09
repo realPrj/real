@@ -1,23 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<!DOCTYPE html>
+   pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8" />
 <link rel="apple-touch-icon" sizes="76x76"
-	href="assets/img/apple-icon.png">
+   href="assets/img/apple-icon.png">
 <link rel="icon" type="image/png" sizes="96x96"
-	href="assets/img/favicon.png">
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-<title>공조 || 공지사항</title>
-<meta
-	content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0'
-	name='viewport' />
-<meta name="viewport" content="width=device-width" />
-
-
-
+   href="assets/img/favicon.png">
+<title>공조 || 공지사항 내용</title>
 <!-- Bootstrap core CSS     -->
 <link href="assets/css/bootstrap.min.css" rel="stylesheet" />
 
@@ -34,10 +27,10 @@
 
 <!--  Fonts and icons     -->
 <link
-	href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css"
-	rel="stylesheet">
+   href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css"
+   rel="stylesheet">
 <link href='https://fonts.googleapis.com/css?family=Muli:400,300'
-	rel='stylesheet' type='text/css'>
+   rel='stylesheet' type='text/css'>
 <link href="assets/css/themify-icons.css" rel="stylesheet">
 
 <!--   Core JS Files   -->
@@ -55,7 +48,7 @@
 
 <!--  Google Maps Plugin    -->
 <script type="text/javascript"
-	src="https://maps.googleapis.com/maps/api/js"></script>
+   src="https://maps.googleapis.com/maps/api/js"></script>
 
 <!-- Paper Dashboard Core javascript and methods for Demo purpose -->
 <script src="assets/js/paper-dashboard.js"></script>
@@ -63,60 +56,83 @@
 <!-- Paper Dashboard DEMO methods, don't include it in your project! -->
 <script src="assets/js/demo.js"></script>
 <script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+   src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
 <script>
-$(document).ready(function() {
-	/* 복사 */
-	$("tbody[name *='tbody']").hide();
-	var tableList = $("#tableList");
-	tableList.append($("#tbody0").show());
-
-});
-/*복사  */
-function pageNumber(value) {
-	$("tbody[name *='tbody']").hide();
-	var tableList = $("#tableList");
-	tableList.append($("#tbody" + value).show());
+//메뉴선택
+function menu(ivalue, identity){
+    var ff = document.createElement("form");
+   ff.name = "menuform";
+   ff.method = "post";
+   if(identity == '1'){
+      ff.action = "tcmenu";
+   }else{
+      ff.action = "stmenu";
+   }
+   document.body.appendChild(ff);
+   
+   var i = document.createElement("input");
+   i.type = "hidden";
+   i.name = "caCode";
+   i.value = ivalue;
+   ff.appendChild(i);  
+   
+   document.menuform.submit();
+   
+}
+function update(boardTitle, boardContent, boardDate){
+   var f = document.createElement("form");
+   f.name = "noticeUpdate";
+   f.method = "post";
+   f.action = "NoticeUpdatePage";
+   document.body.appendChild(f);
+   
+   
+   var title = document.createElement("input");
+   title.type = "hidden";
+   title.name = "boardTitle";
+   title.value = boardTitle;
+   f.appendChild(title);
+   
+   var content = document.createElement("input");
+   content.type = "hidden";
+   content.name = "boardContent";
+   content.value = boardContent;
+   f.appendChild(content);
+   
+   var date = document.createElement("input");
+   date.type = "hidden";
+   date.name = "boardDate";
+   date.value = boardDate;
+   f.appendChild(date);
+   
+   document.noticeUpdate.submit();
 }
 
-function confirm(boardTitle, boardDate, identity) {
-	var f = document.createElement("form");
-	f.name = "boardConfirm";
-	f.method = "post";
-	if(identity == '1'){
-		f.action = "tcNoticeConfirm";
-	}else{
-		f.action = "stNoticeConfirm"
-	}
-	document.body.appendChild(f);
+function boardDelete(roomCode, boardDate){
+   var ff = document.createElement("form");
+   ff.name = "noticeDelete";
+   ff.method = "post";
+   ff.action = "NoticeDelete";
+   document.body.appendChild(ff);
 
-	var title = document.createElement("input");
-	title.type = "hidden";
-	title.name = "boardTitle";
-	title.value = boardTitle;
-	f.appendChild(title);
-	
-	
-	var date = document.createElement("input");
-	date.type = "hidden";
-	date.name = "boardDate";
-	date.value = boardDate;
-	f.appendChild(date); 
-	
+   var code = document.createElement("input");
+   code.type = "hidden";
+   code.name = "roomCode";
+   code.value = roomCode;
+   ff.appendChild(code);
+   alert(code.value);
+   
+   var date = document.createElement("input");
+   date.type = "hidden";
+   date.name = "boardDate";
+   date.value = boardDate;
+   ff.appendChild(date);
 
-	document.boardConfirm.submit();
-} 
-
-function noticeInsert(){
-	var ff = document.createElement("form");
-	ff.name = "noticeInsert";
-	ff.method = "post";
-	ff.action = "NoticeInsert";
-	document.body.appendChild(ff);
-	
-	document.noticeInsert.submit();
+   document.noticeDelete.submit();
+   
+   alert("삭제되었습니다");
 }
-//form 생성
 function createForm(formname, formaction, formmethod) {
 
    var form = document.createElement("form");
@@ -137,33 +153,20 @@ function createinput(itype, iname, ivalue) {
    input.value = ivalue;
 
    document.body.appendChild(input);
-   
-   return input;
 }
 
-//메뉴선택
-function menu(ivalue, identity) {
+function eventClick(formname, formaction, formmethod) {
 
-   createinput("hidden", "caCode", ivalue);
+   createForm(formname, formaction, formmethod);
 
-   var caCode = document.getElementsByName("caCode")[0];
-   if(identity == '1'){
-	   createForm("menuform", "tcmenu", "post");
-   }else{
-	   createForm("menuform", "stmenu", "post");
-   }
-   
-   var form = document.getElementsByName("menuform")[0];
-   form.appendChild(caCode);
-   
+   var form = document.getElementsByName(formname)[0];
+
    form.submit();
 
 }
-
 </script>
 </head>
 <body>
-<input type="hidden" name="identity" value="${identity }" />
 <div class="wrapper">
 		<div class="sidebar" data-background-color="white"
 			data-active-color="danger">
@@ -174,7 +177,7 @@ function menu(ivalue, identity) {
 
 			<div class="sidebar-wrapper">
 				<div class="logo">
-					<a onClick="menu('15','${identity}')" class="simple-text"> <img
+					<a onClick="menu('15')" class="simple-text"> <img
 						src="assets/img/gong_logo.png" alt="공조" width="150*100">
 					</a>
 				</div>
@@ -256,36 +259,74 @@ function menu(ivalue, identity) {
          </nav>
 
 
-			<!-- 공지사항 -->
-			<div class="col-lg-30 col-md-12">
+         <!-- 질문게시판 내용확인 -->
 
-				<div class="card">
-					<br />
-					<h2>
-						<b>공지사항</b>
-					</h2>
+         <div class="col-lg-35 col-md-12"
+            style="display: inline-block; text-align: center;">
+            <div class="card">
 
-					${content } ${button }
-					<hr />
-
-					<!-- 페이지네이션넣기 
-					<div class="text-center">
-						<ul class="pagination">
-							<li><a href="#">1</a></li>
-							<li><a href="#">2</a></li>
-							<li><a href="#">3</a></li>
-							<li><a href="#">4</a></li>
-							<li><a href="#">5</a></li>
-						</ul>
-					</div>-->
-
-				</div>
-			</div>
-		</div>
-
-	</div>
+               <h2>
+                  <b>질문게시판</b>
+               </h2>
 
 
+               <div id="content"
+                  style="display: inline-block; text-align: center;">
+                  <input type="hidden" name="pageNum" value="${pageNum}"> <input
+                     type="hidden" name="articleNumber"
+                     value="${article.articleNumber}">
+
+                  <div class="input-group input-group-md" role="group"
+                     aria-label="...">
+                     <table border="2" width="700px" height="300px";  >
+                        <br />
+                        <thead class="table table-striped table-bordered">
+
+                           <tr>
+                              <th width="15%" style="padding-top: 15px">작성자</th>
+                              <td width="80%"> ${boardId }</td>
+                           </tr>
+                           <tr>
+                              <th width="15%" style="padding-top: 15px">제목</th>
+                              <td width="80%">${boardTitle }</td>
+                           </tr>
+                           
+                           <tr>
+                              <th width=15% style="padding-top: 15px">날짜</th>
+                              <td width="80%">${boardDate }</td>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr>
+                              <td colspan="2"><textarea class="form-control" rows="15"
+                                    style="background-color: white; color: black;"
+                                    name="content" readonly>${boardContent }</textarea></td>
+                           </tr>
+                           <tr>
+                              <th width="15%">다운로드</th>
+                              <td width="80%"><c:forEach var="file" items="${list }">
+
+                                    <a href="download.action?name=${file}">${file}</a>
+
+                                 </c:forEach></td>
+                           </tr>
+                        </tbody>
+
+                     </table>
+               		${content } 
+                  </div>
+
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+
+
+
+
+   
+       
 
 </body>
 </html>

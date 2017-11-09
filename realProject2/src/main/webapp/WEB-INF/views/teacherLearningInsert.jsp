@@ -45,7 +45,7 @@ function open(formname,formaction,formmethod){
 <tr><td>방이름</td><td><input type="text" name="roomName" placeholder="학습방 이름" /></td></tr>
 <tr><td>방소개</td><td><input type="text" name="roomIntroduction" placeholder="학습방 소개" /></td></tr>
 <tr><td>과목선택</td><td><select name="roomSB"><option value="1">언어</option><option value="2">수리-가</option><option value="3">수리-나</option><option value="4">영어</option> </select></td></tr>
-<tr><td><input type="button" value="개설하기" onClick="open('learningOpenform','learningOpen','post')" /></td></tr>
+<tr><td><input class="btn" type="button" value="개설하기" onClick="open('learningOpenform','learningOpen','post')" /></td></tr>
 </table>
 </body>
 </html>
