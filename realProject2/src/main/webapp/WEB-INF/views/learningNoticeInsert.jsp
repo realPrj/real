@@ -10,6 +10,7 @@
 <link rel="icon" type="image/png" sizes="96x96"
    href="assets/img/favicon.png">
 <title>공조 || 공지사항 등록</title>
+<link href="assets/css/css.css" rel="stylesheet" />
 <!-- Bootstrap core CSS     -->
 <link href="assets/css/bootstrap.min.css" rel="stylesheet" />
 
@@ -95,7 +96,7 @@ function NoticeInsertOk(){
 
          <div class="sidebar-wrapper">
             <div class="logo">
-               <a onClick="menu('15')" class="simple-text"> <img
+               <a onClick="menu('15',${identity})" class="simple-text"> <img
                   src="assets/img/gong_logo.png" alt="공조" width="150*100">
                </a>
             </div>
@@ -160,20 +161,17 @@ function NoticeInsertOk(){
                <ul class="nav navbar-nav navbar-right">
 
                   <li class="dropdown"><a href="#" class="dropdown-toggle"
-                     data-toggle="dropdown"> <i class="ti-bell"></i>
-                        <p class="notification"></p>
-                        <p>마이메뉴</p> <b class="caret"></b>
-                  </a>
-                     <ul class="dropdown-menu">
+							data-toggle="dropdown"> <i class="ti-bell"></i>
+								<p class="notification"></p>
+								<p>마이메뉴</p> <b class="caret"></b>
+						</a>
+							<ul class="dropdown-menu">
+								<li><a onClick="menu('11',${identity})">쪽지함</a></li>
+								<li><a onClick="menu('14',${identity})">로그아웃</a></li>
+							</ul></li>
+						 </ul>
 
-						<li><a onClick="menu('11',${identity})">쪽지함</a></li>
-                        <li><a onClick="menu('14',${identity})">로그아웃</a></li>
-
-                     </ul></li>
-
-               </ul>
-
-            </div>
+     	    </div>
          </div>
          </nav>
          

@@ -13,7 +13,7 @@
 	href="assets/img/favicon.png">
 <title>공조 ||질문게시판</title>
 </head>
-
+<link href="assets/css/css.css" rel="stylesheet" />
 <!-- Bootstrap core CSS     -->
 <link href="assets/css/bootstrap.min.css" rel="stylesheet" />
 

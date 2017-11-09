@@ -11,6 +11,7 @@
 <link rel="icon" type="image/png" sizes="96x96"
    href="assets/img/favicon.png">
 <title>공조 || 공지사항 내용</title>
+<link href="assets/css/css.css" rel="stylesheet" />
 <!-- Bootstrap core CSS     -->
 <link href="assets/css/bootstrap.min.css" rel="stylesheet" />
 
@@ -164,7 +165,11 @@ function eventClick(formname, formaction, formmethod) {
    form.submit();
 
 }
+
 </script>
+<style>
+
+</style>
 </head>
 <body>
 <div class="wrapper">
@@ -266,7 +271,7 @@ function eventClick(formname, formaction, formmethod) {
             <div class="card">
 
                <h2>
-                  <b>질문게시판</b>
+                  <b>공지사항</b>
                </h2>
 
 

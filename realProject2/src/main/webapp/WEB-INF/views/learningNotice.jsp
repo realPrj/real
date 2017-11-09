@@ -16,7 +16,7 @@
 	name='viewport' />
 <meta name="viewport" content="width=device-width" />
 
-
+<link href="assets/css/css.css" rel="stylesheet" />
 
 <!-- Bootstrap core CSS     -->
 <link href="assets/css/bootstrap.min.css" rel="stylesheet" />
@@ -239,15 +239,16 @@ function menu(ivalue, identity) {
             <div class="collapse navbar-collapse">
                <ul class="nav navbar-nav navbar-right">
 
-                  <li class="dropdown"><a href="#" class="dropdown-toggle"
-                     data-toggle="dropdown"> <i class="ti-bell"></i>
-                        <p class="notification"></p>
-                        <p>마이메뉴</p> <b class="caret"></b>
-                  </a>
-                     <ul class="dropdown-menu">
-						<li><a onClick="menu('11',${identity})">쪽지함</a></li>
-                        <li><a onClick="menu('14',${identity})">로그아웃</a></li>
-                     </ul></li>
+                     <li class="dropdown"><a href="#" class="dropdown-toggle"
+							data-toggle="dropdown"> <i class="ti-bell"></i>
+								<p class="notification"></p>
+								<p>마이메뉴</p> <b class="caret"></b>
+						</a>
+							<ul class="dropdown-menu">
+								<li><a onClick="menu('11',${identity})">쪽지함</a></li>
+								<li><a onClick="menu('14',${identity})">로그아웃</a></li>
+							</ul></li>
+                     
 
                </ul>
 

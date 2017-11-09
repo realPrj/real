@@ -14,7 +14,7 @@
 <title>공조 || 자료실 글보기</title>
 </head>
 
-
+<link href="assets/css/css.css" rel="stylesheet" />
 <!-- Bootstrap core CSS     -->
 <link href="assets/css/bootstrap.min.css" rel="stylesheet" />
 
