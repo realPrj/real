@@ -63,6 +63,13 @@ public class PageManagement extends TransactionExe {
 		case 7:	// 학습방 코드표
 			mav = subjectCCT(((BoardBean)object));
 			break;		
+			
+		case 8:	// 학습방 코드표
+			mav = subjectCCTSTUDENT(((BoardBean)object));
+			break;	
+		case 9:	// 선생님 다시
+			mav = hometeacherLearningMainPage(((LearningRoomBean)object));
+			break;		
 
 		}
 
@@ -491,9 +498,9 @@ public class PageManagement extends TransactionExe {
 		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
 
 		try {
-
+			System.out.println("학습방메인페이지 ");
 			room = dao.learningRoomGo(room);
-
+			System.out.println(room.getRoomCode());
 			session.setAttribute("roomCode", room.getRoomCode());
 
 			mav.addObject("content",room.getRoomIntroduction());
@@ -502,7 +509,7 @@ public class PageManagement extends TransactionExe {
 
 
 		}catch(Exception ex) {
-
+			ex.printStackTrace();
 		}finally {
 			mav.setViewName("teacherLearningMain");
 			setTransactionResult(transaction);
@@ -621,7 +628,9 @@ public class PageManagement extends TransactionExe {
 			String yearCode = board.getYearCode();
 			
 			al = dao.learningWANNumberGet(board);	// 문제번호 추출
-			
+			System.out.println(al.size());
+			System.out.println(sbCode);
+			System.out.println(yearCode);
 			for(int i = 0; i < al.size(); i++) {
 				board = new BoardBean();
 				board.setRoomSB(sbCode);
@@ -629,6 +638,7 @@ public class PageManagement extends TransactionExe {
 				board.setNumberCode(al.get(i).getNumberCode());
 				board.setTypeCode(dao.learningTypeCodeGet(board));
 				board.setTypeName(dao.learningTypeNameGet(board));
+				System.out.println(board.getTypeName());
 				board.setAllSum(al.size());
 				code.add(board);
 			}
@@ -710,6 +720,90 @@ public class PageManagement extends TransactionExe {
 		
 		return code;
 
+	}
+	private ModelAndView subjectCCTSTUDENT(BoardBean board) {	// 코드 보여주기
+
+		mav = new ModelAndView();
+		boolean transaction = false;
+		ArrayList<BoardBean> al = null;
+		StringBuffer sb=null;
+
+		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
+
+		try {
+			
+			board.setRoomCode((String)session.getAttribute("roomCode"));
+
+			board.setRoomSB(dao.learningSBCodeGet(board));	// 과목 코드
+			String sbCode = board.getRoomSB();
+			
+			board.setSubjectName(dao.subjectNameGet(board));	// 과목 이름
+			
+			mav.addObject("sbName", "<input type='button' class='btn' value='"+board.getSubjectName()+"("+board.getRoomSB()+")' />");
+			
+			al = dao.learningYearCodeGet(board);	// 년도 코드		
+			sb = new StringBuffer();
+		
+			sb.append("<table align=\"center\" id='Click'>");
+			
+			for(int i = 0; i < al.size(); i++) {
+				board = new BoardBean();
+				board.setRoomSB(sbCode);
+				board.setYearCode(al.get(i).getYearCode());
+				board.setYearName(dao.learningYearNameGet(board));
+				sb.append("<tbody id='"+board.getYearCode()+"'>");
+				sb.append("<tr>");
+				sb.append("<td><input type='button' class='btn' value='"+board.getYearName()+"("+board.getYearCode()+")' /></td>");
+				sb.append("</tr>");
+				sb.append("</tbody>");
+			}
+			
+			sb.append("</table>");
+			
+			mav.addObject("yearCode", sb.toString());
+			
+			transaction = true;
+
+
+		}catch(Exception ex) {
+
+		}finally {
+			mav.setViewName("subjectCCTSTUDENT");
+			setTransactionResult(transaction);
+		}
+
+
+		return mav;
+
+	}
+	
+	private ModelAndView hometeacherLearningMainPage(LearningRoomBean room) {	// 선생님 학습방 메인 페이지
+
+		mav = new ModelAndView();
+		boolean transaction = false;
+
+		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
+
+		try {
+			System.out.println("학습방메인페이지 ");
+			room.setRoomCode((String)session.getAttribute("roomCode"));
+			room = dao.learningRoomGo(room);
+			System.out.println(room.getRoomCode());
+			session.setAttribute("roomCode", room.getRoomCode());
+
+			mav.addObject("content",room.getRoomIntroduction());
+
+			transaction = true;
+
+
+		}catch(Exception ex) {
+			ex.printStackTrace();
+		}finally {
+			mav.setViewName("teacherLearningMain");
+			setTransactionResult(transaction);
+		}
+
+		return mav;
 	}
 	
 }

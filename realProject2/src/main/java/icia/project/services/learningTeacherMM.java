@@ -3029,8 +3029,8 @@ public class learningTeacherMM extends TransactionExe {
 	private ModelAndView learningPlanPage(BoardBean board) { // 강의 계획서 페이지
 
 		mav = new ModelAndView();
-		boolean transaction = false;
 
+		boolean transaction = false;
 		StringBuffer sb = new StringBuffer();
 		String nowYear2 = null;
 

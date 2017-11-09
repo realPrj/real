@@ -10,7 +10,7 @@
 <script>
 $(document).ready(function() {
 	$("#tableShow").hide(); 
-	if(${check} != 0){
+	if(${check } != 0){
 		$("#tableShow").show();
 	}
 	
