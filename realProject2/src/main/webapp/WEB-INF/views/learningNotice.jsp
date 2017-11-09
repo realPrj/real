@@ -65,6 +65,20 @@
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script>
+$(document).ready(function() {
+	/* 복사 */
+	$("tbody[name *='tbody']").hide();
+	var tableList = $("#tableList");
+	tableList.append($("#tbody0").show());
+
+});
+/*복사  */
+function pageNumber(value) {
+	$("tbody[name *='tbody']").hide();
+	var tableList = $("#tableList");
+	tableList.append($("#tbody" + value).show());
+}
+
 function confirm(boardTitle, boardDate, identity) {
 	var f = document.createElement("form");
 	f.name = "boardConfirm";
@@ -254,10 +268,10 @@ function menu(ivalue, identity) {
 						<b>공지사항</b>
 					</h2>
 
-					${content }
+					${content } ${button }
 					<hr />
 
-					<!-- 페이지네이션넣기 -->
+					<!-- 페이지네이션넣기 
 					<div class="text-center">
 						<ul class="pagination">
 							<li><a href="#">1</a></li>
@@ -266,7 +280,7 @@ function menu(ivalue, identity) {
 							<li><a href="#">4</a></li>
 							<li><a href="#">5</a></li>
 						</ul>
-					</div>
+					</div>-->
 
 				</div>
 			</div>

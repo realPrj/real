@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
-
+import com.google.gson.Gson;
 
 import icia.project.bean.MemberBean;
 import icia.project.bean.BoardBean;
@@ -110,7 +110,7 @@ public class FunctionController {
 		return mav;
 	}
 
-	// 아이디 중복확인
+	/*// 아이디 중복확인
 	@RequestMapping(value = "/idRedundancyCheck", method = RequestMethod.POST)
 	public ModelAndView idRedundancyCheck(@ModelAttribute MemberBean member) {
 
@@ -133,7 +133,21 @@ public class FunctionController {
 		}
 
 		return mav;
+	}*/
+	
+	@RequestMapping(value = "/idRedundancyCheck", method = RequestMethod.POST,produces = "application/text; charset=utf8")
+	@ResponseBody public String idRedundancyCheck(@ModelAttribute MemberBean member) {
+		System.out.println("아이디중복체크 컨트롤러");
+		String check = null;
+		
+		check = tm.idRedundancyCheck(member);
+		Gson gson = new Gson();
+
+		check = gson.toJson(check);
+		
+		return check;
 	}
+	
 
 	// 아이디 찾기
 	@RequestMapping(value = "/idFind", method = RequestMethod.POST)

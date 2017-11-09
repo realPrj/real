@@ -40,16 +40,17 @@
 <link href="assets/css/themify-icons.css" rel="stylesheet">
 
 </head>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script>
+	$(document).ready(function() {
 
-$(document).ready(function() {
 	
 	 $("#yearSelect").click(function() {
 		 
 			var yearcode = $(this).val();
-			setTimeout(continuing(yearcode), 3000);
-			 
+		
+			continuing(yearcode);
 		});
 	
 	
@@ -137,84 +138,81 @@ function continuing(yearcode){
 	 
 
 
-function createinput(itype, iname, ivalue) {
-    var input = document.createElement("input");
-    input.type = itype;
-    input.name = iname;
+	function createinput(itype, iname, ivalue) {
+   	 var input = document.createElement("input");
+   	 input.type = itype;
+   	 input.name = iname;
     input.value = ivalue;
 
-    document.body.appendChild(input);
-    
-    return input;
-}
+   	 document.body.appendChild(input);
 
-//form 생성
-function createForm(formname,formaction,formmethod){
-
-var form = document.createElement("form");
-
-form.name = formname;
-form.action = formaction;
-form.method = formmethod;
-
-document.body.appendChild(form);
-
-}
-
-//form 생성
-function createForm1(formname, formaction, ta) {
-
-   var form = document.createElement("form");
-   form.target = ta;
-   form.name = formname;
-   form.action = formaction;
-
-   document.body.appendChild(form);
-
-}
-
-//메뉴선택
-function menu(ivalue) {
-	
-	 createinput("hidden", "caCode", ivalue);
-
-	 var caCode = document.getElementsByName("caCode")[0];
+	}
 
 
-    createForm("menuform", "tcmenu", "post");
+	//form 생성
+	function createForm(formname, formaction, formmethod) {
 
-    var form = document.getElementsByName("menuform")[0];
-    form.appendChild(caCode);
-    
-    form.submit();
+		var form = document.createElement("form");
 
-}
+		form.name = formname;
+		form.action = formaction;
+		form.method = formmethod;
 
-function planCXT(value){
+		document.body.appendChild(form);
 
-	  createinput("hidden", "boardCode", value);
+	}
 
-      var boardCode = document.getElementsByName("boardCode")[0];
+	//form 생성
+	function createForm1(formname, formaction, ta) {
 
-      createForm1("learningPlanCTXPageform", "learningPlanCTXPage", "POP");
+		var form = document.createElement("form");
+		form.target = ta;
+		form.name = formname;
+		form.action = formaction;
 
-      var form = document.getElementsByName("learningPlanCTXPageform")[0];
-      
-      window.open('', 'POP',
-            "width=550, height=450, resizable = no, scrollbars = no");
-      form.appendChild(boardCode);
+		document.body.appendChild(form);
 
-      form.submit();
-      
-      $("input[name = boardCode]").remove();
-	
-}
+	}
 
-	 
+	//메뉴선택
+	function menu(ivalue) {
+
+		createinput("hidden", "caCode", ivalue);
+
+		var caCode = document.getElementsByName("caCode")[0];
+
+		createForm("menuform", "tcmenu", "post");
+
+		var form = document.getElementsByName("menuform")[0];
+		form.appendChild(caCode);
+
+		form.submit();
+
+	}
+
+	function planCXT(value) {
+
+		createinput("hidden", "boardCode", value);
+
+		var boardCode = document.getElementsByName("boardCode")[0];
+
+		createForm1("learningPlanCTXPageform", "learningPlanCTXPage", "POP");
+
+		var form = document.getElementsByName("learningPlanCTXPageform")[0];
+
+		window.open('', 'POP',
+				"width=550, height=450, resizable = no, scrollbars = no");
+		form.appendChild(boardCode);
+
+		form.submit();
+
+		$("input[name = boardCode]").remove();
+
+	}
 </script>
 
 <body>
-<div class="wrapper">
+	<div class="wrapper">
 		<div class="sidebar" data-background-color="white"
 			data-active-color="danger">
 
@@ -305,8 +303,15 @@ function planCXT(value){
 				</div>
 			</div>
 			</nav>
-${select }
-<div align="center"><h1 id="monthSring"></h1></div>
-<div id="calendarId"></div>
+			${select }
+				<div align="center">
+		<h1 id="monthSring"></h1>
+	</div>
+	<div id="calendarId"></div>
+		</div>
+	</div>
+
+	
+
 </body>
 </html>

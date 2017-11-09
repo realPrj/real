@@ -40,10 +40,48 @@
 	rel='stylesheet' type='text/css'>
 <link href="assets/css/themify-icons.css" rel="stylesheet">
 
+<!--   Core JS Files   -->
+<script src="assets/js/jquery-1.10.2.js" type="text/javascript"></script>
+<script src="assets/js/bootstrap.min.js" type="text/javascript"></script>
+
+<!--  Checkbox, Radio & Switch Plugins -->
+<script src="assets/js/bootstrap-checkbox-radio.js"></script>
+
+<!--  Charts Plugin -->
+<script src="assets/js/chartist.min.js"></script>
+
+<!--  Notifications Plugin    -->
+<script src="assets/js/bootstrap-notify.js"></script>
+
+<!--  Google Maps Plugin    -->
+<script type="text/javascript"
+	src="https://maps.googleapis.com/maps/api/js"></script>
+
+<!-- Paper Dashboard Core javascript and methods for Demo purpose -->
+<script src="assets/js/paper-dashboard.js"></script>
+
+<!-- Paper Dashboard DEMO methods, don't include it in your project! -->
+<script src="assets/js/demo.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
 </head>
 <script>
 
 //form 생성
+$(document).ready(function() {
+	/* 복사 */
+	$("tbody[name *='tbody']").hide();
+	var tableList = $("#tableList");
+	tableList.append($("#tbody0").show());
+
+});
+/*복사  */
+function pageNumber(value) {
+	$("tbody[name *='tbody']").hide();
+	var tableList = $("#tableList");
+	tableList.append($("#tbody" + value).show());
+}
 function createForm(formname, formaction, formmethod) {
 
    var form = document.createElement("form");
@@ -276,15 +314,10 @@ function messageCTX(messageCode, roomCode, messageDate, identity){
 						<input class="form-control" id="myInput" type="text"
 							placeholder="Search.."> <br>
 						<table class="table table-bordered table-striped">
-							<thead>
-								<tr>
-									<th>수신인</th>
-									<th>제목</th>
-									<th>날짜</th>
-								</tr>
-							</thead>
-							${messageList }
+							
+							${messageList } 
 						</table>
+						${button }
 
 
 					</div>

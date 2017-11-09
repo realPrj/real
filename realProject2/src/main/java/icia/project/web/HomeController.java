@@ -194,12 +194,13 @@ public class HomeController  {
 
 	// 선생님 학습메뉴
 	@RequestMapping(value = "/tcmenu", method = RequestMethod.POST)
-	public ModelAndView tcMenu(@ModelAttribute BoardBean board, MemberBean member) {
+	public ModelAndView tcMenu(@ModelAttribute BoardBean board, MemberBean member,LearningRoomBean room) {
 		int code = Integer.parseInt(board.getCaCode());
 
 		switch(code) {
 		case 1 : 
-
+			System.out.println("여긴옴??");
+			mav = pm.entrance(9, room);
 			break;
 		case 2 : 
 
@@ -313,8 +314,8 @@ public class HomeController  {
 
 			break;
 
-		case 13 : 
-
+		case 13 : // 과목코드표
+			mav = pm.entrance(8, board);
 			break;
 
 		case 14 : //로그아웃
@@ -715,6 +716,7 @@ public class HomeController  {
 	@RequestMapping(value = "/sendMessagePage", method = RequestMethod.POST)
 	public ModelAndView sendMessagePage(@ModelAttribute BoardBean board) {
 		System.out.println(board.getMessageOther());
+		System.out.println(board.getStudentCode());
 		if(board.getIdentity().equals("1")) {
 			mav = ltmm.entrance(46, board);
 		}else {
