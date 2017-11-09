@@ -268,7 +268,7 @@ public class HomeController  {
 
 		switch(code) {
 		case 1 : 
-			mav.setViewName("studentLearningMain");
+			mav = pm.entrance(10, room);
 			break;
 		case 2 : 
 

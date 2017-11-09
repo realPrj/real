@@ -70,6 +70,9 @@ public class PageManagement extends TransactionExe {
 		case 9:	// 선생님 다시
 			mav = hometeacherLearningMainPage(((LearningRoomBean)object));
 			break;		
+		case 10:	// 선생님 다시
+			mav = homestudentLearningMainPage(((LearningRoomBean)object));
+			break;		
 
 		}
 
@@ -800,6 +803,40 @@ public class PageManagement extends TransactionExe {
 			ex.printStackTrace();
 		}finally {
 			mav.setViewName("teacherLearningMain");
+			setTransactionResult(transaction);
+		}
+
+		return mav;
+	}
+	private ModelAndView homestudentLearningMainPage(LearningRoomBean room) {	// 학생 학습방 메인 페이지
+
+		mav = new ModelAndView();
+		BoardBean board=new BoardBean();
+		boolean transaction = false;
+
+		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
+
+		try {
+
+			mav.addObject("code",room.getRoomCode());
+
+			room.setRoomCode((String)session.getAttribute("roomCode"));
+
+
+			room = dao.learningRoomGo(room);
+
+			session.setAttribute("roomCode", room.getRoomCode());
+			board.setRoomCode(room.getRoomCode());
+
+			mav.addObject("content",room.getRoomIntroduction());
+
+			transaction = true;
+
+
+		}catch(Exception ex) {
+
+		}finally {
+			mav.setViewName("studentLearningMain");
 			setTransactionResult(transaction);
 		}
 

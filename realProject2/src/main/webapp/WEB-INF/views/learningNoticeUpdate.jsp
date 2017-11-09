@@ -107,7 +107,7 @@ function NoticeUpdateOk(){
 
          <div class="sidebar-wrapper">
             <div class="logo">
-               <a href="teacher_main.html" class="simple-text"> <img
+               <a onClick="menu('15')" class="simple-text"> <img
                   src="assets/img/gong_logo.png" alt="공조" width="150*100">
                </a>
             </div>
@@ -135,9 +135,6 @@ function NoticeUpdateOk(){
                </a></li>
                <li><a onClick="menu('7','${identity}')"> <i class="ti-book"></i>
                      <p>오답노트</p>
-               </a></li>
-               <li><a onClick="menu('8','${identity}')"> <i class="ti-bar-chart"></i>
-                     <p>성적</p>
                </a></li>
                <li><a onClick="menu('9','${identity}')"> <i class="ti-settings"></i>
                      <p>수강생</p>
