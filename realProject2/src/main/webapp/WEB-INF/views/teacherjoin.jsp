@@ -14,25 +14,30 @@
     <meta name="viewport" content="width=device-width" />
 
 
-    <!-- Bootstrap core CSS     -->
-    <link href="assets/css/bootstrap.min.css" rel="stylesheet" />
+<!-- Bootstrap core CSS     -->
+<link href="assets/css/bootstrap.min.css" rel="stylesheet" />
 
-    <!-- Animation library for notifications   -->
-    <link href="assets/css/animate.min.css" rel="stylesheet"/>
+<!-- Animation library for notifications   -->
+<link href="assets/css/animate.min.css" rel="stylesheet" />
 
-    <!--  Paper Dashboard core CSS    -->
-    <link href="assets/css/paper-dashboard.css" rel="stylesheet"/>
-
-
-    <!--  CSS for Demo Purpose, don't include it in your project     -->
-    <link href="assets/css/demo.css" rel="stylesheet" />
-    <link rel="stylesheet" href="assets/css/login.css" type="text/css">
+<!--  Paper Dashboard core CSS    -->
+<link href="assets/css/paper-dashboard.css" rel="stylesheet" />
 
 
-    <!--  Fonts and icons     -->
-    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
-    <link href='https://fonts.googleapis.com/css?family=Muli:400,300' rel='stylesheet' type='text/css'>
-    <link href="assets/css/themify-icons.css" rel="stylesheet">
+<!--  CSS for Demo Purpose, don't include it in your project     -->
+<link href="assets/css/demo.css" rel="stylesheet" />
+<link rel="stylesheet" href="assets/css/login.css" type="text/css">
+
+
+<!--  Fonts and icons     -->
+<link
+	href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css"
+	rel="stylesheet">
+<link href='https://fonts.googleapis.com/css?family=Muli:400,300'
+	rel='stylesheet' type='text/css'>
+<link href="assets/css/themify-icons.css" rel="stylesheet">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     
     <style>
 		body		{background-color : white;
@@ -83,7 +88,7 @@ function join(){
 	
 }
 
-// 아이디 중복 확인
+/* // 아이디 중복 확인
 function idRedundancyCheck(){
 	
 	var id = document.getElementsByName("id")[0];
@@ -97,6 +102,23 @@ function idRedundancyCheck(){
 	form.appendChild(identity);
 	form.submit();
 	
+} */
+
+function idRedundancyCheck(){
+	var id = $('[name="id"]').val();
+	$.ajax({
+		type : "post",
+		url : "idRedundancyCheck",
+		data : {id : id},
+		success : function(result){
+			if(result == '"1"'){
+				$('#idCheck').html("사용할 수 있는 아이디입니다.");
+			}else{
+				$('#idCheck').html("사용할 수 없는 아이디입니다.");
+			}
+		}
+		
+	});
 }
 
 </script>
@@ -119,6 +141,7 @@ function idRedundancyCheck(){
 		아이디　 　　&nbsp;&nbsp; <input type="text" name="id" value="${id }"  class="box" placeholder="아이디 입력" >
 		<input type="button" value="아이디 중복검사" class="btn" onClick="idRedundancyCheck()" style="float:right;"/>
 		<br/>
+		<div id="idCheck"></div>
 		<br/>
 		비밀번호 　　 &nbsp;&nbsp;<input type="password" name="pwd" class="box" placeholder="비밀번호"><br/>
 		<br/>

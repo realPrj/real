@@ -345,7 +345,7 @@ public class learningTeacherMM extends TransactionExe {
 
 		}
 		sb.append("</table>");
-		sb.append("<input type=\"button\" value=\"글쓰기\" onClick=\"noticeInsert()\"/>");
+		sb.append("<input class=\"btn btn-sm\" type=\"button\" value=\"글쓰기\" onClick=\"noticeInsert()\"/>");
 
 		return sb.toString();
 	}
@@ -475,7 +475,7 @@ public class learningTeacherMM extends TransactionExe {
 			bb = dao.learningQuestionlist(board);
 			sb.append("<table class=\"table table-hover\">");
 			sb.append("<tr>");
-			sb.append("<td>방번호</td>");
+			sb.append("<td><b>게시글번호</b></td>");
 			sb.append("<td>제목</td>");
 			sb.append("<td>날짜</td>");
 			sb.append("<td>아이디</td>");
@@ -526,7 +526,8 @@ public class learningTeacherMM extends TransactionExe {
 
 			for(int y=0; y < sizeDouble; y++) {// 페이지 버튼
 
-				sb.append("<li><input class='btn-sm' type='button' value="+(y+1)+" onClick='pageNumber("+y+")' /></li>");			
+				//sb.append("<li><input class='btn-sm' type='button' value="+(y+1)+" onClick='pageNumber("+y+")' /></li>");
+				sb.append("<li><a onClick='pageNumber("+y+")'>"+(y+1)+"</a></li>");
 			}
 			sb.append("</ul>");
 			sb.append("</div>");
@@ -793,7 +794,8 @@ public class learningTeacherMM extends TransactionExe {
 
 				for(int y=0; y < sizeDouble; y++) {// 페이지 버튼
 
-					sb.append("<li><input class='btn-sm' type='button' value="+(y+1)+" onClick='pageNumber("+y+")' /></li>");			
+					//sb.append("<li><input class='btn-sm' type='button' value="+(y+1)+" onClick='pageNumber("+y+")' /></li>");
+					sb.append("<li><a onClick='pageNumber("+y+")'>"+(y+1)+"</a></li>");
 				}
 				sb.append("</ul>");
 				sb.append("</div>");
@@ -965,7 +967,8 @@ public class learningTeacherMM extends TransactionExe {
 
 			for(int y=0; y < sizeDouble; y++) {// 페이지 버튼
 
-				sb.append("<li><input class='btn-sm' type='button' value="+(y+1)+" onClick='pageNumber("+y+")' /></li>");			
+				//sb.append("<li><input class='btn-sm' type='button' value="+(y+1)+" onClick='pageNumber("+y+")' /></li>");
+				sb.append("<li><a onClick='pageNumber("+y+")'>"+(y+1)+"</a></li>");
 			}
 			sb.append("</ul>");
 			sb.append("</div>");
@@ -1380,7 +1383,7 @@ public class learningTeacherMM extends TransactionExe {
 			bb = dao.datalistStudent(board);
 			sb.append("<table class=\"table table-hover\">");
 			sb.append("<tr>");
-			sb.append("<td>방번호</td>");
+			sb.append("<td>게시글번호</td>");
 			sb.append("<td>제목</td>");
 			sb.append("<td>날짜</td>");
 			sb.append("<td>아이디</td>");
@@ -1428,7 +1431,8 @@ public class learningTeacherMM extends TransactionExe {
 
 			for(int y=0; y < sizeDouble; y++) {// 페이지 버튼
 
-				sb.append("<li><input class='btn-sm' type='button' value="+(y+1)+" onClick='pageNumber("+y+")' /></li>");			
+				//sb.append("<li><input class='btn-sm' type='button' value="+(y+1)+" onClick='pageNumber("+y+")' /></li>");
+				sb.append("<li><a onClick='pageNumber("+y+")'>"+(y+1)+"</a></li>");
 			}
 			sb.append("</ul>");
 			sb.append("</div>");
@@ -1910,11 +1914,12 @@ public class learningTeacherMM extends TransactionExe {
 
 		sb.append("<div class='text-center'>");
 		sb.append("<ul class='pagination'>");
-
+		
 
 		for(int y=0; y < sizeDouble; y++) {// 페이지 버튼
 
-			sb.append("<li><input class='btn-sm' type='button' value="+(y+1)+" onClick='pageNumber("+y+")' /></li>");			
+			//sb.append("<li><input class='btn-sm' type='button' value="+(y+1)+" onClick='pageNumber("+y+")' /></li>");
+			sb.append("<li><a onClick='pageNumber("+y+")'>"+(y+1)+"</a></li>");
 		}
 		sb.append("</ul>");
 		sb.append("</div>");
@@ -2953,10 +2958,10 @@ public class learningTeacherMM extends TransactionExe {
 			board.setIdentity((String)session.getAttribute("identity"));
 
 
-			sb.append("<input type=\"button\" value=\"답장\" onClick=\"reply('"+board.getMessageOther()+"','"+session.getAttribute("identity")+"')\"/>");
+			sb.append("<input class=\"btn btn-sm\" type=\"button\" value=\"답장\" onClick=\"reply('"+board.getMessageOther()+"','"+session.getAttribute("identity")+"')\"/>");
 
-			sb.append("<input type=\"button\" value=\"목록\" onClick=\"message('"+2+"','"+board.getIdentity()+"')\"/>");
-			sb.append("<input type=\"button\" value=\"삭제\" onClick=\"messageDelete('"+board.getIdentity()+"','"+board.getRoomCode()+"','"+board.getMessageCode()+"','"+board.getMessageDate()+"')\"/>");
+			sb.append("<input class=\"btn btn-sm\" type=\"button\" value=\"목록\" onClick=\"message('"+2+"','"+board.getIdentity()+"')\"/>");
+			sb.append("<input class=\"btn btn-sm\" type=\"button\" value=\"삭제\" onClick=\"messageDelete('"+board.getIdentity()+"','"+board.getRoomCode()+"','"+board.getMessageCode()+"','"+board.getMessageDate()+"')\"/>");
 			mav.addObject("button", sb.toString());
 
 
