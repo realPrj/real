@@ -311,14 +311,7 @@ function messageCTX(messageCode, roomCode, messageDate, identity){
 						<input class="form-control" id="myInput" type="text"
 							placeholder="Search.."> <br>
 						<table class="table table-bordered table-striped">
-							<thead>
-								<tr>
-									<th>번호</th>
-									<th>수신인</th>
-									<th>제목</th>
-									<th>날짜</th>
-								</tr>
-							</thead>
+							
 							${messageList } 
 						</table>
 						${button }

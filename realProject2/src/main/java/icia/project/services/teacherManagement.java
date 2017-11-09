@@ -52,9 +52,9 @@ public class teacherManagement extends TransactionExe {
 			mav = join(((MemberBean)object));
 			break;
 
-		case 3 : // 아이디 중복체크	
+		/*case 3 : // 아이디 중복체크	
 			mav = idRedundancyCheck(((MemberBean)object));
-			break;
+			break;*/
 
 		case 4:	// 아이디 찾기	
 			mav = idFind(((MemberBean)object));
@@ -223,7 +223,7 @@ public class teacherManagement extends TransactionExe {
 		return mav;
 	}
 
-	private ModelAndView idRedundancyCheck(MemberBean member) {	// 아이디 중복체크
+	/*private ModelAndView idRedundancyCheck(MemberBean member) {	// 아이디 중복체크
 
 		mav = new ModelAndView();
 
@@ -251,7 +251,24 @@ public class teacherManagement extends TransactionExe {
 		}
 
 		return mav;
-	}	
+	}	*/
+	
+	public String idRedundancyCheck(MemberBean member) {
+		String check = null;
+		try {
+
+			if(dao.tcIdCheck(member) != 0) {	// 아이디 체크
+				check = "0";
+
+			}else {
+				check = "1";
+			}
+
+		}catch(Exception ex) {
+
+		}
+		return check;
+	}
 
 	private ModelAndView idFind(MemberBean member) {	// 아이디 찾기
 
