@@ -67,6 +67,9 @@ public class PageManagement extends TransactionExe {
 		case 8:	// 학습방 코드표
 			mav = subjectCCTSTUDENT(((BoardBean)object));
 			break;	
+		case 9:	// 선생님 다시
+			mav = hometeacherLearningMainPage(((LearningRoomBean)object));
+			break;		
 
 		}
 
@@ -495,9 +498,9 @@ public class PageManagement extends TransactionExe {
 		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
 
 		try {
-
+			System.out.println("학습방메인페이지 ");
 			room = dao.learningRoomGo(room);
-
+			System.out.println(room.getRoomCode());
 			session.setAttribute("roomCode", room.getRoomCode());
 
 			mav.addObject("content",room.getRoomIntroduction());
@@ -506,7 +509,7 @@ public class PageManagement extends TransactionExe {
 
 
 		}catch(Exception ex) {
-
+			ex.printStackTrace();
 		}finally {
 			mav.setViewName("teacherLearningMain");
 			setTransactionResult(transaction);
@@ -772,6 +775,35 @@ public class PageManagement extends TransactionExe {
 
 		return mav;
 
+	}
+	
+	private ModelAndView hometeacherLearningMainPage(LearningRoomBean room) {	// 선생님 학습방 메인 페이지
+
+		mav = new ModelAndView();
+		boolean transaction = false;
+
+		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
+
+		try {
+			System.out.println("학습방메인페이지 ");
+			room.setRoomCode((String)session.getAttribute("roomCode"));
+			room = dao.learningRoomGo(room);
+			System.out.println(room.getRoomCode());
+			session.setAttribute("roomCode", room.getRoomCode());
+
+			mav.addObject("content",room.getRoomIntroduction());
+
+			transaction = true;
+
+
+		}catch(Exception ex) {
+			ex.printStackTrace();
+		}finally {
+			mav.setViewName("teacherLearningMain");
+			setTransactionResult(transaction);
+		}
+
+		return mav;
 	}
 	
 }

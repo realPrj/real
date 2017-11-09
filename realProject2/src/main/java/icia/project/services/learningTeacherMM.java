@@ -254,6 +254,19 @@ public class learningTeacherMM extends TransactionExe {
 			mav = learningPlanCTXPage((BoardBean)object[0]);
 			break;
 			
+		case 54:   // 강의 계획서 등록
+			mav = learningPlanInsert((BoardBean)object[0]);
+			break;
+			
+		case 55:   // 강의 계획서 수정
+			mav = learningPlanUpdate((BoardBean)object[0]);
+			break;
+			
+		case 56:   // 강의 계획서 삭제
+			mav = learningPlanDelete((BoardBean)object[0]);
+			break;
+			
+			
 			
 
 		}
@@ -2924,8 +2937,8 @@ public class learningTeacherMM extends TransactionExe {
 	private ModelAndView learningPlanPage(BoardBean board) { // 강의 계획서 페이지
 		
 		mav = new ModelAndView();
-		boolean transaction = false;
 
+		boolean transaction = false;
 		StringBuffer sb = new StringBuffer();
 		String nowYear2 = null;
 		
@@ -2937,7 +2950,7 @@ public class learningTeacherMM extends TransactionExe {
 			nowYear2 = nowYear;
 			
 			sb.append("<select id = 'yearSelect' class='btn-sm'>");
-			sb.append("<option></option>");
+			sb.append("<option>월 선택</option>");
 
 			for(int i = 0; i <= subtract; i++) {
 				nowYear2 = Integer.toString(Integer.parseInt(nowYear)+i);
@@ -2973,13 +2986,16 @@ public class learningTeacherMM extends TransactionExe {
 			if(dao.planCheck(board) != 0) { // 있음
 				
 				board = dao.planCTX(board);
-				mav.addObject("title", board.getBoardTitle());
-				mav.addObject("content", board.getBoardContent());
+				mav.addObject("title", "<input type='text' name='boardTitle' value="+board.getBoardTitle()+" readonly/>");
+				mav.addObject("content","<input type='text' name='boardContent' value="+board.getBoardContent()+" readonly/>" );
 				mav.addObject("check", 1);
+				sb.append("<input type='button' value='강의계획 수정' onClick=planUpdatePage("+board.getBoardCode()+","+board.getRoomCode()+") />");
+				sb.append("<input type='button' value='강의계획 삭제' onClick=planDelete("+board.getBoardCode()+","+board.getRoomCode()+") />");
+				mav.addObject("button", sb.toString());
 				
 			}else {
 				sb.append("<input type='button' value='강의계획 등록' onClick=planInsert("+board.getBoardCode()+") />");
-				mav.addObject("insert", sb.toString());
+				mav.addObject("button", sb.toString());
 				mav.addObject("check", 0);
 			}
 	
@@ -2994,7 +3010,72 @@ public class learningTeacherMM extends TransactionExe {
 		}
 		return mav;
 	}
+	
+	private ModelAndView learningPlanInsert(BoardBean board) { // 강의 계획서 등록
 
+		boolean transaction = false;
+		
+		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
+
+		try {
+			board.setId((String)session.getAttribute("tcId"));
+			board.setRoomCode((String)session.getAttribute("roomCode"));
+			
+			dao.planInsert(board);
+			
+			transaction = true;
+
+		}catch(Exception ex){
+
+		}finally {
+			setTransactionResult(transaction);
+		}
+		return mav;
+	}
+	
+	private ModelAndView learningPlanUpdate(BoardBean board) { // 강의 계획서 수정
+
+		boolean transaction = false;
+		
+		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
+
+		try {
+
+			dao.planUpdate(board);
+
+			transaction = true;
+
+		}catch(Exception ex){
+
+		}finally {
+			setTransactionResult(transaction);
+		}
+		return null;
+	}
+	
+	private ModelAndView learningPlanDelete(BoardBean board) { // 강의 계획서 삭제
+
+		boolean transaction = false;
+		
+		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
+
+		try {
+
+			dao.planDelete(board);
+
+			transaction = true;
+
+		}catch(Exception ex){
+
+		}finally {
+			setTransactionResult(transaction);
+		}
+		return null;
+	}
+	
+	
+	
+	
 
 }
 
