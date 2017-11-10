@@ -265,7 +265,22 @@ public class learningTeacherMM extends TransactionExe {
 		case 56:   // 강의 계획서 삭제
 			mav = learningPlanDelete((BoardBean)object[0]);
 			break;
+			
+		case 57:   // 과제 점수 등록,수정 페이지
+			mav = scoreInsertPage((BoardBean)object[0]);
+			break;
+			
+		case 58:   // 과제 점수 등록
+			mav = scoreInsertgo((BoardBean)object[0]);
+			break;
 
+		case 59:   // 과제 점수 수정
+			mav = scoreUpdate((BoardBean)object[0]);
+			break;
+
+		case 60:   // 과제 점수 페이지
+			mav = taskScorePage();
+			break;
 
 
 
@@ -2389,6 +2404,7 @@ public class learningTeacherMM extends TransactionExe {
 		StringBuffer sb = null;
 		ArrayList<BoardBean> li;
 		boolean transaction = false;
+		String sexual = null;
 
 		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
 
@@ -2432,12 +2448,24 @@ public class learningTeacherMM extends TransactionExe {
 				sb.append("<td>학생 이름 </td>");
 				sb.append("<td>올린 날짜 </td>");
 				sb.append("<td>파일 보기 </td>");
+				sb.append("<td>점수 등록 </td>");
+				sb.append("<td>과제 점수 </td>");
 				sb.append("</tr>");
 				for(int i = 0; i < li.size(); i++) {
+					
+					board = new BoardBean();
 					board.setStudentCode(li.get(i).getStudentCode());
+					board.setTagCode(li.get(i).getTagCode());
 					board.setStudentName(dao.stNameGet(board));	
-					System.out.println(li.get(i).getStudentCode());
-
+					board.setBoardCode(li.get(0).getBoardCode());
+					board.setRoomCode(roomcode);
+					
+					if(dao.taskScoreGet(board) != null) {
+						sexual = dao.taskScoreGet(board)+"점";
+					}else {
+						sexual = "점수 미등록";
+					}
+										
 					sb.append("<tr>");
 					sb.append("<td>");
 					sb.append(board.getStudentName());
@@ -2447,6 +2475,12 @@ public class learningTeacherMM extends TransactionExe {
 					sb.append("</td>");
 					sb.append("<td>");
 					sb.append("<button class = 'btn' onClick=checkFilec("+board.getBoardCode()+","+board.getRoomCode()+",'"+li.get(i).getStudentCode()+"') />" + "자세히 보기" + "</button>");
+					sb.append("</td>");
+					sb.append("<td>");
+					sb.append("<button class = 'btn' onClick=scorePage("+board.getTagCode()+","+board.getRoomCode()+",'"+board.getStudentCode()+"') />" + "점수" + "</button>");
+					sb.append("</td>");
+					sb.append("<td>");
+					sb.append(sexual);
 					sb.append("</td>");
 					sb.append("</tr>");    
 				}
@@ -2478,7 +2512,7 @@ public class learningTeacherMM extends TransactionExe {
 				for(int i = 0; i < al.size(); i++) {
 					sb.append("<tr>");
 					sb.append("<td>");
-					sb.append("<button class='btn'onClick=\"questionCXT(\'"+ al.get(i).getBoardCode() +"\')\" />" + al.get(i).getBoardTitle() + "</button>");
+					sb.append("<button id='click' class='btn'onClick=\"questionCXT(\'"+ al.get(i).getBoardCode() +"\')\" />" + al.get(i).getBoardTitle() + "</button>");
 					sb.append("</td>");
 					sb.append("<td>");
 					sb.append(al.get(i).getBoardDate());
@@ -3163,9 +3197,169 @@ public class learningTeacherMM extends TransactionExe {
 		return null;
 	}
 
+	private ModelAndView scoreInsertPage(BoardBean board) { // 과제 점수 등록 페이지
 
+		mav = new ModelAndView();
+		boolean transaction = false;
+		StringBuffer sb = new StringBuffer();
+		
+		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
 
+		try {
 
+			if(dao.taskScoreGet(board) != null) {
+				
+				sb.append("<div>");
+				sb.append("현재 점수 : "+dao.taskScoreGet(board)+"점</br>");
+				sb.append("점수수정");
+				sb.append("<select name='number'>");
+				sb.append("<option value='0'>0</option>");
+				sb.append("<option value='1'>1</option>");
+				sb.append("<option value='2'>2</option>");
+				sb.append("<option value='3'>3</option>");
+				sb.append("<option value='4'>4</option>");
+				sb.append("<option value='5'>5</option>");
+				sb.append("<option value='6'>6</option>");
+				sb.append("<option value='7'>7</option>");
+				sb.append("<option value='8'>8</option>");
+				sb.append("<option value='9'>9</option>");
+				sb.append("<option value='10'>10</option>");
+				sb.append("</select>");
+				sb.append("<input type='button' value='점수 수정' onClick='sexualUpdate()' />");
+				sb.append("</div>");
+				
+			}else {
+				sb.append("<div>");
+				sb.append("점수등록");
+				sb.append("<select id='selectid' name='number'>");
+				sb.append("<option value='0'>0</option>");
+				sb.append("<option value='1'>1</option>");
+				sb.append("<option value='2'>2</option>");
+				sb.append("<option value='3'>3</option>");
+				sb.append("<option value='4'>4</option>");
+				sb.append("<option value='5'>5</option>");
+				sb.append("<option value='6'>6</option>");
+				sb.append("<option value='7'>7</option>");
+				sb.append("<option value='8'>8</option>");
+				sb.append("<option value='9'>9</option>");
+				sb.append("<option value='10'>10</option>");
+				sb.append("</select>");
+				sb.append("<input type='button' value='점수 등록' onClick='sexualInsert()' />");
+				sb.append("</div>");
+			}
+			System.out.println(board.getStudentCode()+"학생번호");
+			
+			mav.addObject("content", sb.toString());
+			mav.addObject("tagCode", board.getTagCode());
+			mav.addObject("roomCode", board.getRoomCode());
+			mav.addObject("studentCode", board.getStudentCode());
+			
+			mav.setViewName("learningTaskScoreInsert");
+
+			transaction = true;
+
+		}catch(Exception ex){
+
+		}finally {
+			setTransactionResult(transaction);
+		}
+		return mav;
+	}
+	
+	private ModelAndView scoreInsertgo(BoardBean board) { // 과제 점수 등록
+
+		mav = new ModelAndView();
+		boolean transaction = false;
+
+		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
+
+		try {
+			
+			dao.taskScoreInsert(board);
+			
+			mav.addObject("reload", "opener.location.reload()");
+			mav.addObject("windowclose", "window.close()");
+			mav.setViewName("learningTaskScoreInsert");
+			
+			transaction = true;
+
+		}catch(Exception ex){
+			ex.printStackTrace();
+		}finally {
+			setTransactionResult(transaction);
+		}
+		return mav;
+	}
+
+	private ModelAndView scoreUpdate(BoardBean board) { // 과제 점수 수정
+
+		mav = new ModelAndView();
+		boolean transaction = false;
+
+		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
+
+		try {
+			
+			dao.taskScoreUpdate(board);
+			
+			mav.addObject("reload", "opener.location.reload()");
+			mav.addObject("windowclose", "window.close()");
+			mav.setViewName("learningTaskScoreInsert");
+			
+			transaction = true;
+
+		}catch(Exception ex){
+			ex.printStackTrace();
+		}finally {
+			setTransactionResult(transaction);
+		}
+		return mav;
+	}
+	
+	private ModelAndView taskScorePage() { // 과제 점수 페이지
+
+		mav = new ModelAndView();
+		boolean transaction = false;
+		ArrayList<BoardBean> al = null;
+		StringBuffer sb = new StringBuffer();
+		BoardBean board;
+
+		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
+
+		try {
+			
+			board = new BoardBean();
+			
+			board.setRoomCode((String)session.getAttribute("roomCode"));
+
+			al = dao.learningWANAllStudentCode(board);
+
+			sb.append("<select id='selectid' name='number'>");
+			sb.append("<option>학생선택</option>");
+			for(int i = 0; i < al.size(); i++) {
+				board = new BoardBean();
+				board.setStudentCode(al.get(i).getStudentCode());
+				board.setStudentName(dao.stNameGet(board));
+				
+				sb.append("<option value="+board.getStudentCode()+">"+board.getStudentName()+"</option>");
+				
+			}
+			sb.append("</select>");
+			
+			mav.addObject("select", sb.toString());
+			mav.setViewName("learningTaskScore");
+			
+			transaction = true;
+
+		}catch(Exception ex){
+		}finally {
+			setTransactionResult(transaction);
+		}
+		return mav;
+	}
+
+	
+	
 
 }
 

@@ -843,5 +843,62 @@ public class PageManagement extends TransactionExe {
 		return mav;
 	}
 	
+	
+	public ArrayList<BoardBean> taskScoreShow(BoardBean board) {	// 코드 보여주기
+
+		boolean transaction = false;
+		ArrayList<BoardBean> al = null;
+		ArrayList<BoardBean> score = new ArrayList<BoardBean>();
+
+		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
+
+		try {
+			
+			String roomcode = (String)session.getAttribute("roomCode");
+			String stcode = board.getStudentCode();
+
+			board.setRoomCode(roomcode);
+
+			al = dao.learningTaskList(board);	// 게시 리스트
+			
+			for(int i = 0; i < al.size(); i++) {
+				board = new BoardBean();
+				board.setRoomCode(roomcode);
+				board.setBoardTitle(al.get(i).getBoardTitle());
+				board.setBoardCode(al.get(i).getBoardCode());
+				board.setStudentCode(stcode);
+				board.setStudentName(dao.stNameGet(board));
+				if(dao.learningTeskSubmitCodeCheck(board) != 0) {
+				board.setTagCode(dao.learningTeskSubmitCodeGet(board));
+				if(dao.taskScoreCheck(board)!= 0) {
+				board.setTypeSum(dao.taskScoreGet(board));
+				board.setAllSum(dao.learningTeskScoreAllSum(board));
+				}
+				else {board.setTypeSum("점수 미등록");}
+				}
+				else {
+					board.setTypeSum("미제출");
+				}
+				score.add(board);
+			}
+					
+			transaction = true;
+
+		}catch(Exception ex) {
+
+		}finally {
+
+			setTransactionResult(transaction);
+		}
+		
+		return score;
+
+	}
+	
+	
+	
+	
+	
+	
 }
 
