@@ -29,6 +29,9 @@ public class BoardBean {	// 게시판 bean
 
 	private String typeSum;	// 타입별 합
 	private int allSum;	// 총 합
+	private String average;	// 평균
+	private String rank;	// 등수
+	private String percentage;	// 백분율
 
 	private String boardCode;	// 게시글 번호
 	private String boardTitle;	// 게시글 제목
@@ -65,6 +68,36 @@ public class BoardBean {	// 게시판 bean
 	
 	
 	
+
+
+
+
+	public String getAverage() {
+		return average;
+	}
+
+	public void setAverage(String average) {
+		this.average = average;
+	}
+
+	public String getPercentage() {
+		return percentage;
+	}
+
+	public void setPercentage(String percentage) {
+		this.percentage = percentage;
+	}
+
+	public String getRank() {
+		return rank;
+	}
+
+	public void setRank(String rank) {
+		this.rank = rank;
+	}
+
+
+
 	public String getName() {
 		return name;
 	}

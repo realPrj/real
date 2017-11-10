@@ -901,6 +901,19 @@ public class HomeController  {
 		return gs;
 	}
 	
+	// 학생 => 과제 성적 페이지
+	@RequestMapping(value = "/sttaskScorePage", method = RequestMethod.POST)
+	public ModelAndView sttaskScorePage() {
+
+		mav = lsmm.entrance(46, null);
+		
+		return mav;
+	}
+
+	
+	
+	
+	
 
 	
 }
