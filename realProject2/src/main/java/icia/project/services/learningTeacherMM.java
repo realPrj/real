@@ -2634,7 +2634,15 @@ public class learningTeacherMM extends TransactionExe {
 
 			mav.addObject("id",board.getId());
 			mav.addObject("roomCode", board.getRoomCode());
+			System.out.println("adminChating");
+			System.out.println(board.getRoomCode());
+			
+			System.out.println("adminChating");
+			if(Integer.parseInt(board.getRoomCode()) !=447) {
 			mav.setViewName("adminChating");
+			}else {
+				mav.setViewName("adminChating1");
+			}
 			transaction = true;
 
 

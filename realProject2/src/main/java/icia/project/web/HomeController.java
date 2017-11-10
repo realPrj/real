@@ -614,7 +614,7 @@ public class HomeController  {
 	// 채팅(알림)
 	@RequestMapping(value = "/testChat", method = RequestMethod.GET)
 	public ModelAndView testChat() {
-
+		System.out.println("여긴옴?");
 		mav = ltmm.entrance(40, null);
 
 		return mav;
