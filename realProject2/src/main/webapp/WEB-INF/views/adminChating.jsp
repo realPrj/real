@@ -13,7 +13,7 @@
 
 
 	function test() {
-		websocket = new WebSocket("ws://localhost:8080/web/chat");
+		websocket = new WebSocket("ws://localhost:8080/chat");
 		//웹 소켓 이벤트 처리
 
 		websocket.onopen = onOpen;
