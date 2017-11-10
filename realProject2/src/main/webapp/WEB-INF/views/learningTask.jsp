@@ -18,7 +18,7 @@
 <meta name="viewport" content="width=device-width" />
 
 
-
+<link href="assets/css/css.css" rel="stylesheet" />
 <!-- Bootstrap core CSS     -->
 <link href="assets/css/bootstrap.min.css" rel="stylesheet" />
 
@@ -369,11 +369,12 @@
 					<input type="button" class="btn" value="과제 생성" onClick="insertPage()" />
 					<hr />
 					<table id="ctx" class="table table-hover">
+					<h3 style="padding-left:10px">과제정보</h3>
 
 						<tr>
-							<td>제목</td>
-							<td>날짜</td>
-							<td>내용</td>
+							<td><b>제목</b></td>
+							<td><b>날짜</b></td>
+							<td><b>내용</b></td>
 						</tr>
 						<tr>
 							<td>${title }</td>
@@ -384,16 +385,7 @@
 					</table>
 							${taskLists }
 				
-					<!-- 페이지네이션넣기 -->
-					<div class="text-center">
-						<ul class="pagination">
-							<li><a href="#">1</a></li>
-							<li><a href="#">2</a></li>
-							<li><a href="#">3</a></li>
-							<li><a href="#">4</a></li>
-							<li><a href="#">5</a></li>
-						</ul>
-					</div>
+					
 
 				</div>
 			</div>

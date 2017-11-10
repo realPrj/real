@@ -18,7 +18,7 @@
 	name='viewport' />
 <meta name="viewport" content="width=device-width" />
 
-
+<link href="assets/css/css.css" rel="stylesheet" />
 <!-- Bootstrap core CSS     -->
 <link href="assets/css/bootstrap.min.css" rel="stylesheet" />
 

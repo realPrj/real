@@ -30,6 +30,7 @@
 
 <!--  CSS for Demo Purpose, don't include it in your project     -->
 <link href="assets/css/demo.css" rel="stylesheet" />
+<link href="assets/css/css.css" rel="stylesheet" />
 
 
 <!--  Fonts and icons     -->
@@ -61,7 +62,11 @@
 <script src="assets/js/paper-dashboard.js"></script>
 
 <!-- Paper Dashboard DEMO methods, don't include it in your project! -->
-<script src="assets/js/demo.js"></script>
+<link href="assets/js/demo.js" rel="stylesheet"/>
+
+
+
+
 
 <script>
 	$(document).ready(function() {
@@ -249,11 +254,13 @@
 					<h2>
 						<b>자료실</b>
 					</h2>
-					<br> <input type="button" value="자료실 글쓰러가기" class="btn"
-						onClick="eventClick('dataform','DataInsert','post')" /> <br>
-					${datalist }${content2 }
+					
+					${datalist }
+					 <input type="button" value="글쓰기" class="btn btn-md"
+						onClick="eventClick('dataform','DataInsert','post')" />
+						${content2 } 
 					<hr />
-
+						
 			
 
 				</div>

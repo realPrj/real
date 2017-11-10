@@ -14,7 +14,7 @@
 <title>공조 || 선생님 학습방 메인</title>
 <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
     <meta name="viewport" content="width=device-width" />
-
+<link href="assets/css/css.css" rel="stylesheet" />
 
     <!--   Core JS Files   -->
 <script src="assets/js/jquery-1.10.2.js" type="text/javascript"></script>
