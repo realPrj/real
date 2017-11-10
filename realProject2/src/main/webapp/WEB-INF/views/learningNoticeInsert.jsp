@@ -1,3 +1,4 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -11,6 +12,7 @@
    href="assets/img/favicon.png">
 <title>공조 || 공지사항 등록</title>
 <link href="assets/css/css.css" rel="stylesheet" />
+
 <!-- Bootstrap core CSS     -->
 <link href="assets/css/bootstrap.min.css" rel="stylesheet" />
 
@@ -82,7 +84,74 @@ function NoticeInsertOk(){
    document.noticeInsert.submit();
 }
 </script>
+<style>
+.title{
+	border : gray 1px solid;
+	width : 970px;
+	height : 200px;
+	text-color : gray
+}
 
+
+.inputTitle{
+	display: block;
+	width: 100%;
+	height: 34px;
+	padding: 6px 12px;
+	font-size: 14px;
+	line-height: 1.42857143;
+	color: #5D5D5D;
+	background-color: #F6F6F6;
+	background-image: none;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+	box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+	-webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow
+		ease-in-out .15s;
+	-o-transition: border-color ease-in-out .15s, box-shadow ease-in-out
+		.15s;
+	transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s
+}
+
+textarea{
+	display: block;
+	width: 100%;
+	height: 200px;
+	padding: 6px 12px;
+	font-size: 14px;
+	line-height: 1.42857143;
+	color: #5D5D5D;
+	background-color: #F6F6F6;
+	background-image: none;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+	box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+	-webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow
+		ease-in-out .15s;
+	-o-transition: border-color ease-in-out .15s, box-shadow ease-in-out
+		.15s;
+	transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s
+} 
+
+.file_input_hidden
+{
+font-size: 45px;
+position: absolute;
+right: 0px;
+top: 0px;
+opacity: 0;
+ 
+filter: alpha(opacity=0);
+-ms-filter: "alpha(opacity=0)";
+-khtml-opacity: 0;
+-moz-opacity: 0;
+}
+
+
+
+</style>
 </head>
 <body>
 
@@ -199,7 +268,7 @@ function NoticeInsertOk(){
       </div> -->
       
       <!-- 글쓰기 -->
-      <div class="col-lg-35 col-md-12"
+     <%--  <div class="col-lg-35 col-md-12"
 				style="display: inline-block; text-align: center;">
 				<div class="card">
 					<div class="center">
@@ -208,8 +277,10 @@ function NoticeInsertOk(){
 							<b>공지사항</b>
 						</h2>
 					</div>
+					
+					
 
-					 <form name="noticeInsert" method="post" action="learningBoardNoticeInsert" enctype="multipart/form-data">
+					  <form name="noticeInsert" method="post" action="learningBoardNoticeInsert" enctype="multipart/form-data">
 						<div id="content"
 							style="display: inline-block; text-align: center;">
 
@@ -254,7 +325,41 @@ function NoticeInsertOk(){
 
 				</div>
 			</div>
-		</div>
+		</div>  --%>
+		
+		<div class="col-lg-35 col-md-12">
+				<div class="card">
+				<div class="center">
+					<br/>
+						<h2>
+							<b>공지사항</b>
+						</h2>
+						<br/>
+						<form name="noticeInsert" method="post" action="learningBoardNoticeInsert" enctype="multipart/form-data">
+						<div style="margin:20px;">
+							<p>제목</p>
+							<input type="text" name="boardTitle" class="inputTitle">
+						</div>
+						<div style="margin:20px;">
+							<p>내용</p>
+							<textarea rows="20" name="boardContent"></textarea>
+							</div>
+							<div style="margin:20px;">
+							<p>첨부파일</p>
+							<input multiple="multiple" type="file" name="file" />
+      						<input class="inputTitle" type="hidden" name="load" value="Notice" />
+      						<br/>
+      						<input class="btn" type="button" value="작성완료" onClick="NoticeInsertOk()"/><br/>
+      						<br/>
+      						
+							</div>
+							</form>
+							</div>
+							</div>
+							</div>
+							
+			
+		
 
 
 

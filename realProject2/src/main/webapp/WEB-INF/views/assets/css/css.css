@@ -5,4 +5,10 @@ a{cursor : pointer};
 .btnnn {
 	width : 13%; 
 	padding : 15px;
-}
+};
+
+#divRayout{
+	border : gray 1px solid;
+	width : 500px;
+	height : 500px;
+};
