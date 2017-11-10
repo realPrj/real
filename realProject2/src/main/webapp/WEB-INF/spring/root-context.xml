@@ -49,10 +49,21 @@
 	</beans:bean>
 	<!-- WebSocket 클래스의 bean을 생성 -->
 	<beans:bean id="chatWebSocketHandler" class="icia.project.services.ChatWebSocketHandler" />
-
+	<!-- 채팅방 -->
 	<websocket:handlers>
 		<websocket:mapping handler="chatWebSocketHandler"
 			path="/chat" />
+	</websocket:handlers>
+	<!-- 채팅방1 -->
+	<websocket:handlers>
+		<websocket:mapping handler="chatWebSocketHandler"
+			path="/chat1" />
+	</websocket:handlers>
+
+	<!-- 채팅방2 -->
+	<websocket:handlers>
+		<websocket:mapping handler="chatWebSocketHandler"
+			path="/chat2" />
 	</websocket:handlers>
 
 </beans>

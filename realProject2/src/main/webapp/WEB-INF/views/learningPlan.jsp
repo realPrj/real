@@ -198,7 +198,7 @@ function continuing(yearcode){
 		var form = document.getElementsByName("learningPlanCTXPageform")[0];
 
 		window.open('', 'POP',
-				"width=550, height=450, resizable = no, scrollbars = no");
+				"width=670px, height=480px, resizable = no, scrollbars = no");
 		form.appendChild(boardCode);
 
 		form.submit();

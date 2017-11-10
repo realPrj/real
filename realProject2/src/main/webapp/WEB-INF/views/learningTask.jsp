@@ -113,6 +113,7 @@
 		form.submit();
 	}
 	function questionCXT(boardCode) {
+
 		createinput("hidden", "boardCode", boardCode);
 		createForm("learningTaskCXTform", "learningTaskCXT", "post");
 		var form = document.getElementsByName("learningTaskCXTform")[0];
@@ -134,9 +135,7 @@
 
 	}
 	function checkFilec(boardCode, roomCode, studentCode) {
-		alert(boardCode);
-		alert(roomCode);
-		alert(studentCode);
+
 		createinput("hidden", "boardCode", boardCode);
 		createinput("hidden", "roomCode", roomCode);
 		createinput("hidden", "studentCode", studentCode);
@@ -207,9 +206,44 @@
 		
 		createForm("menuform","tcmenu","post");
 		
-
 		var form = document.getElementsByName("menuform")[0];
+		
 		form.appendChild(caCode);
+		
+		form.submit();
+		
+	}
+	
+	function taskscorepage(){	// 과제성적
+		
+		createForm("taskScorePageform","taskScorePage","post");
+
+		var form = document.getElementsByName("taskScorePageform")[0];
+		
+		form.submit();
+		
+	}
+	
+	function scorePage(tagcode,roomcode,stcode){
+
+		createinput("hidden", "tagCode", tagcode);
+		createinput("hidden", "roomCode", roomcode);
+		createinput("hidden", "studentCode", stcode);
+		
+		var tagCode = document.getElementsByName("tagCode")[0];
+		var roomCode = document.getElementsByName("roomCode")[0];
+		var studentCode = document.getElementsByName("studentCode")[0];
+
+		createForm1("scoreInsertPageform", "scoreInsertPage",
+		"POP");
+
+		var form = document.getElementsByName("scoreInsertPageform")[0];
+		window.open('', 'POP',
+		"width=300px, height=300px, resizable = no, scrollbars = no");
+		
+		form.appendChild(tagCode);
+		form.appendChild(roomCode);
+		form.appendChild(studentCode);
 		
 		form.submit();
 		
@@ -326,16 +360,16 @@
 			<div class="col-lg-35 col-md-12">
 
 				<div class="card">
-					<br />
+				<input type="button" class="btn btn-info" value="과제 성적" onClick="taskscorepage()" />
 					<h2>
 						<b>과제 게시판</b>
 					</h2>
 
 					${taskList }
-					<input type="button" class="btn"value="과제 생성" onClick="insertPage()" />
+					<input type="button" class="btn" value="과제 생성" onClick="insertPage()" />
 					<hr />
+					<table id="ctx" class="table table-hover">
 					<h3 style="padding-left:10px">과제정보</h3>
-					<table class="table table-hover">
 
 						<tr>
 							<td><b>제목</b></td>

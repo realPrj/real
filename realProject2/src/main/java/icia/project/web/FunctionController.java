@@ -306,9 +306,9 @@ public class FunctionController {
 
 	// 강의계획서 글 등록
 	@RequestMapping(value = "/learningPlanInsert", method = RequestMethod.POST)
-	public ModelAndView  learningPlanInsert(BoardBean board) {
+	public ModelAndView  learningPlanInsert(BoardBean board,MultipartHttpServletRequest mtfRequest) {
 
-		ltm.entrance(54, board);
+		ltm.entrance(54, board, mtfRequest);
 		mav = ltm.entrance(53, board);
 		
 		return mav;
@@ -440,11 +440,8 @@ public class FunctionController {
 	// 학생 질문게시판 글쓰기
 	@RequestMapping(value = "/QuestionInsert123", method = RequestMethod.POST)
 	public @ResponseBody ModelAndView QuestionInsert123(@ModelAttribute BoardBean board, MultipartHttpServletRequest mtfRequest)throws Exception{
-		System.out.println("sdf");
-		System.out.println("learningQuestionInsert");
+
 		board.setId((String)session.getAttribute("id"));
-		System.out.println(mtfRequest.getParameter("multiple"));
-		System.out.println("여기 옴??");
 		lsm.entrance(5, board, mtfRequest);
 		mav = lsm.entrance(4, board);
 		return mav;
@@ -751,6 +748,25 @@ public class FunctionController {
 		return mav;
 	}
 	
+	// 과제 점수 등록
+	@RequestMapping(value = "/scoreInsertgo", method = RequestMethod.POST)
+	public ModelAndView scoreInsertgo(@ModelAttribute  BoardBean board) {
+		
+		mav = ltm.entrance(58, board);
+		
+		return mav;
+	}
 	
-
+	// 과제 점수 수정
+	@RequestMapping(value = "/scoreUpdate", method = RequestMethod.POST)
+	public ModelAndView scoreUpdate(@ModelAttribute  BoardBean board) {
+		
+		mav = ltm.entrance(59, board);
+		
+		return mav;
+	}
+	
+	
+	
+	
 }

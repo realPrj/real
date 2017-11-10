@@ -1276,9 +1276,11 @@
 	<!-- 선생님 과제 댓글 뽑기 -->
 	<select id="teacherTaskTag" resultType="board" parameterType="board">
 		SELECT
+		TS_CODE AS tagCode,
 		TO_CHAR(TS_DATET,'YYYY-MM-DD HH24:MI') AS
 		boardDate,
-		TS_STRFSTUDENTCODE AS studentCode
+		TS_STRFSTUDENTCODE AS studentCode,
+		TS_TACODE AS boardCode
 		FROM TASKSUBMIT
 		WHERE
 		TS_TALRCODE=
@@ -1568,13 +1570,15 @@
 	</select>
 	
 	<!-- 강의계획서 내용 -->
-	<select id="planCTX" resultType="board" parameterType="board">
-		SELECT PL_LRCODE AS roomCode, PL_CODE AS boardCode, PL_TITLE AS boardTitle, PL_CONTENT AS boardContent FROM PLAN WHERE PL_LRCODE=#{roomCode} AND PL_CODE=#{boardCode}
+	<select id="planCTX" resultType="dbBoard" parameterType="board">
+		SELECT PL_LRCODE AS roomCode, PL_CODE AS boardCode, PL_TITLE AS boardTitle, PL_CONTENT AS boardContent, PL_ROUTE AS boardRoute 
+		FROM PLAN 
+		WHERE PL_LRCODE=#{roomCode} AND PL_CODE=#{boardCode}
 	</select>
 	
 	<!-- 강의계획서 등록 -->
 	<insert id="planInsert" parameterType="board">
-		INSERT INTO PLAN VALUES(#{roomCode},#{id},#{boardCode}, #{boardTitle}, #{boardContent})
+		INSERT INTO PLAN VALUES(#{roomCode},#{id},#{boardCode}, #{boardTitle}, #{boardContent},#{boardRoute})
 	</insert>
 
 	<!-- 강의계획서 수정 -->
@@ -1590,6 +1594,71 @@
 	<delete id="planDelete" parameterType="board">
 		DELETE FROM PLAN WHERE PL_LRCODE=#{roomCode} AND PL_CODE=#{boardCode}
 	</delete>
+	
+	<!-- 로그인학생 이름 추출 -->
+	<select id="stMmNameGet" resultType="String" parameterType="member">
+		SELECT
+		ST_NAME AS studentName
+		FROM STUDENT
+		WHERE
+		ST_RFSTUDENTCODE=#{studentCode}
+	</select>
+
+	<!-- 과제 점수 추출 -->
+	<select id="taskScoreGet" resultType="String" parameterType="board">
+		SELECT TSE_SCORE FROM TASKSCORE WHERE TSE_TSTALRCODE=#{roomCode} AND TSE_TSCODE=#{tagCode}
+	</select>
+	
+	<!-- 과제 점수 유무 -->
+	<select id="taskScoreCheck" resultType="Integer" parameterType="board">
+		SELECT COUNT(*) FROM TASKSCORE WHERE TSE_TSTALRCODE=#{roomCode} AND TSE_TSCODE=#{tagCode}
+	</select>
+	
+	<!-- 과제 점수 등록 -->
+	<insert id="taskScoreInsert" parameterType="board">
+		INSERT INTO TASKSCORE VALUES(#{roomCode},#{tagCode},#{studentCode},#{typeSum})
+	</insert>
+	
+	<!-- 과제 점수 수정 -->
+	<update id="taskScoreUpdate" parameterType="board">
+		UPDATE TASKSCORE
+		SET
+		TSE_SCORE=#{typeSum}
+		WHERE
+		TSE_TSTALRCODE=#{roomCode} AND TSE_TSCODE=#{tagCode}
+	</update>
+	
+	<!-- 과제 제출 번호 추출 -->
+	<select id="learningTeskSubmitCodeGet" resultType="String" parameterType="board">
+		SELECT
+		TS_CODE
+		FROM TASKSUBMIT
+		WHERE
+		TS_TALRCODE= #{roomCode}
+		AND
+		TS_TACODE = #{boardCode}
+		AND
+		TS_STRFSTUDENTCODE = #{studentCode}
+	</select>
+	
+	<!-- 과제 제출 번호 체크 -->
+	<select id="learningTeskSubmitCodeCheck" resultType="Integer" parameterType="board">
+		SELECT
+		COUNT(*)
+		FROM TASKSUBMIT
+		WHERE
+		TS_TALRCODE= #{roomCode}
+		AND
+		TS_TACODE = #{boardCode}
+		AND
+		TS_STRFSTUDENTCODE = #{studentCode}
+	</select>
+
+	<!-- 과제 성적 개인 총 합 -->
+	<select id="learningTeskScoreAllSum" resultType="Integer" parameterType="board">
+		SELECT SUM(TSE_SCORE) FROM TASKSCORE WHERE TSE_TSTALRCODE=#{roomCode} AND TSE_TSSTRFSTUDENTCODE=#{studentCode}
+	</select>
+
 
 </mapper>
 

@@ -62,130 +62,132 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
 <script>
-   //form 생성
-   function createForm(formname, formaction, formmethod) {
 
-      var form = document.createElement("form");
 
-      form.name = formname;
-      form.action = formaction;
-      form.method = formmethod;
+	//form 생성
+	function createForm(formname, formaction, formmethod) {
 
-      document.body.appendChild(form);
+		var form = document.createElement("form");
 
-   }
+		form.name = formname;
+		form.action = formaction;
+		form.method = formmethod;
 
-   //input 생성
-   function createinput(itype, iname, ivalue) {
-      var input = document.createElement("input");
-      input.type = itype;
-      input.name = iname;
-      input.value = ivalue;
+		document.body.appendChild(form);
 
-      document.body.appendChild(input);
-   }
+	}
 
-   function eventClick(formname, formaction, formmethod) {
+	//input 생성
+	function createinput(itype, iname, ivalue) {
+		var input = document.createElement("input");
+		input.type = itype;
+		input.name = iname;
+		input.value = ivalue;
 
-      createForm(formname, formaction, formmethod);
+		document.body.appendChild(input);
+	}
 
-      var form = document.getElementsByName(formname)[0];
+	function eventClick(formname, formaction, formmethod) {
 
-      form.submit();
+		createForm(formname, formaction, formmethod);
 
-   }
-   //메뉴선택
-   function menu(ivalue) {
+		var form = document.getElementsByName(formname)[0];
 
-      createinput("hidden", "caCode", ivalue);
+		form.submit();
 
-      var caCode = document.getElementsByName("caCode")[0];
+	}
+	//메뉴선택
+	function menu(ivalue) {
 
-      createForm("menuform", "tcmenu", "post");
+		createinput("hidden", "caCode", ivalue);
 
-      var form = document.getElementsByName("menuform")[0];
-      form.appendChild(caCode);
+		var caCode = document.getElementsByName("caCode")[0];
 
-      form.submit();
+		createForm("menuform", "tcmenu", "post");
 
-   }
-   function deleteQuestion(boardTitle, boardData, roomCode, boardId) {
-   
-      
-      createinput("hidden", "boardTitle", boardTitle);
-      createinput("hidden", "boardDate", boardData);
-      createinput("hidden", "roomCode", roomCode);
-      createinput("hidden", "boardId", boardId);
+		var form = document.getElementsByName("menuform")[0];
+		form.appendChild(caCode);
 
-      createForm("learningQuestionDeleteform", "learningQuestionDelete", "post");
+		form.submit();
 
-      var form = document.getElementsByName("learningQuestionDeleteform")[0];
+	}
+	function deleteQuestion(boardTitle, boardData, roomCode, boardId) {
 
-      var boardTitle = document.getElementsByName("boardTitle")[0];
-      var boardDate = document.getElementsByName("boardDate")[0];
-      var roomCode = document.getElementsByName("roomCode")[0];
-      var boardId = document.getElementsByName("boardId")[0];
+		createinput("hidden", "boardTitle", boardTitle);
+		createinput("hidden", "boardDate", boardData);
+		createinput("hidden", "roomCode", roomCode);
+		createinput("hidden", "boardId", boardId);
 
-      form.appendChild(boardTitle);
-      form.appendChild(boardDate);
-      form.appendChild(roomCode);
-      form.appendChild(boardId);
+		createForm("learningQuestionDeleteform", "learningQuestionDelete",
+				"post");
 
-      form.submit(); 
-   }
-   function updateQuestion(boardTitle, boardData, roomCode, boardId, boardContent) {
-      createinput("hidden", "boardTitle", boardTitle);
-      createinput("hidden", "boardDate", boardData);
-      createinput("hidden", "roomCode", roomCode);
-      createinput("hidden", "boardId", boardId);
-      createinput("hidden", "boardContent", boardContent);
+		var form = document.getElementsByName("learningQuestionDeleteform")[0];
 
-      createForm("learningQuestionUpdateform", "learningQuestionUpdatePage", "post");
+		var boardTitle = document.getElementsByName("boardTitle")[0];
+		var boardDate = document.getElementsByName("boardDate")[0];
+		var roomCode = document.getElementsByName("roomCode")[0];
+		var boardId = document.getElementsByName("boardId")[0];
 
-      var form = document.getElementsByName("learningQuestionUpdateform")[0];
+		form.appendChild(boardTitle);
+		form.appendChild(boardDate);
+		form.appendChild(roomCode);
+		form.appendChild(boardId);
 
-      var boardTitle = document.getElementsByName("boardTitle")[0];
-      var boardDate = document.getElementsByName("boardDate")[0];
-      var roomCode = document.getElementsByName("roomCode")[0];
-      var boardId = document.getElementsByName("boardId")[0];
-      var boardContent = document.getElementsByName("boardContent")[0];
+		form.submit();
+	}
+	function updateQuestion(boardTitle, boardData, roomCode, boardId,
+			boardContent) {
+		createinput("hidden", "boardTitle", boardTitle);
+		createinput("hidden", "boardDate", boardData);
+		createinput("hidden", "roomCode", roomCode);
+		createinput("hidden", "boardId", boardId);
+		createinput("hidden", "boardContent", boardContent);
 
-      form.appendChild(boardTitle);
-      form.appendChild(boardDate);
-      form.appendChild(roomCode);
-      form.appendChild(boardId);
-      form.appendChild(boardContent);
+		createForm("learningQuestionUpdateform", "learningQuestionUpdatePage",
+				"post");
 
-      form.submit();
-   }
-   function tag(boardTitle, boardData, roomCode, boardId) {
-      createinput("hidden", "boardTitle", boardTitle);
-      createinput("hidden", "boardDate", boardData);
-      createinput("hidden", "roomCode", roomCode);
-      createinput("hidden", "boardId", boardId);
-      createinput("hidden", "tagContent", tagContent);
-      
-      createForm("learningQuestionTagForm", "learningQuestionTag", "post");
+		var form = document.getElementsByName("learningQuestionUpdateform")[0];
 
-      var form = document.getElementsByName("learningQuestionTagForm")[0];
+		var boardTitle = document.getElementsByName("boardTitle")[0];
+		var boardDate = document.getElementsByName("boardDate")[0];
+		var roomCode = document.getElementsByName("roomCode")[0];
+		var boardId = document.getElementsByName("boardId")[0];
+		var boardContent = document.getElementsByName("boardContent")[0];
 
-      var boardTitle = document.getElementsByName("boardTitle")[0];
-      var boardDate = document.getElementsByName("boardDate")[0];
-      var roomCode = document.getElementsByName("roomCode")[0];
-      var boardId = document.getElementsByName("boardId")[0];
-      var tagContent = document.getElementsByName("tagContent")[0];
-      
+		form.appendChild(boardTitle);
+		form.appendChild(boardDate);
+		form.appendChild(roomCode);
+		form.appendChild(boardId);
+		form.appendChild(boardContent);
 
-      form.appendChild(boardTitle);
-      form.appendChild(boardDate);
-      form.appendChild(roomCode);
-      form.appendChild(boardId);
-      form.appendChild(tagContent);
-      
+		form.submit();
+	}
+	function tag(boardTitle, boardData, roomCode, boardId) {
+		createinput("hidden", "boardTitle", boardTitle);
+		createinput("hidden", "boardDate", boardData);
+		createinput("hidden", "roomCode", roomCode);
+		createinput("hidden", "boardId", boardId);
+		createinput("hidden", "tagContent", tagContent);
 
-      form.submit(); 
-   }
-   function tagDelete(boardTitle, boardDate, roomCode, boardId,tagDate, tagId) {
+		createForm("learningQuestionTagForm", "learningQuestionTag", "post");
+
+		var form = document.getElementsByName("learningQuestionTagForm")[0];
+
+		var boardTitle = document.getElementsByName("boardTitle")[0];
+		var boardDate = document.getElementsByName("boardDate")[0];
+		var roomCode = document.getElementsByName("roomCode")[0];
+		var boardId = document.getElementsByName("boardId")[0];
+		var tagContent = document.getElementsByName("tagContent")[0];
+
+		form.appendChild(boardTitle);
+		form.appendChild(boardDate);
+		form.appendChild(roomCode);
+		form.appendChild(boardId);
+		form.appendChild(tagContent);
+
+		form.submit();
+	}
+	function tagDelete(boardTitle, boardDate, roomCode, boardId, tagDate, tagId) {
 		createinput("hidden", "boardTitle", boardTitle);
 		createinput("hidden", "boardDate", boardDate);
 		createinput("hidden", "roomCode", roomCode);
@@ -215,25 +217,23 @@
 		form.submit();
 
 	}
-   function init() {
+	function init() {
 
-      var accessForm = document.getElementById("accessForm");
-   
-      var write = "${writeId }"; // 값을 던질떄 문자 0 or 1로준다
-      var user = "${stCode }";
-      if (write == user) {
+		var accessForm = document.getElementById("accessForm");
 
-         accessForm.style.display = "block";
-         
+		var write = "${writeId }"; // 값을 던질떄 문자 0 or 1로준다
+		var user = "${stCode }";
+		if (write == user) {
 
-      } else {
-         accessForm.style.display = "none";
-      
-      }
-      
-      // 화면을 동적으로 만들어 준다
-   }
+			accessForm.style.display = "block";
 
+		} else {
+			accessForm.style.display = "none";
+
+		}
+
+		// 화면을 동적으로 만들어 준다
+	}
 </script>
 <body onLoad="init()">
 
@@ -254,7 +254,8 @@
 
 				<ul class="nav">
 					<li></li>
-					<li class="active"><a onClick="menu('15')"> <i class="ti-user"></i>
+					<li class="active"><a onClick="menu('15')"> <i
+							class="ti-user"></i>
 							<p>마이페이지</p>
 					</a></li>
 					<!-- 마이페이지로 가기만들기 -->
@@ -321,7 +322,7 @@
 								<p>마이메뉴</p> <b class="caret"></b>
 						</a>
 							<ul class="dropdown-menu">
-							<li><a onClick="menu('11')">쪽지함</a></li>
+								<li><a onClick="menu('11')">쪽지함</a></li>
 
 								<li><a onClick="menu('14')">로그아웃</a></li>
 							</ul></li>
@@ -339,7 +340,7 @@
 			<div class="col-lg-35 col-md-12"
 				style="display: inline-block; text-align: center;">
 				<div class="card">
-				<br/>
+					<br />
 					<h2>
 						<b>질문게시판</b>
 					</h2>
@@ -390,13 +391,13 @@
 							</table>
 							<table>
 								<tr>
-								<br>
-									<td rowspan='2'><input type="text" name="tagContent" class="table table-hover" 
-										placeholder="댓글 입력해주세여" size=50 maxlength=100> <input
-										type="button" value="입력" class="btn"
+									<br>
+									<td rowspan='2'><input type="text" name="tagContent"
+										class="table table-hover" placeholder="댓글 입력해주세여" size=50
+										maxlength=100> <input type="button" value="입력"
+										class="btn" id="sendBtn"
 										onClick="tag('${theme }','${date }','${roomcode}','${writeId }')"
-										size=50 maxlength=70>
-									</td>
+										size=50 maxlength=70></td>
 								</tr>
 							</table>
 							${taglists }
