@@ -54,6 +54,7 @@
 	        timeout : "5000",                              
 	        success : function(data) {  
 	        	$("#scoreId").empty();
+	        	$("#scoreId2").empty();
 	        	var lengthNum = data.length;
 	        	
 	        	var html = "";
@@ -69,10 +70,10 @@
 	        	html += "<tbody align=center>";
 	        	html += "<tr>";
 	        	html += "<td>";
-	        	html += "게시글 제목";
+	        	html += "<h4>게시글 제목</h4>";
 	        	html += "</td>";
 	        	html += "<td>";
-	        	html += "점수";
+	        	html += "<h4>점수</h4>";
 	        	html += "</td>";
 	        	html += "</tr>";
 	        	html += "</tbody>";
@@ -88,7 +89,61 @@
 	        	html += "</table>"
 	        	
 	        	$("#scoreId").append(html);
-	           console.log(data);    	   
+	        	
+	        	
+	        	/* 2 */
+	        	var html = "";
+	        	
+	        	html += "</br><table align=center>"
+
+		        		html += "</br><table align=center>"
+				        html += "<tbody align=center>";
+			        	html += "<tr>";
+			        	html += "<td colspan='2'>";
+			        	html += "<h3>과제 평가</h3>";
+			        	html += "</td>";
+			        	html += "</tr>";
+			        	html += "</tbody>";
+			        	html += "<tbody align=center>";
+			        	html += "<tr>";
+			        	html += "<td>";
+			        	html += "<h4>총점</h4>";
+			        	html += "</td>";
+			        	html += "<td>";
+			        	html += "<h4>평균</h4>";
+			        	html += "</td>";
+			        	html += "<td>";
+			        	html += "<h4>반등수</h4>";
+			        	html += "</td>";
+			        	html += "<td>";
+			        	html += "<h4>백분율</h4>";
+			        	html += "</td>";
+			        	html += "</tr>";
+			        	html += "</tbody>";
+			        	
+			        	html += "<tbody align=center>";
+			        	html += "<tr>";
+			        	html += "<td>";
+			        	html += data[0].allSum;
+			        	html += "</td>";
+			        	html += "<td>";
+			        	html += data[0].average;
+			        	html += "</td>";
+			        	html += "<td>";
+			        	html += data[0].rank+"/"+data[0].stNumber;
+			        	html += "</td>";
+			        	html += "<td>";
+			        	html += data[0].percentage;
+			        	html += "</td>";
+			        	html += "</tr>";
+			        	html += "</tbody>";
+	        	
+	        	
+	        	html += "</table>"
+	        	$("#scoreId2").append(html);
+	        	
+	        	console.log(data);  
+	          
 	           
 	        },
 	        error : function( error ) { 
@@ -103,5 +158,6 @@
 <body>
 ${select }
 <div id="scoreId"></div>
+<div id="scoreId2"></div>
 </body>
 </html>

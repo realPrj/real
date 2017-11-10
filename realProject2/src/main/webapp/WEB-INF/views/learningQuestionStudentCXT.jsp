@@ -166,13 +166,8 @@
 
 		var write = "${writeId }"; // 값을 던질떄 문자 0 or 1로준다
 		var user = "${stCode }";
-		if (write == user) {
-
-			accessForm.style.display = "block";
-
-		} else {
-			accessForm.style.display = "none";
-
+		if (write != user) {
+			$("#cxt").remove();
 		}
 
 		// 화면을 동적으로 만들어 준다
@@ -197,7 +192,8 @@
 
 				<ul class="nav">
 					<li></li>
-					<li class="active"><a onClick="menu('15')"> <i class="ti-user"></i>
+					<li class="active"><a onClick="menu('15')"> <i
+							class="ti-user"></i>
 							<p>마이페이지</p>
 					</a></li>
 					<!-- 마이페이지로 가기만들기 -->
@@ -281,7 +277,7 @@
 			<div class="col-lg-35 col-md-12"
 				style="display: inline-block; text-align: center;">
 				<div class="card">
-				<br/>
+					<br />
 					<h2>
 						<b>질문게시판</b>
 					</h2>
@@ -324,24 +320,36 @@
 									<tr>
 										<td colspan="2"><textarea class="form-control" rows="15"
 												style="background-color: white; color: black;"
-												name="content" readonly>${content }</textarea></td>
+												name="content" readonly >${content }</textarea></td>
 									</tr>
+
+
+
+
+
+									<%-- 	<tr id="accessForm" style="marginleft:auto;margin-right: auto;">
+										<td colspan=2><Button class='btn' name="delete"
+												value="삭제"
+												onClick="deleteQuestion('${theme }','${date }','${roomcode}','${writeId }')">삭제
+											</Button></td>
+										<td>
+											<Button class='btn' name="update" value="수정"
+												onClick="updateQuestion('${theme }','${date }','${roomcode}','${writeId }','${content }')">수정
+											</Button>
+										</td>
+
+									</tr> --%>
 								</tbody>
 								<tr id="accessForm">
-									<td colspan="2"><Button class='btn' name="delete"
-										value="삭제"
-										onClick="deleteQuestion('${theme }','${date }','${roomcode}','${writeId }')">삭제
-										</Button>
-										<Button class='btn' name="update"
-										value="수정"
-										onClick="updateQuestion('${theme }','${date }','${roomcode}','${writeId }','${content }')">수정
-										</Button></td>
-						<%-- 		<input type="button" class='btn' name="update"
-										value="수정"
-										onClick="updateQuestion('${theme }','${date }','${roomcode}','${writeId }','${content }')"></td> --%>
+									<td colspan="2" id="cxt" ><input type="button" name="delete"
+										value="삭제" class="btn"
+										onClick="deleteQuestion('${theme }','${date }','${roomcode}','${writeId }')">
+
+										<input type="button" name="update" value="수정" class="btn"
+										onClick="updateQuestion('${theme }','${date }','${roomcode}','${writeId }','${content }')"></td>
 								</tr>
 							</table>
-								${taglists }
+							${taglists }
 						</div>
 
 					</div>
@@ -351,7 +359,7 @@
 	</div>
 
 
-	
+
 
 
 

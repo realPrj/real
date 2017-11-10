@@ -13,7 +13,7 @@
 
 
 	function test() {
-		websocket = new WebSocket("ws://localhost:8080/web/chat");
+		websocket = new WebSocket("ws://localhost:8080/web/chat1");
 		//웹 소켓 이벤트 처리
 
 		websocket.onopen = onOpen;
@@ -21,6 +21,7 @@
 		websocket.onclose = onClose;
 	
 	}
+	
 	//WebSocket이 연결된 경우 호출되는 함수
 	function onOpen(evt) {
 
@@ -38,7 +39,7 @@
 		//서버가 전송한 메시지 가져오기
 		var data = evt.data;
 		//메시지를 출력
-		$('#chatMessageArea').append(data + "<br />");
+		$('#chatMessage').append(data + "<br />");
 	}
 </script>
 <%@ page import="java.util.*, java.text.*"%>
@@ -61,7 +62,7 @@
 	<table>
 		<tr>
 			<td>
-			0
+			1
 				<h1>알림</h1> <input type="hidden" name="nickname" value="${id }"
 				id="nickname" />
 
@@ -69,7 +70,7 @@
 
 
 				<div id="chatArea">
-					<div id="chatMessageArea"></div>
+					<div id="chatMessage"></div>
 				</div> 
 
 

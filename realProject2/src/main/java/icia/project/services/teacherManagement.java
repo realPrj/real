@@ -100,9 +100,9 @@ public class teacherManagement extends TransactionExe {
 		try {
 
 			String state = dao.stateCodeCheck(member);
-			if(Integer.parseInt(state) == 1) {	// 상태코드 확인
+			if(dao.tcIdCheck(member) != 0) {	// 아이디 체크
 
-				if(dao.tcIdCheck(member) != 0) {	// 아이디 체크
+				if(Integer.parseInt(state) == 1) {	// 상태코드 확인
 
 					if(enc.matches(member.getPwd(),dao.tcPwdGet(member).getPwd())) {	// 비밀번호 체크
 						member.setLogType(1);
@@ -134,14 +134,14 @@ public class teacherManagement extends TransactionExe {
 					mav = new ModelAndView();
 					mav.setViewName("login");
 					mav.addObject("identity", "1");
-					mav.addObject("message", "alert('아이디가 틀렸습니다.')");
+					mav.addObject("message", "alert('탈퇴하신 아이디 입니다.')");
 					mav.addObject("id", member.getId());
 				}
-			}else {
+			}else {		
 				mav = new ModelAndView();
 				mav.setViewName("login");
 				mav.addObject("identity", "1");
-				mav.addObject("message", "alert('탈퇴하신 아이디 입니다.')");
+				mav.addObject("message", "alert('아이디가 틀렸습니다.')");
 				mav.addObject("id", member.getId());
 			}
 

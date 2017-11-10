@@ -67,6 +67,8 @@ public class ChatWebSocketHandler implements WebSocketHandler {
 					 new TextMessage(message);
 			 //각 세션에게 메시지를 전송
 			 socket.sendMessage(sentMsg);
+			
+			 
 		 }
 
 	}
@@ -83,5 +85,8 @@ public class ChatWebSocketHandler implements WebSocketHandler {
 		
 		return false;
 	}
+
+
+
 
 }

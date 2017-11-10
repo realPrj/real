@@ -98,9 +98,9 @@ public class StudentManagement extends TransactionExe {
 		try {
 
 			String state = dao.stateSTCodeCheck(member);
-			if(Integer.parseInt(state) == 1) {
-				if(dao.stIdCheck(member) != 0) {	// 아이디 체크
+			if(dao.stIdCheck(member) != 0) {// 아이디 체크
 
+				if(Integer.parseInt(state) == 1) {	
 
 					if(enc.matches(member.getPwd(),dao.stPwdGet(member).getPwd())) {	// 비밀번호 체크
 						member.setLogType(1);
@@ -136,7 +136,7 @@ public class StudentManagement extends TransactionExe {
 					mav = new ModelAndView();
 					mav.setViewName("login");
 					mav.addObject("identity", "2");
-					mav.addObject("message", "alert('아이디가 틀렸습니다.')");
+					mav.addObject("message", "alert('탈퇴하신 아이디 입니다.')");
 					mav.addObject("id", member.getId());
 				}
 			}	
@@ -144,7 +144,7 @@ public class StudentManagement extends TransactionExe {
 				mav = new ModelAndView();
 				mav.setViewName("login");
 				mav.addObject("identity", "2");
-				mav.addObject("message", "alert('탈퇴하신 아이디 입니다.')");
+				mav.addObject("message", "alert('아이디가 틀렸습니다.')");
 				mav.addObject("id", member.getId());
 			}
 

@@ -2635,7 +2635,15 @@ public class learningTeacherMM extends TransactionExe {
 
 			mav.addObject("id",board.getId());
 			mav.addObject("roomCode", board.getRoomCode());
+			System.out.println("adminChating");
+			System.out.println(board.getRoomCode());
+			
+			System.out.println("adminChating");
+			if(Integer.parseInt(board.getRoomCode()) !=447) {
 			mav.setViewName("adminChating");
+			}else {
+				mav.setViewName("adminChating1");
+			}
 			transaction = true;
 
 
@@ -3270,7 +3278,6 @@ public class learningTeacherMM extends TransactionExe {
 				sb.append("<input type='button' value='점수 등록' onClick='sexualInsert()' />");
 				sb.append("</div>");
 			}
-			System.out.println(board.getStudentCode()+"학생번호");
 			
 			mav.addObject("content", sb.toString());
 			mav.addObject("tagCode", board.getTagCode());
