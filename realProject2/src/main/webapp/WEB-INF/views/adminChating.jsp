@@ -10,57 +10,33 @@
 <script>
 	//웹 소켓 객체를 저장할 변수를 선언
 	var websocket;
+
+
+	function test() {
+		websocket = new WebSocket("ws://localhost:8080/web/chat");
+		//웹 소켓 이벤트 처리
+
+		websocket.onopen = onOpen;
+		websocket.onmessage = onMessage;
+		websocket.onclose = onClose;
 	
-	function test(){
-	websocket = new WebSocket("ws://localhost:8080/web/chat");
-	//웹 소켓 이벤트 처리
-  	alert(websocket);
-	websocket.onopen = onOpen;
-	websocket.onmessage = onMessage;
-	websocket.onclose = onClose;
 	}
 
 	$(function() {
-
-		//입장 버튼을 클릭했을 때 이벤트 처리
-		
-
-		//퇴장 버튼을 누를 때 이벤트 처리
-		$('#exitBtn').bind('click', function() {
-			alert("웹 소켓 해제");
-			//웹 소켓 연결 해제
-			websocket.close();
-		});
-
 		//전송 버튼을 누를 때 이벤트 처리
 		$('#sendBtn').bind('click', function() {
 			//nickname 과 message에 입력된 내용을 서버에 전송
 			var nick = $('#nickname').val();
-			
+
 			var msg = $('#message').val();
 			//메시지 전송
 			websocket.send(nick + ":" + msg);
+			alert("");
 			//메시지 입력창 초기화
 			$('#message').val('');
 		});
-
-		//message 창에서 Enter를 눌렀을 때도 메시지를 전송
-		//키보드를 누를 때 이벤트 처리
-		$('#message').keypress(function(event) {
-			var keycode = event.keyCode ? event.keyCode : event.whice;
-			if (keycode == 13) {
-				//nickname 과 message에 입력된 내용을 서버에 전송
-				var nick = $('#nickname').val();
-				
-				var msg = $('#message').val();
-				//메시지 전송
-				websocket.send(nick + ":" + msg);
-				//메시지 입력창 초기화
-				$('#message').val('');
-			}
-		});
 	});
- 
+	
 	//WebSocket이 연결된 경우 호출되는 함수
 	function onOpen(evt) {
 
@@ -81,19 +57,39 @@
 		$('#chatMessageArea').append(data + "<br />");
 	}
 </script>
+<%@ page import="java.util.*, java.text.*"%>
+<%@ page import="icia.project.services.learningStudentMM"%>
 
+<%
+
+
+	learningStudentMM lsmm = new learningStudentMM();
+	java.text.SimpleDateFormat formatter = new java.text.SimpleDateFormat("yyyyMMddHHmm");
+	String today = formatter.format(new java.util.Date());
+	out.println(today);
+	lsmm.getmethod(today);
+
+%>
 </head>
 <body onLoad="test()">
-	<table>
-	<tr><td>
-	<h1>알림</h1>
-	<input type="hidden" name="nickname" value="${id }" id="nickname" />
+<%@ page import="icia.project.services.ChatWebSocketHandler"%>
 
-	<div id="chatArea">
-		<div id="chatMessageArea"></div>
-	</div>
-	</td>
-	</tr>
+	<table>
+		<tr>
+			<td>
+				<h1>알림</h1> <input type="hidden" name="nickname" value="${id }"
+				id="nickname" />
+
+
+
+		
+				<div id="chatArea">
+					<div id="chatMessageArea"></div>
+				</div>
+
+
+			</td>
+		</tr>
 	</table>
 
 

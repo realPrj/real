@@ -25,6 +25,8 @@ public class learningStudentMM extends TransactionExe {
 	private IMybatis dao;
 	@Autowired
 	private ProjectUtils session;
+	@Autowired
+	private ChatWebSocketHandler chat;
 
 	private ModelAndView mav;
 
@@ -161,7 +163,7 @@ public class learningStudentMM extends TransactionExe {
 		case 44:   // 강의계획서 보내기
 			mav = learningPlanPage((BoardBean)object[0]);
 			break;
-			
+
 		case 45:   // 강의계획서자세히 보내기
 			mav = learningPlanCTXPage((BoardBean)object[0]);
 			break;
@@ -569,7 +571,7 @@ public class learningStudentMM extends TransactionExe {
 				sb.append("<td>" + ar.get(forB).getBoardId() + "</td>");
 				sb.append("</tr>");
 			}
-			
+
 			sb.append("</tbody>");
 			pageCount+=pageCount;
 		}
@@ -800,6 +802,7 @@ public class learningStudentMM extends TransactionExe {
 		boolean transaction = false;
 		fileupload(board,mtfRequest);
 
+		chat = new ChatWebSocketHandler();
 
 		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
 		try {         
@@ -815,10 +818,13 @@ public class learningStudentMM extends TransactionExe {
 
 			session.getAttribute("roomCode");
 			if(dao.learningQuestionInsert(board) != 0) {
+				board.setStudentCode(board.getStudentCode());
+				board.setStudentName(dao.stNameGet(board));	
+				chat.msg("질문 게시판에"+board.getStudentName()+"님이"+board.getBoardTitle()+"등록하셨습니다.");
 				System.out.println("나 성공햇다 ");
 				transaction = true;
 			}else {
-				System.out.println("실패");
+				
 			}
 		}
 		catch(Exception ex){
@@ -1124,14 +1130,20 @@ public class learningStudentMM extends TransactionExe {
 		System.out.println("토론게시판 댓글등록 서비스");
 		mav = new ModelAndView();
 		boolean transaction = false;
-
+		chat = new ChatWebSocketHandler();
 		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
 
 		try {
+
 			board.setRoomCode((String)session.getAttribute("roomCode"));
 			board.setStudentCode((String)session.getAttribute("stCode"));
 
+
 			if(dao.learningDebateTagInsert(board) != 0) {
+
+				board.setStudentName(dao.stNameGet(board));	
+				System.out.println(board.getStudentName());
+				chat.msg(board.getStudentName()+" 댓글을 입력해셨습니다");
 				System.out.println("토론게시판 댓글쓰기 성공");
 				transaction = true;
 			}
@@ -1586,23 +1598,23 @@ public class learningStudentMM extends TransactionExe {
 				}
 
 				sb.append("<tbody name=tbody"+forI+" id=tbody"+forI+">");
-			for(forB=forB; forB<pageCount; forB++) {
-			//for(int i=0; i<ar.size(); i++) {
-				sb.append("<tr>");   
-				sb.append("<td>" + ar.get(forB).getStudentCode() + "</td>");
-				sb.append("<td>" + ar.get(forB).getId() + "</td>");
-				sb.append("<td>" + ar.get(forB).getStudentName() + "</td>");
-				sb.append("<td>" + ar.get(forB).getEmail() + "</td>");
-				sb.append("<td>" + ar.get(forB).getPhone() + "</td>");
+				for(forB=forB; forB<pageCount; forB++) {
+					//for(int i=0; i<ar.size(); i++) {
+					sb.append("<tr>");   
+					sb.append("<td>" + ar.get(forB).getStudentCode() + "</td>");
+					sb.append("<td>" + ar.get(forB).getId() + "</td>");
+					sb.append("<td>" + ar.get(forB).getStudentName() + "</td>");
+					sb.append("<td>" + ar.get(forB).getEmail() + "</td>");
+					sb.append("<td>" + ar.get(forB).getPhone() + "</td>");
 
-				sb.append("<td><input type=\"button\"class='btn' value=\"쪽지보내기\" onClick=\"sendMessage('"+ ar.get(forB).getStudentCode() +"')\" /></td>");
+					sb.append("<td><input type=\"button\"class='btn' value=\"쪽지보내기\" onClick=\"sendMessage('"+ ar.get(forB).getStudentCode() +"')\" /></td>");
 
 
-				sb.append("</tr>");
-			}
-			sb.append("</tbody>");	
+					sb.append("</tr>");
+				}
+				sb.append("</tbody>");	
 
-			pageCount+=pageCount;
+				pageCount+=pageCount;
 			}
 			sb.append("</table>");
 			mav.addObject("teacherLearningSTadmin", sb.toString());
@@ -1837,7 +1849,7 @@ public class learningStudentMM extends TransactionExe {
 		mav = new ModelAndView();
 		boolean transaction = false;
 		StringBuffer sb = new StringBuffer();
-
+		ViewService view = new ViewService();
 		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
 
 		try {
@@ -1846,11 +1858,24 @@ public class learningStudentMM extends TransactionExe {
 
 			if(dao.planCheck(board) != 0) { // 있음
 
-				board = dao.planCTX(board);
-				mav.addObject("title", "<input type='text' name='boardTitle' value="+board.getBoardTitle()+" readonly/>");
-				mav.addObject("content","<input type='text' name='boardContent' value="+board.getBoardContent()+" readonly/>" );
+				DbBoardBean bb  = dao.planCTX(board);
+
+
+				bb.setCutRoute(bb.getBoardRoute().substring(0,68));   // 루트만
+
+				bb.setCutContent(bb.getBoardRoute().substring(68));   // 파일이름
+
+
+				List<String> list = view.getList(bb);
+
+
+
+
+				mav.addObject("list",list);
+				mav.addObject("title", "<input type='text'  name='boardTitle' value="+bb.getBoardTitle()+" readonly/>");
+				mav.addObject("content","<input type='text'style='width: 150px;height:250px' name='boardContent' value="+bb.getBoardContent()+" readonly/>" );
 				mav.addObject("check", 1);
-			
+
 
 			}else {
 				mav.addObject("title", "등록된 계획이 없습니다");
@@ -1867,5 +1892,21 @@ public class learningStudentMM extends TransactionExe {
 			setTransactionResult(transaction);
 		}
 		return mav;
+	}
+
+
+	public void getmethod(String today) {
+		chat = new ChatWebSocketHandler();
+
+		try {
+
+			chat.msg(today);
+
+		}catch(Exception ex) {
+
+		}
+		finally {
+
+		}
 	}
 }

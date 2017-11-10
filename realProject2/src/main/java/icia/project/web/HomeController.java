@@ -644,11 +644,8 @@ public class HomeController  {
 	// 선생님 과제 파일 확인 팝업창
 	@RequestMapping(value = "/learningTesk", method = RequestMethod.GET)
 	public ModelAndView learningTesk(@ModelAttribute BoardBean board) {
-		System.out.println("선생님 과제 파일 확인 팝업창");
+		
 		mav = ltmm.entrance(39, board);
-
-
-		mav.setViewName("studentWithdrawalPage");
 
 		return mav;
 	}

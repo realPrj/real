@@ -446,7 +446,7 @@ public interface IMybatis {
 	public int CheckSaturday(Calendar cd);
 
 	// 강의계획서 내용
-	public BoardBean planCTX(BoardBean board);
+	public DbBoardBean planCTX(BoardBean board);
 
 	// 강의계획서 등록
 	public int planInsert(BoardBean board);
@@ -487,6 +487,9 @@ public interface IMybatis {
 	// the end
 	// 학생 상태코드 확인(로그인시)
 	public String stateSTCodeCheck(MemberBean member);
+	
+	// 학생 이름 추출
+		public String stMmNameGet(MemberBean member);
 
 
 }

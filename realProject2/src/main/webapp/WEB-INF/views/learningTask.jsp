@@ -134,9 +134,7 @@
 
 	}
 	function checkFilec(boardCode, roomCode, studentCode) {
-		alert(boardCode);
-		alert(roomCode);
-		alert(studentCode);
+		
 		createinput("hidden", "boardCode", boardCode);
 		createinput("hidden", "roomCode", roomCode);
 		createinput("hidden", "studentCode", studentCode);

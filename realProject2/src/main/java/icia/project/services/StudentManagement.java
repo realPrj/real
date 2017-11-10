@@ -34,7 +34,9 @@ public class StudentManagement extends TransactionExe {
 	private Encryption enc;
 	@Autowired
 	private PageManagement pm;
-
+	@Autowired
+	private ChatWebSocketHandler chat;
+	
 	private ModelAndView mav;
 
 	public ModelAndView entrance(int serviceCode,Object object) {
@@ -90,6 +92,7 @@ public class StudentManagement extends TransactionExe {
 
 		boolean transaction = false;
 		String page =null;
+		chat = new ChatWebSocketHandler();
 		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
 
 		try {
@@ -108,7 +111,9 @@ public class StudentManagement extends TransactionExe {
 
 							session.setAttribute("stCode", member.getStudentCode());
 							session.setAttribute("identity", member.getIdentity());
-
+							member.setStudentCode((String)session.getAttribute("stCode"));
+							member.setName(dao.stMmNameGet(member));	
+							chat.msg(member.getName()+"로그인 하셨습니다.");
 
 							mav = pm.entrance(2, null);
 							transaction = true;

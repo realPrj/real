@@ -3,6 +3,8 @@ package icia.project.services;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.ibatis.reflection.SystemMetaObject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketHandler;
@@ -10,11 +12,28 @@ import org.springframework.web.socket.WebSocketMessage;
 import org.springframework.web.socket.WebSocketSession;
 
 public class ChatWebSocketHandler implements WebSocketHandler {
-
+	String keys = null;
+	String message = null;
+	static String me =null;
+	
+	WebSocketSession arg0;
+	WebSocketMessage<?> arg1;
+	
 	//접속한 클라이언트들의 정보를 저장할 컬렉션 객체
 	 public static List<WebSocketSession> list=
 			 new ArrayList<WebSocketSession>();
 	 
+	 public void msg(String key) {
+	
+		 me=key;
+		 try {
+			handleMessage(arg0,arg1);
+		} catch (Exception e) {
+
+		}
+	 }
+	 
+
 	 //클라이언트와의 연결이 끊겼을떄 호출되는 메소드
 	@Override
 	public void afterConnectionClosed(WebSocketSession arg0, CloseStatus arg1) throws Exception {
@@ -27,19 +46,25 @@ public class ChatWebSocketHandler implements WebSocketHandler {
 	@Override
 	public void afterConnectionEstablished(WebSocketSession arg0) throws Exception {
 		//리스트에 추가
-		System.out.println("연결 되었니??");
+	
 		list.add(arg0);
 	}
 
 	//클라이언트가 메시지를 보냈을때 호출되는 메소드
+
 	@Override
 	public void handleMessage(WebSocketSession arg0, WebSocketMessage<?> arg1) throws Exception {
 		//전송된 메시지를 모든 클라이언트에게 전송
-		 String msg=(String)arg1.getPayload();
+		/*=(String)arg1.getPayload()*/
+		message=me;
+		System.out.println("handleMessage");
+		 System.out.println(message);
+		 
+		 
 		 for(WebSocketSession socket:list){
 			 //메시지 생성
 			 WebSocketMessage<String>sentMsg=
-					 new TextMessage(msg);
+					 new TextMessage(message);
 			 //각 세션에게 메시지를 전송
 			 socket.sendMessage(sentMsg);
 		 }

@@ -1568,13 +1568,15 @@
 	</select>
 	
 	<!-- 강의계획서 내용 -->
-	<select id="planCTX" resultType="board" parameterType="board">
-		SELECT PL_LRCODE AS roomCode, PL_CODE AS boardCode, PL_TITLE AS boardTitle, PL_CONTENT AS boardContent FROM PLAN WHERE PL_LRCODE=#{roomCode} AND PL_CODE=#{boardCode}
+	<select id="planCTX" resultType="dbBoard" parameterType="board">
+		SELECT PL_LRCODE AS roomCode, PL_CODE AS boardCode, PL_TITLE AS boardTitle, PL_CONTENT AS boardContent, PL_ROUTE AS boardRoute 
+		FROM PLAN 
+		WHERE PL_LRCODE=#{roomCode} AND PL_CODE=#{boardCode}
 	</select>
 	
 	<!-- 강의계획서 등록 -->
 	<insert id="planInsert" parameterType="board">
-		INSERT INTO PLAN VALUES(#{roomCode},#{id},#{boardCode}, #{boardTitle}, #{boardContent})
+		INSERT INTO PLAN VALUES(#{roomCode},#{id},#{boardCode}, #{boardTitle}, #{boardContent},#{boardRoute})
 	</insert>
 
 	<!-- 강의계획서 수정 -->
@@ -1590,6 +1592,16 @@
 	<delete id="planDelete" parameterType="board">
 		DELETE FROM PLAN WHERE PL_LRCODE=#{roomCode} AND PL_CODE=#{boardCode}
 	</delete>
+	
+	
+	<!-- 로그인학생 이름 추출 -->
+	<select id="stMmNameGet" resultType="String" parameterType="member">
+		SELECT
+		ST_NAME AS studentName
+		FROM STUDENT
+		WHERE
+		ST_RFSTUDENTCODE=#{studentCode}
+	</select>
 
 </mapper>
 
