@@ -10,6 +10,7 @@
 <link rel="icon" type="image/png" sizes="96x96"
    href="assets/img/favicon.png">
 <title>공조 || 공지사항 수정</title>
+<link href="assets/css/css.css" rel="stylesheet" />
 <!-- Bootstrap core CSS     -->
 <link href="assets/css/bootstrap.min.css" rel="stylesheet" />
 
@@ -172,18 +173,16 @@ function NoticeUpdateOk(){
                <ul class="nav navbar-nav navbar-right">
 
                   <li class="dropdown"><a href="#" class="dropdown-toggle"
-                     data-toggle="dropdown"> <i class="ti-bell"></i>
-                        <p class="notification"></p>
-                        <p>마이메뉴</p> <b class="caret"></b>
-                  </a>
-                     <ul class="dropdown-menu">
+							data-toggle="dropdown"> <i class="ti-bell"></i>
+								<p class="notification"></p>
+								<p>마이메뉴</p> <b class="caret"></b>
+						</a>
+							<ul class="dropdown-menu">
+								<li><a onClick="menu('11',${identity})">쪽지함</a></li>
+								<li><a onClick="menu('14',${identity})">로그아웃</a></li>
+						</ul></li>
 
-						<li><a onClick="menu('11',${identity})">쪽지함</a></li>
-                        <li><a onClick="menu('14',${identity})">로그아웃</a></li>
-
-                     </ul></li>
-
-               </ul>
+          	   </ul>
 
             </div>
          </div>
@@ -192,22 +191,62 @@ function NoticeUpdateOk(){
           <div class="col-lg-35 col-md-12"
             style="display: inline-block; text-align: center;">
             <div class="card">
-               <div class="container">
-              
+               <div class="center">
+              	<br/>
                      <h2>
                         <b>공지사항</b>
                      </h2>
                </div>
 
    <form name="noticeUpdate" method="post" action="NoticeUpdate" enctype="multipart/form-data">
-      <br> 제목 : <input type="text" name="boardTitle" size=50
+      <%-- <br> 제목 : <input type="text" name="boardTitle" size=50
          maxlength=70 value="${boardTitle }"> <br> 내용 :
       <textarea name="boardContent" cols=50 rows=20 maxlength=500>${boardContent}</textarea>
       <br> 
 		 <input multiple="multiple" type="file" name="file" /> 
    	  <input type="hidden" name="boardroute" />
    	  <input type="hidden" name="load" value="Notice" />
-       <input type="button" value="작성완료" onClick="NoticeUpdateOk()"/>
+       <input type="button" value="작성완료" onClick="NoticeUpdateOk()"/> --%>
+       <div id="content"
+							style="display: inline-block; text-align: center;">
+
+
+							<div class="input-group input-group-md" role="group"
+								aria-label="...">
+								<table border="2" width="700px" ;
+	height="300px";  >
+									<br />
+									<thead class="table table-striped table-bordered">
+
+										<tr>
+											<th style="width:13%; padding:15px" >제목</th>
+											<td><input type="text" name="boardTitle"
+												value="${boardTitle }" class="form-control"
+												aria-describedby="basic-addon1"></td>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td colspan="2"><textarea class="form-control" rows="20"
+													name="boardContent">${boardContent}</textarea></td>
+										</tr>
+										<tr>
+											<th style="width:13%; padding:15px">첨부파일</th>
+											<td style="text-align:left; padding: 15px"><input  multiple="multiple" type="file" name="file"  />
+      											<input type="hidden" name="load" value="Notice" /> </td>
+      											
+
+										</tr>
+
+
+									</tbody>
+								</table>
+							</div>
+							<div>
+								  <input class="btn" type="button" value="작성완료" onClick="NoticeUpdateOk()"/></td>
+								<br /> <br />
+							</div>
+						</div>
        ${boardDate }
    </form>
 

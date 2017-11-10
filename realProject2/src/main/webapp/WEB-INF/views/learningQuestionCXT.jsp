@@ -13,7 +13,7 @@
 	href="assets/img/favicon.png">
 <title>공조 ||질문게시판</title>
 </head>
-
+<link href="assets/css/css.css" rel="stylesheet" />
 <!-- Bootstrap core CSS     -->
 <link href="assets/css/bootstrap.min.css" rel="stylesheet" />
 
@@ -359,24 +359,17 @@
 								<thead class="table table-striped table-bordered">
 
 									<tr>
-										<th width="20%" style="padding-top: 15px">작성자</th>
-										<td width="80%">${writeId }</td>
+										<th width="13%" style="padding: 15px">작성자</th>
+										<td width="80%" style="text-align:left; padding: 15px">${writeId }</td>
 									</tr>
 									<tr>
-										<th width="20%" style="padding-top: 15px">제목</th>
-										<td width="80%">${theme }</td>
+										<th width="13%" style="padding: 15px">제목</th>
+										<td width="80%" style="text-align:left; padding: 15px">${theme }</td>
 									</tr>
+									
 									<tr>
-										<th width="20%">다운로드</th>
-										<td width="80%"><c:forEach var="file" items="${list }">
-
-												<a href="download.action?name=${file}">${file}</a>
-
-											</c:forEach></td>
-									</tr>
-									<tr>
-										<th width="20%" style="padding-top: 15px">날짜</th>
-										<td width="80%">${date }</td>
+										<th width="13%" style="padding: 15px">날짜</th>
+										<td width="80%" style="text-align:left; padding: 15px">${date }</td>
 									</tr>
 								</thead>
 								<tbody>
@@ -384,6 +377,14 @@
 										<td colspan="2"><textarea class="form-control" rows="15"
 												style="background-color: white; color: black;"
 												name="content" readonly>${content }</textarea></td>
+									</tr>
+									<tr>
+										<th width="13%" style="padding: 15px">다운로드</th>
+										<td width="80%" style="text-align:left; padding: 15px"><c:forEach var="file" items="${list }">
+
+												<a href="download.action?name=${file}">${file}</a>
+
+											</c:forEach></td>
 									</tr>
 								</tbody>
 

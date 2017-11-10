@@ -11,6 +11,7 @@
 <link rel="icon" type="image/png" sizes="96x96"
    href="assets/img/favicon.png">
 <title>공조 || 공지사항 내용</title>
+<link href="assets/css/css.css" rel="stylesheet" />
 <!-- Bootstrap core CSS     -->
 <link href="assets/css/bootstrap.min.css" rel="stylesheet" />
 
@@ -164,7 +165,11 @@ function eventClick(formname, formaction, formmethod) {
    form.submit();
 
 }
+
 </script>
+<style>
+
+</style>
 </head>
 <body>
 <div class="wrapper">
@@ -264,14 +269,14 @@ function eventClick(formname, formaction, formmethod) {
          <div class="col-lg-35 col-md-12"
             style="display: inline-block; text-align: center;">
             <div class="card">
-
+			<br/>
                <h2>
-                  <b>질문게시판</b>
+                  <b>공지사항</b>
                </h2>
 
 
-               <div id="content"
-                  style="display: inline-block; text-align: center;">
+               <div id="content" 
+                  style="display: inline-block; ">
                   <input type="hidden" name="pageNum" value="${pageNum}"> <input
                      type="hidden" name="articleNumber"
                      value="${article.articleNumber}">
@@ -283,17 +288,17 @@ function eventClick(formname, formaction, formmethod) {
                         <thead class="table table-striped table-bordered">
 
                            <tr>
-                              <th width="15%" style="padding-top: 15px">작성자</th>
-                              <td width="80%"> ${boardId }</td>
+                              <th width="13%" style="padding: 15px">작성자</th>
+                              <td width="80%" style="text-align:left; padding: 15px"> ${boardId }</td>
                            </tr>
                            <tr>
-                              <th width="15%" style="padding-top: 15px">제목</th>
-                              <td width="80%">${boardTitle }</td>
+                              <th width="13%" style="padding: 15px">제목</th>
+                              <td width="80%" style="text-align:left; padding: 15px">${boardTitle }</td>
                            </tr>
                            
                            <tr>
-                              <th width=15% style="padding-top: 15px">날짜</th>
-                              <td width="80%">${boardDate }</td>
+                              <th width="13%" style="padding: 15px">날짜</th>
+                              <td width="80%" style="text-align:left; padding: 15px">${boardDate }</td>
                            </tr>
                         </thead>
                         <tbody>
@@ -303,22 +308,23 @@ function eventClick(formname, formaction, formmethod) {
                                     name="content" readonly>${boardContent }</textarea></td>
                            </tr>
                            <tr>
-                              <th width="15%">다운로드</th>
-                              <td width="80%"><c:forEach var="file" items="${list }">
+                              <th width="13%" style="padding: 15px">다운로드</th>
+                              <td width="80%" style="text-align:left; padding: 15px"><c:forEach var="file" items="${list }">
 
                                     <a href="download.action?name=${file}">${file}</a>
 
                                  </c:forEach></td>
                            </tr>
                         </tbody>
-
                      </table>
-               		${content } 
+               		${content }		
                   </div>
-
+					
                </div>
+               
             </div>
          </div>
+          
       </div>
    </div>
 

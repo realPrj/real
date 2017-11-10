@@ -14,7 +14,7 @@
 <title>공조 || 질문 게시판 글 등록</title>
 
 
-
+<link href="assets/css/css.css" rel="stylesheet" />
 <!-- Bootstrap core CSS     -->
 <link href="assets/css/bootstrap.min.css" rel="stylesheet" />
 

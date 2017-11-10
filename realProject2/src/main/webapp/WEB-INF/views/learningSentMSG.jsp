@@ -17,7 +17,7 @@
 	name='viewport' />
 <meta name="viewport" content="width=device-width" />
 
-
+<link href="assets/css/css.css" rel="stylesheet" />
 <!-- Bootstrap core CSS     -->
 <link href="assets/css/bootstrap.min.css" rel="stylesheet" />
 
@@ -312,10 +312,10 @@ function messageCTX(messageCode, roomCode, messageDate, identity){
 						<table class="table table-bordered table-striped">
 							<thead>
 								<tr>
-									<th>번호</th>
-									<th>수신인</th>
-									<th>제목</th>
-									<th>날짜</th>
+									<th><b>번호</b></th>
+									<th><b>수신인</b></th>
+									<th><b>제목</b></th>
+									<th><b>날짜</b></th>
 								</tr>
 							</thead>
 							${messageList } 

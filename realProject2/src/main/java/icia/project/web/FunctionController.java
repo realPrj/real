@@ -748,6 +748,25 @@ public class FunctionController {
 		return mav;
 	}
 	
+	// 과제 점수 등록
+	@RequestMapping(value = "/scoreInsertgo", method = RequestMethod.POST)
+	public ModelAndView scoreInsertgo(@ModelAttribute  BoardBean board) {
+		
+		mav = ltm.entrance(58, board);
+		
+		return mav;
+	}
 	
-
+	// 과제 점수 수정
+	@RequestMapping(value = "/scoreUpdate", method = RequestMethod.POST)
+	public ModelAndView scoreUpdate(@ModelAttribute  BoardBean board) {
+		
+		mav = ltm.entrance(59, board);
+		
+		return mav;
+	}
+	
+	
+	
+	
 }

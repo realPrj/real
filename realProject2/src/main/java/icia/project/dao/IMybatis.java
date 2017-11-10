@@ -491,6 +491,28 @@ public interface IMybatis {
 	// 학생 이름 추출
 		public String stMmNameGet(MemberBean member);
 
-
+	// 과제 점수 추출
+	public String taskScoreGet(BoardBean board);
+	
+	// 과제 점수 등록
+	public int taskScoreInsert(BoardBean board);
+	
+	// 과제 점수 수정
+	public int taskScoreUpdate(BoardBean board);
+	
+	// 과제 제출 번호 추출
+	public String learningTeskSubmitCodeGet(BoardBean board);
+	
+	// 과제 제출 번호 유무
+	public int learningTeskSubmitCodeCheck(BoardBean board);
+	
+	// 과제 점수 유무
+	public int taskScoreCheck(BoardBean board);
+	
+	// 과제 성적 개인 총 합
+	public int learningTeskScoreAllSum(BoardBean board);
+	
+	
+	
 }
 

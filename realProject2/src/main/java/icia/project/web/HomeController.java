@@ -762,21 +762,21 @@ public class HomeController  {
 
 		Gson gson = new Gson();
 
-		String test = gson.toJson(code);
+		String gs = gson.toJson(code);
 
-		return test;
+		return gs;
 	}
 
 	// 강의계획서(달력)
 	@RequestMapping(value = "/calendar", method = RequestMethod.POST,produces = "application/text; charset=utf8")
 	@ResponseBody public String calendar(@ModelAttribute Calendar cd) {
 
-		String test = null;
+		String gs = null;
 		Gson gson = null;
 		ArrayList<Calendar> code  = null;
 
 		if(cd.getMonth().equals("월 선택")) {
-			test = null;
+			gs = null;
 		}else {
 
 			code = null;
@@ -785,10 +785,10 @@ public class HomeController  {
 
 			gson = new Gson();
 
-			test = gson.toJson(code);
+			gs = gson.toJson(code);
 
 		}
-		return test;
+		return gs;
 	}
 
 	// 강의계획서 자세히 보기
@@ -851,7 +851,6 @@ public class HomeController  {
 		return mav;
 	}
 
-
 	// 강의계획서 학생
 	@RequestMapping(value = "/learningPlanCTXStudent", method = RequestMethod.GET)
 	public ModelAndView learningPlanCTXStudent(@ModelAttribute BoardBean board) {
@@ -859,7 +858,49 @@ public class HomeController  {
 		mav = lsmm.entrance(45, board);
 		return mav;
 	}
+	
+	// 과제 성적 페이지
+	@RequestMapping(value = "/taskScorePage", method = RequestMethod.POST)
+	public ModelAndView taskScorePage() {
 
+		mav = ltmm.entrance(60, null);
+		
+		return mav;
+	}
 
+	// 과제 등록 페이지
+	@RequestMapping(value = "/scoreInsertPage", method = RequestMethod.GET)
+	public ModelAndView scoreInsertPage(@ModelAttribute BoardBean board) {
+		System.out.println(board.getStudentCode()+"이것이 학생번호");
+		mav = ltmm.entrance(57, board);
+	
+		return mav;
+	}
 
+	// 과제 성적 보여주기
+	@RequestMapping(value = "/taskScoreShow", method = RequestMethod.POST,produces = "application/text; charset=utf8")
+	@ResponseBody public String taskScoreShow(@ModelAttribute BoardBean board) {
+		
+		ArrayList<BoardBean> code = null;
+		String gs = null;
+		
+		if(board.getStudentCode().equals("학생선택")) {
+			gs = null;
+		}else {
+
+			code = null;
+
+			code = pm.taskScoreShow(board);		
+			
+			Gson gson = new Gson();
+
+			gs = gson.toJson(code);
+
+		}
+		
+		return gs;
+	}
+	
+
+	
 }
