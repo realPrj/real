@@ -3277,7 +3277,6 @@ public class learningTeacherMM extends TransactionExe {
 				sb.append("<input type='button' value='점수 등록' onClick='sexualInsert()' />");
 				sb.append("</div>");
 			}
-			System.out.println(board.getStudentCode()+"학생번호");
 			
 			mav.addObject("content", sb.toString());
 			mav.addObject("tagCode", board.getTagCode());

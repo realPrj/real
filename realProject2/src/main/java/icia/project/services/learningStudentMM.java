@@ -169,8 +169,11 @@ public class learningStudentMM extends TransactionExe {
 			mav = learningPlanCTXPage((BoardBean)object[0]);
 			break;
 
+		case 46:   // 강의계획서자세히 보내기
+			mav = sttaskScorePage();
+			break;
 
-
+			
 
 		}
 
@@ -1862,16 +1865,11 @@ public class learningStudentMM extends TransactionExe {
 
 				DbBoardBean bb  = dao.planCTX(board);
 
-
 				bb.setCutRoute(bb.getBoardRoute().substring(0,68));   // 루트만
 
 				bb.setCutContent(bb.getBoardRoute().substring(68));   // 파일이름
 
-
 				List<String> list = view.getList(bb);
-
-
-
 
 				mav.addObject("list",list);
 				mav.addObject("title", "<input type='text'  name='boardTitle' value="+bb.getBoardTitle()+" readonly/>");
@@ -1911,4 +1909,158 @@ public class learningStudentMM extends TransactionExe {
 
 		}
 	}
+	
+	private ModelAndView sttaskScorePage() { // 학생 과제 점수 페이지
+
+		mav = new ModelAndView();
+		boolean transaction = false;
+		ArrayList<BoardBean> al = null;
+		ArrayList<BoardBean> bb = null;
+		ArrayList<BoardBean> score = new ArrayList<BoardBean>();
+		StringBuffer sb = null;
+		BoardBean board = null;
+		
+		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
+
+		try {
+			
+			board = new BoardBean();
+			
+			String stcode = (String)session.getAttribute("stCode");
+			String roomcode = (String)session.getAttribute("roomCode");
+
+			String ran = null;
+
+			board.setRoomCode(roomcode);
+
+			al = dao.learningTaskList(board);	// 게시 리스트
+			
+			bb = dao.learningTeskScoreRank(board);	// 등수
+			
+			for(int i = 0; i < bb.size(); i++) {	
+				if(bb.get(i).getStudentCode().equals(stcode)){		
+					ran = bb.get(i).getCaCode();
+					break;	
+				}		
+			}
+			
+			for(int i = 0; i < al.size(); i++) {
+				board = new BoardBean();
+				board.setRoomCode(roomcode);
+				board.setBoardTitle(al.get(i).getBoardTitle());
+				board.setBoardCode(al.get(i).getBoardCode());
+				board.setStudentCode(stcode);
+				board.setStudentName(dao.stNameGet(board));
+				if(dao.learningTeskSubmitCodeCheck(board) != 0) {
+				board.setTagCode(dao.learningTeskSubmitCodeGet(board));	
+				if(dao.taskScoreCheck(board)!= 0) {
+				board.setTypeSum(dao.taskScoreGet(board));
+				board.setAllSum(dao.learningTeskScoreAllSum(board));
+				}
+				else {board.setTypeSum("점수 미등록");}
+				}
+				else {
+					board.setTypeSum("미제출");
+				}
+				board.setStNumber(Integer.toString(dao.learningRoomstAll(board)));
+				board.setAllSum(dao.learningTeskScoreAllSum(board));
+				board.setAverage(String.format("%.1f",board.getAllSum() / (double)dao.learningTeskScoreCount(board)));
+				board.setRank(ran);				
+				board.setPercentage(String.format("%.2f",Integer.parseInt(board.getRank())/(double)Integer.parseInt(board.getStNumber())*100));	
+				score.add(board);
+			}
+			sb = new StringBuffer();
+			
+			sb.append("</br><table align=center>");
+			sb.append("<tbody align=center>");
+			sb.append("<tr>");
+			sb.append("<td colspan='2'>");
+			sb.append("<h3>"+score.get(0).getStudentName()+"학생의 과제 성적</h3>");
+			sb.append("</td>");
+			sb.append("</tr>");
+			sb.append("</tbody>");
+			sb.append("<tbody align=center>");
+			sb.append("<tr>");
+			sb.append("<td>");
+			sb.append("<h4>게시글 제목</h4>");
+			sb.append("</td>");
+			sb.append("<td>");
+			sb.append("<h4>점수</h4>");
+			sb.append("</td>");
+			sb.append("</tr>");
+			sb.append("</tbody>");
+			for(int i =0; i < score.size(); i++) {
+				
+				sb.append("<tbody align=center>");
+				sb.append("<tr>");
+				sb.append("<td>"+score.get(i).getBoardTitle()+"</td>");
+				sb.append("<td>"+score.get(i).getTypeSum()+"</td>");
+				sb.append("</tr>");
+				sb.append("</tbody>");
+				
+			}
+			sb.append("</table>");	
+			mav.addObject("scoreId", sb.toString());
+			
+			sb = new StringBuffer();
+			
+			sb.append("</br><table align=center>");
+			sb.append("<tbody align=center>");
+			sb.append("<tr>");
+			sb.append("<td colspan='4'>");
+			sb.append("<h3>과제 평가</h3>");
+			sb.append("</td>");
+			sb.append("</tr>");
+			sb.append("</tbody>");
+			sb.append("<tbody align=center>");
+			sb.append("<tr>");
+			sb.append("<td>");
+			sb.append("<h4>총점</h4>");
+			sb.append("</td>");
+			sb.append("<td>");
+			sb.append("<h4>평균</h4>");
+			sb.append("</td>");
+			sb.append("<td>");
+			sb.append("<h4>반등수</h4>");
+			sb.append("  </td>");
+			sb.append("<td>");
+			sb.append("<h4>백분율</h4>");
+			sb.append("</td>");
+			sb.append("</tr>");
+			sb.append("</tbody>");
+			
+			sb.append("<tbody align=center>");
+			sb.append("<tr>");
+			sb.append("<td>");
+			sb.append(score.get(0).getAllSum());
+			sb.append("</td>");
+			sb.append("<td>");
+			sb.append(score.get(0).getAverage());
+			sb.append("</td>");
+			sb.append("<td>");
+			sb.append(score.get(0).getRank()+"/"+score.get(0).getStNumber());
+			sb.append("</td>");
+			sb.append("<td>");
+			sb.append(score.get(0).getPercentage());
+			sb.append("</td>");
+			sb.append("</tr>");
+			sb.append("</tbody>");
+        	
+			sb.append("</table>");	
+			mav.addObject("scoreId2", sb.toString());
+
+			mav.setViewName("learningTaskSTScore");
+			
+			transaction = true;
+
+		}catch(Exception ex){
+		}finally {
+			setTransactionResult(transaction);
+		}
+		return mav;
+	}
+	
+	
+	
+	
 }

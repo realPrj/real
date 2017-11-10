@@ -183,6 +183,16 @@
 	      form.submit();
 
 	   }
+	 
+	function taskscorepage(){	// 과제성적
+			
+		createForm("sttaskScorePageform","sttaskScorePage","post");
+
+		var form = document.getElementsByName("sttaskScorePageform")[0];
+			
+		form.submit();
+			
+	}
 </script>
 </head>
 <body onLoad="${message}">
@@ -295,6 +305,7 @@
 			<div class="col-lg-35 col-md-12">
 
 				<div class="card">
+				<input type="button" class="btn btn-info" value="과제 성적" onClick="taskscorepage()" />
 					<br />
 					<h2>
 						<b>과제 게시판</b>
