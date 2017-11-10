@@ -72,7 +72,7 @@
 %>
 </head>
 <body onLoad="test()">
-<%@ page import="icia.project.services.ChatWebSocketHandler"%>
+	<%@ page import="icia.project.services.ChatWebSocketHandler"%>
 
 	<table>
 		<tr>
@@ -82,10 +82,13 @@
 
 
 
-		
+
 				<div id="chatArea">
 					<div id="chatMessageArea"></div>
-				</div>
+				</div> 전송할 메시지: <input type="text" name="message" id="message" /> <input
+				type="button" id="sendBtn" value="전송" onClick="test1()" />
+
+
 
 
 			</td>
