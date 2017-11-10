@@ -55,16 +55,15 @@ $(document).ready(function() {
 	        success : function(data) {  
 	        	$("#number").empty();
 	        	var html = "";
-	        	html += "<table>"
+	        	html += "<table style=\"margin-top:25px\">"
 	        	for(var i =0; i < data[0].allSum; i++){
 	        		html += "<tbody id='"+data[i].numberCode+"'>";
 	        		html += "<tr>";
-	        		html += "<tr>";
-	        		html += "<td><input type='button' class='btn-sm' value="+data[i].numberCode+"("+data[i].typeName+") /></td>";
+	        		html += "<td ><input style=\"margin-left:30px\"class=\"btnn\" type='button' class='btn-sm' value='"+data[i].numberCode+". "+data[i].typeName+"' /></td>";
 	        		html += "</tr>";
 	        		html += "</tbody>";
 	        	}
-	        	html += "</table>"
+	        	html += "</table>";
 	        		$("#number").append(html);
 	           console.log(data);
 	           
@@ -145,23 +144,32 @@ $(document).ready(function() {
 </script>
 
  <style>
+ @import url(//fonts.googleapis.com/earlyaccess/nanumgothic.css);
 
-        body{margin:10px;padding:10px;}
 
-        section{width:200px;height:600px;background:#F6F6F6;float:left;border:1px solid black;}
-        {
+    
 
-            width: 100px;
 
-            height:150px;
 
-            background: #ad2585;
 
-            float: right;
+.ctt{
+margin:15px; float:left; border:dashed #AEAEAE; border-radius:50px 15px 15px 50px; width:290px; height:500px}
 
-            position:relative;
+h4{
+text-align:right; margin:10px
+}
 
-        }
+.btnn{
+background-color : white;
+border : none;
+border-radius : 5px;
+margin : 5px;
+height : 30px
+}
+
+.btnn:hover{
+background: #FAECC5
+}
 </style>
 </head>
 <body>
@@ -203,9 +211,6 @@ $(document).ready(function() {
 					</a></li>
 					<li><a onClick="menu('7')"> <i class="ti-book"></i>
 							<p>오답노트</p>
-					</a></li>
-					<li><a onClick="menu('8')"> <i class="ti-bar-chart"></i>
-							<p>성적</p>
 					</a></li>
 					<li><a onClick="menu('9')"> <i class="ti-settings"></i>
 							<p>수강생</p>
@@ -266,13 +271,14 @@ $(document).ready(function() {
 				<div class="card">
 				
 				<div class="container">
-								<h2><b>과목코드표</b></h2>
+								<h2 style="font-family: 'Nanum Gothic', sans-serif"><b>과목코드표</b></h2>
 								<input type="button" class="btn" style="background-color:#ABF200" value="프린트" onClick="printClick()" />
-							</div>
+								<br/><br/>
+							
 
     <br>
 <!-- style="overflow:scroll;" -스크롤바 -->
-    <div class="container">
+     <%-- <div class="container">
 
 
         <section align="center"><h3><b>과목</b></h3>${sbName }</section>
@@ -280,8 +286,31 @@ $(document).ready(function() {
         <section align="center"><h3><b>년도</b></h3>${yearCode }</section>
         <section  style="overflow:scroll;" align="center"><h3><b>문제번호</b></h3><div id="number" align="center"></div></section> 
 
+    </div>  --%>
+     <%-- <table>
+    	<tr>
+    	<td style="border:1px gray solid; border-radius:10px; width:300px; height:300px">${sbName }</td>
+    	<td style="width:30px"></td>
+    	<td style="border:1px gray solid; border-radius:10px; width:300px; height:300px">${yearCode }</td>
+    	<td style="width:30px"></td>
+    	<td id="number" style="border:1px gray solid; border-radius:10px; width:300px; height:300px"></td>
+    	</tr>
+    </table> --%> 
+    <div>
+    	<div class="ctt">
+    	<div><h4>과목</h4></div>
+    	${sbName }</div>	
+    	<div class="ctt">
+    	<div><h4>년도</h4></div>
+    	${yearCode }</div>
+    	<div class="ctt" style="overflow:auto">
+    	<div><h4>문제번호</h4></div>
+    	<div id="number"></div>
+    	</div>
     </div>
 
+    </div>
+    </div>
     </div>
     </div>
 

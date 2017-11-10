@@ -575,12 +575,12 @@ public class PageManagement extends TransactionExe {
 			
 			board.setSubjectName(dao.subjectNameGet(board));	// 과목 이름
 			
-			mav.addObject("sbName", "<input type='button' class='btn' value='"+board.getSubjectName()+"("+board.getRoomSB()+")' />");
+			mav.addObject("sbName", "<input class=\"btnn\" style=\"margin:30px\" type='button' value='"+board.getSubjectName()+"("+board.getRoomSB()+")' />");
 			
 			al = dao.learningYearCodeGet(board);	// 년도 코드		
 			sb = new StringBuffer();
 		
-			sb.append("<table align=\"center\" id='Click'>");
+			sb.append("<table align=\"center\" style=\"margin:32px\" id='Click'>");
 			
 			for(int i = 0; i < al.size(); i++) {
 				board = new BoardBean();
@@ -589,7 +589,7 @@ public class PageManagement extends TransactionExe {
 				board.setYearName(dao.learningYearNameGet(board));
 				sb.append("<tbody id='"+board.getYearCode()+"'>");
 				sb.append("<tr>");
-				sb.append("<td><input type='button' class='btn' value='"+board.getYearName()+"("+board.getYearCode()+")' /></td>");
+				sb.append("<td><input class=\"btnn\" type='button' value='"+board.getYearName()+"("+board.getYearCode()+")' /></td>");
 				sb.append("</tr>");
 				sb.append("</tbody>");
 			}
@@ -742,7 +742,7 @@ public class PageManagement extends TransactionExe {
 			
 			board.setSubjectName(dao.subjectNameGet(board));	// 과목 이름
 			
-			mav.addObject("sbName", "<input type='button' class='btn' value='"+board.getSubjectName()+"("+board.getRoomSB()+")' />");
+			mav.addObject("sbName", "<input type='button' value='"+board.getSubjectName()+"("+board.getRoomSB()+")' />");
 			
 			al = dao.learningYearCodeGet(board);	// 년도 코드		
 			sb = new StringBuffer();
@@ -756,7 +756,7 @@ public class PageManagement extends TransactionExe {
 				board.setYearName(dao.learningYearNameGet(board));
 				sb.append("<tbody id='"+board.getYearCode()+"'>");
 				sb.append("<tr>");
-				sb.append("<td><input type='button' class='btn' value='"+board.getYearName()+"("+board.getYearCode()+")' /></td>");
+				sb.append("<td><input type='button' value='"+board.getYearName()+"("+board.getYearCode()+")' /></td>");
 				sb.append("</tr>");
 				sb.append("</tbody>");
 			}

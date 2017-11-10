@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
+
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -33,6 +34,7 @@
 
 
 <!--  Fonts and icons     -->
+
 <link
 	href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css"
 	rel="stylesheet">
@@ -161,7 +163,11 @@ function menu(ivalue, identity) {
 }
 
 </script>
+
 </head>
+<style>
+@import url(//fonts.googleapis.com/earlyaccess/nanumgothic.css);
+</style>
 <body>
 <input type="hidden" name="identity" value="${identity }" />
 <div class="wrapper">
@@ -262,10 +268,10 @@ function menu(ivalue, identity) {
 
 				<div class="card">
 					<br />
-					<h2>
+					<h2 style="font-family: 'Nanum Gothic', sans-serif">
 						<b>공지사항</b>
 					</h2>
-
+					<br />
 					${content } ${button }
 					<hr />
 

@@ -165,6 +165,9 @@ $(document).ready(function() {
 	   }
 
 </script>
+<style>
+@import url(//fonts.googleapis.com/earlyaccess/nanumgothic.css);
+</style>
 <body>
 	<div class="wrapper">
 		<div class="sidebar" data-background-color="white"
@@ -260,7 +263,7 @@ $(document).ready(function() {
 
 				<div class="card">
 					<br />
-					<h2>
+					<h2 style="font-family: 'Nanum Gothic', sans-serif">
 						&nbsp;&nbsp;<b>오답 노트</b>
 					</h2>
 					<table id="stInformation" class="table table-hover">

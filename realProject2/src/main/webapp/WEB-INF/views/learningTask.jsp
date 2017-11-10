@@ -250,6 +250,9 @@
 	}
 
 </script>
+<style>
+@import url(//fonts.googleapis.com/earlyaccess/nanumgothic.css);
+</style>
 <body onLoad="${message}">
 	<input type="hidden" value="${identity }" name="identity" />
 	<div class="wrapper">
@@ -361,7 +364,7 @@
 
 				<div class="card">
 				<input type="button" class="btn btn-info" value="과제 성적" onClick="taskscorepage()" />
-					<h2>
+					<h2 style="font-family: 'Nanum Gothic', sans-serif">
 						<b>과제 게시판</b>
 					</h2>
 

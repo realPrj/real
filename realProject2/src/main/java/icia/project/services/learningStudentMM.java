@@ -1556,7 +1556,7 @@ public class learningStudentMM extends TransactionExe {
 
 			board = dao.getTeacherInfo(board);
 			// 선생님
-			sb.append("<h2>");
+			sb.append("<h2 style=\"font-family: 'Nanum Gothic', sans-serif\">");
 			sb.append("<b>선생님</b>");
 			sb.append("</h2>");
 			sb.append("<table  class=\"table table-hover\">");

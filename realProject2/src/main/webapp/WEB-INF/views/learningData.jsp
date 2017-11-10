@@ -151,6 +151,9 @@
 
 	}
 </script>
+<style>
+@import url(//fonts.googleapis.com/earlyaccess/nanumgothic.css);
+</style>
 </head>
 <body onLoad="${message}">
 	<div class="wrapper">
@@ -251,7 +254,7 @@
 
 				<div class="card">
 					<br />
-					<h2>
+					<h2 style="font-family: 'Nanum Gothic', sans-serif">
 						<b>자료실</b>
 					</h2>
 					

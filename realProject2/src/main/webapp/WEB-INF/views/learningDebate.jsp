@@ -154,6 +154,9 @@ function menu(ivalue, identity) {
 }
 
 </script>
+<style>
+@import url(//fonts.googleapis.com/earlyaccess/nanumgothic.css);
+</style>
 </head>
 <body>
 <div class="wrapper">
@@ -253,9 +256,10 @@ function menu(ivalue, identity) {
 
 				<div class="card">
 					<br />
-					<h2>
+					<h2 style="font-family: 'Nanum Gothic', sans-serif">
 						<b>토론게시판</b>
 					</h2>
+					<br />
 
 					${content } ${button }
 					<hr />

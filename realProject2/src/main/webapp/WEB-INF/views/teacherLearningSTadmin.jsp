@@ -190,6 +190,9 @@ function stadmin(studentCode){
  
 
 </script>
+<style>
+@import url(//fonts.googleapis.com/earlyaccess/nanumgothic.css);
+</style>
 </head>
 <body>
 	<div class="wrapper">
@@ -291,7 +294,7 @@ function stadmin(studentCode){
 					${teacherInfo }
 					<br />
 					
-					<h2>
+					<h2 style="font-family: 'Nanum Gothic', sans-serif">
 						<b>수강생</b>
 					</h2>
 			

@@ -1213,6 +1213,7 @@ public class learningTeacherMM extends TransactionExe {
 			board.setRoomCode((String)session.getAttribute("roomCode"));
 			board.setBoardId((String)session.getAttribute("tcId"));
 			System.out.println(session.getAttribute("tcId"));
+			System.out.println("루트 : " + board.getBoardRoute()); 
 
 			if(dao.tclearningNoticeInsert(board) != 0) {
 				System.out.println("글좀쓰자제발");

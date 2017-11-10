@@ -1,14 +1,8 @@
 @charset "UTF-8";
 
-a{cursor : pointer};
+a{cursor : pointer}
 
-.btnnn {
-	width : 13%; 
-	padding : 15px;
-};
+.font{
+	font-family: 'Nanum Gothic', sans-serif
+}
 
-#divRayout{
-	border : gray 1px solid;
-	width : 500px;
-	height : 500px;
-};

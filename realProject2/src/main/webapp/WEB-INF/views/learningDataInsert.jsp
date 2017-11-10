@@ -32,6 +32,8 @@
 <link href='https://fonts.googleapis.com/css?family=Muli:400,300'
 	rel='stylesheet' type='text/css'>
 <link href="assets/css/themify-icons.css" rel="stylesheet">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script>
 	//form 생성
 	function createForm(formname, formaction, formmethod) {
@@ -80,9 +82,94 @@
 		form.submit();
 
 	}
+	
+	function DataInsert(){
+		var f = document.getElementsByName("fileForm")[0];
+		
+		f.submit();
+	}
+	
+	function fileNameInput(){
+		  
+		 var fName = $('#file').val().split("\\");
+		    $('#load').val($(fName)[2]);
+		  
+	}
 
 	// 자료실 form
 </script>
+<style>
+.upload {  
+  opacity: 0;       /*input type="file" tag 투명하게 처리*/
+  position: relative;
+  padding : 0px;
+  margin : 0px;
+  width:0px;height:28px;filter:alpha(opacity=0);cursor:pointer
+}
+
+.inputTitle{
+	display: block;
+	width: 100%;
+	height: 34px;
+	padding: 6px 12px;
+	font-size: 14px;
+	line-height: 1.42857143;
+	color: #5D5D5D;
+	background-color: #F6F6F6;
+	background-image: none;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+	box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+	-webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow
+		ease-in-out .15s;
+	-o-transition: border-color ease-in-out .15s, box-shadow ease-in-out
+		.15s;
+	transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s
+}
+
+textarea{
+	display: block;
+	width: 100%;
+	height: 200px;
+	padding: 6px 12px;
+	font-size: 14px;
+	line-height: 1.42857143;
+	color: #5D5D5D;
+	background-color: #F6F6F6;
+	background-image: none;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+	box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+	-webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow
+		ease-in-out .15s;
+	-o-transition: border-color ease-in-out .15s, box-shadow ease-in-out
+		.15s;
+	transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s
+} 
+
+.input_file{
+	display: block;
+	width: 100%;
+	height: 34px;
+	padding: 6px 12px;
+	font-size: 14px;
+	line-height: 1.42857143;
+	color: #5D5D5D;
+	background-color: #F6F6F6;
+	background-image: none;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+	box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+	-webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow
+		ease-in-out .15s;
+	-o-transition: border-color ease-in-out .15s, box-shadow ease-in-out
+		.15s;
+	transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s
+}
+</style>
 </head>
 <body onLoad="${message}">
 	<div class="wrapper">
@@ -183,7 +270,7 @@
 
 
 
-			<!-- 토론게시판등록 -->
+			<%-- <!-- 토론게시판등록 -->
 
 			<div class="col-lg-35 col-md-12"
 				style="display: inline-block; text-align: center;">
@@ -240,7 +327,55 @@
 					</form>
 
 				</div>
-			</div>
+			</div> --%>
+			
+			<div class="col-lg-35 col-md-12">
+				<div class="card">
+				<div class="center">
+					<br/>
+						<h2>
+							<b>자료실</b>
+						</h2>
+						<br/>
+						<form name="fileForm" action="learningDataInsert" method="post" enctype="multipart/form-data">
+						<div style="margin:20px;">
+							<p>제목</p>
+							<input type="text" name="boardTitle" class="inputTitle">
+						</div>
+						<div style="margin:20px;">
+							<p>내용</p>
+							<textarea rows="20" name="boardContent"></textarea>
+							</div>
+							<div style="margin:20px;">
+							
+							<div>
+							<table>
+							<tr><td style="padding-top:5px; padding-right:10px"><p>첨부파일</p></td>
+							<td style="width:400px; padding-right:10px">
+							<input id="load" type="text" class="input_file"/>
+							
+							</td>
+							
+								<td><input id="file" multiple="multiple" type="file" name="file" onchange="fileNameInput()"
+							 class="upload"/><input type="hidden" name="load" value="Notice" />
+							<label style="background-color:#FFF2E6; padding:3px; margin-bottom:30px; color:black; border:1px solid #989898; border-radius:6px" for="file">찾아보기..</label></td>
+							 </tr>
+							</table>
+							
+							 </div>
+      						
+      						<br/>
+      						<input class="btn" type="button" value="작성완료" onClick="DataInsert()"/><br/>
+      						<br/>
+      						
+							</div>
+							</form>
+							</div>
+							</div>
+							</div>
+							
+			
+		</div>
 		</div>
 
 

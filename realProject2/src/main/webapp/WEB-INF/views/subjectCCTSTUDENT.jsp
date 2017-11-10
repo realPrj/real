@@ -146,23 +146,8 @@ $(document).ready(function() {
 </script>
 
  <style>
+  @import url(//fonts.googleapis.com/earlyaccess/nanumgothic.css)
 
-        body{margin:10px;padding:10px;}
-
-        section{width:200px;height:600px;background:#F6F6F6;float:left;border:1px solid black;}
-        {
-
-            width: 100px;
-
-            height:150px;
-
-            background: #ad2585;
-
-            float: right;
-
-            position:relative;
-
-        }
 </style>
 </head>
 <body>
@@ -204,9 +189,6 @@ $(document).ready(function() {
 					</a></li>
 					<li><a onClick="menu('7')"> <i class="ti-book"></i>
 							<p>오답노트</p>
-					</a></li>
-					<li><a onClick="menu('8')"> <i class="ti-bar-chart"></i>
-							<p>성적</p>
 					</a></li>
 					<li><a onClick="menu('9')"> <i class="ti-settings"></i>
 							<p>수강생</p>
@@ -267,7 +249,7 @@ $(document).ready(function() {
 				<div class="card">
 				
 				<div class="container">
-								<h2><b>과목코드표</b></h2>
+								<h2 style="font-family: 'Nanum Gothic', sans-serif"><b>과목코드표</b></h2>
 								<input type="button" class="btn" style="background-color:#ABF200" value="프린트" onClick="printClick()" />
 							</div>
 

@@ -36,10 +36,17 @@
 <link href='https://fonts.googleapis.com/css?family=Muli:400,300'
 	rel='stylesheet' type='text/css'>
 <link href="assets/css/themify-icons.css" rel="stylesheet">
-
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
 </head>
 <script>
+function fileNameInput(){
+	  
+	 var fName = $('#file').val().split("\\");
+	    $('#load').val($(fName)[2]);
+	  
+}
    //form 생성
    function createForm(formname, formaction, formmethod) {
 
@@ -87,9 +94,88 @@
       form.submit();
 
    }
+   
+   function QuestionInsert(){
+	   var f = document.getElementsByName("fileForm")[0];
+	   
+	   f.submit();
+   }
+   
 
    // 자료실 form
 </script>
+<style>
+.upload {  
+  opacity: 0;       /*input type="file" tag 투명하게 처리*/
+  position: relative;
+  padding : 0px;
+  margin : 0px;
+  width:0px;height:28px;filter:alpha(opacity=0);cursor:pointer
+}
+
+.inputTitle{
+	display: block;
+	width: 100%;
+	height: 34px;
+	padding: 6px 12px;
+	font-size: 14px;
+	line-height: 1.42857143;
+	color: #5D5D5D;
+	background-color: #F6F6F6;
+	background-image: none;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+	box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+	-webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow
+		ease-in-out .15s;
+	-o-transition: border-color ease-in-out .15s, box-shadow ease-in-out
+		.15s;
+	transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s
+}
+
+textarea{
+	display: block;
+	width: 100%;
+	height: 200px;
+	padding: 6px 12px;
+	font-size: 14px;
+	line-height: 1.42857143;
+	color: #5D5D5D;
+	background-color: #F6F6F6;
+	background-image: none;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+	box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+	-webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow
+		ease-in-out .15s;
+	-o-transition: border-color ease-in-out .15s, box-shadow ease-in-out
+		.15s;
+	transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s
+} 
+
+.input_file{
+	display: block;
+	width: 100%;
+	height: 34px;
+	padding: 6px 12px;
+	font-size: 14px;
+	line-height: 1.42857143;
+	color: #5D5D5D;
+	background-color: #F6F6F6;
+	background-image: none;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+	box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+	-webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow
+		ease-in-out .15s;
+	-o-transition: border-color ease-in-out .15s, box-shadow ease-in-out
+		.15s;
+	transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s
+}
+</style>
 <body>
 
  <div class="wrapper">
@@ -190,65 +276,57 @@
 
 			<!-- 질문게시판 등록-->
 
-			<div class="col-lg-35 col-md-12"
-				style="display: inline-block; text-align: center;">
+			<div class="col-lg-35 col-md-12">
 				<div class="card">
-					<div class="container">
-
+				<div class="center">
+					<br/>
 						<h2>
-							<b>질문게시판 글쓰기</b>
+							<b>공지사항</b>
 						</h2>
-					</div>
-
-					<form name="fileForm" action="QuestionInsert123" method="post"
-						enctype="multipart/form-data">
-						<div id="content"
-							style="display: inline-block; text-align: center;">
-
-
-							<div class="input-group input-group-md" role="group"
-								aria-label="...">
-								<table border="2" width="700px" ;
-	height="300px";  >
-									<br />
-									<thead class="table table-striped table-bordered">
-
-										<tr>
-											<th style="padding-top: 15px">제목</th>
-											<td><input type="text" name="boardTitle"
-												class="form-control"
-												aria-describedby="basic-addon1"></td>
-										</tr>
-									</thead>
-									<tbody>
-										<tr>
-											<td colspan="2"><textarea class="form-control" rows="20"
-													name="boardContent">${article.content}</textarea></td>
-										</tr>
-										<tr>
-											<th style="padding-top: 15px">첨부파일</th>
-											<td><input type="file" class="btn btn-default"
-												multiple="multiple" name="file"><input type="hidden"
-												name="load" value="Notice" /></td>
-
-										</tr>
-
-
-									</tbody>
-								</table>
-							</div>
-							<div>
-								  <input type="submit" value="보내기"  />
-								<br /> <br />
-							</div>
+						<br/>
+						
+						<form name="fileForm" action="QuestionInsert123" method="post" enctype="multipart/form-data">
+						<div style="margin:20px;">
+							<p>제목</p>
+							<input type="text" name="boardTitle" class="inputTitle">
 						</div>
-					</form>
-
-				</div>
-			</div>
+						<div style="margin:20px;">
+							<p>내용</p>
+							<textarea rows="20" name="boardContent"></textarea>
+							</div>
+							<div style="margin:20px;">
+							
+							<div>
+							<table>
+							<tr><td style="padding-top:5px; padding-right:10px"><p>첨부파일</p></td>
+							<td style="width:400px; padding-right:10px">
+							<input id="load" type="text" class="input_file"/>
+							
+							</td>
+							
+								<td><input id="file" multiple="multiple" type="file" name="file" onchange="fileNameInput()"
+							 class="upload"/><input type="hidden" name="load" value="Notice" />
+							<label style="background-color:#FFF2E6; padding:3px; margin-bottom:30px; color:black; border:1px solid #989898; border-radius:6px" for="file">찾아보기..</label></td>
+							 </tr>
+							</table>
+							
+							 </div>
+      						
+      						<br/>
+      						<input class="btn" type="button" value="작성완료" onClick="QuestionInsert()"/><br/>
+      						<br/>
+      						
+							</div>
+							</form>
+							</div>
+							</div>
+							</div>
+							
+			
+		</div>
 		</div>
 
-	</div>
+	
 
   
 </body>

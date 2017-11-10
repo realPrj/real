@@ -308,7 +308,7 @@ function eventClick(formname, formaction, formmethod) {
                                     name="content" readonly>${boardContent }</textarea></td>
                            </tr>
                            <tr>
-                              <th width="13%" style="padding: 15px">다운로드</th>
+                              <th width="13%" style="padding: 15px">첨부파일</th>
                               <td width="80%" style="text-align:left; padding: 15px"><c:forEach var="file" items="${list }">
 
                                     <a href="download.action?name=${file}">${file}</a>
@@ -317,8 +317,8 @@ function eventClick(formname, formaction, formmethod) {
                            </tr>
                         </tbody>
                      </table>
-               		${content }		
-                  </div>
+               		${content }	
+               		</div>
 					
                </div>
                
