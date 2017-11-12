@@ -39,16 +39,49 @@ function learningWANCMUpdate(){
 
 
 </script>
+<style>
+textarea{
+	display: block;
+	width: 80%;
+	height: 150px;
+	padding: 6px 12px;
+	font-size: 14px;
+	line-height: 1.42857143;
+	color: #5D5D5D;
+	background-color: #F6F6F6;
+	background-image: none;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	resize:none;
+	-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+	box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+	-webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow
+		ease-in-out .15s;
+	-o-transition: border-color ease-in-out .15s, box-shadow ease-in-out
+		.15s;
+	transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s
+} 
+.button{
+border-radius:4px; height:27px; padding:0 10px; background:#D6C8A1; color:#424242; font-family: 'Noto Sans KR', sans-serif; 
+cursor:pointer
+}
+</style>
 <body>
 <input type="hidden" value="${boardCode }" name="boardCode" />
-<table>
+<%-- <table>
 	<tr>
 		<td>내용</td>
-		<td><input type="text" value="${boardContent }" name="boardContent" /></td>
+		<td><textarea name="boardContent" />${boardContent }</textarea></td>
 	</tr>
 	<tr>
 		<td><input type="button" value="수정" onClick="learningWANCMUpdate()" /></td>
 	</tr>
-</table>
+</table> --%>
+
+<div class="title">
+내용
+</div><br/>
+<textarea name="boardContent">${boardContent }</textarea><br/>
+<input class="button" type="button" value="수정완료" onClick="learningWANCMUpdate()" />
 </body>
 </html>

@@ -291,6 +291,13 @@ text-decoration : underline; cursor:pointer
 .CTXbtn_end:active{
 color:#3669CF;
 }
+.CTX:hover{
+text-decoration : underline; cursor:pointer
+}
+
+.CTX:active{
+color:#3669CF;
+}
 </style>
 <body onLoad="${message}">
 	<input type="hidden" value="${identity }" name="identity" />

@@ -41,6 +41,19 @@
 <link href='https://fonts.googleapis.com/css?family=Muli:400,300'
    rel='stylesheet' type='text/css'>
 <link href="assets/css/themify-icons.css" rel="stylesheet">
+<style>
+@import url(//fonts.googleapis.com/earlyaccess/nanumgothic.css);
+@import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
+.CTX{
+border-radius:4px; font-size:15pt; height:50px; padding:0 10px; width:140px; background:#D6C8A1; color:#424242; font-family: 'Noto Sans KR', sans-serif; text-align:center
+}
+.CTX:hover{
+background:#C4B68F; cursor:pointer
+}
+img{
+margin:10px; margin-bottom:45px; display:bolck
+}
+</style>
 </head>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script>
@@ -140,13 +153,36 @@ function windowcloseClick(){
 }
 
 </script>
+<style>
+@import url(//fonts.googleapis.com/earlyaccess/nanumgothic.css);
+@import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
+.title{
+font-family: 'Nanum Gothic', sans-serif; text-align:center; font-size:20pt;
+}
+.info{
+font-family: 'Noto Sans KR', sans-serif; text-align:center; font-size:11pt;
+}
+.content{
+overflow:auto; border:1px solid black; border-radius:7px; font-family: 'Noto Sans KR', sans-serif; font-size:11pt; width:75%; height:150px; padding:2%; text-align:left
+}
+.file{
+font-size:12pt; font-family: 'Noto Sans KR', sans-serif; 
+}
+.button{
+font-size:11pt; font-family: 'Noto Sans KR', sans-serif; background:white; padding:4px 10px; margin:0px 8px;
+border-radius:4px; color:black; 
+}
+</style>
 <body onLoad="openerReload()">
  <br />
-   <img src="assets/img/gong_logo.png" alt="공조" width="200*150">
-   <br />
+ <center>
+   <img src="assets/img/gong_logo.png" alt="공조" width="150" height="70">
+   </center>
 
+<center>
 ${InsertButton }
-      <table id="tableText">
+</center>
+      <%-- <table id="tableText">
          <tr>
             <td><input type="hidden" name="boardContent" value="${content }">내용:${content }</td>
          </tr>
@@ -164,7 +200,33 @@ ${InsertButton }
          </tr>
 
 	${inputButton }
-      </table>
+      </table> --%>
+      <div id="tableText">
+      <div class="title">
+      	${comment}
+      </div><br/>
+     <div class="info">
+     <input type="hidden" name="boardData" value="${writeId }">${writeId } &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+     <input type="hidden" name="boardData" value="${date }">${date }
+     </div><br/>
+     <center>
+     <div class="content">
+     ${content }
+     </div><br/>
+     </center>
+     <center>
+     <div class="file">
+     <c:forEach var="file" items="${list }">
+            <tr>
+               <td><a href="download.action?name=${file}">${file}</a></td>
+            </tr>
+         </c:forEach>
+     </div><br/>
+     </center>
+     <center><div class="button">
+     ${inputButton }
+     </div></center>
+     </div>
 
 </body>
 </html>

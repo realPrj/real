@@ -428,7 +428,12 @@ public class HomeController  {
 	@RequestMapping(value = "/NoticeUpdatePage", method = RequestMethod.POST)
 	public ModelAndView learningNoticeUpdatePage(@ModelAttribute BoardBean board) {
 		
+		/*mav.addObject("boardTitle", board.getBoardTitle());
+		mav.addObject("boardContent", board.getBoardContent());
+		mav.addObject("identity", board.getIdentity());*/
+		
 		mav = ltmm.entrance(11, board);
+		//mav.setViewName("learningNoticeUpdate");
 
 		return mav;
 	}
@@ -499,7 +504,7 @@ public class HomeController  {
 		mav.addObject("boardDate",board.getBoardDate());
 
 		mav.addObject("boardId",board.getBoardId());
-		mav.addObject("boardContent",board.getBoardContent());
+		mav.addObject("boardContent",board.getBoardContent().replace("<br/>", "\r\n"));
 		mav.addObject("roomCode",board.getRoomCode());
 
 		mav.setViewName("learningQuestionUpdate");

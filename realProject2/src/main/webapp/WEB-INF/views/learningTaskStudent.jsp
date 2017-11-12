@@ -216,6 +216,19 @@ text-decoration : underline
 .taskCTX:active{
 color:#6D6CFF
 }
+.insert{
+border-radius:4px; height:30px; padding:0 10px; background:#D6C8A1; color:#424242; font-family: 'Noto Sans KR', sans-serif; 
+}
+.insert:hover{
+background:#C4B68F;
+}
+.CTX:hover{
+text-decoration : underline; cursor:pointer
+}
+
+.CTX:active{
+color:#3669CF;
+}
 </style>
 </head>
 <body onLoad="${message}">
@@ -362,7 +375,16 @@ color:#6D6CFF
 						</tr>
 
 					</table>
-					${inputButton }
+					<div style="margin-left: 85%; height:40px">
+						${inputButton }
+						</div>
+					</div>
+					
+					<div class="card">
+					
+					${tagcontent }
+					</div>
+					
 					</div>
 					
 				</div>

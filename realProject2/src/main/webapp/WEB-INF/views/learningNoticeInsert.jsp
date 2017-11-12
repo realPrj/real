@@ -80,15 +80,15 @@ function menu(ivalue, identity) {
 }
 
 function NoticeInsertOk(){
-	$('#ok').val().replace(/\n/g, "<br>")
-
-
-	
-
-   alert("작성완료");
-   var f = document.getElementsByName("noticeInsert");
    
-   document.noticeInsert.submit();
+   var f = document.getElementsByName("noticeInsert")[0];
+   if(confirm("공지사항을 등록하시겠습니까?")){
+	   document.noticeInsert.submit();
+	   alert("공지사항이 등록되었습니다");   
+   }else{
+	   
+   }
+   
 }
 
 function fileNameInput(){
@@ -144,6 +144,7 @@ textarea{
 	background-image: none;
 	border: 1px solid #ccc;
 	border-radius: 4px;
+	resize:none;
 	-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
 	box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
 	-webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow

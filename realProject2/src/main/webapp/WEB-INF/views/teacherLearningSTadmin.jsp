@@ -289,16 +289,18 @@ function stadmin(studentCode){
 			<!-- 질문게시판 -->
 			<div class="col-lg-35 col-md-12">
 
-				<div class="card">
-				<br />
+				
 					${teacherInfo }
 					
+					<div class="card">
 					<h2 style="font-family: 'Nanum Gothic', sans-serif">
+					<br/>
 						<b>수강생</b>
 					</h2><br/>
 			
 					${teacherLearningSTadmin } ${button }
 					<hr />
+					</div>
 
 					
 

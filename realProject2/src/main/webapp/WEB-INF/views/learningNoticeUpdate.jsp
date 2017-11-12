@@ -74,7 +74,7 @@ function menu(ivalue, identity) {
    form.submit();
 
 }
-function NoticeUpdateOk(){
+function NoticeUpdateOk(boardDate){
 	/* var f = document.createElement("form");
 	f.name = "noticeUpdate";
 	f.method = "post";
@@ -329,7 +329,7 @@ textarea{
 						</div>
 						<div style="margin:20px;">
 							<p>내용</p>
-							<textarea id="ok" name="boardContent">${boardContent }</textarea>
+							<textarea rows="20" id="ok" name="boardContent">${boardContent }</textarea>
 							
 							</div>
 							<div style="margin:20px;">
@@ -352,10 +352,11 @@ textarea{
       						
       						<br/>
       						<input class="btn" type="button" value="작성완료" onClick="NoticeUpdateOk()"/><br/>
+      						 
       						<br/>
-      						
+      						 
 							</div>
-							 ${boardDate }
+							${boardDate }
 							</form>
 
             </div>

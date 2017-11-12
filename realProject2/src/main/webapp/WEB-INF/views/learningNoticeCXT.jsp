@@ -82,7 +82,6 @@ function menu(ivalue, identity){
    
 }
 function update(boardTitle, boardContent, boardDate){
-	alert(boardContent);
    var f = document.createElement("form");
    f.name = "noticeUpdate";
    f.method = "post";
@@ -106,8 +105,24 @@ function update(boardTitle, boardContent, boardDate){
    date.type = "hidden";
    date.name = "boardDate";
    date.value = boardDate;
-   f.appendChild(date);
+   f.appendChild(date); 
    
+    /* createinput("hidden", "boardTitle", boardTitle);
+	createinput("hidden", "boardDate", boardData);
+	createinput("hidden", "boardContent", boardContent);
+   
+	createForm("noticeUpdate", "NoticeUpdatePage","post");
+	
+	var form = document.getElementsByName("noticeUpdate")[0];
+
+	var boardTitle = document.getElementsByName("boardTitle")[0];
+	var boardDate = document.getElementsByName("boardDate")[0];
+	var boardContent = document.getElementsByName("boardContent")[0];
+	
+	form.appendChild(boardTitle);
+	form.appendChild(boardDate);
+	form.appendChild(boardContent); */
+	
    document.noticeUpdate.submit();
 }
 
@@ -123,17 +138,19 @@ function boardDelete(roomCode, boardDate){
    code.name = "roomCode";
    code.value = roomCode;
    ff.appendChild(code);
-   alert(code.value);
    
    var date = document.createElement("input");
    date.type = "hidden";
    date.name = "boardDate";
    date.value = boardDate;
    ff.appendChild(date);
-
-   document.noticeDelete.submit();
+	
+   if(confirm("삭제하시겠습니까?")){
+  		document.noticeDelete.submit();
+  		alert("삭제되었습니다");
+   }
    
-   alert("삭제되었습니다");
+  
 }
 function createForm(formname, formaction, formmethod) {
 
@@ -167,13 +184,19 @@ function eventClick(formname, formaction, formmethod) {
 
 }
 
-function ok(){
-	var str, t;
-    t = document.getElementById("ok");
-    str = t.innerHTML;
-    alert(str);
+function init(){ // 목록, 수정, 삭제 선생님과 학생 분류
+	var a = '${identity}';
+	var btn = "";
+	if(a == '1'){
+		btn += "<input class=\"CTXbtn\" type=\"button\" value=\"목록\" onClick=\"menu('3','${identity}')\"/>";
+		btn += "<input type=\"button\" class=\"CTXbtn\" value=\"수정\" onClick=\"update('${boardTitle}','${boardContent}','${boardDate}')\"/>";
+		btn += "<input class=\"CTXbtn_end\" type=\"button\" value=\"삭제\" onClick=\"boardDelete('${roomCode}','${boardDate}')\"/>"
+		$('#button').append(btn);
+	}else{
+		btn += "<input class=\"CTXbtn_end\" type=\"button\" value=\"목록\" onClick=\"menu('3','${identity}')\"/>";
+		$('#button').append(btn);
+	}
 }
-
 </script>
 <style>
 @import url(//fonts.googleapis.com/earlyaccess/nanumgothic.css);
@@ -215,7 +238,7 @@ color:#3669CF;
 
 </style>
 </head>
-<body>
+<body onLoad="init()">
 <div class="wrapper">
 		<div class="sidebar" data-background-color="white"
 			data-active-color="danger">
@@ -379,9 +402,13 @@ color:#3669CF;
                 <a href="download.action?name=${file}">${file}</a>
                 </c:forEach>
                 </div>
-                <div style="margin-left:80%">${content }</div>	
+                <div id="button" style="margin-left:80%">
+                	
+					<%-- <input type="button" class="CTXbtn" value="수정" onClick="update('${boardTitle}','${boardContent}','${boardDate}')"/> --%>
+				</div>	
                 <!-- <input type="button" value="아오진짜" onClick="ok()"/> -->
                	<br/>
+               	<%-- <input type="hidden" name="roomCode" value='${roomCode }'/> --%>
                
             </div>
          </div>

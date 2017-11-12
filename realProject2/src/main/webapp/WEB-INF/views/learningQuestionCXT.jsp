@@ -297,10 +297,10 @@ textarea{
 font-family: 'Noto Sans KR', sans-serif; width:90%; margin-left:4%; resize:none; overflow:hidden; display:block;
 }
 .insert{
-border-radius:4px; height:30px; padding:0 10px; margin:1% 4% 1% 85%; background:#E8DAB3; color:#fafafa;
+border-radius:4px; height:30px; padding:0 10px; margin:1% 4% 1% 85%; background:#D6C8A1; color:#fafafa;
 }
 .insert:hover{
-background:#D6C8A1;
+background:#C4B68F;
 }
 </style>	
 <body onLoad="init()">
@@ -485,7 +485,6 @@ background:#D6C8A1;
                 <a href="download.action?name=${file}">${file}</a>
                 </c:forEach>
                 </div>
-                
                 <div class="date" style="margin-top:5%">댓글</div>
                 <div class="tag">
                 	${taglists }
