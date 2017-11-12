@@ -31,8 +31,8 @@ public class learningTeacherMM extends TransactionExe {
 	private ProjectUtils session;
 	@Autowired
 	private ChatWebSocketHandler chat;
-	
-	
+
+
 	private ModelAndView mav;
 
 	private MultipartHttpServletRequest mtfRequest = null;
@@ -271,11 +271,11 @@ public class learningTeacherMM extends TransactionExe {
 		case 56:   // 강의 계획서 삭제
 			mav = learningPlanDelete((BoardBean)object[0]);
 			break;
-			
+
 		case 57:   // 과제 점수 등록,수정 페이지
 			mav = scoreInsertPage((BoardBean)object[0]);
 			break;
-			
+
 		case 58:   // 과제 점수 등록
 			mav = scoreInsertgo((BoardBean)object[0]);
 			break;
@@ -340,6 +340,7 @@ public class learningTeacherMM extends TransactionExe {
 		int forI = 0; // 크게 한사람
 		int forB = 0;	// 내용물
 		int pageCount = 5; // 
+		int pageCount2 = pageCount; // 
 
 		double sizeDouble = ar.size() / (double)pageCount;
 
@@ -361,7 +362,7 @@ public class learningTeacherMM extends TransactionExe {
 			}
 			sb.append("</tbody>");	
 
-			pageCount+=pageCount;
+			pageCount+=pageCount2;
 
 
 		}
@@ -380,7 +381,7 @@ public class learningTeacherMM extends TransactionExe {
 		DbBoardBean bb;
 		ViewService view = new ViewService(); 
 		StringBuffer sb = new StringBuffer();
-		
+
 		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
 
 		try {
@@ -452,7 +453,7 @@ public class learningTeacherMM extends TransactionExe {
 		sb.append("<td>" + bb.getBoardRoute() + "</td>");
 		sb.append("</tr>");
 		sb.append("</table>");
-		
+
 		return sb.toString();
 	}*/
 
@@ -509,6 +510,7 @@ public class learningTeacherMM extends TransactionExe {
 			int forI = 0; // 크게 한사람
 			int forB = 0;	// 내용물
 			int pageCount = 5; // 
+			int pageCount2 = pageCount; // 
 
 			double sizeDouble = bb.size() / (double)pageCount;
 
@@ -533,7 +535,7 @@ public class learningTeacherMM extends TransactionExe {
 				}
 				sb.append("</tbody>");	
 
-				pageCount+=pageCount;
+				pageCount+=pageCount2;
 
 
 			}
@@ -748,6 +750,7 @@ public class learningTeacherMM extends TransactionExe {
 				int forI = 0; // 크게 한사람
 				int forB = 0;	// 내용물
 				int pageCount = 5; // 
+				int pageCount2 = pageCount; // 
 
 				double sizeDouble = boardList.size() / (double)pageCount;
 
@@ -802,7 +805,7 @@ public class learningTeacherMM extends TransactionExe {
 					//복사
 					sb.append("</tbody>");	
 
-					pageCount+=pageCount;
+					pageCount+=pageCount2;
 
 
 				}
@@ -951,6 +954,7 @@ public class learningTeacherMM extends TransactionExe {
 			int forI = 0; // 크게 한사람
 			int forB = 0;	// 내용물
 			int pageCount = 5; // 
+			int pageCount2 = pageCount; // 
 
 			double sizeDouble = bb.size() / (double)pageCount;
 
@@ -975,7 +979,7 @@ public class learningTeacherMM extends TransactionExe {
 				}
 				sb.append("</tbody>");	
 
-				pageCount+=pageCount;
+				pageCount+=pageCount2;
 
 
 			}
@@ -1410,6 +1414,7 @@ public class learningTeacherMM extends TransactionExe {
 			int forI = 0; // 크게 한사람
 			int forB = 0;	// 내용물
 			int pageCount = 5; // 
+			int pageCount2 = pageCount; // 
 
 			double sizeDouble = bb.size() / (double)pageCount;
 
@@ -1429,13 +1434,13 @@ public class learningTeacherMM extends TransactionExe {
 					sb.append("<td style=\"cursor:pointer\" onClick=\"viewData('"+bb.get(forB).getRoomCode() +"','" + bb.get(forB).getBoardDate() + "')\">" +bb.get(forB).getBoardTitle() + "</td>");
 					sb.append("<td>" + bb.get(forB).getBoardId() + "</td>");
 					sb.append("<td>" + bb.get(forB).getBoardDate() + "</td>");
-					
+
 					sb.append("</tr>");
 
 				}
 				sb.append("</tbody>");	
 
-				pageCount+=pageCount;
+				pageCount+=pageCount2;
 
 
 			}
@@ -1895,6 +1900,7 @@ public class learningTeacherMM extends TransactionExe {
 		int forI = 0; // 크게 한사람
 		int forB = 0;	// 내용물
 		int pageCount = 5; // 
+		int pageCount2 = pageCount; // 
 
 		double sizeDouble = ar.size() / (double)pageCount;
 
@@ -1916,7 +1922,7 @@ public class learningTeacherMM extends TransactionExe {
 			}
 			sb.append("</tbody>");	
 
-			pageCount+=pageCount;
+			pageCount+=pageCount2;
 		}
 		sb.append("</table>");
 		sb.append("<input type=\"button\" value=\"글쓰기\" onClick=\"debateInsert()\"/>");
@@ -2287,6 +2293,7 @@ public class learningTeacherMM extends TransactionExe {
 			int forI = 0; // 크게 한사람
 			int forB = 0;	// 내용물
 			int pageCount = 5; // 
+			int pageCount2 = pageCount; //
 
 			double sizeDouble = ar.size() / (double)pageCount;
 
@@ -2310,7 +2317,7 @@ public class learningTeacherMM extends TransactionExe {
 				}
 				sb.append("</tbody>");	
 
-				pageCount+=pageCount;
+				pageCount+=pageCount2;
 			}
 			sb.append("</table>");
 			mav.addObject("teacherLearningSTadmin", sb.toString());
@@ -2453,7 +2460,7 @@ public class learningTeacherMM extends TransactionExe {
 				li= dao.teacherTaskTag(board);
 
 				sb.append("<h3 style=\"padding-left:10px\">제출자명단</h3>");
-				sb.append("<table class=\"table table-hover\">");
+				sb.append("<table style='text-align:center' class=\"table table-hover\">");
 				sb.append("<tr>");
 				sb.append("<td>학생 이름 </td>");
 				sb.append("<td>올린 날짜 </td>");
@@ -2462,20 +2469,20 @@ public class learningTeacherMM extends TransactionExe {
 				sb.append("<td>과제 점수 </td>");
 				sb.append("</tr>");
 				for(int i = 0; i < li.size(); i++) {
-					
+
 					board = new BoardBean();
 					board.setStudentCode(li.get(i).getStudentCode());
 					board.setTagCode(li.get(i).getTagCode());
 					board.setStudentName(dao.stNameGet(board));	
 					board.setBoardCode(li.get(0).getBoardCode());
 					board.setRoomCode(roomcode);
-					
+
 					if(dao.taskScoreGet(board) != null) {
 						sexual = dao.taskScoreGet(board)+"점";
 					}else {
 						sexual = "점수 미등록";
 					}
-										
+
 					sb.append("<tr>");
 					sb.append("<td>");
 					sb.append(board.getStudentName());
@@ -2510,8 +2517,11 @@ public class learningTeacherMM extends TransactionExe {
 			if(dao.learningTaskCheck(board) != 0) {    // 리스트 출력
 
 				al = dao.learningTaskList(board);    // 리스트 담기
-				sb.append("<table class=\"table table-hover\">");
+				sb.append("<table style='text-align:center' class=\"table table-hover\">");
 				sb.append("<tr>");
+				sb.append("<td>");
+				sb.append("<b>게시물 번호</b>");
+				sb.append("</td>");
 				sb.append("<td>");
 				sb.append("<b>제목</b>");
 				sb.append("</td>");
@@ -2519,616 +2529,221 @@ public class learningTeacherMM extends TransactionExe {
 				sb.append("<b>날짜</b>");
 				sb.append("</td>");
 				sb.append("</tr>");
-				for(int i = 0; i < al.size(); i++) {
-					sb.append("<tr>");
-					sb.append("<td>");
-					sb.append("<button id='click' class='btn'onClick=\"questionCXT(\'"+ al.get(i).getBoardCode() +"\')\" />" + al.get(i).getBoardTitle() + "</button>");
-					sb.append("</td>");
-					sb.append("<td>");
-					sb.append(al.get(i).getBoardDate());
-					sb.append("</td>");
-					sb.append("</tr>");    
+				
+				
+				int forI = 0; // 크게 한사람
+				int forB = 0;	// 내용물
+				int pageCount = 5; // 
+				int pageCount2 = pageCount; // 
+
+				double sizeDouble = al.size() / (double)pageCount;
+
+				for(forI=0; forI < sizeDouble; forI++) {
+
+					if(al.size()< pageCount) {
+						pageCount= al.size();
+					}
+
+					sb.append("<tbody name=tbody"+forI+" id=tbody"+forI+">");
+
+					for(forB=forB; forB<pageCount; forB++) {
+
+						sb.append("<tr>");
+						sb.append("<td>");
+						sb.append(forB+1);
+						sb.append("</td>");
+						sb.append("<td>");
+						sb.append("<button id='click' class='btn'onClick=\"questionCXT(\'"+ al.get(forB).getBoardCode() +"\')\" />" + al.get(forB).getBoardTitle() + "</button>");
+						sb.append("</td>");
+						sb.append("<td>");
+						sb.append(al.get(forB).getBoardDate());
+						sb.append("</td>");
+						sb.append("</tr>");    
+					}
+					pageCount+=pageCount2;
+					
+
+
 				}
 				sb.append("</table>");
 				mav.addObject("taskList", sb.toString());
 
-			}
+				sb = new StringBuffer();
+
+				sb.append("<div class='text-center'>");
+				sb.append("<ul class='pagination'>");
 
 
-			transaction = true;
-
-
-
-		}catch(Exception ex){
-			ex.printStackTrace();
-		}finally {
-			setTransactionResult(transaction);
-		}
-		mav.setViewName("learningTask");
-		return mav;
-	}
-
-	private ModelAndView learningTaskInsertform(BoardBean board) { // 과제 등록
-
-		mav = new ModelAndView();
-		boolean transaction = false;
-		boolean distinction = true;
-		int boardCode = 0;
-		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
-
-		try {
-
-			board.setRoomCode((String)session.getAttribute("roomCode"));
-			board.setId((String)session.getAttribute("tcId"));
-
-			while(distinction) {	// 과제코드 유무 체크
-
-				boardCode = (int)(Math.random() *89999)+10000;
-
-				board.setBoardCode(Integer.toString(boardCode));
-
-				if(dao.learningTaskBoardCheck(board) == 0) {				
-					distinction = false;				
-				}else {
-					distinction = true;
+				for(int y=0; y < sizeDouble; y++) {// 페이지 버튼
+					sb.append("<li><a onClick='pageNumber("+y+")'>"+(y+1)+"</a></li>");
 				}
-
-			}
-
-			dao.learningTaskInsert(board);
-
-			mav.addObject("message", "alert('과제 생성 되었습니다.')");
-
-			mav.setViewName("learningTask");
-			transaction = true;
-
-		}catch(Exception ex){
-
-		}finally {
-			setTransactionResult(transaction);
-		}
-
-		return mav;
-	}
+				sb.append("</ul>");
+				sb.append("</div>");
 
 
-	private ModelAndView learningTaskUpdate(BoardBean board) { // 과제 수정
-
-		mav = new ModelAndView();
-		boolean transaction = false;
-		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
-
-		try {
-
-			dao.learningTaskUpdate(board);
+				mav.addObject("button2", sb.toString());
 
 
-
-			mav.addObject("message", "alert('과제 수정 되었습니다.')");
-
-			transaction = true;
-
-		}catch(Exception ex){
-
-		}finally {
-			setTransactionResult(transaction);
-		}
-
-		return mav;
-	}
-
-
-
-	private ModelAndView adminChating() { // 채팅
-
-		mav = new ModelAndView();
-
-		BoardBean board = new BoardBean();
-		boolean transaction = false;
-
-		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
-
-		try {
-
-			board.setId((String)session.getAttribute("tcId"));
-			board.setRoomCode((String)session.getAttribute("roomCode"));
-
-			mav.addObject("id",board.getId());
-			mav.addObject("roomCode", board.getRoomCode());
-			System.out.println("adminChating");
-			System.out.println(board.getRoomCode());
-			
-			System.out.println("adminChating");
-			if(Integer.parseInt(board.getRoomCode()) !=447) {
-			mav.setViewName("adminChating");
-			}else {
-				mav.setViewName("adminChating1");
-			}
-			transaction = true;
-
-
-		}catch(Exception ex){
-			ex.printStackTrace();
-		}finally {
-			setTransactionResult(transaction);
-		}
-
-		return mav;
-	}
-	private ModelAndView learningTaskCXTDelete(BoardBean board) { // 선생님 공지사항 삭제
-		mav = new ModelAndView();
-		boolean transaction = false;
-		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
-
-		try {
-			System.out.println(board.getRoomCode());
-			System.out.println(board.getBoardCode());
-
-			if(dao.learningTaskCXTDelete(board) != 0) {
 				transaction = true;
-			}
-		}catch(Exception ex){
 
-		}finally {
-			setTransactionResult(transaction);
-		}
-		return mav;
-	}
-
-
-	private ModelAndView learningTesk(BoardBean board) { //과제 페이지 자세하게 보기
-
-		mav = new ModelAndView();
-
-		ViewService view = new ViewService(); 
-		System.out.println(board.getBoardCode());
-		System.out.println(board.getRoomCode());
-		System.out.println(board.getStudentCode());
-		boolean transaction = false;
-
-		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
-
-		try {
-			board.setStudentCode(board.getStudentCode());
-			board.setStudentName(dao.stNameGet(board));	
-
-
-			DbBoardBean bb = dao.learningTesk(board);   // 전체 루트(파일이름까지)
-
-			bb.setCutRoute(bb.getBoardRoute().substring(0,68));   // 루트만
-
-			bb.setCutContent(bb.getBoardRoute().substring(68));   // 파일이름
-
-
-			List<String> list = view.getList(bb);
-
-
-			mav.addObject("list",list);
-			mav.addObject("name",board.getStudentName());
-			mav.addObject("date",bb.getBoardDate());
-
-
-			mav.setViewName("learningTaskTeacherCheck");
-
-			transaction = true;
-
-
-		}catch(Exception ex){
-			ex.printStackTrace();
-
-		}finally {
-			setTransactionResult(transaction);
-		}
-
-		return mav;
-	}
-
-
-	private ModelAndView learningMessagePage(BoardBean board) { // 쪽지 페이지
-		mav = new ModelAndView();
-		boolean transaction = false;
-		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
-
-		try {
-			session.getAttribute("roomCode");
-
-			board.setRoomCode((String)session.getAttribute("roomCode"));
-
-
-			mav.addObject("identity", session.getAttribute("identity"));
-
-			transaction = true;
-
-		}catch(Exception ex){
-
-		}finally {
-			mav.setViewName("learningMSG");
-			setTransactionResult(transaction);
-		}
-		return mav;
-	}
-
-	private ModelAndView learningSendMessagePage(BoardBean board) { // 쪽지 보내기 페이지
-		mav = new ModelAndView();
-		boolean transaction = false;
-		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
-
-		try {
-			session.getAttribute("roomCode");
-
-			board.setRoomCode((String)session.getAttribute("roomCode"));	
-
-			if(board.getStudentCode() == null) {
-				mav.addObject("messageOther", board.getMessageOther());
-			}else {
-				mav.addObject("messageOther", board.getStudentCode());
 			}
 
-
-
-			transaction = true;
-
-		}catch(Exception ex){
-
-		}finally {
-			mav.setViewName("learningSendMSG");
-			setTransactionResult(transaction);
-		}
-		return mav;
-	}
-
-	private ModelAndView learningReceiveMessagePage(BoardBean board) { // 받은쪽지 리스트 페이지
-		mav = new ModelAndView();
-		boolean transaction = false;
-		ArrayList<BoardBean> ar = null;
-		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
-
-		try {
-			session.getAttribute("roomCode");
-
-			board.setRoomCode((String)session.getAttribute("roomCode"));
-
-			board.setMessageCode("G");
-			board.setMessageId((String)session.getAttribute("tcId"));
-
-			ar = dao.getMessageList(board);
-
-			board.setIdentity((String)session.getAttribute("identity"));
-			mav.addObject("messageList", getlearningGetMessageList(ar, board));
-			mav.addObject("button", pageButton(ar));
-
-			transaction = true;
-
-		}catch(Exception ex){
-
-		}finally {
-			mav.setViewName("learningGetMSG");
-			setTransactionResult(transaction);
-		}
-		return mav;
-	}
-
-	private ModelAndView learningSentMessagePage(BoardBean board) { // 보낸쪽지 리스트 페이지
-		mav = new ModelAndView();
-		boolean transaction = false;
-		ArrayList<BoardBean> ar = null;
-		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
-
-		try {
-			System.out.println("뭐야?");
-			session.getAttribute("roomCode");
-
-			board.setRoomCode((String)session.getAttribute("roomCode"));
-			board.setMessageCode("S");
-			board.setMessageId((String)session.getAttribute("tcId"));
-			board.setIdentity((String)session.getAttribute("identity"));
-			ar = dao.sentMessageList(board);
-			mav.addObject("messageList", getlearningSentMessageList(ar,board));
-			mav.addObject("button", pageButton(ar));
-
-			transaction = true;
-
-		}catch(Exception ex){
-
-		}finally {
-			mav.setViewName("learningSentMSG");
-			setTransactionResult(transaction);
-		}
-		return mav;
-	}
-
-	private String getlearningSentMessageList(ArrayList<BoardBean> ar, BoardBean board) { // 보낸쪽지 리스트 끌고오기
-		StringBuffer sb = new StringBuffer();
-
-
-		int forI = 0; // 크게 한사람
-		int forB = 0;	// 내용물
-		int pageCount = 5; // 
-
-		double sizeDouble = ar.size() / (double)pageCount;
-
-		for(forI=0; forI < sizeDouble; forI++) {
-
-			if(ar.size()< pageCount) {
-				pageCount= ar.size();
+			}catch(Exception ex){
+				ex.printStackTrace();
+			}finally {
+				setTransactionResult(transaction);
 			}
-
-			sb.append("<tbody name=tbody"+forI+" id=tbody"+forI+">");
-			//sb.append("<tbody id=\"myTable\">");
-			for(forB=forB; forB<pageCount; forB++) {
-				sb.append("<tr>");
-				sb.append("<td>"+ (forB+1) +"</td>");
-				sb.append("<td>" + ar.get(forB).getMessageOther() + "</td>");
-				sb.append("<td style=\"cursor:pointer\" onClick=\"messageCTX('" + board.getMessageCode() + "','" + board.getRoomCode() + "','"+ ar.get(forB).getMessageDate() +"','"+ board.getIdentity() +"')\">" + ar.get(forB).getMessageTitle() + "</td>");
-				sb.append("<td>" + ar.get(forB).getMessageDate() + "</td>");
-				sb.append("</tr>");
-			}
-			sb.append("</tbody>");
-			pageCount+=pageCount;
-
+			mav.setViewName("learningTask");
+			return mav;
 		}
 
-		return sb.toString();
-	}
+		private ModelAndView learningTaskInsertform(BoardBean board) { // 과제 등록
 
-	private ModelAndView learningSendMessage(BoardBean board) { // 쪽지 보내기
-		mav = new ModelAndView();
-		boolean transaction = false;
-		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
+			mav = new ModelAndView();
+			boolean transaction = false;
+			boolean distinction = true;
+			int boardCode = 0;
+			setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
 
-		try {
-			session.getAttribute("roomCode");
+			try {
 
-			board.setRoomCode((String)session.getAttribute("roomCode"));
+				board.setRoomCode((String)session.getAttribute("roomCode"));
+				board.setId((String)session.getAttribute("tcId"));
 
-			board.setMessageCode("S");
-			board.setMessageId((String)session.getAttribute("tcId"));
+				while(distinction) {	// 과제코드 유무 체크
 
-			if(dao.sendMessageS(board) != 0) {
-				board.setMessageCode("G");
-				if(dao.sendMessageG(board) != 0) {
-					System.out.println("쪽지 보내기 성공");
+					boardCode = (int)(Math.random() *89999)+10000;
+
+					board.setBoardCode(Integer.toString(boardCode));
+
+					if(dao.learningTaskBoardCheck(board) == 0) {				
+						distinction = false;				
+					}else {
+						distinction = true;
+					}
+
 				}
+
+				dao.learningTaskInsert(board);
+
+				mav.addObject("message", "alert('과제 생성 되었습니다.')");
+
+				mav.setViewName("learningTask");
+				transaction = true;
+
+			}catch(Exception ex){
+
+			}finally {
+				setTransactionResult(transaction);
 			}
 
-
-			transaction = true;
-
-		}catch(Exception ex){
-
-		}finally {
-
-			setTransactionResult(transaction);
+			return mav;
 		}
-		return mav;
-	}
+
+
+		private ModelAndView learningTaskUpdate(BoardBean board) { // 과제 수정
+
+			mav = new ModelAndView();
+			boolean transaction = false;
+			setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
+
+			try {
+
+				dao.learningTaskUpdate(board);
 
 
 
-	private String getlearningGetMessageList(ArrayList<BoardBean> ar, BoardBean board) { // 받은쪽지 리스트 끌고오기
-		StringBuffer sb = new StringBuffer();
+				mav.addObject("message", "alert('과제 수정 되었습니다.')");
 
-		int forI = 0; // 크게 한사람
-		int forB = 0;	// 내용물
-		int pageCount = 5; // 
+				transaction = true;
 
-		double sizeDouble = ar.size() / (double)pageCount;
+			}catch(Exception ex){
 
-		for(forI=0; forI < sizeDouble; forI++) {
-
-			if(ar.size()< pageCount) {
-				pageCount= ar.size();
+			}finally {
+				setTransactionResult(transaction);
 			}
 
-			sb.append("<tbody name=tbody"+forI+" id=tbody"+forI+">");
-			//sb.append("<tbody id=\"myTable\">");
-			for(forB=forB; forB<pageCount; forB++) {
-				//sb.append("<tbody id=\"myTable\">");
+			return mav;
+		}
 
-				sb.append("<tr>");
-				sb.append("<td>"+ (forB+1) +"</td>");
-				sb.append("<td>" + ar.get(forB).getMessageOther() + "</td>");
-				sb.append("<td onClick=\"messageCTX('"+ board.getMessageCode() +"','"+ ar.get(forB).getRoomCode() +"','"+ ar.get(forB).getMessageDate() +"','"+board.getIdentity()+"')\">" + ar.get(forB).getMessageTitle() + "</td>");
-				sb.append("<td>" + ar.get(forB).getMessageDate() + "</td>");
-				sb.append("</tr>");
+
+
+		private ModelAndView adminChating() { // 채팅
+
+			mav = new ModelAndView();
+
+			BoardBean board = new BoardBean();
+			boolean transaction = false;
+
+			setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
+
+			try {
+
+				board.setId((String)session.getAttribute("tcId"));
+				board.setRoomCode((String)session.getAttribute("roomCode"));
+
+				mav.addObject("id",board.getId());
+				mav.addObject("roomCode", board.getRoomCode());
+				System.out.println("adminChating");
+				System.out.println(board.getRoomCode());
+
+				System.out.println("adminChating");
+				if(Integer.parseInt(board.getRoomCode()) !=447) {
+					mav.setViewName("adminChating");
+				}else {
+					mav.setViewName("adminChating1");
+				}
+				transaction = true;
+
+
+			}catch(Exception ex){
+				ex.printStackTrace();
+			}finally {
+				setTransactionResult(transaction);
 			}
-			sb.append("</tbody>");
-			pageCount+=pageCount;
 
+			return mav;
 		}
+		private ModelAndView learningTaskCXTDelete(BoardBean board) { // 선생님 공지사항 삭제
+			mav = new ModelAndView();
+			boolean transaction = false;
+			setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
 
-		return sb.toString();
-	}
+			try {
+				System.out.println(board.getRoomCode());
+				System.out.println(board.getBoardCode());
 
-	private ModelAndView learningSentMessageCTX(BoardBean board) { // 보낸쪽지 내용확인
-		mav = new ModelAndView();
-		boolean transaction = false;
-		StringBuffer sb = new StringBuffer();
-		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
+				if(dao.learningTaskCXTDelete(board) != 0) {
+					transaction = true;
+				}
+			}catch(Exception ex){
 
-		try {
-			session.getAttribute("roomCode");
-
-			board.setRoomCode((String)session.getAttribute("roomCode"));
-			board.setMessageCode("S");
-			board.setMessageId((String)session.getAttribute("tcId"));
-
-
-			board = dao.sentMessageCTX(board);
-
-			mav.addObject("id", "받은사람");
-			mav.addObject("messageOther", board.getMessageOther());
-			mav.addObject("title", "제목");
-			mav.addObject("messageTitle", board.getMessageTitle());
-			mav.addObject("content", "내용");
-			mav.addObject("messageContent", board.getMessageContent());
-
-			board.setIdentity((String)session.getAttribute("identity"));
-			System.out.println("보낸쪽지 서비스 : " + board.getIdentity());
-
-
-			sb.append("<input type=\"button\" value=\"목록\" onClick=\"message('"+3+"','"+board.getIdentity()+"')\"/>");
-			sb.append("<input type=\"button\" value=\"삭제\" onClick=\"messageDelete('"+board.getIdentity()+"','"+board.getRoomCode()+"','"+board.getMessageCode()+"','"+board.getMessageDate()+"')\"/>");
-			mav.addObject("button", sb.toString());
-
-
-			transaction = true;
-
-		}catch(Exception ex){
-
-		}finally {
-			mav.setViewName("learningMSGctx");
-			setTransactionResult(transaction);
-		}
-		return mav;
-	}
-
-	private ModelAndView learningGetMessageCTX(BoardBean board) { // 받은쪽지 내용확인
-		mav = new ModelAndView();
-		boolean transaction = false;
-		StringBuffer sb = new StringBuffer();
-
-		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
-
-		try {
-			session.getAttribute("roomCode");
-
-			board.setRoomCode((String)session.getAttribute("roomCode"));
-			board.setMessageCode("G");
-			board.setMessageId((String)session.getAttribute("tcId"));
-
-			board = dao.getMessageCTX(board);
-
-			mav.addObject("id", "보낸사람");
-			mav.addObject("messageOther", board.getMessageOther());
-			mav.addObject("title", "제목");
-			mav.addObject("messageTitle", board.getMessageTitle());
-			mav.addObject("content", "내용");
-			mav.addObject("messageContent", board.getMessageContent());
-
-			board.setIdentity((String)session.getAttribute("identity"));
-
-
-			sb.append("<input class=\"btn btn-sm\" type=\"button\" value=\"답장\" onClick=\"reply('"+board.getMessageOther()+"','"+session.getAttribute("identity")+"')\"/>");
-
-			sb.append("<input class=\"btn btn-sm\" type=\"button\" value=\"목록\" onClick=\"message('"+2+"','"+board.getIdentity()+"')\"/>");
-			sb.append("<input class=\"btn btn-sm\" type=\"button\" value=\"삭제\" onClick=\"messageDelete('"+board.getIdentity()+"','"+board.getRoomCode()+"','"+board.getMessageCode()+"','"+board.getMessageDate()+"')\"/>");
-			mav.addObject("button", sb.toString());
-
-
-			transaction = true;
-
-		}catch(Exception ex){
-
-		}finally {
-			mav.setViewName("learningMSGctx");
-			setTransactionResult(transaction);
-		}
-		return mav;
-	}
-
-	private ModelAndView learningGetMessageDelete(BoardBean board) { // 받은쪽지 삭제
-		mav = new ModelAndView();
-		boolean transaction = false;
-
-		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
-
-		try {
-			session.getAttribute("roomCode");
-
-			board.setRoomCode((String)session.getAttribute("roomCode"));
-			board.setMessageCode("G");
-			board.setMessageId((String)session.getAttribute("tcId"));
-
-			dao.getMessageDelete(board);
-
-			transaction = true;
-
-		}catch(Exception ex){
-
-		}finally {
-			setTransactionResult(transaction);
-		}
-		return mav;
-	}
-
-	private ModelAndView learningSentMessageDelete(BoardBean board) { // 보낸쪽지 삭제
-		mav = new ModelAndView();
-		boolean transaction = false;
-
-		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
-
-		try {
-			session.getAttribute("roomCode");
-
-			board.setRoomCode((String)session.getAttribute("roomCode"));
-			board.setMessageCode("S");
-			board.setMessageId((String)session.getAttribute("tcId"));
-
-			dao.sentMessageDelete(board);
-
-			transaction = true;
-
-		}catch(Exception ex){
-
-		}finally {
-			setTransactionResult(transaction);
-		}
-		return mav;
-	}
-
-	private ModelAndView learningPlanPage(BoardBean board) { // 강의 계획서 페이지
-
-		mav = new ModelAndView();
-
-		boolean transaction = false;
-		StringBuffer sb = new StringBuffer();
-		String nowYear2 = null;
-
-		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
-
-		try {
-			String nowYear = dao.nowYearGet();
-			int subtract = 12 - Integer.parseInt(nowYear.substring(4));
-			nowYear2 = nowYear;
-
-			sb.append("<select id = 'yearSelect' class='btn-sm'>");
-			sb.append("<option>월 선택</option>");
-
-			for(int i = 0; i <= subtract; i++) {
-				nowYear2 = Integer.toString(Integer.parseInt(nowYear)+i);
-				sb.append("<option value="+nowYear2+">"+nowYear2.substring(0, 4)+"년"+nowYear2.substring(4)+"월"+"</option>");
+			}finally {
+				setTransactionResult(transaction);
 			}
-			sb.append("</select>");
-
-			mav.addObject("select", sb.toString());
-			mav.setViewName("learningPlan");
-			transaction = true;
-
-		}catch(Exception ex){
-
-		}finally {
-			setTransactionResult(transaction);
+			return mav;
 		}
-		return mav;
-	}
 
 
-	private ModelAndView learningPlanCTXPage(BoardBean board) { // 강의 계획서 자세히 보기 페이지
+		private ModelAndView learningTesk(BoardBean board) { //과제 페이지 자세하게 보기
 
-		mav = new ModelAndView();
-		boolean transaction = false;
-		StringBuffer sb = new StringBuffer();
-		ViewService view = new ViewService(); 
-		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
+			mav = new ModelAndView();
 
-		try {
+			ViewService view = new ViewService(); 
+			System.out.println(board.getBoardCode());
+			System.out.println(board.getRoomCode());
+			System.out.println(board.getStudentCode());
+			boolean transaction = false;
 
-			board.setRoomCode((String)session.getAttribute("roomCode"));
+			setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
 
-			if(dao.planCheck(board) != 0) { // 있음
+			try {
+				board.setStudentCode(board.getStudentCode());
+				board.setStudentName(dao.stNameGet(board));	
 
-				DbBoardBean bb = dao.planCTX(board);
+
+				DbBoardBean bb = dao.learningTesk(board);   // 전체 루트(파일이름까지)
+
 				bb.setCutRoute(bb.getBoardRoute().substring(0,68));   // 루트만
 
 				bb.setCutContent(bb.getBoardRoute().substring(68));   // 파일이름
@@ -3137,260 +2752,697 @@ public class learningTeacherMM extends TransactionExe {
 				List<String> list = view.getList(bb);
 
 
-
-
 				mav.addObject("list",list);
-				mav.addObject("title", "<input type='text' name='boardTitle' value="+bb.getBoardTitle()+" readonly/>");
-				mav.addObject("content","<input type='text' name='boardContent' value="+bb.getBoardContent()+" readonly/>" );
-				mav.addObject("check", 1);
-				sb.append("<input type='button' value='강의계획 수정' class='btn' onClick=planUpdatePage("+bb.getBoardCode()+","+bb.getRoomCode()+") />");
-				sb.append("<input type='button' value='강의계획 삭제' class='btn' onClick=planDelete("+bb.getBoardCode()+","+bb.getRoomCode()+") />");
-				mav.addObject("button", sb.toString());
+				mav.addObject("name",board.getStudentName());
+				mav.addObject("date",bb.getBoardDate());
 
-			}else {
-				sb.append("<input type='button' value='강의계획 등록' class='btn' onClick=planInsert("+board.getBoardCode()+") />");
-				mav.addObject("button", sb.toString());
-				mav.addObject("check", 0);
+
+				mav.setViewName("learningTaskTeacherCheck");
+
+				transaction = true;
+
+
+			}catch(Exception ex){
+				ex.printStackTrace();
+
+			}finally {
+				setTransactionResult(transaction);
 			}
 
-			mav.setViewName("learningPlanCTX");
-
-			transaction = true;
-
-		}catch(Exception ex){
-			ex.printStackTrace();
-		}finally {
-			setTransactionResult(transaction);
+			return mav;
 		}
-		return mav;
-	}
-
-	private ModelAndView learningPlanInsert(BoardBean board) { // 강의 계획서 등록
-
-		boolean transaction = false;
-		fileupload(board,mtfRequest);
-		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
-
-		try {
-			board.setId((String)session.getAttribute("tcId"));
-			board.setRoomCode((String)session.getAttribute("roomCode"));
-
-			dao.planInsert(board);
-
-			transaction = true;
-
-		}catch(Exception ex){
-			ex.printStackTrace();
-		}finally {
-			setTransactionResult(transaction);
-		}
-		return mav;
-	}
-
-	private ModelAndView learningPlanUpdate(BoardBean board) { // 강의 계획서 수정
-
-		boolean transaction = false;
-
-		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
-
-		try {
-
-			dao.planUpdate(board);
-
-			transaction = true;
-
-		}catch(Exception ex){
-
-		}finally {
-			setTransactionResult(transaction);
-		}
-		return null;
-	}
-
-	private ModelAndView learningPlanDelete(BoardBean board) { // 강의 계획서 삭제
-
-		boolean transaction = false;
-
-		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
-
-		try {
-
-			dao.planDelete(board);
-
-			transaction = true;
-
-		}catch(Exception ex){
-
-		}finally {
-			setTransactionResult(transaction);
-		}
-		return null;
-	}
 
 
-	private ModelAndView scoreInsertPage(BoardBean board) { // 과제 점수 등록 페이지
+		private ModelAndView learningMessagePage(BoardBean board) { // 쪽지 페이지
+			mav = new ModelAndView();
+			boolean transaction = false;
+			setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
 
-		mav = new ModelAndView();
-		boolean transaction = false;
-		StringBuffer sb = new StringBuffer();
-		
-		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
+			try {
+				session.getAttribute("roomCode");
 
-		try {
+				board.setRoomCode((String)session.getAttribute("roomCode"));
 
-			if(dao.taskScoreGet(board) != null) {
-				
-				sb.append("<div>");
-				sb.append("현재 점수 : "+dao.taskScoreGet(board)+"점</br>");
-				sb.append("점수수정");
-				sb.append("<select name='number'>");
-				sb.append("<option value='0'>0</option>");
-				sb.append("<option value='1'>1</option>");
-				sb.append("<option value='2'>2</option>");
-				sb.append("<option value='3'>3</option>");
-				sb.append("<option value='4'>4</option>");
-				sb.append("<option value='5'>5</option>");
-				sb.append("<option value='6'>6</option>");
-				sb.append("<option value='7'>7</option>");
-				sb.append("<option value='8'>8</option>");
-				sb.append("<option value='9'>9</option>");
-				sb.append("<option value='10'>10</option>");
-				sb.append("</select>");
-				sb.append("<input type='button' value='점수 수정' onClick='sexualUpdate()' />");
-				sb.append("</div>");
-				
-			}else {
-				sb.append("<div>");
-				sb.append("점수등록");
-				sb.append("<select id='selectid' name='number'>");
-				sb.append("<option value='0'>0</option>");
-				sb.append("<option value='1'>1</option>");
-				sb.append("<option value='2'>2</option>");
-				sb.append("<option value='3'>3</option>");
-				sb.append("<option value='4'>4</option>");
-				sb.append("<option value='5'>5</option>");
-				sb.append("<option value='6'>6</option>");
-				sb.append("<option value='7'>7</option>");
-				sb.append("<option value='8'>8</option>");
-				sb.append("<option value='9'>9</option>");
-				sb.append("<option value='10'>10</option>");
-				sb.append("</select>");
-				sb.append("<input type='button' value='점수 등록' onClick='sexualInsert()' />");
-				sb.append("</div>");
+
+				mav.addObject("identity", session.getAttribute("identity"));
+
+				transaction = true;
+
+			}catch(Exception ex){
+
+			}finally {
+				mav.setViewName("learningMSG");
+				setTransactionResult(transaction);
 			}
-			
-			mav.addObject("content", sb.toString());
-			mav.addObject("tagCode", board.getTagCode());
-			mav.addObject("roomCode", board.getRoomCode());
-			mav.addObject("studentCode", board.getStudentCode());
-			
-			mav.setViewName("learningTaskScoreInsert");
-
-			transaction = true;
-
-		}catch(Exception ex){
-
-		}finally {
-			setTransactionResult(transaction);
+			return mav;
 		}
-		return mav;
-	}
-	
-	private ModelAndView scoreInsertgo(BoardBean board) { // 과제 점수 등록
 
-		mav = new ModelAndView();
-		boolean transaction = false;
+		private ModelAndView learningSendMessagePage(BoardBean board) { // 쪽지 보내기 페이지
+			mav = new ModelAndView();
+			boolean transaction = false;
+			setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
 
-		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
+			try {
+				session.getAttribute("roomCode");
 
-		try {
-			
-			dao.taskScoreInsert(board);
-			
-			mav.addObject("reload", "opener.location.reload()");
-			mav.addObject("windowclose", "window.close()");
-			mav.setViewName("learningTaskScoreInsert");
-			
-			transaction = true;
+				board.setRoomCode((String)session.getAttribute("roomCode"));	
 
-		}catch(Exception ex){
-			ex.printStackTrace();
-		}finally {
-			setTransactionResult(transaction);
+				if(board.getStudentCode() == null) {
+					mav.addObject("messageOther", board.getMessageOther());
+				}else {
+					mav.addObject("messageOther", board.getStudentCode());
+				}
+
+
+
+				transaction = true;
+
+			}catch(Exception ex){
+
+			}finally {
+				mav.setViewName("learningSendMSG");
+				setTransactionResult(transaction);
+			}
+			return mav;
 		}
-		return mav;
-	}
 
-	private ModelAndView scoreUpdate(BoardBean board) { // 과제 점수 수정
+		private ModelAndView learningReceiveMessagePage(BoardBean board) { // 받은쪽지 리스트 페이지
+			mav = new ModelAndView();
+			boolean transaction = false;
+			ArrayList<BoardBean> ar = null;
+			setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
 
-		mav = new ModelAndView();
-		boolean transaction = false;
+			try {
+				session.getAttribute("roomCode");
 
-		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
+				board.setRoomCode((String)session.getAttribute("roomCode"));
 
-		try {
-			
-			dao.taskScoreUpdate(board);
-			
-			mav.addObject("reload", "opener.location.reload()");
-			mav.addObject("windowclose", "window.close()");
-			mav.setViewName("learningTaskScoreInsert");
-			
-			transaction = true;
+				board.setMessageCode("G");
+				board.setMessageId((String)session.getAttribute("tcId"));
 
-		}catch(Exception ex){
-			ex.printStackTrace();
-		}finally {
-			setTransactionResult(transaction);
+				ar = dao.getMessageList(board);
+
+				board.setIdentity((String)session.getAttribute("identity"));
+				mav.addObject("messageList", getlearningGetMessageList(ar, board));
+				mav.addObject("button", pageButton(ar));
+
+				transaction = true;
+
+			}catch(Exception ex){
+
+			}finally {
+				mav.setViewName("learningGetMSG");
+				setTransactionResult(transaction);
+			}
+			return mav;
 		}
-		return mav;
-	}
-	
-	private ModelAndView taskScorePage() { // 과제 점수 페이지
 
-		mav = new ModelAndView();
-		boolean transaction = false;
-		ArrayList<BoardBean> al = null;
-		StringBuffer sb = new StringBuffer();
-		BoardBean board;
+		private ModelAndView learningSentMessagePage(BoardBean board) { // 보낸쪽지 리스트 페이지
+			mav = new ModelAndView();
+			boolean transaction = false;
+			ArrayList<BoardBean> ar = null;
+			setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
 
-		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
+			try {
+				System.out.println("뭐야?");
+				session.getAttribute("roomCode");
 
-		try {
-			
-			board = new BoardBean();
-			
-			board.setRoomCode((String)session.getAttribute("roomCode"));
+				board.setRoomCode((String)session.getAttribute("roomCode"));
+				board.setMessageCode("S");
+				board.setMessageId((String)session.getAttribute("tcId"));
+				board.setIdentity((String)session.getAttribute("identity"));
+				ar = dao.sentMessageList(board);
+				mav.addObject("messageList", getlearningSentMessageList(ar,board));
+				mav.addObject("button", pageButton(ar));
 
-			al = dao.learningWANAllStudentCode(board);
+				transaction = true;
 
-			sb.append("<select id='selectid' name='number'>");
-			sb.append("<option>학생선택</option>");
-			for(int i = 0; i < al.size(); i++) {
+			}catch(Exception ex){
+
+			}finally {
+				mav.setViewName("learningSentMSG");
+				setTransactionResult(transaction);
+			}
+			return mav;
+		}
+
+		private String getlearningSentMessageList(ArrayList<BoardBean> ar, BoardBean board) { // 보낸쪽지 리스트 끌고오기
+			StringBuffer sb = new StringBuffer();
+
+
+			int forI = 0; // 크게 한사람
+			int forB = 0;	// 내용물
+			int pageCount = 5; // 
+			int pageCount2 = pageCount; // 
+
+			double sizeDouble = ar.size() / (double)pageCount;
+
+			for(forI=0; forI < sizeDouble; forI++) {
+
+				if(ar.size()< pageCount) {
+					pageCount= ar.size();
+				}
+
+				sb.append("<tbody name=tbody"+forI+" id=tbody"+forI+">");
+				//sb.append("<tbody id=\"myTable\">");
+				for(forB=forB; forB<pageCount; forB++) {
+					sb.append("<tr>");
+					sb.append("<td>"+ (forB+1) +"</td>");
+					sb.append("<td>" + ar.get(forB).getMessageOther() + "</td>");
+					sb.append("<td style=\"cursor:pointer\" onClick=\"messageCTX('" + board.getMessageCode() + "','" + board.getRoomCode() + "','"+ ar.get(forB).getMessageDate() +"','"+ board.getIdentity() +"')\">" + ar.get(forB).getMessageTitle() + "</td>");
+					sb.append("<td>" + ar.get(forB).getMessageDate() + "</td>");
+					sb.append("</tr>");
+				}
+				sb.append("</tbody>");
+				pageCount+=pageCount2
+						;
+
+			}
+
+			return sb.toString();
+		}
+
+		private ModelAndView learningSendMessage(BoardBean board) { // 쪽지 보내기
+			mav = new ModelAndView();
+			boolean transaction = false;
+			setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
+
+			try {
+				session.getAttribute("roomCode");
+
+				board.setRoomCode((String)session.getAttribute("roomCode"));
+
+				board.setMessageCode("S");
+				board.setMessageId((String)session.getAttribute("tcId"));
+
+				if(dao.sendMessageS(board) != 0) {
+					board.setMessageCode("G");
+					if(dao.sendMessageG(board) != 0) {
+						System.out.println("쪽지 보내기 성공");
+					}
+				}
+
+
+				transaction = true;
+
+			}catch(Exception ex){
+
+			}finally {
+
+				setTransactionResult(transaction);
+			}
+			return mav;
+		}
+
+
+
+		private String getlearningGetMessageList(ArrayList<BoardBean> ar, BoardBean board) { // 받은쪽지 리스트 끌고오기
+			StringBuffer sb = new StringBuffer();
+
+			int forI = 0; // 크게 한사람
+			int forB = 0;	// 내용물
+			int pageCount = 5; // 
+			int pageCount2 = pageCount; // 
+
+			double sizeDouble = ar.size() / (double)pageCount;
+
+			for(forI=0; forI < sizeDouble; forI++) {
+
+				if(ar.size()< pageCount) {
+					pageCount= ar.size();
+				}
+
+				sb.append("<tbody name=tbody"+forI+" id=tbody"+forI+">");
+				//sb.append("<tbody id=\"myTable\">");
+				for(forB=forB; forB<pageCount; forB++) {
+					//sb.append("<tbody id=\"myTable\">");
+
+					sb.append("<tr>");
+					sb.append("<td>"+ (forB+1) +"</td>");
+					sb.append("<td>" + ar.get(forB).getMessageOther() + "</td>");
+					sb.append("<td onClick=\"messageCTX('"+ board.getMessageCode() +"','"+ ar.get(forB).getRoomCode() +"','"+ ar.get(forB).getMessageDate() +"','"+board.getIdentity()+"')\">" + ar.get(forB).getMessageTitle() + "</td>");
+					sb.append("<td>" + ar.get(forB).getMessageDate() + "</td>");
+					sb.append("</tr>");
+				}
+				sb.append("</tbody>");
+				pageCount+=pageCount2;
+
+			}
+
+			return sb.toString();
+		}
+
+		private ModelAndView learningSentMessageCTX(BoardBean board) { // 보낸쪽지 내용확인
+			mav = new ModelAndView();
+			boolean transaction = false;
+			StringBuffer sb = new StringBuffer();
+			setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
+
+			try {
+				session.getAttribute("roomCode");
+
+				board.setRoomCode((String)session.getAttribute("roomCode"));
+				board.setMessageCode("S");
+				board.setMessageId((String)session.getAttribute("tcId"));
+
+
+				board = dao.sentMessageCTX(board);
+
+				mav.addObject("id", "받은사람");
+				mav.addObject("messageOther", board.getMessageOther());
+				mav.addObject("title", "제목");
+				mav.addObject("messageTitle", board.getMessageTitle());
+				mav.addObject("content", "내용");
+				mav.addObject("messageContent", board.getMessageContent());
+
+				board.setIdentity((String)session.getAttribute("identity"));
+				System.out.println("보낸쪽지 서비스 : " + board.getIdentity());
+
+
+				sb.append("<input type=\"button\" value=\"목록\" onClick=\"message('"+3+"','"+board.getIdentity()+"')\"/>");
+				sb.append("<input type=\"button\" value=\"삭제\" onClick=\"messageDelete('"+board.getIdentity()+"','"+board.getRoomCode()+"','"+board.getMessageCode()+"','"+board.getMessageDate()+"')\"/>");
+				mav.addObject("button", sb.toString());
+
+
+				transaction = true;
+
+			}catch(Exception ex){
+
+			}finally {
+				mav.setViewName("learningMSGctx");
+				setTransactionResult(transaction);
+			}
+			return mav;
+		}
+
+		private ModelAndView learningGetMessageCTX(BoardBean board) { // 받은쪽지 내용확인
+			mav = new ModelAndView();
+			boolean transaction = false;
+			StringBuffer sb = new StringBuffer();
+
+			setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
+
+			try {
+				session.getAttribute("roomCode");
+
+				board.setRoomCode((String)session.getAttribute("roomCode"));
+				board.setMessageCode("G");
+				board.setMessageId((String)session.getAttribute("tcId"));
+
+				board = dao.getMessageCTX(board);
+
+				mav.addObject("id", "보낸사람");
+				mav.addObject("messageOther", board.getMessageOther());
+				mav.addObject("title", "제목");
+				mav.addObject("messageTitle", board.getMessageTitle());
+				mav.addObject("content", "내용");
+				mav.addObject("messageContent", board.getMessageContent());
+
+				board.setIdentity((String)session.getAttribute("identity"));
+
+
+				sb.append("<input class=\"btn btn-sm\" type=\"button\" value=\"답장\" onClick=\"reply('"+board.getMessageOther()+"','"+session.getAttribute("identity")+"')\"/>");
+
+				sb.append("<input class=\"btn btn-sm\" type=\"button\" value=\"목록\" onClick=\"message('"+2+"','"+board.getIdentity()+"')\"/>");
+				sb.append("<input class=\"btn btn-sm\" type=\"button\" value=\"삭제\" onClick=\"messageDelete('"+board.getIdentity()+"','"+board.getRoomCode()+"','"+board.getMessageCode()+"','"+board.getMessageDate()+"')\"/>");
+				mav.addObject("button", sb.toString());
+
+
+				transaction = true;
+
+			}catch(Exception ex){
+
+			}finally {
+				mav.setViewName("learningMSGctx");
+				setTransactionResult(transaction);
+			}
+			return mav;
+		}
+
+		private ModelAndView learningGetMessageDelete(BoardBean board) { // 받은쪽지 삭제
+			mav = new ModelAndView();
+			boolean transaction = false;
+
+			setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
+
+			try {
+				session.getAttribute("roomCode");
+
+				board.setRoomCode((String)session.getAttribute("roomCode"));
+				board.setMessageCode("G");
+				board.setMessageId((String)session.getAttribute("tcId"));
+
+				dao.getMessageDelete(board);
+
+				transaction = true;
+
+			}catch(Exception ex){
+
+			}finally {
+				setTransactionResult(transaction);
+			}
+			return mav;
+		}
+
+		private ModelAndView learningSentMessageDelete(BoardBean board) { // 보낸쪽지 삭제
+			mav = new ModelAndView();
+			boolean transaction = false;
+
+			setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
+
+			try {
+				session.getAttribute("roomCode");
+
+				board.setRoomCode((String)session.getAttribute("roomCode"));
+				board.setMessageCode("S");
+				board.setMessageId((String)session.getAttribute("tcId"));
+
+				dao.sentMessageDelete(board);
+
+				transaction = true;
+
+			}catch(Exception ex){
+
+			}finally {
+				setTransactionResult(transaction);
+			}
+			return mav;
+		}
+
+		private ModelAndView learningPlanPage(BoardBean board) { // 강의 계획서 페이지
+
+			mav = new ModelAndView();
+
+			boolean transaction = false;
+			StringBuffer sb = new StringBuffer();
+			String nowYear2 = null;
+
+			setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
+
+			try {
+				String nowYear = dao.nowYearGet();
+				int subtract = 12 - Integer.parseInt(nowYear.substring(4));
+				nowYear2 = nowYear;
+
+				sb.append("<select id = 'yearSelect' class='btn-sm'>");
+				sb.append("<option>월 선택</option>");
+
+				for(int i = 0; i <= subtract; i++) {
+					nowYear2 = Integer.toString(Integer.parseInt(nowYear)+i);
+					sb.append("<option value="+nowYear2+">"+nowYear2.substring(0, 4)+"년"+nowYear2.substring(4)+"월"+"</option>");
+				}
+				sb.append("</select>");
+
+				mav.addObject("select", sb.toString());
+				mav.setViewName("learningPlan");
+				transaction = true;
+
+			}catch(Exception ex){
+
+			}finally {
+				setTransactionResult(transaction);
+			}
+			return mav;
+		}
+
+
+		private ModelAndView learningPlanCTXPage(BoardBean board) { // 강의 계획서 자세히 보기 페이지
+
+			mav = new ModelAndView();
+			boolean transaction = false;
+			StringBuffer sb = new StringBuffer();
+			ViewService view = new ViewService(); 
+			setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
+
+			try {
+
+				board.setRoomCode((String)session.getAttribute("roomCode"));
+
+				if(dao.planCheck(board) != 0) { // 있음
+
+					DbBoardBean bb = dao.planCTX(board);
+					bb.setCutRoute(bb.getBoardRoute().substring(0,68));   // 루트만
+
+					bb.setCutContent(bb.getBoardRoute().substring(68));   // 파일이름
+
+
+					List<String> list = view.getList(bb);
+
+
+
+
+					mav.addObject("list",list);
+					mav.addObject("title", "<input type='text' name='boardTitle' value="+bb.getBoardTitle()+" readonly/>");
+					mav.addObject("content","<input type='text' name='boardContent' value="+bb.getBoardContent()+" readonly/>" );
+					mav.addObject("check", 1);
+					sb.append("<input type='button' value='강의계획 수정' class='btn' onClick=planUpdatePage("+bb.getBoardCode()+","+bb.getRoomCode()+") />");
+					sb.append("<input type='button' value='강의계획 삭제' class='btn' onClick=planDelete("+bb.getBoardCode()+","+bb.getRoomCode()+") />");
+					mav.addObject("button", sb.toString());
+
+				}else {
+					sb.append("<input type='button' value='강의계획 등록' class='btn' onClick=planInsert("+board.getBoardCode()+") />");
+					mav.addObject("button", sb.toString());
+					mav.addObject("check", 0);
+				}
+
+				mav.setViewName("learningPlanCTX");
+
+				transaction = true;
+
+			}catch(Exception ex){
+				ex.printStackTrace();
+			}finally {
+				setTransactionResult(transaction);
+			}
+			return mav;
+		}
+
+		private ModelAndView learningPlanInsert(BoardBean board) { // 강의 계획서 등록
+
+			boolean transaction = false;
+			fileupload(board,mtfRequest);
+			setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
+
+			try {
+				board.setId((String)session.getAttribute("tcId"));
+				board.setRoomCode((String)session.getAttribute("roomCode"));
+
+				dao.planInsert(board);
+
+				transaction = true;
+
+			}catch(Exception ex){
+				ex.printStackTrace();
+			}finally {
+				setTransactionResult(transaction);
+			}
+			return mav;
+		}
+
+		private ModelAndView learningPlanUpdate(BoardBean board) { // 강의 계획서 수정
+
+			boolean transaction = false;
+
+			setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
+
+			try {
+
+				dao.planUpdate(board);
+
+				transaction = true;
+
+			}catch(Exception ex){
+
+			}finally {
+				setTransactionResult(transaction);
+			}
+			return null;
+		}
+
+		private ModelAndView learningPlanDelete(BoardBean board) { // 강의 계획서 삭제
+
+			boolean transaction = false;
+
+			setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
+
+			try {
+
+				dao.planDelete(board);
+
+				transaction = true;
+
+			}catch(Exception ex){
+
+			}finally {
+				setTransactionResult(transaction);
+			}
+			return null;
+		}
+
+
+		private ModelAndView scoreInsertPage(BoardBean board) { // 과제 점수 등록 페이지
+
+			mav = new ModelAndView();
+			boolean transaction = false;
+			StringBuffer sb = new StringBuffer();
+
+			setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
+
+			try {
+
+				if(dao.taskScoreGet(board) != null) {
+
+					sb.append("<div>");
+					sb.append("현재 점수 : "+dao.taskScoreGet(board)+"점</br>");
+					sb.append("점수수정");
+					sb.append("<select name='number'>");
+					sb.append("<option value='0'>0</option>");
+					sb.append("<option value='1'>1</option>");
+					sb.append("<option value='2'>2</option>");
+					sb.append("<option value='3'>3</option>");
+					sb.append("<option value='4'>4</option>");
+					sb.append("<option value='5'>5</option>");
+					sb.append("<option value='6'>6</option>");
+					sb.append("<option value='7'>7</option>");
+					sb.append("<option value='8'>8</option>");
+					sb.append("<option value='9'>9</option>");
+					sb.append("<option value='10'>10</option>");
+					sb.append("</select>");
+					sb.append("<input type='button' value='점수 수정' onClick='sexualUpdate()' />");
+					sb.append("</div>");
+
+				}else {
+					sb.append("<div>");
+					sb.append("점수등록");
+					sb.append("<select id='selectid' name='number'>");
+					sb.append("<option value='0'>0</option>");
+					sb.append("<option value='1'>1</option>");
+					sb.append("<option value='2'>2</option>");
+					sb.append("<option value='3'>3</option>");
+					sb.append("<option value='4'>4</option>");
+					sb.append("<option value='5'>5</option>");
+					sb.append("<option value='6'>6</option>");
+					sb.append("<option value='7'>7</option>");
+					sb.append("<option value='8'>8</option>");
+					sb.append("<option value='9'>9</option>");
+					sb.append("<option value='10'>10</option>");
+					sb.append("</select>");
+					sb.append("<input type='button' value='점수 등록' onClick='sexualInsert()' />");
+					sb.append("</div>");
+				}
+
+				mav.addObject("content", sb.toString());
+				mav.addObject("tagCode", board.getTagCode());
+				mav.addObject("roomCode", board.getRoomCode());
+				mav.addObject("studentCode", board.getStudentCode());
+
+				mav.setViewName("learningTaskScoreInsert");
+
+				transaction = true;
+
+			}catch(Exception ex){
+
+			}finally {
+				setTransactionResult(transaction);
+			}
+			return mav;
+		}
+
+		private ModelAndView scoreInsertgo(BoardBean board) { // 과제 점수 등록
+
+			mav = new ModelAndView();
+			boolean transaction = false;
+
+			setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
+
+			try {
+
+				dao.taskScoreInsert(board);
+
+				mav.addObject("reload", "opener.location.reload()");
+				mav.addObject("windowclose", "window.close()");
+				mav.setViewName("learningTaskScoreInsert");
+
+				transaction = true;
+
+			}catch(Exception ex){
+				ex.printStackTrace();
+			}finally {
+				setTransactionResult(transaction);
+			}
+			return mav;
+		}
+
+		private ModelAndView scoreUpdate(BoardBean board) { // 과제 점수 수정
+
+			mav = new ModelAndView();
+			boolean transaction = false;
+
+			setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
+
+			try {
+
+				dao.taskScoreUpdate(board);
+
+				mav.addObject("reload", "opener.location.reload()");
+				mav.addObject("windowclose", "window.close()");
+				mav.setViewName("learningTaskScoreInsert");
+
+				transaction = true;
+
+			}catch(Exception ex){
+				ex.printStackTrace();
+			}finally {
+				setTransactionResult(transaction);
+			}
+			return mav;
+		}
+
+		private ModelAndView taskScorePage() { // 과제 점수 페이지
+
+			mav = new ModelAndView();
+			boolean transaction = false;
+			ArrayList<BoardBean> al = null;
+			StringBuffer sb = new StringBuffer();
+			BoardBean board;
+
+			setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
+
+			try {
+
 				board = new BoardBean();
-				board.setStudentCode(al.get(i).getStudentCode());
-				board.setStudentName(dao.stNameGet(board));
-				
-				sb.append("<option value="+board.getStudentCode()+">"+board.getStudentName()+"</option>");
-				
+
+				board.setRoomCode((String)session.getAttribute("roomCode"));
+
+				al = dao.learningWANAllStudentCode(board);
+
+				sb.append("<select id='selectid' name='number'>");
+				sb.append("<option>학생선택</option>");
+				for(int i = 0; i < al.size(); i++) {
+					board = new BoardBean();
+					board.setStudentCode(al.get(i).getStudentCode());
+					board.setStudentName(dao.stNameGet(board));
+
+					sb.append("<option value="+board.getStudentCode()+">"+board.getStudentName()+"</option>");
+
+				}
+				sb.append("</select>");
+
+				mav.addObject("select", sb.toString());
+				mav.setViewName("learningTaskScore");
+
+				transaction = true;
+
+			}catch(Exception ex){
+			}finally {
+				setTransactionResult(transaction);
 			}
-			sb.append("</select>");
-			
-			mav.addObject("select", sb.toString());
-			mav.setViewName("learningTaskScore");
-			
-			transaction = true;
-
-		}catch(Exception ex){
-		}finally {
-			setTransactionResult(transaction);
+			return mav;
 		}
-		return mav;
+
+
+
+
 	}
-
-	
-	
-
-}
 
 

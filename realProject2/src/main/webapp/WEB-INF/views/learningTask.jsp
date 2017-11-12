@@ -75,7 +75,20 @@
 		;
 
 	});
+	
+	$(document).ready(function() {
+		/* 복사 */
+		$("tbody[name *='tbody']").hide();
+		var tableList = $("#tableList");
+		tableList.append($("#tbody0").show());
 
+	});
+	/*복사  */
+	function pageNumber(value) {
+		$("tbody[name *='tbody']").hide();
+		var tableList = $("#tableList");
+		tableList.append($("#tbody" + value).show());
+	}
 	//form 생성
 	function createForm(formname, formaction, formmethod) {
 
@@ -369,9 +382,10 @@
 					</h2>
 
 					${taskList }
+					${button2 }
 					<input type="button" class="btn" value="과제 생성" onClick="insertPage()" />
 					<hr />
-					<table id="ctx" class="table table-hover">
+					<table  style="text-align:center" id="ctx" class="table table-hover">
 					<h3 style="padding-left:10px">과제정보</h3>
 
 						<tr>
@@ -387,6 +401,7 @@
 					
 					</table>
 							${taskLists }
+							
 				
 					
 

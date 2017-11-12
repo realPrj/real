@@ -298,6 +298,7 @@ public class learningStudentMM extends TransactionExe {
 				int forI = 0;
 				int forB = 0;
 				int pageCount = 5;
+				int pageCount2 = pageCount;
 
 				double sizeDouble = boardList.size() / (double)pageCount;
 
@@ -348,7 +349,7 @@ public class learningStudentMM extends TransactionExe {
 
 					sb.append("</tbody>");	
 
-					pageCount+=pageCount;
+					pageCount+=pageCount2;
 
 				}
 				sb.append("</table>");
@@ -556,6 +557,7 @@ public class learningStudentMM extends TransactionExe {
 		int forI = 0; // 크게 한사람
 		int forB = 0;	// 내용물
 		int pageCount = 5; // 
+		int pageCount2 = pageCount; // 
 
 		double sizeDouble = ar.size() / (double)pageCount;
 
@@ -577,7 +579,7 @@ public class learningStudentMM extends TransactionExe {
 			}
 
 			sb.append("</tbody>");
-			pageCount+=pageCount;
+			pageCount+=pageCount2;
 		}
 		sb.append("</table>");
 		return sb.toString();
@@ -742,6 +744,7 @@ public class learningStudentMM extends TransactionExe {
 			int forI = 0; // 크게 한사람
 			int forB = 0;	// 내용물
 			int pageCount = 5; // 
+			int pageCount2 = pageCount; // 
 
 			double sizeDouble = bb.size() / (double)pageCount;
 
@@ -767,7 +770,7 @@ public class learningStudentMM extends TransactionExe {
 				}
 				sb.append("</tbody>");	
 
-				pageCount+=pageCount;
+				pageCount+=pageCount2;
 
 
 			}
@@ -1027,6 +1030,8 @@ public class learningStudentMM extends TransactionExe {
 		int forI = 0; // 크게 한사람
 		int forB = 0;	// 내용물
 		int pageCount = 5; // 
+		int pageCount2 = pageCount; // 
+
 
 		double sizeDouble = ar.size() / (double)pageCount;
 
@@ -1047,7 +1052,7 @@ public class learningStudentMM extends TransactionExe {
 				sb.append("</tr>");
 			}
 			sb.append("</tbody>");
-			pageCount+=pageCount;
+			pageCount+=pageCount2;
 		}
 		sb.append("</table>");
 		return sb.toString();
@@ -1405,7 +1410,8 @@ public class learningStudentMM extends TransactionExe {
 		int forI = 0; // 크게 한사람
 		int forB = 0;	// 내용물
 		int pageCount = 5; // 
-
+		int pageCount2 = pageCount; 
+		
 		double sizeDouble = ar.size() / (double)pageCount;
 
 		for(forI=0; forI < sizeDouble; forI++) {
@@ -1426,7 +1432,7 @@ public class learningStudentMM extends TransactionExe {
 				sb.append("</tr>");
 			}
 			sb.append("</tbody>");
-			pageCount+=pageCount;
+			pageCount+=pageCount2;
 		}
 
 		return sb.toString();
@@ -1511,6 +1517,7 @@ public class learningStudentMM extends TransactionExe {
 		int forI = 0; // 크게 한사람
 		int forB = 0;	// 내용물
 		int pageCount = 5; // 
+		int pageCount2 = pageCount; // 
 
 		double sizeDouble = ar.size() / (double)pageCount;
 
@@ -1533,7 +1540,7 @@ public class learningStudentMM extends TransactionExe {
 				sb.append("</tr>");
 			}
 			sb.append("</tbody>");
-			pageCount+=pageCount;
+			pageCount+=pageCount2;
 		}
 
 		return sb.toString();
@@ -1593,6 +1600,7 @@ public class learningStudentMM extends TransactionExe {
 			int forI = 0; // 크게 한사람
 			int forB = 0;	// 내용물
 			int pageCount = 5; // 
+			int pageCount2 = pageCount; // 
 
 			double sizeDouble = ar.size() / (double)pageCount;
 
@@ -1619,7 +1627,7 @@ public class learningStudentMM extends TransactionExe {
 				}
 				sb.append("</tbody>");	
 
-				pageCount+=pageCount;
+				pageCount+=pageCount2;
 			}
 			sb.append("</table>");
 			mav.addObject("teacherLearningSTadmin", sb.toString());

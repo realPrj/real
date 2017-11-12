@@ -314,7 +314,7 @@
 					${taskList }
 					<hr />
 					<h3 style="padding-left:10px">과제정보</h3>
-					<table class="table table-hover">
+					<table  style="text-align:center" class="table table-hover">
 
 						<tr>
 							<td><b>제목</b></td>
