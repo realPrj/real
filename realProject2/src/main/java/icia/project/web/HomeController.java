@@ -427,7 +427,7 @@ public class HomeController  {
 	// 공지사항 수정 페이지
 	@RequestMapping(value = "/NoticeUpdatePage", method = RequestMethod.POST)
 	public ModelAndView learningNoticeUpdatePage(@ModelAttribute BoardBean board) {
-
+		
 		mav = ltmm.entrance(11, board);
 
 		return mav;

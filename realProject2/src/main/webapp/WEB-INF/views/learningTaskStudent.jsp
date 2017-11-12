@@ -194,6 +194,29 @@
 			
 	}
 </script>
+<style>
+@import url(//fonts.googleapis.com/earlyaccess/nanumgothic.css);
+  @import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
+
+.print{
+ border:none; font-size:13pt; background:#FFF2E6;font-family: 'Noto Sans KR', sans-serif; 
+}
+
+.print:hover{
+background : #FFCC97
+}
+
+.taskCTX{
+border:none; font-sieze:12pt; background:white
+}
+.taskCTX:hover{
+text-decoration : underline
+}
+
+.taskCTX:active{
+color:#6D6CFF
+}
+</style>
 </head>
 <body onLoad="${message}">
 	<input type="hidden" value="${identity }" name="identity" />
@@ -305,35 +328,44 @@
 			<div class="col-lg-35 col-md-12">
 
 				<div class="card">
-				<input type="button" class="btn btn-info" value="과제 성적" onClick="taskscorepage()" />
-					<br />
-					<h2>
+				<br/>
+					<h2 style="font-family: 'Nanum Gothic', sans-serif">
 						<b>과제 게시판</b>
 					</h2>
+					<input style="margin-left:90%" class="print" type="button" value="과제 성적" onClick="taskscorepage()" />
+					<br/><br/>
 
 					${taskList }
-					<hr />
-					<h3 style="padding-left:10px">과제정보</h3>
-					<table class="table table-hover">
-
-						<tr>
-							<td><b>제목</b></td>
-							<td><b>날짜</b></td>
-							<td><b>내용</b></td>
-						</tr>
-						<tr>
-							<td>${title }</td>
-							<td>${date }</td>
-							<td>${content }</td>
-						</tr>
 					
-					</table>
-						${tagcontent }
+					<hr />
+					
 				
 					
 
 				</div>
-			</div>
+				<div class="card">
+				<br/>
+				<table id="ctx" class="table table-hover">
+					<h3 style="padding-left:10px; font-family: 'Nanum Gothic', sans-serif">과제정보</h3>
+
+						<tr>
+							<td><b>제목</b></td>
+							<td><b>내용</b></td>
+							<td><b>날짜</b></td>
+							
+						</tr>
+						<tr>
+							<td>${title }</td>
+							<td>${content }</td>
+							<td>${date }</td>
+							
+						</tr>
+
+					</table>
+					${inputButton }
+					</div>
+					
+				</div>
 		</div>
 
 	</div>

@@ -267,7 +267,7 @@ public class FunctionController {
 	// 선생님 학습방 공지사항 글 등록
 	@RequestMapping(value = "/learningBoardNoticeInsert", method = RequestMethod.POST)
 	public ModelAndView  learningBoardNoticeInsert(BoardBean board,MultipartHttpServletRequest mtfRequest)throws Exception {
-		
+		System.out.println(board.getBoardContent().replace("\r\n", ""));
 		ltm.entrance(10, board, mtfRequest);
 
 		mav = ltm.entrance(3, board);

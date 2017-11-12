@@ -252,6 +252,45 @@
 </script>
 <style>
 @import url(//fonts.googleapis.com/earlyaccess/nanumgothic.css);
+  @import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
+
+.print{
+ border:none; font-size:13pt; background:#FFF2E6;font-family: 'Noto Sans KR', sans-serif; 
+}
+
+.print:hover{
+background : #FFCC97
+}
+
+.taskCTX{
+border:none; font-sieze:12pt; background:#FFFFFF
+}
+.taskCTX:hover{
+text-decoration : underline; background:#FFFFFF
+}
+
+.taskCTX:active{
+color:#3669CF
+}
+
+.CTXbtn{
+border:none; border-right:1px black solid; background:#FFFFFF; font-size:11pt; 
+}
+.CTXbtn_end{
+border:none; background:#FFFFFF;  font-size:11pt; 
+}
+.CTXbtn:hover{
+text-decoration : underline; cursor:pointer
+}
+.CTXbtn:active{
+color:#3669CF;
+}
+.CTXbtn_end:hover{
+text-decoration : underline; cursor:pointer
+}
+.CTXbtn_end:active{
+color:#3669CF;
+}
 </style>
 <body onLoad="${message}">
 	<input type="hidden" value="${identity }" name="identity" />
@@ -363,33 +402,51 @@
 			<div class="col-lg-35 col-md-12">
 
 				<div class="card">
-				<input type="button" class="btn btn-info" value="과제 성적" onClick="taskscorepage()" />
+				<br/>
 					<h2 style="font-family: 'Nanum Gothic', sans-serif">
 						<b>과제 게시판</b>
 					</h2>
+					<input style="margin-left:80%" class="print" type="button" value="과제 성적" onClick="taskscorepage()" />
+					<input type="button" class="print" style="margin-left:1%" value="과제 생성" onClick="insertPage()" />
+					<br/><br/>
 
 					${taskList }
-					<input type="button" class="btn" value="과제 생성" onClick="insertPage()" />
-					<hr />
-					<table id="ctx" class="table table-hover">
-					<h3 style="padding-left:10px">과제정보</h3>
-
-						<tr>
-							<td><b>제목</b></td>
-							<td><b>날짜</b></td>
-							<td><b>내용</b></td>
-						</tr>
-						<tr>
-							<td>${title }</td>
-							<td>${date }</td>
-							<td>${content }</td>
-						</tr>
 					
-					</table>
-							${taskLists }
+					<hr />
+					
 				
 					
 
+				</div>
+				<div class="card">
+				<br/>
+				<h3 style="padding-left:10px; font-family: 'Nanum Gothic', sans-serif">과제정보</h3>
+				
+				<table id="ctx" class="table table-hover">
+				
+						<tr>
+							<td><b>제목</b></td>
+							<td><b>내용</b></td>
+							<td><b>날짜</b></td>
+							
+						</tr>
+						<tr>
+							<td>${title }</td>
+							<td>${content }</td>
+							<td>${date }</td>
+							
+						</tr>
+
+					</table>
+						<div style="margin-left: 85%">
+						${inputButton }
+						</div>
+					</div>
+					
+					<div class="card">
+					
+					${taskLists }
+					</div>
 				</div>
 			</div>
 		</div>

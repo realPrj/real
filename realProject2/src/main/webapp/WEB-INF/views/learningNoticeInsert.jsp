@@ -80,6 +80,11 @@ function menu(ivalue, identity) {
 }
 
 function NoticeInsertOk(){
+	$('#ok').val().replace(/\n/g, "<br>")
+
+
+	
+
    alert("작성완료");
    var f = document.getElementsByName("noticeInsert");
    
@@ -96,6 +101,8 @@ function fileNameInput(){
 	
 </script>
 <style>
+@import url(//fonts.googleapis.com/earlyaccess/nanumgothic.css); // 타이틀
+ 
 .title{
 	border : gray 1px solid;
 	width : 970px;
@@ -383,7 +390,7 @@ filter: alpha(opacity=0);
 				<div class="card">
 				<div class="center">
 					<br/>
-						<h2>
+						<h2 style="font-family: 'Nanum Gothic', sans-serif">
 							<b>공지사항</b>
 						</h2>
 						<br/>
@@ -394,7 +401,7 @@ filter: alpha(opacity=0);
 						</div>
 						<div style="margin:20px;">
 							<p>내용</p>
-							<textarea rows="20" name="boardContent"></textarea>
+							<textarea id="ok" rows="20" name="boardContent"></textarea>
 							</div>
 							<div style="margin:20px;">
 							

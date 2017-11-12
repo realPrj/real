@@ -292,11 +292,10 @@ function stadmin(studentCode){
 				<div class="card">
 				<br />
 					${teacherInfo }
-					<br />
 					
 					<h2 style="font-family: 'Nanum Gothic', sans-serif">
 						<b>수강생</b>
-					</h2>
+					</h2><br/>
 			
 					${teacherLearningSTadmin } ${button }
 					<hr />

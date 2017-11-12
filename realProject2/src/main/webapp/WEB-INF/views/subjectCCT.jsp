@@ -145,9 +145,9 @@ $(document).ready(function() {
 
  <style>
  @import url(//fonts.googleapis.com/earlyaccess/nanumgothic.css);
-@import url(//fonts.googleapis.com/earlyaccess/nanumpenscript.css);
-@import url(//fonts.googleapis.com/earlyaccess/nanumbrushscript.css);
-    @import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
+ @import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
+
+   
 
 
 
@@ -279,6 +279,7 @@ background : #FFCC97
 				<div class="card">
 				
 				<div class="container">
+				<br/>
 								<h2 style="font-family: 'Nanum Gothic', sans-serif"><b>과목코드표</b></h2>
 								
 								<br/><br/>

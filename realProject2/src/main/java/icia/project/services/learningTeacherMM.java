@@ -354,7 +354,7 @@ public class learningTeacherMM extends TransactionExe {
 				sb.append("<tr>");	
 				sb.append("<td>"+ (forB+1) +"</td>");
 				//sb.append("<input type=\"hidden\" name=\"boardTitle\" value='" + board.getBoardTitle() + "'/>");
-				sb.append("<td style=\"cursor:pointer\" onClick=\"confirm('"+ ar.get(forB).getBoardTitle() +"','" + ar.get(forB).getBoardDate() + "','"+ board.getId() +"')\">" + ar.get(forB).getBoardTitle() + "</td>");
+				sb.append("<td class=\"CTX\" onClick=\"confirm('"+ ar.get(forB).getBoardTitle() +"','" + ar.get(forB).getBoardDate() + "','"+ board.getId() +"')\">" + ar.get(forB).getBoardTitle() + "</td>");
 				sb.append("<td>" + ar.get(forB).getBoardId() + "</td>");
 				sb.append("<td>" + ar.get(forB).getBoardDate() + "</td>");
 				sb.append("</tr>");
@@ -402,13 +402,13 @@ public class learningTeacherMM extends TransactionExe {
 			List<String> list = view.getList(bb);
 			mav.addObject("list",list);
 			mav.addObject("boardTitle",bb.getBoardTitle());
-			mav.addObject("boardContent",bb.getBoardContent());
+			mav.addObject("boardContent",bb.getBoardContent().replace("\r\n", "<br/>"));
 			mav.addObject("boardDate",bb.getBoardDate());
 			mav.addObject("boardId",bb.getBoardId());
 			mav.addObject("file",bb.getCutContent());
-			sb.append("<br/><input class=\"btn\" style=\"text-align:right\" type=\"button\" value=\"목록\" onClick=\"menu('3','"+ bb.getBoardCode() +"')\"/>");
-			sb.append("<input class=\"btn\" type=\"button\" value=\"수정\" onClick=\"update('"+ bb.getBoardTitle() +"','"+ bb.getBoardContent() +"','"+ bb.getBoardDate() +"')\"/>");
-			sb.append("<input class=\"btn\" type=\"button\" value=\"삭제\" onClick=\"boardDelete('"+ bb.getRoomCode() +"','"+ bb.getBoardDate() +"')\"/>");
+			sb.append("<br/><input class=\"CTXbtn\" type=\"button\" value=\"목록\" onClick=\"menu('3','"+ bb.getBoardCode() +"')\"/>");
+			sb.append("<input class=\"CTXbtn\" type=\"button\" value=\"수정\" onClick=\"update('"+ bb.getBoardTitle() +"','"+ bb.getBoardContent() +"','"+ bb.getBoardDate() +"')\"/>");
+			sb.append("<input class=\"CTXbtn_end\" type=\"button\" value=\"삭제\" onClick=\"boardDelete('"+ bb.getRoomCode() +"','"+ bb.getBoardDate() +"')\"/>");
 			mav.addObject("content", sb.toString());
 			mav.addObject("identity", session.getAttribute("identity"));
 
@@ -525,7 +525,7 @@ public class learningTeacherMM extends TransactionExe {
 					sb.append("<td>");
 					sb.append(forB+1);
 					sb.append("</td>");
-					sb.append("<td style=\"cursor:pointer\" onClick=\"viewData('"+bb.get(forB).getRoomCode() +"','" + bb.get(forB).getBoardDate() + "')\">" +bb.get(forB).getBoardTitle() + "</td>");
+					sb.append("<td class=\"CTX\" onClick=\"viewData('"+bb.get(forB).getRoomCode() +"','" + bb.get(forB).getBoardDate() + "')\">" +bb.get(forB).getBoardTitle() + "</td>");
 					sb.append("<td>" + bb.get(forB).getBoardId() + "</td>");
 					sb.append("<td>" + bb.get(forB).getBoardDate() + "</td>");
 					sb.append("</tr>");
@@ -967,7 +967,7 @@ public class learningTeacherMM extends TransactionExe {
 					sb.append("<td>");
 					sb.append(forB+1);
 					sb.append("</td>");
-					sb.append("<td style=\"cursor:pointer\" onClick=\"viewData('"+bb.get(forB).getRoomCode() +"','" + bb.get(forB).getBoardDate() + "')\">" +bb.get(forB).getBoardTitle() + "</td>");
+					sb.append("<td class=\"CTX\" onClick=\"viewData('"+bb.get(forB).getRoomCode() +"','" + bb.get(forB).getBoardDate() + "')\">" +bb.get(forB).getBoardTitle() + "</td>");
 					sb.append("<td>" + bb.get(forB).getBoardId() + "</td>");
 					sb.append("<td>" + bb.get(forB).getBoardDate() + "</td>");
 					sb.append("</tr>");
@@ -1214,7 +1214,8 @@ public class learningTeacherMM extends TransactionExe {
 			board.setBoardId((String)session.getAttribute("tcId"));
 			System.out.println(session.getAttribute("tcId"));
 			System.out.println("루트 : " + board.getBoardRoute()); 
-
+			
+			
 			if(dao.tclearningNoticeInsert(board) != 0) {
 				System.out.println("글좀쓰자제발");
 				transaction = true;
@@ -1315,7 +1316,7 @@ public class learningTeacherMM extends TransactionExe {
 		try {
 			session.getAttribute("roomCode");
 			board.setRoomCode((String)session.getAttribute("roomCode"));
-
+			System.out.println(board.getBoardTitle());
 			if(dao.tclearningNoticeUpdate(board) != 0) {
 				System.out.println("공지사항 수정 완료");
 				transaction = true;
@@ -1426,7 +1427,8 @@ public class learningTeacherMM extends TransactionExe {
 					sb.append("<td>");
 					sb.append(forB+1);
 					sb.append("</td>");
-					sb.append("<td style=\"cursor:pointer\" onClick=\"viewData('"+bb.get(forB).getRoomCode() +"','" + bb.get(forB).getBoardDate() + "')\">" +bb.get(forB).getBoardTitle() + "</td>");
+					sb.append("<td class=\"CTX\" onClick=\"viewData('"+bb.get(forB).getRoomCode() +"','" + bb.get(forB).getBoardDate() + "')\">" +bb.get(forB).getBoardTitle() + "</td>");
+					
 					sb.append("<td>" + bb.get(forB).getBoardId() + "</td>");
 					sb.append("<td>" + bb.get(forB).getBoardDate() + "</td>");
 					
@@ -1909,7 +1911,7 @@ public class learningTeacherMM extends TransactionExe {
 				sb.append("<tr>");	
 				sb.append("<td>"+ (forB+1) +"</td>");
 				//sb.append("<input type=\"hidden\" name=\"boardTitle\" value='" + board.getBoardTitle() + "'/>");
-				sb.append("<td style=\"cursor:pointer\" onClick=\"confirm('"+ ar.get(forB).getBoardTitle() +"','" + ar.get(forB).getBoardDate() + "','"+ board.getId() +"')\">" + ar.get(forB).getBoardTitle() + "</td>");
+				sb.append("<td class=\"CTX\" onClick=\"confirm('"+ ar.get(forB).getBoardTitle() +"','" + ar.get(forB).getBoardDate() + "','"+ board.getId() +"')\">" + ar.get(forB).getBoardTitle() + "</td>");
 				sb.append("<td>" + ar.get(forB).getBoardId() + "</td>");
 				sb.append("<td>" + ar.get(forB).getBoardDate() + "</td>");
 				sb.append("</tr>");
@@ -1965,8 +1967,12 @@ public class learningTeacherMM extends TransactionExe {
 
 			board = dao.tclearningDebateCTX(board);
 			board.setBoardCode((String)session.getAttribute("identity"));
-			mav.addObject("content", getTclearningDebateCTX(board));
-
+			//mav.addObject("content", getTclearningDebateCTX(board));
+			mav.addObject("boardTitle", board.getBoardTitle());
+			mav.addObject("boardId", board.getBoardId());
+			mav.addObject("boardDate", board.getBoardDate());
+			mav.addObject("boardContent", board.getBoardContent().replace("\r\n", "<br/>"));
+			
 			ar = dao.learningDebateTagList(board);
 			mav.addObject("debateTagList", getlearningDebateTagList(ar));
 			mav.addObject("identity", session.getAttribute("identity"));
@@ -1984,20 +1990,30 @@ public class learningTeacherMM extends TransactionExe {
 	private String getlearningDebateTagList(ArrayList<BoardBean> ar) { // 토론게시판 댓글 리스트
 		StringBuffer sb = new StringBuffer();
 
-		sb.append("<table class=\"table table-hover\" >");
+		/*sb.append("<table>");
 		sb.append("<tr>");
 		sb.append("<td> 작성자 </td>");
 		sb.append("<td> 내용 </td>");
 		sb.append("<td> 날짜 </td>");
-		sb.append("</tr>");
+		sb.append("</tr>");*/
 		for(int i=0; i < ar.size(); i++) {
+			sb.append("<table>");
 			sb.append("<tr>");
+			sb.append("<td class=\"tag_id\">" + ar.get(i).getStudentName()+ "</td>");
+			sb.append("<td class=\"tag_date\">" + ar.get(i).getTagDate() + "</td>");
+			sb.append("<td class=\"tag_delete\">"+ "<input type='button' class=\"CTXbtn\" style=\"border:none\" value='삭제'onClick=\"tagDelete(\'"+bb.getBoardTitle()+"\',"+"\'"+bb.getBoardDate()+"\',"+"\'"+bb.getRoomCode()+"\',"+"\'"+bb.getBoardId()+"\',"+"\'"+taglist.get(i).getTagDate()+"\',"+"\'"+taglist.get(i).getTagId()+"\')\" />"+"</td>");
+			sb.append("</tr>");
+			sb.append("<tr>");
+			sb.append("<td class=\"tag_content\" colspan=\"3\">" + ar.get(i).getTagContent().replace("\r\n", "<br/>") + "</td>");
+			sb.append("</tr>");
+			sb.append("</table>");
+			/*sb.append("<tr>");
 			sb.append("<td>" + ar.get(i).getStudentName() + "</td>");
 			sb.append("<td>" + ar.get(i).getTagContent() + "</td>");
 			sb.append("<td>" + ar.get(i).getTagDate() + "</td>");
-			sb.append("</tr>");
+			sb.append("</tr>");*/
 		}
-		sb.append("</table>");
+		//sb.append("</table>");
 
 		return sb.toString();
 	}
@@ -2005,7 +2021,7 @@ public class learningTeacherMM extends TransactionExe {
 	private String getTclearningDebateCTX(BoardBean board) { // 토론게시판 내용 끌고오기
 		StringBuffer sb = new StringBuffer();
 		System.out.println("신분한번터 : " + board.getBoardCode());
-		sb.append("<table class=\"table table-hover\" >");
+		/*sb.append("<table>");
 		sb.append("<tr>");
 		sb.append("<td>제목 : " + board.getBoardTitle() + "</td>");
 		sb.append("</tr>");
@@ -2016,13 +2032,20 @@ public class learningTeacherMM extends TransactionExe {
 		sb.append("<td>작성자 : " + board.getBoardId() + "</td>");
 		sb.append("</tr>");
 		sb.append("<tr>");
-		sb.append("<td>내용 : " + board.getBoardContent() + "</td>");
+		sb.append("<td>내용 : " + board.getBoardContent().replace("\r\n", "<br/>") + "</td>");
 		sb.append("</tr>");
 		sb.append("</table>");
 		sb.append("<input type=\"button\" value=\"목록\" onClick=\"menu('5','"+ board.getBoardCode() +"')\"/>");
-		sb.append("<input type=\"button\" value=\"수정\" onClick=\"update('"+ board.getBoardTitle() +"','"+ board.getBoardContent() +"','"+ board.getBoardDate() +"')\"/>");
+		sb.append("<input class=\"CTXbtn\" type=\"button\" value=\"수정\" onClick=\"update('"+ board.getBoardTitle() +"','"+ board.getBoardContent() +"','"+ board.getBoardDate() +"')\"/>");
+		sb.append("<input type=\"button\" value=\"삭제\" onClick=\"boardDelete('"+ board.getRoomCode() +"','"+ board.getBoardDate() +"')\"/>");*/
+		ModelAndView mav = new ModelAndView();
+		
+		
+		sb.append("<input type=\"button\" value=\"목록\" onClick=\"menu('5','"+ board.getBoardCode() +"')\"/>");
+		sb.append("<input class=\"CTXbtn\" type=\"button\" value=\"수정\" onClick=\"update('"+ board.getBoardTitle() +"','"+ board.getBoardContent() +"','"+ board.getBoardDate() +"')\"/>");
 		sb.append("<input type=\"button\" value=\"삭제\" onClick=\"boardDelete('"+ board.getRoomCode() +"','"+ board.getBoardDate() +"')\"/>");
 		return sb.toString();
+		
 	}
 
 	private ModelAndView tclearningDebateUpdatePage(BoardBean board) { // 선생님 토론게시판 수정 페이지
@@ -2153,7 +2176,7 @@ public class learningTeacherMM extends TransactionExe {
 			List<String> list = view.getList(bb);
 			mav.addObject("list",list);
 			mav.addObject("theme",bb.getBoardTitle());
-			mav.addObject("content",bb.getBoardContent());
+			mav.addObject("content",bb.getBoardContent().replace("\r\n", "<br/>"));
 			mav.addObject("date",bb.getBoardDate());
 			mav.addObject("writeId",bb.getBoardId());
 			mav.addObject("roomCode",bb.getRoomCode());
@@ -2162,25 +2185,30 @@ public class learningTeacherMM extends TransactionExe {
 			board.setBoardTitle(bb.getBoardTitle());
 			taglist = dao.learningQuestionTagCXT(board);
 
-			sb.append("<table class=\"table table-hover\" >");
+			/*sb.append("<table>");
 			sb.append("<tr>");
 			sb.append("<td>내용</td>");
 			sb.append("<td>날짜</td>");
 			sb.append("<td>아이디</td>");
-			sb.append("</tr>");
+			sb.append("</tr>");*/
+			
 			for(int i=0; i<taglist.size(); i++) {
 				if(taglist.size()!=0) {
+					sb.append("<table>");
 					sb.append("<tr>");
-					sb.append("<td>" + taglist.get(i).getTagContent() + "</td>");
-					sb.append("<td>" + taglist.get(i).getTagDate() + "</td>");
-					sb.append("<td>" + taglist.get(i).getTagId() + "</td>");
-					sb.append("<td>"+ "<input type='button' class='btn'value='삭제'onClick=\"tagDelete(\'"+bb.getBoardTitle()+"\',"+"\'"+bb.getBoardDate()+"\',"+"\'"+bb.getRoomCode()+"\',"+"\'"+bb.getBoardId()+"\',"+"\'"+taglist.get(i).getTagDate()+"\',"+"\'"+taglist.get(i).getTagId()+"\')\" />"+"</td>"); 
+					sb.append("<td class=\"tag_id\">" + taglist.get(i).getTagId()+ "</td>");
+					sb.append("<td class=\"tag_date\">" + taglist.get(i).getTagDate() + "</td>");
+					sb.append("<td class=\"tag_delete\">"+ "<input type='button' class=\"CTXbtn\" style=\"border:none\" value='삭제'onClick=\"tagDelete(\'"+bb.getBoardTitle()+"\',"+"\'"+bb.getBoardDate()+"\',"+"\'"+bb.getRoomCode()+"\',"+"\'"+bb.getBoardId()+"\',"+"\'"+taglist.get(i).getTagDate()+"\',"+"\'"+taglist.get(i).getTagId()+"\')\" />"+"</td>");
 					sb.append("</tr>");
+					sb.append("<tr>");
+					sb.append("<td class=\"tag_content\" colspan=\"3\">" + taglist.get(i).getTagContent().replace("\r\n", "<br/>") + "</td>");
+					sb.append("</tr>");
+					sb.append("</table>");
 				}else {
 					break;
 				}
 			}
-			sb.append("</table>");
+		
 
 			mav.addObject("message", message);
 			mav.addObject("taglists", sb.toString());
@@ -2439,8 +2467,8 @@ public class learningTeacherMM extends TransactionExe {
 				sb.append("<table id='tableText'>");
 
 				sb.append("<tr>");
-				sb.append("<td>" + "<button class='btn' onClick=update("+board.getBoardCode()+","+board.getRoomCode()+",'"+board.getBoardTitle()+"','"+board.getBoardContent()+"') />" + "수정" + "</button>" + "</td>");
-				sb.append("<td>" + "<button class='btn' onClick=deleteCXT("+board.getBoardCode()+","+board.getRoomCode()+") />" + "삭제" + "</button>" + "</td>");
+				sb.append("<td>" + "<button class=\"CTXbtn\" onClick=update("+board.getBoardCode()+","+board.getRoomCode()+",'"+board.getBoardTitle()+"','"+board.getBoardContent()+"') />" + "수정" + "</button>" + "</td>");
+				sb.append("<td>" + "<button class=\"CTXbtn_end\" onClick=deleteCXT("+board.getBoardCode()+","+board.getRoomCode()+") />" + "삭제" + "</button>" + "</td>");
 				sb.append("</tr>");
 				sb.append("</table>");
 				sb.append("<br/>");
@@ -2451,7 +2479,8 @@ public class learningTeacherMM extends TransactionExe {
 
 				// 게시글 댓글(너가 여기서부터 댓글 뽑아내면되)
 				li= dao.teacherTaskTag(board);
-
+				sb = new StringBuffer();
+				sb.append("<br/>");
 				sb.append("<h3 style=\"padding-left:10px\">제출자명단</h3>");
 				sb.append("<table class=\"table table-hover\">");
 				sb.append("<tr>");
@@ -2484,10 +2513,10 @@ public class learningTeacherMM extends TransactionExe {
 					sb.append(li.get(i).getBoardDate());
 					sb.append("</td>");
 					sb.append("<td>");
-					sb.append("<button class = 'btn' onClick=checkFilec("+board.getBoardCode()+","+board.getRoomCode()+",'"+li.get(i).getStudentCode()+"') />" + "자세히 보기" + "</button>");
+					sb.append("<button class =\"CTXbtn\" style=\"border:none; color:blue;\" onClick=checkFilec("+board.getBoardCode()+","+board.getRoomCode()+",'"+li.get(i).getStudentCode()+"') />" + "자세히 보기" + "</button>");
 					sb.append("</td>");
 					sb.append("<td>");
-					sb.append("<button class = 'btn' onClick=scorePage("+board.getTagCode()+","+board.getRoomCode()+",'"+board.getStudentCode()+"') />" + "점수" + "</button>");
+					sb.append("<button class =\"CTXbtn\" style=\"border:none; color:blue;\" onClick=scorePage("+board.getTagCode()+","+board.getRoomCode()+",'"+board.getStudentCode()+"') />" + "점수 등록" + "</button>");
 					sb.append("</td>");
 					sb.append("<td>");
 					sb.append(sexual);
@@ -2522,7 +2551,7 @@ public class learningTeacherMM extends TransactionExe {
 				for(int i = 0; i < al.size(); i++) {
 					sb.append("<tr>");
 					sb.append("<td>");
-					sb.append("<button id='click' class='btn'onClick=\"questionCXT(\'"+ al.get(i).getBoardCode() +"\')\" />" + al.get(i).getBoardTitle() + "</button>");
+					sb.append("<button class=\"taskCTX\" id='click' onClick=\"questionCXT(\'"+ al.get(i).getBoardCode() +"\')\" />" + al.get(i).getBoardTitle() + "</button>");
 					sb.append("</td>");
 					sb.append("<td>");
 					sb.append(al.get(i).getBoardDate());

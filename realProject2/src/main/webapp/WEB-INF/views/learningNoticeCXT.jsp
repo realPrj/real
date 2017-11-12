@@ -82,6 +82,7 @@ function menu(ivalue, identity){
    
 }
 function update(boardTitle, boardContent, boardDate){
+	alert(boardContent);
    var f = document.createElement("form");
    f.name = "noticeUpdate";
    f.method = "post";
@@ -166,8 +167,51 @@ function eventClick(formname, formaction, formmethod) {
 
 }
 
+function ok(){
+	var str, t;
+    t = document.getElementById("ok");
+    str = t.innerHTML;
+    alert(str);
+}
+
 </script>
 <style>
+@import url(//fonts.googleapis.com/earlyaccess/nanumgothic.css);
+ @import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
+.title{
+font-size:25pt; padding-top:5%; padding-left:10%; padding-bottom:2%; font-family: 'Noto Sans KR', sans-serif;
+}
+.date{
+font-size:11pt; padding-left:10%; padding-bottom:1%; font-family: 'Noto Sans KR', sans-serif; color:#858585; 
+}
+.content{
+font-size:11pt; margin:50px 0px 50px 100px;  padding-bottom:1%; font-family: 'Noto Sans KR', sans-serif; color:#505050; 
+}
+.file{
+font-size:13pt; padding-left:10%; font-family: 'Noto Sans KR', sans-serif; 
+}
+.filetitle{
+font-size:12pt; padding-left:10%; padding-bottom:1%; font-family: 'Noto Sans KR', sans-serif; color:#858585;
+}
+.CTXbtn{
+border:none; border-right:1px black solid; background:#FFFFFF; font-size:11pt;
+}
+.CTXbtn_end{
+border:none; background:#FFFFFF;  font-size:11pt;
+}
+.CTXbtn:hover{
+text-decoration : underline; cursor:pointer
+}
+.CTXbtn:active{
+color:#3669CF;
+}
+.CTXbtn_end:hover{
+text-decoration : underline; cursor:pointer
+}
+.CTXbtn_end:active{
+color:#3669CF;
+}
+
 
 </style>
 </head>
@@ -231,7 +275,7 @@ function eventClick(formname, formaction, formmethod) {
       </div>
       
        <!-- 상단바 영역 -->
-
+	
 
       <div class="main-panel">
          <nav class="navbar navbar-default">
@@ -266,16 +310,15 @@ function eventClick(formname, formaction, formmethod) {
 
          <!-- 질문게시판 내용확인 -->
 
-         <div class="col-lg-35 col-md-12"
-            style="display: inline-block; text-align: center;">
+         <div class="col-lg-35 col-md-12">
             <div class="card">
 			<br/>
-               <h2>
+               <h2 style="font-family: 'Nanum Gothic', sans-serif">
                   <b>공지사항</b>
                </h2>
 
 
-               <div id="content" 
+               <%-- <div id="content" 
                   style="display: inline-block; ">
                   <input type="hidden" name="pageNum" value="${pageNum}"> <input
                      type="hidden" name="articleNumber"
@@ -320,7 +363,25 @@ function eventClick(formname, formaction, formmethod) {
                		${content }	
                		</div>
 					
-               </div>
+               </div> --%>
+               
+               <input type="hidden" name="pageNum" value="${pageNum}">
+               	<div class="title">${boardTitle }</div>
+               	<div class="date">작성자 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ${boardId }</div>
+               	<div class="date">등록일 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  ${boardDate }</div>
+               	<hr/>
+               
+               	<div id="ok" class="content">${boardContent}</div>
+               	<hr/>
+               	<div class="filetitle">첨부파일</div>
+               	<div class="file">
+              	<c:forEach var="file" items="${list }">
+                <a href="download.action?name=${file}">${file}</a>
+                </c:forEach>
+                </div>
+                <div style="margin-left:80%">${content }</div>	
+                <!-- <input type="button" value="아오진짜" onClick="ok()"/> -->
+               	<br/>
                
             </div>
          </div>

@@ -141,7 +141,7 @@ function idRedundancyCheck(){
 		아이디　 　　&nbsp;&nbsp; <input type="text" name="id" value="${id }"  class="box" placeholder="아이디 입력" >
 		<input type="button" value="아이디 중복검사" class="btn" onClick="idRedundancyCheck()" style="float:right;"/>
 		<br/>
-		<div id="idCheck"></div>
+		<div id="idCheck" style="color:red; margin-left:100px"></div>
 		<br/>
 		비밀번호 　　 &nbsp;&nbsp;<input type="password" name="pwd" class="box" placeholder="비밀번호"><br/>
 		<br/>

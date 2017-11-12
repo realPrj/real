@@ -17,7 +17,7 @@
 <meta name="viewport" content="width=device-width" />
 
 
-<link href="assets/css/css.css" rel="stylesheet" />
+<link rel="stylesheet" href="assets/css/css.css" />
 <!-- Bootstrap core CSS     -->
 <link href="assets/css/bootstrap.min.css" rel="stylesheet" />
 
@@ -149,6 +149,14 @@
 </script>
 <style>
 @import url(//fonts.googleapis.com/earlyaccess/nanumgothic.css);
+
+.CTX:hover{
+text-decoration : underline; cursor:pointer;
+}
+
+.CTX:active{
+color:#3669CF
+}
 </style>
 <body onLoad="${message}">
 

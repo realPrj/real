@@ -95,6 +95,7 @@ function NoticeUpdateOk(){
 	document.noticeUpdate.submit();
 	
 }
+
 </script>
 <style>
 .upload {  
@@ -328,7 +329,8 @@ textarea{
 						</div>
 						<div style="margin:20px;">
 							<p>내용</p>
-							<textarea rows="20" name="boardContent">${boardContent}</textarea>
+							<textarea id="ok" name="boardContent">${boardContent }</textarea>
+							
 							</div>
 							<div style="margin:20px;">
 							
@@ -353,6 +355,7 @@ textarea{
       						<br/>
       						
 							</div>
+							 ${boardDate }
 							</form>
 
             </div>
