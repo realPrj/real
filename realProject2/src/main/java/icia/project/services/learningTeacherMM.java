@@ -488,7 +488,7 @@ public class learningTeacherMM extends TransactionExe {
 		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
 
 		try {
-			System.out.println(board.getRoomCode());
+
 			session.getAttribute("roomCode");
 			mav.addObject("content",session.getAttribute("roomCode") + "자료실");
 			board.setRoomCode((String)session.getAttribute("roomCode"));
@@ -508,18 +508,19 @@ public class learningTeacherMM extends TransactionExe {
 			// 페이지
 			int forI = 0; // 크게 한사람
 			int forB = 0;	// 내용물
-			int pageCount = 5; // 
-
+			int pageCount = 5;
+			int pageCount2 = pageCount;
+			
 			double sizeDouble = bb.size() / (double)pageCount;
 
 			for(forI=0; forI < sizeDouble; forI++) {
 
-				if(bb.size()< pageCount) {
+				if(bb.size() < pageCount) {
 					pageCount= bb.size();
 				}
-
+				
 				sb.append("<tbody name=tbody"+forI+" id=tbody"+forI+">");
-
+			
 				for(forB=forB; forB<pageCount; forB++) {
 					sb.append("<tr>");
 					sb.append("<td>");
@@ -529,11 +530,11 @@ public class learningTeacherMM extends TransactionExe {
 					sb.append("<td>" + bb.get(forB).getBoardId() + "</td>");
 					sb.append("<td>" + bb.get(forB).getBoardDate() + "</td>");
 					sb.append("</tr>");
-
+			
 				}
 				sb.append("</tbody>");	
 
-				pageCount+=pageCount;
+				pageCount+=pageCount2;
 
 
 			}
@@ -3364,7 +3365,7 @@ public class learningTeacherMM extends TransactionExe {
 
 			al = dao.learningWANAllStudentCode(board);
 
-			sb.append("<select id='selectid' name='number'>");
+			sb.append("<select id='selectid' class='btn btn-primary' name='number'>");
 			sb.append("<option>학생선택</option>");
 			for(int i = 0; i < al.size(); i++) {
 				board = new BoardBean();
