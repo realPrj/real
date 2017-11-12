@@ -46,7 +46,7 @@ border-radius:4px; height:27px; padding:0 10px; background:#D6C8A1; color:#42424
 
 textarea{
 	display: block;
-	width: 55%;
+	width: 500px;
 	height: 100px;
 	padding: 6px 12px;
 	font-size: 14px;
@@ -68,7 +68,7 @@ textarea{
 
 .input_file{
 	display: block;
-	width: 95%;
+	width: 200px;
 	height: 22px;
 	padding: 6px 12px;
 	font-size: 14px;

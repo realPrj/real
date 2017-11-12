@@ -107,22 +107,6 @@ function update(boardTitle, boardContent, boardDate){
    date.value = boardDate;
    f.appendChild(date); 
    
-    /* createinput("hidden", "boardTitle", boardTitle);
-	createinput("hidden", "boardDate", boardData);
-	createinput("hidden", "boardContent", boardContent);
-   
-	createForm("noticeUpdate", "NoticeUpdatePage","post");
-	
-	var form = document.getElementsByName("noticeUpdate")[0];
-
-	var boardTitle = document.getElementsByName("boardTitle")[0];
-	var boardDate = document.getElementsByName("boardDate")[0];
-	var boardContent = document.getElementsByName("boardContent")[0];
-	
-	form.appendChild(boardTitle);
-	form.appendChild(boardDate);
-	form.appendChild(boardContent); */
-	
    document.noticeUpdate.submit();
 }
 

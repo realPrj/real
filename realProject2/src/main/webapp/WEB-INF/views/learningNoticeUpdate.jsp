@@ -75,24 +75,14 @@ function menu(ivalue, identity) {
 
 }
 function NoticeUpdateOk(boardDate){
-	/* var f = document.createElement("form");
-	f.name = "noticeUpdate";
-	f.method = "post";
-	f.action = "NoticeUpdate";
-	document.body.appendChild(f);
-	
-	var date = document.getElementsByName("boardDate")[0];
-	var content = document.getElementsByName("boardContent")[0];
-	var title = document.getElementsByName("boardTitle")[0];
-	
-	f.appendChild(date);
-	f.appendChild(content);
-	f.appendChild(file);
-	f.appendChild(title); */
 	
 	var f = document.getElementsByName("noticeUpdate");
 	
-	document.noticeUpdate.submit();
+	if(confirm("공지사항을 수정하시겠습니까?")){
+		document.noticeUpdate.submit();
+		alert("공지사항이 수정되었습니다");
+	}
+	
 	
 }
 
