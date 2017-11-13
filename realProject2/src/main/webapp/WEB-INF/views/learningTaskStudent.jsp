@@ -125,8 +125,9 @@
 
 	}
 	function confirm(boardTitle, roomCode, boardCode) {
-	
-	      
+		 alert(boardTitle);
+		 alert(roomCode);
+		 alert(boardCode);
 	      createinput("hidden", "boardTitle", boardTitle);
 	      createinput("hidden", "roomCode", roomCode);
 	      createinput("hidden", "boardCode", boardCode);
@@ -349,6 +350,7 @@ color:#3669CF;
 					<br/><br/>
 
 					${taskList }
+					${button2 }
 					
 					<hr />
 					<h3 style="padding-left:10px">과제정보</h3>
