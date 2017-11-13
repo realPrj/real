@@ -289,7 +289,6 @@ public class learningTeacherMM extends TransactionExe {
 			break;
 
 
-
 		}
 
 		return mav;
@@ -308,7 +307,7 @@ public class learningTeacherMM extends TransactionExe {
 
 			board.setRoomCode((String)session.getAttribute("roomCode"));
 			board.setId((String)session.getAttribute("identity"));
-			//mav.addObject("content",session.getAttribute("roomCode") + "의 공지사항");
+
 			ar = dao.tclearningNoticeList(board);
 			mav.addObject("content", tclearningNoticeList(board,ar));
 			mav.addObject("identity", session.getAttribute("identity"));
@@ -373,8 +372,6 @@ public class learningTeacherMM extends TransactionExe {
 	}
 
 
-
-
 	private ModelAndView tclearningNoticeCTX(BoardBean board) { // 공지사항 내용확인
 		mav = new ModelAndView();
 		boolean transaction = false;
@@ -398,8 +395,6 @@ public class learningTeacherMM extends TransactionExe {
 
 			bb.setCutContent(bb.getBoardRoute().substring(68));	// 파일이름
 
-			System.out.println("디비보드빈 : " + bb.getBoardTitle());
-			System.out.println("공지사항 내용확인 메서드 진입"+bb.getBoardTitle()+bb.getRoomCode());
 			List<String> list = view.getList(bb);
 			mav.addObject("list",list);
 			mav.addObject("boardTitle",bb.getBoardTitle());
@@ -492,7 +487,6 @@ public class learningTeacherMM extends TransactionExe {
 			mav.addObject("content",session.getAttribute("roomCode") + "자료실");
 			board.setRoomCode((String)session.getAttribute("roomCode"));
 
-
 			//mav.addObject("content",session.getAttribute("roomCode") + "의 공지사항");
 			bb = dao.learningQuestionlist(board);
 			sb.append("<table class=\"table table-hover\">");
@@ -502,7 +496,6 @@ public class learningTeacherMM extends TransactionExe {
 			sb.append("<td><b>작성자</b></td>");
 			sb.append("<td><b>날짜</b></td>");
 			sb.append("</tr>");
-
 
 			// 페이지
 			int forI = 0; // 크게 한사람
@@ -535,7 +528,6 @@ public class learningTeacherMM extends TransactionExe {
 
 				pageCount+=pageCount2;
 
-
 			}
 
 			sb.append("</table>");
@@ -546,7 +538,6 @@ public class learningTeacherMM extends TransactionExe {
 			sb.append("<div class='text-center'>");
 			sb.append("<ul class='pagination'>");
 
-
 			for(int y=0; y < sizeDouble; y++) {// 페이지 버튼
 
 				//sb.append("<li><input class='btn-sm' type='button' value="+(y+1)+" onClick='pageNumber("+y+")' /></li>");
@@ -555,12 +546,11 @@ public class learningTeacherMM extends TransactionExe {
 			sb.append("</ul>");
 			sb.append("</div>");
 
-
 			mav.addObject("content2", sb.toString());
 
 		}
 		catch(Exception ex){
-			ex.printStackTrace();
+
 		}finally {
 			setTransactionResult(transaction);
 		}
@@ -1799,13 +1789,10 @@ public class learningTeacherMM extends TransactionExe {
 
 			}// if 끝
 
-
-
 			page = "learningWANSTInformation";
 			transaction = true;
 
 		}catch(Exception ex){
-
 		}finally {
 			mav.setViewName(page);
 			setTransactionResult(transaction);
@@ -1851,10 +1838,8 @@ public class learningTeacherMM extends TransactionExe {
 
 			mav.setViewName("learningDataCXTStudent");
 			transaction = true;
-
-
+			
 		}catch(Exception ex){
-			ex.printStackTrace();
 		}finally {
 			setTransactionResult(transaction);
 		}
@@ -1880,7 +1865,6 @@ public class learningTeacherMM extends TransactionExe {
 			transaction = true;
 
 		}catch(Exception ex){
-
 		}finally {
 
 			mav.setViewName("learningDebate");
@@ -1953,7 +1937,6 @@ public class learningTeacherMM extends TransactionExe {
 
 		return sb.toString();
 
-
 	}
 
 
@@ -1985,7 +1968,6 @@ public class learningTeacherMM extends TransactionExe {
 			transaction = true;
 
 		}catch(Exception ex){
-
 		}finally {
 			mav.setViewName("learningDebateCTX");
 			setTransactionResult(transaction);
@@ -2070,7 +2052,6 @@ public class learningTeacherMM extends TransactionExe {
 			transaction = true;
 
 		}catch(Exception ex){
-
 		}finally {
 			mav.setViewName("learningDebateUpdate");
 			setTransactionResult(transaction);
@@ -2087,12 +2068,9 @@ public class learningTeacherMM extends TransactionExe {
 		try {
 			session.getAttribute("roomCode");
 			board.setRoomCode((String)session.getAttribute("roomCode"));
-			if(dao.tclearningDebateUpdate(board) != 0) {
-				System.out.println("토론게시판 업데이트 완료");
 				transaction = true;
-			}
+				
 		}catch(Exception ex){
-
 		}finally {
 			setTransactionResult(transaction);
 		}
@@ -2109,12 +2087,10 @@ public class learningTeacherMM extends TransactionExe {
 			board.setRoomCode((String)session.getAttribute("roomCode"));
 			board.setBoardId((String)session.getAttribute("tcId"));
 
-			if(dao.tclearningDebateInsert(board) != 0) {
-				System.out.println("토론게시판 글쓰기 성공");
-				transaction = true;
-			}
-		}catch(Exception ex){
+			dao.tclearningDebateInsert(board);
 
+			transaction = true;
+		}catch(Exception ex){
 		}finally {
 			setTransactionResult(transaction);
 		}
@@ -2138,7 +2114,6 @@ public class learningTeacherMM extends TransactionExe {
 			transaction = true;
 
 		}catch(Exception ex){
-
 		}finally {
 			mav.setViewName("learningDebateInsert");
 			setTransactionResult(transaction);
@@ -2169,9 +2144,6 @@ public class learningTeacherMM extends TransactionExe {
 
 			board.setStudentCode((String)session.getAttribute("stCode"));
 
-
-
-
 			DbBoardBean bb = dao.questionBoardCXT(board);   // 전체 루트(파일이름까지)
 
 			bb.setCutRoute(bb.getBoardRoute().substring(0,68));   // 루트만
@@ -2189,13 +2161,6 @@ public class learningTeacherMM extends TransactionExe {
 			mav.addObject("file",bb.getCutContent());
 			board.setBoardTitle(bb.getBoardTitle());
 			taglist = dao.learningQuestionTagCXT(board);
-
-			/*sb.append("<table>");
-			sb.append("<tr>");
-			sb.append("<td>내용</td>");
-			sb.append("<td>날짜</td>");
-			sb.append("<td>아이디</td>");
-			sb.append("</tr>");*/
 
 			for(int i=0; i<taglist.size(); i++) {
 				if(taglist.size()!=0) {
@@ -2223,9 +2188,7 @@ public class learningTeacherMM extends TransactionExe {
 			mav.setViewName("learningQuestionCXT");
 			transaction = true;
 
-
 		}catch(Exception ex){
-			ex.printStackTrace();
 		}finally {
 			setTransactionResult(transaction);
 		}
@@ -2251,15 +2214,11 @@ public class learningTeacherMM extends TransactionExe {
 			if(dao.learningQuestionTag(board) !=0) {
 				chat.msg(board.getId()+"댓글을 입력해셨습니다");
 				System.out.println("성공은햇어");
-			}else {
-				System.out.println("실패");
 			}
 			mav.setViewName("learningQuestionCXT");
 			transaction = true;
 
-
 		}catch(Exception ex){
-			ex.printStackTrace();
 		}finally {
 			setTransactionResult(transaction);
 		}
@@ -2282,7 +2241,6 @@ public class learningTeacherMM extends TransactionExe {
 				transaction = true;
 			}
 		}catch(Exception ex){
-
 		}finally {
 			setTransactionResult(transaction);
 		}
@@ -2352,7 +2310,6 @@ public class learningTeacherMM extends TransactionExe {
 			transaction = true;
 
 		}catch(Exception ex){
-
 		}finally {
 			mav.setViewName("teacherLearningSTadmin");
 			setTransactionResult(transaction);
@@ -2428,7 +2385,6 @@ public class learningTeacherMM extends TransactionExe {
 
 
 		}catch(Exception ex){
-			ex.printStackTrace();
 		}finally {
 			setTransactionResult(transaction);
 		}
@@ -2611,7 +2567,6 @@ public class learningTeacherMM extends TransactionExe {
 			transaction = true;
 
 		}catch(Exception ex){
-			ex.printStackTrace();
 		}finally {
 			setTransactionResult(transaction);
 		}
@@ -2654,7 +2609,6 @@ public class learningTeacherMM extends TransactionExe {
 			transaction = true;
 
 		}catch(Exception ex){
-
 		}finally {
 			setTransactionResult(transaction);
 		}
@@ -2678,14 +2632,12 @@ public class learningTeacherMM extends TransactionExe {
 			transaction = true;
 
 		}catch(Exception ex){
-
 		}finally {
 			setTransactionResult(transaction);
 		}
 
 		return mav;
 	}
-
 
 
 	private ModelAndView adminChating() { // 채팅
@@ -2704,10 +2656,7 @@ public class learningTeacherMM extends TransactionExe {
 
 			mav.addObject("id",board.getId());
 			mav.addObject("roomCode", board.getRoomCode());
-			System.out.println("adminChating");
-			System.out.println(board.getRoomCode());
 
-			System.out.println("adminChating");
 			if(Integer.parseInt(board.getRoomCode()) !=447) {
 				mav.setViewName("adminChating");
 			}else {
@@ -2717,7 +2666,6 @@ public class learningTeacherMM extends TransactionExe {
 
 
 		}catch(Exception ex){
-			ex.printStackTrace();
 		}finally {
 			setTransactionResult(transaction);
 		}
@@ -2735,11 +2683,8 @@ public class learningTeacherMM extends TransactionExe {
 			if(dao.learningTaskCXTDelete(board) != 0) {
 
 				transaction = true;
-
 			}
-
 		}catch(Exception ex){
-
 		}finally {
 			setTransactionResult(transaction);
 		}
@@ -2764,16 +2709,13 @@ public class learningTeacherMM extends TransactionExe {
 			board.setStudentCode(board.getStudentCode());
 			board.setStudentName(dao.stNameGet(board));	
 
-
 			DbBoardBean bb = dao.learningTesk(board);   // 전체 루트(파일이름까지)
 
 			bb.setCutRoute(bb.getBoardRoute().substring(0,68));   // 루트만
 
 			bb.setCutContent(bb.getBoardRoute().substring(68));   // 파일이름
 
-
 			List<String> list = view.getList(bb);
-
 
 			mav.addObject("list",list);
 			mav.addObject("name",board.getStudentName());
@@ -2786,8 +2728,6 @@ public class learningTeacherMM extends TransactionExe {
 
 
 		}catch(Exception ex){
-			ex.printStackTrace();
-
 		}finally {
 			setTransactionResult(transaction);
 		}
@@ -2812,7 +2752,6 @@ public class learningTeacherMM extends TransactionExe {
 			transaction = true;
 
 		}catch(Exception ex){
-
 		}finally {
 			mav.setViewName("learningMSG");
 			setTransactionResult(transaction);
@@ -2836,12 +2775,9 @@ public class learningTeacherMM extends TransactionExe {
 				mav.addObject("messageOther", board.getStudentCode());
 			}
 
-
-
 			transaction = true;
 
 		}catch(Exception ex){
-
 		}finally {
 			mav.setViewName("learningSendMSG");
 			setTransactionResult(transaction);
@@ -2927,7 +2863,7 @@ public class learningTeacherMM extends TransactionExe {
 			}
 
 			sb.append("<tbody name=tbody"+forI+" id=tbody"+forI+">");
-			//sb.append("<tbody id=\"myTable\">");
+
 			for(forB=forB; forB<pageCount; forB++) {
 				sb.append("<tr>");
 				sb.append("<td>"+ (forB+1) +"</td>");
@@ -2976,8 +2912,6 @@ public class learningTeacherMM extends TransactionExe {
 		}
 		return mav;
 	}
-
-
 
 	private String getlearningGetMessageList(ArrayList<BoardBean> ar, BoardBean board) { // 받은쪽지 리스트 끌고오기
 		StringBuffer sb = new StringBuffer();
@@ -3028,7 +2962,6 @@ public class learningTeacherMM extends TransactionExe {
 			board.setMessageCode("S");
 			board.setMessageId((String)session.getAttribute("tcId"));
 
-
 			board = dao.sentMessageCTX(board);
 
 			mav.addObject("id", "받은사람");
@@ -3039,18 +2972,14 @@ public class learningTeacherMM extends TransactionExe {
 			mav.addObject("messageContent", board.getMessageContent());
 
 			board.setIdentity((String)session.getAttribute("identity"));
-			System.out.println("보낸쪽지 서비스 : " + board.getIdentity());
-
 
 			sb.append("<input type=\"button\" value=\"목록\" onClick=\"message('"+3+"','"+board.getIdentity()+"')\"/>");
 			sb.append("<input type=\"button\" value=\"삭제\" onClick=\"messageDelete('"+board.getIdentity()+"','"+board.getRoomCode()+"','"+board.getMessageCode()+"','"+board.getMessageDate()+"')\"/>");
 			mav.addObject("button", sb.toString());
 
-
 			transaction = true;
 
 		}catch(Exception ex){
-
 		}finally {
 			mav.setViewName("learningMSGctx");
 			setTransactionResult(transaction);
@@ -3083,7 +3012,6 @@ public class learningTeacherMM extends TransactionExe {
 
 			board.setIdentity((String)session.getAttribute("identity"));
 
-
 			sb.append("<input class=\"btn btn-sm\" type=\"button\" value=\"답장\" onClick=\"reply('"+board.getMessageOther()+"','"+session.getAttribute("identity")+"')\"/>");
 
 			sb.append("<input class=\"btn btn-sm\" type=\"button\" value=\"목록\" onClick=\"message('"+2+"','"+board.getIdentity()+"')\"/>");
@@ -3094,7 +3022,6 @@ public class learningTeacherMM extends TransactionExe {
 			transaction = true;
 
 		}catch(Exception ex){
-
 		}finally {
 			mav.setViewName("learningMSGctx");
 			setTransactionResult(transaction);
@@ -3120,7 +3047,6 @@ public class learningTeacherMM extends TransactionExe {
 			transaction = true;
 
 		}catch(Exception ex){
-
 		}finally {
 			setTransactionResult(transaction);
 		}
@@ -3145,7 +3071,6 @@ public class learningTeacherMM extends TransactionExe {
 			transaction = true;
 
 		}catch(Exception ex){
-
 		}finally {
 			setTransactionResult(transaction);
 		}
@@ -3181,13 +3106,11 @@ public class learningTeacherMM extends TransactionExe {
 			transaction = true;
 
 		}catch(Exception ex){
-
 		}finally {
 			setTransactionResult(transaction);
 		}
 		return mav;
 	}
-
 
 	private ModelAndView learningPlanCTXPage(BoardBean board) { // 강의 계획서 자세히 보기 페이지
 
@@ -3208,11 +3131,7 @@ public class learningTeacherMM extends TransactionExe {
 
 				bb.setCutContent(bb.getBoardRoute().substring(68));   // 파일이름
 
-
 				List<String> list = view.getList(bb);
-
-
-
 
 				mav.addObject("list",list);
 				mav.addObject("title", "<input type='text' name='boardTitle' value="+bb.getBoardTitle()+" readonly/>");
@@ -3233,7 +3152,6 @@ public class learningTeacherMM extends TransactionExe {
 			transaction = true;
 
 		}catch(Exception ex){
-			ex.printStackTrace();
 		}finally {
 			setTransactionResult(transaction);
 		}
@@ -3255,7 +3173,6 @@ public class learningTeacherMM extends TransactionExe {
 			transaction = true;
 
 		}catch(Exception ex){
-			ex.printStackTrace();
 		}finally {
 			setTransactionResult(transaction);
 		}
@@ -3275,7 +3192,6 @@ public class learningTeacherMM extends TransactionExe {
 			transaction = true;
 
 		}catch(Exception ex){
-
 		}finally {
 			setTransactionResult(transaction);
 		}
@@ -3295,13 +3211,11 @@ public class learningTeacherMM extends TransactionExe {
 			transaction = true;
 
 		}catch(Exception ex){
-
 		}finally {
 			setTransactionResult(transaction);
 		}
 		return null;
 	}
-
 
 	private ModelAndView scoreInsertPage(BoardBean board) { // 과제 점수 등록 페이지
 
@@ -3390,7 +3304,6 @@ public class learningTeacherMM extends TransactionExe {
 			transaction = true;
 
 		}catch(Exception ex){
-			ex.printStackTrace();
 		}finally {
 			setTransactionResult(transaction);
 		}
@@ -3415,7 +3328,6 @@ public class learningTeacherMM extends TransactionExe {
 			transaction = true;
 
 		}catch(Exception ex){
-			ex.printStackTrace();
 		}finally {
 			setTransactionResult(transaction);
 		}
