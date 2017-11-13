@@ -284,8 +284,7 @@ public class PageManagement extends TransactionExe {
 			
 			sb = new StringBuffer();
 			room.setId((String)session.getAttribute("tcId"));
-			
-			System.out.println(room.getId());
+
 			ar = dao.tcattendanceGet(room);
 
 			sb.append("<table class=\"table table-hover\">");
@@ -345,13 +344,10 @@ public class PageManagement extends TransactionExe {
 			sb.append("</ul>");
 			sb.append("</div>");
 
-
 			mav.addObject("content2", sb.toString());
-
-		}catch(Exception ex) {
-			ex.printStackTrace();
-		}finally {
 			mav.setViewName("teacherInfo");
+		}catch(Exception ex) {
+		}finally {
 			setTransactionResult(transaction);
 		}
 
