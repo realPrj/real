@@ -234,7 +234,75 @@
 
 		// 화면을 동적으로 만들어 준다
 	}
+	function resize(obj){ // 글의 높이에 맞게 textarea조정
+		obj.style.height="1px";
+		obj.style.height=(20+obj.scrollHeight)+"px";
+	}
 </script>
+<style>
+@import url(//fonts.googleapis.com/earlyaccess/nanumgothic.css);
+ @import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
+.title{
+font-size:25pt; padding-top:5%; padding-left:10%; padding-bottom:2%; font-family: 'Noto Sans KR', sans-serif;
+}
+.date{
+font-size:11pt; padding-left:10%; padding-bottom:1%; font-family: 'Noto Sans KR', sans-serif; color:#858585; 
+}
+.content{
+font-size:11pt; margin:50px 0px 50px 100px;  padding-bottom:1%; font-family: 'Noto Sans KR', sans-serif; color:#505050; 
+}
+.file{
+font-size:13pt; padding-left:10%; font-family: 'Noto Sans KR', sans-serif; 
+}
+.filetitle{
+font-size:12pt; padding-left:10%; padding-bottom:1%; font-family: 'Noto Sans KR', sans-serif; color:#858585;
+}
+.CTXbtn{
+border:none; border-right:1px black solid; background:#F6F6F6; font-size:11pt;
+}
+.CTXbtn_end{
+border:none; background:#FFFFFF;  font-size:11pt;
+}
+.CTXbtn:hover{
+text-decoration : underline; cursor:pointer
+}
+.CTXbtn:active{
+color:#3669CF;
+}
+.CTXbtn_end:hover{
+text-decoration : underline; cursor:pointer
+}
+.CTXbtn_end:active{
+color:#3669CF;
+}
+.tag{
+background:#F6F6F6; width:80%; margin-left:10%;
+}
+.tag_id{
+font-size:11pt; font-family: 'Noto Sans KR', sans-serif; color:#090909; width:12%; padding-left:1%;
+}
+.tag_date{
+font-family: 'Noto Sans KR', sans-serif; color:#757575; width:83%; 
+}
+.tag_delete{
+font-family: 'Noto Sans KR', sans-serif; color:#3F3F3F; 
+}
+.tag_content{
+font-family: 'Noto Sans KR', sans-serif; color:#505050; padding:10px;
+}
+table{
+width:95%; margin-left:3%; font-family: 'Noto Sans KR', sans-serif; border-bottom:1px solid #CFCFCF; margin-bottom:1%;
+}
+textarea{
+font-family: 'Noto Sans KR', sans-serif; width:90%; margin-left:4%; resize:none; overflow:hidden; display:block;
+}
+.insert{
+border-radius:4px; height:30px; padding:0 10px; margin:1% 4% 1% 85%; background:#D6C8A1; color:#fafafa;
+}
+.insert:hover{
+background:#C4B68F;
+}
+</style>	
 <body onLoad="init()">
 
 	<div class="wrapper">
@@ -243,7 +311,6 @@
 
 
 			<!-- 왼쪽메뉴바 영역 -->
-
 
 			<div class="sidebar-wrapper">
 				<div class="logo">
@@ -337,16 +404,15 @@
 
 			<!-- 질문게시판 내용확인 -->
 
-			<div class="col-lg-35 col-md-12"
-				style="display: inline-block; text-align: center;">
-				<div class="card">
-					<br />
-					<h2>
-						<b>질문게시판</b>
-					</h2>
+			<div class="col-lg-35 col-md-12">
+            <div class="card">
+			<br/>
+               <h2 style="font-family: 'Nanum Gothic', sans-serif">
+                  <b>질문게시판</b>
+               </h2>
 
 
-					<div id="content"
+					 <%-- <div id="content"
 						style="display: inline-block; text-align: center;">
 						<input type="hidden" name="pageNum" value="${pageNum}"> <input
 							type="hidden" name="articleNumber"
@@ -403,7 +469,30 @@
 							${taglists }
 						</div>
 
-					</div>
+					</div>  --%>
+					
+					 <input type="hidden" name="pageNum" value="${pageNum}">
+               	<div class="title">${theme }</div>
+               	<div class="date">작성자 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  ${writeId }</div>
+               	<div class="date">등록일 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  ${date }</div>
+               	<hr/>
+               
+               	<div id="ok" class="content">${content }</div>
+               	<hr/>
+               	<div class="filetitle">첨부파일</div>
+               	<div class="file">
+              	<c:forEach var="file" items="${list }">
+                <a href="download.action?name=${file}">${file}</a>
+                </c:forEach>
+                </div>
+                <div class="date" style="margin-top:5%">댓글</div>
+                <div class="tag">
+                	${taglists }
+                	
+                	<textarea onkeydown="resize(this)" name="tagContent" placeholder="댓글을 입력하세요"></textarea> 
+                	<input class="insert" type="button" value="댓글입력" id="sendBtn" onClick="tag('${theme }','${date }','${roomcode}','${writeId }')"/>
+                </div>
+               	<br/> 
 				</div>
 			</div>
 		</div>

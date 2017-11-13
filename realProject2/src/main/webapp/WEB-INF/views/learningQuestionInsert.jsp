@@ -98,13 +98,16 @@ function fileNameInput(){
    function QuestionInsert(){
 	   var f = document.getElementsByName("fileForm")[0];
 	   
-	   f.submit();
+	   if(confirm("질문을 등록하시겠습니까?")){
+		   f.submit();
+		   alert("질문이 등록되었습니다");
+	   }
+	  
    }
-   
-
-   // 자료실 form
 </script>
 <style>
+@import url(//fonts.googleapis.com/earlyaccess/nanumgothic.css);
+ @import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
 .upload {  
   opacity: 0;       /*input type="file" tag 투명하게 처리*/
   position: relative;
@@ -146,6 +149,7 @@ textarea{
 	background-image: none;
 	border: 1px solid #ccc;
 	border-radius: 4px;
+	resize:none;
 	-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
 	box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
 	-webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow
@@ -236,13 +240,7 @@ textarea{
          </div>
       </div>
 
-
-
-
-
 		<!-- 상단바 영역 -->
-
-
 		<div class="main-panel">
 			<nav class="navbar navbar-default">
 			<div class="container-fluid">
@@ -266,9 +264,7 @@ textarea{
 								<li><a onClick="menu('11')">쪽지함</a></li>
 								<li><a onClick="menu('14')">로그아웃</a></li>
 							</ul></li>
-
 					</ul>
-
 				</div>
 			</div>
 			</nav>
@@ -280,8 +276,8 @@ textarea{
 				<div class="card">
 				<div class="center">
 					<br/>
-						<h2>
-							<b>공지사항</b>
+						<h2 style="font-family: 'Nanum Gothic', sans-serif">
+							<b>질문게시판</b>
 						</h2>
 						<br/>
 						

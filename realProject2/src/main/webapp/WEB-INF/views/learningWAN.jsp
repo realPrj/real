@@ -127,7 +127,7 @@ $(document).ready(function() {
 
       var form = document.getElementsByName("learningWANCXTPageform")[0];
       window.open('', 'POP',
-            "width=570, height=350, resizable = no, scrollbars = no");
+            "width=630, height=515, resizable = no, scrollbars = no");
       form.appendChild(boardCode);
 
       form.submit();

@@ -21,8 +21,16 @@ public class DbBoardBean {	// dbboard bean
 	private String studentCode;	// 학생 코드
 	private String cutRoute;
 	private String cutContent;
+	private String identity;
 	
 	
+	
+	public String getIdentity() {
+		return identity;
+	}
+	public void setIdentity(String identity) {
+		this.identity = identity;
+	}
 	public String getStudentCode() {
 		return studentCode;
 	}

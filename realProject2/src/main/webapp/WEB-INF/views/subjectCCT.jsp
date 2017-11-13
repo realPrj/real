@@ -145,9 +145,9 @@ $(document).ready(function() {
 
  <style>
  @import url(//fonts.googleapis.com/earlyaccess/nanumgothic.css);
+ @import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
 
-
-    
+   
 
 
 
@@ -169,6 +169,14 @@ height : 30px
 
 .btnn:hover{
 background: #FAECC5
+}
+
+.print{
+margin-left:71%; border:none; font-size:12pt; background:#FFF2E6; 
+}
+
+.print:hover{
+background : #FFCC97
 }
 </style>
 </head>
@@ -271,8 +279,9 @@ background: #FAECC5
 				<div class="card">
 				
 				<div class="container">
+				<br/>
 								<h2 style="font-family: 'Nanum Gothic', sans-serif"><b>과목코드표</b></h2>
-								<input type="button" class="btn" style="background-color:#ABF200" value="프린트" onClick="printClick()" />
+								
 								<br/><br/>
 							
 
@@ -296,6 +305,7 @@ background: #FAECC5
     	<td id="number" style="border:1px gray solid; border-radius:10px; width:300px; height:300px"></td>
     	</tr>
     </table> --%> 
+    <input style="font-family: 'Noto Sans KR', sans-serif; font-size:13pt" type="button" class="print" value="과목코드 프린트" onClick="printClick()" />	
     <div>
     	<div class="ctt">
     	<div><h4>과목</h4></div>
@@ -310,7 +320,9 @@ background: #FAECC5
     </div>
 
     </div>
+    
     </div>
+    
     </div>
     </div>
 

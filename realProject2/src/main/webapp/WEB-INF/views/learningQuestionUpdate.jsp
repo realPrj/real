@@ -82,7 +82,7 @@
 
 		var caCode = document.getElementsByName("caCode")[0];
 
-		createForm("menuform", "tcmenu", "post");
+		createForm("menuform", "stmenu", "post");
 
 		var form = document.getElementsByName("menuform")[0];
 		form.appendChild(caCode);
@@ -120,6 +120,79 @@
 
 	// 자료실 form
 </script>
+<style>
+@import url(//fonts.googleapis.com/earlyaccess/nanumgothic.css);
+.upload {  
+  opacity: 0;       /*input type="file" tag 투명하게 처리*/
+  position: relative;
+  padding : 0px;
+  margin : 0px;
+  width:0px;height:28px;filter:alpha(opacity=0);cursor:pointer
+}
+
+.inputTitle{
+	display: block;
+	width: 100%;
+	height: 34px;
+	padding: 6px 12px;
+	font-size: 14px;
+	line-height: 1.42857143;
+	color: #5D5D5D;
+	background-color: #F6F6F6;
+	background-image: none;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+	box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+	-webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow
+		ease-in-out .15s;
+	-o-transition: border-color ease-in-out .15s, box-shadow ease-in-out
+		.15s;
+	transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s
+}
+
+textarea{
+	display: block;
+	width: 100%;
+	height: 200px;
+	padding: 6px 12px;
+	font-size: 14px;
+	line-height: 1.42857143;
+	color: #5D5D5D;
+	background-color: #F6F6F6;
+	background-image: none;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+	box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+	-webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow
+		ease-in-out .15s;
+	-o-transition: border-color ease-in-out .15s, box-shadow ease-in-out
+		.15s;
+	transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s
+} 
+
+.input_file{
+	display: block;
+	width: 100%;
+	height: 34px;
+	padding: 6px 12px;
+	font-size: 14px;
+	line-height: 1.42857143;
+	color: #5D5D5D;
+	background-color: #F6F6F6;
+	background-image: none;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+	box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+	-webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow
+		ease-in-out .15s;
+	-o-transition: border-color ease-in-out .15s, box-shadow ease-in-out
+		.15s;
+	transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s
+}
+</style>
 <body onLoad="${message}">
 	<div class="wrapper">
 
@@ -217,17 +290,17 @@
 
 			<!-- 질문게시판수정 -->
 
-			<div class="col-lg-35 col-md-12"
-				style="display: inline-block; text-align: center;">
+			<div class="col-lg-35 col-md-12">
 				<div class="card">
-					<div class="container">
-						<form>
-							<h2>
-								<b>질문게시판</b>
-							</h2>
-					</div>
+				
+					<br/>
+						<h2 style="font-family: 'Nanum Gothic', sans-serif">
+							<b>질문게시판</b>
+						</h2>
+						<br/>
+              
 
-					<form>
+					<%-- <form>
 						<div id="content"
 							style="display: inline-block; text-align: center;">
 							<input type="hidden" name="pageNum" value="${pageNum}"> <input
@@ -265,7 +338,28 @@
 									onClick="check('${boardTitle }','${boardContent}','${roomCode }','${boardDate }','${boardId }')">
 
 							</div>
+						</div> --%>
+						
+						<div style="margin:20px;">
+							<p>제목</p>
+							<input type="text" name="boardTitle" class="inputTitle" value="${boardTitle }">
 						</div>
+						<div style="margin:20px;">
+							<p>내용</p>
+							<textarea rows="20" id="ok" name="boardContent">${boardContent }</textarea>
+							
+							</div>
+							<div style="margin:20px;">
+      						
+      						<br/>
+      						<input type="hidden" name="roomCode" value="${roomCode }">
+							<input type="hidden" name="boardDate" value="${boardDate }">
+							<input type="hidden" name="boardId" value="${boardId }">
+      						<input class="btn" type="button" value="작성완료" onClick="check('${boardTitle }','${boardContent}','${roomCode }','${boardDate }','${boardId }')"/><br/>
+      						<br/>
+      						
+							</div>
+							 
 				</div>
 			</div>
 

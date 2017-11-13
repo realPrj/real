@@ -105,7 +105,7 @@ function update(boardTitle, boardContent, boardDate){
    date.type = "hidden";
    date.name = "boardDate";
    date.value = boardDate;
-   f.appendChild(date);
+   f.appendChild(date); 
    
    document.noticeUpdate.submit();
 }
@@ -122,17 +122,19 @@ function boardDelete(roomCode, boardDate){
    code.name = "roomCode";
    code.value = roomCode;
    ff.appendChild(code);
-   alert(code.value);
    
    var date = document.createElement("input");
    date.type = "hidden";
    date.name = "boardDate";
    date.value = boardDate;
    ff.appendChild(date);
-
-   document.noticeDelete.submit();
+	
+   if(confirm("삭제하시겠습니까?")){
+  		document.noticeDelete.submit();
+  		alert("삭제되었습니다");
+   }
    
-   alert("삭제되었습니다");
+  
 }
 function createForm(formname, formaction, formmethod) {
 
@@ -166,12 +168,61 @@ function eventClick(formname, formaction, formmethod) {
 
 }
 
+function init(){ // 목록, 수정, 삭제 선생님과 학생 분류
+	var a = '${identity}';
+	var btn = "";
+	if(a == '1'){
+		btn += "<input class=\"CTXbtn\" type=\"button\" value=\"목록\" onClick=\"menu('3','${identity}')\"/>";
+		btn += "<input type=\"button\" class=\"CTXbtn\" value=\"수정\" onClick=\"update('${boardTitle}','${boardContent}','${boardDate}')\"/>";
+		btn += "<input class=\"CTXbtn_end\" type=\"button\" value=\"삭제\" onClick=\"boardDelete('${roomCode}','${boardDate}')\"/>"
+		$('#button').append(btn);
+	}else{
+		btn += "<input class=\"CTXbtn_end\" type=\"button\" value=\"목록\" onClick=\"menu('3','${identity}')\"/>";
+		$('#button').append(btn);
+	}
+}
 </script>
 <style>
+@import url(//fonts.googleapis.com/earlyaccess/nanumgothic.css);
+ @import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
+.title{
+font-size:25pt; padding-top:5%; padding-left:10%; padding-bottom:2%; font-family: 'Noto Sans KR', sans-serif;
+}
+.date{
+font-size:11pt; padding-left:10%; padding-bottom:1%; font-family: 'Noto Sans KR', sans-serif; color:#858585; 
+}
+.content{
+font-size:11pt; margin:50px 0px 50px 100px;  padding-bottom:1%; font-family: 'Noto Sans KR', sans-serif; color:#505050; 
+}
+.file{
+font-size:13pt; padding-left:10%; font-family: 'Noto Sans KR', sans-serif; 
+}
+.filetitle{
+font-size:12pt; padding-left:10%; padding-bottom:1%; font-family: 'Noto Sans KR', sans-serif; color:#858585;
+}
+.CTXbtn{
+border:none; border-right:1px black solid; background:#FFFFFF; font-size:11pt;
+}
+.CTXbtn_end{
+border:none; background:#FFFFFF;  font-size:11pt;
+}
+.CTXbtn:hover{
+text-decoration : underline; cursor:pointer
+}
+.CTXbtn:active{
+color:#3669CF;
+}
+.CTXbtn_end:hover{
+text-decoration : underline; cursor:pointer
+}
+.CTXbtn_end:active{
+color:#3669CF;
+}
+
 
 </style>
 </head>
-<body>
+<body onLoad="init()">
 <div class="wrapper">
 		<div class="sidebar" data-background-color="white"
 			data-active-color="danger">
@@ -231,7 +282,7 @@ function eventClick(formname, formaction, formmethod) {
       </div>
       
        <!-- 상단바 영역 -->
-
+	
 
       <div class="main-panel">
          <nav class="navbar navbar-default">
@@ -266,16 +317,15 @@ function eventClick(formname, formaction, formmethod) {
 
          <!-- 질문게시판 내용확인 -->
 
-         <div class="col-lg-35 col-md-12"
-            style="display: inline-block; text-align: center;">
+         <div class="col-lg-35 col-md-12">
             <div class="card">
 			<br/>
-               <h2>
+               <h2 style="font-family: 'Nanum Gothic', sans-serif">
                   <b>공지사항</b>
                </h2>
 
 
-               <div id="content" 
+               <%-- <div id="content" 
                   style="display: inline-block; ">
                   <input type="hidden" name="pageNum" value="${pageNum}"> <input
                      type="hidden" name="articleNumber"
@@ -320,7 +370,29 @@ function eventClick(formname, formaction, formmethod) {
                		${content }	
                		</div>
 					
-               </div>
+               </div> --%>
+               
+               <input type="hidden" name="pageNum" value="${pageNum}">
+               	<div class="title">${boardTitle }</div>
+               	<div class="date">작성자 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ${boardId }</div>
+               	<div class="date">등록일 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  ${boardDate }</div>
+               	<hr/>
+               
+               	<div id="ok" class="content">${boardContent}</div>
+               	<hr/>
+               	<div class="filetitle">첨부파일</div>
+               	<div class="file">
+              	<c:forEach var="file" items="${list }">
+                <a href="download.action?name=${file}">${file}</a>
+                </c:forEach>
+                </div>
+                <div id="button" style="margin-left:80%">
+                	
+					<%-- <input type="button" class="CTXbtn" value="수정" onClick="update('${boardTitle}','${boardContent}','${boardDate}')"/> --%>
+				</div>	
+                <!-- <input type="button" value="아오진짜" onClick="ok()"/> -->
+               	<br/>
+               	<%-- <input type="hidden" name="roomCode" value='${roomCode }'/> --%>
                
             </div>
          </div>

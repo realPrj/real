@@ -156,6 +156,14 @@ function menu(ivalue, identity) {
 </script>
 <style>
 @import url(//fonts.googleapis.com/earlyaccess/nanumgothic.css);
+
+.CTX:hover{
+text-decoration : underline; cursor:pointer;
+}
+
+.CTX:active{
+color:#3669CF
+}
 </style>
 </head>
 <body>
