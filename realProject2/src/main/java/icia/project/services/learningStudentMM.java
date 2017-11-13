@@ -1359,7 +1359,7 @@ public class learningStudentMM extends TransactionExe {
 
 
 
-	private ModelAndView learningSubmitTaskInsert(BoardBean board) { // 과제 제출
+	/*private ModelAndView learningSubmitTaskInsert(BoardBean board) { // 과제 제출
 		mav = new ModelAndView();
 		boolean transaction = false;
 		fileupload(board,mtfRequest);
@@ -1386,7 +1386,35 @@ public class learningStudentMM extends TransactionExe {
 		}
 
 		return mav;
-	}
+	}*/
+	private ModelAndView learningSubmitTaskInsert(BoardBean board) { // 과제 제출
+	      mav = new ModelAndView();
+	      boolean transaction = false;
+	      fileupload(board,mtfRequest);
+
+	      setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
+	      try {         
+	         board.setRoomCode((String)session.getAttribute("roomCode"));
+	         board.setStudentCode((String)session.getAttribute("stCode"));
+
+	         int Code = (int)(Math.random() *89999)+10000;
+	         board.setFileName(Integer.toString(Code));
+
+	         dao.learningSubmitTaskInsert(board);
+	         mav.addObject("reload", "opener.location.reload()");
+	         mav.addObject("windowclose", "window.close()");
+	         mav.setViewName("learningTaskSubmitInsert");
+
+	         transaction = true;
+
+	      }
+	      catch(Exception ex){
+	      }finally {
+	         setTransactionResult(transaction);
+	      }
+
+	      return mav;
+	   }
 
 	private ModelAndView checkFile(BoardBean board) { //과제 페이지 자세하게 보기
 

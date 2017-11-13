@@ -352,31 +352,30 @@
 						value="과제 성적" onClick="taskscorepage()" /> <br /> <br />
 					${taskList } ${button2 }
 
-					<hr />
-					<h3 style="padding-left: 10px">과제정보</h3>
-					<table style="text-align: center" class="table table-hover">
-						</div>
-						<div class="card">
-							<br />
-							<table id="ctx" class="table table-hover">
-								<h3
-									style="padding-left: 10px; font-family: 'Nanum Gothic', sans-serif">과제정보</h3>
-								<tr>
-									<td><b>제목</b></td>
-									<td><b>내용</b></td>
-									<td><b>날짜</b></td>
+					<hr />	
+					
+				</div>
+				<div class="card">
+				<br/>
+				<table id="ctx" class="table table-hover">
+					<h3 style="padding-left:10px; font-family: 'Nanum Gothic', sans-serif">과제정보</h3>
+						<tr>
+							<td><b>제목</b></td>
+							<td><b>내용</b></td>
+							<td><b>날짜</b></td>
+							
+						</tr>
+						<tr>
+							<td>${title }</td>
+							<td>${content }</td>
+							<td>${date }</td>
+							
+						</tr>
 
-								</tr>
-								<tr>
-									<td>${title }</td>
-									<td>${content }</td>
-									<td>${date }</td>
+					</table>
+					<div style="margin-left: 85%; height:40px">
+						${inputButton }
 
-								</tr>
-
-							</table>
-							<div style="margin-left: 85%; height: 40px">${inputButton }
-							</div>
 						</div>
 
 						<div class="card">${tagcontent }</div>

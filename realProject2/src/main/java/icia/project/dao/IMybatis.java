@@ -524,10 +524,12 @@ public interface IMybatis {
 	// 과제글 유뮤 확인
 	public int learningSelect(BoardBean board);
 
-
 	// 선생님 과제  제출 삭제
 	public int deleteTask(BoardBean board);
 
+	// 과제 점수 유무
+	public int learningTaskScoreCheck(BoardBean board);
+	
 
 }
 

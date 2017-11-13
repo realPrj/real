@@ -73,6 +73,14 @@ function onload(){
 	<img src="assets/img/gong_logo.png" alt="공조" width="200*150">
 	<br /> -->
 
+<center>
+ <br />
+	<img src="assets/img/gong_logo.png" alt="공조" width="150" height="70">
+	
+	<br />
+	</center>
+
+
 
 
 	<form name="datactx">
@@ -90,16 +98,16 @@ function onload(){
 			<c:forEach var="file" items="${list }">
 			제출 파일	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="download.action?name=${file}">${file}</a>
 			</c:forEach>
+			
 			</div>
+
 			<div class="content">
 			<input type="button" name="delete" value="삭제" class='btn'onClick="deleteTask('${date}')">
 			</div>
-			
-
-				
-	
 
 	</form>
+	<button onClick="close()">닫기</button>
 
+	
 </body>
 </html>

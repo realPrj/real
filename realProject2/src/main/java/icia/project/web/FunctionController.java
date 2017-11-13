@@ -2,7 +2,6 @@ package icia.project.web;
 
 import java.util.Properties;
 
-
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Session;
@@ -16,7 +15,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
@@ -295,6 +293,7 @@ public class FunctionController {
 		return mav;
 	}
 
+	
 	// 과제제출 자세히 보기
 	@RequestMapping(value = "/learningTaskCXT", method = RequestMethod.POST)
 	public ModelAndView  learningTaskCXT(BoardBean board) {
@@ -632,14 +631,24 @@ public class FunctionController {
 		return mav;
 	}
 
-	// 과제 게시판 제출쓰기
+	/*// 과제 게시판 댓글쓰기
+>>>>>>> b5819d7033765cbb601beec974243253cc0c5e22
 	@RequestMapping(value = "/learningSubmitTaskInsert", method = RequestMethod.POST)
 	public ModelAndView learningSubmitTaskInsert(@ModelAttribute BoardBean board,MultipartHttpServletRequest mtfRequest)throws Exception{      
 
 		mav = lsm.entrance(15, board, mtfRequest);
 
 		return mav;
-	}
+	}*/
+	
+	// 과제 게시판 제출쓰기
+	   @RequestMapping(value = "/learningSubmitTaskInsert", method = RequestMethod.POST)
+	   public ModelAndView learningSubmitTaskInsert(@ModelAttribute BoardBean board,MultipartHttpServletRequest mtfRequest)throws Exception{      
+
+	      mav = lsm.entrance(15, board, mtfRequest);
+
+	      return mav;
+	   }
 
 	// 토론게시판 댓글 등록
 	@RequestMapping(value = "/DebateTagInsert", method = RequestMethod.POST)
@@ -763,6 +772,7 @@ public class FunctionController {
 		
 		return mav;
 	}
+
 	// 학생 과제 삭제
 	@RequestMapping(value = "/deleteTask", method = RequestMethod.POST)
 	public ModelAndView deleteTask(@ModelAttribute  BoardBean board) {
@@ -773,8 +783,5 @@ public class FunctionController {
 		return mav;
 	}
 
-	
-	
-	
-	
+
 }

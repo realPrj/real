@@ -1053,8 +1053,7 @@
 		boardDate,TA_CONTENT AS boardContent
 		FROM TASK
 		WHERE
-		TA_LRCODE =
-		#{roomCode}
+		TA_LRCODE =	#{roomCode}
 		ORDER BY TA_DATE
 		DESC
 	</select>
@@ -1159,7 +1158,7 @@
 	</insert>
 
 	<!-- 과제 댓글 날짜 출력 -->
-	<select id="learningTaskSelect" resultType="board"
+	<select id="" resultType="board"
 		parameterType="board">
 		SELECT
 		TO_CHAR(TS_DATET,'YYYY-MM-DD HH24:MI') AS
@@ -1174,7 +1173,7 @@
 		AND
 		TS_TACODE =#{boardCode}
 		AND
-		TS_STRFSTUDENTCODE = #{studentCode}
+		TS_STRFSTUDENTCODE = #{studentCode} ORDER BY boardDate DESC
 	</select>
 
 	<!-- 과목 이름 출력 -->
@@ -1287,7 +1286,7 @@
 		TS_TALRCODE=
 		#{roomCode}
 		AND
-		TS_TACODE =#{boardCode}
+		TS_TACODE =#{boardCode} ORDER BY boardDate DESC
 	</select>
 	<!-- 학생 과제 자세히 보기 -->
 	<select id="learningTesk" resultType="dbBoard" parameterType="board">
@@ -1390,7 +1389,7 @@
 
 	<!-- 학생 수강생 리스트 -->
 	<select id="getStudentList" resultType="board" parameterType="board">
-		SELECT * FROM LEARNINGSTUDENTLIST WHERE NOT STUDENTCODE =
+		SELECT * FROM LEARNINGSTUDENTLIST WHERE STUDENTCODE =
 		#{studentCode} AND ROOMCODE = #{roomCode}
 	</select>
 
@@ -1669,6 +1668,13 @@
 	<select id="learningTeskScoreRank" resultType="board" parameterType="board">
 		SELECT TSE_TSSTRFSTUDENTCODE AS studentCode ,RANK() OVER (ORDER BY SUM(TSE_SCORE) DESC) AS caCode FROM TASKSCORE WHERE TSE_TSTALRCODE=#{roomCode} GROUP BY TSE_TSSTRFSTUDENTCODE
 	</select>
+	
+
+	<!-- 과제 점수 유무 -->
+	<select id="learningTaskScoreCheck" resultType="Integer" parameterType="board">
+		SELECT COUNT(*) FROM TASKSCORE WHERE TSE_TSTALRCODE=#{roomCode} AND TSE_TSSTRFSTUDENTCODE=#{studentCode}
+	</select>
+	
 
 	<!-- 학습방 총 학생 인원 -->
 	<select id="learningRoomstAll" resultType="Integer"
@@ -1708,6 +1714,24 @@
 		AND
 		TS_TALRCODE =#{roomCode}
 	</delete>
+	<!-- 과제 댓글 날짜 출력 -->
+	<select id="learningTaskSelect" resultType="board"
+		parameterType="board">
+		SELECT
+		TO_CHAR(TS_DATET,'YYYY-MM-DD HH24:MI') AS
+		boardDate,
+		TS_STRFSTUDENTCODE AS studentCode,
+		TS_TACODE AS boardCode,
+		TS_CODE AS tagCode,
+		TS_ROUTE AS boardRoute
+		FROM TASKSUBMIT
+		WHERE
+		TS_TALRCODE= #{roomCode}
+		AND
+		TS_TACODE =#{boardCode}
+		AND
+		TS_STRFSTUDENTCODE = #{studentCode}
+	</select>
 	
 </mapper>
 

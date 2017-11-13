@@ -3085,14 +3085,14 @@ public class learningTeacherMM extends TransactionExe {
 
 		try {
 			String nowYear = dao.nowYearGet();
-			int subtract = 12 - Integer.parseInt(nowYear.substring(4));
+
 			nowYear2 = nowYear;
 
 			sb.append("<select id = 'yearSelect' class='btn-sm'>");
 			sb.append("<option>월 선택</option>");
 
-			for(int i = 0; i <= subtract; i++) {
-				nowYear2 = Integer.toString(Integer.parseInt(nowYear)+i);
+			for(int i = 0; i <= 11; i++) {
+				nowYear2 = Integer.toString(Integer.parseInt(nowYear.substring(0, 4)+"01")+i);
 				sb.append("<option value="+nowYear2+">"+nowYear2.substring(0, 4)+"년"+nowYear2.substring(4)+"월"+"</option>");
 			}
 			sb.append("</select>");
@@ -3330,42 +3330,48 @@ public class learningTeacherMM extends TransactionExe {
 		return mav;
 	}
 
-	private ModelAndView taskScorePage() { // 과제 점수 페이지
+	   private ModelAndView taskScorePage() { // 과제 점수 페이지
 
-		mav = new ModelAndView();
-		boolean transaction = false;
-		ArrayList<BoardBean> al = null;
-		StringBuffer sb = new StringBuffer();
-		BoardBean board;
+		      mav = new ModelAndView();
+		      boolean transaction = false;
+		      ArrayList<BoardBean> al = null;
+		      StringBuffer sb = new StringBuffer();
+		      BoardBean board;
 
-		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
+		      setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
 
-		try {
+		      try {
+		         
+		            board = new BoardBean();
 
-			sb.append("<select id='selectid' class='btn btn-primary' name='number'>");
-			sb.append("<option>학생선택</option>");
+		            board.setRoomCode((String)session.getAttribute("roomCode"));
 
-			for(int i = 0; i < al.size(); i++) {
-				board = new BoardBean();
-				board.setStudentCode(al.get(i).getStudentCode());
-				board.setStudentName(dao.stNameGet(board));
+		            al = dao.learningWANAllStudentCode(board);
 
-				sb.append("<option value="+board.getStudentCode()+">"+board.getStudentName()+"</option>");
+		         sb.append("<select id='selectid' class='btn btn-primary' name='number'>");
+		         sb.append("<option>학생선택</option>");
 
-			}
-			sb.append("</select>");
+		         for(int i = 0; i < al.size(); i++) {
+		            board = new BoardBean();
+		            board.setStudentCode(al.get(i).getStudentCode());
+		            board.setStudentName(dao.stNameGet(board));
 
-			mav.addObject("select", sb.toString());
-			mav.setViewName("learningTaskScore");
+		            sb.append("<option value="+board.getStudentCode()+">"+board.getStudentName()+"</option>");
 
-			transaction = true;
+		         }
+		         sb.append("</select>");
 
-		}catch(Exception ex){
-		}finally {
-			setTransactionResult(transaction);
-		}
-		return mav;
-	}
+		         mav.addObject("select", sb.toString());
+		         mav.setViewName("learningTaskScore");
+
+		         transaction = true;
+
+		      }catch(Exception ex){
+		      }finally {
+		         setTransactionResult(transaction);
+		      }
+		      return mav;
+		   }	
 
 
 
