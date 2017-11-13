@@ -135,7 +135,7 @@ public class FunctionController {
 	
 	@RequestMapping(value = "/idRedundancyCheck", method = RequestMethod.POST,produces = "application/text; charset=utf8")
 	@ResponseBody public String idRedundancyCheck(@ModelAttribute MemberBean member) {
-		System.out.println("아이디중복체크 컨트롤러");
+		
 		String check = null;
 		
 		check = tm.idRedundancyCheck(member);
@@ -224,7 +224,9 @@ public class FunctionController {
 	@RequestMapping(value = "/teacherInfoPWDUpdate", method = RequestMethod.POST)
 	public ModelAndView  teacherInfoPWDUpdate(MemberBean member) {
 
-		mav = tm.entrance(7, member);
+		tm.entrance(7, member);
+		mav = pm.entrance(5, null);
+		mav.addObject("message","alert('비밀번호 수정 되셨습니다.')");
 
 		return mav;
 	}
