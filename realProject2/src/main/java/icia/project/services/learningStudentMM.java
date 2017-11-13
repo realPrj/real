@@ -161,7 +161,7 @@ public class learningStudentMM extends TransactionExe {
 			mav = learningSentMessageDelete((BoardBean)object[0]);
 			break;
 
-		case 44:   // 강의계획서 보내기
+		case 44:   // 강의계획서
 			mav = learningPlanPage((BoardBean)object[0]);
 			break;
 
@@ -1924,14 +1924,13 @@ public class learningStudentMM extends TransactionExe {
 
 		try {
 			String nowYear = dao.nowYearGet();
-			int subtract = 12 - Integer.parseInt(nowYear.substring(4));
 			nowYear2 = nowYear;
 
 			sb.append("<select id = 'yearSelect' class='btn-sm'>");
 			sb.append("<option>월 선택</option>");
 
-			for(int i = 0; i <= subtract; i++) {
-				nowYear2 = Integer.toString(Integer.parseInt(nowYear)+i);
+			for(int i = 0; i <= 11; i++) {
+				nowYear2 = Integer.toString(Integer.parseInt(nowYear.substring(0, 4)+"01")+i);
 				sb.append("<option value="+nowYear2+">"+nowYear2.substring(0, 4)+"년"+nowYear2.substring(4)+"월"+"</option>");
 			}
 			sb.append("</select>");

@@ -52,10 +52,6 @@ public class teacherManagement extends TransactionExe {
 			mav = join(((MemberBean)object));
 			break;
 
-		/*case 3 : // 아이디 중복체크	
-			mav = idRedundancyCheck(((MemberBean)object));
-			break;*/
-
 		case 4:	// 아이디 찾기	
 			mav = idFind(((MemberBean)object));
 			break;
@@ -427,18 +423,11 @@ public class teacherManagement extends TransactionExe {
 			member.setId((String)session.getAttribute("tcId"));
 			member.setPwd(enc.encode(member.getPwd()));
 
-			if(dao.tcInformationPWDChange(member) != 0) {
-				mav = pm.entrance(5, null);
-				mav.addObject("message","alert('비밀번호 수정 되셨습니다.')");
-				transaction = true;
-			}else {
-				mav = pm.entrance(5, null);
-				mav.addObject("message","alert('비밀번호 수정 실패되셨습니다.')");
-				transaction = true;
-			}
+			dao.tcInformationPWDChange(member);
+				
+			transaction = true;
 
 		}catch(Exception ex) {
-
 		}finally {
 
 			setTransactionResult(transaction);
