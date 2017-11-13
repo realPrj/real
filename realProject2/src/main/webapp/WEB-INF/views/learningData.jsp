@@ -153,6 +153,14 @@
 </script>
 <style>
 @import url(//fonts.googleapis.com/earlyaccess/nanumgothic.css);
+
+.CTX:hover{
+text-decoration : underline; cursor:pointer;
+}
+
+.CTX:active{
+color:#3669CF
+}
 </style>
 </head>
 <body onLoad="${message}">
@@ -249,7 +257,7 @@
 			</nav>
 
 
-			<!-- 질문게시판 -->
+			<!-- 자료실 -->
 			<div class="col-lg-35 col-md-12">
 
 				<div class="card">
@@ -257,8 +265,8 @@
 					<h2 style="font-family: 'Nanum Gothic', sans-serif">
 						<b>자료실</b>
 					</h2>
-					
-					${datalist }
+						
+					${datalist }	
 					 <input type="button" value="글쓰기" class="btn btn-md"
 						onClick="eventClick('dataform','DataInsert','post')" />
 						${content2 } 

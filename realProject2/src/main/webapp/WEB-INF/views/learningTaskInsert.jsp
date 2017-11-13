@@ -120,6 +120,73 @@ function insertTask() {
 }
 
 </script>
+<style>
+@import url(//fonts.googleapis.com/earlyaccess/nanumgothic.css);
+
+.inputTitle{
+	display: block;
+	width: 100%;
+	height: 34px;
+	padding: 6px 12px;
+	font-size: 14px;
+	line-height: 1.42857143;
+	color: #5D5D5D;
+	background-color: #F6F6F6;
+	background-image: none;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+	box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+	-webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow
+		ease-in-out .15s;
+	-o-transition: border-color ease-in-out .15s, box-shadow ease-in-out
+		.15s;
+	transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s
+}
+
+textarea{
+	display: block;
+	width: 100%;
+	height: 200px;
+	padding: 6px 12px;
+	font-size: 14px;
+	line-height: 1.42857143;
+	color: #5D5D5D;
+	background-color: #F6F6F6;
+	background-image: none;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	resize:none;
+	-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+	box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+	-webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow
+		ease-in-out .15s;
+	-o-transition: border-color ease-in-out .15s, box-shadow ease-in-out
+		.15s;
+	transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s
+} 
+
+.input_file{
+	display: block;
+	width: 100%;
+	height: 34px;
+	padding: 6px 12px;
+	font-size: 14px;
+	line-height: 1.42857143;
+	color: #5D5D5D;
+	background-color: #F6F6F6;
+	background-image: none;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+	box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+	-webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow
+		ease-in-out .15s;
+	-o-transition: border-color ease-in-out .15s, box-shadow ease-in-out
+		.15s;
+	transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s
+}
+</style>
 <body>
 	<input type="hidden" value="${identity }" name="identity" />
 	<div class="wrapper">
@@ -217,38 +284,33 @@ function insertTask() {
 
 			<!-- 질문게시판 -->
 			<div class="col-lg-35 col-md-12">
-
 				<div class="card">
-					<br />
-					<h2>
-						<b>과제 생성</b>
-					</h2>
-
-
-					<hr />
-					<table class="table table-hover">
-
-						<tr>
-							<td>제목</td>
-						</tr>
-						<tr>
-							<td><input type="text" name="boardTitle" /></td>
-						</tr>
-						<tr>
-							<td>내용</td>
-						</tr>
-						<tr>
-							<td><input type="text" name="boardContent" /></td>
-						</tr>
-						<tr>
-							<td><input type="button" class="btn"value="등록" onClick="insertTask()" />
-							</td>
-						</tr>
-					</table>
-
-
-				</div>
-			</div>
+				<div class="center">
+					<br/>
+						<h2 style="font-family: 'Nanum Gothic', sans-serif">
+							<b>과제게시판</b>
+						</h2>
+						<br/>
+						<form name="debateInsert" method="post" action="learningDebateInsert">
+						<div style="margin:20px;">
+							<p>제목</p>
+							<input type="text" name="boardTitle" class="inputTitle">
+						</div>
+						<div style="margin:20px;">
+							<p>내용</p>
+							<textarea rows="20" name="boardContent"></textarea>
+							</div>
+							<div style="margin:20px;">
+      						
+      						<br/>
+      						<input class="btn" type="button" value="과제등록" onClick="insertTask()"/><br/>
+      						<br/>
+      						
+							</div>
+							</form>
+							</div>
+							</div>
+							</div>
 		</div>
 
 	</div>

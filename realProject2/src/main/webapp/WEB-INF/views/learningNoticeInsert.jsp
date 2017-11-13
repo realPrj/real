@@ -80,10 +80,15 @@ function menu(ivalue, identity) {
 }
 
 function NoticeInsertOk(){
-   alert("작성완료");
-   var f = document.getElementsByName("noticeInsert");
    
-   document.noticeInsert.submit();
+   var f = document.getElementsByName("noticeInsert")[0];
+   if(confirm("공지사항을 등록하시겠습니까?")){
+	   document.noticeInsert.submit();
+	   alert("공지사항이 등록되었습니다");   
+   }else{
+	   
+   }
+   
 }
 
 function fileNameInput(){
@@ -96,6 +101,8 @@ function fileNameInput(){
 	
 </script>
 <style>
+@import url(//fonts.googleapis.com/earlyaccess/nanumgothic.css); // 타이틀
+ 
 .title{
 	border : gray 1px solid;
 	width : 970px;
@@ -137,6 +144,7 @@ textarea{
 	background-image: none;
 	border: 1px solid #ccc;
 	border-radius: 4px;
+	resize:none;
 	-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
 	box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
 	-webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow
@@ -383,7 +391,7 @@ filter: alpha(opacity=0);
 				<div class="card">
 				<div class="center">
 					<br/>
-						<h2>
+						<h2 style="font-family: 'Nanum Gothic', sans-serif">
 							<b>공지사항</b>
 						</h2>
 						<br/>
@@ -394,7 +402,7 @@ filter: alpha(opacity=0);
 						</div>
 						<div style="margin:20px;">
 							<p>내용</p>
-							<textarea rows="20" name="boardContent"></textarea>
+							<textarea id="ok" rows="20" name="boardContent"></textarea>
 							</div>
 							<div style="margin:20px;">
 							

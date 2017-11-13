@@ -5,6 +5,26 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>공조 || 과제 점수 등록</title>
+<style>
+@import url(//fonts.googleapis.com/earlyaccess/nanumgothic.css);
+@import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
+.title{
+font-family: 'Nanum Gothic', sans-serif; text-align:center; font-size:15pt; margin:10%
+}
+.content{
+font-family: 'Noto Sans KR', sans-serif; font-size:12pt; margin:3%
+}
+select{
+width:25%; padding:3px; margin-right:4%
+}
+.CTX{
+border-radius:4px; height:27px; padding:0 10px; background:#D6C8A1; color:#424242; font-family: 'Noto Sans KR', sans-serif; 
+}
+.CTX:hover{
+background:#C4B68F; cursor:pointer
+}
+
+</style>
 </head>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -92,7 +112,9 @@
 <input type="hidden" value="${roomCode }" name="roomCode" />
 <input type="hidden" value="${studentCode }" name="studentCode" />
 
-<h1>과제 점수</h1>
+<div class="title">
+과제점수
+</div>
 ${content }
 </body>
 </html>

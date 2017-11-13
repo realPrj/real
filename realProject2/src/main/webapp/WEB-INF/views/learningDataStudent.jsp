@@ -148,6 +148,17 @@ function pageNumber(value) {
    }
    
 </script>
+<style>
+@import url(//fonts.googleapis.com/earlyaccess/nanumgothic.css);
+
+.CTX:hover{
+text-decoration : underline; cursor:pointer;
+}
+
+.CTX:active{
+color:#3669CF
+}
+</style>
 </head>
 <body onLoad="${message}">
    <div class="wrapper">
@@ -242,15 +253,15 @@ function pageNumber(value) {
 			</nav>
 
 
-			<!-- 질문게시판 -->
+			<!-- 학생자료실 -->
 			<div class="col-lg-35 col-md-12">
 
 				<div class="card">
 					<br />
-					<h2>
+					<h2 style="font-family: 'Nanum Gothic', sans-serif">
 						<b>자료실</b>
 					</h2>
-
+					<br/>
 					   ${datalist } ${content2 }
 					<hr />
 				</div>

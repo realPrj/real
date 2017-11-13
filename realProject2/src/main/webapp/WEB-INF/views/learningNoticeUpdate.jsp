@@ -74,27 +74,18 @@ function menu(ivalue, identity) {
    form.submit();
 
 }
-function NoticeUpdateOk(){
-	/* var f = document.createElement("form");
-	f.name = "noticeUpdate";
-	f.method = "post";
-	f.action = "NoticeUpdate";
-	document.body.appendChild(f);
-	
-	var date = document.getElementsByName("boardDate")[0];
-	var content = document.getElementsByName("boardContent")[0];
-	var title = document.getElementsByName("boardTitle")[0];
-	
-	f.appendChild(date);
-	f.appendChild(content);
-	f.appendChild(file);
-	f.appendChild(title); */
+function NoticeUpdateOk(boardDate){
 	
 	var f = document.getElementsByName("noticeUpdate");
 	
-	document.noticeUpdate.submit();
+	if(confirm("공지사항을 수정하시겠습니까?")){
+		document.noticeUpdate.submit();
+		alert("공지사항이 수정되었습니다");
+	}
+	
 	
 }
+
 </script>
 <style>
 .upload {  
@@ -328,7 +319,8 @@ textarea{
 						</div>
 						<div style="margin:20px;">
 							<p>내용</p>
-							<textarea rows="20" name="boardContent">${boardContent}</textarea>
+							<textarea rows="20" id="ok" name="boardContent">${boardContent }</textarea>
+							
 							</div>
 							<div style="margin:20px;">
 							
@@ -350,9 +342,11 @@ textarea{
       						
       						<br/>
       						<input class="btn" type="button" value="작성완료" onClick="NoticeUpdateOk()"/><br/>
+      						 
       						<br/>
-      						
+      						 
 							</div>
+							${boardDate }
 							</form>
 
             </div>
