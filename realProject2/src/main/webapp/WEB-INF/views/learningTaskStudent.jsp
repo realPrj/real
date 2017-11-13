@@ -89,18 +89,16 @@
 		document.body.appendChild(form);
 
 	}
-	function createForm1(formname,formaction,ta) {
+	function createForm1(formname, formaction, ta) {
 
 		var form = document.createElement("form");
-		form.target=ta;
+		form.target = ta;
 		form.name = formname;
 		form.action = formaction;
 
 		document.body.appendChild(form);
 
-
 	}
-
 
 	//input 생성
 	function createinput(itype, iname, ivalue) {
@@ -125,35 +123,33 @@
 
 	}
 	function confirm(boardTitle, roomCode, boardCode) {
-		 alert(boardTitle);
-		 alert(roomCode);
-		 alert(boardCode);
-	      createinput("hidden", "boardTitle", boardTitle);
-	      createinput("hidden", "roomCode", roomCode);
-	      createinput("hidden", "boardCode", boardCode);
-	      var boardTitle = document.getElementsByName("boardTitle")[0];
-	      var roomCode = document.getElementsByName("roomCode")[0];
-	      var boardCode = document.getElementsByName("boardCode")[0];
-	      
-	      
-
-	      createForm1("learningSubjectMMinsertForm", "learningSubjectMMinsert", "POP");
-
-	      var form = document.getElementsByName("learningSubjectMMinsertForm")[0];
-	      window.open('', 'POP',"width=450, height=400, resizable = no, scrollbars = no");
-	      form.appendChild(boardTitle);
-	      form.appendChild(roomCode);
-	      form.appendChild(boardCode);
-	      
-
-	      form.submit();
-	   }
-
-	function checkFile(roomCode, boardCode) {
-		
+		createinput("hidden", "boardTitle", boardTitle);
 		createinput("hidden", "roomCode", roomCode);
 		createinput("hidden", "boardCode", boardCode);
-		
+		var boardTitle = document.getElementsByName("boardTitle")[0];
+		var roomCode = document.getElementsByName("roomCode")[0];
+		var boardCode = document.getElementsByName("boardCode")[0];
+
+		createForm1("learningSubjectMMinsertForm", "learningSubjectMMinsert",
+				"POP");
+
+		var form = document.getElementsByName("learningSubjectMMinsertForm")[0];
+		window.open('', 'POP',
+				"width=450, height=400, resizable = no, scrollbars = no");
+		form.appendChild(boardTitle);
+		form.appendChild(roomCode);
+		form.appendChild(boardCode);
+
+		form.submit();
+		window.close();
+		opener.location.reload();
+	}
+
+	function checkFile(roomCode, boardCode) {
+
+		createinput("hidden", "roomCode", roomCode);
+		createinput("hidden", "boardCode", boardCode);
+
 		var roomCode = document.getElementsByName("roomCode")[0];
 		var boardCode = document.getElementsByName("boardCode")[0];
 
@@ -169,66 +165,82 @@
 		form.submit();
 
 	}
-	 //메뉴선택
-	   function menu(ivalue) {
+	//메뉴선택
+	function menu(ivalue) {
 
-	      createinput("hidden", "caCode", ivalue);
+		createinput("hidden", "caCode", ivalue);
 
-	      var caCode = document.getElementsByName("caCode")[0];
+		var caCode = document.getElementsByName("caCode")[0];
 
-	      createForm("menuform", "stmenu", "post");
+		createForm("menuform", "stmenu", "post");
 
-	      var form = document.getElementsByName("menuform")[0];
-	      form.appendChild(caCode);
-	      
-	      form.submit();
+		var form = document.getElementsByName("menuform")[0];
+		form.appendChild(caCode);
 
-	   }
-	 
-	function taskscorepage(){	// 과제성적
-			
-		createForm("sttaskScorePageform","sttaskScorePage","post");
+		form.submit();
+
+	}
+
+	function taskscorepage() { // 과제성적
+
+		createForm("sttaskScorePageform", "sttaskScorePage", "post");
 
 		var form = document.getElementsByName("sttaskScorePageform")[0];
-			
+
 		form.submit();
-			
+
 	}
 </script>
 <style>
 @import url(//fonts.googleapis.com/earlyaccess/nanumgothic.css);
-  @import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
 
-.print{
- border:none; font-size:13pt; background:#FFF2E6;font-family: 'Noto Sans KR', sans-serif; 
-}
+@import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
 
-.print:hover{
-background : #FFCC97
-}
-
-.taskCTX{
-border:none; font-sieze:12pt; background:white
-}
-.taskCTX:hover{
-text-decoration : underline
+.print {
+	border: none;
+	font-size: 13pt;
+	background: #FFF2E6;
+	font-family: 'Noto Sans KR', sans-serif;
 }
 
-.taskCTX:active{
-color:#6D6CFF
-}
-.insert{
-border-radius:4px; height:30px; padding:0 10px; background:#D6C8A1; color:#424242; font-family: 'Noto Sans KR', sans-serif; 
-}
-.insert:hover{
-background:#C4B68F;
-}
-.CTX:hover{
-text-decoration : underline; cursor:pointer
+.print:hover {
+	background: #FFCC97
 }
 
-.CTX:active{
-color:#3669CF;
+.taskCTX {
+	border: none;
+	font-sieze: 12pt;
+	background: white
+}
+
+.taskCTX:hover {
+	text-decoration: underline
+}
+
+.taskCTX:active {
+	color: #6D6CFF
+}
+
+.insert {
+	border-radius: 4px;
+	height: 30px;
+	padding: 0 10px;
+	background: #D6C8A1;
+	color: #424242;
+	font-family: 'Noto Sans KR', sans-serif;
+}
+
+.insert:hover {
+	background: #C4B68F;
+}
+
+.CTX:hover {
+	text-decoration: underline;
+	cursor: pointer
+}
+
+.CTX:active {
+	color: #3669CF;
 }
 </style>
 </head>
@@ -249,55 +261,45 @@ color:#3669CF;
 					</a>
 				</div>
 
-			
-            <ul class="nav">
+
+				<ul class="nav">
 
 					<li></li>
-					<li class="active">
-					<a onClick="menu('15')">
-					 <i class="ti-user"></i>
-							<p >마이페이지</p>
-					</a></li><!-- 마이페이지로 가기만들기 -->
-					<li><a onClick="menu('1')"> <i
-							class="ti-home"></i>
+					<li class="active"><a onClick="menu('15')"> <i
+							class="ti-user"></i>
+							<p>마이페이지</p>
+					</a></li>
+					<!-- 마이페이지로 가기만들기 -->
+					<li><a onClick="menu('1')"> <i class="ti-home"></i>
 							<p>홈</p>
 					</a></li>
-					<li><a onClick="menu('3')"> 
-							<i class="ti-star"></i>
+					<li><a onClick="menu('3')"> <i class="ti-star"></i>
 							<p>공지사항</p>
 					</a></li>
-					<li><a onClick="menu('4')"> 
-					<i class="ti-help"></i>
+					<li><a onClick="menu('4')"> <i class="ti-help"></i>
 							<p>질문게시판</p>
 					</a></li>
-					<li><a onClick="menu('5')"> <i
-							class="ti-pencil-alt2"></i>
+					<li><a onClick="menu('5')"> <i class="ti-pencil-alt2"></i>
 							<p>토론게시판</p>
 					</a></li>
-					<li><a onClick="menu('6')">
-							<i class="ti-clipboard"></i>
+					<li><a onClick="menu('6')"> <i class="ti-clipboard"></i>
 							<p>과제</p>
 					</a></li>
-					<li><a
-						onClick="menu('7')"> <i
-							class="ti-book"></i>
+					<li><a onClick="menu('7')"> <i class="ti-book"></i>
 							<p>오답노트</p>
 					</a></li>
-					<li><a onClick="menu('9')">
-							<i class="ti-settings"></i>
+					<li><a onClick="menu('9')"> <i class="ti-settings"></i>
 							<p>수강생</p>
 					</a></li>
-					<li><a onClick="menu('10')">
-							<i class="ti-shopping-cart-full "></i>
+					<li><a onClick="menu('10')"> <i
+							class="ti-shopping-cart-full "></i>
 							<p>자료실</p>
 					</a></li>
 					<li></li>
-					<li><a onClick="menu('12')" >
-							<i class="ti-pencil-alt "></i>
+					<li><a onClick="menu('12')"> <i class="ti-pencil-alt "></i>
 							<p>강의계획서</p>
 					</a></li>
-					<li><a onClick="menu('13')">
-							<i class="ti-bookmark-alt "></i>
+					<li><a onClick="menu('13')"> <i class="ti-bookmark-alt "></i>
 							<p>과목코드</p>
 					</a></li>
 
@@ -342,56 +344,48 @@ color:#3669CF;
 			<div class="col-lg-35 col-md-12">
 
 				<div class="card">
-				<br/>
+					<br />
 					<h2 style="font-family: 'Nanum Gothic', sans-serif">
 						<b>과제 게시판</b>
 					</h2>
-					<input style="margin-left:90%" class="print" type="button" value="과제 성적" onClick="taskscorepage()" />
-					<br/><br/>
+					<input style="margin-left: 90%" class="print" type="button"
+						value="과제 성적" onClick="taskscorepage()" /> <br /> <br />
+					${taskList } ${button2 }
 
-					${taskList }
-					${button2 }
-					
 					<hr />
-					<h3 style="padding-left:10px">과제정보</h3>
-					<table  style="text-align:center" class="table table-hover">
-				</div>
-				<div class="card">
-				<br/>
-				<table id="ctx" class="table table-hover">
-					<h3 style="padding-left:10px; font-family: 'Nanum Gothic', sans-serif">과제정보</h3>
-						<tr>
-							<td><b>제목</b></td>
-							<td><b>내용</b></td>
-							<td><b>날짜</b></td>
-							
-						</tr>
-						<tr>
-							<td>${title }</td>
-							<td>${content }</td>
-							<td>${date }</td>
-							
-						</tr>
-
-					</table>
-					<div style="margin-left: 85%; height:40px">
-						${inputButton }
+					<h3 style="padding-left: 10px">과제정보</h3>
+					<table style="text-align: center" class="table table-hover">
 						</div>
-					</div>
-					
-					<div class="card">
-					
-					${tagcontent }
-					</div>
-					
-					</div>
-					
-				</div>
-		</div>
+						<div class="card">
+							<br />
+							<table id="ctx" class="table table-hover">
+								<h3
+									style="padding-left: 10px; font-family: 'Nanum Gothic', sans-serif">과제정보</h3>
+								<tr>
+									<td><b>제목</b></td>
+									<td><b>내용</b></td>
+									<td><b>날짜</b></td>
 
-	</div>
+								</tr>
+								<tr>
+									<td>${title }</td>
+									<td>${content }</td>
+									<td>${date }</td>
 
+								</tr>
 
+							</table>
+							<div style="margin-left: 85%; height: 40px">${inputButton }
+							</div>
+						</div>
 
+						<div class="card">${tagcontent }</div>
+
+						</div>
+
+						</div>
+						</div>
+
+						</div>
 </body>
 </html>

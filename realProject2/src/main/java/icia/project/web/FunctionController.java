@@ -632,14 +632,11 @@ public class FunctionController {
 		return mav;
 	}
 
-	// 과제 게시판 댓글쓰기
+	// 과제 게시판 제출쓰기
 	@RequestMapping(value = "/learningSubmitTaskInsert", method = RequestMethod.POST)
 	public ModelAndView learningSubmitTaskInsert(@ModelAttribute BoardBean board,MultipartHttpServletRequest mtfRequest)throws Exception{      
 
-
-		lsm.entrance(15, board, mtfRequest);
-
-		mav = lsm.entrance(14, board);
+		mav = lsm.entrance(15, board, mtfRequest);
 
 		return mav;
 	}
@@ -766,6 +763,16 @@ public class FunctionController {
 		
 		return mav;
 	}
+	// 학생 과제 삭제
+	@RequestMapping(value = "/deleteTask", method = RequestMethod.POST)
+	public ModelAndView deleteTask(@ModelAttribute  BoardBean board) {
+
+		mav = lsm.entrance(1, board);
+		
+		
+		return mav;
+	}
+
 	
 	
 	

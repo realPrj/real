@@ -453,7 +453,7 @@ public interface IMybatis {
 
 	// 강의계획서 수정
 	public int planUpdate(BoardBean board);
-	
+
 	// 강의계획서 삭제
 	public int planDelete(BoardBean board);
 
@@ -487,41 +487,47 @@ public interface IMybatis {
 	// the end
 	// 학생 상태코드 확인(로그인시)
 	public String stateSTCodeCheck(MemberBean member);
-	
+
 	// 학생 이름 추출
 	public String stMmNameGet(MemberBean member);
 
 	// 과제 점수 추출
 	public String taskScoreGet(BoardBean board);
-	
+
 	// 과제 점수 등록
 	public int taskScoreInsert(BoardBean board);
-	
+
 	// 과제 점수 수정
 	public int taskScoreUpdate(BoardBean board);
-	
+
 	// 과제 제출 번호 추출
 	public String learningTeskSubmitCodeGet(BoardBean board);
-	
+
 	// 과제 제출 번호 유무
 	public int learningTeskSubmitCodeCheck(BoardBean board);
-	
+
 	// 과제 점수 유무
 	public int taskScoreCheck(BoardBean board);
-	
+
 	// 과제 성적 개인 총 합
 	public int learningTeskScoreAllSum(BoardBean board);
-	
+
 	// 과제 성적 학습방 과제 수
 	public int learningTeskScoreCount(BoardBean board);
-	
+
 	// 과제 성적 학습방 등수
 	public ArrayList<BoardBean> learningTeskScoreRank(BoardBean board);
-	
+
 	// 학습방 총 학생 인원
 	public int learningRoomstAll(BoardBean board);
-	
-	
-	
+
+	// 과제글 유뮤 확인
+	public int learningSelect(BoardBean board);
+
+
+	// 선생님 과제  제출 삭제
+	public int deleteTask(BoardBean board);
+
+
 }
 

@@ -350,76 +350,7 @@ background:#C4B68F;
                </h2>
 
 
-					<%-- <div id="content"
-						style="display: inline-block; text-align: center;">
-						<input type="hidden" name="pageNum" value="${pageNum}"> <input
-							type="hidden" name="articleNumber"
-							value="${article.articleNumber}">
-
-						<div class="input-group input-group-md" role="group"
-							aria-label="...">
-							<table border="2" width="700px" height="300px";  >
-								<br />
-								<thead class="table table-striped table-bordered">
-
-									<tr>
-										<th width="20%" style="padding-top: 15px">작성자</th>
-										<td width="80%">${writeId }</td>
-									</tr>
-									<tr>
-										<th width="20%" style="padding-top: 15px">제목</th>
-										<td width="80%">${theme }</td>
-									</tr>
-									<tr>
-										<th width="20%">다운로드</th>
-										<td width="80%"><c:forEach var="file" items="${list }">
-
-												<a href="download.action?name=${file}">${file}</a>
-
-											</c:forEach></td>
-									</tr>
-									<tr>
-										<th width="20%" style="padding-top: 15px">날짜</th>
-										<td width="80%">${date }</td>
-									</tr>
-								</thead>
-								<tbody>
-									<tr>
-										<td colspan="2"><textarea class="form-control" rows="15"
-												style="background-color: white; color: black;"
-												name="content" readonly >${content }</textarea></td>
-									</tr>
-
-
-
-
-
-										<tr id="accessForm" style="marginleft:auto;margin-right: auto;">
-										<td colspan=2><Button class='btn' name="delete"
-												value="삭제"
-												onClick="deleteQuestion('${theme }','${date }','${roomcode}','${writeId }')">삭제
-											</Button></td>
-										<td>
-											<Button class='btn' name="update" value="수정"
-												onClick="updateQuestion('${theme }','${date }','${roomcode}','${writeId }','${content }')">수정
-											</Button>
-										</td>
-
-									</tr>
-								</tbody>
-								<tr id="accessForm">
-									<td colspan="2" id="cxt" ><input type="button" name="delete"
-										value="삭제" class="btn"
-										onClick="deleteQuestion('${theme }','${date }','${roomcode}','${writeId }')">
-
-										<input type="button" name="update" value="수정" class="btn"
-										onClick="updateQuestion('${theme }','${date }','${roomcode}','${writeId }','${content }')"></td>
-								</tr>
-							</table>
-							${taglists }
-						</div>
-
-					</div> --%>
+				
 					<input type="hidden" name="pageNum" value="${pageNum}">
                	<div class="title">${theme }</div>
                	<div class="date">작성자 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  ${writeId }</div>
@@ -434,17 +365,14 @@ background:#C4B68F;
                 <a href="download.action?name=${file}">${file}</a>
                 </c:forEach>
                 </div> 
-                  <div style="margin-left:80%">
+                  <div style="margin-left:80%" id='cxt'>
                   <input type="button" name="update" value="수정" class="CTXbtn" style="background:#FFFFFF" onClick="updateQuestion('${theme }','${date }','${roomcode}','${writeId }','${content }')">
-                  <input type="button" name="delete" value="삭제" class="CTXbtn_end" onClick="deleteQuestion('${theme }','${date }','${roomcode}','${writeId }')">
+                  <input type="button" name="delete" value="삭제"  class="CTXbtn_end" onClick="deleteQuestion('${theme }','${date }','${roomcode}','${writeId }')">
                   </div>
                 <div class="date" style="margin-top:5%">댓글</div>
                 <div class="tag">
                 	${taglists }
-                	
-                	<%-- <textarea onkeydown="resize(this)" name="tagContent" placeholder="댓글을 입력하세요"></textarea> 
-                	<input class="insert" type="button" value="댓글입력" id="sendBtn" onClick="tag('${theme }','${date }','${roomcode}','${writeId }')"/> --%>
-                </div>
+                 </div>
                	<br/> 
 				</div>
 			</div>

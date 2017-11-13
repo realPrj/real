@@ -42,22 +42,27 @@ function fileNameInput(){
 	  
 }
 </script> -->
+<script>
+
+function onload(){
+	${message};
+	${reload};
+	${windowclose};
+}
+
+</script>
+
 </head>
-<body>
+<body onLoad="onload()">
 	<!-- 자료실 글쓰기  -->
 	<form name="fileForm" action="learningSubmitTaskInsert" method="post"
 		enctype="multipart/form-data">
-		 <br> <input multiple="multiple" type="file" name="file" /><input
-			type="hidden" name="load" value="Notice" />
+		<br> <input multiple="multiple" type="file" name="file" /><input
+			type="hidden" name="load" value="Notice" /> <input type="hidden"
+			name="boardCode" value="${boardCode }"> <input type="hidden"
+			name="roomCode" value="${roomCode }"> <input type="hidden"
+			name="title" value="${title }">
 		<BUTTON type="SUBMIT">보내기</BUTTON>
-		
-		<!-- <input id="load" type="text" class="input_file" readonly/>
-							
-						
-		<input id="file" multiple="multiple" type="file" name="file" onchange="fileNameInput()"  class="upload"/>
-		<input type="hidden" name="load" value="Notice" /><br/>
-		<label style="font-size:10pt; height:10px; margin-left:0px; border-radius:4px; background-color:#FFF2E6; padding:4px 5px; color:424242; border:1px solid #989898; border-radius:6px; cursor:pointer; font-family: 'Noto Sans KR', sans-serif; " for="file">찾아보기..</label></td>
-		<BUTTON type="SUBMIT">보내기</BUTTON>	 -->	 
 	</form>
 
 </body>

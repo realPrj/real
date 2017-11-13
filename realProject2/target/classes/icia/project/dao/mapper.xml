@@ -1187,7 +1187,8 @@
 	<select id="checkFile" resultType="dbBoard" parameterType="board">
 		SELECT
 		TS_ROUTE AS boardRoute,
-		TS_DATET AS boardDate
+		TS_DATET AS boardDate,
+		TS_STRFSTUDENTCODE AS studentCode
 		FROM TASKSUBMIT
 		WHERE
 		TS_TALRCODE= #{roomCode}
@@ -1678,5 +1679,35 @@
 		LSR_LRCODE=#{roomCode}
 	</select>
 
+
+
+<!-- 과제 제출 유뮤확인 -->
+	<select id="learningSelect" resultType="Integer" parameterType="member">
+		SELECT COUNT(*)
+		FROM TASKSUBMIT
+		WHERE 
+		TS_TALRCODE=#{roomCode}
+		AND 
+		TS_TACODE=#{boardCode}
+		AND
+		TS_STRFSTUDENTCODE = #{studentCode}
+	</select>
+	
+	
+	
+	
+	
+		<!-- 과제 삭제 -->
+	<delete id="deleteTask" parameterType="board">
+		DELETE
+		FROM tasksubmit
+		WHERE 
+		TS_DATET = TO_DATE(#{boardDate},'YYYY-MM-DD HH24:MI:SS')
+		AND
+		TS_STRFSTUDENTCODE = #{studentCode}
+		AND
+		TS_TALRCODE =#{roomCode}
+	</delete>
+	
 </mapper>
 

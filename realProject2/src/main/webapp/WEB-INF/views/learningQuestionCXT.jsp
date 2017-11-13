@@ -411,65 +411,6 @@ background:#C4B68F;
                   <b>질문게시판</b>
                </h2>
 
-
-					 <%-- <div id="content"
-						style="display: inline-block; text-align: center;">
-						<input type="hidden" name="pageNum" value="${pageNum}"> <input
-							type="hidden" name="articleNumber"
-							value="${article.articleNumber}">
-
-						<div class="input-group input-group-md" role="group"
-							aria-label="...">
-							<table border="2" width="700px" height="300px";  >
-								<br />
-								<thead class="table table-striped table-bordered">
-
-									<tr>
-										<th width="13%" style="padding: 15px">작성자</th>
-										<td width="80%" style="text-align:left; padding: 15px">${writeId }</td>
-									</tr>
-									<tr>
-										<th width="13%" style="padding: 15px">제목</th>
-										<td width="80%" style="text-align:left; padding: 15px">${theme }</td>
-									</tr>
-									
-									<tr>
-										<th width="13%" style="padding: 15px">날짜</th>
-										<td width="80%" style="text-align:left; padding: 15px">${date }</td>
-									</tr>
-								</thead>
-								<tbody>
-									<tr>
-										<td colspan="2"><textarea class="form-control" rows="15"
-												style="background-color: white; color: black;"
-												name="content" readonly>${content }</textarea></td>
-									</tr>
-									<tr>
-										<th width="13%" style="padding: 15px">다운로드</th>
-										<td width="80%" style="text-align:left; padding: 15px"><c:forEach var="file" items="${list }">
-
-												<a href="download.action?name=${file}">${file}</a>
-
-											</c:forEach></td>
-									</tr>
-								</tbody>
-
-							</table>
-							<table>
-								<tr>
-									<br>
-									<td rowspan='2'><input type="text" name="tagContent"
-										class="table table-hover" placeholder="댓글 입력해주세여" size=50
-										maxlength=100> <input type="button" value="입력"
-										class="btn" id="sendBtn"
-										onClick="tag('${theme }','${date }','${roomcode}','${writeId }')"
-										size=50 maxlength=70></td>
-								</tr>
-							</table>
-							${taglists }
-						</div>
-
-					</div>  --%>
 					
 					 <input type="hidden" name="pageNum" value="${pageNum}">
                	<div class="title">${theme }</div>
