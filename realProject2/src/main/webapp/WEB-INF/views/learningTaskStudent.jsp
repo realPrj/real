@@ -351,8 +351,8 @@ color:#3669CF;
 					${taskList }
 					
 					<hr />
-					<h3 style="padding-left:10px">과제정보</h3>
-					<table  style="text-align:center" class="table table-hover">
+					
+					
 				</div>
 				<div class="card">
 				<br/>

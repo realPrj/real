@@ -3422,42 +3422,48 @@ public class learningTeacherMM extends TransactionExe {
 			return mav;
 		}
 
-		private ModelAndView taskScorePage() { // 과제 점수 페이지
+		   private ModelAndView taskScorePage() { // 과제 점수 페이지
 
-			mav = new ModelAndView();
-			boolean transaction = false;
-			ArrayList<BoardBean> al = null;
-			StringBuffer sb = new StringBuffer();
-			BoardBean board;
+			      mav = new ModelAndView();
+			      boolean transaction = false;
+			      ArrayList<BoardBean> al = null;
+			      StringBuffer sb = new StringBuffer();
+			      BoardBean board;
 
-			setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
+			      setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
 
-			try {
+			      try {
+			         
+			            board = new BoardBean();
 
-			sb.append("<select id='selectid' class='btn btn-primary' name='number'>");
-			sb.append("<option>학생선택</option>");
+			            board.setRoomCode((String)session.getAttribute("roomCode"));
 
-				for(int i = 0; i < al.size(); i++) {
-					board = new BoardBean();
-					board.setStudentCode(al.get(i).getStudentCode());
-					board.setStudentName(dao.stNameGet(board));
+			            al = dao.learningWANAllStudentCode(board);
 
-					sb.append("<option value="+board.getStudentCode()+">"+board.getStudentName()+"</option>");
+			         sb.append("<select id='selectid' class='btn btn-primary' name='number'>");
+			         sb.append("<option>학생선택</option>");
 
-				}
-				sb.append("</select>");
+			         for(int i = 0; i < al.size(); i++) {
+			            board = new BoardBean();
+			            board.setStudentCode(al.get(i).getStudentCode());
+			            board.setStudentName(dao.stNameGet(board));
 
-				mav.addObject("select", sb.toString());
-				mav.setViewName("learningTaskScore");
+			            sb.append("<option value="+board.getStudentCode()+">"+board.getStudentName()+"</option>");
 
-				transaction = true;
+			         }
+			         sb.append("</select>");
 
-			}catch(Exception ex){
-			}finally {
-				setTransactionResult(transaction);
-			}
-			return mav;
-		}
+			         mav.addObject("select", sb.toString());
+			         mav.setViewName("learningTaskScore");
+
+			         transaction = true;
+
+			      }catch(Exception ex){
+			      }finally {
+			         setTransactionResult(transaction);
+			      }
+			      return mav;
+			   }
 
 
 

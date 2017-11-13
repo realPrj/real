@@ -8,6 +8,11 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <title>공조 || 선생님</title>
+<script>
+function close(){
+	self.close();
+}
+</script>
 <style>
 @import url(//fonts.googleapis.com/earlyaccess/nanumgothic.css);
 @import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
@@ -21,9 +26,9 @@ font-family: 'Noto Sans KR', sans-serif; font-size:12pt; margin:3%
 </head>
 
 <body onLoad="${message}">
-	<!-- <br />
-	<img src="assets/img/gong_logo.png" alt="공조" width="200*150">
-	<br /> -->
+	<center> <br />
+	<img src="assets/img/gong_logo.png" alt="공조" width="150" height="70">
+	<br /> </center>
 
 
 
@@ -57,8 +62,9 @@ font-family: 'Noto Sans KR', sans-serif; font-size:12pt; margin:3%
 			제출 파일	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="download.action?name=${file}">${file}</a>
 			</c:forEach>
 			</div>
-
-	</form>
+			<input type="button" value="닫기" onClick="close()"/>
+	</form>	
+	
 
 
 
