@@ -140,7 +140,7 @@
 
 		var form = document.getElementsByName("learningWANCMCXTPageform")[0];
 		window.open('', 'POP',
-				"width=570, height=350, resizable = no, scrollbars = no");
+				"width=590, height=440, resizable = no, scrollbars = no");
 		form.appendChild(boardCode);
 
 		form.submit();
