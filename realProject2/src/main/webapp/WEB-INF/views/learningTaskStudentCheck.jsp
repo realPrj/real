@@ -7,7 +7,11 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
+<<<<<<< HEAD
 <title>공조 || 학생 과제 제출</title>
+=======
+<title>공조 || 학생과제제출 확인</title>
+>>>>>>> 9f419d52b915dec5799eb645df98f47bcd274533
 </head>
 
 <body onLoad="${message}">
