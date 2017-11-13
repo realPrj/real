@@ -1053,8 +1053,7 @@
 		boardDate,TA_CONTENT AS boardContent
 		FROM TASK
 		WHERE
-		TA_LRCODE =
-		#{roomCode}
+		TA_LRCODE =	#{roomCode}
 		ORDER BY TA_DATE
 		DESC
 	</select>
@@ -1389,7 +1388,7 @@
 
 	<!-- 학생 수강생 리스트 -->
 	<select id="getStudentList" resultType="board" parameterType="board">
-		SELECT * FROM LEARNINGSTUDENTLIST WHERE NOT STUDENTCODE =
+		SELECT * FROM LEARNINGSTUDENTLIST WHERE STUDENTCODE =
 		#{studentCode} AND ROOMCODE = #{roomCode}
 	</select>
 
@@ -1668,6 +1667,13 @@
 	<select id="learningTeskScoreRank" resultType="board" parameterType="board">
 		SELECT TSE_TSSTRFSTUDENTCODE AS studentCode ,RANK() OVER (ORDER BY SUM(TSE_SCORE) DESC) AS caCode FROM TASKSCORE WHERE TSE_TSTALRCODE=#{roomCode} GROUP BY TSE_TSSTRFSTUDENTCODE
 	</select>
+	
+
+	<!-- 과제 점수 유무 -->
+	<select id="learningTaskScoreCheck" resultType="Integer" parameterType="board">
+		SELECT COUNT(*) FROM TASKSCORE WHERE TSE_TSTALRCODE=#{roomCode} AND TSE_TSSTRFSTUDENTCODE=#{studentCode}
+	</select>
+	
 
 	<!-- 학습방 총 학생 인원 -->
 	<select id="learningRoomstAll" resultType="Integer"

@@ -3085,14 +3085,14 @@ public class learningTeacherMM extends TransactionExe {
 
 		try {
 			String nowYear = dao.nowYearGet();
-			int subtract = 12 - Integer.parseInt(nowYear.substring(4));
+
 			nowYear2 = nowYear;
 
 			sb.append("<select id = 'yearSelect' class='btn-sm'>");
 			sb.append("<option>월 선택</option>");
 
-			for(int i = 0; i <= subtract; i++) {
-				nowYear2 = Integer.toString(Integer.parseInt(nowYear)+i);
+			for(int i = 0; i <= 11; i++) {
+				nowYear2 = Integer.toString(Integer.parseInt(nowYear.substring(0, 4)+"01")+i);
 				sb.append("<option value="+nowYear2+">"+nowYear2.substring(0, 4)+"년"+nowYear2.substring(4)+"월"+"</option>");
 			}
 			sb.append("</select>");
@@ -3341,6 +3341,12 @@ public class learningTeacherMM extends TransactionExe {
 		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
 
 		try {
+			
+            board = new BoardBean();
+
+            board.setRoomCode((String)session.getAttribute("roomCode"));
+
+            al = dao.learningWANAllStudentCode(board);
 
 			sb.append("<select id='selectid' class='btn btn-primary' name='number'>");
 			sb.append("<option>학생선택</option>");

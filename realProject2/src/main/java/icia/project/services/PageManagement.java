@@ -858,11 +858,13 @@ public class PageManagement extends TransactionExe {
 			
 			String roomcode = (String)session.getAttribute("roomCode");
 			String stcode = board.getStudentCode();
-			String ran = null;
+			String ran = "확인불가";
 
 			board.setRoomCode(roomcode);
 
 			al = dao.learningTaskList(board);	// 게시 리스트
+			
+			if(dao.learningTaskScoreCheck(board) != 0) {
 			
 			bb = dao.learningTeskScoreRank(board);	// 등수
 			
@@ -876,7 +878,7 @@ public class PageManagement extends TransactionExe {
 				}
 				
 			}
-			
+
 			for(int i = 0; i < al.size(); i++) {
 				board = new BoardBean();
 				board.setRoomCode(roomcode);
@@ -904,11 +906,41 @@ public class PageManagement extends TransactionExe {
 				
 				score.add(board);
 			}
+			
+			}else {
+				
+				for(int i = 0; i < al.size(); i++) {
+					board = new BoardBean();
+					board.setRoomCode(roomcode);
+					board.setBoardTitle(al.get(i).getBoardTitle());
+					board.setBoardCode(al.get(i).getBoardCode());
+					board.setStudentCode(stcode);
+					board.setStudentName(dao.stNameGet(board));
+					if(dao.learningTeskSubmitCodeCheck(board) != 0) {
+					board.setTagCode(dao.learningTeskSubmitCodeGet(board));	
+					if(dao.taskScoreCheck(board)!= 0) {
+					board.setTypeSum(dao.taskScoreGet(board));
+					board.setAllSum(dao.learningTeskScoreAllSum(board));
+					}
+					else {board.setTypeSum("점수 미등록");}
+					}
+					else {
+						board.setTypeSum("미제출");
+					}
 					
+					board.setStNumber(Integer.toString(dao.learningRoomstAll(board)));
+					board.setAverage("미제출");
+					board.setRank(ran);
+					board.setPercentage("미제출");
+
+					score.add(board);
+				}
+				
+			}
+			
 			transaction = true;
 
 		}catch(Exception ex) {
-
 		}finally {
 
 			setTransactionResult(transaction);

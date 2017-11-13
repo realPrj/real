@@ -521,6 +521,10 @@ public interface IMybatis {
 	// 학습방 총 학생 인원
 	public int learningRoomstAll(BoardBean board);
 	
+	// 과제 점수 유무
+	public int learningTaskScoreCheck(BoardBean board);
+	
+	
 	
 	
 }
