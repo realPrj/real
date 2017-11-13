@@ -99,7 +99,6 @@ public class learningTeacherMM extends TransactionExe {
 			mav = learningDataCXT((BoardBean)object[0]);
 			break;
 
-
 		case 15:	//자료실 글삭제하기
 			mav = learningDataDelete((BoardBean)object[0]);
 			break;
@@ -115,14 +114,16 @@ public class learningTeacherMM extends TransactionExe {
 		case 18:	// 오답노트 코멘트 등록
 			mtfRequest = ((MultipartHttpServletRequest)object[1]);
 			mav = learningWANCommentInsert((BoardBean)object[0]);
-
 			break;
+			
 		case 19:	// 오답노트 코멘트 수정 페이지
 			mav = learningWANCMUpdatePage((BoardBean)object[0]);
 			break;
+			
 		case 20:	// 오답노트 코멘트 수정
 			mav = learningWANCMUpdate((BoardBean)object[0]);
 			break;
+			
 		case 21:	// 오답노트 코멘트 삭제
 			mav = learningWANCMDelete((BoardBean)object[0]);
 			break;
@@ -143,10 +144,6 @@ public class learningTeacherMM extends TransactionExe {
 		case 25:   // 선생님 학생 전체보기
 			mav = teacherLearningSTadmin((BoardBean)object[0]);
 			break;
-
-			/*case 26:   // 선생님 학생 전체보기 자세히 보기
-			mav = teacherLearningSTadminCXT((BoardBean)object[0]);
-			break;*/
 
 		case 27:   // 과제 페이지
 			mav = learningTaskPage((BoardBean)object[0]);
@@ -221,7 +218,6 @@ public class learningTeacherMM extends TransactionExe {
 		case 45:   // 과제삭제
 			mav = learningTaskCXTDelete((BoardBean)object[0]);
 			break;	
-
 
 		case 40 :   // 채팅
 			mav = adminChating();
