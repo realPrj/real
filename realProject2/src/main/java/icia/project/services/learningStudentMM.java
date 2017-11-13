@@ -1276,25 +1276,58 @@ public class learningStudentMM extends TransactionExe {
 				al = dao.learningTaskList(board);    // 과제 리스트 담기
 				sb.append("<table class=\"table table-hover\">");
 				sb.append("<tr>");
+				sb.append("<td>");
+				sb.append("<b>게시물 번호</b>");
+				sb.append("</td>");
 				sb.append("<td><b>제목</b></td>");
 				sb.append("<td><b>날짜</b></td>");
 				sb.append("</tr>");
-				for(int i = 0; i < al.size(); i++) {	// 과제 리스트 출력
+				
+				
+				int forI = 0; // 크게 한사람
+				int forB = 0;	// 내용물
+				int pageCount = 5; // 
+				int pageCount2 = pageCount; // 
+
+				double sizeDouble = al.size() / (double)pageCount;
+
+				for(forI=0; forI < sizeDouble; forI++) {
+
+					if(al.size()< pageCount) {
+						pageCount= al.size();
+					}
+
+					sb.append("<tbody name=tbody"+forI+" id=tbody"+forI+">");
+
+				
+				
+					for(forB=forB; forB<pageCount; forB++) {	// 과제 리스트 출력
 					sb.append("<tr>");
-					sb.append("<td class=\"CTX\" onClick=\"questionCXT(\'"+ al.get(i).getBoardCode() +"\')\">"+ al.get(i).getBoardTitle() + "</td>");
-					/*sb.append("<td>");
-					sb.append("<button class=\"taskCTX\" onClick=\"questionCXT(\'"+ al.get(i).getBoardCode() +"\')\" />" + al.get(i).getBoardTitle() + "</button>");
-					sb.append("</td>");*/
+					sb.append("<td class=\"CTX\" onClick=\"questionCXT(\'"+ al.get(forB).getBoardCode() +"\')\">"+ al.get(forB).getBoardTitle() + "</td>");
 					sb.append("<td>");
-					sb.append(al.get(i).getBoardDate());
+					sb.append(al.get(forB).getBoardDate());
 					sb.append("</td>");
 					sb.append("</tr>");    
-				}
+					}
+					pageCount+=pageCount2;
+
 				sb.append("</table>");
+				}
 				mav.addObject("taskList", sb.toString());
+				sb = new StringBuffer();
+
+				sb.append("<div class='text-center'>");
+				sb.append("<ul class='pagination'>");
+
+				for(int y=0; y < sizeDouble; y++) {// 페이지 버튼
+					sb.append("<li><a onClick='pageNumber("+y+")'>"+(y+1)+"</a></li>");
+				}
+				sb.append("</ul>");
+				sb.append("</div>");
+
+				mav.addObject("button2", sb.toString());
 
 			}
-
 			mav.setViewName("learningTaskStudent");
 			transaction = true;
 
@@ -1344,10 +1377,11 @@ public class learningStudentMM extends TransactionExe {
 			board.setRoomCode((String)session.getAttribute("roomCode"));
 			board.setStudentCode((String)session.getAttribute("stCode"));
 
-			int boardCode = (int)(Math.random() *89999)+10000;
-			board.setFileName(Integer.toString(boardCode));
-
-			session.getAttribute(board.getFileName());
+			int Code = (int)(Math.random() *89999)+10000;
+			board.setFileName(Integer.toString(Code));
+			System.out.println("learningSubmitTaskInsert");
+			System.out.println(board.getBoardCode());
+			
 			if(dao.learningSubmitTaskInsert(board) != 0) {
 
 				transaction = true;
