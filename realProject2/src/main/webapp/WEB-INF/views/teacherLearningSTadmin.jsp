@@ -212,8 +212,8 @@ function stadmin(studentCode){
 
             <ul class="nav">
                <li></li>
-               <li class="active"><a onClick="menu('15','${identity}')"> <i class="ti-user"></i>
-                     <p>마이페이지</p>
+               <li class="active"><a onClick="menu('15','${identity}')"> <i class="ti-user" style="color:#999"></i>
+                     <p style="color:#999">마이페이지</p>
                </a></li>
                <!-- 마이페이지로 가기만들기 -->
                <li><a onClick="menu('1','${identity}')"> <i class="ti-home"></i>
@@ -234,8 +234,8 @@ function stadmin(studentCode){
                <li><a onClick="menu('7','${identity}')"> <i class="ti-book"></i>
                      <p>오답노트</p>
                </a></li>
-               <li><a onClick="menu('9','${identity}')"> <i class="ti-settings"></i>
-                     <p>수강생</p>
+               <li><a onClick="menu('9','${identity}')"> <i class="ti-settings" style="color:#C90000"></i>
+                     <p style="color:#C90000">수강생</p>
                </a></li>
                <li><a onClick="menu('10','${identity}')"> <i class="ti-shopping-cart-full "></i>
                      <p>자료실</p>

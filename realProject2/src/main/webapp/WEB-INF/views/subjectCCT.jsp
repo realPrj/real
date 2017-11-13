@@ -198,8 +198,8 @@ background : #FFCC97
 				<ul class="nav">
 					<li></li>
 					<li class="active"><a onClick="menu('15')"> <i
-							class="ti-user"></i>
-							<p>마이페이지</p>
+							class="ti-user" style="color:#999"></i>
+							<p style="color:#999">마이페이지</p>
 					</a></li>
 					<!-- 마이페이지로 가기만들기 -->
 					<li><a onClick="menu('1')"> <i class="ti-home"></i>
@@ -231,8 +231,8 @@ background : #FFCC97
 					<li><a onClick="menu('12')"> <i class="ti-pencil-alt "></i>
 							<p>강의계획서</p>
 					</a></li>
-					<li><a onClick="menu('13')"> <i class="ti-bookmark-alt "></i>
-							<p>과목코드</p>
+					<li><a onClick="menu('13')"> <i class="ti-bookmark-alt " style="color:#C90000"></i>
+							<p style="color:#C90000">과목코드</p>
 					</a></li>
 
 				</ul>
@@ -261,8 +261,8 @@ background : #FFCC97
 									<p>마이메뉴</p> <b class="caret"></b>
 							</a>
 								<ul class="dropdown-menu">
-									<li><a href="http://localhost/real/studentLearningMSG.jsp">쪽지함</a></li>
-									<li><a href="http://localhost/real/first_join.jsp" >로그아웃</a></li>
+									<li><a onClick="menu('11')">쪽지함</a></li>
+									<li><a  onClick="menu('14')">로그아웃</a></li>
 								</ul></li>
 
 						</ul>
