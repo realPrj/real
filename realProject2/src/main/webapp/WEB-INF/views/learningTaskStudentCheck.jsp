@@ -8,6 +8,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <title>공조 || 학생과제제출 확인</title>
+
 <style>
 @import url(//fonts.googleapis.com/earlyaccess/nanumgothic.css);
 @import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
@@ -18,6 +19,7 @@ font-family: 'Nanum Gothic', sans-serif; text-align:center; font-size:15pt; marg
 font-family: 'Noto Sans KR', sans-serif; font-size:12pt; margin:3%
 }
 </style>
+
 </head>
 
 <body onLoad="${message}">
@@ -45,11 +47,6 @@ font-family: 'Noto Sans KR', sans-serif; font-size:12pt; margin:3%
 	
 
 	</form>
-
-
-
-
-
 
 </body>
 </html>
