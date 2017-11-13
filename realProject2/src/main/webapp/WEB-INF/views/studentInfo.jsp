@@ -153,10 +153,10 @@ function menu(ivalue) {
 		<b>내정보</b>
 	</h2>
 	<br />
-	 ${content }
 
-	<div>
-		
+
+	<div class="joinInput" style="height: 350px">
+			 ${content }
 	</div>
 
 	<br />

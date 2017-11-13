@@ -67,10 +67,10 @@ public class PageManagement extends TransactionExe {
 		case 8:	// 학습방 코드표
 			mav = subjectCCTSTUDENT(((BoardBean)object));
 			break;	
-		case 9:	// 선생님 다시
+		case 9:	// 선생님 다시 메인
 			mav = hometeacherLearningMainPage(((LearningRoomBean)object));
-			break;		
-		case 10:	// 선생님 다시
+			break;		 
+		case 10:	// 학생 다시 메인
 			mav = homestudentLearningMainPage(((LearningRoomBean)object));
 			break;		
 
@@ -246,7 +246,7 @@ public class PageManagement extends TransactionExe {
 
 			member = dao.tcInformationGet(member);
 
-			sb.append("<table class=\"joinInput\">");
+			sb.append("<table class=\"table table-hover\">");
 			sb.append("<tr>");
 			sb.append("<td>");
 			sb.append("아이디");
@@ -372,7 +372,7 @@ public class PageManagement extends TransactionExe {
 
 			member = dao.stInformationGet(member);
 
-			sb.append("<table class=\"joinInput\">");
+			sb.append("<table class=\"table table-hover\">");
 			sb.append("<tr>");
 			sb.append("<td>");
 			sb.append("아이디");
