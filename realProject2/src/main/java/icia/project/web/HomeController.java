@@ -629,9 +629,9 @@ public class HomeController  {
 	@RequestMapping(value = "/learningSubjectMMinsert", method = RequestMethod.GET)
 	public ModelAndView learningSubjectMMinsert(@ModelAttribute BoardBean board) {
 		mav = new ModelAndView();
+		
 		mav.addObject("boardCode",board.getBoardCode());
 		mav.addObject("roomCode",board.getRoomCode());
-
 		mav.addObject("title", board.getBoardTitle());
 		mav.setViewName("learningTaskSubmitInsert");
 		return mav;
