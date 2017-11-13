@@ -231,15 +231,15 @@ filter: alpha(opacity=0);
 
             <ul class="nav">
                <li></li>
-               <li class="active"><a onClick="menu('15','${identity}')"> <i class="ti-user"></i>
-                     <p>마이페이지</p>
+               <li class="active"><a onClick="menu('15','${identity}')"> <i class="ti-user" style="color:#999"></i>
+                     <p style="color:#999">마이페이지</p>
                </a></li>
                <!-- 마이페이지로 가기만들기 -->
                <li><a onClick="menu('1','${identity}')"> <i class="ti-home"></i>
                      <p>홈</p>
                </a></li>
-               <li><a onClick="menu('3','${identity}')"> <i class="ti-star"></i>
-                     <p>공지사항</p>
+               <li><a onClick="menu('3','${identity}')"> <i class="ti-star" style="color:#C90000"></i>
+                     <p style="color:#C90000">공지사항</p>
                </a></li>
                <li><a onClick="menu('4','${identity}')"> <i class="ti-help"></i>
                      <p>질문게시판</p>

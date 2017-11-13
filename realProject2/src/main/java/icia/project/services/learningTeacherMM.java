@@ -2933,7 +2933,7 @@ public class learningTeacherMM extends TransactionExe {
 				sb.append("<tr>");
 				sb.append("<td>"+ (forB+1) +"</td>");
 				sb.append("<td>" + ar.get(forB).getMessageOther() + "</td>");
-				sb.append("<td onClick=\"messageCTX('"+ board.getMessageCode() +"','"+ ar.get(forB).getRoomCode() +"','"+ ar.get(forB).getMessageDate() +"','"+board.getIdentity()+"')\">" + ar.get(forB).getMessageTitle() + "</td>");
+				sb.append("<td style=\"cursor:pointer\" onClick=\"messageCTX('"+ board.getMessageCode() +"','"+ ar.get(forB).getRoomCode() +"','"+ ar.get(forB).getMessageDate() +"','"+board.getIdentity()+"')\">" + ar.get(forB).getMessageTitle() + "</td>");
 				sb.append("<td>" + ar.get(forB).getMessageDate() + "</td>");
 				sb.append("</tr>");
 			}
