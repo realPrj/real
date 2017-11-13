@@ -616,7 +616,8 @@ public class FunctionController {
 	public ModelAndView learningTaskCXTDelete(@ModelAttribute BoardBean board) {
 
 		ltm.entrance(45, board);
-		mav.setViewName("teacherLearningMain");
+		board = new BoardBean();
+		mav= ltm.entrance(27, board);
 		return mav;
 	}
 
