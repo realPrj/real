@@ -293,6 +293,7 @@ public class FunctionController {
 		return mav;
 	}
 
+	
 	// 과제제출 자세히 보기
 	@RequestMapping(value = "/learningTaskCXT", method = RequestMethod.POST)
 	public ModelAndView  learningTaskCXT(BoardBean board) {
@@ -630,7 +631,7 @@ public class FunctionController {
 		return mav;
 	}
 
-	// 과제 게시판 댓글쓰기
+	/*// 과제 게시판 댓글쓰기
 	@RequestMapping(value = "/learningSubmitTaskInsert", method = RequestMethod.POST)
 	public ModelAndView learningSubmitTaskInsert(@ModelAttribute BoardBean board,MultipartHttpServletRequest mtfRequest)throws Exception{      
 
@@ -640,7 +641,16 @@ public class FunctionController {
 		mav = lsm.entrance(14, board);
 
 		return mav;
-	}
+	}*/
+	
+	// 과제 게시판 제출쓰기
+	   @RequestMapping(value = "/learningSubmitTaskInsert", method = RequestMethod.POST)
+	   public ModelAndView learningSubmitTaskInsert(@ModelAttribute BoardBean board,MultipartHttpServletRequest mtfRequest)throws Exception{      
+
+	      mav = lsm.entrance(15, board, mtfRequest);
+
+	      return mav;
+	   }
 
 	// 토론게시판 댓글 등록
 	@RequestMapping(value = "/DebateTagInsert", method = RequestMethod.POST)

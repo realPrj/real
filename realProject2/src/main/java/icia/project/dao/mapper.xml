@@ -1158,7 +1158,7 @@
 	</insert>
 
 	<!-- 과제 댓글 날짜 출력 -->
-	<select id="learningTaskSelect" resultType="board"
+	<select id="" resultType="board"
 		parameterType="board">
 		SELECT
 		TO_CHAR(TS_DATET,'YYYY-MM-DD HH24:MI') AS
@@ -1173,7 +1173,7 @@
 		AND
 		TS_TACODE =#{boardCode}
 		AND
-		TS_STRFSTUDENTCODE = #{studentCode}
+		TS_STRFSTUDENTCODE = #{studentCode} ORDER BY boardDate DESC
 	</select>
 
 	<!-- 과목 이름 출력 -->
@@ -1285,7 +1285,7 @@
 		TS_TALRCODE=
 		#{roomCode}
 		AND
-		TS_TACODE =#{boardCode}
+		TS_TACODE =#{boardCode} ORDER BY boardDate DESC
 	</select>
 	<!-- 학생 과제 자세히 보기 -->
 	<select id="learningTesk" resultType="dbBoard" parameterType="board">

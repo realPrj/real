@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+   pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -14,51 +14,56 @@
   width:0px;height:28px;filter:alpha(opacity=0);cursor:pointer
 }
 .input_file{
-	display: block;
-	width: 60%;
-	height: 22px;
-	padding: 6px 12px;
-	font-size: 14px;
-	line-height: 1.42857143;
-	color: #5D5D5D;
-	background-color: #F6F6F6;
-	background-image: none;
-	border: 1px solid #ccc;
-	border-radius: 4px;
-	-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
-	box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
-	-webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow
-		ease-in-out .15s;
-	-o-transition: border-color ease-in-out .15s, box-shadow ease-in-out
-		.15s;
-	transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s
+   display: block;
+   width: 60%;
+   height: 22px;
+   padding: 6px 12px;
+   font-size: 14px;
+   line-height: 1.42857143;
+   color: #5D5D5D;
+   background-color: #F6F6F6;
+   background-image: none;
+   border: 1px solid #ccc;
+   border-radius: 4px;
+   -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+   box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+   -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow
+      ease-in-out .15s;
+   -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out
+      .15s;
+   transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s
 }
 </style>
 <script>
 function fileNameInput(){
-	  
-	 var fName = $('#file').val().split("\\");
-	    $('#load').val($(fName)[2]);
-	  
+     
+    var fName = $('#file').val().split("\\");
+       $('#load').val($(fName)[2]);
+     
 }
 </script> -->
+<script>
+
+function onload(){
+   ${message};
+   ${reload};
+   ${windowclose};
+}
+
+</script>
+
 </head>
-<body>
-	<!-- 자료실 글쓰기  -->
-	<form name="fileForm" action="learningSubmitTaskInsert" method="post"
-		enctype="multipart/form-data">
-		 <br> <input multiple="multiple" type="file" name="file" /><input
-			type="hidden" name="load" value="Notice" />
-		<BUTTON type="SUBMIT">보내기</BUTTON>
-		
-		<!-- <input id="load" type="text" class="input_file" readonly/>
-							
-						
-		<input id="file" multiple="multiple" type="file" name="file" onchange="fileNameInput()"  class="upload"/>
-		<input type="hidden" name="load" value="Notice" /><br/>
-		<label style="font-size:10pt; height:10px; margin-left:0px; border-radius:4px; background-color:#FFF2E6; padding:4px 5px; color:424242; border:1px solid #989898; border-radius:6px; cursor:pointer; font-family: 'Noto Sans KR', sans-serif; " for="file">찾아보기..</label></td>
-		<BUTTON type="SUBMIT">보내기</BUTTON>	 -->	 
-	</form>
+<body onLoad="onload()">
+   <!-- 자료실 글쓰기  -->
+   <form name="fileForm" action="learningSubmitTaskInsert" method="post"
+      enctype="multipart/form-data">
+      <br> <input multiple="multiple" type="file" name="file" /><input
+         type="hidden" name="load" value="Notice" /> <input type="hidden"
+         name="boardCode" value="${boardCode }"> <input type="hidden"
+         name="roomCode" value="${roomCode }"> <input type="hidden"
+         name="title" value="${title }">
+      <BUTTON type="SUBMIT">보내기</BUTTON>
+   </form>
 
 </body>
 </html>
