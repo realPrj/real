@@ -59,6 +59,17 @@
 <link href="assets/css/themify-icons.css" rel="stylesheet">
 
 <script>
+
+$(document).ready(function() {
+	
+    if($("input[value=undefined]")){
+ 	   var dayName = $("input[value *=null]").attr('name');
+ 	   $("input[name="+dayName+"]").remove();
+ 	   $("input[value=null]").remove();
+    }
+	
+	 });
+
 //form 생성
 function createForm(formname,formaction,formmethod){
 
@@ -223,8 +234,7 @@ function menu(ivalue){
 						<div class="col-lg-30 col-md-5">
 							<div class="container">
 								<h3>소개글</h3>
-								<textarea rows="10" class="form-control border-input"
-									laceholder="Here can be your description" value="Mike">${content }</textarea>
+							<div class="form-control" style="width:930px; height:200px">${content }</div>
 									<br/>
 							</div>
 						</div>
