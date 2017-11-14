@@ -1034,15 +1034,14 @@ public class PageManagement extends TransactionExe {
 	
 			if(dao.planCheck(board) != 0) {
 				dbb = dao.planCTX(board);	// 내용 보기
-				List<String> list = view.getList(dbb);
-				sb.append("<br/><table align=center id='"+month+"'>");
+				sb.append("<br/><table style='text-shadow: 0.1em 0.1em 0.15em #00D8FF;' align=center id='"+month+"'>");
 				sb.append("<tr>");
 				sb.append("<td>제목  :  "+dbb.getBoardTitle());
 				sb.append("</td>");
+				sb.append("<tr>");
+				sb.append("</tr>");
 				sb.append("<td>내용  :  "+dbb.getBoardContent());
 				sb.append("</td>");
-				sb.append("<td>첨부파일  :  <c:forEach var="+dbb.getCutContent()+" items="+list+"> <a href='download.action?name="+dbb.getCutContent()+"'>"+dbb.getCutContent()+"</a>");
-				sb.append(" </c:forEach></td>");
 				sb.append("</tr>");
 				sb.append("</table>");
 			}else {

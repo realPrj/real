@@ -1275,6 +1275,7 @@ public class learningStudentMM extends TransactionExe {
 
 					for(forB=forB; forB<pageCount; forB++) {	// 과제 리스트 출력
 						sb.append("<tr>");
+						sb.append("<td>"+(forB+1)+"</td>");
 						sb.append("<td class=\"CTX\" onClick=\"questionCXT(\'"+ al.get(forB).getBoardCode() +"\')\">"+ al.get(forB).getBoardTitle() + "</td>");
 						sb.append("<td>");
 						sb.append(al.get(forB).getBoardDate());
