@@ -268,6 +268,7 @@ public class HomeController  {
 		switch(code) {
 		case 1 : 
 			mav = pm.entrance(10, room);
+			mav.addObject("Calendar", pm.mainCalendarGet());
 			break;
 		case 2 : 
 
@@ -357,7 +358,7 @@ public class HomeController  {
 	public ModelAndView studentLearningMainPage(@ModelAttribute LearningRoomBean room) {
 
 		mav = pm.entrance(4, room);
-
+		mav.addObject("Calendar", pm.mainCalendarGet());
 		return mav;
 	}
 

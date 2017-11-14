@@ -678,7 +678,7 @@ public class learningTeacherMM extends TransactionExe {
 
 					typeSum = dao.learningWANTypeSum(board);
 
-					sum.append("<div style='margin-left: 550px' name='div' id="+yearCode.get(i).getYearCode().substring(0, 6)+" >");
+					sum.append("<div class='divclass' style=' text-shadow: 0.1em 0.1em 0.15em #FF5E00; text-align:center; margin-left: 562px;border:1px solid #FAE0D4;  width:20%;' name='div' id="+yearCode.get(i).getYearCode().substring(0, 6)+" >");
 					for(int y = 0; y < typeSum.size(); y++) {
 						board = new BoardBean();
 						board.setRoomCode(boardList.get(0).getRoomCode());
@@ -687,7 +687,7 @@ public class learningTeacherMM extends TransactionExe {
 						board.setTypeCode(typeSum.get(y).getTypeCode());
 						board.setTypeName(dao.learningTypeNameGet(board));
 						board.setTypeSum(typeSum.get(y).getTypeSum());   
-						sum.append(board.getTypeName()+" : "+ board.getTypeSum()+"<br>");
+						sum.append(board.getTypeName()+" : "+ board.getTypeSum()+"개<br>");
 
 					}
 					sum.append("</div>");

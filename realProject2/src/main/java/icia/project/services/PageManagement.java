@@ -2,6 +2,7 @@ package icia.project.services;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -956,6 +957,7 @@ public class PageManagement extends TransactionExe {
 		BoardBean board = null;
 		DbBoardBean dbb = null;
 		ArrayList<Calendar> al = null;
+		ViewService view = new ViewService(); 
 		boolean transaction = false;
 		StringBuffer sb = new StringBuffer();
 
@@ -967,7 +969,7 @@ public class PageManagement extends TransactionExe {
 			String month = dao.nowYearGet();	// 년월
 			
 			String today = dao.nowYearMMGet();	// 현재 날짜
-			
+
 			String roomcode = (String)session.getAttribute("roomCode");
 
 			cd.setRoomCode(roomcode);			
@@ -1029,13 +1031,18 @@ public class PageManagement extends TransactionExe {
 			board = new BoardBean();
 			board.setBoardCode(today);
 			board.setRoomCode(roomcode);
-			
+	
 			if(dao.planCheck(board) != 0) {
 				dbb = dao.planCTX(board);	// 내용 보기
+				List<String> list = view.getList(dbb);
 				sb.append("<br/><table align=center id='"+month+"'>");
 				sb.append("<tr>");
-				sb.append("<td>굳굳");
+				sb.append("<td>제목  :  "+dbb.getBoardTitle());
 				sb.append("</td>");
+				sb.append("<td>내용  :  "+dbb.getBoardContent());
+				sb.append("</td>");
+				sb.append("<td>첨부파일  :  <c:forEach var="+dbb.getCutContent()+" items="+list+"> <a href='download.action?name="+dbb.getCutContent()+"'>"+dbb.getCutContent()+"</a>");
+				sb.append(" </c:forEach></td>");
 				sb.append("</tr>");
 				sb.append("</table>");
 			}else {

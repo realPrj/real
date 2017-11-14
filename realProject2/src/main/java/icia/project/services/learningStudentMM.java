@@ -241,7 +241,7 @@ public class learningStudentMM extends TransactionExe {
 
 					typeSum = dao.learningWANstTypeSum(board);
 
-					sum.append("<br><biv style='margin-left: 550px' name='div' id='"+yearCode.get(i).getYearCode().substring(0, 6)+"' >");
+					sum.append("<br><biv style=' text-shadow: 0.1em 0.1em 0.15em #FF5E00; text-align:center; margin-left: 680px;border:1px solid #FAE0D4;  width:300px;' name='div' id='"+yearCode.get(i).getYearCode().substring(0, 6)+"' >");
 
 					for(int y = 0; y < typeSum.size(); y++) {
 						board = new BoardBean();
@@ -608,9 +608,7 @@ public class learningStudentMM extends TransactionExe {
 
 			bb.setCutContent(bb.getBoardRoute().substring(68));	// 파일이름
 			List<String> list = view.getList(bb);
-			System.out.println("디비보드빈 : " + bb.getBoardTitle());
-			System.out.println("공지사항 내용확인 메서드 진입"+bb.getBoardTitle()+bb.getRoomCode());
-
+		
 			mav.addObject("list",list);
 			mav.addObject("boardTitle",bb.getBoardTitle());
 			mav.addObject("boardContent",bb.getBoardContent().replace("\r\n", "<br/>"));
@@ -683,7 +681,7 @@ public class learningStudentMM extends TransactionExe {
 
 				bb.setCutRoute(bb.getBoardRoute().substring(0,68));	// 루트만
 				String route = bb.getCutRoute();
-				System.out.println("여기옴");
+				
 				bb.setCutContent(bb.getBoardRoute().substring(68));	// 파일이름
 
 				List<String> list = view.getList(bb);
@@ -723,7 +721,7 @@ public class learningStudentMM extends TransactionExe {
 		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
 
 		try {
-			System.out.println(board.getRoomCode());
+			
 			session.getAttribute("roomCode");
 			mav.addObject("content",session.getAttribute("roomCode") + "자료실");
 			board.setRoomCode((String)session.getAttribute("roomCode"));
@@ -795,7 +793,7 @@ public class learningStudentMM extends TransactionExe {
 
 		}
 		catch(Exception ex){
-			ex.printStackTrace();	
+
 		}finally {
 			setTransactionResult(transaction);
 		}
@@ -816,32 +814,24 @@ public class learningStudentMM extends TransactionExe {
 			board.setRoomCode((String)session.getAttribute("roomCode"));
 
 			board.setStudentCode((String)session.getAttribute("stCode"));
-			System.out.println("learningQuestionInsert");
-			System.out.println(board.getRoomCode());
-			System.out.println(board.getStudentCode());
-			System.out.println(board.getBoardTitle());
-			System.out.println(board.getBoardContent());
-			System.out.println(board.getBoardRoute());
 
 			session.getAttribute("roomCode");
 			if(dao.learningQuestionInsert(board) != 0) {
 				board.setStudentCode(board.getStudentCode());
 				board.setStudentName(dao.stNameGet(board));	
 				chat.msg("질문 게시판에"+board.getStudentName()+"님이"+board.getBoardTitle()+"등록하셨습니다.");
-				System.out.println("나 성공햇다 ");
-				transaction = true;
-			}else {
-
+				
 			}
+			transaction = true;
 		}
 		catch(Exception ex){
-			ex.printStackTrace();
 		}finally {
 			setTransactionResult(transaction);
 		}
-		mav.setViewName("");
+
 		return mav;
 	}
+	
 	private ModelAndView fileupload(BoardBean board,MultipartHttpServletRequest mtfRequest) {
 
 		mav = new ModelAndView();
@@ -853,8 +843,6 @@ public class learningStudentMM extends TransactionExe {
 		for (MultipartFile mf : fileList) {
 			String originFileName = mf.getOriginalFilename(); // 원본 파일 명
 			long fileSize = mf.getSize(); // 파일 사이즈
-			System.out.println("originFileName : " + originFileName);
-			System.out.println("fileSize : " + fileSize);
 			String safeFile = path + originFileName;
 			board.setBoardRoute(safeFile);
 			try {
@@ -890,14 +878,13 @@ public class learningStudentMM extends TransactionExe {
 			//mav.addObject("content",session.getAttribute("roomCode") + "의 공지사항");
 
 			DbBoardBean bb = dao.questionBoardCXT(board);   // 전체 루트(파일이름까지)
-			System.out.println(bb.getBoardRoute());
 			bb.setCutRoute(bb.getBoardRoute().substring(0,68));   // 루트만
 			String route = bb.getCutRoute();
 
 			bb.setCutContent(bb.getBoardRoute().substring(68));   // 파일이름
-			System.out.println(bb.getCutContent());
+
 			List<String> list = view.getList(bb);
-			System.out.println(bb.getBoardTitle());
+
 			mav.addObject("list",list);
 			mav.addObject("theme",bb.getBoardTitle());
 			mav.addObject("content",bb.getBoardContent().replace("\r\n", "<br/>"));
@@ -938,7 +925,7 @@ public class learningStudentMM extends TransactionExe {
 
 
 		}catch(Exception ex){
-			ex.printStackTrace();
+	
 		}finally {
 			setTransactionResult(transaction);
 		}
@@ -957,7 +944,7 @@ public class learningStudentMM extends TransactionExe {
 
 			}
 		}catch(Exception ex){
-			ex.printStackTrace();
+	
 		}finally {
 
 			setTransactionResult(transaction);
@@ -979,7 +966,7 @@ public class learningStudentMM extends TransactionExe {
 
 			}
 		}catch(Exception ex){
-			ex.printStackTrace();
+		
 		}finally {
 			setTransactionResult(transaction);
 		}
@@ -1156,7 +1143,7 @@ public class learningStudentMM extends TransactionExe {
 
 
 	private ModelAndView learningDebateTagInsert(BoardBean board) { // 토론게시판 댓글 등록
-		System.out.println("토론게시판 댓글등록 서비스");
+
 		mav = new ModelAndView();
 		boolean transaction = false;
 		chat = new ChatWebSocketHandler();
@@ -1171,13 +1158,13 @@ public class learningStudentMM extends TransactionExe {
 			if(dao.learningDebateTagInsert(board) != 0) {
 
 				board.setStudentName(dao.stNameGet(board));	
-				System.out.println(board.getStudentName());
+		
 				chat.msg(board.getStudentName()+" 댓글을 입력해셨습니다");
-				System.out.println("토론게시판 댓글쓰기 성공");
+			
 				transaction = true;
 			}
 		}catch(Exception ex){
-			ex.printStackTrace();
+		
 		}finally {
 			setTransactionResult(transaction);
 		}
@@ -1209,9 +1196,6 @@ public class learningStudentMM extends TransactionExe {
 			if(board.getBoardCode() != null) {	// 게시글 내용,댓글 보여주기
 
 				board = dao.learningTaskGet(board);	// 게시글 내용
-				System.out.println(board.getBoardCode());
-				System.out.println(board.getRoomCode());
-
 
 				mav.addObject("title", board.getBoardTitle());
 				mav.addObject("date",board.getBoardDate());
@@ -1323,7 +1307,6 @@ public class learningStudentMM extends TransactionExe {
 
 
 		}catch(Exception ex){
-			ex.printStackTrace();
 
 		}finally {
 			setTransactionResult(transaction);
@@ -1343,11 +1326,10 @@ public class learningStudentMM extends TransactionExe {
 			board.setStudentCode((String)session.getAttribute("stCode"));
 
 			if(dao.learningDebateTagDelete(board) != 0) {
-				System.out.println("토론게시판 댓글삭제 성공");
+
 				transaction = true;
 			}
 		}catch(Exception ex){
-			ex.printStackTrace();
 		}finally {
 			setTransactionResult(transaction);
 		}
@@ -1419,7 +1401,7 @@ public class learningStudentMM extends TransactionExe {
 		mav = new ModelAndView();
 
 		ViewService view = new ViewService(); 
-		System.out.println(board.getBoardDate());
+
 		boolean transaction = false;
 
 		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
@@ -1451,7 +1433,6 @@ public class learningStudentMM extends TransactionExe {
 
 
 		}catch(Exception ex){
-			ex.printStackTrace();
 
 		}finally {
 			setTransactionResult(transaction);
@@ -1575,7 +1556,7 @@ public class learningStudentMM extends TransactionExe {
 		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
 
 		try {
-			System.out.println("뭐야?");
+		
 			session.getAttribute("roomCode");
 
 			board.setRoomCode((String)session.getAttribute("roomCode"));
@@ -1632,7 +1613,7 @@ public class learningStudentMM extends TransactionExe {
 	}
 
 	private ModelAndView studentLearningSTadmin(BoardBean board) { // 선생님 학생보기
-		System.out.println("학생 전체보기");
+
 		mav = new ModelAndView();
 		boolean transaction = false;
 		StringBuffer sb = new StringBuffer();
@@ -1774,7 +1755,7 @@ public class learningStudentMM extends TransactionExe {
 			if(dao.sendMessageS(board) != 0) {
 				board.setMessageCode("G");
 				if(dao.sendMessageG(board) != 0) {
-					System.out.println("쪽지 보내기 성공");
+				
 				}
 			}
 
@@ -1814,8 +1795,6 @@ public class learningStudentMM extends TransactionExe {
 			mav.addObject("messageContent", board.getMessageContent());
 
 			board.setIdentity((String)session.getAttribute("identity"));
-			System.out.println("보낸쪽지 서비스 : " + board.getIdentity());
-
 
 			sb.append("<input type=\"button\" value=\"목록\" onClick=\"message('"+3+"','"+board.getIdentity()+"')\"/>");
 			sb.append("<input type=\"button\" value=\"삭제\" onClick=\"messageDelete('"+board.getIdentity()+"','"+board.getRoomCode()+"','"+board.getMessageCode()+"','"+board.getMessageDate()+"')\"/>");
@@ -1847,7 +1826,7 @@ public class learningStudentMM extends TransactionExe {
 			board.setMessageId((String)session.getAttribute("stCode"));
 
 			if(dao.getMessageDelete(board) != 0) {
-				System.out.println("삭ㅂ제성공");
+				
 			}
 
 			transaction = true;
@@ -1874,7 +1853,7 @@ public class learningStudentMM extends TransactionExe {
 			board.setMessageId((String)session.getAttribute("stCode"));
 
 			if(dao.sentMessageDelete(board) != 0) {
-				System.out.println("삭ㅂ제성공2");
+				
 			}
 
 			transaction = true;
@@ -2170,7 +2149,7 @@ public class learningStudentMM extends TransactionExe {
 				mav.addObject("roomCode",board.getRoomCode());
 				mav.addObject("title", board.getBoardTitle());
 			}else {
-				System.out.println("과제 실패");
+			
 				mav.addObject("reload", "opener.location.reload()");
 				mav.addObject("windowclose", "window.close()");
 				mav.addObject("message", "alert('이미 제출하셨습니다.')");	  
@@ -2178,7 +2157,7 @@ public class learningStudentMM extends TransactionExe {
 			mav.setViewName("learningTaskSubmitInsert");
 
 		}catch(Exception ex){
-			ex.printStackTrace();
+
 		}finally {
 			setTransactionResult(transaction);
 		}
@@ -2192,9 +2171,7 @@ public class learningStudentMM extends TransactionExe {
 		try {
 			board.setRoomCode((String)session.getAttribute("roomCode"));
 			board.setStudentCode((String)session.getAttribute("stCode"));
-			System.out.println(board.getRoomCode());
-			System.out.println(board.getStudentCode());
-			System.out.println(board.getBoardDate());
+
 			if(dao.deleteTask(board) != 0) {
 				mav.addObject("reload", "opener.location.reload()");
 				mav.addObject("windowclose", "window.close()");
@@ -2205,7 +2182,7 @@ public class learningStudentMM extends TransactionExe {
 			
 			transaction=true;
 		}catch(Exception ex) {
-			ex.printStackTrace();
+			
 		}finally {
 			setTransactionResult(transaction);
 		}

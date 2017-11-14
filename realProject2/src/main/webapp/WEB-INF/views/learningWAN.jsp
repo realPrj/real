@@ -47,13 +47,20 @@ $(document).ready(function() {
 	   
 	   $("#yearSelect").click(function() {
 	   var selectValue = $("#yearSelect").val();
-
+	   
 	   $("div[name *='div']").hide(); 
 	      $("#"+selectValue).show();
 	      var divbox = $("#divbox");
 	      divbox.append($("#"+selectValue));
-	   }); 
 
+	      $("#"+selectValue).show();
+	      $("#"+selectValue).hide();
+	      $("#"+selectValue).show(1000); // 1000ms -> 1초
+
+	   }); 
+	   
+
+	
 	   
 	   /* 복사 */
 	   $("tbody[name *='tbody']").hide(); 
