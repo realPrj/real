@@ -40,6 +40,32 @@
 
 
 <style>
+
+div {
+scrollbar-highlight-color:#6B66FF; 
+scrollbar-3dlight-color:#6B66FF; 
+scrollbar-face-color:#6B66FF; 
+scrollbar-shadow-color:#6B66FF; 
+scrollbar-darkshadow-color:#6B66FF; 
+scrollbar-track-color:#6B66FF; 
+scrollbar-arrow-color:#6B66FF;
+}
+
+
+.portfolio::-webkit-scrollbar {width: 12px; height: 12px;  }
+.portfolio::-webkit-scrollbar-button:start:decrement, 
+.portfolio::-webkit-scrollbar-button:end:increment {display: block; width: 12px;height: 12px; background: url() #FFD8D8;}
+.portfolio::-webkit-scrollbar-track {     background: #FFD8D8; }
+.portfolio::-webkit-scrollbar-thumb {  background: #FFD8D8;  }
+
+
+.services::-webkit-scrollbar {width: 12px; height: 12px;  }
+.services::-webkit-scrollbar-button:start:decrement, 
+.services::-webkit-scrollbar-button:end:increment {display: block; width: 12px;height: 12px; background: url() #E6C8AA;}
+.services::-webkit-scrollbar-track {     background: #E6C8AA; }
+.services::-webkit-scrollbar-thumb {  background: #E6C8AA;  }
+
+
 .box
 {
    display: inline-block;
@@ -142,10 +168,9 @@ font-size:12pt; padding:0 20px; padding-bottom:1px;
 	        	$("#scoreId").empty();
 	        	$("#scoreId2").empty();
 	        	var lengthNum = data.length;
-	        	
 	        	var html = "";
 
-	        	html += "<table align=center>"
+	        	html += "<table style='height:100%' align=center>"
 		        html += "<tbody align=center>";
 	        	html += "<tr>";
 	        	html += "<td colspan='2'>";
@@ -170,6 +195,7 @@ font-size:12pt; padding:0 20px; padding-bottom:1px;
 	    			html += "<td>"+data[i].typeSum+"</td>";
 	    			html += "</tr>";
 	        		html += "</tbody>";
+
 	        	}
 
 	        	html += "</table>"
@@ -180,7 +206,7 @@ font-size:12pt; padding:0 20px; padding-bottom:1px;
 	        	/* 2 */
 	        	var html = "";
 	        	
-	        	html += "<table align=center>"
+	        	html += "<table style='height:100%' align=center>"
 
 		        		html += "<table align=center>"
 				        html += "<tbody align=center>";
@@ -360,12 +386,12 @@ font-size:12pt; padding:0 20px; padding-bottom:1px;
 ${select }
 <center>
 <div class="nav" style="margin-top:10%">
-      <div class="box portfolio" >
+      <div style='height:300px; overflow-y:auto;' class="box portfolio" >
    <a style="text-align:center;" href="#portfolio"><h3>성적</h3>
    <span><div id="scoreId"></div></span></a>
       </div>
     
-     <div class="box services">
+     <div style='height:300px; overflow-y:auto;' class="box services">
    <a href="#services"><h3>평가</h3>
    <span><div id="scoreId2"></div></span></a>
      </div>
