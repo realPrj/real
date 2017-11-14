@@ -127,7 +127,7 @@ function menu(ivalue) {
 		<b>내정보</b>
 	</h2>
 	<br />
-	<div class="joinInput">
+	<div class="joinInput" style="height: 250px; width:450px">
 		이름 &nbsp;&nbsp; <input type="text" name="name" class="box"
 			value="${name }" placeholder=""> <br /> <br /> 이메일
 		&nbsp;&nbsp;<input type="text" name="email" class="box"
@@ -144,7 +144,7 @@ function menu(ivalue) {
 
 	<input type="button" value="나의정보 수정" class="btn"
 		onClick="eventClick('studentInfoUpdateform','studentInfoUpdate','post')" />
-	<input type="button" value="취소" class="btn" onClick="" />
+	<input type="button" value="취소" class="btn" onClick="menu('15')" />
 	<input type="hidden" name="id" value="${id }" />
 </body>
 </html>

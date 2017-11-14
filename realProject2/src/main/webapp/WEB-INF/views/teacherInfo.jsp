@@ -154,10 +154,10 @@ function pwdUP(formname,formaction,formmethod){
 		<b>내정보</b>
 	</h2>
 	<br />
-	 ${content }
+	 
 
-	<div>
-		
+	<div class="joinInput" style="height: 250px">
+	 ${content }	
 	</div>
 
 	<br />

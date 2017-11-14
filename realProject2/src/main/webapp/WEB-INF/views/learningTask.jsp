@@ -322,8 +322,8 @@ color:#3669CF;
                <li></li>
                <li class="active">
                <a onClick="menu('15')">
-                <i class="ti-user"></i>
-                     <p >마이페이지</p>
+                <i class="ti-user" style="color:#999"></i>
+                     <p style="color:#999">마이페이지</p>
                </a></li><!-- 마이페이지로 가기만들기 -->
                <li><a onClick="menu('1')"> <i
                      class="ti-home"></i>
@@ -342,8 +342,8 @@ color:#3669CF;
                      <p>토론게시판</p>
                </a></li>
                <li><a onClick="menu('6')">
-                     <i class="ti-clipboard"></i>
-                     <p>과제</p>
+                     <i class="ti-clipboard" style="color:#C90000"></i>
+                     <p style="color:#C90000">과제</p>
                </a></li>
                <li><a
                   onClick="menu('7')"> <i

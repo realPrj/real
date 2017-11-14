@@ -140,7 +140,7 @@
 
 		var form = document.getElementsByName("learningWANCMCXTPageform")[0];
 		window.open('', 'POP',
-				"width=570, height=350, resizable = no, scrollbars = no");
+				"width=590, height=440, resizable = no, scrollbars = no");
 		form.appendChild(boardCode);
 
 		form.submit();
@@ -175,8 +175,8 @@
 					<li></li>
 					<li class="active">
 					<a onClick="menu('15')">
-					 <i class="ti-user"></i>
-							<p >마이페이지</p>
+					 <i class="ti-user"style="color:#999"></i>
+							<p style="color:#999">마이페이지</p>
 					</a></li><!-- 마이페이지로 가기만들기 -->
 					<li><a onClick="menu('1')"> <i
 							class="ti-home"></i>
@@ -200,8 +200,8 @@
 					</a></li>
 					<li><a
 						onClick="menu('7')"> <i
-							class="ti-book"></i>
-							<p>오답노트</p>
+							class="ti-book"style="color:#C90000"></i>
+							<p style="color:#C90000">오답노트</p>
 					</a></li>
 					<li><a onClick="menu('9')">
 							<i class="ti-settings"></i>

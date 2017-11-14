@@ -179,8 +179,8 @@ color:#3669CF
 
 				<ul class="nav">
 					<li></li>
-					<li class="active"><a onClick="menu('15')"> <i class="ti-user"></i>
-							<p>마이페이지</p>
+					<li class="active"><a onClick="menu('15')"> <i class="ti-user"style="color:#999"></i>
+							<p style="color:#999">마이페이지</p>
 					</a></li>
 					<!-- 마이페이지로 가기만들기 -->
 					<li><a onClick="menu('1')"> <i class="ti-home"></i>
@@ -205,8 +205,8 @@ color:#3669CF
 							<p>수강생</p>
 					</a></li>
 					<li><a onClick="menu('10')"> <i
-							class="ti-shopping-cart-full "></i>
-							<p>자료실</p>
+							class="ti-shopping-cart-full "style="color:#C90000"></i>
+							<p style="color:#C90000"> 자료실</p>
 					</a></li>
 					<li></li>
 					<li><a onClick="menu('12')"> <i class="ti-pencil-alt "></i>

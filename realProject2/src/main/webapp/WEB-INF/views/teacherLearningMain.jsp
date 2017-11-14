@@ -174,8 +174,8 @@ color:#66615B;
 							
 					</a></li><!-- 마이페이지로 가기만들기 -->
 					<li><a onClick="menu('1')"> <i
-							class="ti-home"style="color:#EB5E28"></i>
-							<p style="color:#EB5E28">홈</p>
+							class="ti-home"style="color:#C90000"></i>
+							<p style="color:#C90000">홈</p>
 					</a></li>
 					<li><a onClick="menu('3')"> 
 							<i class="ti-star"></i>

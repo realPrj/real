@@ -414,7 +414,7 @@ public class teacherManagement extends TransactionExe {
 	}
 
 	private ModelAndView teacherInfoPWDUpdate(MemberBean member) {	// 비밀번호 수정
-
+		mav = new ModelAndView();
 		boolean transaction = false;
 
 		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);

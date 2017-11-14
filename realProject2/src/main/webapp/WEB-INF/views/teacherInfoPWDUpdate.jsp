@@ -92,7 +92,7 @@ function menu(ivalue) {
 
    var caCode = document.getElementsByName("caCode")[0];
 
-   createForm("menuform", "stmenu", "post");
+   createForm("menuform", "tcmenu", "post");
 
    var form = document.getElementsByName("menuform")[0];
    form.appendChild(caCode);
@@ -133,7 +133,7 @@ function menu(ivalue) {
 
 	<input type="button" value="비밀번호 수정" class="btn"
 		onClick="eventClick('teacherInfoPWDUpdateform','teacherInfoPWDUpdate','post')" />
-	<input type="button" value="취소" class="btn" onClick="" />
+	<input type="button" value="취소" class="btn" onClick="menu('15')" />
 	<input type="hidden" value="${id }" name="id" />
 
 

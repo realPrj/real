@@ -116,7 +116,7 @@ function menu(ivalue) {
 	<br />
 	<br />
 	<br />
-	<input type="button" value="메인으로" class="btn" onClick="Main()" />
+	<input type="button" value="메인으로" class="btn" onClick="menu('15')" />
 	&nbsp;&nbsp;
 	<input type="button" value="로그아웃" class="btn"
 		onClick="menu('14')" />
@@ -125,7 +125,7 @@ function menu(ivalue) {
 		<b>내정보</b>
 	</h2>
 	<br />
-	<div class="joinInput">
+	<div class="joinInput" style="height: 250px; width:450px">
 		이름 &nbsp;&nbsp; <input type="text" name="name" class="box"
 			value="${name }" placeholder=""> <br /> <br /> 이메일
 		&nbsp;&nbsp;<input type="text" name="email" class="box"
@@ -142,7 +142,7 @@ function menu(ivalue) {
 
 	<input type="button" value="나의정보 수정" class="btn"
 		onClick="eventClick('teacherInfoUpdateform','teacherInfoUpdate','post')" />
-	<input type="button" value="취소" class="btn" onClick="" />
+	<input type="button" value="취소" class="btn" onClick="menu('15')" />
 	<input type="hidden" name="id" value="${id }" />
 
 </body>

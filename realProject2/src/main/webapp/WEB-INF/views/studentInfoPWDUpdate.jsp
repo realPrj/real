@@ -114,7 +114,7 @@ function createinput(itype, iname, ivalue){
 	<input type="button" value="메인으로" class="btn" onClick="menu('15')" />
 	&nbsp;&nbsp;
 	<input type="button" value="로그아웃" class="btn"
-		onClick="a onClick=menu('14')" />
+		onClick="menu('14')" />
 	<br />
 	<h2>
 		<b>비밀번호 재설정</b>
@@ -134,7 +134,7 @@ function createinput(itype, iname, ivalue){
 
 	<input type="button" value="비밀번호 수정" class="btn"
 		onClick="eventClick('studentInfoPWDUpdateform','studentInfoPWDUpdate','post')" />
-	<input type="button" value="취소" class="btn" onClick="" />
+	<input type="button" value="취소" class="btn" onClick="menu('15')" />
 	<input type="hidden" value="${id }" name="id" />
 
 
