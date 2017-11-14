@@ -323,7 +323,7 @@ public class learningTeacherMM extends TransactionExe {
 
 	private String tclearningNoticeList(BoardBean board, ArrayList<BoardBean> ar) { // 공지사항 리스트
 		StringBuffer sb = new StringBuffer();
-		sb.append("<table class=\"table table-hover\">");
+		sb.append("<table style='text-align:center' class=\"table table-hover\">");
 		sb.append("<tr>");
 		sb.append("<td><b>게시글번호</b></td>");
 		sb.append("<td><b>제목</b></td>");
@@ -485,7 +485,7 @@ public class learningTeacherMM extends TransactionExe {
 
 			//mav.addObject("content",session.getAttribute("roomCode") + "의 공지사항");
 			bb = dao.learningQuestionlist(board);
-			sb.append("<table class=\"table table-hover\">");
+			sb.append("<table style='text-align:center' class=\"table table-hover\">");
 			sb.append("<tr>");
 			sb.append("<td><b>게시글번호</b></td>");
 			sb.append("<td><b>제목</b></td>");
@@ -700,7 +700,7 @@ public class learningTeacherMM extends TransactionExe {
 				mav.addObject("typeSumb", sum.toString());
 
 				sb = new StringBuffer();
-				sb.append("<table id='tableList' class=\"table table-hover\">");
+				sb.append("<table style='text-align:center' id='tableList' class=\"table table-hover\">");
 				sb.append("<tr>");
 				sb.append("<td>");
 				sb.append("<b>게시글 번호</b>");
@@ -927,7 +927,7 @@ public class learningTeacherMM extends TransactionExe {
 
 			bb = dao.datalist(board);
 			sb.append("<br>");
-			sb.append("<table class=\"table table-hover\">");
+			sb.append("<table style='text-align:center' class=\"table table-hover\">");
 			sb.append("<tr>");
 			sb.append("<td><b>게시글번호</b></td>");
 			sb.append("<td><b>제목</b></td>");
@@ -1391,7 +1391,7 @@ public class learningTeacherMM extends TransactionExe {
 
 			//mav.addObject("content",session.getAttribute("roomCode") + "의 공지사항");
 			bb = dao.datalistStudent(board);
-			sb.append("<table class=\"table table-hover\">");
+			sb.append("<table style='text-align:center' class=\"table table-hover\">");
 			sb.append("<tr>");
 			sb.append("<td><b>게시글번호</b></td>");
 			sb.append("<td><b>제목</b></td>");
@@ -1872,7 +1872,7 @@ public class learningTeacherMM extends TransactionExe {
 
 	private String tclearningDebateList(BoardBean board, ArrayList<BoardBean> ar) { // 토론게시판 리스트 출력
 		StringBuffer sb = new StringBuffer();
-		sb.append("<table class=\"table table-hover\">");
+		sb.append("<table style='text-align:center' class=\"table table-hover\">");
 		sb.append("<tr>");
 		sb.append("<td><b>게시글번호</b></td>");
 		sb.append("<td><b>제목</b></td>");
@@ -2263,7 +2263,7 @@ public class learningTeacherMM extends TransactionExe {
 			ar = dao.teacherLearningSTadmin(board);
 			//mav.addObject("content", tclearningNoticeList(board,ar));
 
-			sb.append("<table  class=\"table table-hover\">");
+			sb.append("<table style='text-align:center' class=\"table table-hover\">");
 			sb.append("<tr>");
 			sb.append("<td><b>학년/반/번호</b></td>");
 			sb.append("<td><b>아이디</b></td>");
@@ -2601,9 +2601,9 @@ public class learningTeacherMM extends TransactionExe {
 
 				board = dao.learningTaskGet(board);	// 게시글 내용
 
-				mav.addObject("title", board.getBoardTitle());
+			/*	mav.addObject("title", board.getBoardTitle());
 				mav.addObject("date",board.getBoardDate());
-				mav.addObject("content", board.getBoardContent().replace("\r", "<br/>"));
+				mav.addObject("content", board.getBoardContent().replace("\r", "<br/>"));*/
 				mav.addObject("submissionCheck", "<tr><td><input type='button' value='제출자확인' onClick='' /></td></tr>");
 				sb.append("<br/>");
 		        sb.append("<h3 style=\"padding-left:10px; font-family: 'Nanum Gothic', sans-serif\">과제정보</h3>");
@@ -2621,10 +2621,9 @@ public class learningTeacherMM extends TransactionExe {
                 sb.append("<td class=\"title\" style=\"border:none\"></td>");
                 sb.append("<td colspan=\"2\" class=\"title\" style=\"padding:20px 3px; border:none\">"+board.getBoardContent().replace("\r", "<br/>")+"</td>");
                 sb.append("</tr>");
-
-             sb.append("</table>");
-             sb.append("</center>");
-             mav.addObject("taskInfo", sb.toString());
+                sb.append("</table>");
+                sb.append("</center>");
+                mav.addObject("taskInfo", sb.toString());
 				sb = new StringBuffer();
 				sb.append("<table id='tableText'>");
 				sb.append("<tr>");

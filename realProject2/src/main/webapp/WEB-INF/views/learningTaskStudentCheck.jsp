@@ -65,6 +65,7 @@ function onload(){
 	${reload};
 	${windowclose};
 }
+
 </script>
 </head>
 
@@ -106,7 +107,7 @@ function onload(){
 			</div>
 
 	</form>
-	<button onClick="close()">닫기</button>
+	
 
 	
 </body>

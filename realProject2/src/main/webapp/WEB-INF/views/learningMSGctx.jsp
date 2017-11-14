@@ -257,8 +257,8 @@ function reply(messageOther, identity){
 			<div class="col-lg-35 col-md-12">
 				<div class="card">
 					
-					<div class="content">
-						<form>
+					 <div class="content">
+						<%-- <form>
 						<h2 ><b>쪽지함</b></h2>
 							<div class="row">
 								
@@ -277,11 +277,11 @@ function reply(messageOther, identity){
 									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 								<button type="button" class="btn"
 									OnClick="message('3',${identity})">보낸쪽지</button>
-								
-							</div>
-					</div>
+									
+							</div> --%>
+					</div> 
 <!-- 작성취소,보내기 버튼 -->
-					<div class="row">
+					<%-- <div class="row">
 						<div class="col-md-8">
 							<div class="container">
 							 <label>${title}</label>
@@ -295,7 +295,7 @@ function reply(messageOther, identity){
 							<br /><br />
 						</div>
 						
-					</div>
+					</div> --%>
 
 					</form>
 				</div>
