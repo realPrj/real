@@ -571,8 +571,6 @@ public class learningTeacherMM extends TransactionExe {
 
 		try {
 
-			Gson gson = new Gson();
-
 			ArrayList<BoardBean> sbCode = new ArrayList<BoardBean>();
 
 			board = new BoardBean();
@@ -584,10 +582,6 @@ public class learningTeacherMM extends TransactionExe {
 			board.setSubjectName(dao.subjectNameGet(board));	// 과목 이름 추출
 
 			sbCode.add(board);
-
-			String jsonPaser = gson.toJson(sbCode);
-
-			System.out.println(jsonPaser);
 
 			board = new BoardBean();
 			board.setRoomCode((String)session.getAttribute("roomCode"));

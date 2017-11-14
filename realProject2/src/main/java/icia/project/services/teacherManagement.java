@@ -97,7 +97,7 @@ public class teacherManagement extends TransactionExe {
 
 			String state = dao.stateCodeCheck(member);
 			if(dao.tcIdCheck(member) != 0) {	// 아이디 체크
-
+	
 				if(Integer.parseInt(state) == 1) {	// 상태코드 확인
 
 					if(enc.matches(member.getPwd(),dao.tcPwdGet(member).getPwd())) {	// 비밀번호 체크
@@ -265,7 +265,7 @@ public class teacherManagement extends TransactionExe {
 		}
 		return check;
 	}
-
+	
 	private ModelAndView idFind(MemberBean member) {	// 아이디 찾기
 
 		mav = new ModelAndView();

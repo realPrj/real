@@ -61,11 +61,11 @@ public class PageManagement extends TransactionExe {
 		case 6:	// 학생 나의 정보 페이지
 			mav = studentInfoPage();
 			break;
-			
+
 		case 7:	// 학습방 코드표
 			mav = subjectCCT(((BoardBean)object));
 			break;		
-			
+
 		case 8:	// 학습방 코드표
 			mav = subjectCCTSTUDENT(((BoardBean)object));
 			break;	
@@ -73,7 +73,7 @@ public class PageManagement extends TransactionExe {
 		case 9:	// 선생님 다시 메인
 			mav = hometeacherLearningMainPage(((LearningRoomBean)object));
 			break;	
-			
+
 		case 10:	// 학생 다시 메인
 			mav = homestudentLearningMainPage(((LearningRoomBean)object));
 			break;		
@@ -211,11 +211,11 @@ public class PageManagement extends TransactionExe {
 						early++;
 					}
 
-				}else {	// 지각
+				}
+				else {	// 지각
 
-					sb.append(attendanceInCode.get(i).getAttendanceCode().substring(0,8)+" : "+" 지각 <br>");					
-					tardy++;
-
+						sb.append(attendanceInCode.get(i).getAttendanceCode().substring(0,8)+" : "+" 지각 <br>");					
+						tardy++;
 				}
 
 			}
@@ -285,7 +285,7 @@ public class PageManagement extends TransactionExe {
 			sb.append("</tr>");
 			sb.append("</table>");
 			mav.addObject("content", sb.toString());
-			
+
 			sb = new StringBuffer();
 			room.setId((String)session.getAttribute("tcId"));
 
@@ -418,7 +418,7 @@ public class PageManagement extends TransactionExe {
 			mav.addObject("content", sb.toString());
 
 			sb = new StringBuffer();
-				
+
 			room.setStudentCode(member.getStudentCode());
 
 			ar = dao.attendanceGet(room);
@@ -501,9 +501,9 @@ public class PageManagement extends TransactionExe {
 		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
 
 		try {
-			
+
 			room = dao.learningRoomGo(room);
-			
+
 			session.setAttribute("roomCode", room.getRoomCode());
 			mav.addObject("content",room.getRoomIntroduction());
 
@@ -531,9 +531,6 @@ public class PageManagement extends TransactionExe {
 		try {
 
 			mav.addObject("code",room.getRoomCode());
-
-
-
 
 			room = dao.learningRoomGo(room);
 
@@ -566,21 +563,21 @@ public class PageManagement extends TransactionExe {
 		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
 
 		try {
-			
+
 			board.setRoomCode((String)session.getAttribute("roomCode"));
 
 			board.setRoomSB(dao.learningSBCodeGet(board));	// 과목 코드
 			String sbCode = board.getRoomSB();
-			
+
 			board.setSubjectName(dao.subjectNameGet(board));	// 과목 이름
-			
+
 			mav.addObject("sbName", "<input class=\"btnn\" style=\"margin:30px\" type='button' value='"+board.getSubjectName()+"("+board.getRoomSB()+")' />");
-			
+
 			al = dao.learningYearCodeGet(board);	// 년도 코드		
 			sb = new StringBuffer();
-		
+
 			sb.append("<table align=\"center\" style=\"margin:32px\" id='Click'>");
-			
+
 			for(int i = 0; i < al.size(); i++) {
 				board = new BoardBean();
 				board.setRoomSB(sbCode);
@@ -592,11 +589,11 @@ public class PageManagement extends TransactionExe {
 				sb.append("</tr>");
 				sb.append("</tbody>");
 			}
-			
+
 			sb.append("</table>");
-			
+
 			mav.addObject("yearCode", sb.toString());
-			
+
 			transaction = true;
 
 
@@ -611,8 +608,8 @@ public class PageManagement extends TransactionExe {
 		return mav;
 
 	}
-	
-	
+
+
 	public ArrayList<BoardBean> subjectCCT1(BoardBean board) {	// 코드 보여주기
 
 		boolean transaction = false;
@@ -622,13 +619,13 @@ public class PageManagement extends TransactionExe {
 		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
 
 		try {
-			
+
 			board.setRoomCode((String)session.getAttribute("roomCode"));
 
 			board.setRoomSB(dao.learningSBCodeGet(board));	// 과목 코드
 			String sbCode = board.getRoomSB();
 			String yearCode = board.getYearCode();
-			
+
 			al = dao.learningWANNumberGet(board);	// 문제번호 추출
 			System.out.println(al.size());
 			System.out.println(sbCode);
@@ -644,7 +641,7 @@ public class PageManagement extends TransactionExe {
 				board.setAllSum(al.size());
 				code.add(board);
 			}
-					
+
 			transaction = true;
 
 		}catch(Exception ex) {
@@ -653,11 +650,11 @@ public class PageManagement extends TransactionExe {
 
 			setTransactionResult(transaction);
 		}
-		
+
 		return code;
 
 	}
-	
+
 	public ArrayList<Calendar> calendar(Calendar cd){	// 달력 보여주기
 
 		boolean transaction = false;
@@ -676,7 +673,7 @@ public class PageManagement extends TransactionExe {
 				cd = new Calendar();
 				cd.setMonth(month);
 				cd.setRoomCode(roomcode);
-				
+
 				cd.setSunday(al.get(i).getSunday());
 				cd.setCheckSunday(month+al.get(i).getSunday());
 				cd.setCheckSunday(Integer.toString(dao.CheckSunday(cd)));
@@ -685,23 +682,23 @@ public class PageManagement extends TransactionExe {
 				cd.setMonday(al.get(i).getMonday());
 				cd.setCheckMonday(month+al.get(i).getMonday());
 				cd.setCheckMonday(Integer.toString(dao.CheckMonday(cd)));
-				
+
 				cd.setTuesday(al.get(i).getTuesday());
 				cd.setCheckTuesday(month+al.get(i).getTuesday());
 				cd.setCheckTuesday(Integer.toString(dao.CheckTuesday(cd)));
-				
+
 				cd.setWednesday(al.get(i).getWednesday());
 				cd.setCheckWednesday(month+al.get(i).getWednesday());
 				cd.setCheckWednesday(Integer.toString(dao.CheckWednesday(cd)));
-				
+
 				cd.setThursday(al.get(i).getThursday());
 				cd.setCheckThursday(month+al.get(i).getThursday());
 				cd.setCheckThursday(Integer.toString(dao.CheckThursday(cd)));
-				
+
 				cd.setFriday(al.get(i).getFriday());
 				cd.setCheckFriday(month+al.get(i).getFriday());
 				cd.setCheckFriday(Integer.toString(dao.CheckFriday(cd)));
-				
+
 				cd.setSaturday(al.get(i).getSaturday());
 				cd.setCheckSaturday(month+al.get(i).getSaturday());
 				cd.setCheckSaturday(Integer.toString(dao.CheckSaturday(cd)));
@@ -710,7 +707,7 @@ public class PageManagement extends TransactionExe {
 
 				code.add(cd);
 			}
-					
+
 			transaction = true;
 
 		}catch(Exception ex) {
@@ -719,7 +716,7 @@ public class PageManagement extends TransactionExe {
 
 			setTransactionResult(transaction);
 		}
-		
+
 		return code;
 
 	}
@@ -733,21 +730,21 @@ public class PageManagement extends TransactionExe {
 		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
 
 		try {
-			
+
 			board.setRoomCode((String)session.getAttribute("roomCode"));
 
 			board.setRoomSB(dao.learningSBCodeGet(board));	// 과목 코드
 			String sbCode = board.getRoomSB();
-			
+
 			board.setSubjectName(dao.subjectNameGet(board));	// 과목 이름
-			
+
 			mav.addObject("sbName", "<input class=\"btnn\" style=\"margin:30px\" type='button' value='"+board.getSubjectName()+"("+board.getRoomSB()+")' />");
-			
+
 			al = dao.learningYearCodeGet(board);	// 년도 코드		
 			sb = new StringBuffer();
-		
+
 			sb.append("<table align=\"center\" style=\"margin:32px\" id='Click'>");
-			
+
 			for(int i = 0; i < al.size(); i++) {
 				board = new BoardBean();
 				board.setRoomSB(sbCode);
@@ -759,11 +756,11 @@ public class PageManagement extends TransactionExe {
 				sb.append("</tr>");
 				sb.append("</tbody>");
 			}
-			
+
 			sb.append("</table>");
-			
+
 			mav.addObject("yearCode", sb.toString());
-			
+
 			transaction = true;
 
 
@@ -778,7 +775,7 @@ public class PageManagement extends TransactionExe {
 		return mav;
 
 	}
-	
+
 	private ModelAndView hometeacherLearningMainPage(LearningRoomBean room) {	// 선생님 학습방 메인 페이지
 
 		mav = new ModelAndView();
@@ -787,10 +784,10 @@ public class PageManagement extends TransactionExe {
 		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
 
 		try {
-			
+
 			room.setRoomCode((String)session.getAttribute("roomCode"));
 			room = dao.learningRoomGo(room);
-			
+
 			session.setAttribute("roomCode", room.getRoomCode());
 
 			mav.addObject("content",room.getRoomIntroduction());
@@ -807,7 +804,7 @@ public class PageManagement extends TransactionExe {
 
 		return mav;
 	}
-	
+
 	private ModelAndView homestudentLearningMainPage(LearningRoomBean room) {	// 학생 학습방 메인 페이지
 
 		mav = new ModelAndView();
@@ -842,9 +839,9 @@ public class PageManagement extends TransactionExe {
 
 		return mav;
 	}
-	
-	
-	public ArrayList<BoardBean> taskScoreShow(BoardBean board) {	// 코드 보여주기
+
+
+	public ArrayList<BoardBean> taskScoreShow(BoardBean board) {	// 점수 보여주기
 
 		boolean transaction = false;
 		ArrayList<BoardBean> al = null;
@@ -853,9 +850,9 @@ public class PageManagement extends TransactionExe {
 		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
 
 		try {
-			
+
 			ArrayList<BoardBean> bb = null;
-			
+
 			String roomcode = (String)session.getAttribute("roomCode");
 			String stcode = board.getStudentCode();
 			String ran = "확인불가";
@@ -863,52 +860,22 @@ public class PageManagement extends TransactionExe {
 			board.setRoomCode(roomcode);
 
 			al = dao.learningTaskList(board);	// 게시 리스트
-			
-			if(dao.learningTaskScoreCheck(board) != 0) {
-			
-			bb = dao.learningTeskScoreRank(board);	// 등수
-			
-			for(int i = 0; i < bb.size(); i++) {
-				
-				if(bb.get(i).getStudentCode().equals(stcode)){
-					
-					ran = bb.get(i).getCaCode();
-					break;
-					
-				}
-				
-			}
 
-			for(int i = 0; i < al.size(); i++) {
-				board = new BoardBean();
-				board.setRoomCode(roomcode);
-				board.setBoardTitle(al.get(i).getBoardTitle());
-				board.setBoardCode(al.get(i).getBoardCode());
-				board.setStudentCode(stcode);
-				board.setStudentName(dao.stNameGet(board));
-				if(dao.learningTeskSubmitCodeCheck(board) != 0) {
-				board.setTagCode(dao.learningTeskSubmitCodeGet(board));	
-				if(dao.taskScoreCheck(board)!= 0) {
-				board.setTypeSum(dao.taskScoreGet(board));
-				board.setAllSum(dao.learningTeskScoreAllSum(board));
+			if(dao.learningTaskScoreCheck(board) != 0) {
+
+				bb = dao.learningTeskScoreRank(board);	// 등수
+
+				for(int i = 0; i < bb.size(); i++) {
+
+					if(bb.get(i).getStudentCode().equals(stcode)){
+
+						ran = bb.get(i).getCaCode();
+						break;
+
+					}
+
 				}
-				else {board.setTypeSum("점수 미등록");}
-				}
-				else {
-					board.setTypeSum("미제출");
-				}
-				board.setStNumber(Integer.toString(dao.learningRoomstAll(board)));
-				board.setAllSum(dao.learningTeskScoreAllSum(board));
-				board.setAverage(String.format("%.1f",board.getAllSum() / (double)dao.learningTeskScoreCount(board)));
-				board.setRank(ran);
-				
-				board.setPercentage(String.format("%.2f",Integer.parseInt(board.getRank())/(double)Integer.parseInt(board.getStNumber())*100));
-				
-				score.add(board);
-			}
-			
-			}else {
-				
+
 				for(int i = 0; i < al.size(); i++) {
 					board = new BoardBean();
 					board.setRoomCode(roomcode);
@@ -917,17 +884,47 @@ public class PageManagement extends TransactionExe {
 					board.setStudentCode(stcode);
 					board.setStudentName(dao.stNameGet(board));
 					if(dao.learningTeskSubmitCodeCheck(board) != 0) {
-					board.setTagCode(dao.learningTeskSubmitCodeGet(board));	
-					if(dao.taskScoreCheck(board)!= 0) {
-					board.setTypeSum(dao.taskScoreGet(board));
-					board.setAllSum(dao.learningTeskScoreAllSum(board));
-					}
-					else {board.setTypeSum("점수 미등록");}
+						board.setTagCode(dao.learningTeskSubmitCodeGet(board));	
+						if(dao.taskScoreCheck(board)!= 0) {
+							board.setTypeSum(dao.taskScoreGet(board));
+							board.setAllSum(dao.learningTeskScoreAllSum(board));
+						}
+						else {board.setTypeSum("점수 미등록");}
 					}
 					else {
 						board.setTypeSum("미제출");
 					}
-					
+					board.setStNumber(Integer.toString(dao.learningRoomstAll(board)));
+					board.setAllSum(dao.learningTeskScoreAllSum(board));
+					board.setAverage(String.format("%.1f",board.getAllSum() / (double)dao.learningTeskScoreCount(board)));
+					board.setRank(ran);
+
+					board.setPercentage(String.format("%.2f",Integer.parseInt(board.getRank())/(double)Integer.parseInt(board.getStNumber())*100));
+
+					score.add(board);
+				}
+
+			}else {
+
+				for(int i = 0; i < al.size(); i++) {
+					board = new BoardBean();
+					board.setRoomCode(roomcode);
+					board.setBoardTitle(al.get(i).getBoardTitle());
+					board.setBoardCode(al.get(i).getBoardCode());
+					board.setStudentCode(stcode);
+					board.setStudentName(dao.stNameGet(board));
+					if(dao.learningTeskSubmitCodeCheck(board) != 0) {
+						board.setTagCode(dao.learningTeskSubmitCodeGet(board));	
+						if(dao.taskScoreCheck(board)!= 0) {
+							board.setTypeSum(dao.taskScoreGet(board));
+							board.setAllSum(dao.learningTeskScoreAllSum(board));
+						}
+						else {board.setTypeSum("점수 미등록");}
+					}
+					else {
+						board.setTypeSum("미제출");
+					}
+
 					board.setStNumber(Integer.toString(dao.learningRoomstAll(board)));
 					board.setAverage("미제출");
 					board.setRank(ran);
@@ -935,9 +932,9 @@ public class PageManagement extends TransactionExe {
 
 					score.add(board);
 				}
-				
+
 			}
-			
+
 			transaction = true;
 
 		}catch(Exception ex) {
@@ -945,11 +942,11 @@ public class PageManagement extends TransactionExe {
 
 			setTransactionResult(transaction);
 		}
-		
+
 		return score;
 
 	}
-	
+
 	public String mainCalendarGet() {	// 메인페이지 달력
 
 		mav = new ModelAndView();
@@ -965,16 +962,16 @@ public class PageManagement extends TransactionExe {
 
 		try {
 			cd = new Calendar();
-					
+
 			String month = dao.nowYearGet();	// 년월
-			
+
 			String today = dao.nowYearMMGet();	// 현재 날짜
 
 			String roomcode = (String)session.getAttribute("roomCode");
 
 			cd.setRoomCode(roomcode);			
 			cd.setMonth(month);
-			
+
 			al = dao.calendarGet(cd);	// 달력 출력
 
 			sb.append("</br><table align=center id='"+month+"'>");
@@ -990,11 +987,11 @@ public class PageManagement extends TransactionExe {
 			sb.append("<td><input type='button' style='color:#0100FF' class='btn' value='Saturday' /></td>");
 			sb.append("</tr>");
 			sb.append("</tbody>");
-			
+
 			for(int i = 0; i < al.size(); i++) {
-				
+
 				cd = new Calendar();
-				
+
 				cd.setRoomCode(roomcode);				
 				cd.setSunday(al.get(i).getSunday());				
 				cd.setMonday(al.get(i).getMonday());							
@@ -1004,34 +1001,34 @@ public class PageManagement extends TransactionExe {
 				cd.setFriday(al.get(i).getFriday());							
 				cd.setSaturday(al.get(i).getSaturday());
 
-        		String Sunday =((today.substring(6).equals(cd.getSunday()))? "#F361DC" : "transparent");
-        		String Monday =((today.substring(6).equals(cd.getMonday()))? "#F361DC" : "transparent");
-        		String Tuesday =((today.substring(6).equals(cd.getTuesday()))? "#F361DC" : "transparent");
-        		String Wednesday =((today.substring(6).equals(cd.getWednesday()))? "#F361DC" : "transparent");
-        		String Thursday =((today.substring(6).equals(cd.getThursday()))? "#F361DC" : "transparent");
-        		String Friday =((today.substring(6).equals(cd.getFriday()))? "#F361DC" : "transparent");
-        		String Saturday =((today.substring(6).equals(cd.getSaturday()))? "#F361DC" : "transparent");
+				String Sunday =((today.substring(6).equals(cd.getSunday()))? "#F361DC" : "transparent");
+				String Monday =((today.substring(6).equals(cd.getMonday()))? "#F361DC" : "transparent");
+				String Tuesday =((today.substring(6).equals(cd.getTuesday()))? "#F361DC" : "transparent");
+				String Wednesday =((today.substring(6).equals(cd.getWednesday()))? "#F361DC" : "transparent");
+				String Thursday =((today.substring(6).equals(cd.getThursday()))? "#F361DC" : "transparent");
+				String Friday =((today.substring(6).equals(cd.getFriday()))? "#F361DC" : "transparent");
+				String Saturday =((today.substring(6).equals(cd.getSaturday()))? "#F361DC" : "transparent");
 
-        		sb.append("<tbody align=center>");
-        		sb.append("<tr>");
-        		sb.append("<td><input type='button' name='day"+month+al.get(i).getSunday()+"' style='color:#FF0000;background:"+Sunday+";' class='btn' value='"+al.get(i).getSunday()+"' /></br></td>");
-        		sb.append("<td><input type='button' name='day"+month+al.get(i).getMonday()+"' class='btn' style='color:#000000;background: "+Monday+";' value='"+al.get(i).getMonday()+"' /></br></td>");
-        		sb.append("<td><input type='button' name='day"+month+al.get(i).getTuesday()+"' class='btn' style='color:#000000;background: "+Tuesday+";' value='"+al.get(i).getTuesday()+"' /></br></td>");
-        		sb.append("<td><input type='button' name='day"+month+al.get(i).getWednesday()+"' class='btn' style='color:#000000;background: "+Wednesday+";' value='"+al.get(i).getWednesday()+"' /></br></td>");
-        		sb.append("<td><input type='button' name='day"+month+al.get(i).getThursday()+"' class='btn' style='color:#000000;background: "+Thursday+";' value='"+al.get(i).getThursday()+"' /></br></td>");
-        		sb.append("<td><input type='button' name='day"+month+al.get(i).getFriday()+"' class='btn' style='color:#000000;background: "+Friday+";' value='"+al.get(i).getFriday()+"' /></br></td>");
-        		sb.append("<td><input type='button' name='day"+month+al.get(i).getSaturday()+"' style='color:#0100FF;background: "+Saturday+";' class='btn' value='"+al.get(i).getSaturday()+"' /></br></td>");
-        		sb.append("</tr>");
-        		sb.append("</tbody>");	
-				
+				sb.append("<tbody align=center>");
+				sb.append("<tr>");
+				sb.append("<td><input type='button' name='day"+month+al.get(i).getSunday()+"' style='color:#FF0000;background:"+Sunday+";' class='btn' value='"+al.get(i).getSunday()+"' /></br></td>");
+				sb.append("<td><input type='button' name='day"+month+al.get(i).getMonday()+"' class='btn' style='color:#000000;background: "+Monday+";' value='"+al.get(i).getMonday()+"' /></br></td>");
+				sb.append("<td><input type='button' name='day"+month+al.get(i).getTuesday()+"' class='btn' style='color:#000000;background: "+Tuesday+";' value='"+al.get(i).getTuesday()+"' /></br></td>");
+				sb.append("<td><input type='button' name='day"+month+al.get(i).getWednesday()+"' class='btn' style='color:#000000;background: "+Wednesday+";' value='"+al.get(i).getWednesday()+"' /></br></td>");
+				sb.append("<td><input type='button' name='day"+month+al.get(i).getThursday()+"' class='btn' style='color:#000000;background: "+Thursday+";' value='"+al.get(i).getThursday()+"' /></br></td>");
+				sb.append("<td><input type='button' name='day"+month+al.get(i).getFriday()+"' class='btn' style='color:#000000;background: "+Friday+";' value='"+al.get(i).getFriday()+"' /></br></td>");
+				sb.append("<td><input type='button' name='day"+month+al.get(i).getSaturday()+"' style='color:#0100FF;background: "+Saturday+";' class='btn' value='"+al.get(i).getSaturday()+"' /></br></td>");
+				sb.append("</tr>");
+				sb.append("</tbody>");	
+
 			}
-			
+
 			sb.append("</table>");
-			
+
 			board = new BoardBean();
 			board.setBoardCode(today);
 			board.setRoomCode(roomcode);
-	
+
 			if(dao.planCheck(board) != 0) {
 				dbb = dao.planCTX(board);	// 내용 보기
 				sb.append("<br/><table style='text-shadow: 0.1em 0.1em 0.15em #00D8FF;' align=center id='"+month+"'>");
@@ -1057,15 +1054,15 @@ public class PageManagement extends TransactionExe {
 
 		}catch(Exception ex) {
 		}finally {
-			
+
 			setTransactionResult(transaction);
 		}
 
 		return sb.toString();
 	}
-	
-	
-	
-	
+
+
+
+
 }
 

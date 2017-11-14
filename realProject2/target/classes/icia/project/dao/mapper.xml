@@ -71,8 +71,7 @@
 	<!-- 학생 회원가입 -->
 	<insert id="stJoin" parameterType="member">
 		INSERT INTO
-		STUDENT(ST_RFSTUDENTCODE,ST_ID,ST_PWD,ST_NAME,ST_EMAIL,ST_PHONE,ST_STATECODE)
-		VALUES(#{studentCode},#{id},#{pwd},#{name},#{email},#{phone},#{stateCode})
+		STUDENT	VALUES(#{studentCode},#{id},#{pwd},#{name},#{email},#{phone},#{stateCode})
 	</insert>
 
 	<!-- 선생님 아이디 찾기 -->

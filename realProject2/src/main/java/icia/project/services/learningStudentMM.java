@@ -1272,7 +1272,6 @@ public class learningStudentMM extends TransactionExe {
 					sb.append("<tbody name=tbody"+forI+" id=tbody"+forI+">");
 
 
-
 					for(forB=forB; forB<pageCount; forB++) {	// 과제 리스트 출력
 						sb.append("<tr>");
 						sb.append("<td>"+(forB+1)+"</td>");
