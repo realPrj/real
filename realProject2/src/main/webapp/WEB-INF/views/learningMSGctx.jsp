@@ -160,6 +160,11 @@ function reply(messageOther, identity){
 }
 
 </script>
+<style>
+.title{
+padding:10px 25px 10px 5px; border-bottom:1px solid #8C8C8C
+}
+</style>
 <body>
 
 	<div class="wrapper">
@@ -259,7 +264,7 @@ function reply(messageOther, identity){
 					
 					 <div class="content">
 						<%-- <form>
-						<h2 ><b>쪽지함</b></h2>
+						<h2 ><b>받은쪽지 내용</b></h2>
 							<div class="row">
 								
 								<div class="col-md-3">
@@ -268,17 +273,20 @@ function reply(messageOther, identity){
 										class="form-control border-input" placeholder="Username"
 										name="messageOther" value='${messageOther }' readonly>
 
-								</div>
+								</div>--%>
 								<br /> 
-								
-									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+								<div style="margin-left:75%">
+									
 								<button type="button" class="btn"
 									OnClick="message('2',${identity})">받은쪽지</button>
-									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+									&nbsp;&nbsp;&nbsp;
 								<button type="button" class="btn"
 									OnClick="message('3',${identity})">보낸쪽지</button>
-									
-							</div> --%>
+									</div><br/><br/>
+									${messageCTX }
+									<br/>
+									<div style="margin-left:70%">${button }</div><br/><br/>
+							</div> 
 					</div> 
 <!-- 작성취소,보내기 버튼 -->
 					<%-- <div class="row">
@@ -296,6 +304,7 @@ function reply(messageOther, identity){
 						</div>
 						
 					</div> --%>
+					
 
 					</form>
 				</div>
