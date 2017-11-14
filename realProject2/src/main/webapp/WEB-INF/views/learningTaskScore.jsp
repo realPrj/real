@@ -41,14 +41,24 @@
 
 <style>
 
-div {
-scrollbar-highlight-color:#6B66FF; 
-scrollbar-3dlight-color:#6B66FF; 
-scrollbar-face-color:#6B66FF; 
-scrollbar-shadow-color:#6B66FF; 
-scrollbar-darkshadow-color:#6B66FF; 
-scrollbar-track-color:#6B66FF; 
-scrollbar-arrow-color:#6B66FF;
+.portfolio {
+scrollbar-highlight-color:#FFD8D8; 
+scrollbar-3dlight-color:#FFD8D8; 
+scrollbar-face-color:#FFD8D8; 
+scrollbar-shadow-color:#FFD8D8; 
+scrollbar-darkshadow-color:#FFD8D8; 
+scrollbar-track-color:#FFD8D8; 
+scrollbar-arrow-color:#FFD8D8;
+}
+
+.services {
+scrollbar-highlight-color:#E6C8AA; 
+scrollbar-3dlight-color:#E6C8AA; 
+scrollbar-face-color:#E6C8AA; 
+scrollbar-shadow-color:#E6C8AA; 
+scrollbar-darkshadow-color:#E6C8AA; 
+scrollbar-track-color:#E6C8AA; 
+scrollbar-arrow-color:#E6C8AA;
 }
 
 
