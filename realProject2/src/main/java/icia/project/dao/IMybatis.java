@@ -420,6 +420,9 @@ public interface IMybatis {
 
 	// 현재 년도 추출
 	public String nowYearGet();
+	
+	// 현재 년월 추출
+	public String nowYearMMGet();
 
 	// 강의계획서 체크
 	public int planCheck(BoardBean board);

@@ -3096,9 +3096,10 @@ public class learningTeacherMM extends TransactionExe {
 				sb.append("<option value="+nowYear2+">"+nowYear2.substring(0, 4)+"년"+nowYear2.substring(4)+"월"+"</option>");
 			}
 			sb.append("</select>");
-
+			
 			mav.addObject("select", sb.toString());
 			mav.setViewName("learningPlan");
+
 			transaction = true;
 
 		}catch(Exception ex){
@@ -3165,6 +3166,10 @@ public class learningTeacherMM extends TransactionExe {
 			board.setRoomCode((String)session.getAttribute("roomCode"));
 
 			dao.planInsert(board);
+			
+			mav.addObject("reload", "opener.location.reload()");
+			mav.addObject("windowclose", "window.close()");
+			mav.setViewName("learningPlanInsert");
 
 			transaction = true;
 

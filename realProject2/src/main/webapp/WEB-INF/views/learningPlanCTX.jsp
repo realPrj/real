@@ -7,6 +7,28 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>공조 || 강의 계획서 보기</title>
+<link href="assets/css/css.css" rel="stylesheet" />
+<!-- Bootstrap core CSS     -->
+<link href="assets/css/bootstrap.min.css" rel="stylesheet" />
+
+<!-- Animation library for notifications   -->
+<link href="assets/css/animate.min.css" rel="stylesheet" />
+
+<!--  Paper Dashboard core CSS    -->
+<link href="assets/css/paper-dashboard.css" rel="stylesheet" />
+
+
+<!--  CSS for Demo Purpose, don't include it in your project     -->
+<link href="assets/css/demo.css" rel="stylesheet" />
+
+
+<!--  Fonts and icons     -->
+<link
+	href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css"
+	rel="stylesheet">
+<link href='https://fonts.googleapis.com/css?family=Muli:400,300'
+	rel='stylesheet' type='text/css'>
+<link href="assets/css/themify-icons.css" rel="stylesheet">
 </head>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -111,10 +133,11 @@ function planDelete(boardcode,roomcode){	// 삭제
 
 </script>
 <body>
-<div style="margin-left: 100px">
+
+<div style="margin-left: 32%;margin-top: 15%;">
 		<img src="assets/img/gong_logo.png" alt="공조" width="200*150">
 	</div>
-	<div style="margin-left: 100px">
+	<div style="margin-left: 40%;margin-top: 10%;">
 	<table id="tableShow">
 		<tr>
 			<td>제목: ${title }</td>

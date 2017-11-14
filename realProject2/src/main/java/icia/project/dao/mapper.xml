@@ -1419,6 +1419,11 @@
 		SELECT to_char(trunc(sysdate,'mm') ,'yyyymm') FROM dual
 	</select>
 	
+	<!-- 현재 년월 -->
+	<select id="nowYearMMGet" resultType="String">
+		SELECT to_char(sysdate ,'YYYYMMDD') FROM dual
+	</select>
+	
 	<!-- 선생님 로그인기록 추출 -->
 	<select id="tcattendanceGet" resultType="room" parameterType="room">
 		SELECT TLOH_DATE AS attendDate,TLOH_TYPE AS attendanceType

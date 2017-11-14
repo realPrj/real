@@ -683,10 +683,12 @@ public class learningStudentMM extends TransactionExe {
 
 				bb.setCutRoute(bb.getBoardRoute().substring(0,68));	// 루트만
 				String route = bb.getCutRoute();
-
+				System.out.println("여기옴");
 				bb.setCutContent(bb.getBoardRoute().substring(68));	// 파일이름
 
 				List<String> list = view.getList(bb);
+				System.out.println("asdf");
+				System.out.println(bb.getBoardContent()+"asdf");
 				mav.addObject("content",bb.getBoardContent());
 				mav.addObject("list",list);
 				mav.addObject("file",bb.getCutContent());
@@ -708,7 +710,7 @@ public class learningStudentMM extends TransactionExe {
 			mav.addObject("content", sb.toString());
 
 		}catch(Exception ex){
-
+			
 		}finally {
 			mav.setViewName(page);
 			setTransactionResult(transaction);

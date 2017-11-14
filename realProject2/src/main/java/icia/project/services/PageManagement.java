@@ -16,6 +16,7 @@ import com.google.gson.Gson;
 
 import icia.project.bean.BoardBean;
 import icia.project.bean.Calendar;
+import icia.project.bean.DbBoardBean;
 import icia.project.bean.LearningRoomBean;
 import icia.project.bean.MemberBean;
 import icia.project.dao.IMybatis;
@@ -67,9 +68,11 @@ public class PageManagement extends TransactionExe {
 		case 8:	// 학습방 코드표
 			mav = subjectCCTSTUDENT(((BoardBean)object));
 			break;	
+			
 		case 9:	// 선생님 다시
 			mav = hometeacherLearningMainPage(((LearningRoomBean)object));
-			break;		
+			break;	
+			
 		case 10:	// 선생님 다시
 			mav = homestudentLearningMainPage(((LearningRoomBean)object));
 			break;		
@@ -497,9 +500,9 @@ public class PageManagement extends TransactionExe {
 		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
 
 		try {
-			System.out.println("학습방메인페이지 ");
+			
 			room = dao.learningRoomGo(room);
-			System.out.println(room.getRoomCode());
+			
 			session.setAttribute("roomCode", room.getRoomCode());
 
 			mav.addObject("content",room.getRoomIntroduction());
@@ -508,7 +511,7 @@ public class PageManagement extends TransactionExe {
 
 
 		}catch(Exception ex) {
-			ex.printStackTrace();
+
 		}finally {
 			mav.setViewName("teacherLearningMain");
 			setTransactionResult(transaction);
@@ -784,10 +787,10 @@ public class PageManagement extends TransactionExe {
 		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
 
 		try {
-			System.out.println("학습방메인페이지 ");
+			
 			room.setRoomCode((String)session.getAttribute("roomCode"));
 			room = dao.learningRoomGo(room);
-			System.out.println(room.getRoomCode());
+			
 			session.setAttribute("roomCode", room.getRoomCode());
 
 			mav.addObject("content",room.getRoomIntroduction());
@@ -804,6 +807,7 @@ public class PageManagement extends TransactionExe {
 
 		return mav;
 	}
+	
 	private ModelAndView homestudentLearningMainPage(LearningRoomBean room) {	// 학생 학습방 메인 페이지
 
 		mav = new ModelAndView();
@@ -946,7 +950,114 @@ public class PageManagement extends TransactionExe {
 
 	}
 	
-	
+	public String mainCalendarGet() {	// 메인페이지 달력
+
+		mav = new ModelAndView();
+		Calendar cd = null;
+		BoardBean board = null;
+		DbBoardBean dbb = null;
+		ArrayList<Calendar> al = null;
+		boolean transaction = false;
+		StringBuffer sb = new StringBuffer();
+
+		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
+
+		try {
+			cd = new Calendar();
+					
+			String month = dao.nowYearGet();	// 년월
+			
+			String today = dao.nowYearMMGet();	// 현재 날짜
+			
+			String roomcode = (String)session.getAttribute("roomCode");
+
+			cd.setRoomCode(roomcode);			
+			cd.setMonth(month);
+			
+			al = dao.calendarGet(cd);	// 달력 출력
+
+			sb.append("</br><table align=center id='"+month+"'>");
+			sb.append("<tbody align=center>");
+			sb.append("<tr style='margin-bottom:100px'><td  style='font-weight:bold;font-size: 20px;' colspan='7'>"+month.substring(0,4)+"년  "+month.substring(4)+"월</td></tr>");
+			sb.append("<tr>");
+			sb.append("<td><input type='button' style='color:#FF0000' class='btn' value='Sunday' /></td>");
+			sb.append( "<td><input type='button' class='btn' value='Monday' /></td>");
+			sb.append("<td><input type='button' class='btn' value='Tuesday' /></td>");
+			sb.append("<td><input type='button' class='btn' value='Wednesday' /></td>");
+			sb.append("<td><input type='button' class='btn' value='Thursday' /></td>");
+			sb.append("<td><input type='button' class='btn' value='Friday' /></td>");
+			sb.append("<td><input type='button' style='color:#0100FF' class='btn' value='Saturday' /></td>");
+			sb.append("</tr>");
+			sb.append("</tbody>");
+			
+			for(int i = 0; i < al.size(); i++) {
+				
+				cd = new Calendar();
+				
+				cd.setRoomCode(roomcode);				
+				cd.setSunday(al.get(i).getSunday());				
+				cd.setMonday(al.get(i).getMonday());							
+				cd.setTuesday(al.get(i).getTuesday());			
+				cd.setWednesday(al.get(i).getWednesday());				
+				cd.setThursday(al.get(i).getThursday());						
+				cd.setFriday(al.get(i).getFriday());							
+				cd.setSaturday(al.get(i).getSaturday());
+
+        		String Sunday =((today.substring(6).equals(cd.getSunday()))? "#F361DC" : "transparent");
+        		String Monday =((today.substring(6).equals(cd.getMonday()))? "#F361DC" : "transparent");
+        		String Tuesday =((today.substring(6).equals(cd.getTuesday()))? "#F361DC" : "transparent");
+        		String Wednesday =((today.substring(6).equals(cd.getWednesday()))? "#F361DC" : "transparent");
+        		String Thursday =((today.substring(6).equals(cd.getThursday()))? "#F361DC" : "transparent");
+        		String Friday =((today.substring(6).equals(cd.getFriday()))? "#F361DC" : "transparent");
+        		String Saturday =((today.substring(6).equals(cd.getSaturday()))? "#F361DC" : "transparent");
+
+        		sb.append("<tbody align=center>");
+        		sb.append("<tr>");
+        		sb.append("<td><input type='button' name='day"+month+al.get(i).getSunday()+"' style='color:#FF0000;background:"+Sunday+";' class='btn' value='"+al.get(i).getSunday()+"' /></br></td>");
+        		sb.append("<td><input type='button' name='day"+month+al.get(i).getMonday()+"' class='btn' style='color:#000000;background: "+Monday+";' value='"+al.get(i).getMonday()+"' /></br></td>");
+        		sb.append("<td><input type='button' name='day"+month+al.get(i).getTuesday()+"' class='btn' style='color:#000000;background: "+Tuesday+";' value='"+al.get(i).getTuesday()+"' /></br></td>");
+        		sb.append("<td><input type='button' name='day"+month+al.get(i).getWednesday()+"' class='btn' style='color:#000000;background: "+Wednesday+";' value='"+al.get(i).getWednesday()+"' /></br></td>");
+        		sb.append("<td><input type='button' name='day"+month+al.get(i).getThursday()+"' class='btn' style='color:#000000;background: "+Thursday+";' value='"+al.get(i).getThursday()+"' /></br></td>");
+        		sb.append("<td><input type='button' name='day"+month+al.get(i).getFriday()+"' class='btn' style='color:#000000;background: "+Friday+";' value='"+al.get(i).getFriday()+"' /></br></td>");
+        		sb.append("<td><input type='button' name='day"+month+al.get(i).getSaturday()+"' style='color:#0100FF;background: "+Saturday+";' class='btn' value='"+al.get(i).getSaturday()+"' /></br></td>");
+        		sb.append("</tr>");
+        		sb.append("</tbody>");	
+				
+			}
+			
+			sb.append("</table>");
+			
+			board = new BoardBean();
+			board.setBoardCode(today);
+			board.setRoomCode(roomcode);
+			
+			if(dao.planCheck(board) != 0) {
+				dbb = dao.planCTX(board);	// 내용 보기
+				sb.append("<br/><table align=center id='"+month+"'>");
+				sb.append("<tr>");
+				sb.append("<td>굳굳");
+				sb.append("</td>");
+				sb.append("</tr>");
+				sb.append("</table>");
+			}else {
+				sb.append("<br/><table align=center id='"+month+"'>");
+				sb.append("<tr>");
+				sb.append("<td>강의계획이 없습니다.");
+				sb.append("</td>");
+				sb.append("</tr>");
+				sb.append("</table>");
+			}
+
+			transaction = true;
+
+		}catch(Exception ex) {
+		}finally {
+			
+			setTransactionResult(transaction);
+		}
+
+		return sb.toString();
+	}
 	
 	
 	

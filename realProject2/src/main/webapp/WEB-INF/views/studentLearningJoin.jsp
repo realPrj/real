@@ -135,11 +135,8 @@ body {
 				<form>
 				<!-- 담임아이디검색창 -->
 					<div class="input-group input-group-lg">
-						<input type="text" class="form-control" placeholder="Search"  name="id" value="${id }">
+						<input type="text" style="background:#FAE0D4; margin-left:45%; width:600px; color:#6B66FF; text-align:center;" class="form-control" placeholder="Search"  name="id" value="${id }">
 						<div class="input-group-btn">
-							<div class="btn btn-default">
-						
-							</div>
 						</div>
 					</div>
 					<button type="button" class="btn"  onClick="inquiry('learningJoinform','learningJoin','post')" >조회</button>

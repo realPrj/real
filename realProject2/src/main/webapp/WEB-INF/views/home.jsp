@@ -282,7 +282,6 @@ p {
 	});
 </script>
 
-
 </head>
 <body onLoad="${message}">
 	<div id="xy"></div>

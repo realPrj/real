@@ -180,7 +180,6 @@ public class HomeController  {
 	}
 
 
-
 	// 자료실 글쓰러가기
 	@RequestMapping(value = "/DataInsert", method = RequestMethod.POST)
 	public ModelAndView dataInsert(@ModelAttribute BoardBean board) {
@@ -199,8 +198,8 @@ public class HomeController  {
 
 		switch(code) {
 		case 1 : 
-			System.out.println("여긴옴??");
 			mav = pm.entrance(9, room);
+			mav.addObject("Calendar", pm.mainCalendarGet());
 			break;
 		case 2 : 
 
@@ -349,7 +348,7 @@ public class HomeController  {
 	public ModelAndView teacherLearningMainPage(@ModelAttribute LearningRoomBean room) {
 
 		mav = pm.entrance(3, room);
-
+		mav.addObject("Calendar", pm.mainCalendarGet());
 		return mav;
 	}
 
@@ -809,6 +808,7 @@ public class HomeController  {
 		mav.setViewName("adminstudentCXT");
 		return mav;
 	}
+	
 	// 해당 선생님 자세히보기
 	@RequestMapping(value = "/teacherCxt", method = RequestMethod.GET)
 	public ModelAndView teacherCxt(@ModelAttribute MemberBean member) {
@@ -816,6 +816,7 @@ public class HomeController  {
 		mav.setViewName("adminTeacherCXT");
 		return mav;
 	}
+	
 	// 해당 메일보내기 
 	@RequestMapping(value = "/email", method = RequestMethod.GET)
 	public ModelAndView email(@ModelAttribute MemberBean member) {

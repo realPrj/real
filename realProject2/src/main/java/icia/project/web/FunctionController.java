@@ -309,9 +309,8 @@ public class FunctionController {
 	@RequestMapping(value = "/learningPlanInsert", method = RequestMethod.POST)
 	public ModelAndView  learningPlanInsert(BoardBean board,MultipartHttpServletRequest mtfRequest) {
 
-		ltm.entrance(54, board, mtfRequest);
-		mav = ltm.entrance(53, board);
-		
+		mav = ltm.entrance(54, board, mtfRequest);
+
 		return mav;
 	}
 
