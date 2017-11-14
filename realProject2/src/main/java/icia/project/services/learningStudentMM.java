@@ -683,10 +683,11 @@ public class learningStudentMM extends TransactionExe {
 
 				bb.setCutRoute(bb.getBoardRoute().substring(0,68));	// 루트만
 				String route = bb.getCutRoute();
-
+				System.out.println("여기옴");
 				bb.setCutContent(bb.getBoardRoute().substring(68));	// 파일이름
 
 				List<String> list = view.getList(bb);
+
 				mav.addObject("content",bb.getBoardContent());
 				mav.addObject("list",list);
 				mav.addObject("file",bb.getCutContent());
@@ -694,21 +695,18 @@ public class learningStudentMM extends TransactionExe {
 				mav.addObject("writeId",bb.getBoardId());
 				mav.addObject("route",route);
 
-				page="learningWANCXT";
-				transaction = true;
-
 			}else {	// 코멘트 없음
 
 				sb.append("<input type='button' class='btn-sm' value='코멘트가 없습니다.' onClick='windowcloseClick()' />");
 				mav.addObject("windowcloseClick", "window.close()");
-				page = "learningWANCXT";
-				transaction = true;
+				mav.addObject("content", sb.toString());
 			}
 
-			mav.addObject("content", sb.toString());
-
+			page="learningWANCXT";
+			transaction = true;
+			
 		}catch(Exception ex){
-
+			
 		}finally {
 			mav.setViewName(page);
 			setTransactionResult(transaction);

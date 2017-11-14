@@ -38,8 +38,14 @@
 
 		$("input[name = boardCode]").remove();
 	}
+	
+	function onload(){
+		${reload};
+		${windowclose};
+	}
+	
 </script>
-<body>
+<body onLoad="onload()">
 	<input type="hidden" value="${boardcode }" name="boardCode" />
 	<div style="width: '50px'">
 		<form name="fileForm" action="learningPlanInsert" method="post"
