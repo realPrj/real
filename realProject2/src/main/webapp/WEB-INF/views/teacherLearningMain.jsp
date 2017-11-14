@@ -243,7 +243,6 @@ color:#66615B;
 					</div>
 				</div>
 			</nav>
-			
 			<div class="col-lg-50 col-md-12">
 				<div class="card">
 

@@ -240,6 +240,7 @@
 		LR_CODE=#{roomCode}
 	</select>
 
+
 	<!-- 선생님 학습 개설 -->
 	<insert id="tclearningOpen" parameterType="room">
 		INSERT INTO
@@ -943,7 +944,7 @@
 		AND
 		QTAG_QUTITLE =#{boardTitle}
 		ORDER BY QTAG_DATE
-		DESC
+		ASC
 	</select>
 
 	<!-- 질문게시판 댓글 삭제 -->

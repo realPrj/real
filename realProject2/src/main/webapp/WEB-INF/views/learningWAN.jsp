@@ -62,7 +62,7 @@ $(document).ready(function() {
 	   
 
 	   /* 코멘트 */
-		$("input[name = cmClick]").click(function() {
+		$("td[name = cmClick]").click(function() {
 			var valueCode = $(this).attr('id');
 			commentCheck(valueCode);
 			$("input[name = boardCode]").remove();
@@ -167,6 +167,13 @@ $(document).ready(function() {
 </script>
 <style>
 @import url(//fonts.googleapis.com/earlyaccess/nanumgothic.css);
+.CTX:hover{
+text-decoration : underline; cursor:pointer
+}
+
+.CTX:active{
+color:#3669CF;
+}
 </style>
 <body>
 	<div class="wrapper">

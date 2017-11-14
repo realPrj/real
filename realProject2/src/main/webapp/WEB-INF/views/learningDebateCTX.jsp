@@ -320,6 +320,14 @@ font-family: 'Noto Sans KR', sans-serif; color:#505050; padding:10px;
 table{
 width:95%; margin-left:3%; font-family: 'Noto Sans KR', sans-serif; border-bottom:1px solid #CFCFCF; margin-bottom:1%;
 }
+table:hover{
+background:#E6E6E6;
+  transition: 1s ease;
+}
+table:not(hover){
+background:#F6F6F6;
+  transition: 1s ease;
+}
 textarea{
 font-family: 'Noto Sans KR', sans-serif; width:90%; margin-left:4%; resize:none; overflow:hidden; display:block;
 }

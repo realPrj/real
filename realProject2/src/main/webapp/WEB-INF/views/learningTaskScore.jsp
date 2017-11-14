@@ -43,10 +43,10 @@
 .box
 {
    display: inline-block;
-   float:left;
-   height:500px;
+   /* float:left; */
+   height:200px;
    overflow: hidden;
-   width:20%;
+   width:25%;
 
    -webkit-transition: width 1s;
    -moz-transition: width 1s;
@@ -54,8 +54,8 @@
 }
 .box.home      { background-color: #2d89ef; }
 .box.about     { background-color: #00a300; }
-.box.portfolio { background-color: #6799FF; }
-.box.services  { background-color: #F15F5F; }
+.box.portfolio { background-color: #EDC6C6; }
+.box.services  { background-color: #D6BCB0; }
 .box.contact   { background-color: #ee1111; }
 
 .box a
@@ -64,16 +64,16 @@
    text-decoration: none;
    text-align: center;
    vertical-align: middle;
-   height:100%;
+   height:20%;
    display:block;
-   padding-top: 20px;
+   padding-top: 15px;
 }
 
 .box span
 {
     display:block;
     position:relative;
-    top:100%;
+    top:500%;
     text-align: center;
 
     -webkit-transition: top 1s;
@@ -83,9 +83,14 @@
 
 .nav:hover .box { width:10%; }
 
-.nav .box:hover { width: 60%; }
+.nav .box:hover { width: 40%; }
 
-.box:hover span{ top:25%; }
+.box:hover span{ top:-10%; }
+
+td{
+font-size:12pt; padding:0 20px; padding-bottom:1px; 
+}
+
 </style>
 </head>
 <script
@@ -140,21 +145,21 @@
 	        	
 	        	var html = "";
 
-	        	html += "</br><table align=center>"
+	        	html += "<table align=center>"
 		        html += "<tbody align=center>";
 	        	html += "<tr>";
 	        	html += "<td colspan='2'>";
-	        	html += "<h3>"+data[0].studentName+"학생의 과제 성적</h3>";
+	        	html += "<h4>"+data[0].studentName+"학생의 과제 성적</h4>";
 	        	html += "</td>";
 	        	html += "</tr>";
 	        	html += "</tbody>";
 	        	html += "<tbody align=center>";
 	        	html += "<tr>";
 	        	html += "<td>";
-	        	html += "<h4>게시글 제목</h4>";
+	        	html += "게시글 제목";
 	        	html += "</td>";
 	        	html += "<td>";
-	        	html += "<h4>점수</h4>";
+	        	html += "점수";
 	        	html += "</td>";
 	        	html += "</tr>";
 	        	html += "</tbody>";
@@ -175,29 +180,29 @@
 	        	/* 2 */
 	        	var html = "";
 	        	
-	        	html += "</br><table align=center>"
+	        	html += "<table align=center>"
 
-		        		html += "</br><table align=center>"
+		        		html += "<table align=center>"
 				        html += "<tbody align=center>";
 			        	html += "<tr>";
 			        	html += "<td colspan='4'>";
-			        	html += "<h3>과제 평가</h3>";
+			        	html += "<h4>과제 평가</h4>";
 			        	html += "</td>";
 			        	html += "</tr>";
 			        	html += "</tbody>";
 			        	html += "<tbody align=center>";
 			        	html += "<tr>";
 			        	html += "<td>";
-			        	html += "<h4>총점</h4>";
+			        	html += "총점";
 			        	html += "</td>";
 			        	html += "<td>";
-			        	html += "<h4>평균</h4>";
+			        	html += "평균";
 			        	html += "</td>";
 			        	html += "<td>";
-			        	html += "<h4>반등수</h4>";
+			        	html += "반등수";
 			        	html += "</td>";
 			        	html += "<td>";
-			        	html += "<h4>백분율</h4>";
+			        	html += "백분율";
 			        	html += "</td>";
 			        	html += "</tr>";
 			        	html += "</tbody>";
@@ -349,20 +354,24 @@
             <div class="card" >
 
                <div class="content" >
+               <h2>과제성적</h2><br/><br/>
                   <form>
 <input type="button" value="과제" class='btn btn-primary' onClick="menu('6')" />  
 ${select }
-<div class="nav">
-  
+<center>
+<div class="nav" style="margin-top:10%">
       <div class="box portfolio" >
-   <a style="text-align:center;" href="#portfolio"><h1>성적</h1>
-   <span style="overflow:auto;"><div id="scoreId"></div></span></a>
+   <a style="text-align:center;" href="#portfolio"><h3>성적</h3>
+   <span><div id="scoreId"></div></span></a>
       </div>
+    
      <div class="box services">
-   <a href="#services"><h1>평가</h1>
+   <a href="#services"><h3>평가</h3>
    <span><div id="scoreId2"></div></span></a>
      </div>
-</div>
+</div><br/><br/>
+</center>
+
 
                </form>
                

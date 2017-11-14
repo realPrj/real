@@ -269,7 +269,7 @@ color:#3669CF;
             </div>
          </div>
          </nav>
-
+       
 
 			<!-- 공지사항 -->
 			<div class="col-lg-30 col-md-12">

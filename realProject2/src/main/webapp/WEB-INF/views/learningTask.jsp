@@ -298,6 +298,11 @@ text-decoration : underline; cursor:pointer
 .CTX:active{
 color:#3669CF;
 }
+
+.title{
+padding:10px 25px 10px 5px; border-bottom:1px solid #8C8C8C
+}
+
 </style>
 <body onLoad="${message}">
    <input type="hidden" value="${identity }" name="identity" />
@@ -413,8 +418,10 @@ color:#3669CF;
                <h2 style="font-family: 'Nanum Gothic', sans-serif">
                   <b>과제 게시판</b>
                </h2>
+         
                <input style="margin-left:80%" class="print" type="button" value="과제 성적" onClick="taskscorepage()" />
                <input type="button" class="print" style="margin-left:1%" value="과제 생성" onClick="insertPage()" />
+                <br/>* 과제내용과 제출자명단을 보려면 제목을 클릭하세요
                <br/><br/>
 
                ${taskList }
@@ -426,10 +433,10 @@ color:#3669CF;
 
             </div>
             <div class="card">
-            <br/>
+           <%--  <br/>
             <h3 style="padding-left:10px; font-family: 'Nanum Gothic', sans-serif">과제정보</h3>
-            
-            <table id="ctx" class="table table-hover">
+<center>
+            <table id="ctx" class="taskinfo">
             
                   <tr>
                      <td><b>제목</b></td>
@@ -443,8 +450,23 @@ color:#3669CF;
                      <td>${date }</td>
                      
                   </tr>
+                  
+                  <tr>
+                  <td class="title">제목</td>
+                  <td class="title" style="width:550px">${title }</td>
+                  </tr>
+                  <tr>
+                  <td class="title">등록일</td>
+                  <td class="title">${date }</td>
+                  </tr>
+                  <tr>
+                  <td class="title" style="border:none"></td>
+                  <td colspan="2" class="title" style="padding:20px 3px; border:none">${content }</td>
+                  </tr>
 
                </table>
+        </center> --%>
+        		${taskInfo }      
                   <div style="margin-left: 85%">
                   ${inputButton }
                   </div>
