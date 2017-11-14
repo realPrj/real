@@ -269,7 +269,7 @@ public class learningStudentMM extends TransactionExe {
 				/////////////////////////////////////////////////////////////////////////
 
 				sb = new StringBuffer();
-				sb.append("<table id='tableList' class=\"table table-hover\">");
+				sb.append("<table style='text-align:center' id='tableList' class=\"table table-hover\">");
 				sb.append("<tr>");
 				sb.append("<td>");
 				sb.append("<b>게시글 번호</b>");
@@ -288,6 +288,9 @@ public class learningStudentMM extends TransactionExe {
 				sb.append("</td>");
 				sb.append("<td>");
 				sb.append("<b>선생님 코멘트</b>");
+				sb.append("</td>");
+				sb.append("<td>");
+				sb.append("<b>응답여부</b>");
 				sb.append("</td>");
 				sb.append("</tr>");
 
@@ -386,7 +389,7 @@ public class learningStudentMM extends TransactionExe {
 
 				sb = new StringBuffer();
 
-				sb.append("<table class=\"table table-hover\">");
+				sb.append("<table style='text-align:center' class=\"table table-hover\">");
 				sb.append("<tr>");
 				sb.append("<td>");
 				sb.append("모의고사 기출년월");
@@ -546,7 +549,7 @@ public class learningStudentMM extends TransactionExe {
 
 	private String stlearningNoticeList(BoardBean board, ArrayList<BoardBean> ar) { // 공지사항 리스트
 		StringBuffer sb = new StringBuffer();
-		sb.append("<table class=\"table table-hover\">");
+		sb.append("<table style='text-align:center' class=\"table table-hover\">");
 		sb.append("<tr>");
 		sb.append("<td><b>게시글번호</b></td>");
 		sb.append("<td><b>제목</b></td>");
@@ -729,7 +732,7 @@ public class learningStudentMM extends TransactionExe {
 
 			//mav.addObject("content",session.getAttribute("roomCode") + "의 공지사항");
 			bb = dao.learningQuestionlist(board);
-			sb.append("<table class=\"table table-hover\">");
+			sb.append("<table style='text-align:center' class=\"table table-hover\">");
 			sb.append("<tr>");
 			sb.append("<td><b>게시글번호</b></td>");
 			sb.append("<td><b>제목</b></td>");
@@ -1004,7 +1007,7 @@ public class learningStudentMM extends TransactionExe {
 
 	private String stlearningDebateList(BoardBean board, ArrayList<BoardBean> ar) { // 토론게시판 리스트 출력
 		StringBuffer sb = new StringBuffer();
-		sb.append("<table class=\"table table-hover\">");
+		sb.append("<table style='text-align:center' class=\"table table-hover\">");
 		sb.append("<tr>");
 		sb.append("<td><b>게시글번호</b></td>");
 		sb.append("<td><b>제목</b></td>");
@@ -1197,10 +1200,32 @@ public class learningStudentMM extends TransactionExe {
 
 				board = dao.learningTaskGet(board);	// 게시글 내용
 
-				mav.addObject("title", board.getBoardTitle());
+				/*mav.addObject("title", board.getBoardTitle());
 				mav.addObject("date",board.getBoardDate());
-				mav.addObject("content", board.getBoardContent());		
-				sb.append("<td>"+"<input type='button' class=\"insert\" value='과제 제출' onClick=\"confirm('"+ board.getBoardTitle() +"','" + board.getRoomCode() + "','"+ board.getBoardCode() +"')\">" + "</td>");
+				mav.addObject("content", board.getBoardContent());	*/	
+				sb.append("<br/>");
+		        sb.append("<h3 style=\"padding-left:10px; font-family: 'Nanum Gothic', sans-serif\">과제정보</h3>");
+		        sb.append("<center>");
+		        sb.append("<table id=\"ctx\" class=\"taskinfo\">");
+		        sb.append("<tr>");
+                sb.append("<td class=\"title\">제목</td>");
+                sb.append("<td class=\"title\" style=\"width:550px\">"+ board.getBoardTitle()+"</td>");
+                sb.append("</tr>");
+                sb.append("<tr>");
+                sb.append("<td class=\"title\">등록일</td>");
+                sb.append("<td class=\"title\">"+board.getBoardDate()+"</td>");
+                sb.append("</tr>");
+                sb.append("<tr>");
+                sb.append("<td class=\"title\" style=\"border:none\"></td>");
+                sb.append("<td colspan=\"2\" class=\"title\" style=\"padding:20px 3px; border:none\">"+board.getBoardContent().replace("\r", "<br/>")+"</td>");
+                sb.append("</tr>");
+                sb.append("</table>");
+                sb.append("</center>");
+                mav.addObject("taskInfo", sb.toString());
+                sb = new StringBuffer();
+                sb.append("<input type='button' class=\"insert\" value='과제 제출' onClick=\"confirm('"+ board.getBoardTitle() +"','" + board.getRoomCode() + "','"+ board.getBoardCode() +"')\">");
+                sb.append("<br/>");
+                sb.append("<br/>");
 				mav.addObject("inputButton", sb.toString());
 
 				// 게시글 댓글(너가 여기서부터 댓글 뽑아내면되)
@@ -1212,7 +1237,7 @@ public class learningStudentMM extends TransactionExe {
 				sb = new StringBuffer();
 				sb.append("<br/>");
 				sb.append("<h3 style=\"padding-left:10px\">제출한 과제</h3>");
-				sb.append("<table class=\"table table-hover\">");
+				sb.append("<table style='text-align:center' class=\"table table-hover\">");
 				sb.append("<tr>");
 				sb.append("<td><b>학생 이름 </b></td>");
 				sb.append("<td><b>제출 날짜 </b></td>");
@@ -1246,7 +1271,7 @@ public class learningStudentMM extends TransactionExe {
 			if(dao.learningTaskCheck(board) != 0) {    
 
 				al = dao.learningTaskList(board);    // 과제 리스트 담기
-				sb.append("<table class=\"table table-hover\">");
+				sb.append("<table style='text-align:center' class=\"table table-hover\">");
 				sb.append("<tr>");
 				sb.append("<td>");
 				sb.append("<b>게시물 번호</b>");
@@ -1637,7 +1662,7 @@ public class learningStudentMM extends TransactionExe {
 			sb.append("<b>선생님</b>");
 			sb.append("</h2>");
 			sb.append("<br/>");
-			sb.append("<table  class=\"table table-hover\">");
+			sb.append("<table  style='text-align:center' class=\"table table-hover\">");
 			sb.append("<tr>");
 			sb.append("<td><b>아이디</b></td>");
 			sb.append("<td><b>이름</b></td>");
@@ -1657,7 +1682,7 @@ public class learningStudentMM extends TransactionExe {
 
 			// 학생
 			sb = new StringBuffer();
-			sb.append("<table  class=\"table table-hover\">");
+			sb.append("<table  style='text-align:center' class=\"table table-hover\">");
 			sb.append("<tr>");
 			sb.append("<td>학년/반/번호</td>");
 			sb.append("<td>아이디</td>");

@@ -164,6 +164,9 @@ function messageCTX(messageCode, roomCode, messageDate, identity){
 	
 }
 </script>
+<style>
+@import url(//fonts.googleapis.com/earlyaccess/nanumgothic.css);
+</style>
 <body>
 
 	<div class="wrapper">
@@ -263,7 +266,7 @@ function messageCTX(messageCode, roomCode, messageDate, identity){
 					
 					<div class="content">
 						<form>
-						<h2 ><b>받은 쪽지함</b></h2>
+						<h2 style="font-family: 'Nanum Gothic', sans-serif">받은쪽지함</h2><br/>
 							<div class="row">
 								
 								<div class="col-md-5">
@@ -301,25 +304,26 @@ function messageCTX(messageCode, roomCode, messageDate, identity){
 						</div>
 
 					</div>
-					<div class="container">
+					
 						<!-- <h2>Filterable Table</h2>
   <p>Type something in the input field to search the table for first names, last names or emails:</p>   -->
 						<br>
-						<table class="table table-bordered table-striped">
-							<thead>
-								<tr>
-									<th><b>번호</b></th>
-									<th><b>발신인</b></th>
-									<th><b>제목</b></th>
-									<th><b>날짜</b></th>
-								</tr>
-							</thead>
-							${messageList }
-						</table>
+						<%-- <table style="text-align:center" class="table table-hover">
+							
+								 <tr>
+									<td><b>번호</b><td>
+									<td><b>발신인</b><td>
+									<td><b>제목</b><td>
+									<td><b>날짜</b><td>
+								</tr>	 		
+								${messageList }
+						</table> --%>
+						${messageList }
 						${button }
+						
 
 
-					</div>
+					
 
 					<script>
 $(document).ready(function(){

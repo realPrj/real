@@ -101,17 +101,17 @@ public class PageManagement extends TransactionExe {
 
 				al = dao.tclearningRoomGet(room);
 
-				sb.append("</br><table>");
-				sb.append("<tr>");
+				/*sb.append("</br><table>");
+				sb.append("<tr>");*/
 				for(int i =0; i < al.size(); i++) {
 
-					sb.append("<td>");
-					sb.append("<input type='button' class='btn' value='"+al.get(i).getRoomName()+"' onClick=learningGo('"+al.get(i).getRoomCode()+"') />");
-					sb.append("</td>");
+					//sb.append("<td>");
+					sb.append("<input type='button' class=\"room\" value='"+al.get(i).getRoomName()+"' onClick=learningGo('"+al.get(i).getRoomCode()+"') />");
+					//sb.append("</td>");
 
 				}
-				sb.append("</tr>");
-				sb.append("</table>");
+				//sb.append("</tr>");
+				//sb.append("</table>");
 				mav.addObject("content", sb.toString());
 				mav.setViewName("teacherMain");
 				transaction = true;
@@ -156,8 +156,8 @@ public class PageManagement extends TransactionExe {
 
 				alCode = dao.stlearningRoomGet1(room);
 
-				sb.append("</br><table>");
-				sb.append("<tr>");
+				/*sb.append("</br><table>");
+				sb.append("<tr>");*/
 				for(int i =0; i < alCode.size(); i++) {
 
 					room = new LearningRoomBean();
@@ -165,14 +165,14 @@ public class PageManagement extends TransactionExe {
 					room = dao.stlearningRoomGet2(room);
 
 
-					sb.append("<td>");
-					sb.append("<input type='button' class='btn' value='"+room.getRoomName()+"' onClick=learningGo('"+room.getRoomCode()+"') />");
-					sb.append("</td>");
+					//sb.append("<td>");
+					sb.append("<input type='button' class='room' value='"+room.getRoomName()+"' onClick=learningGo('"+room.getRoomCode()+"') />");
+					//sb.append("</td>");
 
 
 				}
-				sb.append("</tr>");
-				sb.append("</table>");
+				//sb.append("</tr>");
+				//sb.append("</table>");
 				mav.addObject("content", sb.toString());
 				mav.setViewName("studentMain");
 				transaction = true;

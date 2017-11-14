@@ -127,29 +127,49 @@ function menu(ivalue){
 
 </script>
 <style>
+@import url(//fonts.googleapis.com/earlyaccess/nanumgothic.css);
+ @import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
 body {
-	background-color: white;
+	background-color: #f4f3ef;
 	color: #353535;
 	text-align: center;
 	font-size: 15px;
 }
+.room{
+border:none; background:#FFEBC6; padding:15px; margin:10px; font-size:11pt; border-radius:10px; font-family: 'Noto Sans KR', sans-serif;
+}
+.room:hover{
+background:#FFD9B4;
+}
 
 </style>
 <body onLoad="${message}">
-	<br />
+	<!-- <br />
 	<img src="assets/img/gong_logo.png" alt="공조" width="200*150">
 	<br />
 
 	<input type="button" class="btn" value="로그아웃" onClick="menu('14')" />
 
 	<input type="button" value="나의정보" class="btn"
-		onClick="eventClick('studentInfoPageform','studentInfoPage','post')" />
+		onClick="eventClick('studentInfoPageform','studentInfoPage','post')" /> -->
+		<div style="padding-top:30px;"class="card">
+	<br />
+	<img src="assets/img/gong_logo.png" alt="공조" width="200*150">
+	<br /><br /><br /><br />
+
+
+	<input type="button" value="나의정보" class="btn"
+		onClick="eventClick('teacherInfoPageform','teacherInfoPage','post')" />&nbsp;&nbsp;
+	<input type="button" class="btn" value="로그아웃" onClick="menu('14')" />&nbsp;&nbsp;
 	<input type="button" value="출결"  class="btn" onClick="attendance()"  />
+	<br/><br/><br/>
+</div><br/>
+	
 	${attendance }
 
 
 
-<div class="row">
+<%-- <div class="row">
 		<div class="col-md-6">
 			<div class="card">
 				<div class="header">
@@ -181,6 +201,26 @@ body {
 				</div>
 			</div>
 		</div>
-	</div>
+	</div> --%>
+	<div style=" font-family: 'Nanum Gothic', sans-serif;margin:0 auto;width:20%; font-size:13pt; padding:3px"class="card">
+					학습참여&nbsp;&nbsp;&nbsp;&nbsp;
+					<input type="button" value="+"  class="btn btn-sm"onClick="eventClick('learningjoinform','learningJoinPage','post')" />
+				
+				<!-- <div class="content">
+
+					<div id="chartPreferences" class="ct-chart ct-perfect-fourth"></div>
+				</div> -->
+			</div>
+			<br/>
+			<div style="width:70%; margin:0 auto; font-size:14pt; padding:15px"class="card">
+				
+					<br/><p style="font-family: 'Nanum Gothic', sans-serif; font-size:15pt">참여과목</p><br/>
+					${content }
+				
+				<!-- <div class="content">
+					<div id="chartActivity" class="ct-chart"></div>
+
+				</div> -->
+			</div>
 </body>
 </html>
