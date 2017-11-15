@@ -61,7 +61,7 @@
 	<table>
 		<tr>
 			<td>
-			0
+			
 				<h1>알림</h1> <input type="hidden" name="nickname" value="${id }"
 				id="nickname" />
 
