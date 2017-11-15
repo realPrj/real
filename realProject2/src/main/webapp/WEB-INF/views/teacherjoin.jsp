@@ -105,7 +105,7 @@ function idRedundancyCheck(){
 } */
 
 function idRedundancyCheck(){
-	var id = $('[name="id"]').val();
+	var id = $("[name=id]").val();
 	$.ajax({
 		type : "post",
 		url : "idRedundancyCheck",

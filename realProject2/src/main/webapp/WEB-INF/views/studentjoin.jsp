@@ -40,7 +40,8 @@
 <link href='https://fonts.googleapis.com/css?family=Muli:400,300'
 	rel='stylesheet' type='text/css'>
 <link href="assets/css/themify-icons.css" rel="stylesheet">
-
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <style>
 body {
 	background-color: white;
@@ -75,7 +76,7 @@ body {
 		var stclass = document.getElementsByName("stclass")[0];
 		var stNumber = document.getElementsByName("stNumber")[0];
 		var identity = document.getElementsByName("identity")[0];
-
+		
 		createForm("joinform", "join", "post");
 
 		var form = document.getElementsByName("joinform")[0];
@@ -95,20 +96,22 @@ body {
 	}
 
 	//아이디 중복 확인
-	function idRedundancyCheck() {
-
-		var id = document.getElementsByName("id")[0];
-		var identity = document.getElementsByName("identity")[0];
-
-		createForm("idRedundancyCheckform", "idRedundancyCheck", "post");
-
-		var form = document.getElementsByName("idRedundancyCheckform")[0];
-
-		form.appendChild(id);
-		form.appendChild(identity);
-		form.submit();
-
-	}
+function idRedundancyCheck(){
+	var id = $('input[name="id"]').val();
+	$.ajax({
+		type : "post",
+		url : "idRedundancyCheck2",
+		data : {id : id},
+		success : function(result){
+			if(result == '"1"'){
+				$('#idCheck').html("사용할 수 있는 아이디입니다.");
+			}else{
+				$('#idCheck').html("사용할 수 없는 아이디입니다.");
+			}
+		}
+		
+	});
+}
 </script>
 <body onLoad="${message}">
 	<div id="xy"></div>
@@ -136,6 +139,7 @@ body {
 		아이디　 　　&nbsp;&nbsp; <input type="text" name="id" class="box" value="${id }"  placeholder="아이디 입력해주세여" >
 		<input type="button" value="아이디 중복검사" class="btn" onClick="idRedundancyCheck()" style="float:right;"/>
 		<br/>
+		<div id="idCheck" style="color:red; margin-left:100px"></div>
 		<br/>
 		비밀번호 　　 &nbsp;&nbsp;<input type="password" name="pwd" class="box" placeholder="비밀번호"><br/>
 		<br/>
@@ -158,46 +162,46 @@ body {
 		
 		학년　  <select id="grade"  name="stGrade" style="width:100px; height:35px; border:#F5F5F5;">
 					<option value="학년" label="　">학년</option>
-					<option value="학년" label="1학년">1학년</option>
-					<option value="학년" label="2학년">2학년</option>
-					<option value="학년" label="3학년">3학년</option>
-					<option value="학년" label="4학년">4학년</option>
-					<option value="학년" label="5학년">5학년</option>
-					<option value="학년" label="6학년">6학년</option>
+					<option value="01" label="1학년">1학년</option>
+					<option value="02" label="2학년">2학년</option>
+					<option value="03" label="3학년">3학년</option>
+					<option value="04" label="4학년">4학년</option>
+					<option value="05" label="5학년">5학년</option>
+					<option value="06" label="6학년">6학년</option>
 			</select>
 		　　반　　  <select id="class" name="stclass" style="width:100px; height:35px; border:#F5F5F5;">
 					<option value="반" label="　">반</option>
-					<option value="반" label="1반">1반</option>
-					<option value="반" label="2반">2반</option>
-					<option value="반" label="3반">3반</option>
-					<option value="반" label="4반">4반</option>
-					<option value="반" label="5반">5반</option>
-					<option value="반" label="6반">6반</option>
-					<option value="반" label="7반">7반</option>
-					<option value="반" label="8반">8반</option>
-					<option value="반" label="9반">9반</option>
-					<option value="반" label="10반">10반</option>
-					<option value="반" label="11반">11반</option>
-					<option value="반" label="12반">12반</option>
+					<option value="01" label="1반">1반</option>
+					<option value="02" label="2반">2반</option>
+					<option value="03" label="3반">3반</option>
+					<option value="04" label="4반">4반</option>
+					<option value="05" label="5반">5반</option>
+					<option value="06" label="6반">6반</option>
+					<option value="07" label="7반">7반</option>
+					<option value="08" label="8반">8반</option>
+					<option value="09" label="9반">9반</option>
+					<option value="10" label="10반">10반</option>
+					<option value="11" label="11반">11반</option>
+					<option value="12" label="12반">12반</option>
 			</select>
 		　　번호　  <select id="number" name="stNumber" style="width:100px; height:35px; border:#F5F5F5;">
 					<option value="번호" label="　">번호</option>
-					<option value="번호" label="1">1</option>
-					<option value="번호" label="2">2</option>
-					<option value="번호" label="3">3</option>
-					<option value="번호" label="4">4</option>
-					<option value="번호" label="5">5</option>
-					<option value="번호" label="6">6</option>
-					<option value="번호" label="7">7</option>
-					<option value="번호" label="8">8</option>
-					<option value="번호" label="9">9</option>
-					<option value="번호" label="10">10</option>
-					<option value="번호" label="11">11</option>
-					<option value="번호" label="12">12</option>
-					<option value="번호" label="13">12</option>
-					<option value="번호" label="14">12</option>
-					<option value="번호" label="15">12</option>
-					<option value="번호" label="16">12</option>
+					<option value="01" label="1">1</option>
+					<option value="02" label="2">2</option>
+					<option value="03" label="3">3</option>
+					<option value="04" label="4">4</option>
+					<option value="05" label="5">5</option>
+					<option value="06" label="6">6</option>
+					<option value="07" label="7">7</option>
+					<option value="08" label="8">8</option>
+					<option value="09" label="9">9</option>
+					<option value="10" label="10">10</option>
+					<option value="11" label="11">11</option>
+					<option value="12" label="12">12</option>
+					<option value="13" label="13">13</option>
+					<option value="14" label="14">14</option>
+					<option value="15" label="15">15</option>
+					<option value="16" label="16">16</option>
 					
 				</select>
 		

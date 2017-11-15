@@ -47,13 +47,20 @@ $(document).ready(function() {
 	   
 	   $("#yearSelect").click(function() {
 	   var selectValue = $("#yearSelect").val();
-
+	   
 	   $("div[name *='div']").hide(); 
 	      $("#"+selectValue).show();
 	      var divbox = $("#divbox");
 	      divbox.append($("#"+selectValue));
-	   }); 
 
+	      $("#"+selectValue).show();
+	      $("#"+selectValue).hide();
+	      $("#"+selectValue).show(1000); // 1000ms -> 1초
+
+	   }); 
+	   
+
+	
 	   
 	   
 	   $("tbody[name *='tbody']").hide(); 
@@ -271,7 +278,7 @@ color:#3669CF;
 				<div class="card">
 					<br />
 					<h2 style="font-family: 'Nanum Gothic', sans-serif">
-						&nbsp;&nbsp;<b>오답 노트</b>
+						&nbsp;&nbsp;오답 노트
 					</h2>
 					<table id="stInformation" class="table table-hover">
 						<tr>

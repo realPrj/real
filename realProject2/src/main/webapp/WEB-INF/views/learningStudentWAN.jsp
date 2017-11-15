@@ -66,6 +66,11 @@
 		      $("#"+selectValue).show();
 		      var divbox = $("#divbox");
 		      divbox.append($("#"+selectValue));
+		      
+		      $("#"+selectValue).show();
+		      $("#"+selectValue).hide();
+		      $("#"+selectValue).show(1000); // 1000ms -> 1초
+		      
 		   });
 		   
 		   $("tbody[name *='tbody']").hide(); 

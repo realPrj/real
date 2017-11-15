@@ -59,6 +59,17 @@
 <link href="assets/css/themify-icons.css" rel="stylesheet">
 
 <script>
+
+$(document).ready(function() {
+	
+    if($("input[value=undefined]")){
+ 	   var dayName = $("input[value *=null]").attr('name');
+ 	   $("input[name="+dayName+"]").remove();
+ 	   $("input[value=null]").remove();
+    }
+	
+	 });
+
 //form 생성
 function createForm(formname,formaction,formmethod){
 
@@ -210,7 +221,7 @@ function menu(ivalue){
 				<div class="card">
 
 					<div class="content">
-						<form>
+
 						<!-- 흰색 배경 -->
 							<div class="row">
 								<div class="container">
@@ -223,18 +234,49 @@ function menu(ivalue){
 						<div class="col-lg-30 col-md-5">
 							<div class="container">
 								<h3>소개글</h3>
-								<textarea rows="10" class="form-control border-input"
-									laceholder="Here can be your description" value="Mike">${content }</textarea>
+							<div class="form-control" style="width:930px; height:200px">${content }</div>
 									<br/>
 							</div>
 						</div>
 
 					</div>
 
-
-					</form>
 				</div>
 			</div>
+			
+			
+			
+				
+						<div class="col-lg-50 col-md-12">
+				<div class="card">
+
+					<div class="content">
+					
+						<!-- 흰색 배경 -->
+							<div class="row">
+								<div class="container">
+								</div>
+
+							</div>
+					</div>
+					<!-- 해당 과목 소개글 -->
+					<div class="row">
+						<div class="col-lg-30 col-md-5">
+							<div class="container">
+								<h3>오늘의 강의</h3><input type="button" class="btn-sm" value="더보기" onClick="menu('12')" />
+								<div class="form-control" style="width:930px; height:400px">${Calendar }</div>
+								<!-- <textarea rows="10" class="form-control border-input"
+									laceholder="Here can be your description" value="Mike"> --><!-- </textarea> -->
+									<br/>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+			
+			
+			
 		</div>
 
 		<hr>

@@ -242,6 +242,9 @@
 .CTX:active {
 	color: #3669CF;
 }
+.title{
+padding:10px 25px 10px 5px; border-bottom:1px solid #8C8C8C
+}
 </style>
 </head>
 <body onLoad="${message}">
@@ -349,14 +352,16 @@
 						<b>과제 게시판</b>
 					</h2>
 					<input style="margin-left: 90%" class="print" type="button"
-						value="과제 성적" onClick="taskscorepage()" /> <br /> <br />
+						value="과제 성적" onClick="taskscorepage()" /> <br />
+						<br/>* 과제내용과 제출한 과제를 보려면 제목을 클릭하세요
+               <br/><br/>
 					${taskList } ${button2 }
 
 					<hr />	
 					
 				</div>
 				<div class="card">
-				<br/>
+				<%-- <br/>
 				<table id="ctx" class="table table-hover">
 					<h3 style="padding-left:10px; font-family: 'Nanum Gothic', sans-serif">과제정보</h3>
 						<tr>
@@ -377,11 +382,13 @@
 						${inputButton }
 
 						</div>
-
-						<div class="card">${tagcontent }</div>
-
+ --%>
+						 ${taskInfo }
+						<div style="margin-left: 85%">
+					       ${inputButton }
+					    </div>
 						</div>
-
+						<div class="card">${tagcontent }</div>
 						</div>
 						</div>
 

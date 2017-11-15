@@ -222,7 +222,7 @@
 
 
 			<!-- 질문게시판 -->
-			<div class="col-lg-35 col-md-12">
+			<%-- <div class="col-lg-35 col-md-12">
 
 				<div class="card">
 					<br />
@@ -258,7 +258,37 @@
 
 
 				</div>
-			</div>
+			</div> --%>
+			<div class="col-lg-35 col-md-12">
+				<div class="card">
+				<div class="center">
+					<br/>
+						<h2 style="font-family: 'Nanum Gothic', sans-serif">
+							<b>과제게시판</b>
+						</h2>
+						<br/>
+						
+						<div style="margin:20px;">
+							<p>제목</p>
+							<input type="text" name="boardTitle" class="inputTitle" value="${boardTitle }">
+						</div>
+						<div style="margin:20px;">
+							<p>내용</p>
+							<textarea rows="20" name="boardContent">${boardContent }</textarea>
+							</div>
+							<div style="margin:20px;">
+      						
+      						<br/>
+      						<input class="btn" type="button" value="수정완료" onClick="updateTask()"/><br/>
+      						<input type="hidden"value="${boardCode }" name="boardCode" /> 
+      						<input type="hidden"value="${roomCode }" name="roomCode" />
+      						<br/>
+      						
+							</div>
+						
+							</div>
+							</div>
+							</div>
 		</div>
 
 	</div>

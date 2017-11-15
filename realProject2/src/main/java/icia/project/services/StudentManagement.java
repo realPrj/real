@@ -51,10 +51,6 @@ public class StudentManagement extends TransactionExe {
 			mav = join(((MemberBean)object));
 			break;
 
-		case 3: // 아이디 중복체크
-			mav = idRedundancyCheck(((MemberBean)object));
-			break;
-
 		case 4:	// 아이디 찾기
 			mav = idFind(((MemberBean)object));
 			break;
@@ -176,7 +172,15 @@ public class StudentManagement extends TransactionExe {
 				member.setStateCode("1");
 
 				if(dao.stCodeCheck(member) == 0) {	// 학생코드 유무
-					System.out.println("sdafsadf");
+
+					System.out.println(member.getStudentCode());
+					System.out.println(member.getId());
+					System.out.println(member.getPwd());
+					System.out.println(member.getName());
+					System.out.println(member.getEmail());
+					System.out.println(member.getPhone());
+					System.out.println(member.getStateCode());
+					
 					if(dao.stJoin(member) != 0) {	// 인설트
 						System.out.println("여기옴");
 						page ="login";
@@ -213,7 +217,7 @@ public class StudentManagement extends TransactionExe {
 			}
 
 		}catch(Exception ex) {
-
+ex.printStackTrace();
 		}finally {
 			mav.setViewName(page);
 			setTransactionResult(transaction);
@@ -222,7 +226,7 @@ public class StudentManagement extends TransactionExe {
 		return mav;
 	}
 
-	private ModelAndView idRedundancyCheck(MemberBean member) {	// 아이디 중복체크
+/*	private ModelAndView idRedundancyCheck(MemberBean member) {	// 아이디 중복체크
 
 		mav = new ModelAndView();
 
@@ -249,6 +253,23 @@ public class StudentManagement extends TransactionExe {
 		}
 
 		return mav;
+	}*/
+	
+	public String idRedundancyCheck(MemberBean member) {
+		String check = null;
+		try {
+
+			if(dao.stIdCheck(member) != 0) {	// 아이디 체크
+				check = "0";
+
+			}else {
+				check = "1";
+			}
+
+		}catch(Exception ex) {
+
+		}
+		return check;
 	}
 
 	private ModelAndView idFind(MemberBean member) {	// 아이디 찾기

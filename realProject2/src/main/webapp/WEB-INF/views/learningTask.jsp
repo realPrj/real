@@ -248,7 +248,13 @@
       form.submit();
       
    }
-
+   function init(){ // 목록, 수정, 삭제 선생님과 학생 분류
+		var btn = "";
+			btn += "<input type=\"button\" class=\"CTXbtn\" value=\"수정\" onClick=\"update('${boardCode}','${roomCode }','${boardTitle }','${boardContent }')\"/>";
+			btn += "<input class=\"CTXbtn_end\" type=\"button\" value=\"삭제\" onClick=\"boardDelete('${boardCode}','${roomCode }')\"/>"
+			$('#button').append(btn);
+		
+	}
 </script>
 <style>
 @import url(//fonts.googleapis.com/earlyaccess/nanumgothic.css);
@@ -467,8 +473,15 @@ padding:10px 25px 10px 5px; border-bottom:1px solid #8C8C8C
                </table>
         </center> --%>
         		${taskInfo }      
-                  <div style="margin-left: 85%">
-                  ${inputButton }
+                  <div id="button"style="margin-left: 85%">
+                 <%--  <button class="CTXbtn" onClick="update('${boardCode}','${roomCode }','${boardTitle }','${boardContent }')">수정</button>
+                  <button class="CTXbtn_end" onClick="deleteCXT('${boardCode}','${roomCode }')"></button>
+                  <input type="hidden"value="${boardCode }" name="boardCode" /> 
+      			  <input type="hidden"value="${roomCode }" name="roomCode" />
+      			  <input type="hidden"value="${boardTitle }" name="boardTitle" />
+      			  <input type="hidden"value="${boardContent }" name="boardContent" />	 --%>
+      			  <%-- ${inputButton } --%>
+                  
                   </div>
                </div>
                

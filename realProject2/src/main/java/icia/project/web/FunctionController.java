@@ -146,6 +146,20 @@ public class FunctionController {
 		return check;
 	}
 	
+	@RequestMapping(value = "/idRedundancyCheck2", method = RequestMethod.POST,produces = "application/text; charset=utf8")
+	@ResponseBody public String idRedundancyCheck2(@ModelAttribute MemberBean member) {
+
+		String check = null;
+		
+		check = sm.idRedundancyCheck(member);
+
+		Gson gson = new Gson();
+
+		check = gson.toJson(check);
+		
+		return check;
+	}
+	
 
 	// 아이디 찾기
 	@RequestMapping(value = "/idFind", method = RequestMethod.POST)
