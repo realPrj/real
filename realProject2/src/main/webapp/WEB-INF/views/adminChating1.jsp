@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+		<%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -45,7 +45,7 @@
 <%@ page import="java.util.*, java.text.*"%>
 <%@ page import="icia.project.services.learningStudentMM"%>
 
-<%
+<%-- <%
 
 
 	learningStudentMM lsmm = new learningStudentMM();
@@ -54,29 +54,21 @@
 	out.println(today);
 	lsmm.getmethod(today);
 
-%>
+%> --%>
 </head>
 <body onLoad="test()">
 	<%@ page import="icia.project.services.ChatWebSocketHandler"%>
 
-	<table>
-		<tr>
-			<td>
-			
+
+	<center>
+			<div>
 				<h1>알림</h1> <input type="hidden" name="nickname" value="${id }"
 				id="nickname" />
-
-
-
-
+			</div>
+			</center>
 				<div id="chatArea">
 					<div id="chatMessage"></div>
 				</div> 
-
-
-			</td>
-		</tr>
-	</table>
 
 
 </body>

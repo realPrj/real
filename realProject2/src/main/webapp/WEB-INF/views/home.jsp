@@ -217,12 +217,14 @@ p {
 	z-index: 900;
 	-webkit-transform: rotateY(180deg);
 	-moz-transform: rotateY(180deg);
+	cursor:pointer
 }
 
 .panel.flip .back {
 	z-index: 1000;
 	-webkit-transform: rotateX(0deg) rotateY(0deg);
 	-moz-transform: rotateX(0deg) rotateY(0deg);
+	cursor:pointer
 }
 
 .box1 {
@@ -234,6 +236,7 @@ p {
 	border-radius: 10px;
 	-moz-border-radius: 10px;
 	-webkit-border-radius: 10px;
+	cursor:pointer
 }
 
 .box2 {

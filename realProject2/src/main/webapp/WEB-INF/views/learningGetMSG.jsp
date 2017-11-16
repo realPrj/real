@@ -308,7 +308,11 @@ function messageCTX(messageCode, roomCode, messageDate, identity){
 						<!-- <h2>Filterable Table</h2>
   <p>Type something in the input field to search the table for first names, last names or emails:</p>   -->
 						<br>
+<<<<<<< HEAD
 					 <!-- <table style="text-align:center" class="table table-hover">
+=======
+						<!--  <table style="text-align:center" class="table table-hover">
+>>>>>>> 27d89c7d223022001c4d3c51f7faf327395d8067
 							
 								 <tr>
 									<td><b>번호</b></td>
@@ -318,7 +322,11 @@ function messageCTX(messageCode, roomCode, messageDate, identity){
 								</tr> -->	 		
 								${messageList }
 						</table> 
+<<<<<<< HEAD
 					
+=======
+						
+>>>>>>> 27d89c7d223022001c4d3c51f7faf327395d8067
 						${button }
 						
 

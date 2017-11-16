@@ -64,7 +64,8 @@
 <!-- Paper Dashboard DEMO methods, don't include it in your project! -->
 <script src="assets/js/demo.js"></script>
 <script
-   src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script><script>
+   src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+   <script>
    $(document).ready(function() {
 
       $("#tableText").hide();
@@ -113,7 +114,7 @@
       form.submit();
    }
    function questionCXT(boardCode) {
-
+ 
       createinput("hidden", "boardCode", boardCode);
       createForm("learningTaskCXTform", "learningTaskCXT", "post");
       var form = document.getElementsByName("learningTaskCXTform")[0];
@@ -122,6 +123,7 @@
       form.appendChild(boardCode);
 
       form.submit();
+      
 
    }
    function createForm1(formname, formaction, ta) {
@@ -159,7 +161,6 @@
    }
 
    function update(boardcode, roomcode, title, content) {
-
       createinput("hidden", "boardCode", boardcode);
       createinput("hidden", "roomCode", roomcode);
       createinput("hidden", "boardTitle", title);
@@ -248,13 +249,17 @@
       form.submit();
       
    }
-   function init(){ // 목록, 수정, 삭제 선생님과 학생 분류
+  /*  function init(){ // 목록, 수정, 삭제 선생님과 학생 분류
 		var btn = "";
 			btn += "<input type=\"button\" class=\"CTXbtn\" value=\"수정\" onClick=\"update('${boardCode}','${roomCode }','${boardTitle }','${boardContent }')\"/>";
 			btn += "<input class=\"CTXbtn_end\" type=\"button\" value=\"삭제\" onClick=\"boardDelete('${boardCode}','${roomCode }')\"/>"
 			$('#button').append(btn);
 		
-	}
+	} */
+	
+	/* if(${taskInfo} == null){
+		$('#button').hide();
+	}  */
 </script>
 <style>
 @import url(//fonts.googleapis.com/earlyaccess/nanumgothic.css);
@@ -474,6 +479,7 @@ padding:10px 25px 10px 5px; border-bottom:1px solid #8C8C8C
         </center> --%>
         		${taskInfo }      
                   <div id="button"style="margin-left: 85%">
+
                  <%--  <button class="CTXbtn" onClick="update('${boardCode}','${roomCode }','${boardTitle }','${boardContent }')">수정</button>
                   <button class="CTXbtn_end" onClick="deleteCXT('${boardCode}','${roomCode }')"></button>
                   <input type="hidden"value="${boardCode }" name="boardCode" /> 
@@ -482,7 +488,7 @@ padding:10px 25px 10px 5px; border-bottom:1px solid #8C8C8C
       			  <input type="hidden"value="${boardContent }" name="boardContent" />	 --%>
       			  <%-- ${inputButton } --%>
       			   ${inputButton }
-                  
+
                   </div>
                </div>
                
@@ -494,8 +500,6 @@ padding:10px 25px 10px 5px; border-bottom:1px solid #8C8C8C
             </div>
          </div>
       </div>
-
-   </div>
 
 </body>
 </html>
