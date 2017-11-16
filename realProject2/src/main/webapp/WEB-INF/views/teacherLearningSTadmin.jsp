@@ -152,7 +152,8 @@ function stadmin(studentCode){
 
  } */
  function sendMail(studentEmail) {
-    alert(studentEmail);
+   
+	 
     createinput("hidden", "email", studentEmail);
 
     createForm("sendmailForm",
@@ -169,7 +170,7 @@ function stadmin(studentCode){
  }
  
  function sendMessage(studentCode, identity){
-	 alert(studentCode);
+	
 	 createForm("message", "sendMessagePage", "post");
 	 
 	 var form = document.getElementsByName("message")[0];

@@ -169,6 +169,7 @@ p {
 	position: relative;
 	-webkit-perspective: 600px;
 	-moz-perspective: 600px;
+	cursor:pointer
 }
 
 .panel .front, .panel .back {

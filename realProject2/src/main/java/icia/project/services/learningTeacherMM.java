@@ -3404,6 +3404,7 @@ public class learningTeacherMM extends TransactionExe {
 			transaction = true;
 
 		}catch(Exception ex){
+			ex.printStackTrace();
 		}finally {
 			setTransactionResult(transaction);
 		}

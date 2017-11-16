@@ -481,6 +481,7 @@ padding:10px 25px 10px 5px; border-bottom:1px solid #8C8C8C
       			  <input type="hidden"value="${boardTitle }" name="boardTitle" />
       			  <input type="hidden"value="${boardContent }" name="boardContent" />	 --%>
       			  <%-- ${inputButton } --%>
+      			   ${inputButton }
                   
                   </div>
                </div>
@@ -488,6 +489,7 @@ padding:10px 25px 10px 5px; border-bottom:1px solid #8C8C8C
                <div class="card">
                
                ${taskLists }
+              
                </div>
             </div>
          </div>
