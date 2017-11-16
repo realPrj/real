@@ -45,33 +45,33 @@
 	$(document).ready(function() {
 
  		$("#chart_div2").hide();
-		
-		
+ 		$("#divbox").hide();
+ 		
 		   var sizee = ${size};
 		   var dateCode = ${lowest};
 
 		   for(var i = 0; i < parseInt(sizee) ; i++){
 		      $("#"+dateCode).hide();
+		      alert($("#"+dateCode).attr("id"));
 		      dateCode = parseInt(dateCode) + 100;
 		   };
 		   
+		   $("div[name *='div']").hide(); 
 		   
 		   $("#yearSelect").click(function() {
 		   var selectValue = $("#yearSelect").val();
-		   var dateCode = ${lowest};
-		   for(var i = 0; i < parseInt(sizee); i++){
-		      $("#"+dateCode).hide();
-		      dateCode = parseInt(dateCode) + 1;
-		   };
+		   
+		   $("div[name *='div']").hide(); 
+		   $("#divbox").remove();
 		      $("#"+selectValue).show();
 		      var divbox = $("#divbox");
 		      divbox.append($("#"+selectValue));
-		      
+
 		      $("#"+selectValue).show();
 		      $("#"+selectValue).hide();
 		      $("#"+selectValue).show(1000); // 1000ms -> 1초
-		      
-		   });
+
+		   }); 
 		   
 		   $("tbody[name *='tbody']").hide(); 
 		   var tableList = $("#tableList");

@@ -455,7 +455,6 @@ public class learningTeacherMM extends TransactionExe {
 		try {
 			session.getAttribute("roomCode");
 			mav.addObject("identity", session.getAttribute("identity"));
-			mav.addObject("studentList", "학생관리");
 
 			transaction = true;
 

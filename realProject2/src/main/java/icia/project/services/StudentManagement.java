@@ -173,16 +173,8 @@ public class StudentManagement extends TransactionExe {
 
 				if(dao.stCodeCheck(member) == 0) {	// 학생코드 유무
 
-					System.out.println(member.getStudentCode());
-					System.out.println(member.getId());
-					System.out.println(member.getPwd());
-					System.out.println(member.getName());
-					System.out.println(member.getEmail());
-					System.out.println(member.getPhone());
-					System.out.println(member.getStateCode());
-					
 					if(dao.stJoin(member) != 0) {	// 인설트
-						System.out.println("여기옴");
+
 						page ="login";
 						mav.addObject("message", "alert('회원가입 되셨습니다.')");
 						mav.addObject("identity", "2");
