@@ -188,7 +188,7 @@ background:#FFD9B4;
 			</div>
 		
 	<!-- </div> -->
-	
+	<br/>
     <div id="map"></div>
     
     <script>
