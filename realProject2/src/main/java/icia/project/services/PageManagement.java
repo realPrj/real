@@ -505,7 +505,7 @@ public class PageManagement extends TransactionExe {
 			room = dao.learningRoomGo(room);
 
 			session.setAttribute("roomCode", room.getRoomCode());
-			mav.addObject("content",room.getRoomIntroduction());
+			mav.addObject("content",room.getRoomIntroduction().replace("\r\n", "<br/>"));
 
 			transaction = true;
 

@@ -131,7 +131,19 @@
             "POP");
 
       var form = document.getElementsByName("learningTaskForm")[0];
-      window.open('', 'POP',"width=300px, height=300px, resizable = no, scrollbars = no");
+      
+      var cw=screen.availWidth;     //화면 넓이
+      var ch=screen.availHeight;    //화면 높이
+
+      var sw=400;    //띄울 창의 넓이
+      var sh=370;    //띄울 창의 높이
+
+      var ml=(cw-sw)/2;        //가운데 띄우기위한 창의 x위치
+      var  mt=(ch-sh)/2;         //가운데 띄우기위한 창의 y위치
+
+      window.open('','POP','width='+sw+',height='+sh+',top='+mt+',left='+ml+',resizable=no,scrollbars=yes');
+      
+      /* window.open('', 'POP',"width=300px, height=300px, resizable = no, scrollbars = no"); */
       form.appendChild(boardCode);
       form.appendChild(roomCode);
       form.appendChild(studentCode);
@@ -217,7 +229,17 @@
       createForm1("scoreInsertPageform", "scoreInsertPage","POP");
 
       var form = document.getElementsByName("scoreInsertPageform")[0];
-      window.open('', 'POP',"width=300px, height=300px, resizable = no, scrollbars = no");
+      var cw=screen.availWidth;     //화면 넓이
+      var ch=screen.availHeight;    //화면 높이
+
+      var sw=350;    //띄울 창의 넓이
+      var sh=200;    //띄울 창의 높이
+
+      var ml=(cw-sw)/2;        //가운데 띄우기위한 창의 x위치
+      var  mt=(ch-sh)/2;         //가운데 띄우기위한 창의 y위치
+
+      window.open('','POP','width='+sw+',height='+sh+',top='+mt+',left='+ml+',resizable=no,scrollbars=yes');
+      /* window.open('', 'POP',"width=300px, height=300px, resizable = no, scrollbars = no"); */
       
       form.appendChild(tagCode);
       form.appendChild(roomCode);

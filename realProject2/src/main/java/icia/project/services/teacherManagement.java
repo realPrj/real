@@ -581,6 +581,7 @@ public class teacherManagement extends TransactionExe {
 
 		return mav;
 	}
+	
 	// 학습방 수정 페이지
 	private ModelAndView learningRoomUpdatePage(LearningRoomBean room) {
 		mav = new ModelAndView();
@@ -593,7 +594,7 @@ public class teacherManagement extends TransactionExe {
 			ar = dao.tclearningRoomGet(room);
 			
 			for(int i=0; i<ar.size(); i++) {
-				sb.append("<input type=\"button\" value="+ar.get(i).getRoomName()+" onClick=\"learningRoomUpdate('"+ar.get(i).getRoomName()+"','"+ar.get(i).getRoomIntroduction()+"')\" />");
+				sb.append("<input class=\"room\" type=\"button\" value="+ar.get(i).getRoomName()+" onClick=\"learningRoomUpdate('"+ar.get(i).getRoomName()+"','"+ar.get(i).getRoomIntroduction().replace("\r\n", "<br/>")+"')\" />");
 				
 			}	
 			mav.addObject("roomList", sb.toString());

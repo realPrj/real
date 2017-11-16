@@ -133,8 +133,22 @@ function test(){
     createForm1("testChatform", "testChat", "POP");
 
     var form = document.getElementsByName("testChatform")[0];
-    window.open('', 'POP',
-          "width=570, height=350, resizable = no, scrollbars = no");
+    var cw=screen.availWidth;     //화면 넓이
+    var ch=screen.availHeight;    //화면 높이
+
+    var sw=570;    //띄울 창의 넓이
+    var sh=350;    //띄울 창의 높이
+
+    var ml=(cw-sw)/2;        //가운데 띄우기위한 창의 x위치
+    var  mt=(ch-sh)/2;         //가운데 띄우기위한 창의 y위치
+
+    window.open('','POP','width='+sw+',height='+sh+',top='+mt+',left='+ml+',resizable=no,scrollbars=yes');
+
+
+
+   
+   /*  window.open('', 'POP',
+          "width=570, height=350, resizable = no, scrollbars = no"); */
     
     form.submit();
 }

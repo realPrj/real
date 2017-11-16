@@ -220,9 +220,20 @@ function continuing(yearcode){
 		createForm1("learningPlanCTXPageform", "learningPlanCTXPage", "POP");
 
 		var form = document.getElementsByName("learningPlanCTXPageform")[0];
+		
+		 var cw=screen.availWidth;     //화면 넓이
+	      var ch=screen.availHeight;    //화면 높이
 
-		window.open('', 'POP',
-				"width=670px, height=480px, resizable = no, scrollbars = no");
+	      var sw=670;    //띄울 창의 넓이
+	      var sh=480;    //띄울 창의 높이
+
+	      var ml=(cw-sw)/2;        //가운데 띄우기위한 창의 x위치
+	      var  mt=(ch-sh)/2;         //가운데 띄우기위한 창의 y위치
+
+	      window.open('','POP','width='+sw+',height='+sh+',top='+mt+',left='+ml+',resizable=no,scrollbars=yes');
+
+		/* window.open('', 'POP',
+				"width=670px, height=480px, resizable = no, scrollbars = no"); */
 		form.appendChild(boardCode);
 
 		form.submit();
