@@ -41,13 +41,49 @@
 <link href="assets/css/themify-icons.css" rel="stylesheet">
 
 <style>
+
+.portfolio {
+scrollbar-highlight-color:#FFD8D8; 
+scrollbar-3dlight-color:#FFD8D8; 
+scrollbar-face-color:#FFD8D8; 
+scrollbar-shadow-color:#FFD8D8; 
+scrollbar-darkshadow-color:#FFD8D8; 
+scrollbar-track-color:#FFD8D8; 
+scrollbar-arrow-color:#FFD8D8;
+}
+
+.services {
+scrollbar-highlight-color:#E6C8AA; 
+scrollbar-3dlight-color:#E6C8AA; 
+scrollbar-face-color:#E6C8AA; 
+scrollbar-shadow-color:#E6C8AA; 
+scrollbar-darkshadow-color:#E6C8AA; 
+scrollbar-track-color:#E6C8AA; 
+scrollbar-arrow-color:#E6C8AA;
+}
+
+
+.portfolio::-webkit-scrollbar {width: 12px; height: 12px;  }
+.portfolio::-webkit-scrollbar-button:start:decrement, 
+.portfolio::-webkit-scrollbar-button:end:increment {display: block; width: 12px;height: 12px; background: url() #FFD8D8;}
+.portfolio::-webkit-scrollbar-track {     background: #FFD8D8; }
+.portfolio::-webkit-scrollbar-thumb {  background: #FFD8D8;  }
+
+
+.services::-webkit-scrollbar {width: 12px; height: 12px;  }
+.services::-webkit-scrollbar-button:start:decrement, 
+.services::-webkit-scrollbar-button:end:increment {display: block; width: 12px;height: 12px; background: url() #E6C8AA;}
+.services::-webkit-scrollbar-track {     background: #E6C8AA; }
+.services::-webkit-scrollbar-thumb {  background: #E6C8AA;  }
+
+
 .box
 {
    display: inline-block;
-   float:left;
-   height:500px;
+   /* float:left; */
+   height:200px;
    overflow: hidden;
-   width:20%;
+   width:25%;
 
    -webkit-transition: width 1s;
    -moz-transition: width 1s;
@@ -55,8 +91,8 @@
 }
 .box.home      { background-color: #2d89ef; }
 .box.about     { background-color: #00a300; }
-.box.portfolio { background-color: #6799FF; }
-.box.services  { background-color: #F15F5F; }
+.box.portfolio { background-color: #EDC6C6; }
+.box.services  { background-color: #D6BCB0; }
 .box.contact   { background-color: #ee1111; }
 
 .box a
@@ -65,16 +101,16 @@
    text-decoration: none;
    text-align: center;
    vertical-align: middle;
-   height:100%;
+   height:20%;
    display:block;
-   padding-top: 20px;
+   padding-top: 15px;
 }
 
 .box span
 {
     display:block;
     position:relative;
-    top:100%;
+    top:500%;
     text-align: center;
 
     -webkit-transition: top 1s;
@@ -84,9 +120,13 @@
 
 .nav:hover .box { width:10%; }
 
-.nav .box:hover { width: 60%; }
+.nav .box:hover { width: 40%; }
 
-.box:hover span{ top:25%; }
+.box:hover span{ top:-10%; }
+
+td{
+font-size:12pt; padding:0 20px; padding-bottom:1px; 
+}
 </style>
 <script>
 //form 생성
@@ -223,7 +263,7 @@ function menu(ivalue) {
 			</nav>
          
          <!-- 소개글 -->
-         <div class="col-lg-50 col-md-12" style="position:absolute; ">
+         <%-- <div class="col-lg-50 col-md-12" style="position:absolute; ">
             <div class="card" >
 
                <div class="content" >
@@ -241,6 +281,36 @@ function menu(ivalue) {
    <span>${scoreId2 }</span></a>
      </div>
 </div>
+
+               </form>
+               
+            </div>
+            
+         </div>
+         
+      </div> --%>
+      <div class="col-lg-50 col-md-12" style="position:absolute; ">
+            <div class="card" >
+
+               <div class="content" >
+               <h2>과제성적</h2><br/><br/>
+                  <form>
+<input type="button" value="과제" class='btn btn-primary' onClick="menu('6')" />  
+${select }
+<center>
+<div class="nav" style="margin-top:10%">
+      <div style='height:300px; overflow-y:auto;' class="box portfolio" >
+   <a style="text-align:center;" href="#portfolio"><h3>성적</h3>
+   <span><div id="scoreId">${scoreId }</div></span></a>
+      </div>
+    
+     <div style='height:300px; overflow-y:auto;' class="box services">
+   <a href="#services"><h3>평가</h3>
+   <span><div id="scoreId2">${scoreId2 }</div></span></a>
+     </div>
+</div><br/><br/>
+</center>
+
 
                </form>
                

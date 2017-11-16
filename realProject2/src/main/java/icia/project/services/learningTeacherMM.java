@@ -2065,7 +2065,11 @@ public class learningTeacherMM extends TransactionExe {
 		try {
 			session.getAttribute("roomCode");
 			board.setRoomCode((String)session.getAttribute("roomCode"));
+			
+			if(dao.tclearningDebateUpdate(board) != 0){
 				transaction = true;
+			}
+				
 				
 		}catch(Exception ex){
 		}finally {
@@ -2627,7 +2631,7 @@ public class learningTeacherMM extends TransactionExe {
 				sb = new StringBuffer();
 				sb.append("<table id='tableText'>");
 				sb.append("<tr>");
-				sb.append("<td>" + "<button class=\"CTXbtn\" onClick=update("+board.getBoardCode()+","+board.getRoomCode()+",'"+board.getBoardTitle()+"','"+board.getBoardContent()+"') />" + "수정" + "</button>" + "</td>");
+				sb.append("<td>" + "<button class=\"CTXbtn\" onClick=update("+board.getBoardCode()+","+board.getRoomCode()+",'"+board.getBoardTitle()+"','"+board.getBoardContent()+"')/>" + "수정" + "</button>" + "</td>");
 				sb.append("<td>" + "<button class=\"CTXbtn_end\" onClick=deleteCXT("+board.getBoardCode()+","+board.getRoomCode()+") />" + "삭제" + "</button>" + "</td>");
 				sb.append("</tr>");
 				sb.append("</table>");
@@ -2635,7 +2639,7 @@ public class learningTeacherMM extends TransactionExe {
 				/*mav.addObject("roomCode", board.getRoomCode());
 				mav.addObject("boardCode", board.getBoardCode());
 				mav.addObject("boardTitle", board.getBoardTitle());
-				mav.addObject("boardContent", board.getBoardContent());*/
+				mav.addObject("boardContent", board.getBoardContent().replace("\r\n", "<br/>"));*/
 				mav.addObject("inputButton", sb	.toString());
 
 

@@ -740,7 +740,7 @@ public class PageManagement extends TransactionExe {
 			String sbCode = board.getRoomSB();
 			
 			board.setSubjectName(dao.subjectNameGet(board));	// 과목 이름
-			
+			mav.addObject("roomCode",board.getRoomCode());
 			mav.addObject("sbName", "<input class=\"btnn\" style=\"margin:30px\" type='button' value='"+board.getSubjectName()+"("+board.getRoomSB()+")' />");
 			
 			al = dao.learningYearCodeGet(board);	// 년도 코드		

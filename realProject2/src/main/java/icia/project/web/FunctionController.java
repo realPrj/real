@@ -216,7 +216,7 @@ public class FunctionController {
 
 		sm.entrance(6, member);
 		mav = pm.entrance(6, null);
-		mav.addObject("message","alert('나의정보 되셨습니다.')");
+		mav.addObject("message","alert('수정되었습니다')");
 		return mav;
 	}
 

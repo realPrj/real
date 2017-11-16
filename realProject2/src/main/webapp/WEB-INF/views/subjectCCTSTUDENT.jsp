@@ -277,8 +277,8 @@ background : #FFCC97
 				
 				<div class="container">
 				<br/>
-								<h2 style="font-family: 'Nanum Gothic', sans-serif"><b>과목코드표</b></h2>
 								
+								<h2 style="font-family: 'Nanum Gothic', sans-serif"><b>과목코드표</b>(학습방코드:${roomCode })</h2>
 								<br/><br/>
 							
 

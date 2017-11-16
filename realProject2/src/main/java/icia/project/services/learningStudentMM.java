@@ -1499,6 +1499,13 @@ public class learningStudentMM extends TransactionExe {
 
 	private String getlearningGetMessageList(ArrayList<BoardBean> ar, BoardBean board) { // 받은쪽지 리스트 끌고오기
 		StringBuffer sb = new StringBuffer();
+		sb.append("<table style=\"text-align:center\" class=\"table table-hover\" >");
+		sb.append("<tr>");
+		sb.append("<td><b>쪽지번호</b></td>");
+		sb.append("<td><b>발신인</b></td>");
+		sb.append("<td><b>제목</b></td>");
+		sb.append("<td><b>날짜</b></td>");
+		sb.append("</tr>");	 		
 		int forI = 0; // 크게 한사람
 		int forB = 0;	// 내용물
 		int pageCount = 5; // 
@@ -1526,7 +1533,7 @@ public class learningStudentMM extends TransactionExe {
 			sb.append("</tbody>");
 			pageCount+=pageCount2;
 		}
-
+		sb.append("</table>");
 		return sb.toString();
 	}
 
