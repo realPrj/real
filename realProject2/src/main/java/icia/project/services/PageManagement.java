@@ -956,7 +956,6 @@ public class PageManagement extends TransactionExe {
 		BoardBean board = null;
 		DbBoardBean dbb = null;
 		ArrayList<Calendar> al = null;
-		ViewService view = new ViewService(); 
 		boolean transaction = false;
 		StringBuffer sb = new StringBuffer();
 

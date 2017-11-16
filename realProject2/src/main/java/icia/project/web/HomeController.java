@@ -52,7 +52,18 @@ public class HomeController  {
 
 	// 홈(처음 시작)
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public ModelAndView home(Locale locale, Model model) {
+	public ModelAndView home() {
+
+		mav = new ModelAndView();
+
+		mav.setViewName("home");
+
+		return mav;
+	}
+	
+	// 홈(처음 시작)
+	@RequestMapping(value = "/home", method = RequestMethod.POST)
+	public ModelAndView home2() {
 
 		mav = new ModelAndView();
 

@@ -43,6 +43,7 @@
 
 
 <script>
+
 //form 생성
 function createForm(formname,formaction,formmethod){
 
@@ -129,7 +130,7 @@ background:#FFD9B4;
 </head>
 <body onLoad="${message}">
 
-<div style="padding-top:30px;"class="card">
+<div style="padding-top:30px; "class="card">
 	<br />
 	<img src="assets/img/gong_logo.png" alt="공조" width="200*150">
 	<br /><br /><br /><br />
@@ -141,7 +142,6 @@ background:#FFD9B4;
 	<br/><br/><br/>
 </div><br/>
 	
-
 	<!-- <div class="row"> -->
 		<!-- <div class="col-md-6"> -->
 			
@@ -172,5 +172,6 @@ background:#FFD9B4;
 	
 	<br />
 	<br />
+
 </body>
 </html>
