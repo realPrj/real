@@ -86,8 +86,7 @@ function menu(ivalue, identity) {
 }
 
 function message(ivalue, identity){
-	alert("identity : " + identity);
-	alert("ivalue : " + ivalue);
+
 	createinput("hidden", "caCode", ivalue);
 	createinput("hidden", "identity", identity);
 	var caCode = document.getElementsByName("caCode")[0];
@@ -120,7 +119,7 @@ function sendMessage(){
 }
 
 function messageDelete(identity,roomCode, messageCode, messageDate){
-	alert(identity);
+
 	createForm("messageForm", "MessageDelete", "post");
 	var form = document.getElementsByName("messageForm")[0];
 	

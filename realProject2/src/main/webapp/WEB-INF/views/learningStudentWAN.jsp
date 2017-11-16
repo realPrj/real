@@ -286,7 +286,7 @@
 						</tr>
 
 					</table>
-					 	${typeSumb }
+					 
 					<div id="divbox"></div>
 
 					<div style="margin-left: 300px" class="table table-hover">

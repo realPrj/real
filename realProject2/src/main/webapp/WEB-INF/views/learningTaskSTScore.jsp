@@ -121,12 +121,22 @@ scrollbar-arrow-color:#E6C8AA;
 .nav:hover .box { width:10%; }
 
 .nav .box:hover { width: 40%; }
+<<<<<<< HEAD
 
 .box:hover span{ top:-10%; }
 
 td{
 font-size:12pt; padding:0 20px; padding-bottom:1px; 
 }
+
+=======
+
+.box:hover span{ top:-10%; }
+
+td{
+font-size:12pt; padding:0 20px; padding-bottom:1px; 
+}
+>>>>>>> 27d89c7d223022001c4d3c51f7faf327395d8067
 </style>
 <script>
 //form 생성
@@ -263,7 +273,11 @@ function menu(ivalue) {
 			</nav>
          
          <!-- 소개글 -->
+
+        <%--  <div class="col-lg-50 col-md-12" style="position:absolute; ">
+=======
          <%-- <div class="col-lg-50 col-md-12" style="position:absolute; ">
+>>>>>>> 27d89c7d223022001c4d3c51f7faf327395d8067
             <div class="card" >
 
                <div class="content" >

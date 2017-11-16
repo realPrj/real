@@ -125,7 +125,7 @@ function menu(ivalue, identity) {
 }
 
 function message(ivalue, identity){
-	alert(identity);
+	
 	createinput("hidden", "caCode", ivalue);
 	createinput("hidden", "identity", identity);
 	var caCode = document.getElementsByName("caCode")[0];
@@ -141,7 +141,7 @@ function message(ivalue, identity){
 }
 
 function messageCTX(messageCode, roomCode, messageDate, identity){
-	alert("받은 메시지 내용확인 : " + identity);
+	
 	createForm("messageForm", "getMessageCTX", "post");
 	var form = document.getElementsByName("messageForm")[0];
 	
@@ -308,7 +308,11 @@ function messageCTX(messageCode, roomCode, messageDate, identity){
 						<!-- <h2>Filterable Table</h2>
   <p>Type something in the input field to search the table for first names, last names or emails:</p>   -->
 						<br>
+<<<<<<< HEAD
+					 <!-- <table style="text-align:center" class="table table-hover">
+=======
 						<!--  <table style="text-align:center" class="table table-hover">
+>>>>>>> 27d89c7d223022001c4d3c51f7faf327395d8067
 							
 								 <tr>
 									<td><b>번호</b></td>
@@ -318,7 +322,11 @@ function messageCTX(messageCode, roomCode, messageDate, identity){
 								</tr> -->	 		
 								${messageList }
 						</table> 
+<<<<<<< HEAD
+					
+=======
 						
+>>>>>>> 27d89c7d223022001c4d3c51f7faf327395d8067
 						${button }
 						
 
