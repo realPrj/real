@@ -135,10 +135,25 @@ function stadmin(studentCode){
    
 }
 
+ function sendMail(studentEmail) {
 
+	 
+    createinput("hidden", "email", studentEmail);
+
+    createForm("sendmailForm","sendMail", "post");
+
+    var form = document.getElementsByName("sendmailForm")[0];
+
+    var email = document.getElementsByName("email")[0];
+
+    form.appendChild(email);
+
+    form.submit();
+
+ }
  
  function sendMessage(studentCode, identity){
-	
+
 	 createForm("message", "sendMessagePage", "post");
 	 
 	 var form = document.getElementsByName("message")[0];

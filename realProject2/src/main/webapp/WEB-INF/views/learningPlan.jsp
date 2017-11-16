@@ -1,10 +1,10 @@
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8" />
 <link rel="apple-touch-icon" sizes="76x76"
 	href="assets/img/apple-icon.png">
 <link rel="icon" type="image/png" sizes="96x96"
@@ -16,7 +16,8 @@
 	name='viewport' />
 <meta name="viewport" content="width=device-width" />
 
-<link href="assets/css/css.css" rel="stylesheet" />
+
+
 <!-- Bootstrap core CSS     -->
 <link href="assets/css/bootstrap.min.css" rel="stylesheet" />
 
@@ -29,6 +30,7 @@
 
 <!--  CSS for Demo Purpose, don't include it in your project     -->
 <link href="assets/css/demo.css" rel="stylesheet" />
+<link href="assets/css/css.css" rel="stylesheet" />
 
 
 <!--  Fonts and icons     -->
@@ -39,6 +41,28 @@
 	rel='stylesheet' type='text/css'>
 <link href="assets/css/themify-icons.css" rel="stylesheet">
 
+<!--   Core JS Files   -->
+<script src="assets/js/jquery-1.10.2.js" type="text/javascript"></script>
+<script src="assets/js/bootstrap.min.js" type="text/javascript"></script>
+
+<!--  Checkbox, Radio & Switch Plugins -->
+<script src="assets/js/bootstrap-checkbox-radio.js"></script>
+
+<!--  Charts Plugin -->
+<script src="assets/js/chartist.min.js"></script>
+
+<!--  Notifications Plugin    -->
+<script src="assets/js/bootstrap-notify.js"></script>
+
+<!--  Google Maps Plugin    -->
+<script type="text/javascript"
+	src="https://maps.googleapis.com/maps/api/js"></script>
+
+<!-- Paper Dashboard Core javascript and methods for Demo purpose -->
+<script src="assets/js/paper-dashboard.js"></script>
+
+<!-- Paper Dashboard DEMO methods, don't include it in your project! -->
+<link href="assets/js/demo.js" rel="stylesheet"/>
 </head>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>

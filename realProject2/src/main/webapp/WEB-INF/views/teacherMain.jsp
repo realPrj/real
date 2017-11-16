@@ -43,6 +43,7 @@
 
 
 <script>
+
 //form 생성
 function createForm(formname,formaction,formmethod){
 
@@ -138,7 +139,7 @@ background:#FFD9B4;
 </head>
 <body onLoad="${message}">
 
-<div style="padding-top:30px;"class="card">
+<div style="padding-top:30px; "class="card">
 	<br />
 	<img src="assets/img/gong_logo.png" alt="공조" width="200*150">
 	<br /><br /><br /><br />
@@ -149,17 +150,47 @@ background:#FFD9B4;
 	<input type="button" class="btn" value="로그아웃" onClick="menu('14')" />
 	<br/><br/><br/>
 </div><br/>
-			<div style=" font-family: 'Nanum Gothic', sans-serif;margin:0 auto;width:20%; font-size:13pt; padding:3px"class="card">
+
+	<!-- <div class="row"> -->
+		<!-- <div class="col-md-6"> -->
+			
+			<div style="margin-left:28%;float:left;font-family: 'Nanum Gothic', sans-serif;width:20%; font-size:13pt; padding:3px"class="card">
 					학습개설&nbsp;&nbsp;&nbsp;&nbsp;
-					<input type="button" value="+" class="btn btn-sm" onClick="eventClick('learningopenform','learningOpenPage','post')" />		
+					<input type="button" value="+" class="btn btn-sm" onClick="eventClick('learningopenform','learningOpenPage','post')" />
+				
+				<!-- <div class="content">
+
+					<div id="chartPreferences" class="ct-chart ct-perfect-fourth"></div>
+				</div> -->
 			</div>
-			<br/>		
+			<div style="font-family: 'Nanum Gothic', sans-serif;margin-left:52%;width:20%; font-size:13pt; padding:3px"class="card">
+					학습방 수정&nbsp;&nbsp;&nbsp;&nbsp;
+					<input type="button" value="+" class="btn btn-sm" onClick="eventClick('learningRoomUpdate','LearningRoomUpdatePage','post')" />
+				
+				<!-- <div class="content">
+
+					<div id="chartPreferences" class="ct-chart ct-perfect-fourth"></div>
+				</div> -->
+			</div>
+			
+			<br/>
+		<!-- </div> -->
+		
 			<div style="width:70%; margin:0 auto; font-size:14pt; padding:15px"class="card">
 				
 					<br/><p style="font-family: 'Nanum Gothic', sans-serif; font-size:15pt">개설과목</p><br/>
-					${content }			
+					${content }
+				
+				<!-- <div class="content">
+					<div id="chartActivity" class="ct-chart"></div>
+
+				</div> -->
 			</div>
+		
+	<!-- </div> -->
+	
     <div id="map"></div>
+    
     <script>
       function initMap() {
         var uluru = {lat: 37.438861, lng: 126.675119};
@@ -178,5 +209,6 @@ background:#FFD9B4;
     </script>
 	<br />
 	<br />
+
 </body>
 </html>

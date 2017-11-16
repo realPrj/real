@@ -59,8 +59,6 @@
 
 		var pwd = document.getElementsByName("pwd")[0];
 
-		alert(pwd.value);
-
 		createForm("checkPwdform", "teachercheckPwd", "post");
 
 		var form = document.getElementsByName("checkPwdform")[0];

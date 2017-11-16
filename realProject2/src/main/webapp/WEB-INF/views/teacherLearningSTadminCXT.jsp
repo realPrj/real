@@ -46,7 +46,7 @@
 
    }
    function stadmin(studentCode) {
-      alert(studentCode);
+      
       createinput("hidden", "studentCode", studentCode);
 
       createForm("teacherLearningSTadminCXTform",
@@ -62,7 +62,7 @@
 
    }
    function sendMail(studentEmail) {
-      alert(studentEmail);
+      
       createinput("hidden", "email", studentEmail);
 
       createForm("sendmailForm",

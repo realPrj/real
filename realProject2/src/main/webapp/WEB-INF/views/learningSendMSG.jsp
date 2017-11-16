@@ -86,7 +86,7 @@ function menu(ivalue, identity) {
 }
 
 function message(ivalue, identity){
-	
+
 	createinput("hidden", "caCode", ivalue);
 	createinput("hidden", "identity", identity);
 	var caCode = document.getElementsByName("caCode")[0];
