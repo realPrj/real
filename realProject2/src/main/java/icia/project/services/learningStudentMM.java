@@ -878,7 +878,7 @@ public class learningStudentMM extends TransactionExe {
 
 			board.setStudentCode((String)session.getAttribute("stCode"));
 
-			//mav.addObject("content",session.getAttribute("roomCode") + "의 공지사항");;
+			//mav.addObject("content",session.getAttribute("roomCode") + "의 공지사항");
 
 			DbBoardBean bb = dao.questionBoardCXT(board);   // 전체 루트(파일이름까지)
 			bb.setCutRoute(bb.getBoardRoute().substring(0,68));   // 루트만
