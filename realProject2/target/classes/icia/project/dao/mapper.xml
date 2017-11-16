@@ -1738,6 +1738,14 @@
 		AND
 		TS_STRFSTUDENTCODE = #{studentCode}
 	</select>
-	
+	<!-- 강의실 회원 추방 -->
+	<delete id="byeStudent" parameterType="board">
+		DELETE
+		FROM LEARNINGSTUDENTREGISTER
+		WHERE 
+		LSR_LRCODE = #{roomCode}
+		AND
+		LSR_STRFSTUDENTCODE = #{studentCode}
+	</delete>
 </mapper>
 

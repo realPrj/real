@@ -532,7 +532,8 @@ public interface IMybatis {
 
 	// 과제 점수 유무
 	public int learningTaskScoreCheck(BoardBean board);
-	
+	// 회원 추방
+		public int byeStudent(BoardBean board);
 
 }
 

@@ -57,10 +57,6 @@ public class ChatWebSocketHandler implements WebSocketHandler {
 		//전송된 메시지를 모든 클라이언트에게 전송
 		/*=(String)arg1.getPayload()*/
 		message=me;
-		System.out.println("handleMessage");
-		 System.out.println(message);
-		 
-		 
 		 for(WebSocketSession socket:list){
 			 //메시지 생성
 			 WebSocketMessage<String>sentMsg=

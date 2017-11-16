@@ -135,39 +135,7 @@ function stadmin(studentCode){
    
 }
 
-/* function stadmin(studentCode) {
-    alert(studentCode);
-    createinput("hidden", "studentCode", studentCode);
 
-    createForm("teacherLearningSTadminCXTform",
-          "teacherLearningSTadminCXT", "post");
-
-    var form = document.getElementsByName("teacherLearningSTadminCXTform")[0];
-
-    var boardTitle = document.getElementsByName("studentCode")[0];
-
-    form.appendChild(studentCode);
-
-    form.submit();
-
- } */
- function sendMail(studentEmail) {
-   
-	 
-    createinput("hidden", "email", studentEmail);
-
-    createForm("sendmailForm",
-          "sendMail", "post");
-
-    var form = document.getElementsByName("sendmailForm")[0];
-
-    var email = document.getElementsByName("email")[0];
-
-    form.appendChild(email);
-
-    form.submit();
-
- }
  
  function sendMessage(studentCode, identity){
 	
@@ -188,6 +156,16 @@ function stadmin(studentCode){
 	 
 	
  }
+ function byeStudent(studentCode){
+
+	 createForm("byeStudentForm", "byeStudent", "post");	 
+	 var form = document.getElementsByName("byeStudentForm")[0];	 
+	 createinput("hidden", "studentCode", studentCode);	 
+	 var studentCode = document.getElementsByName("studentCode")[0];
+	 form.appendChild(studentCode);	 
+	 form.submit();
+	 
+ }
  
 
 </script>
@@ -202,7 +180,7 @@ color:#3669CF;
 }
 </style>
 </head>
-<body>
+<body onLoad="${message}">
 	<div class="wrapper">
       <div class="sidebar" data-background-color="white"
          data-active-color="danger">

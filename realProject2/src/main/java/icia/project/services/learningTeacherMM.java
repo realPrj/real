@@ -282,6 +282,10 @@ public class learningTeacherMM extends TransactionExe {
 		case 60:   // 과제 점수 페이지
 			mav = taskScorePage();
 			break;
+			
+		case 61:   // 강의실ㅊ ㅜ방
+			mav = byeStudent((BoardBean)object[0]);
+			break;
 
 
 		}
@@ -2259,6 +2263,7 @@ public class learningTeacherMM extends TransactionExe {
 			sb.append("<td><b>이메일</b></td>");
 			sb.append("<td><b>핸드폰 번호</b></td>");
 			sb.append("<td><b>쪽지 보내기</b></td>");
+			sb.append("<td><b>학습자 강제 추방</b></td>");
 			sb.append("</tr>");
 
 			int forI = 0; // 크게 한사람
@@ -2284,6 +2289,7 @@ public class learningTeacherMM extends TransactionExe {
 					sb.append("<td>" + ar.get(forB).getEmail() + "</td>");
 					sb.append("<td>" + ar.get(forB).getPhone() + "</td>");
 					sb.append("<td class=\"CTX\" style=\"color:blue\"  onClick=\"sendMessage('"+ ar.get(forB).getStudentCode() +"','"+ board.getIdentity() +"')\" />"+"쪽지보내기"+"</td>");
+					sb.append("<td class=\"CTX\" style=\"color:blue\"  onClick=\"byeStudent('"+ ar.get(forB).getStudentCode()+"')\" />"+"추방하기"+"</td>");
 					sb.append("</tr>");
 				}
 				sb.append("</tbody>");	
@@ -2845,12 +2851,9 @@ public class learningTeacherMM extends TransactionExe {
 
 			mav.addObject("id",board.getId());
 			mav.addObject("roomCode", board.getRoomCode());
-
-			if(Integer.parseInt(board.getRoomCode()) !=447) {
-				mav.setViewName("adminChating");
-			}else {
+		
 				mav.setViewName("adminChating1");
-			}
+			
 			transaction = true;
 
 
@@ -3612,7 +3615,25 @@ public class learningTeacherMM extends TransactionExe {
 		      return mav;
 		   }	
 
+     private ModelAndView byeStudent(BoardBean board) {
+    	 mav = new ModelAndView();
+	      boolean transaction = false;
 
+	      setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
+
+    	 try {
+    		 board.setRoomCode((String)session.getAttribute("roomCode"));
+    		 if(dao.byeStudent(board) !=0) {
+    			 mav.addObject("message", "alert('강제 추방 시켰습니다')");
+    		 }
+    		 transaction =true;
+    	 }catch(Exception ex) {
+    		 
+    	 }finally {
+    		 setTransactionResult(transaction);
+    	 }
+    	 return mav;
+     }
 
 
 }

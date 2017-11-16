@@ -110,6 +110,15 @@ function menu(ivalue){
 }
 
 </script>
+
+  <style>
+       #map {
+        height: 400px;
+        width: 100%;
+       }
+    </style>
+    
+    
 <style>
 @import url(//fonts.googleapis.com/earlyaccess/nanumgothic.css);
  @import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
@@ -140,36 +149,33 @@ background:#FFD9B4;
 	<input type="button" class="btn" value="로그아웃" onClick="menu('14')" />
 	<br/><br/><br/>
 </div><br/>
-	
-
-	<!-- <div class="row"> -->
-		<!-- <div class="col-md-6"> -->
-			
 			<div style=" font-family: 'Nanum Gothic', sans-serif;margin:0 auto;width:20%; font-size:13pt; padding:3px"class="card">
 					학습개설&nbsp;&nbsp;&nbsp;&nbsp;
-					<input type="button" value="+" class="btn btn-sm" onClick="eventClick('learningopenform','learningOpenPage','post')" />
-				
-				<!-- <div class="content">
-
-					<div id="chartPreferences" class="ct-chart ct-perfect-fourth"></div>
-				</div> -->
+					<input type="button" value="+" class="btn btn-sm" onClick="eventClick('learningopenform','learningOpenPage','post')" />		
 			</div>
-			<br/>
-		<!-- </div> -->
-		
+			<br/>		
 			<div style="width:70%; margin:0 auto; font-size:14pt; padding:15px"class="card">
 				
 					<br/><p style="font-family: 'Nanum Gothic', sans-serif; font-size:15pt">개설과목</p><br/>
-					${content }
-				
-				<!-- <div class="content">
-					<div id="chartActivity" class="ct-chart"></div>
-
-				</div> -->
+					${content }			
 			</div>
-		
-	<!-- </div> -->
-	
+    <div id="map"></div>
+    <script>
+      function initMap() {
+        var uluru = {lat: 37.438861, lng: 126.675119};
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 17,
+          center: uluru
+        });
+        var marker = new google.maps.Marker({
+          position: uluru,
+          map: map
+        });
+      }
+    </script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDPNCTGJ6MsYHU8qJ3VzevY4ZrYYILMxm8&callback=initMap">
+    </script>
 	<br />
 	<br />
 </body>

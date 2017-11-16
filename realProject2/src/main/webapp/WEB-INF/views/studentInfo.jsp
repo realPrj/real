@@ -53,11 +53,16 @@ body {
 <script>
 
 $(document).ready(function() {
-	/* 복사 */
+	$("#re").hide();
 	$("tbody[name *='tbody']").hide();
 	var tableList = $("#tableList");
 	tableList.append($("#tbody0").show());
-
+	
+	 $("#but").click(function(){
+	        $("#re").animate({
+	            height: 'toggle'
+	        });
+	    });
 });
 /*복사  */
 function pageNumber(value) {
@@ -171,8 +176,11 @@ function menu(ivalue) {
 		onClick="eventClick('Withdrawalform','WithdrawalPage','post')" />
 			
 		
-	<input type="button" value="출결"  class="btn" onClick="attendance()"  />
-		</br></br></br>${attendance }${content2 }
+	<button class="btn" id="but">출결</button>
+	
+	<div id="re">
+		</br> </br> </br>${attendance }${content2 }
+	</div>
 
 
 

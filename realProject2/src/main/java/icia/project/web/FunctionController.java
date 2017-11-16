@@ -797,6 +797,17 @@ public class FunctionController {
 		
 		return mav;
 	}
+	
+	// 학생 강의실 추방
+		@RequestMapping(value = "/byeStudent", method = RequestMethod.POST)
+		public ModelAndView byeStudent(@ModelAttribute  BoardBean board) {
+
+			 ltm.entrance(61, board);
+			 mav = ltm.entrance(25, board);
+			
+			return mav;
+		}
+
 
 
 }

@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -40,6 +40,7 @@
 <link href='https://fonts.googleapis.com/css?family=Muli:400,300'
 	rel='stylesheet' type='text/css'>
 <link href="assets/css/themify-icons.css" rel="stylesheet">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <style>
 body {
 	background-color: white;
@@ -51,12 +52,20 @@ body {
 </head>
 <script>
 $(document).ready(function() {
+	 $("#re").hide();
 	/* 복사 */
 	$("tbody[name *='tbody']").hide();
 	var tableList = $("#tableList");
 	tableList.append($("#tbody0").show());
-
+	
+	
+	 $("#but").click(function(){
+	        $("#re").animate({
+	            height: 'toggle'
+	        });
+	    });
 });
+
 /*복사  */
 function pageNumber(value) {
 	$("tbody[name *='tbody']").hide();
@@ -154,11 +163,9 @@ function pwdUP(formname,formaction,formmethod){
 		<b>내정보</b>
 	</h2>
 	<br />
-	 
 
-	<div class="joinInput" style="height: 250px">
-	 ${content }	
-	</div>
+
+	<div class="joinInput" style="height: 250px">${content }</div>
 
 	<br />
 	<br />
@@ -170,9 +177,12 @@ function pwdUP(formname,formaction,formmethod){
 		onClick="eventClick('teacherInfoUpdatePageform','teacherInfoUpdatePage','post')" />
 	<input type="button" value="회원탈퇴" class="btn"
 		onClick="eventClick('Withdrawalform','WithdrawalTeacherPage','post')" />
-		<input type="button" value="출결"  class="btn" onClick="attendance()"  />
-		</br></br></br>${attendance }${content2 }
+
+	<button class="btn" id="but">출결</button>
 	
+	<div id="re">
+		</br> </br> </br>${attendance }${content2 }
+	</div>
 
 
 
