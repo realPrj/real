@@ -55,7 +55,7 @@
 				<thead class="table table-striped table-bordered">
 					<tr>
 						<th>제목</th>
-						<td><input type="text" size="50%" name="boardTitle"
+						<td><input type="text" size="50%" name="boardTitle" maxlength="10"
 							class="form-control" style="margin-left: 50px"></td>
 					</tr>
 				</thead>

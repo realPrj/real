@@ -136,6 +136,7 @@ function stadmin(studentCode){
 }
 
  function sendMail(studentEmail) {
+
 	 
     createinput("hidden", "email", studentEmail);
 

@@ -144,7 +144,8 @@ function planDelete(boardcode,roomcode){	// 삭제
 			
 		</tr>
 		<tr>
-			<td>내용: ${content }</td>
+			<td>내용:<textarea class="form-control" cols="71"
+								rows="20" name="boardContent" style="margin-left: 70px">${content }</textarea></td>
 
 		</tr>
 		<c:forEach var="file" items="${list }">

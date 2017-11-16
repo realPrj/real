@@ -95,7 +95,21 @@ function learningJoin(ivalue){
 	form.submit();
 	
 }
+//메뉴선택
+function menu(ivalue){
+	
+	createinput("hidden", "caCode", ivalue);
+	
+	var caCode = document.getElementsByName("caCode")[0];
+	
+	createForm("menuform","stmenu","post");
+	
 
+	var form = document.getElementsByName("menuform")[0];
+	form.appendChild(caCode);
+	
+	form.submit();
+}
 </script>
 <style>
 body {
@@ -118,7 +132,7 @@ body {
 	<br />
 	<br />
 	<button type="button" class="btn">로그아웃</button>
-	<button type="button" class="btn">메인으로</button>
+	<button type="button" class="btn" onClick="menu('15')">메인으로</button>
 	<br />
 	<br />
 

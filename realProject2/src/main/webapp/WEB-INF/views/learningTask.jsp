@@ -444,23 +444,31 @@ padding:10px 25px 10px 5px; border-bottom:1px solid #8C8C8C
 
                </table>
         </center> --%>
-        <div id="taskInfo">
-        		${taskInfo }</div>  <div id="test"></div>    
-                  <div id="button"style="margin-left: 85%">         
-      			 ${inputButton }
-         
+
+        		${taskInfo }      
+                  <div id="button"style="margin-left: 85%">
+
+                 <%--  <button class="CTXbtn" onClick="update('${boardCode}','${roomCode }','${boardTitle }','${boardContent }')">수정</button>
+                  <button class="CTXbtn_end" onClick="deleteCXT('${boardCode}','${roomCode }')"></button>
+                  <input type="hidden"value="${boardCode }" name="boardCode" /> 
+      			  <input type="hidden"value="${roomCode }" name="roomCode" />
+      			  <input type="hidden"value="${boardTitle }" name="boardTitle" />
+      			  <input type="hidden"value="${boardContent }" name="boardContent" />	 --%>
+      			  <%-- ${inputButton } --%>
+      			   ${inputButton }
+
+
                   </div>
                </div>
                
                <div class="card">
                
                ${taskLists }
+              
                </div>
             </div>
          </div>
       </div>
-
-   </div>
 
 </body>
 </html>

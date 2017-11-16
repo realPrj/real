@@ -43,35 +43,22 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script>
 	$(document).ready(function() {
-
- 		$("#chart_div2").hide();
 		
+		$("[name *='hidediv']").hide();
 		
-		   var sizee = ${size};
-		   var dateCode = ${lowest};
-
-		   for(var i = 0; i < parseInt(sizee) ; i++){
-		      $("#"+dateCode).hide();
-		      dateCode = parseInt(dateCode) + 100;
-		   };
-		   
-		   
 		   $("#yearSelect").click(function() {
-		   var selectValue = $("#yearSelect").val();
-		   var dateCode = ${lowest};
-		   for(var i = 0; i < parseInt(sizee); i++){
-		      $("#"+dateCode).hide();
-		      dateCode = parseInt(dateCode) + 1;
-		   };
-		      $("#"+selectValue).show();
-		      var divbox = $("#divbox");
-		      divbox.append($("#"+selectValue));
-		      
-		      $("#"+selectValue).show();
-		      $("#"+selectValue).hide();
-		      $("#"+selectValue).show(1000); // 1000ms -> 1초
-		      
-		   });
+			   $("#divbox").empty();
+			   $("#divbox").remove();
+			   $("[name *='hidediv']").hide();
+			   var selectValue = $("#yearSelect").val();
+		
+			      $("#"+selectValue).show();
+			      var divbox = $("#divbox");
+			      divbox.append($("#"+selectValue));
+
+
+			   }); 
+		
 		   
 		   $("tbody[name *='tbody']").hide(); 
 		   var tableList = $("#tableList");
@@ -79,10 +66,10 @@
 		
 
 		   /* 코멘트 */
-			$("input[name = cmClick]").click(function() {
+			$("input[name == cmClick]").click(function() {
 				var valueCode = $(this).attr('id');
 				commentCheck(valueCode);
-				$("input[name = boardCode]").remove();
+				$("input[name == boardCode]").remove();
 			});
 		   
 	});
@@ -286,7 +273,7 @@
 						</tr>
 
 					</table>
-					 	${typeSumb }
+					 ${typeSumb }
 					<div id="divbox"></div>
 
 					<div style="margin-left: 300px" class="table table-hover">

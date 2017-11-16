@@ -456,7 +456,6 @@ public class learningTeacherMM extends TransactionExe {
 		try {
 			session.getAttribute("roomCode");
 			mav.addObject("identity", session.getAttribute("identity"));
-			mav.addObject("studentList", "학생관리");
 
 			transaction = true;
 
@@ -682,7 +681,7 @@ public class learningTeacherMM extends TransactionExe {
 						board.setTypeCode(typeSum.get(y).getTypeCode());
 						board.setTypeName(dao.learningTypeNameGet(board));
 						board.setTypeSum(typeSum.get(y).getTypeSum());   
-						sum.append(board.getTypeName()+" : "+ board.getTypeSum()+"개<br>");
+						sum.append("<div>"+board.getTypeName()+" : "+ board.getTypeSum()+"개</div><br>");
 
 					}
 					sum.append("</div>");
@@ -3361,7 +3360,7 @@ public class learningTeacherMM extends TransactionExe {
 
 				mav.addObject("list",list);
 				mav.addObject("title", "<input type='text' name='boardTitle' value="+bb.getBoardTitle()+" readonly/>");
-				mav.addObject("content","<input type='text' name='boardContent' value="+bb.getBoardContent()+" readonly/>" );
+				mav.addObject("content",bb.getBoardContent());
 				mav.addObject("check", 1);
 				sb.append("<input type='button' value='강의계획 수정' class='btn' onClick=planUpdatePage("+bb.getBoardCode()+","+bb.getRoomCode()+") />");
 				sb.append("<input type='button' value='강의계획 삭제' class='btn' onClick=planDelete("+bb.getBoardCode()+","+bb.getRoomCode()+") />");
@@ -3403,6 +3402,7 @@ public class learningTeacherMM extends TransactionExe {
 			transaction = true;
 
 		}catch(Exception ex){
+			ex.printStackTrace();
 		}finally {
 			setTransactionResult(transaction);
 		}
