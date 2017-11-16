@@ -3365,7 +3365,7 @@ public class learningTeacherMM extends TransactionExe {
 
 				mav.addObject("list",list);
 				mav.addObject("title", "<input type='text' name='boardTitle' value="+bb.getBoardTitle()+" readonly/>");
-				mav.addObject("content","<input type='text' name='boardContent' value="+bb.getBoardContent()+" readonly/>" );
+				mav.addObject("content",bb.getBoardContent());
 				mav.addObject("check", 1);
 				sb.append("<input type='button' value='강의계획 수정' class='btn' onClick=planUpdatePage("+bb.getBoardCode()+","+bb.getRoomCode()+") />");
 				sb.append("<input type='button' value='강의계획 삭제' class='btn' onClick=planDelete("+bb.getBoardCode()+","+bb.getRoomCode()+") />");
