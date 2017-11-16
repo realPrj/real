@@ -679,7 +679,7 @@ public class learningTeacherMM extends TransactionExe {
 						board.setTypeCode(typeSum.get(y).getTypeCode());
 						board.setTypeName(dao.learningTypeNameGet(board));
 						board.setTypeSum(typeSum.get(y).getTypeSum());   
-						sum.append(board.getTypeName()+" : "+ board.getTypeSum()+"개<br>");
+						sum.append("<div>"+board.getTypeName()+" : "+ board.getTypeSum()+"개</div><br>");
 
 					}
 					sum.append("</div>");

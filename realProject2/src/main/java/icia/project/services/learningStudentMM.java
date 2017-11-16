@@ -241,7 +241,7 @@ public class learningStudentMM extends TransactionExe {
 
 					typeSum = dao.learningWANstTypeSum(board);
 
-					sum.append("<br><biv style=' text-shadow: 0.1em 0.1em 0.15em #FF5E00; text-align:center; margin-left: 680px;border:1px solid #FAE0D4;  width:300px;' name='div' id='"+yearCode.get(i).getYearCode().substring(0, 6)+"' >");
+					sum.append("<br><biv style=' text-shadow: 0.1em 0.1em 0.15em #FF5E00; text-align:center; margin-left: 680px;border:1px solid #FAE0D4;  width:300px;' name='hidediv' id='"+yearCode.get(i).getYearCode().substring(0, 6)+"' >");
 
 					for(int y = 0; y < typeSum.size(); y++) {
 						board = new BoardBean();
@@ -251,18 +251,14 @@ public class learningStudentMM extends TransactionExe {
 						board.setTypeCode(typeSum.get(y).getTypeCode());
 						board.setTypeName(dao.learningTypeNameGet(board));
 						board.setTypeSum(typeSum.get(y).getTypeSum());	
-						sum.append(board.getTypeName()+" : "+ board.getTypeSum()+"<br>");
+						sum.append("<div>"+board.getTypeName()+" : "+ board.getTypeSum()+"개</div><br>");
 
 					}
 					sum.append("</biv>");
 
-					if(i == 0) {
-						mav.addObject("lowest", yearCode.get(i).getYearCode());
-					}
 				}
 
 				sb.append("</select>");
-				mav.addObject("size", yearCode.size());
 				mav.addObject("yearSelect", sb.toString());
 				mav.addObject("typeSumb", sum.toString());
 
