@@ -12,13 +12,10 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 <title>공조 || 과제</title>
 </head>
-<meta
-   content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0'
-   name='viewport' />
+<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
 <meta name="viewport" content="width=device-width" />
-
-
 <link href="assets/css/css.css" rel="stylesheet" />
+
 <!-- Bootstrap core CSS     -->
 <link href="assets/css/bootstrap.min.css" rel="stylesheet" />
 
@@ -28,17 +25,12 @@
 <!--  Paper Dashboard core CSS    -->
 <link href="assets/css/paper-dashboard.css" rel="stylesheet" />
 
-
 <!--  CSS for Demo Purpose, don't include it in your project     -->
 <link href="assets/css/demo.css" rel="stylesheet" />
 
-
 <!--  Fonts and icons     -->
-<link
-   href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css"
-   rel="stylesheet">
-<link href='https://fonts.googleapis.com/css?family=Muli:400,300'
-   rel='stylesheet' type='text/css'>
+<link href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
+<link href='https://fonts.googleapis.com/css?family=Muli:400,300' rel='stylesheet' type='text/css'>
 <link href="assets/css/themify-icons.css" rel="stylesheet">
 
 <!--   Core JS Files   -->
@@ -55,28 +47,15 @@
 <script src="assets/js/bootstrap-notify.js"></script>
 
 <!--  Google Maps Plugin    -->
-<script type="text/javascript"
-   src="https://maps.googleapis.com/maps/api/js"></script>
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js"></script>
 
 <!-- Paper Dashboard Core javascript and methods for Demo purpose -->
 <script src="assets/js/paper-dashboard.js"></script>
 
 <!-- Paper Dashboard DEMO methods, don't include it in your project! -->
 <script src="assets/js/demo.js"></script>
-<script
-   src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-   <script>
-   $(document).ready(function() {
-
-      $("#tableText").hide();
-
-      if ("${checkContent}" == 1) {
-         $("#tableText").show();
-      }
-      ;
-
-   });
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script>  
    //form 생성
    function createForm(formname, formaction, formmethod) {
 
@@ -92,6 +71,7 @@
 
    //input 생성
    function createinput(itype, iname, ivalue) {
+	   
       var input = document.createElement("input");
       input.type = itype;
       input.name = iname;
@@ -101,7 +81,7 @@
    }
 
    function insertPage() {
-
+	   
       createForm("learningTaskInsertPageform", "learningTaskInsertPage",
             "post");
 
@@ -113,8 +93,9 @@
 
       form.submit();
    }
+   
    function questionCXT(boardCode) {
- 
+	   
       createinput("hidden", "boardCode", boardCode);
       createForm("learningTaskCXTform", "learningTaskCXT", "post");
       var form = document.getElementsByName("learningTaskCXTform")[0];
@@ -123,9 +104,8 @@
       form.appendChild(boardCode);
 
       form.submit();
-      
-
    }
+   
    function createForm1(formname, formaction, ta) {
 
       var form = document.createElement("form");
@@ -136,6 +116,7 @@
       document.body.appendChild(form);
 
    }
+   
    function checkFilec(boardCode, roomCode, studentCode) {
 
       createinput("hidden", "boardCode", boardCode);
@@ -150,8 +131,7 @@
             "POP");
 
       var form = document.getElementsByName("learningTaskForm")[0];
-      window.open('', 'POP',
-            "width=300px, height=300px, resizable = no, scrollbars = no");
+      window.open('', 'POP',"width=300px, height=300px, resizable = no, scrollbars = no");
       form.appendChild(boardCode);
       form.appendChild(roomCode);
       form.appendChild(studentCode);
@@ -161,6 +141,7 @@
    }
 
    function update(boardcode, roomcode, title, content) {
+	   
       createinput("hidden", "boardCode", boardcode);
       createinput("hidden", "roomCode", roomcode);
       createinput("hidden", "boardTitle", title);
@@ -171,8 +152,7 @@
       var boardTitle = document.getElementsByName("boardTitle")[0];
       var boardContent = document.getElementsByName("boardContent")[0];
 
-      createForm("learningTaskUpdatePageform", "learningTaskUpdatePage",
-            "post");
+      createForm("learningTaskUpdatePageform", "learningTaskUpdatePage","post");
 
       var form = document.getElementsByName("learningTaskUpdatePageform")[0];
 
@@ -182,10 +162,10 @@
       form.appendChild(boardContent);
 
       form.submit();
-
    }
 
    function deleteCXT(boardCode, roomCode) {
+	   
       createinput("hidden", "boardCode", boardCode);
       createinput("hidden", "roomCode", roomCode);
       createForm("learningTaskCXTDeleteform", "learningTaskCXTDelete", "post");
@@ -198,6 +178,7 @@
 
       form.submit();
    }
+   
    //메뉴선택
    function menu(ivalue){
       
@@ -212,7 +193,6 @@
       form.appendChild(caCode);
       
       form.submit();
-      
    }
    
    function taskscorepage(){   // 과제성적
@@ -222,7 +202,6 @@
       var form = document.getElementsByName("taskScorePageform")[0];
       
       form.submit();
-      
    }
    
    function scorePage(tagcode,roomcode,stcode){
@@ -235,35 +214,21 @@
       var roomCode = document.getElementsByName("roomCode")[0];
       var studentCode = document.getElementsByName("studentCode")[0];
 
-      createForm1("scoreInsertPageform", "scoreInsertPage",
-      "POP");
+      createForm1("scoreInsertPageform", "scoreInsertPage","POP");
 
       var form = document.getElementsByName("scoreInsertPageform")[0];
-      window.open('', 'POP',
-      "width=300px, height=300px, resizable = no, scrollbars = no");
+      window.open('', 'POP',"width=300px, height=300px, resizable = no, scrollbars = no");
       
       form.appendChild(tagCode);
       form.appendChild(roomCode);
       form.appendChild(studentCode);
       
       form.submit();
-      
    }
-  /*  function init(){ // 목록, 수정, 삭제 선생님과 학생 분류
-		var btn = "";
-			btn += "<input type=\"button\" class=\"CTXbtn\" value=\"수정\" onClick=\"update('${boardCode}','${roomCode }','${boardTitle }','${boardContent }')\"/>";
-			btn += "<input class=\"CTXbtn_end\" type=\"button\" value=\"삭제\" onClick=\"boardDelete('${boardCode}','${roomCode }')\"/>"
-			$('#button').append(btn);
-		
-	} */
-	
-	/* if(${taskInfo} == null){
-		$('#button').hide();
-	}  */
 </script>
 <style>
 @import url(//fonts.googleapis.com/earlyaccess/nanumgothic.css);
-  @import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
+@import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
 
 .print{
  border:none; font-size:13pt; background:#FFF2E6;font-family: 'Noto Sans KR', sans-serif; 
@@ -276,6 +241,7 @@ background : #FFCC97
 .taskCTX{
 border:none; font-sieze:12pt; background:#FFFFFF
 }
+
 .taskCTX:hover{
 text-decoration : underline; background:#FFFFFF
 }
@@ -287,21 +253,27 @@ color:#3669CF
 .CTXbtn{
 border:none; border-right:1px black solid; background:#FFFFFF; font-size:11pt; 
 }
+
 .CTXbtn_end{
 border:none; background:#FFFFFF;  font-size:11pt; 
 }
+
 .CTXbtn:hover{
 text-decoration : underline; cursor:pointer
 }
+
 .CTXbtn:active{
 color:#3669CF;
 }
+
 .CTXbtn_end:hover{
 text-decoration : underline; cursor:pointer
 }
+
 .CTXbtn_end:active{
 color:#3669CF;
 }
+
 .CTX:hover{
 text-decoration : underline; cursor:pointer
 }
@@ -316,31 +288,26 @@ padding:10px 25px 10px 5px; border-bottom:1px solid #8C8C8C
 
 </style>
 <body onLoad="${message}">
-   <input type="hidden" value="${identity }" name="identity" />
+<input type="hidden" value="${identity }" name="identity" />
    <div class="wrapper">
-      <div class="sidebar" data-background-color="white"
-         data-active-color="danger">
-
-
+      <div class="sidebar" data-background-color="white" data-active-color="danger">
+      
          <!-- 왼쪽메뉴바 영역 -->
-
-
          <div class="sidebar-wrapper">
             <div class="logo">
-               <a onClick="menu('15')" class="simple-text"> <img
-                  src="assets/img/gong_logo.png" alt="공조" width="150*100">
+               <a onClick="menu('15')" class="simple-text"> 
+               <img src="assets/img/gong_logo.png" alt="공조" width="150*100">
                </a>
             </div>
-
          
             <ul class="nav">
-
                <li></li>
                <li class="active">
                <a onClick="menu('15')">
                 <i class="ti-user" style="color:#999"></i>
-                     <p style="color:#999">마이페이지</p>
-               </a></li><!-- 마이페이지로 가기만들기 -->
+                <p style="color:#999">마이페이지</p>
+               </a>
+               </li>
                <li><a onClick="menu('1')"> <i
                      class="ti-home"></i>
                      <p>홈</p>
@@ -477,6 +444,7 @@ padding:10px 25px 10px 5px; border-bottom:1px solid #8C8C8C
 
                </table>
         </center> --%>
+
         		${taskInfo }      
                   <div id="button"style="margin-left: 85%">
 
@@ -488,6 +456,7 @@ padding:10px 25px 10px 5px; border-bottom:1px solid #8C8C8C
       			  <input type="hidden"value="${boardContent }" name="boardContent" />	 --%>
       			  <%-- ${inputButton } --%>
       			   ${inputButton }
+
 
                   </div>
                </div>

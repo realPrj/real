@@ -292,10 +292,10 @@ function messageCTX(messageCode, roomCode, messageDate, identity){
 								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 								
 								
-								<button type="button" class="btn"
+								<button type="button" class="btn" 
 									OnClick="message('2',${identity})">받은쪽지</button>
 									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-								<button type="button" class="btn"
+								<button type="button" class="btn" style="background:#66615B; color:white"
 									OnClick="message('3',${identity})">보낸쪽지</button>
 
 							</div>

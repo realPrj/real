@@ -620,7 +620,7 @@ public class HomeController  {
 		mav.addObject("boardCode", board.getBoardCode());
 		mav.addObject("roomCode", board.getRoomCode());
 		mav.addObject("boardTitle", board.getBoardTitle());
-		mav.addObject("boardContent", board.getBoardContent());
+		mav.addObject("boardContent", board.getBoardContent().replace("<br/>", "\r\n"));
 
 		mav.setViewName("learningTaskUpdate");
 
@@ -926,7 +926,15 @@ public class HomeController  {
 		return mav;
 	}
 
-
+	// 학습방 수정 페이지
+	@RequestMapping(value = "/LearningRoomUpdatePage", method = RequestMethod.POST)
+	public ModelAndView learningRoomUpdate(LearningRoomBean room) {
+		System.out.println("뭔데...");
+		
+		mav = ttmm.entrance(11, room);
+		
+		return mav;
+	}
 	
 	
 	

@@ -125,7 +125,7 @@ function menu(ivalue, identity) {
 }
 
 function message(ivalue, identity){
-	
+
 	createinput("hidden", "caCode", ivalue);
 	createinput("hidden", "identity", identity);
 	var caCode = document.getElementsByName("caCode")[0];
@@ -141,7 +141,7 @@ function message(ivalue, identity){
 }
 
 function messageCTX(messageCode, roomCode, messageDate, identity){
-	
+
 	createForm("messageForm", "getMessageCTX", "post");
 	var form = document.getElementsByName("messageForm")[0];
 	
@@ -288,7 +288,7 @@ function messageCTX(messageCode, roomCode, messageDate, identity){
 								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 								
-								<button type="button" class="btn"
+								<button type="button" class="btn" style="background:#66615B; color:white"
 									OnClick="message('2',${identity})">받은쪽지</button>
 									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 								<button type="button" class="btn"

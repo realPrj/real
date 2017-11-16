@@ -1,6 +1,7 @@
 package icia.project.services;
 
 
+import java.util.ArrayList;
 import java.util.Properties;
 
 import javax.mail.Message;
@@ -78,6 +79,13 @@ public class teacherManagement extends TransactionExe {
 		case 10:	// 비밀번호 찾기
 			mav = findPwd(((MemberBean)object));
 			break;
+		case 11:   // 학습방 수정 페이지
+			mav = learningRoomUpdatePage((LearningRoomBean)object);
+			break;
+		case 12:   // 학습방 수정
+			mav = learningRoomUpdate((LearningRoomBean)object);
+			break;
+
 
 
 
@@ -97,7 +105,7 @@ public class teacherManagement extends TransactionExe {
 
 			String state = dao.stateCodeCheck(member);
 			if(dao.tcIdCheck(member) != 0) {	// 아이디 체크
-	
+
 				if(Integer.parseInt(state) == 1) {	// 상태코드 확인
 
 					if(enc.matches(member.getPwd(),dao.tcPwdGet(member).getPwd())) {	// 비밀번호 체크
@@ -248,7 +256,7 @@ public class teacherManagement extends TransactionExe {
 
 		return mav;
 	}	*/
-	
+
 	public String idRedundancyCheck(MemberBean member) {
 		String check = null;
 		try {
@@ -265,7 +273,7 @@ public class teacherManagement extends TransactionExe {
 		}
 		return check;
 	}
-	
+
 	private ModelAndView idFind(MemberBean member) {	// 아이디 찾기
 
 		mav = new ModelAndView();
@@ -424,7 +432,7 @@ public class teacherManagement extends TransactionExe {
 			member.setPwd(enc.encode(member.getPwd()));
 
 			dao.tcInformationPWDChange(member);
-				
+
 			transaction = true;
 
 		}catch(Exception ex) {
@@ -464,11 +472,11 @@ public class teacherManagement extends TransactionExe {
 
 			if(dao.tclearningOpen(room) != 0) {
 				mav = pm.entrance(1, null);
-				mav.addObject("message", "alert('학습방 개설 되셨습니다.')");
+				mav.addObject("message", "alert('학습방이 개설되었습니다')");
 				transaction = true;
 			}else {
 				mav = pm.entrance(1, null);
-				mav.addObject("message", "alert('학습방 개설 실패 되셨습니다.')");
+				mav.addObject("message", "alert('학습방 개설을 실패했습니다')");
 				transaction = true;
 			}
 
@@ -573,6 +581,58 @@ public class teacherManagement extends TransactionExe {
 
 		return mav;
 	}
+	// 학습방 수정 페이지
+	private ModelAndView learningRoomUpdatePage(LearningRoomBean room) {
+		mav = new ModelAndView();
+		boolean transaction = false;
+		StringBuffer sb = new StringBuffer();
+		ArrayList<LearningRoomBean> ar = null;
+		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
+		try {
+			room.setId((String)session.getAttribute("tcId"));
+			ar = dao.tclearningRoomGet(room);
+			
+			for(int i=0; i<ar.size(); i++) {
+				sb.append("<input type=\"button\" value="+ar.get(i).getRoomName()+" onClick=\"learningRoomUpdate('"+ar.get(i).getRoomName()+"','"+ar.get(i).getRoomIntroduction()+"')\" />");
+				
+			}	
+			mav.addObject("roomList", sb.toString());
+			mav.setViewName("learningRoomUpdate");
+			transaction = true;
 
+		}catch(Exception ex){
+		}finally {
+			setTransactionResult(transaction);
+
+		}
+
+		return mav;
+
+	}
+	
+	private ModelAndView learningRoomUpdate(LearningRoomBean room) { // 학습방 수정
+		mav = new ModelAndView();
+		boolean transaction = false;
+		
+		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
+		
+		try {
+			room.setRoomCode((String)session.getAttribute("roomCode"));
+			if(dao.learningRoomUpdate(room) != 0) {
+				System.out.println("성공");
+				transaction = true;
+			}
+			
+			mav.setViewName("teacherMain");
+			
+
+		}catch(Exception ex){
+		}finally {
+			setTransactionResult(transaction);
+
+		}
+
+		return mav;
+	}
 
 }

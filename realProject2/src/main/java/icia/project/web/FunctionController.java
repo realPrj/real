@@ -132,34 +132,34 @@ public class FunctionController {
 
 		return mav;
 	}*/
-	
+
 	@RequestMapping(value = "/idRedundancyCheck", method = RequestMethod.POST,produces = "application/text; charset=utf8")
 	@ResponseBody public String idRedundancyCheck(@ModelAttribute MemberBean member) {
-		
+
 		String check = null;
-		
+
 		check = tm.idRedundancyCheck(member);
 		Gson gson = new Gson();
 
 		check = gson.toJson(check);
-		
+
 		return check;
 	}
-	
+
 	@RequestMapping(value = "/idRedundancyCheck2", method = RequestMethod.POST,produces = "application/text; charset=utf8")
 	@ResponseBody public String idRedundancyCheck2(@ModelAttribute MemberBean member) {
 
 		String check = null;
-		
+
 		check = sm.idRedundancyCheck(member);
 
 		Gson gson = new Gson();
 
 		check = gson.toJson(check);
-		
+
 		return check;
 	}
-	
+
 
 	// 아이디 찾기
 	@RequestMapping(value = "/idFind", method = RequestMethod.POST)
@@ -301,7 +301,7 @@ public class FunctionController {
 	// 과제 게시판 글 등록
 	@RequestMapping(value = "/learningTaskInsert", method = RequestMethod.POST)
 	public ModelAndView  learningTaskInsert(BoardBean board) {
-	
+
 		ltm.entrance(28, board);
 
 		mav = ltm.entrance(27, board);
@@ -309,7 +309,7 @@ public class FunctionController {
 		return mav;
 	}
 
-	
+
 	// 과제제출 자세히 보기
 	@RequestMapping(value = "/learningTaskCXT", method = RequestMethod.POST)
 	public ModelAndView  learningTaskCXT(BoardBean board) {
@@ -655,15 +655,15 @@ public class FunctionController {
 
 		return mav;
 	}*/
-	
+
 	// 과제 게시판 제출쓰기
-	   @RequestMapping(value = "/learningSubmitTaskInsert", method = RequestMethod.POST)
-	   public ModelAndView learningSubmitTaskInsert(@ModelAttribute BoardBean board,MultipartHttpServletRequest mtfRequest)throws Exception{      
+	@RequestMapping(value = "/learningSubmitTaskInsert", method = RequestMethod.POST)
+	public ModelAndView learningSubmitTaskInsert(@ModelAttribute BoardBean board,MultipartHttpServletRequest mtfRequest)throws Exception{      
 
-	      mav = lsm.entrance(15, board, mtfRequest);
+		mav = lsm.entrance(15, board, mtfRequest);
 
-	      return mav;
-	   }
+		return mav;
+	}
 
 	// 토론게시판 댓글 등록
 	@RequestMapping(value = "/DebateTagInsert", method = RequestMethod.POST)
@@ -708,83 +708,83 @@ public class FunctionController {
 	// 쪽지 보내기
 	@RequestMapping(value = "/SendMessage", method = RequestMethod.POST)
 	public ModelAndView SendMessage(@ModelAttribute  BoardBean board) {
-		
+
 		if(board.getIdentity().equals("1")) {
 			ltm.entrance(47, board);
 
 			mav = ltm.entrance(43, board);
 		}else{
 			lsm.entrance(40, board);
-			
+
 			mav = lsm.entrance(38, board);
 		}
-		
+
 		return mav;
 	}
 
 	// 쪽지 삭제
 	@RequestMapping(value = "/MessageDelete", method = RequestMethod.POST)
 	public ModelAndView MessageDelete(@ModelAttribute  BoardBean board) {
-		
-		
+
+
 		if(board.getMessageCode().equals("G") && board.getIdentity().equals("1")) { // 받은 쪽지 삭제
 			System.out.println("받은쪽지 삭제 컨트롤러 : " + board.getIdentity());
 			ltm.entrance(50, board);
-			
+
 			mav = ltm.entrance(42, board);
 		}else if(board.getMessageCode().equals("S") && board.getIdentity().equals("1")) { // 보낸쪽지 삭제
 			ltm.entrance(51, board);
-			
+
 			mav = ltm.entrance(43, board);
 		}else if(board.getMessageCode().equals("G")) {
 			System.out.println("학생 받은쪽지 삭제 컨트롤러 :" + board.getIdentity());
 			lsm.entrance(42, board);
-			
+
 			mav = lsm.entrance(36, board);
 		}else {
 			System.out.println("학생 qhsostkrwp 삭제 컨트롤러 :" + board.getIdentity());
 			lsm.entrance(43, board);
-			
+
 			mav = lsm.entrance(38, board);
 		}
 		return mav;
 	}
-	
+
 	// 강의계획서 수정
 	@RequestMapping(value = "/learningPlanUpdate", method = RequestMethod.POST)
 	public ModelAndView learningPlanUpdate(@ModelAttribute  BoardBean board) {
-		
+
 		ltm.entrance(55, board);
 		mav = ltm.entrance(53, board);
-		
+
 		return mav;
 	}
-	
+
 	// 강의계획서 삭제
 	@RequestMapping(value = "/learningPlanDelete", method = RequestMethod.POST)
 	public ModelAndView learningPlanDelete(@ModelAttribute  BoardBean board) {
-		
+
 		ltm.entrance(56, board);
 		mav = ltm.entrance(53, board);
-		
+
 		return mav;
 	}
-	
+
 	// 과제 점수 등록
 	@RequestMapping(value = "/scoreInsertgo", method = RequestMethod.POST)
 	public ModelAndView scoreInsertgo(@ModelAttribute  BoardBean board) {
-		
+
 		mav = ltm.entrance(58, board);
-		
+
 		return mav;
 	}
-	
+
 	// 과제 점수 수정
 	@RequestMapping(value = "/scoreUpdate", method = RequestMethod.POST)
 	public ModelAndView scoreUpdate(@ModelAttribute  BoardBean board) {
-		
+
 		mav = ltm.entrance(59, board);
-		
+
 		return mav;
 	}
 
@@ -793,10 +793,24 @@ public class FunctionController {
 	public ModelAndView deleteTask(@ModelAttribute  BoardBean board) {
 
 		mav = lsm.entrance(1, board);
-		
-		
+
+
 		return mav;
 	}
+
+	// 학습방 수정
+	@RequestMapping(value = "/LearningRoomUpdate", method = RequestMethod.POST)
+	public ModelAndView learningRoomUpdate(@ModelAttribute  LearningRoomBean room) {
+		System.out.println("컨트롤러");
+		
+		tm.entrance(12, room);
+		
+		mav = pm.entrance(1, null);
+
+		return mav;
+	}
+
+	
 
 
 }

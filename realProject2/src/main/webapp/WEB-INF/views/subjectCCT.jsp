@@ -93,8 +93,7 @@ $(document).ready(function() {
 	           console.log(data);
 	           
 	        },
-	        error : function( error ) {                    
-	           alert( "error" );
+	        error : function( error ) {                   
 	           console.log(error);
 	        }
 	     });    

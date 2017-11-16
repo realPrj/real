@@ -532,7 +532,7 @@ public interface IMybatis {
 
 	// 과제 점수 유무
 	public int learningTaskScoreCheck(BoardBean board);
-	
-
+	// 학습방 수정
+	public int learningRoomUpdate(LearningRoomBean room);
 }
 

@@ -145,7 +145,7 @@ background:#FFD9B4;
 	<!-- <div class="row"> -->
 		<!-- <div class="col-md-6"> -->
 			
-			<div style=" font-family: 'Nanum Gothic', sans-serif;margin:0 auto;width:20%; font-size:13pt; padding:3px"class="card">
+			<div style="margin-left:28%;float:left;font-family: 'Nanum Gothic', sans-serif;width:20%; font-size:13pt; padding:3px"class="card">
 					학습개설&nbsp;&nbsp;&nbsp;&nbsp;
 					<input type="button" value="+" class="btn btn-sm" onClick="eventClick('learningopenform','learningOpenPage','post')" />
 				
@@ -154,6 +154,16 @@ background:#FFD9B4;
 					<div id="chartPreferences" class="ct-chart ct-perfect-fourth"></div>
 				</div> -->
 			</div>
+			<div style="font-family: 'Nanum Gothic', sans-serif;margin-left:52%;width:20%; font-size:13pt; padding:3px"class="card">
+					학습방 수정&nbsp;&nbsp;&nbsp;&nbsp;
+					<input type="button" value="+" class="btn btn-sm" onClick="eventClick('learningRoomUpdate','LearningRoomUpdatePage','post')" />
+				
+				<!-- <div class="content">
+
+					<div id="chartPreferences" class="ct-chart ct-perfect-fourth"></div>
+				</div> -->
+			</div>
+			
 			<br/>
 		<!-- </div> -->
 		

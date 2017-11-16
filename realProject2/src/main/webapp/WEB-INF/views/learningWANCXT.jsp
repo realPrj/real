@@ -107,7 +107,6 @@ function commentInsertPage(valueCode){
 }
 
 function learningWANCMUpdatePage(valueCode){
-	
 
 	createinput("hidden", "boardCode", valueCode);
 	
