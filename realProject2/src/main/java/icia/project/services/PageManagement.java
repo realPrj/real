@@ -736,6 +736,8 @@ public class PageManagement extends TransactionExe {
 			board.setRoomSB(dao.learningSBCodeGet(board));	// 과목 코드
 			String sbCode = board.getRoomSB();
 
+			mav.addObject("roomCode",board.getRoomCode());
+
 			board.setSubjectName(dao.subjectNameGet(board));	// 과목 이름
 
 			mav.addObject("sbName", "<input class=\"btnn\" style=\"margin:30px\" type='button' value='"+board.getSubjectName()+"("+board.getRoomSB()+")' />");

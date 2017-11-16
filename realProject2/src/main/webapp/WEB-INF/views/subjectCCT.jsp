@@ -286,25 +286,6 @@ background : #FFCC97
 							
 
     <br>
-<!-- style="overflow:scroll;" -스크롤바 -->
-     <%-- <div class="container">
-
-
-        <section align="center"><h3><b>과목</b></h3>${sbName }</section>
-        
-        <section align="center"><h3><b>년도</b></h3>${yearCode }</section>
-        <section  style="overflow:scroll;" align="center"><h3><b>문제번호</b></h3><div id="number" align="center"></div></section> 
-
-    </div>  --%>
-     <%-- <table>
-    	<tr>
-    	<td style="border:1px gray solid; border-radius:10px; width:300px; height:300px">${sbName }</td>
-    	<td style="width:30px"></td>
-    	<td style="border:1px gray solid; border-radius:10px; width:300px; height:300px">${yearCode }</td>
-    	<td style="width:30px"></td>
-    	<td id="number" style="border:1px gray solid; border-radius:10px; width:300px; height:300px"></td>
-    	</tr>
-    </table> --%> 
     <input style="font-family: 'Noto Sans KR', sans-serif; font-size:13pt" type="button" class="print" value="과목코드 프린트" onClick="printClick()" />	
     <div>
     	<div class="ctt">

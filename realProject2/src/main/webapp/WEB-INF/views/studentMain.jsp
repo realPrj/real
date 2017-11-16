@@ -159,7 +159,7 @@ background:#FFD9B4;
 
 
 	<input type="button" value="나의정보" class="btn"
-		onClick="eventClick('teacherInfoPageform','teacherInfoPage','post')" />&nbsp;&nbsp;
+		onClick="eventClick('studentInfoPageform','studentInfoPage','post')" />&nbsp;&nbsp;
 	<input type="button" class="btn" value="로그아웃" onClick="menu('14')" />&nbsp;&nbsp;
 	<input type="button" value="출결"  class="btn" onClick="attendance()"  />
 	<br/><br/><br/>

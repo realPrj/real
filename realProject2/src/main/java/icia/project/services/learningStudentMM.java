@@ -1175,170 +1175,168 @@ public class learningStudentMM extends TransactionExe {
 		return mav;
 	}
 
-	private ModelAndView learningTaskPage(BoardBean board) { // 과제 페이지
+	   private ModelAndView learningTaskPage(BoardBean board) { // 과제 페이지
 
-		mav = new ModelAndView();
-		ArrayList<BoardBean> al;
-		String roomcode = null;
-		StringBuffer sb = null;
-		boolean transaction = false;
+		      mav = new ModelAndView();
+		      ArrayList<BoardBean> al;
+		      String roomcode = null;
+		      StringBuffer sb = null;
+		      boolean transaction = false;
 
-		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
+		      setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
 
-		try {
+		      try {
 
-			String identity = (String)session.getAttribute("identity");
-			mav.addObject("identity", identity);
+		         String identity = (String)session.getAttribute("identity");
+		         mav.addObject("identity", identity);
 
-			sb = new StringBuffer();
+		         sb = new StringBuffer();
 
-			roomcode = (String)session.getAttribute("roomCode");
+		         roomcode = (String)session.getAttribute("roomCode");
 
-			board.setRoomCode(roomcode);
+		         board.setRoomCode(roomcode);
 
-			if(board.getBoardCode() != null) {	// 게시글 내용,댓글 보여주기
+		         if(board.getBoardCode() != null) {   // 게시글 내용,댓글 보여주기
 
-				board = dao.learningTaskGet(board);	// 게시글 내용
+		            board = dao.learningTaskGet(board);   // 게시글 내용
 
-				/*mav.addObject("title", board.getBoardTitle());
-				mav.addObject("date",board.getBoardDate());
-				mav.addObject("content", board.getBoardContent());	*/	
-				sb.append("<br/>");
-		        sb.append("<h3 style=\"padding-left:10px; font-family: 'Nanum Gothic', sans-serif\">과제정보</h3>");
-		        sb.append("<center>");
-		        sb.append("<table id=\"ctx\" class=\"taskinfo\">");
-		        sb.append("<tr>");
-                sb.append("<td class=\"title\">제목</td>");
-                sb.append("<td class=\"title\" style=\"width:550px\">"+ board.getBoardTitle()+"</td>");
-                sb.append("</tr>");
-                sb.append("<tr>");
-                sb.append("<td class=\"title\">등록일</td>");
-                sb.append("<td class=\"title\">"+board.getBoardDate()+"</td>");
-                sb.append("</tr>");
-                sb.append("<tr>");
-                sb.append("<td class=\"title\" style=\"border:none\"></td>");
-                sb.append("<td colspan=\"2\" class=\"title\" style=\"padding:20px 3px; border:none\">"+board.getBoardContent().replace("\r", "<br/>")+"</td>");
-                sb.append("</tr>");
-                sb.append("</table>");
-                sb.append("</center>");
-                mav.addObject("taskInfo", sb.toString());
-                sb = new StringBuffer();
-                sb.append("<input type='button' class=\"insert\" value='과제 제출' onClick=\"confirm('"+ board.getBoardTitle() +"','" + board.getRoomCode() + "','"+ board.getBoardCode() +"')\">");
-                sb.append("<br/>");
-                sb.append("<br/>");
-				mav.addObject("inputButton", sb.toString());
+		            /*mav.addObject("title", board.getBoardTitle());
+		            mav.addObject("date",board.getBoardDate());
+		            mav.addObject("content", board.getBoardContent());   */   
+		            sb.append("<br/>");
+		              sb.append("<h3 style=\"padding-left:10px; font-family: 'Nanum Gothic', sans-serif\">과제정보</h3>");
+		              sb.append("<center>");
+		              sb.append("<table id=\"ctx\" class=\"taskinfo\">");
+		              sb.append("<tr>");
+		                sb.append("<td class=\"title\">제목</td>");
+		                sb.append("<td class=\"title\" style=\"width:550px\">"+ board.getBoardTitle()+"</td>");
+		                sb.append("</tr>");
+		                sb.append("<tr>");
+		                sb.append("<td class=\"title\">등록일</td>");
+		                sb.append("<td class=\"title\">"+board.getBoardDate()+"</td>");
+		                sb.append("</tr>");
+		                sb.append("<tr>");
+		                sb.append("<td class=\"title\" style=\"border:none\"></td>");
+		                sb.append("<td colspan=\"2\" class=\"title\" style=\"padding:20px 3px; border:none\">"+board.getBoardContent().replace("\r", "<br/>")+"</td>");
+		                sb.append("</tr>");
+		                sb.append("</table>");
+		                sb.append("</center>");
+		                mav.addObject("taskInfo", sb.toString());
+		                sb = new StringBuffer();
+		                sb.append("<input type='button' class=\"insert\" value='과제 제출' onClick=\"confirm('"+ board.getBoardTitle() +"','" + board.getRoomCode() + "','"+ board.getBoardCode() +"')\">");
+		                sb.append("<br/>");
+		                sb.append("<br/>");
+		            mav.addObject("inputButton", sb.toString());
 
-				// 게시글 댓글(너가 여기서부터 댓글 뽑아내면되)
+		            board.setStudentCode((String)session.getAttribute("stCode"));
+		            board.setRoomCode(roomcode);
 
-				board.setStudentCode((String)session.getAttribute("stCode"));
-				board.setRoomCode(roomcode);
+		            al = dao.learningTaskSelect(board);   // 댓글 내용
+		            sb = new StringBuffer();
+		            sb.append("<br/>");
+		            sb.append("<h3 style=\"padding-left:10px\">제출한 과제</h3>");
+		            sb.append("<table style='text-align:center' class=\"table table-hover\">");
+		            sb.append("<tr>");
+		            sb.append("<td><b>학생 이름 </b></td>");
+		            sb.append("<td><b>제출 날짜 </b></td>");
+		            sb.append("<td><b>파일 보기 </b></td>");
+		            sb.append("</tr>");
 
-				al = dao.learningTaskSelect(board);	// 댓글 내용
-				sb = new StringBuffer();
-				sb.append("<br/>");
-				sb.append("<h3 style=\"padding-left:10px\">제출한 과제</h3>");
-				sb.append("<table style='text-align:center' class=\"table table-hover\">");
-				sb.append("<tr>");
-				sb.append("<td><b>학생 이름 </b></td>");
-				sb.append("<td><b>제출 날짜 </b></td>");
-				sb.append("<td><b>파일 보기 </b></td>");
-				sb.append("</tr>");
+		            for(int i = 0; i < al.size(); i++) {
 
-				for(int i = 0; i < al.size(); i++) {
+		               board.setStudentCode(al.get(i).getStudentCode());
+		               board.setStudentName(dao.stNameGet(board));   
 
-					board.setStudentCode(al.get(i).getStudentCode());
-					board.setStudentName(dao.stNameGet(board));	
+		               sb.append("<tr>");
+		               sb.append("<td>" +board.getStudentName() + "</td>");
+		               sb.append("<td>" +al.get(i).getBoardDate() + "</td>");
+		               sb.append("<td class=\"CTX\" style=\"color:blue\" onClick='checkFile("+board.getRoomCode()+","+al.get(i).getBoardCode()+")'>" + "제출한 파일"+ "</td>");
+		               sb.append("</tr>");
 
-					sb.append("<tr>");
-					sb.append("<td>" +board.getStudentName() + "</td>");
-					sb.append("<td>" +al.get(i).getBoardDate() + "</td>");
-					sb.append("<td class=\"CTX\" style=\"color:blue\" onClick='checkFile("+board.getRoomCode()+","+al.get(i).getBoardCode()+")'>" + "제출한 파일"+ "</td>");
-					sb.append("</tr>");
+		            }
+		            sb.append("</table>"); 
+		            mav.addObject("tagcontent", sb.toString());
 
-				}
-				sb.append("</table>"); 
-				mav.addObject("tagcontent", sb.toString());
+		            mav.addObject("checkContent", 1);
 
-				mav.addObject("checkContent", 1);
+		         }
 
-			}
+		         board = new BoardBean();
+		         sb = new StringBuffer();
 
-			board = new BoardBean();
-			sb = new StringBuffer();
+		         board.setRoomCode(roomcode);
 
-			board.setRoomCode(roomcode);
+		         if(dao.learningTaskCheck(board) != 0) {    
 
-			if(dao.learningTaskCheck(board) != 0) {    
-
-				al = dao.learningTaskList(board);    // 과제 리스트 담기
-				sb.append("<table style='text-align:center' class=\"table table-hover\">");
-				sb.append("<tr>");
-				sb.append("<td>");
-				sb.append("<b>게시물 번호</b>");
-				sb.append("</td>");
-				sb.append("<td><b>제목</b></td>");
-				sb.append("<td><b>날짜</b></td>");
-				sb.append("</tr>");
+		            al = dao.learningTaskList(board);    // 과제 리스트 담기
+		            sb.append("<table style='text-align:center' class=\"table table-hover\">");
+		            sb.append("<tr>");
+		            sb.append("<td>");
+		            sb.append("<b>게시물 번호</b>");
+		            sb.append("</td>");
+		            sb.append("<td><b>제목</b></td>");
+		            sb.append("<td><b>날짜</b></td>");
+		            sb.append("</tr>");
 
 
-				int forI = 0; // 크게 한사람
-				int forB = 0;	// 내용물
-				int pageCount = 5; // 
-				int pageCount2 = pageCount; // 
+		            int forI = 0; // 크게 한사람
+		            int forB = 0;   // 내용물
+		            int pageCount = 5; // 
+		            int pageCount2 = pageCount; // 
 
-				double sizeDouble = al.size() / (double)pageCount;
+		            double sizeDouble = al.size() / (double)pageCount;
 
-				for(forI=0; forI < sizeDouble; forI++) {
+		            for(forI=0; forI < sizeDouble; forI++) {
 
-					if(al.size()< pageCount) {
-						pageCount= al.size();
-					}
+		               if(al.size()< pageCount) {
+		                  pageCount= al.size();
+		               }
 
-					sb.append("<tbody name=tbody"+forI+" id=tbody"+forI+">");
-
-
-					for(forB=forB; forB<pageCount; forB++) {	// 과제 리스트 출력
-						sb.append("<tr>");
-						sb.append("<td>"+(forB+1)+"</td>");
-						sb.append("<td class=\"CTX\" onClick=\"questionCXT(\'"+ al.get(forB).getBoardCode() +"\')\">"+ al.get(forB).getBoardTitle() + "</td>");
-						sb.append("<td>");
-						sb.append(al.get(forB).getBoardDate());
-						sb.append("</td>");
-						sb.append("</tr>");    
-					}
-					pageCount+=pageCount2;
-
-					sb.append("</table>");
-				}
-				mav.addObject("taskList", sb.toString());
-				sb = new StringBuffer();
-
-				sb.append("<div class='text-center'>");
-				sb.append("<ul class='pagination'>");
-
-				for(int y=0; y < sizeDouble; y++) {// 페이지 버튼
-					sb.append("<li><a onClick='pageNumber("+y+")'>"+(y+1)+"</a></li>");
-				}
-				sb.append("</ul>");
-				sb.append("</div>");
-
-				mav.addObject("button2", sb.toString());
-
-			}
-			mav.addObject("reload", "opener.location.reload()");
-			mav.addObject("windowclose", "window.close()");
-			mav.setViewName("learningTaskStudent");
-			transaction = true;
+		               sb.append("<tbody name=tbody"+forI+" id=tbody"+forI+">");
 
 
-		}catch(Exception ex){
+		               for(forB=forB; forB<pageCount; forB++) {   // 과제 리스트 출력
+		                  sb.append("<tr>");
+		                  sb.append("<td>"+(forB+1)+"</td>");
+		                  sb.append("<td class=\"CTX\" onClick=\"questionCXT(\'"+ al.get(forB).getBoardCode() +"\')\">"+ al.get(forB).getBoardTitle() + "</td>");
+		                  sb.append("<td>");
+		                  sb.append(al.get(forB).getBoardDate());
+		                  sb.append("</td>");
+		                  sb.append("</tr>");    
+		               }
+		               pageCount+=pageCount2;
 
-		}finally {
-			setTransactionResult(transaction);
-		}
+		               sb.append("</table>");
+		            }
+		            mav.addObject("taskList", sb.toString());
+		            sb = new StringBuffer();
 
-		return mav;
-	}
+		            sb.append("<div class='text-center'>");
+		            sb.append("<ul class='pagination'>");
+
+		            for(int y=0; y < sizeDouble; y++) {// 페이지 버튼
+		               sb.append("<li><a onClick='pageNumber("+y+")'>"+(y+1)+"</a></li>");
+		            }
+		            sb.append("</ul>");
+		            sb.append("</div>");
+
+		            mav.addObject("button2", sb.toString());
+
+		         }
+		         mav.addObject("reload", "opener.location.reload()");
+		         mav.addObject("windowclose", "window.close()");
+		         mav.setViewName("learningTaskStudent");
+		         transaction = true;
+
+
+		      }catch(Exception ex){
+
+		      }finally {
+		         setTransactionResult(transaction);
+		      }
+
+		      return mav;
+		   }
 
 
 	private ModelAndView learningDebateTagDelete(BoardBean board) { // 토론게시판 댓글 삭제
@@ -1498,6 +1496,13 @@ public class learningStudentMM extends TransactionExe {
 
 	private String getlearningGetMessageList(ArrayList<BoardBean> ar, BoardBean board) { // 받은쪽지 리스트 끌고오기
 		StringBuffer sb = new StringBuffer();
+		sb.append("<table style=\"text-align:center\" class=\"table table-hover\" >");
+		sb.append("<tr>");
+		sb.append("<td><b>쪽지번호</b></td>");
+		sb.append("<td><b>발신인</b></td>");
+		sb.append("<td><b>제목</b></td>");
+		sb.append("<td><b>날짜</b></td>");
+		sb.append("</tr>");	 		
 		int forI = 0; // 크게 한사람
 		int forB = 0;	// 내용물
 		int pageCount = 5; // 
@@ -1525,7 +1530,7 @@ public class learningStudentMM extends TransactionExe {
 			sb.append("</tbody>");
 			pageCount+=pageCount2;
 		}
-
+		sb.append("</table>");
 		return sb.toString();
 	}
 
