@@ -59,6 +59,7 @@
 <body onLoad="test()">
 	<%@ page import="icia.project.services.ChatWebSocketHandler"%>
 
+
 	<center>
 			<div>
 				<h1>알림</h1> <input type="hidden" name="nickname" value="${id }"

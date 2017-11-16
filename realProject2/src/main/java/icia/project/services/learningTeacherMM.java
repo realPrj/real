@@ -32,7 +32,6 @@ public class learningTeacherMM extends TransactionExe {
 	@Autowired
 	private ChatWebSocketHandler chat;
 
-
 	private ModelAndView mav;
 
 	private MultipartHttpServletRequest mtfRequest = null;
@@ -571,8 +570,6 @@ public class learningTeacherMM extends TransactionExe {
 
 		try {
 
-			Gson gson = new Gson();
-
 			ArrayList<BoardBean> sbCode = new ArrayList<BoardBean>();
 
 			board = new BoardBean();
@@ -584,10 +581,6 @@ public class learningTeacherMM extends TransactionExe {
 			board.setSubjectName(dao.subjectNameGet(board));	// 과목 이름 추출
 
 			sbCode.add(board);
-
-			String jsonPaser = gson.toJson(sbCode);
-
-			System.out.println(jsonPaser);
 
 			board = new BoardBean();
 			board.setRoomCode((String)session.getAttribute("roomCode"));
@@ -1221,27 +1214,21 @@ public class learningTeacherMM extends TransactionExe {
 	}
 
 	private ModelAndView learningDataCXT(BoardBean board) { // 자료실 페이지 자세히 보기
-
 		ViewService view = new ViewService(); 
 		mav = new ModelAndView();
 		boolean transaction = false;
-
 		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
-
 		try {
-
 			session.getAttribute("roomCode");
 			mav.addObject("content",session.getAttribute("roomCode") + "자료실");
 			board.setId((String)session.getAttribute("tcId"));
 			board.setRoomCode((String)session.getAttribute("roomCode"));
 
-			//mav.addObject("content",session.getAttribute("roomCode") + "의 공지사항");
+			DbBoardBean bb = dao.learningDataCXT(board);	// 자료실 경로 전체 가져오기
 
-			DbBoardBean bb = dao.learningDataCXT(board);	// 전체 루트(파일이름까지)
-
-			bb.setCutRoute(bb.getBoardRoute().substring(0,68));	// 루트만
+			bb.setCutRoute(bb.getBoardRoute().substring(0,68));	// 파일이 저장된 위치만 자르기
 			String route = bb.getCutRoute();
-			bb.setCutContent(bb.getBoardRoute().substring(68));	// 파일이름
+			bb.setCutContent(bb.getBoardRoute().substring(68));	// 파일이름 가져오기
 
 			List<String> list = view.getList(bb);
 
@@ -1260,11 +1247,10 @@ public class learningTeacherMM extends TransactionExe {
 
 
 		}catch(Exception ex){
-			ex.printStackTrace();
+		
 		}finally {
 			setTransactionResult(transaction);
 		}
-
 		return mav;
 	}
 
@@ -1389,7 +1375,6 @@ public class learningTeacherMM extends TransactionExe {
 			board.setRoomCode((String)session.getAttribute("roomCode"));
 
 
-			//mav.addObject("content",session.getAttribute("roomCode") + "의 공지사항");
 			bb = dao.datalistStudent(board);
 			sb.append("<table style='text-align:center' class=\"table table-hover\">");
 			sb.append("<tr>");
@@ -1398,9 +1383,9 @@ public class learningTeacherMM extends TransactionExe {
 			sb.append("<td><b>작성자</b></td>");
 			sb.append("<td><b>날짜</b></td>");
 			sb.append("</tr>");
-			int forI = 0; // 크게 한사람
-			int forB = 0;	// 내용물
-			int pageCount = 5; // 
+			int forI = 0;    // 크게 도는 횟수
+			int forB = 0;	 // 내용물이 도는 횟수  
+			int pageCount = 5; //  한페이지 당 표시될 게시물 갯수
 			int pageCount2 = pageCount; // 
 
 			double sizeDouble = bb.size() / (double)pageCount;
@@ -1413,7 +1398,7 @@ public class learningTeacherMM extends TransactionExe {
 
 				sb.append("<tbody name=tbody"+forI+" id=tbody"+forI+">");
 
-				for(forB = forB; forB < pageCount; forB++){//복사
+				for(forB = forB; forB < pageCount; forB++){
 					sb.append("<tr>");
 					sb.append("<td>");
 					sb.append(forB+1);
@@ -1442,9 +1427,9 @@ public class learningTeacherMM extends TransactionExe {
 			sb.append("<ul class='pagination'>");
 
 
-			for(int y=0; y < sizeDouble; y++) {// 페이지 버튼
+			for(int y=0; y < sizeDouble; y++) {// 페이지 버튼 생성
 
-				//sb.append("<li><input class='btn-sm' type='button' value="+(y+1)+" onClick='pageNumber("+y+")' /></li>");
+	
 				sb.append("<li><a onClick='pageNumber("+y+")'>"+(y+1)+"</a></li>");
 			}
 			sb.append("</ul>");

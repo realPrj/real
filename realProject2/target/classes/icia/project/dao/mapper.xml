@@ -71,8 +71,7 @@
 	<!-- 학생 회원가입 -->
 	<insert id="stJoin" parameterType="member">
 		INSERT INTO
-		STUDENT(ST_RFSTUDENTCODE,ST_ID,ST_PWD,ST_NAME,ST_EMAIL,ST_PHONE,ST_STATECODE)
-		VALUES(#{studentCode},#{id},#{pwd},#{name},#{email},#{phone},#{stateCode})
+		STUDENT	VALUES(#{studentCode},#{id},#{pwd},#{name},#{email},#{phone},#{stateCode})
 	</insert>
 
 	<!-- 선생님 아이디 찾기 -->
@@ -1672,7 +1671,8 @@
 
 	<!-- 과제 성적 학습방 등수 -->
 	<select id="learningTeskScoreRank" resultType="board" parameterType="board">
-		SELECT TSE_TSSTRFSTUDENTCODE AS studentCode ,RANK() OVER (ORDER BY SUM(TSE_SCORE) DESC) AS caCode FROM TASKSCORE WHERE TSE_TSTALRCODE=#{roomCode} GROUP BY TSE_TSSTRFSTUDENTCODE
+		SELECT TSE_TSSTRFSTUDENTCODE AS studentCode ,RANK() OVER (ORDER BY SUM(TSE_SCORE) DESC) AS caCode FROM TASKSCORE 
+		WHERE TSE_TSTALRCODE=#{roomCode} GROUP BY TSE_TSSTRFSTUDENTCODE
 	</select>
 	
 
@@ -1720,7 +1720,7 @@
 		AND
 		TS_TALRCODE =#{roomCode}
 	</delete>
-	<!-- 과제 댓글 날짜 출력 -->
+	<!-- 과제 제출한 학생출력 -->
 	<select id="learningTaskSelect" resultType="board"
 		parameterType="board">
 		SELECT

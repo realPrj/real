@@ -15,17 +15,15 @@ public class ViewService{
        
         List<String> list = new ArrayList<String>();
         
-        File f = new File(bb.getCutRoute());       // 루트경로만
+        File f = new File(bb.getCutRoute());       // 저장위치에서 파일 찾기
         System.out.println(bb.getCutRoute());
         String[] names = f.list();
 
-        String fileName = bb.getCutContent();   // 파일이름만
-        System.out.println(bb.getCutContent());
-
+        String fileName = bb.getCutContent();   // 저장위치에서 파일이름저장
+        
         for(int i = 0; i < names.length; i++){
-            if(names[i].lastIndexOf(fileName) == 0){   //   파일이름 추출
-                list.add(names[i]);                  // 파일담기
-                System.out.println(list.size());
+            if(names[i].lastIndexOf(fileName) == 0){   // 저장위치에서 파일이름 찾기
+                list.add(names[i]);                  // 이파일을 찾아서 담기
             }
         }
 
