@@ -1738,6 +1738,9 @@
 		AND
 		TS_STRFSTUDENTCODE = #{studentCode}
 	</select>
-	
+	<!--  학습방 수정 -->
+	<update id="learningRoomUpdate" parameterType="room">
+	UPDATE LEARNINGROOM SET LR_NAME=#{roomName}, LR_CONTENT=#{roomIntroduction} WHERE LR_CODE=#{roomCode}
+	</update>
 </mapper>
 

@@ -205,8 +205,8 @@ textarea{
 
 			<div class="sidebar-wrapper">
 				<div class="logo">
-					<a onClick="menu('15')" class="simple-text"> <img
-						src="assets/img/gong_logo.png" alt="공조" width="150*100">
+					<a onClick="menu('15')" class="simple-text"> 
+               		<img src="assets/img/gong_logo.png" alt="공조" width="150*100">
 					</a>
 				</div>
 
